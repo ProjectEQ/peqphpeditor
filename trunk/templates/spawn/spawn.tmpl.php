@@ -36,32 +36,32 @@
               <a onClick="return confirm('Really delete this spawngroup?\n  THIS WILL DELETE ALL OF THIS SPAWNGROUP\'S SPAWNPOINTS, AS WELL!');" href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=6"><img src="images/remove2.gif" border="0" title="Delete this Spawngroup"></a>
             </td>
           </tr>
-          <tr>
           </table>
          </div>
         <div class="table_header">
         <table width="100%" cellpadding="0" cellspacing="0">
-	      <td width="17%">
-		 min_x: <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$min_x?></a>
+          <tr>
+	     <td width="17%">
+		min_x: <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$min_x?></a>
 	     </td>
-	      <td width="17%">
-		 max_x: <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$max_x?></a>
+	     <td width="17%">
+		max_x: <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$max_x?></a>
 	     </td>
-	      <td width="17%">
-	        min_y: <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$min_y?></a>
-	      </td>
-              <td width="17%">
-	        max_y: <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$max_y?></a>
-	      </td>
-		<td width="17%">
-	        dist: <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$dist?></a>
-	       </td>
-	        <td width="15%">
-	        delay: <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$delay?></a>
-		</td>
+	     <td width="17%">
+	       min_y: <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$min_y?></a>
+	     </td>
+            <td width="17%">
+	       max_y: <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$max_y?></a>
+	     </td>
+	     <td width="17%">
+	       dist: <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$dist?></a>
+	     </td>
+	     <td width="15%">
+	       delay: <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$delay?></a>
+	     </td>
           </tr>
-        </table>
-       </div>
+          </table>
+         </div>
 <?if($npcs != ''):?>
       <div class="table_content2" style="padding: 0px;">
         <table width="100%" cellspacing="0">
