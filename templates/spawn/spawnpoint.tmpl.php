@@ -32,19 +32,14 @@
             <td width="34%">z: <?=$z?></td>
           </tr>
           <tr>
-            <td width="33%">respawn: <?=$respawntime?></td>
-            <td width="33%">pathgrid: <?=$pathgrid?></td>
-            <td width="34%">timeleft: <?=$timeleft?></td>
-          </tr>
-          <tr>
             <td width="33%">heading: <?=$heading?></td>
-            <td width="33%">variance: <?=$variance?></td>
-            <td width="34%">condition: <?=$_condition?></td>
+            <td width="33%">respawn: <?=$respawntime?></td>
+            <td width="34%">pathgrid: <?=$pathgrid?></td>
           </tr>
           <tr>
-            <td width="33%">cond_value: <?=$cond_value?></td>
-            <td width="33%">&nbsp;</td>
-            <td width="34%">&nbsp;</td>
+            <td width="33%">variance: <?=$variance?></td>
+            <td width="33%">condition: <?=$_condition?></td>
+            <td width="34%">cond_value: <?=$cond_value?></td>
           </tr>
 		</table>
       </div>
