@@ -9,43 +9,43 @@
 		          <tr>
 		            <td width="33%">
 					  x:<br>
-					  <input type="text" name="x" value="">
+					  <input type="text" name="x" value="<?=$x?>">
 					</td>
 		            <td width="33%">
 					  y:<br>
-					  <input type="text" name="y" value="">
+					  <input type="text" name="y" value="<?=$y?>">
 					</td>
 		            <td width="34%">
 					  z:<br>
-					  <input type="text" name="z" value="">
+					  <input type="text" name="z" value="<?=$z?>">
 					</td>
 		          </tr>
 		          <tr>
 		            <td width="33%">
 					  heading:<br>
-					  <input type="text" name="heading" value="0">
+					  <input type="text" name="heading" value="<?=$heading?>">
 					</td>
 		            <td width="33%">
 					  respawn:<br>
-					  <input type="text" name="respawntime" value="1200">
+					  <input type="text" name="respawntime" value="<?=$respawntime?>">
 					</td>
 		            <td width="34%">
 					  pathgrid:<br>
-					  <input type="text" name="pathgrid" value="0">
+					  <input type="text" name="pathgrid" value="<?=$pathgrid?>">
 					</td>
 		          </tr>
 		          <tr>
 		            <td width="33%">
 					  variance:<br>
-					  <input type="text" name="variance" value="0">
+					  <input type="text" name="variance" value="<?=$variance?>">
 					</td>
 		            <td width="33%">
 					  condition:<br>
-					  <input type="text" name="_condition" value="0">
+					  <input type="text" name="_condition" value="<?=$_condition?>">
 					</td>
 					<td width="34%">
 					  cond_value:<br>
-					  <input type="text" name="cond_value" value="1">
+					  <input type="text" name="cond_value" value="<?=$cond_value?>">
 					</td>
 		          </tr>
 		</table><br><br>
