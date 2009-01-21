@@ -415,11 +415,10 @@ function add_spawnpoint() {
   $respawntime = $_POST['respawntime'];
   $variance = $_POST['variance'];
   $pathgrid = $_POST['pathgrid'];
-  $timeleft = $_POST['timeleft'];
   $condition = $_POST['_condition'];
   $cond_value = $_POST['cond_value'];
 
-  $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, timeleft=$timeleft, _condition=$condition, cond_value=$cond_value";
+  $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value";
   $mysql->query_no_result($query);
 }
 

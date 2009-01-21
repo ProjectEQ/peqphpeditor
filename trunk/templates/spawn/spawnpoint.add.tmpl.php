@@ -30,39 +30,31 @@
           </tr>
           <tr>
             <td width="33%">
-			  respawn:<br>
-			  <input type="text" name="respawntime" value="1200">
-			</td>
-            <td width="33%">
-			  pathgrid:<br>
-			  <input type="text" name="pathgrid" value="0">
-			</td>
-            <td width="34%">
-			  timeleft:<br>
-			  <input type="text" name="timeleft" value="0">
-			</td>
-          </tr>
-          <tr>
-            <td width="33%">
 			  heading:<br>
 			  <input type="text" name="heading" value="0">
 			</td>
             <td width="33%">
-			  variance:<br>
-			  <input type="text" name="variance" value="0">
+			  respawn:<br>
+			  <input type="text" name="respawntime" value="1200">
 			</td>
             <td width="34%">
-			  condition:<br>
-			  <input type="text" name="_condition" value="0">
+			  pathgrid:<br>
+			  <input type="text" name="pathgrid" value="0">
 			</td>
           </tr>
           <tr>
             <td width="33%">
+			  variance:<br>
+			  <input type="text" name="variance" value="0">
+			</td>
+            <td width="33%">
+			  condition:<br>
+			  <input type="text" name="_condition" value="0">
+			</td>
+			<td width="34%">
 			  cond_value:<br>
 			  <input type="text" name="cond_value" value="1">
 			</td>
-            <td width="33%">&nbsp;</td>
-            <td width="34%">&nbsp;</td>
           </tr>
 		</table><br><br>
 
