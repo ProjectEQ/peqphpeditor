@@ -9,14 +9,16 @@
 	  </center><br><br>
 <?if($spawnpoints != ''):?>
 <?foreach($spawnpoints as $sp): extract($sp);?>
-      <div class="edit_form" style="margin-bottom: 15px">
-      <div class="edit_form_header" style="padding: 0px;">
-        <table width="100%">
+      <div style="border: 1px solid black; margin-bottom: 15px;">
+      <div class="table_header">
+        <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
             <td>
               Spawnpoint ID: <?=$id?>
             </td>
             <td align="right">
+              <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>">View Spawngroups for this NPC</a>
+              <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$id?>&sid=<?=$sid?>&action=18"><img src="images/add.gif" border="0" title="Add a grid to this Spawnpoint"></a>&nbsp;
               <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$id?>&action=11"><img src="images/c_table.gif" border="0" title="Edit this Spawnpoint"></a>&nbsp;
               <a onClick="return confirm('Really delete this spawnpoint?');" href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&sid=<?=$sid?>&id=<?=$id?>&action=13"><img src="images/table.gif" border="0" title="Delete this Spawnpoint"></a>
             </td>
@@ -33,9 +35,14 @@
           </tr>
           <tr>
             <td width="33%">heading: <?=$heading?></td>
-            <td width="33%">respawn: <?=$respawntime?></td>
-            <td width="34%">pathgrid: <?=$pathgrid?></td>
-          </tr>
+            <td width="33%">respawn: <?=$respawntime?></td> 
+          <?if($pathgrid > 0):?>  
+            <td width="34%">pathgrid: <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$id?>&pathgrid=<?=$pathgrid?>&action=20"><?=$pathgrid?></td>
+          <?endif;?> 
+          <?if($pathgrid < 1):?>
+            <td width="34%">pathgrid: <?=$pathgrid?></td> 
+          <?endif;?>       
+           </tr>
           <tr>
             <td width="33%">variance: <?=$variance?></td>
             <td width="33%">condition: <?=$_condition?></td>
