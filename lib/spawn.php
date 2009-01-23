@@ -1,5 +1,18 @@
 <?
 
+$wandertype = array(
+  0   => "Circular",
+  1   => "Random 10",
+  2   => "Random",
+  3   => "Patrol",
+);
+
+$pausetype = array(
+  0   => "Random Half",
+  1   => "Full",
+  2   => "Random",
+);
+
 switch ($action) {
   case 0:  // View Spawngroups
     if ($npcid) {
@@ -161,6 +174,138 @@ check_authorization();
     $npcid = $_POST['npcID'];
     header("Location: index.php?editor=spawn&z=$z&npcid=$npcid");
     exit;
+  case 18: // Add Grid
+    check_authorization();
+    $body = new Template("templates/spawn/grid.add.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('zid', getZoneID($z));
+    $body->set('wandertype', $wandertype);
+    $body->set('pausetype', $pausetype);
+    $body->set('spid', $_GET['spid']);
+    $sid = $_GET['sid'];
+    $body->set('sid', $sid);
+    $npcid = $_GET['npcid'];
+    $body->set('npcid', $npcid);
+    $body->set('suggestedid', suggest_grid_id());
+    break;
+  case 19:  // Add grid
+    check_authorization();
+    add_grid();
+    $npcid = $_POST['npcid'];
+    $sid = $_POST['sid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
+    exit;
+  case 20: // View grid
+    check_authorization();
+    $body = new Template("templates/spawn/grid.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('wandertype', $wandertype);
+    $body->set('pausetype', $pausetype);
+    $body->set('npcid', $npcid);
+    $body->set('pathgrid', $_GET['pathgrid']);
+    $body->set('spid', $_GET['spid']);
+    $vars = gridentry_info(); 
+    if ($vars) {
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    $grid = grid_info();
+    if ($grid) {
+      foreach ($grid as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+   case 21: // Edit grid
+    check_authorization();
+    $body = new Template("templates/spawn/grid.edit.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('wandertype', $wandertype);
+    $body->set('pausetype', $pausetype);
+    $body->set('npcid', $npcid);
+    $body->set('spid', $_GET['spid']);
+    $body->set('pathgrid', $_GET['pathgrid']);
+    $grid = grid_info();
+    if ($grid) {
+      foreach ($grid as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+   case 22: // Update grid
+    check_authorization();
+    update_grid();
+    $npcid = $_GET['npcid'];
+    $spid = $_GET['spid'];    
+    $pathgrid = $_POST['pathgrid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20");
+    exit;
+   case 23:  // Delete Grid Entry
+    check_authorization();
+    delete_gridentry();
+    $npcid = $_GET['npcid'];
+    $pathgrid = $_GET['pathgrid'];
+    $spid = $_GET['spid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20"); 
+    exit;
+   case 24: // Edit Grid Entry
+    check_authorization();
+    $body = new Template("templates/spawn/gridentry.edit.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $body->set('pathgrid', $_GET['pathgrid']);
+    $body->set('spid', $_GET['spid']);
+    $vars = gridpoint_info(); 
+    if ($vars) {
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+   case 25: // Update Grid Entry
+    check_authorization();
+    update_gridentry();
+    $npcid = $_GET['npcid'];
+    $pathgrid = $_POST['pathgrid'];
+    $spid = $_GET['spid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20");
+    exit;
+   case 26:  // Delete Grid Entries
+    check_authorization();
+    delete_gridentries();
+    $npcid = $_GET['npcid'];
+    $pathgrid = $_GET['pathgrid'];
+    $spid = $_GET['spid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20"); 
+    exit;
+   case 27: // Add Grid Entry
+    check_authorization();
+    $body = new Template("templates/spawn/gridentry.add.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('zid', getZoneID($z));
+    $body->set('npcid', $npcid);
+    $body->set('pathgrid', $_GET['pathgrid']);
+    $body->set('spid', $_GET['spid']);
+    $body->set('suggestednum', suggest_grid_number());
+    break;
+   case 28:  // Add Grid Entry
+    check_authorization();
+    add_gridentry();
+    $npcid = $_GET['npcid'];
+    $pathgrid = $_POST['pathgrid'];
+    $spid = $_GET['spid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20"); 
+    exit;
+   case 29:  // Delete Grid
+    check_authorization();
+    delete_grid();
+    $sid = spawnpoint_fromgrid();
+    $npcid = $_GET['npcid'];
+    $pathgrid = $_GET['pathgrid'];
+    $spid = $_GET['spid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10"); 
+    exit;
 }
 
 function get_spawngroups() {
@@ -314,7 +459,7 @@ function delete_spawngroup() {
 function search_npc_types ($search) {
   global $mysql;
 
-  $query = "SELECT id, name, level FROM npc_types WHERE name rlike \"$search\"";
+  $query = "SELECT id, name, level FROM npc_types WHERE name like \"$search\"";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
@@ -325,9 +470,96 @@ function get_spawnpoints () {
   $sid = $_GET['sid'];
 
   $query = "SELECT * FROM spawn2 WHERE spawngroupID=$sid ORDER BY id";
-  $results = $mysql->query_mult_assoc($query);
+   $results = $mysql->query_mult_assoc($query);
 
   return $results;
+}
+
+function grid_info () {
+  global $mysql, $z;
+  $zid = getZoneID($z);
+  $pathgrid = intval($_GET['pathgrid']);
+
+  $query = "SELECT * FROM grid WHERE id=\"$pathgrid\" AND zoneid=$zid";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+}
+
+function spawnpoint_fromgrid () {
+  global $mysql, $z;
+  $zid = getZoneID($z);
+  $spid = intval($_GET['spid']);
+
+  $query = "SELECT spawngroupid AS sid FROM spawn2 WHERE id=\"$spid\" limit 1";
+  $result = $mysql->query_assoc($query);
+  
+  return ($result['sid']);
+}
+
+function gridentry_info () {
+  global $mysql, $z;
+  $zid = getZoneID($z);
+  $pathgrid = intval($_GET['pathgrid']);
+  $array = array();
+  
+  $array['id'] = $pathgrid;
+  $query = "SELECT number, x, y, z, heading, pause FROM grid_entries WHERE gridid=\"$pathgrid\" AND zoneid=$zid";
+  $results = $mysql->query_mult_assoc($query);
+  if ($results) {
+    foreach ($results as $result) {
+     $array['grids'][$result['number']] = array("x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "heading"=>$result['heading'], "pause"=>$result['pause']);
+         }
+       }
+       
+       return $array;
+}
+
+function gridpoint_info () {
+  global $mysql, $z;
+  $zid = getZoneID($z);
+  $pathgrid = intval($_GET['pathgrid']);
+  $number = intval($_GET['number']);
+
+  $query = "SELECT number, x, y, z, heading, pause FROM grid_entries WHERE number=$number AND zoneid=$zid AND gridid=$pathgrid";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+}
+  
+function delete_gridentry () {
+  global $mysql, $z;
+  $zid = getZoneID($z);
+  $pathgrid = intval($_GET['pathgrid']);
+  $number = intval($_GET['number']);
+
+  $query = "DELETE FROM grid_entries WHERE number=$number AND zoneid=$zid AND gridid=$pathgrid";
+  $mysql->query_no_result($query);
+}
+
+function delete_gridentries () {
+  global $mysql, $z;
+  $zid = getZoneID($z);
+  $pathgrid = intval($_GET['pathgrid']);
+
+  $query = "DELETE FROM grid_entries WHERE zoneid=$zid AND gridid=$pathgrid";
+  $mysql->query_no_result($query);
+}
+
+function delete_grid () {
+  global $mysql, $z;
+  $zid = getZoneID($z);
+  $pathgrid = intval($_GET['pathgrid']);
+  $spid = intval($_GET['spid']);
+  
+  $query = "DELETE FROM grid WHERE zoneid=$zid AND id=$pathgrid";
+  $mysql->query_no_result($query);
+  
+  $query = "DELETE FROM grid_entries WHERE zoneid=$zid AND gridid=$pathgrid";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE spawn2 SET pathgrid = 0 WHERE id=$spid";
+  $mysql->query_no_result($query);
 }
 
 function spawnpoint_info () {
@@ -336,7 +568,6 @@ function spawnpoint_info () {
 
   $query = "SELECT * FROM spawn2 WHERE id=$id";
   $result = $mysql->query_assoc($query);
-
   return $result;
 }
 
@@ -402,6 +633,29 @@ function suggest_spawnpoint_id() {
   return ($result['id'] + 1);
 }
 
+function suggest_grid_id() {
+  global $mysql, $z;
+  
+  $zid = getZoneID($z);
+
+  $query = "SELECT MAX(id) AS id FROM grid where zoneid=$zid";
+  $result = $mysql->query_assoc($query);
+
+  return ($result['id'] + 1);
+}
+
+function suggest_grid_number() {
+  global $mysql, $z;
+  
+  $zid = getZoneID($z);
+  $pathgrid = intval($_GET['pathgrid']);
+
+  $query = "SELECT MAX(number) AS num FROM grid_entries where zoneid=$zid and gridid=$pathgrid";
+  $result = $mysql->query_assoc($query);
+  
+  return ($result['num'] + 1);
+}
+
 function add_spawnpoint() {
   check_authorization();
   global $mysql;
@@ -431,15 +685,77 @@ function add_spawngroup() {
   $npcID = $_POST['npcID'];
   $spawn_limit = intval($_POST['spawn_limit']);
   $dist = intval($_POST['dist']);
-  $max_x = intval($_POST['max_x']);
-  $min_x = intval($_POST['min_x']);
-  $max_y = intval($_POST['max_y']);
-  $min_y = intval($_POST['min_y']);
+  $max_x = $_POST['max_x'];
+  $min_x = $_POST['min_x'];
+  $max_y = $_POST['max_y'];
+  $min_y = $_POST['min_y'];
   $delay = intval($_POST['delay']);
   $query = "INSERT INTO spawngroup VALUES($id, \"$name\", \"$spawn_limit\", \"$dist\", \"$max_x\", \"$min_x\", \"$max_y\", \"$min_y\", \"$delay\")";
   $mysql->query_no_result($query);
 
   $query = "INSERT INTO spawnentry SET spawngroupID=$id, npcID=$npcID, chance=100";
+  $mysql->query_no_result($query);
+}
+
+function add_grid() {
+  check_authorization();
+  global $mysql, $z;
+
+  $zid = getZoneID($z);
+  $id = $_POST['id'];
+  $type = intval($_POST['type']);
+  $type2 = intval($_POST['type2']);
+  $spid = intval($_POST['spid']);
+  $query = "INSERT INTO grid VALUES($id, $zid, \"$type\", \"$type2\")";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE spawn2 SET pathgrid=$id where id=\"$spid\"";
+  $mysql->query_no_result($query);
+}
+
+function add_gridentry() {
+  check_authorization();
+  global $mysql;
+
+  $pathgrid = intval($_POST['pathgrid']);
+  $zoneid = intval($_POST['zoneid']);
+  $number = intval($_POST['number']);
+  $x_coord = $_POST['x_coord'];
+  $y_coord = $_POST['y_coord'];
+  $z_coord = $_POST['z_coord'];
+  $heading = $_POST['heading'];
+  $pause = intval($_POST['pause']);
+  $query = "INSERT INTO grid_entries VALUES(\"$pathgrid\", \"$zoneid\", \"$number\", \"$x_coord\", \"$y_coord\", \"$z_coord\", \"$heading\", \"$pause\")";
+  $mysql->query_no_result($query);
+}
+
+function update_grid() {
+  check_authorization();
+  global $mysql, $z;
+
+  $zid = getZoneID($z);
+  $pathgrid = intval($_POST['pathgrid']);
+  $type = intval($_POST['type']);
+  $type2 = intval($_POST['type2']);
+
+  $query = "UPDATE grid SET type=\"$type\", type2=\"$type2\" WHERE id=\"$pathgrid\" AND zoneid=$zid";
+  $mysql->query_no_result($query);
+}
+
+function update_gridentry() {
+  check_authorization();
+  global $mysql, $z;
+
+  $zid = getZoneID($z);
+  $pathgrid = intval($_POST['pathgrid']);
+  $number = intval($_POST['number']);
+  $x_coord = $_POST['x_coord'];
+  $y_coord = $_POST['y_coord'];
+  $z_coord = $_POST['z_coord'];
+  $heading = $_POST['heading'];
+  $pause = intval($_POST['pause']);
+
+  $query = "UPDATE grid_entries SET x=\"$x_coord\", y=\"$y_coord\", z=\"$z_coord\", pause=\"$pause\", heading=\"$heading\" WHERE gridid=\"$pathgrid\" AND number=$number AND zoneid=$zid";
   $mysql->query_no_result($query);
 }
 
