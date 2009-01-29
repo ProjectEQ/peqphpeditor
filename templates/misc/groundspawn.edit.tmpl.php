@@ -10,7 +10,7 @@
         </div>
          <div class="edit_form_content">
             <strong>Item ID</strong> (<a href="javascript:showSearch();">search</a>)<br>
-            <input class="indented" id="id" type="text" name="giid" size="7" value="<?=$item?>"><br><br>
+            <input class="indented" id="id" type="text" name="giid" size="7" value="<?=$giid?>"><br><br>
             <strong>Zone</strong><br>
             <input class="indented" id="id" type="text" name="zoneid" size="7" value="<?=$zoneid?>"><br><br>
             <strong>Max X</strong><br>
