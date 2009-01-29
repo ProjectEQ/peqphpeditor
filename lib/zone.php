@@ -97,8 +97,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/zone/graveyard.add.tmpl.php");
     $body->set('currzone', $z);
-    
-
+    $body->set('zid', getZoneID($z));
     $body->set('suggestgid', suggest_graveyard_id());
     break;
    case 9: // Add graveyard data
