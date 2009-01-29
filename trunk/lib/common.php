@@ -24,6 +24,14 @@ function getZoneID($short_name) {
   return $result['id'];
 }
 
+function getZoneName($zoneidnumber) {
+  global $mysql;
+
+  $query = "SELECT short_name FROM zone WHERE zoneidnumber=\"$zoneidnumber\"";
+  $result = $mysql->query_assoc($query);
+  return $result['short_name'];
+}
+
 function searchItems($search) {
   global $mysql;
   
@@ -62,7 +70,7 @@ function getRecipeName($id) {
 
 function getSpellName($id) {
   global $mysql;
-  $query = "SELECT name FROM spells WHERE spellid=$id";
+  $query = "SELECT name FROM spells_new WHERE id=$id";
   $result = $mysql->query_assoc($query);
   return $result['name'];
 }
@@ -85,4 +93,21 @@ function check_authorization() {
   }
 }
 
+function search_npc_by_id() {
+  global $mysql;
+  $npcid = $_GET['npcid'];
+
+  $query = "SELECT id,name FROM npc_types WHERE id=\"$npcid\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function search_npcs() {
+  global $mysql;
+  $search = $_GET['search'];
+
+  $query = "SELECT id,name FROM npc_types WHERE name rlike \"$search\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
 ?>

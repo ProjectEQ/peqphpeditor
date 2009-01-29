@@ -56,6 +56,12 @@ switch ($editor) {
   case 'tradeskill':
     require_once('lib/tradeskill.php');
     break;
+  case 'zone':
+    require_once('lib/zone.php');
+    break;
+  case 'misc':
+    require_once('lib/misc.php');
+    break;
 }
 
 $tmpl->set('javascript', $javascript);

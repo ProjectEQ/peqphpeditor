@@ -13,6 +13,20 @@ $pausetype = array(
   2   => "Random",
 );
 
+$ochangetype = array(
+  0   => "Nothing",
+  1   => "Depop",
+  2   => "Repop",
+);
+
+$actiontype = array(
+  0   => "Set",
+  1   => "Add",
+  2   => "Subtract",
+  3   => "Multiply",
+  4   => "Divide",
+);
+
 switch ($action) {
   case 0:  // View Spawngroups
     if ($npcid) {
@@ -303,9 +317,201 @@ check_authorization();
     $sid = spawnpoint_fromgrid();
     $npcid = $_GET['npcid'];
     $pathgrid = $_GET['pathgrid'];
-    $spid = $_GET['spid'];
+    //$sid = $_GET['sid'];
     header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10"); 
     exit;
+   case 30: // Reset respawn timer
+    check_authorization();
+    force_spawn();
+    $sid = $_GET['sid'];  
+    $npcid = $_GET['npcid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
+   case 31: // View zone grids
+    check_authorization();
+    $body = new Template("templates/spawn/grid.zone.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('wandertype', $wandertype);
+    $body->set('pausetype', $pausetype);
+    $body->set('npcid', $npcid);
+    $grid = grid_info_zone();
+    if ($grid) {
+      foreach ($grid as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+   case 32:  // Delete Grid without a spawnpoint
+    check_authorization();
+    delete_grid_ns();
+    $pathgrid = $_GET['pathgrid'];
+    header("Location: index.php?editor=spawn&z=$z&action=31"); 
+    exit;
+   case 33: // Add Grid from zone page
+    check_authorization();
+    $body = new Template("templates/spawn/grid.zone.add.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('zid', getZoneID($z));
+    $body->set('wandertype', $wandertype);
+    $body->set('pausetype', $pausetype);
+    $body->set('suggestedid', suggest_grid_id());
+    break;
+   case 34:  // Add grid from zone page
+    check_authorization();
+    add_grid();
+    header("Location: index.php?editor=spawn&z=$z&action=31");
+    exit;
+   case 35: // // View spawn time
+    check_authorization(); 
+    $body = new Template("templates/spawn/spawntimer.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $_GET['npcid']);
+    $body->set('sid', $_GET['sid']);
+    $body->set('spid', $_GET['spid']);
+    $spawned = is_spawned();
+    if ($spawned) {
+      foreach ($spawned as $key=>$value) {
+        $body->set($key, $value);
+      }
+   }
+    break;
+   case 36: // View spawn_conditions and events
+    check_authorization();
+    $body = new Template("templates/spawn/spawncondition.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $_GET['npcid']);
+    $body->set('spid', $_GET['spid']);
+    $body->set('ochangetype', $ochangetype);
+    $body->set('actiontype', $actiontype);
+    $body->set('yesno', $yesno);
+    $spawnc = get_spawn_condition();
+    if ($spawnc) {
+      foreach ($spawnc as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    $spawne = get_spawn_event();
+    if ($spawne) {
+      foreach ($spawne as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+   case 37: // Edit spawnevent
+    check_authorization();
+    $body = new Template("templates/spawn/spawnevent.edit.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $body->set('spid', $_GET['spid']);
+    $vars = spawnevent_info(); 
+    if ($vars) {
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+   case 38: // Update spawnevent
+    check_authorization();
+    update_spawnevent();
+    $npcid = $_GET['npcid'];
+    $spid = $_GET['spid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&action=36");
+    exit;
+   case 39:  // Delete spawnevent
+    check_authorization();
+    delete_spawnevent();
+    $npcid = $_GET['npcid'];
+    $spid = $_GET['spid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&action=36"); 
+    exit;
+   case 40: // Add spawnevent
+    check_authorization();
+    $body = new Template("templates/spawn/spawnevent.add.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $body->set('spid', $_GET['spid']);
+    $body->set('suggestedseid', suggest_spawnevent_id());
+    break;
+   case 41:  // Add spawnevent
+    check_authorization();
+    add_spawnevent();
+    $npcid = $_GET['npcid'];
+    $spid = $_GET['spid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&action=36");
+    exit;
+   case 42: // Edit spawncondition
+    check_authorization();
+    $body = new Template("templates/spawn/spawncondition.edit.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $body->set('spid', $_GET['spid']);
+    $vars = spawncondition_info(); 
+    if ($vars) {
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+   case 43: // Update spawncondition
+    check_authorization();
+    update_spawncondition();
+    $npcid = $_GET['npcid'];
+    $spid = $_GET['spid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&action=36");
+    exit;
+   case 44:  // Delete spawncondition
+    check_authorization();
+    delete_spawncondition();
+    $npcid = $_GET['npcid'];
+    $spid = $_GET['spid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&action=36"); 
+    exit;
+   case 45: // Add spawncondition
+    check_authorization();
+    $body = new Template("templates/spawn/spawncondition.add.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $body->set('spid', $_GET['spid']);
+    $body->set('suggestedscid', suggest_spawncondition_id());
+    $body->set('suggestedval', suggest_spawncondition_value());
+    break;
+   case 46:  // Add spawncondition
+    check_authorization();
+    add_spawncondition();
+    $npcid = $_GET['npcid'];
+    $spid = $_GET['spid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&action=36");
+    exit;
+   case 47: // // View respawn time
+    check_authorization(); 
+    $body = new Template("templates/spawn/spawntimer.edit.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $_GET['npcid']);
+    $body->set('spid', $_GET['spid']);
+    $body->set('sid', $_GET['sid']);
+    $spawned = view_respawn();
+    if ($spawned) {
+      foreach ($spawned as $key=>$value) {
+        $body->set($key, $value);
+      }
+   }
+    break;
+   case 48: // Update respawn time
+    check_authorization();
+    update_spawntimer();
+    $npcid = $_GET['npcid'];
+    $spid = $_GET['spid'];
+    $sid = $_GET['sid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
+    exit;
+   case 49:  // Search npcs
+    //check_authorization();
+    $body = new Template("templates/spawn/spawn.searchresults.tmpl.php");
+    if (isset($_GET['npcid']) && $_GET['npcid'] != "ID") {
+      $results = search_npc_by_id();
+    }
+   else $results = search_npcs();
+    $body->set("results", $results);
+    break;
 }
 
 function get_spawngroups() {
@@ -459,7 +665,7 @@ function delete_spawngroup() {
 function search_npc_types ($search) {
   global $mysql;
 
-  $query = "SELECT id, name, level FROM npc_types WHERE name like \"$search\"";
+  $query = "SELECT id, name, level FROM npc_types WHERE name rlike \"$search\"";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
@@ -469,10 +675,11 @@ function get_spawnpoints () {
   global $mysql;
   $sid = $_GET['sid'];
 
-  $query = "SELECT * FROM spawn2 WHERE spawngroupID=$sid ORDER BY id";
-   $results = $mysql->query_mult_assoc($query);
+  $query = "SELECT * FROM spawn2 WHERE spawngroupID=$sid ORDER BY id";  
+  $results = $mysql->query_mult_assoc($query);
 
   return $results;
+
 }
 
 function grid_info () {
@@ -527,6 +734,28 @@ function gridpoint_info () {
   return $result;
 }
   
+function spawnevent_info () {
+  global $mysql, $z;
+
+  $seid = $_GET['seid'];
+
+  $query = "SELECT * FROM spawn_events WHERE id=\"$seid\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+}
+
+function spawncondition_info () {
+  global $mysql, $z;
+
+  $scid = $_GET['scid'];
+
+  $query = "SELECT * FROM spawn_conditions WHERE id=\"$scid\" AND zone=\"$z\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+}
+
 function delete_gridentry () {
   global $mysql, $z;
   $zid = getZoneID($z);
@@ -559,6 +788,36 @@ function delete_grid () {
   $mysql->query_no_result($query);
 
   $query = "UPDATE spawn2 SET pathgrid = 0 WHERE id=$spid";
+  $mysql->query_no_result($query);
+}
+
+function delete_grid_ns () {
+  global $mysql, $z;
+  $zid = getZoneID($z);
+  $pathgrid = intval($_GET['pathgrid']);
+  
+  $query = "DELETE FROM grid WHERE zoneid=$zid AND id=$pathgrid";
+  $mysql->query_no_result($query);
+  
+  $query = "DELETE FROM grid_entries WHERE zoneid=$zid AND gridid=$pathgrid";
+  $mysql->query_no_result($query);
+}
+
+function delete_spawnevent() {
+  check_authorization();
+  global $mysql;
+  $seid = $_GET['seid'];
+
+  $query = "DELETE FROM spawn_events WHERE id=$seid";
+  $mysql->query_no_result($query);
+}
+
+function delete_spawncondition() {
+  check_authorization();
+  global $mysql, $z;
+  $scid = $_GET['scid'];
+
+  $query = "DELETE FROM spawn_conditions WHERE id=$scid AND zone=\"$z\"";
   $mysql->query_no_result($query);
 }
 
@@ -654,6 +913,33 @@ function suggest_grid_number() {
   $result = $mysql->query_assoc($query);
   
   return ($result['num'] + 1);
+}
+
+function suggest_spawnevent_id() {
+  global $mysql;
+  
+  $query = "SELECT MAX(id) AS seid FROM spawn_events";
+  $result = $mysql->query_assoc($query);
+  
+  return ($result['seid'] + 1);
+}
+
+function suggest_spawncondition_id() {
+  global $mysql, $z;
+  
+  $query = "SELECT MAX(id) AS scid FROM spawn_conditions WHERE zone=\"$z\"";
+  $result = $mysql->query_assoc($query);
+  
+  return ($result['scid'] + 1);
+}
+
+function suggest_spawncondition_value() {
+  global $mysql, $z;
+  
+  $query = "SELECT MAX(value) AS scval FROM spawn_conditions WHERE zone=\"$z\"";
+  $result = $mysql->query_assoc($query);
+  
+  return ($result['scval'] + 1);
 }
 
 function add_spawnpoint() {
@@ -759,4 +1045,162 @@ function update_gridentry() {
   $mysql->query_no_result($query);
 }
 
+function is_spawned() {
+  global $mysql;
+  $spid = intval($_GET['spid']);  
+
+  $array['id'] = $spid;
+  $query = "SELECT * FROM respawn_times where id=$spid";
+  $result = $mysql->query_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['spawned'][$result['id']] = array("start"=>$result['start'], "duration"=>$result['duration']);
+         }
+       }
+       
+       return $array;
+}
+
+function view_respawn() {
+  global $mysql;
+  $spid = intval($_GET['spid']); 
+  
+  $query = "SELECT * FROM respawn_times where id=$spid";
+  $result = $mysql->query_assoc($query);
+ 
+  return $result;
+}
+
+function force_spawn() {
+  global $mysql;
+  $spid = intval($_GET['spid']);  
+
+  $query = "DELETE FROM respawn_times where id=$spid";
+  $mysql->query_no_result($query);
+}
+
+function grid_info_zone () {
+  global $mysql, $z;
+  $zid = getZoneID($z);
+  $array = array();
+  
+  $array['id'] = $zid;
+  $query = "SELECT id,type,type2 FROM grid WHERE zoneid=$zid";
+  $results = $mysql->query_mult_assoc($query);
+  if ($results) {
+    foreach ($results as $result) {
+     $array['grids'][$result['id']] = array("pathgrid"=>$result['id'], "type"=>$result['type'], "type2"=>$result['type2']);
+         }
+       }
+       
+       return $array;
+}
+
+function get_spawn_condition () {
+  global $mysql, $z;
+  $array = array();
+  
+  $query = "SELECT id AS scid, zone, value, onchange, name FROM spawn_conditions WHERE zone=\"$z\"";
+  $results = $mysql->query_mult_assoc($query);
+  if ($results) {
+    foreach ($results as $result) {
+     $array['spawnc'][$result['scid']] = array("scid"=>$result['scid'], "zone"=>$result['zone'], "value"=>$result['value'], "onchange"=>$result['onchange'], "name"=>$result['name']);
+         }
+       }
+       return $array;
+}
+
+function get_spawn_event () {
+  global $mysql, $z;
+  $array = array();
+  
+  $query = "SELECT id AS seid,zone AS sezone,cond_id,name AS sename,period,next_minute,next_hour,next_day,next_month,next_year,enabled,action,argument FROM spawn_events WHERE zone=\"$z\""; 
+  $results = $mysql->query_mult_assoc($query);
+  if ($results) {
+    foreach ($results as $result) {
+     $array['spawne'][$result['seid']] = array("seid"=>$result['seid'], "sezone"=>$result['sezone'], "cond_id"=>$result['cond_id'], "sename"=>$result['sename'], "period"=>$result['period'], "next_minute"=>$result['next_minute'], "next_hour"=>$result['next_hour'], "next_day"=>$result['next_day'], "next_month"=>$result['next_month'], "next_year"=>$result['next_year'], "enabled"=>$result['enabled'], "action"=>$result['action'], "argument"=>$result['argument']);
+         }
+       }
+       return $array;
+}
+
+function update_spawnevent() {
+  check_authorization();
+  global $mysql, $z;
+
+  $seid = $_POST['seid'];
+  $cond_id = $_POST['cond_id'];
+  $sename = $_POST['sename'];
+  $period = $_POST['period'];
+  $next_minute = $_POST['next_minute'];
+  $next_hour = $_POST['next_hour'];
+  $next_day = $_POST['next_day'];
+  $next_month = $_POST['next_month'];
+  $next_year = $_POST['next_year'];
+  $enabled = $_POST['enabled'];
+  $action = $_POST['action'];
+  $argument = $_POST['argument'];
+
+  $query = "UPDATE spawn_events SET cond_id=\"$cond_id\", name=\"$sename\", period=\"$period\", next_minute=\"$next_minute\", next_hour=\"$next_hour\", next_day=\"$next_day\", next_month=\"$next_month\", next_year=\"$next_year\", enabled=\"$enabled\", action=\"$action\", argument=\"$argument\" WHERE id=\"$seid\" AND zone=\"$z\"";
+  $mysql->query_no_result($query);
+}
+
+function update_spawncondition() {
+  check_authorization();
+  global $mysql, $z;
+
+  $scid = $_POST['scid'];
+  $value = $_POST['value'];
+  $onchange = $_POST['onchange'];
+  $name = $_POST['name'];
+
+  $query = "UPDATE spawn_conditions SET value=\"$value\", onchange=\"$onchange\", name=\"$name\" WHERE id=\"$scid\" AND zone=\"$z\"";
+  $mysql->query_no_result($query);
+}
+
+function update_spawntimer() {
+  check_authorization();
+  global $mysql;
+
+  $rid = $_POST['rid'];
+  $start = $_POST['start'];
+  $duration = $_POST['duration'];
+
+  $query = "UPDATE respawn_times SET start=\"$start\", duration=\"$duration\" WHERE id=\"$rid\"";
+  $mysql->query_no_result($query);
+}
+
+function add_spawnevent() {
+  check_authorization();
+  global $mysql, $z;
+
+  $seid = $_POST['seid'];
+  $cond_id = $_POST['cond_id'];
+  $sename = $_POST['sename'];
+  $period = $_POST['period'];
+  $next_minute = $_POST['next_minute'];
+  $next_hour = $_POST['next_hour'];
+  $next_day = $_POST['next_day'];
+  $next_month = $_POST['next_month'];
+  $next_year = $_POST['next_year'];
+  $enabled = $_POST['enabled'];
+  $action = $_POST['action'];
+  $argument = $_POST['argument'];
+
+  $query = "INSERT INTO spawn_events SET id=\"$seid\", zone=\"$z\", cond_id=\"$cond_id\", name=\"$sename\", period=\"$period\", next_minute=\"$next_minute\", next_hour=\"$next_hour\", next_day=\"$next_day\", next_month=\"$next_month\", next_year=\"$next_year\", enabled=\"$enabled\", action=\"$action\", argument=\"$argument\"";
+  $mysql->query_no_result($query);
+}
+
+function add_spawncondition() {
+  check_authorization();
+  global $mysql, $z;
+
+  $scid = $_POST['scid'];
+  $value = $_POST['value'];
+  $onchange = $_POST['onchange'];
+  $name = $_POST['name'];
+
+  $query = "INSERT INTO spawn_conditions SET id=\"$scid\", zone=\"$z\", value=\"$value\", onchange=\"$onchange\", name=\"$name\"";
+  $mysql->query_no_result($query);
+}
 ?>

@@ -3,7 +3,7 @@
         <input id="button" type="button" value='Hide Spellset Search' onclick='hideSearch();' style='display:none; margin-bottom: 20px;'>
       </center>
         
-      <div class="table_container" style="width: 125px">
+      <div class="table_container" style="width: 150px">
         <div class="edit_form_header">
             Edit a Spell
         </div>

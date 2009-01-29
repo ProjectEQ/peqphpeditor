@@ -221,6 +221,15 @@ switch ($action) {
     $npcid = $_POST['id'];
     header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
     exit;
+  case 27:  // Search npcs
+    //check_authorization();
+    $body = new Template("templates/npc/npc.searchresults.tmpl.php");
+    if (isset($_GET['npcid']) && $_GET['npcid'] != "ID") {
+      $results = search_npc_by_id();
+    }
+   else $results = search_npcs();
+    $body->set("results", $results);
+    break;
 }
 
 function npc_info () {

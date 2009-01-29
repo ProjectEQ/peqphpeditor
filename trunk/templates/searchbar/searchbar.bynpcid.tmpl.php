@@ -19,9 +19,10 @@
             </td>
             <td align="right"> or <strong>&nbsp;2.</strong>
               <form action="index.php" method="GET">
-                <input type="hidden" name="editor" value="<?=$curreditor?>" />
-                <input name="npcid" width=7 value="Enter an NPCID" onFocus="clearField(document.forms[0].npcid);">
-                <input type="submit" value=" Search ">
+                <input type="hidden" name="editor" value="npc">
+                <input type="hidden" name="action" value="27">
+                <input type="text" name="npcid" size="5" value="ID" onFocus="clearField(document.forms[0].npcid);"> or <input type="text" name="search" size="12" value="Enter a NPC" onFocus="clearField(document.forms[0].search);">
+                <input type="submit" value=" GO ">
               </form>
             </td>
           </tr>
