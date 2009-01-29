@@ -10,10 +10,19 @@ switch ($editor) {
   case '':
     break;
   case 'npc':
-  case 'loot':
     $zones = $zones;
     $npcs = npcs();
     $searchbar = new Template("templates/searchbar/searchbar.bynpcid.tmpl.php");
+    $searchbar->set('curreditor', $editor);
+    $searchbar->set('zones', $zones);
+    $searchbar->set('currzone', $z);
+    $searchbar->set('npcs', $npcs);
+    $searchbar->set('currnpc', $npcid);
+    break;
+  case 'loot':
+    $zones = $zones;
+    $npcs = npcs();
+    $searchbar = new Template("templates/searchbar/searchbar.loot.tmpl.php");
     $searchbar->set('curreditor', $editor);
     $searchbar->set('zones', $zones);
     $searchbar->set('currzone', $z);
@@ -66,6 +75,21 @@ switch ($editor) {
     $searchbar->set('npcs', $npcs);
     $searchbar->set('currnpc', $npcid);
     break;
+  case 'zone':
+    $zones = $zones;
+    $searchbar = new Template("templates/searchbar/searchbar.zone.tmpl.php");
+    $searchbar->set('curreditor', $editor);
+    $searchbar->set('zones', $zones);
+    $searchbar->set('currzone', $z);
+    break;
+    break;
+  case 'misc':
+    $zones = $zones;
+    $searchbar = new Template("templates/searchbar/searchbar.misc.tmpl.php");
+    $searchbar->set('curreditor', $editor);
+    $searchbar->set('zones', $zones);
+    $searchbar->set('currzone', $z);
+    break;
 }
 
 function build_tabs () {
@@ -78,6 +102,8 @@ function build_tabs () {
   $tabstatus5 = "off";
   $tabstatus6 = "off";
   $tabstatus7 = "off";
+  $tabstatus8 = "off";
+  $tabstatus9 = "off";
 
   $url = '';
   if ($z) $url = $url . "&z=$z";
@@ -107,6 +133,12 @@ function build_tabs () {
     case 'tradeskill':
       $tabstatus7 = "on";
       break;
+    case 'zone':
+      $tabstatus8 = "on";
+      break;
+    case 'misc':
+      $tabstatus9 = "on";
+      break;
   }
 
   $admin = '';
@@ -125,9 +157,11 @@ function build_tabs () {
         <div class=\"$tabstatus5\"><a href=\"index.php?editor=spellset$url\">Spellset</a></div>
         <div class=\"$tabstatus6\"><a href=\"index.php?editor=faction\">Factions</a></div>
         <div class=\"$tabstatus7\"><a href=\"index.php?editor=tradeskill\">Tradeskills</a></div>
+        <div class=\"$tabstatus8\"><a href=\"index.php?editor=zone$url\">Zone</a></div>
+        <div class=\"$tabstatus9\"><a href=\"index.php?editor=misc$url\">Misc</a></div>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div>
       </div>
-    ";
+ ";
 
   $headbar = ob_get_contents();
   ob_end_clean();

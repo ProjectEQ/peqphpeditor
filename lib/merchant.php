@@ -54,6 +54,15 @@ switch ($action) {
     delete_merchantlist();
     header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
     exit;
+  case 7:  // Search merchant by item
+    check_authorization();
+    $body = new Template("templates/merchant/merchant.searchresults.tmpl.php");
+    if (isset($_GET['npcid']) && $_GET['npcid'] != "Name") {
+      $results = search_npc_by_id();
+    }
+   else $results = search_merchant_by_item();
+    $body->set("results", $results);
+    break;
 }
 
 function get_merchantlist() {
@@ -125,6 +134,18 @@ function delete_merchantlist() {
 
   $query = "UPDATE npc_types SET merchant_id=0 WHERE id=$npcid";
   $mysql->query_no_result($query);
+}
+
+function search_merchant_by_item() {
+  global $mysql;
+  $search = $_GET['search'];
+
+
+  $query = "SELECT npc_types.id,npc_types.name FROM merchantlist
+            INNER JOIN npc_types ON npc_types.merchant_id = merchantlist.merchantid
+            WHERE merchantlist.item = \"$search\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
 }
 
 ?>

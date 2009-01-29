@@ -24,6 +24,12 @@ switch ($editor) {
   case 'tradeskill':
     $breadcrumbs = "Tradeskill Editor";
     break;
+  case 'zone':
+    $breadcrumbs = "Zone Editor";
+    break;
+  case 'misc':
+    $breadcrumbs = "Miscellaneous Editor";
+    break;
 }
 
 if ($z != '') $breadcrumbs .= " >> " . getZoneLongName($z);

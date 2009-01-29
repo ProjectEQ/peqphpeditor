@@ -29,15 +29,16 @@
 					  respawn:<br>
 					  <input type="text" name="respawntime" value="<?=$respawntime?>">
 					</td>
-		            <td width="34%">
-					  pathgrid:<br>
-					  <input type="text" name="pathgrid" value="<?=$pathgrid?>">
+                          <td width="34%">
+					  variance:<br>
+					  <input type="text" name="variance" value="<?=$variance?>">
 					</td>
+		           
 		          </tr>
 		          <tr>
 		            <td width="33%">
-					  variance:<br>
-					  <input type="text" name="variance" value="<?=$variance?>">
+					  pathgrid:<br>
+					  <input type="text" name="pathgrid" value="<?=$pathgrid?>">
 					</td>
 		            <td width="33%">
 					  condition:<br>
