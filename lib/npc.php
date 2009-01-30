@@ -15,6 +15,7 @@ switch ($action) {
       $body->set('bodytypes', $bodytypes);
       $body->set('races', $races);
       $body->set('yesno', $yesno);
+      $body->set('suggestedid', suggest_npcid());
       $body->set('npc_name', getNPCName($npcid));
       $body->set('factions', $factions);
       $body->set('faction_values', $faction_values);
@@ -230,6 +231,12 @@ switch ($action) {
    else $results = search_npcs();
     $body->set("results", $results);
     break;
+  case 28:  // Copy npc
+    check_authorization();
+    copy_npc();
+    $npcid = $_POST['id'];
+    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    exit;
 }
 
 function npc_info () {
@@ -432,6 +439,76 @@ function add_npc () {
   if ($_POST['_INT'] != '') $fields .= "_INT=\"" . $_POST['_INT'] . "\", ";
   if ($_POST['WIS'] != '') $fields .= "WIS=\"" . $_POST['WIS'] . "\", ";
   if ($_POST['CHA'] != '') $fields .= "CHA=\"" . $_POST['CHA'] . "\", ";
+  $fields =  rtrim($fields, ", ");
+
+  if ($fields != '') {
+    $query = "INSERT INTO npc_types SET $fields";
+    $mysql->query_no_result($query);
+  }
+}
+
+function copy_npc () {
+  check_authorization();
+  global $mysql;
+
+$fields = '';
+$fields .= "id=\"" . $_POST['id']. "\", ";
+$fields .= "name=\"" . $_POST['name'] . "\", ";
+$fields .= "lastname=\"" . $_POST['lastname'] . "\", ";
+$fields .= "level=\"" . $_POST['level'] . "\", ";
+$fields .= "race=\"" . $_POST['race'] . "\", ";
+$fields .= "class=\"" . $_POST['class'] . "\", ";
+$fields .= "bodytype=\"" . $_POST['bodytype'] . "\", ";
+$fields .= "hp=\"" . $_POST['hp'] . "\", ";
+$fields .= "gender=\"" . $_POST['gender'] . "\", ";
+$fields .= "texture=\"" . $_POST['texture'] . "\", ";
+$fields .= "helmtexture=\"" . $_POST['helmtexture'] . "\", ";
+$fields .= "size=\"" . $_POST['size'] . "\", ";
+$fields .= "hp_regen_rate=\"" . $_POST['hp_regen_rate'] . "\", ";
+$fields .= "mana_regen_rate=\"" . $_POST['mana_regen_rate'] . "\", ";
+$fields .= "loottable_id=\"" . $_POST['loottable_id'] . "\", ";
+$fields .= "merchant_id=\"" . $_POST['merchant_id'] . "\", ";
+$fields .= "npc_spells_id=\"" . $_POST['npc_spells_id'] . "\", ";
+$fields .= "npc_faction_id=\"" . $_POST['npc_faction_id'] . "\", ";
+$fields .= "mindmg=\"" . $_POST['mindmg'] . "\", ";
+$fields .= "maxdmg=\"" . $_POST['maxdmg'] . "\", ";
+$fields .= "npcspecialattks=\"" . $_POST['npcspecialattks'] . "\", ";
+$fields .= "aggroradius=\"" . $_POST['aggroradius'] . "\", ";
+$fields .= "face=\"" . $_POST['face'] . "\", ";
+$fields .= "luclin_hairstyle=\"" . $_POST['luclin_hairstyle'] . "\", ";
+$fields .= "luclin_haircolor=\"" . $_POST['luclin_haircolor'] . "\", ";
+$fields .= "luclin_eyecolor=\"" . $_POST['luclin_eyecolor'] . "\", ";
+$fields .= "luclin_eyecolor2=\"" . $_POST['luclin_eyecolor2'] . "\", ";
+$fields .= "luclin_beardcolor=\"" . $_POST['luclin_beardcolor'] . "\", ";
+$fields .= "luclin_beard=\"" . $_POST['luclin_beard'] . "\", ";
+$fields .= "d_meele_texture1=\"" . $_POST['d_meele_texture1'] . "\", ";
+$fields .= "d_meele_texture2=\"" . $_POST['d_meele_texture2'] . "\", ";
+$fields .= "runspeed=\"" . $_POST['runspeed'] . "\", ";
+$fields .= "MR=\"" . $_POST['MR'] . "\", ";
+$fields .= "CR=\"" . $_POST['CR'] . "\", ";
+$fields .= "DR=\"" . $_POST['DR'] . "\", ";
+$fields .= "FR=\"" . $_POST['FR'] . "\", ";
+$fields .= "PR=\"" . $_POST['PR'] . "\", ";
+$fields .= "see_invis=\"" . $_POST['see_invis'] . "\", ";
+$fields .= "see_invis_undead=\"" . $_POST['see_invis_undead'] . "\", ";
+$fields .= "see_hide=\"" . $_POST['see_hide'] . "\", ";
+$fields .= "see_improved_hide=\"" . $_POST['see_improved_hide'] . "\", ";
+$fields .= "qglobal=\"" . $_POST['qglobal'] . "\", ";
+$fields .= "AC=\"" . $_POST['AC'] . "\", ";
+$fields .= "npc_aggro=\"" . $_POST['npc_aggro'] . "\", ";
+$fields .= "spawn_limit=\"" . $_POST['spawn_limit'] . "\", ";
+$fields .= "attack_speed=\"" . $_POST['attack_speed'] . "\", ";
+$fields .= "findable=\"" . $_POST['findable'] . "\", ";
+$fields .= "trackable=\"" . $_POST['trackable'] . "\", ";
+$fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
+$fields .= "Accuracy=\"" . $_POST['Accuracy'] . "\", ";
+$fields .= "STR=\"" . $_POST['STR'] . "\", ";
+$fields .= "STA=\"" . $_POST['STA'] . "\", ";
+$fields .= "DEX=\"" . $_POST['DEX'] . "\", ";
+$fields .= "AGI=\"" . $_POST['AGI'] . "\", ";
+$fields .= "_INT=\"" . $_POST['_INT'] . "\", ";
+$fields .= "WIS=\"" . $_POST['WIS'] . "\", ";
+$fields .= "CHA=\"" . $_POST['CHA'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {

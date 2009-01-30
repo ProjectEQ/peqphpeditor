@@ -6,7 +6,7 @@
         <form name="gspawn" method="post" action=index.php?editor=misc&z=<?=$currzone?>&action=15">
          <div class="edit_form" style="width: 200px;">
         <div class="edit_form_header">
-          Edit Ground Spawn <?=$id?>
+          Edit Ground Spawn <?=$gsid?>
         </div>
          <div class="edit_form_content">
             <strong>Item ID</strong> (<a href="javascript:showSearch();">search</a>)<br>
@@ -35,7 +35,7 @@
             <input class="indented" id="id" type="text" name="comment" size="20" value="<?=$comment?>"><br><br>
 
         <center>
-          <input type="hidden" name="gsid" value="<?=$id?>">
+          <input type="hidden" name="gsid" value="<?=$gsid?>">
           <input type="submit" value="Submit Changes">
         </center>
       </form>
