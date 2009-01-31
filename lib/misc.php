@@ -45,6 +45,7 @@ switch ($action) {
     }
     break;
   case 3: // Update fishing
+    check_authorization();
     update_fishing();
     header("Location: index.php?editor=misc&z=$z&action=1");
     exit;
@@ -201,6 +202,7 @@ switch ($action) {
     $body->set('suggesttid', suggest_traps_id());
     break;
    case 24: // Add traps
+    check_authorization();
     add_traps();
     header("Location: index.php?editor=misc&z=$z&action=19");
     exit; 
