@@ -45,7 +45,6 @@ switch ($action) {
     }
     break;
   case 3: // Update fishing
-    check_authorization();
     update_fishing();
     header("Location: index.php?editor=misc&z=$z&action=1");
     exit;
@@ -202,7 +201,6 @@ switch ($action) {
     $body->set('suggesttid', suggest_traps_id());
     break;
    case 24: // Add traps
-    check_authorization();
     add_traps();
     header("Location: index.php?editor=misc&z=$z&action=19");
     exit; 
@@ -250,6 +248,51 @@ switch ($action) {
       }
     }
     break;
+   case 29: // View horses
+    $body = new Template("templates/misc/horses.tmpl.php");
+    $horses = get_horses();
+    $body->set("races", $races);
+    $body->set("genders", $genders);
+    if ($horses) {
+      foreach ($horses as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+   case 30: // Edit horses
+    check_authorization();
+    $body = new Template("templates/misc/horses.edit.tmpl.php");
+    $body->set("races", $races);
+    $body->set("genders", $genders);
+    $horses = horses_info();
+    if ($horses) {
+      foreach ($horses as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+   case 31: // Update horses
+    check_authorization();
+    update_horses();
+    header("Location: index.php?editor=misc&z=$z&action=29");
+    exit;
+   case 32: // Delete horses
+    check_authorization();
+    delete_horses();
+    header("Location: index.php?editor=misc&z=$z&action=29");
+    exit;
+   case 33: // Add horses
+    check_authorization();
+    $body = new Template("templates/misc/horses.add.tmpl.php");
+    $body->set("races", $races);
+    $body->set("genders", $genders);
+    break;
+   case 34: // Add horses
+    check_authorization();
+    add_horses();
+    header("Location: index.php?editor=misc&z=$z&action=29");
+    exit;
+
 }
 
 function get_fishing() {
@@ -326,6 +369,20 @@ function get_traps() {
   return $array;
   }
 
+function get_horses() {
+  global $mysql;
+  $array = array();
+  
+  $query = "SELECT * FROM horses";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['horses'][$result['filename']] = array("filename"=>$result['filename'], "race"=>$result['race'], "gender"=>$result['gender'], "texture"=>$result['texture'], "mountspeed"=>$result['mountspeed'], "notes"=>$result['notes']);
+         }
+       }
+  return $array;
+  }
+
 function fishing_info() {
   global $mysql;
 
@@ -370,6 +427,16 @@ function traps_info() {
   return $result;
 }
 
+function horses_info() {
+  global $mysql;
+
+  $filename = $_GET['filename'];
+
+  $query = "SELECT * FROM horses WHERE filename=\"$filename\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+}
 
 function update_fishing() {
   global $mysql;
@@ -396,6 +463,21 @@ function update_forage() {
   $chance = $_POST['chance'];
 
   $query = "UPDATE forage SET Itemid=\"$fgiid\", zoneid=\"$zoneid\", level=\"$level\", chance=\"$chance\" WHERE id=\"$fgid\"";
+  $mysql->query_no_result($query);
+}
+
+function update_horses() {
+  global $mysql;
+
+  $filename = $_POST['filename'];
+  $filenamea = $_POST['filenamea'];
+  $race = $_POST['race'];
+  $gender = $_POST['gender']; 
+  $texture = $_POST['texture'];
+  $mountspeed = $_POST['mountspeed'];
+  $notes = $_POST['notes'];
+
+  $query = "UPDATE horses SET filename=\"$filenamea\", race=\"$race\", gender=\"$gender\", texture=\"$texture\", mountspeed=\"$mountspeed\", notes=\"$notes\" WHERE filename=\"$filename\"";
   $mysql->query_no_result($query);
 }
 
@@ -477,6 +559,15 @@ function delete_traps() {
   $tid = $_GET['tid'];
 
   $query = "DELETE from traps WHERE id=\"$tid\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_horses() {
+  global $mysql;
+
+  $filename = $_GET['filename'];
+
+  $query = "DELETE from horses WHERE filename=\"$filename\"";
   $mysql->query_no_result($query);
 }
 
@@ -586,6 +677,20 @@ function add_traps() {
   $respawn_var = $_POST['respawn_var'];
 
   $query = "INSERT INTO traps SET id=\"tid\", zone=\"$zone\", x=\"$x\", y=\"$y\", z=\"$z_coord\", chance=\"$chance\", maxzdiff=\"$maxzdiff\", radius=\"$radius\", effect=\"$effect\", effectvalue=\"$effectvalue\", effectvalue2=\"$effectvalue2\", message=\"$message\", skill=\"$skill\", level=\"$level\", respawn_time=\"$respawn_time\", respawn_var=\"$respawn_var\"";
+  $mysql->query_no_result($query);
+}
+
+function add_horses() {
+  global $mysql;
+
+  $filename = $_POST['filename'];
+  $race = $_POST['race'];
+  $gender = $_POST['gender']; 
+  $texture = $_POST['texture'];
+  $mountspeed = $_POST['mountspeed'];
+  $notes = $_POST['notes'];
+
+  $query = "INSERT INTO horses SET filename=\"$filename\", race=\"$race\", gender=\"$gender\", texture=\"$texture\", mountspeed=\"$mountspeed\", notes=\"$notes\"";
   $mysql->query_no_result($query);
 }
 

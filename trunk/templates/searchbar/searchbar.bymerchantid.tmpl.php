@@ -21,7 +21,7 @@
               <form action="index.php" method="GET">
                 <input type="hidden" name="editor" value="merchant">
                 <input type="hidden" name="action" value="7">
-                <input type="text" name="npcid" size="5" value="Name" onFocus="clearField(document.forms[0].npcid);"> or <input type="text" name="search" size="12" value="Enter Item ID" onFocus="clearField(document.forms[0].search);">                
+                <input type="text" name="npcid" size="5" value="ID" onFocus="clearField(document.forms[0].npcid);"> or <input type="text" name="search" size="12" value="Enter Item ID" onFocus="clearField(document.forms[0].search);">                
                 <input type="submit" value=" Search ">
               </form>
             </td>
