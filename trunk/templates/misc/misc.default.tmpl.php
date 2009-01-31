@@ -10,6 +10,7 @@
              <center><a href="index.php?editor=misc&z=<?=$currzone?>&action=7">Forage for <?=$currzone?></a><br></center>
              <center><a href="index.php?editor=misc&z=<?=$currzone?>&action=13">Ground Spawns in <?=$currzone?></a><br></center>
              <center><a href="index.php?editor=misc&z=<?=$currzone?>&action=19">Traps in <?=$currzone?></a><br></center>
+             <center><a href="index.php?editor=misc&z=<?=$currzone?>&action=29">View Horses</a><br></center>
            </td>
          </tr>
        </table>
