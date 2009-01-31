@@ -57,7 +57,7 @@ switch ($action) {
   case 7:  // Search merchant by item
     check_authorization();
     $body = new Template("templates/merchant/merchant.searchresults.tmpl.php");
-    if (isset($_GET['npcid']) && $_GET['npcid'] != "Name") {
+    if (isset($_GET['npcid']) && $_GET['npcid'] != "ID") {
       $results = search_npc_by_id();
     }
    else $results = search_merchant_by_item();
