@@ -56,7 +56,10 @@
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
             <td>
-              Lootdrop: <?=$lootdrop['id']?>
+              Lootdrop: <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=33"><?=$lootdrop['id']?></a>
+        </div>
+        </div>
+
             </td>
             <td>
               "<a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=3"><?=$lootdrop['name']?></a>"

@@ -93,7 +93,7 @@ function update_merchantlist() {
 
   for ($i=1; $i<=$count; $i++){
     if ($_POST["item{$i}"] != $oldstats['slots'][$i]['item']) {
-      $query = "UPDATE merchantlist SET item=\"" . $_POST["item{$i}"] . "\" WHERE merchantid=$mid AND slot=" . $_POST["slot{$i}"];
+      $query = "UPDATE merchantlist SET item=\"" . $_POST["item{$i}"] . "\", slot=\"" . $_POST["newslot{$i}"] . "\" WHERE merchantid=$mid AND slot=" . $_POST["slot{$i}"];
       $mysql->query_no_result($query);
     }
   }
