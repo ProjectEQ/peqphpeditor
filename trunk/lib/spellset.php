@@ -136,6 +136,11 @@ switch($action) {
     remove_spellset();
     header("Location: index.php?editor=spellset&z=$z&npcid=$npcid");
     exit;
+  case 15:  // Search spells
+    $body = new Template("templates/spellset/spell.searchresults.tmpl.php");
+    $results = search_spells();
+    $body->set("results", $results);
+    break;
 }
 
 function spells_info () {
@@ -318,4 +323,15 @@ function remove_spellset() {
   $mysql->query_no_result($query);
 }
 
+function search_spells() {
+  global $mysql;
+  $search = $_GET['search'];
+
+  $query = "SELECT npc_spells_entries.npc_spells_id, spells_new.name AS spellname 
+  FROM npc_spells_entries
+  INNER JOIN spells_new ON spells_new.id = npc_spells_entries.spellid
+  WHERE spells_new.name rlike \"$search\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
 ?>

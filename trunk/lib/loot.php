@@ -241,6 +241,15 @@ switch ($action) {
     $results = search_loot_by_item();
     $body->set("results", $results);
     break;
+  case 33:
+    check_authorization(); 
+    $body = new Template("templates/loot/loottablebylootdrop.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $_GET['npcid']);
+    $body->set('ldid', $_GET['ldid']);
+    $ldrop = loottables_using_lootdrop();
+    $body->set("ldrop", $ldrop);
+    break;
 }
 
 function loottable_info () {
@@ -312,6 +321,20 @@ function mobs_using_loottable () {
   $count = count($results);
   return array("count"=>$count, "mobs"=>$results);
 }
+
+function loottables_using_lootdrop () {
+  global $mysql;
+  $array = array();
+  $ldid = $_GET['ldid'];
+
+  $query = "SELECT loottable_entries.loottable_id AS loottid, loottable.name AS loottname, npc_types.id AS npcid
+            FROM loottable_entries
+            INNER JOIN loottable ON loottable.id = loottable_entries.loottable_id
+            INNER JOIN npc_types ON npc_types.loottable_id = loottable.id 
+            WHERE loottable_entries.lootdrop_id=$ldid";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+  }
 
 function update_loottable() {
   check_authorization();

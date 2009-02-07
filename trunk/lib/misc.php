@@ -294,6 +294,51 @@ switch ($action) {
     add_horses();
     header("Location: index.php?editor=misc&z=$z&action=29");
     exit;
+   case 35: // View doors
+    $body = new Template("templates/misc/doors.tmpl.php");
+    $body->set('currzone', $z);
+    $doors = get_doors();
+    if ($doors) {
+      foreach ($doors as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 36: // Edit doors
+    check_authorization();
+    $body = new Template("templates/misc/doors.edit.tmpl.php");
+    $body->set('currzone', $z);
+    $doors = doors_info();
+    if ($doors) {
+      foreach ($doors as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 37: // Update doors
+    check_authorization();
+    update_doors();
+    header("Location: index.php?editor=misc&z=$z&action=35");
+    exit;
+  case 38: // Delete doors
+    check_authorization();
+    delete_doors();
+    header("Location: index.php?editor=misc&z=$z&action=35");
+    exit;
+  case 39: // Get doors ID
+    check_authorization();
+    $body = new Template("templates/misc/doors.add.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('zid', getZoneID($z));
+    $body->set('suggestdrid', suggest_door_id());
+    $body->set('suggestdoorid', suggest_doorid());
+    break;
+  case 40: // Add doors
+    check_authorization();
+    add_doors();
+    header("Location: index.php?editor=misc&z=$z&action=35");
+    exit;
+
 
 }
 
@@ -385,6 +430,21 @@ function get_horses() {
   return $array;
   }
 
+function get_doors() {
+  global $mysql, $z;
+
+  $array = array();
+  
+  $query = "SELECT * FROM doors WHERE zone=\"$z\"";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size']);
+         }
+       }
+  return $array;
+  }
+
 function fishing_info() {
   global $mysql;
 
@@ -435,6 +495,17 @@ function horses_info() {
   $filename = $_GET['filename'];
 
   $query = "SELECT * FROM horses WHERE filename=\"$filename\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+}
+
+function doors_info() {
+  global $mysql;
+
+  $drid = $_GET['drid'];
+
+  $query = "SELECT * FROM doors WHERE id=\"$drid\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -528,6 +599,37 @@ function update_traps() {
   $mysql->query_no_result($query);
 }
 
+function update_doors() {
+  global $mysql;
+
+  $drid = $_POST['drid'];
+  $doorid = $_POST['doorid'];
+  $name = $_POST['name'];
+  $pos_x = $_POST['pos_x'];
+  $pos_y = $_POST['pos_y'];
+  $pos_z = $_POST['pos_z'];
+  $heading = $_POST['heading'];
+  $opentype = $_POST['opentype']; 
+  $guild = $_POST['guild'];
+  $lockpick = $_POST['lockpick'];
+  $keyitem = $_POST['keyitem'];
+  $triggerdoor = $_POST['triggerdoor'];
+  $triggertype = $_POST['triggertype'];
+  $doorisopen = $_POST['doorisopen'];
+  $door_param = $_POST['door_param'];
+  $dest_zone = $_POST['dest_zone'];
+  $dest_x = $_POST['dest_x'];
+  $dest_y = $_POST['dest_y'];
+  $dest_z = $_POST['dest_z'];
+  $dest_heading = $_POST['dest_heading'];
+  $invert_state = $_POST['invert_state'];
+  $incline = $_POST['incline'];
+  $size = $_POST['size'];
+
+  $query = "UPDATE doors SET doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\" WHERE id=\"$drid\"";
+  $mysql->query_no_result($query);
+}
+
 function delete_fishing() {
   global $mysql;
 
@@ -573,6 +675,15 @@ function delete_horses() {
   $mysql->query_no_result($query);
 }
 
+function delete_doors() {
+  global $mysql;
+
+  $drid = $_GET['drid'];
+
+  $query = "DELETE from doors WHERE id=\"$drid\"";
+  $mysql->query_no_result($query);
+}
+
 function suggest_fishing_id() {
   global $mysql;
 
@@ -607,6 +718,24 @@ function suggest_traps_id() {
   $result = $mysql->query_assoc($query);
   
   return ($result['tid'] + 1);
+}
+
+function suggest_door_id() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS drid FROM doors";
+  $result = $mysql->query_assoc($query);
+  
+  return ($result['drid'] + 1);
+}
+
+function suggest_doorid() {
+  global $mysql, $z;
+
+  $query = "SELECT MAX(doorid) AS dorid FROM doors WHERE zone=\"$z\"";
+  $result = $mysql->query_assoc($query);
+  
+  return ($result['dorid'] + 1);
 }
 
 function add_fishing() {
@@ -693,6 +822,37 @@ function add_horses() {
   $notes = $_POST['notes'];
 
   $query = "INSERT INTO horses SET filename=\"$filename\", race=\"$race\", gender=\"$gender\", texture=\"$texture\", mountspeed=\"$mountspeed\", notes=\"$notes\"";
+  $mysql->query_no_result($query);
+}
+
+function add_doors() {
+  global $mysql, $z;
+
+  $drid = $_POST['drid'];
+  $doorid = $_POST['doorid'];
+  $name = $_POST['name'];
+  $pos_x = $_POST['pos_x'];
+  $pos_y = $_POST['pos_y'];
+  $pos_z = $_POST['pos_z'];
+  $heading = $_POST['heading'];
+  $opentype = $_POST['opentype']; 
+  $guild = $_POST['guild'];
+  $lockpick = $_POST['lockpick'];
+  $keyitem = $_POST['keyitem'];
+  $triggerdoor = $_POST['triggerdoor'];
+  $triggertype = $_POST['triggertype'];
+  $doorisopen = $_POST['doorisopen'];
+  $door_param = $_POST['door_param'];
+  $dest_zone = $_POST['dest_zone'];
+  $dest_x = $_POST['dest_x'];
+  $dest_y = $_POST['dest_y'];
+  $dest_z = $_POST['dest_z'];
+  $dest_heading = $_POST['dest_heading'];
+  $invert_state = $_POST['invert_state'];
+  $incline = $_POST['incline'];
+  $size = $_POST['size'];
+
+  $query = "INSERT INTO doors SET id=\"$drid\", zone=\"$z\", doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\" buffer=\"$buffer\"";
   $mysql->query_no_result($query);
 }
 

@@ -111,7 +111,12 @@ switch ($action) {
     $body = new Template("templates/npc/factionid.edit.name.tmpl.php");
     $body->set('currzone', $z);
     $body->set('npcid', $npcid);
-    $body->set('name', get_npc_faction_id_name());
+    $vars = get_npc_faction_id_name();
+    if ($vars) {
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
     break;
   case 11:  // Update npc_faction_id name
     check_authorization();
@@ -560,8 +565,9 @@ function create_npc_faction_id () {
   global $mysql;
   $id = $_POST['id'];
   $name = $_POST['name'];
+  $ipa = $_POST['ipa'];
 
-  $query = "INSERT INTO npc_faction SET id=$id, name=\"$name\"";
+  $query = "INSERT INTO npc_faction SET id=$id, name=\"$name\", ignore_primary_assist=\"$ipa\"";
   $mysql->query_no_result($query);
 }
 
@@ -582,9 +588,9 @@ function suggest_npc_faction_id() {
 function get_npc_faction_id_name() {
   global $mysql, $npcid;
   $id = get_npc_faction_id($npcid);
-  $query = "SELECT name FROM npc_faction WHERE id=$id";
+  $query = "SELECT * FROM npc_faction WHERE id=$id";
   $result = $mysql->query_assoc($query);
-  return $result['name'];
+  return $result;
 }
 
 function update_npc_faction_id_name () {
@@ -592,8 +598,9 @@ function update_npc_faction_id_name () {
   global $mysql, $npcid;
 
   $name = $_POST['name'];
+  $ipa = $_POST['ipa'];
   $id = get_npc_faction_id($npcid);
-  $query = "UPDATE npc_faction SET name=\"$name\" WHERE id=$id";
+  $query = "UPDATE npc_faction SET name=\"$name\", ignore_primary_assist=\"$ipa\" WHERE id=$id";
   $mysql->query_no_result($query);
 }
 

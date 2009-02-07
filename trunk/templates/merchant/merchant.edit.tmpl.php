@@ -8,19 +8,24 @@
         <table width="100%">
           <tr>
             <th>Slot</th>
+            <th></th>
             <th>Item</th>
             <th>Item Name</th>
           </tr>
 <?$x=1; foreach ($slots as $slot => $v):?>
           <tr>
-            <td><input type="text" size="3" name="slot<?=$x?>" value="<?=$slot?>"></td>
+            <td><?=$slot?></td>
+            <td><input type="text" size="3" name="newslot<?=$x?>" value="<?=$slot?>"></td>
             <td><input type="text" size="7" name="item<?=$x?>" value="<?=$v['item']?>"></td>
             <td><?=$v['item_name']?></td>
+            <input type="hidden" name="slot<?=$x?>" value="<?=$slot?>">
+            
           </tr>
 <?$x++; endforeach?>
         </table><br><br>
 
         <center>
+          
           <input type="hidden" name="mid" value="<?=$id?>">
           <input type="hidden" name="count" value="<?=($x - 1)?>">
           <input type="submit" value="Submit Changes">

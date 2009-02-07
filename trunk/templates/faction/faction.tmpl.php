@@ -17,6 +17,7 @@
        <div class="edit_form_header" style="height: 16px; line-height: 16px;">
          <div style="float: right">
            <a href="index.php?editor=faction&fid=<?=$id?>&action=1"><img src="images/c_table.gif" title="Edit this Faction" border="0"></a>
+           <a href="index.php?editor=faction&fid=<?=$id?>&action=6"><img src="images/remove3.gif" title="Delete this faction border="0"></a>
          </div>
           <?=$name?> (Faction ID: <?=$id?>)
        </div>
@@ -46,6 +47,13 @@
               <td width="20%">Enchanter: <?=$mod_c14?></td>
               <td width="20%">Beastlord: <?=$mod_c15?></td>
             </tr>
+            <tr>
+              <td width="20%">Berserker: <?=$mod_c16?></td>
+              <td width="20%">&nbsp;</td>
+              <td width="20%">&nbsp;</td>
+              <td width="20%">&nbsp;</td>
+              <td width="20%">&nbsp;</td>
+            </tr>
           </table>
         </fieldset><br>
 
@@ -69,16 +77,23 @@
             <tr>
               <td width="20%">Halfling: <?=$mod_r11?></td>
               <td width="20%">Gnome: <?=$mod_r12?></td>
-              <td width="20%">Werewolf: <?=$mod_r14?></td>
-              <td width="20%">Skeleton: <?=$mod_r60?></td>
-              <td width="20%">Elemental: <?=$mod_r75?></td>
+              <td width="20%">Iksar: <?=$mod_r128?></td>
+              <td width="20%">Vah Shir: <?=$mod_r130?></td>
+              <td width="20%">Froglok: <?=$mod_r330?></td> 
             </tr>
             <tr>
               <td width="20%">Eye of Zomm: <?=$mod_r108?></td>
               <td width="20%">Wolf-form: <?=$mod_r120?></td>
-              <td width="20%">Iksar: <?=$mod_r128?></td>
-              <td width="20%">Vah Shir: <?=$mod_r130?></td>
+              <td width="20%">Werewolf: <?=$mod_r14?></td>
+              <td width="20%">Skeleton: <?=$mod_r60?></td>
               <td width="20%">Iksar Skeleton: <?=$mod_r161?></td>
+            </tr>
+              <tr>
+              <td width="20%">Elemental: <?=$mod_r75?></td>
+              <td width="20%">&nbsp;</td>
+              <td width="20%">&nbsp;</td>
+              <td width="20%">&nbsp;</td>
+              <td width="20%">&nbsp;</td>
             </tr>
           </table>
         </fieldset><br>

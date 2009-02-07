@@ -11,6 +11,11 @@
               <input type="text" name="id" size="25" value="<?=$id?>"><br><br>
               Suggested Name:<br>
               <input type="text" name="name" size="25" value="<?=$npc_name?>"><br><br>
+	          Ignore Primary Assist:  <br>
+			      <select name="ipa">
+			      <option value="0"<?echo ($ipa == 0) ? " selected" : ""?>>False</option>
+			      <option value="1"<?echo ($ipa == 1) ? " selected" : ""?>>True</option>
+                 </select><br><br>
               <center>
                 <input type="submit" name="submit" value="Submit Changes">
               </center>

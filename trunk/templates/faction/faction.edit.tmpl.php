@@ -47,6 +47,13 @@
               <td width="20%">Enchanter: <br> <input size="10" type="text" name="mod_c14" value="<?=$mod_c14?>"></td>
               <td width="20%">Beastlord: <br> <input size="10" type="text" name="mod_c15" value="<?=$mod_c15?>"></td>
             </tr>
+              <tr>
+              <td width="20%">Berserker: <br> <input size="10" type="text" name="mod_c16" value="<?=$mod_c16?>"></td>
+              <td width="20%">&nbsp;</td>
+              <td width="20%">&nbsp;</td>
+              <td width="20%">&nbsp;</td>
+              <td width="20%">&nbsp;</td>
+            </tr>
           </table>
         </fieldset><br>
 
@@ -70,16 +77,23 @@
             <tr>
               <td width="20%">Halfling: <br> <input size="10" type="text" name="mod_r11" value="<?=$mod_r11?>"></td>
               <td width="20%">Gnome: <br> <input size="10" type="text" name="mod_r12" value="<?=$mod_r12?>"></td>
-              <td width="20%">Werewolf: <br> <input size="10" type="text" name="mod_r14" value="<?=$mod_r14?>"></td>
-              <td width="20%">Skeleton: <br> <input size="10" type="text" name="mod_r60" value="<?=$mod_r60?>"></td>
-              <td width="20%">Elemental: <br> <input size="10" type="text" name="mod_r75" value="<?=$mod_r75?>"></td>
+              <td width="20%">Iksar: <br> <input size="10" type="text" name="mod_r128" value="<?=$mod_r128?>"></td>
+              <td width="20%">Vah Shir: <br> <input size="10" type="text" name="mod_r130" value="<?=$mod_r130?>"></td>
+              <td width="20%">Froglok: <br> <input size="10" type="text" name="mod_r330" value="<?=$mod_r330?>"></td>
             </tr>
             <tr>
               <td width="20%">Eye of Zomm: <br> <input size="10" type="text" name="mod_r108" value="<?=$mod_r108?>"></td>
               <td width="20%">Wolf-form: <br> <input size="10" type="text" name="mod_r120" value="<?=$mod_r120?>"></td>
-              <td width="20%">Iksar: <br> <input size="10" type="text" name="mod_r128" value="<?=$mod_r128?>"></td>
-              <td width="20%">Vah Shir: <br> <input size="10" type="text" name="mod_r130" value="<?=$mod_r130?>"></td>
+              <td width="20%">Werewolf: <br> <input size="10" type="text" name="mod_r14" value="<?=$mod_r14?>"></td>
+              <td width="20%">Skeleton: <br> <input size="10" type="text" name="mod_r60" value="<?=$mod_r60?>"></td>
               <td width="20%">Iksar Skeleton: <br> <input size="10" type="text" name="mod_r161" value="<?=$mod_r161?>"></td>
+            </tr>
+              <tr>
+              <td width="20%">Elemental: <br> <input size="10" type="text" name="mod_r75" value="<?=$mod_r75?>"></td>
+              <td width="20%">&nbsp;</td>
+              <td width="20%">&nbsp;</td>
+              <td width="20%">&nbsp;</td>
+              <td width="20%">&nbsp;</td>
             </tr>
           </table>
         </fieldset><br>

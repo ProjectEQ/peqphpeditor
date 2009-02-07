@@ -25,6 +25,19 @@
 <?php endforeach;?>
               </select>
             </td>
-          </tr>
+           </tr>
+          </table>
+           <br>
+           <table width=100%>
+            <tr>
+            <td align="right"> or  <strong>&nbsp;3.</strong> Search by
+              <form action="index.php" method="GET">
+                <input type="hidden" name="editor" value="spellset">
+                <input type="hidden" name="action" value="15">
+                <input type="text" name="search" size="22" value="Spell Name" onFocus="clearField(document.forms[0].search);">
+                <input type="submit" value=" GO ">
+              </form>
+            </td>
+           </tr>
         </table>
       </div>
