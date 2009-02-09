@@ -14,7 +14,7 @@ function logSQL ($query) {
       echo "Unable to open the log file ($log_file)!";
       exit;
     }
-    if (!fwrite($handle, "$query; - $user $time\r\n")) {
+    if (!fwrite($handle, "$query; -- $user $time\r\n")) {
       echo "Could not write to the log file ($log_file)!";
       exit;
     }
