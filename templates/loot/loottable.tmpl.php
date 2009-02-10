@@ -90,12 +90,14 @@
         <tr>
           <th align="center" width="8%">Item ID</th>
           <th align="center" width="45%">Item Name</th>
-          <th align="center" width="14%">Equipped?</th>
-          <th align="center" width="14%">Charges</th>
-          <th align="center" width="14%">Drop Chance</th>
+          <th align="center" width="10%">Equipped?</th>
+          <th align="center" width="10%">Charges</th>
+          <th align="center" width="10%">Drop Chance</th>
+          <th align="center" width="10%">Overall Chance</th>
           <th width="5%"></th>
         </tr>
 <?php foreach ($lootdrop['items'] as $item): extract($item);?>
+<?php ($total = (($chance/100) * ($lootdrop['probability']/100)) * 100);?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
           <td align="center"><?=$item_id?></td>
           <td align="center"><?=$name?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$item_id?>">lucy</a>]</span></td>
@@ -107,6 +109,9 @@
           </td>
           <td align="center">
             <?=$chance?>%</td>
+          <td align="center">
+            <?=$total?>%
+           </td>
           <td align="right">
             <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=5">
               <img src="images/edit2.gif" border="0" title="Edit Lootdrop Item">
