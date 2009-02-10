@@ -181,6 +181,7 @@ check_authorization();
     $body = new Template("templates/spawn/spawngroup.add.tmpl.php");
     $body->set('currzone', $z);
     $body->set('suggestedid', suggest_spawngroup_id());
+    $body->set('npcid', $npcid);
     break;
   case 17:  // Add Spawngroup
     check_authorization();

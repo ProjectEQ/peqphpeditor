@@ -14,7 +14,7 @@
             <input  type="text" name="name" size="15"  value="<?=$currzone?>_<?=$suggestedid?>"><br><br>
 
             <strong>First NPCID In Spawngroup:</strong><br>
-            <input type="text" name="npcID" size="15" value=""><br><br>
+            <input type="text" name="npcID" size="15" value="<?=$npcid?>"><br><br>
 
             <strong>dist:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delay:</strong><br>
             <input type="text" name="dist" size="5" value="0">
