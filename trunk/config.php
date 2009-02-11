@@ -19,7 +19,7 @@ $db = 'database_name';
  *    8 = Gates of Discord
  */
 $expansion_limit = 8;
-  
+
 // Don't want to have to type the username and password every time you start the editor?
 // Set the two variables below to the values you want to be in the form when you start it up.
 // (default login: admin  pw: password)
@@ -27,7 +27,7 @@ $login = 'admin';
 $password = 'password';
 
 // Log SQL queries:  1 = on, 0 = off
-$logging = 0;
+$logging = 1;
 
 // $log_file = path to the file your sql logs will be saved in, if you have enabled sql logging
 //    Make sure to create this directory and file before using the editor, or you will
