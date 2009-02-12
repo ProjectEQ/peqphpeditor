@@ -13,6 +13,9 @@ switch ($action) {
         }
       }
     }
+    else {
+       $body = new Template("templates/merchant/merchant.default.tmpl.php");
+    }
     break;
   case 1: // Edit Merchantlist
     check_authorization();
@@ -38,7 +41,7 @@ switch ($action) {
     exit;
   case 4: // Add item to Merchant
     check_authorization();
-    $javascript .= file_get_contents("templates/tradeskill/js.tmpl.php");
+    $javascript .= file_get_contents("templates/iframes/js.tmpl.php");
     $body = new Template("templates/merchant/item.add.tmpl.php");
     $body->set('currzone', $z);
     $body->set('npcid', $npcid);
@@ -63,6 +66,63 @@ switch ($action) {
    else $results = search_merchant_by_item();
     $body->set("results", $results);
     break;
+  case 8:  // View Temp Merchanlist
+    if ($npcid) {
+      $body = new Template("templates/merchant/merchant_temp.tmpl.php");
+      $body->set('currzone', $z);
+      $body->set('npcid', $npcid);
+      $vars = get_merchantlist_temp();
+      if ($vars) {
+        foreach ($vars as $key=>$value) {
+          $body->set($key, $value);
+        }
+      }
+    }
+    break;
+  case 9: // Edit Temp Merchantlist
+    check_authorization();
+    $body = new Template("templates/merchant/merchant_temp.edit.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $vars = get_merchantlist_temp();
+    if ($vars) {
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 10:
+    check_authorization();
+    update_merchantlist_temp();
+    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid&action=8");
+    exit;
+  case 11:  // Delete temp item from merchant
+    check_authorization();
+    delete_temp_ware();
+    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid&action=8");
+    exit;
+  case 12: // Add temp item to Merchant
+    check_authorization();
+    $javascript .= file_get_contents("templates/iframes/js.tmpl.php");
+    $body = new Template("templates/merchant/item_temp.add.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    break;
+  case 13: // Add item
+    check_authorization();
+    add_merchant_item_temp();
+    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid&action=8");
+    exit;
+  case 14: // Delete Temp Merchantlist
+    check_authorization();
+    delete_merchantlist_temp();
+    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
+    exit;
+  case 15: // Wipe Temp Merchantlists
+    check_authorization();
+    wipe_merchantlist_temp();
+    header("Location: index.php?editor=merchant");
+    exit;
 }
 
 function get_merchantlist() {
@@ -77,6 +137,23 @@ function get_merchantlist() {
     foreach ($results as $result) {
       $result['item_name'] = get_item_name($result['item']);
       $array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name']);
+    }
+  }
+  
+  return $array;
+}
+
+function get_merchantlist_temp() {
+  global $mysql;
+  $array = array();
+
+  $npcid = $_GET['npcid'];
+  $query = "SELECT * FROM merchantlist_temp WHERE npcid=$npcid";
+  $results = $mysql->query_mult_assoc($query);
+  if ($results) {
+    foreach ($results as $result) {
+      $result['item_name'] = get_item_name($result['itemid']);
+      $array['slots'][$result['slot']] = array("itemid"=>$result['itemid'], "charges"=>$result['charges'], "item_name"=>$result['item_name']);
     }
   }
   
@@ -99,6 +176,21 @@ function update_merchantlist() {
   }
 }
 
+function update_merchantlist_temp() {
+  check_authorization();
+  global $mysql, $npcid;
+
+  $count = $_POST['count'];
+  $oldstats = get_merchantlist_temp();
+
+  for ($i=1; $i<=$count; $i++){
+    if ($_POST["itemid{$i}"] != $oldstats['slots'][$i]['itemid']) {
+      $query = "UPDATE merchantlist_temp SET itemid=\"" . $_POST["itemid{$i}"] . "\", slot=\"" . $_POST["newslot{$i}"] . "\", charges=\"" . $_POST["charges{$i}"] . "\" WHERE npcid=$npcid AND slot=" . $_POST["slot{$i}"];
+      $mysql->query_no_result($query);
+    }
+  }
+}
+
 function delete_ware() {
   check_authorization();
   global $mysql;
@@ -107,6 +199,16 @@ function delete_ware() {
   $mid = $_GET['mid'];
 
   $query = "DELETE FROM merchantlist WHERE merchantid=$mid AND slot=$slot AND item=$id";
+  $mysql->query_no_result($query);
+}
+
+function delete_temp_ware() {
+  check_authorization();
+  global $mysql, $npcid;
+  $itemid = $_GET['itemid'];
+  $slot = $_GET['slot'];
+
+  $query = "DELETE FROM merchantlist_temp WHERE npcid=$npcid AND slot=$slot AND itemid=$itemid";
   $mysql->query_no_result($query);
 }
 
@@ -124,6 +226,34 @@ function add_merchant_item() {
   $mysql->query_no_result($query);
 }
 
+function add_merchant_item_temp() {
+  check_authorization();
+  global $mysql, $npcid;
+  $charges = $_REQUEST['charges'];
+  $itemid = $_REQUEST['itemid'];
+  
+  $query = "SELECT merchant_id AS mid FROM npc_types where id=$npcid";
+  $result = $mysql->query_assoc($query);
+  $mid = $result['mid'];
+
+  $query = "SELECT MAX(slot) AS mslot FROM merchantlist WHERE merchantid=$mid";
+  $result = $mysql->query_assoc($query);
+  $mslot = $result['mslot'] + 1;
+
+  $query = "SELECT MAX(slot) AS tslot FROM merchantlist_temp WHERE npcid=$npcid";
+  $result = $mysql->query_assoc($query);
+  $tslot = $result['tslot'] + 1;
+  
+  if ($tslot < $mslot) {
+  $query = "INSERT INTO merchantlist_temp SET npcid=$npcid, slot=$mslot, itemid=$itemid, charges=$charges";
+  $mysql->query_no_result($query);
+  }
+  if ($tslot > $mslot) {
+  $query = "INSERT INTO merchantlist_temp SET npcid=$npcid, slot=$tslot, itemid=$itemid, charges=$charges";
+  $mysql->query_no_result($query);
+ }
+}
+
 function delete_merchantlist() {
   check_authorization();
   global $mysql, $npcid;
@@ -133,6 +263,22 @@ function delete_merchantlist() {
   $mysql->query_no_result($query);
 
   $query = "UPDATE npc_types SET merchant_id=0 WHERE id=$npcid";
+  $mysql->query_no_result($query);
+}
+
+function delete_merchantlist_temp() {
+  check_authorization();
+  global $mysql, $npcid;
+
+  $query = "DELETE FROM merchantlist_temp WHERE npcid=$npcid";
+  $mysql->query_no_result($query);
+}
+
+function wipe_merchantlist_temp() {
+  check_authorization();
+  global $mysql;
+
+  $query = "DELETE FROM merchantlist_temp";
   $mysql->query_no_result($query);
 }
 

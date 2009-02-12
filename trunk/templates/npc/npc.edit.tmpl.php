@@ -124,13 +124,14 @@
            <legend><strong><font size="4">Combat</font></strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
                <tr>
-                <td align="left" width="14%">Min Dmg:  <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>"></td>
-                <td align="left" width="14%">Max Dmg:  <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>"></td>
-                <td align="left" width="14%">Spells ID:  <br><input type="text" name="npc_spells_id" size="5" value="<?=$npc_spells_id?>"></td>
-                <td align="left" width="14%">HP Regen:  <br><input type="text" name="hp_regen_rate" size="5" value="<?=$hp_regen_rate?>"></td>
-                <td align="left" width="14%">Mana Regen:  <br><input type="text" name="mana_regen_rate" size="5" value="<?=$mana_regen_rate?>"></td>
-                <td align="left" width="15%">Aggroradius:  <br><input type="text" name="aggroradius" size="5" value="<?=$aggroradius?>"></td>
-                <td align="left" width="15%">Atk Speed%: <br><input type="text" name="attack_speed" size="5" value="<?=$attack_speed?>"></td>
+                <td align="left" width="12%">Min Dmg:  <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>"></td>
+                <td align="left" width="12%">Max Dmg:  <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>"></td>
+                <td align="left" width="12%">Spells ID:  <br><input type="text" name="npc_spells_id" size="5" value="<?=$npc_spells_id?>"></td>
+                <td align="left" width="12%">Loot ID:  <br><input type="text" name="loottable_id" size="5" value="<?=$loottable_id?>"></td>
+                <td align="left" width="13%">HP Regen:  <br><input type="text" name="hp_regen_rate" size="5" value="<?=$hp_regen_rate?>"></td>
+                <td align="left" width="13%">Mana Regen:  <br><input type="text" name="mana_regen_rate" size="5" value="<?=$mana_regen_rate?>"></td>
+                <td align="left" width="13%">Aggroradius:  <br><input type="text" name="aggroradius" size="5" value="<?=$aggroradius?>"></td>
+                <td align="left" width="13%">Atk Speed%: <br><input type="text" name="attack_speed" size="5" value="<?=$attack_speed?>"></td>
               </tr>
             </table>
             <center>
@@ -192,8 +193,9 @@
            <input type="checkbox" name="qglobal" value="1"<?echo ($qglobal == 1) ? "checked" : "";?>>Enable Quest Globals<br>
            <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>>Can Aggro NPCs<br>
            <input type="checkbox" name="findable" value="1"<?echo ($findable == 1) ? "checked" : "";?>>NPC is Findable<br>
-           <input type="checkbox" name="trackable" value="1"<?echo ($trackable == 1) ? "checked" : "";?>>NPC is Trackable<br><br>
-           Spawn Limit: <br><input type="text" name="spawn_limit" size="10" value="<?=$spawn_limit?>">
+           <input type="checkbox" name="trackable" value="1"<?echo ($trackable == 1) ? "checked" : "";?>>NPC is Trackable<br>
+           <input type="checkbox" name="pet" value="1"<?echo ($pet == 1) ? "checked" : "";?>>NPC is a Pet<br><br> 
+          Spawn Limit: <br><input type="text" name="spawn_limit" size="10" value="<?=$spawn_limit?>">
          </fieldset><br>
          <center>
             <input type="submit" value="Submit Changes">

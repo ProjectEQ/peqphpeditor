@@ -18,6 +18,7 @@ switch ($action) {
       $body->set('npc_name', getNPCName($npcid));
       $body->set('factions', $factions);
       $body->set('faction_values', $faction_values);
+      $body->set('pet', get_ispet());
       $vars = npc_info();
       if ($vars) {
         foreach ($vars as $key=>$value) {
@@ -46,6 +47,7 @@ switch ($action) {
     $body->set('classes', $classes);
     $body->set('specialattacks', $specialattacks);
     $body->set('faction_values', $faction_values);
+    $body->set('pet', get_ispet());
     $vars = npc_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -56,6 +58,10 @@ switch ($action) {
   case 2:
     check_authorization();
     update_npc();
+    if (isset($_POST['pet']) && $_POST['pet'] == 1){
+    update_pet();
+    }
+    else delete_pet();
     header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
     exit;
   case 3: // Change npc_faction_id
@@ -223,6 +229,9 @@ switch ($action) {
   case 26:  // Insert npc
     check_authorization();
     add_npc();
+    if (isset($_POST['pet']) && $_POST['pet'] == 1){
+    add_pet();
+    }
     $npcid = $_POST['id'];
     header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
     exit;
@@ -273,6 +282,41 @@ function npc_info () {
   return $result;
 }
 
+function get_ispet () {
+  global $mysql, $npcid;
+
+  $query = "SELECT count(*) FROM pets WHERE npcID=$npcid";
+  $result = $mysql->query_assoc($query);
+
+  return $result['count(*)'];
+}
+
+function update_pet () {
+  global $mysql, $npcid;
+
+  $name = $_POST['name'];
+
+  $query = "REPLACE INTO pets SET npcID=$npcid, type=\"$name\"";
+  $mysql->query_no_result($query);
+}
+
+function add_pet () {
+  global $mysql;
+
+  $name = $_POST['name'];
+  $npcid = $_POST['id'];
+
+  $query = "INSERT INTO pets SET npcID=$npcid, type=\"$name\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_pet () {
+  global $mysql, $npcid;
+
+  $query = "DELETE FROM pets WHERE npcID=$npcid";
+  $mysql->query_no_result($query);
+}
+
 function update_npc () {
   check_authorization();
   global $mysql, $npcid, $specialattacks;
@@ -321,7 +365,7 @@ function update_npc () {
   if ($size != $_POST['size']) $fields .= "size=\"" . $_POST['size'] . "\", ";
   if ($hp_regen_rate != $_POST['hp_regen_rate']) $fields .= "hp_regen_rate=\"" . $_POST['hp_regen_rate'] . "\", ";
   if ($mana_regen_rate != $_POST['mana_regen_rate']) $fields .= "mana_regen_rate=\"" . $_POST['mana_regen_rate'] . "\", ";
-//  if ($loottable_id != $_POST['loottable_id']) $fields .= "loottable_id=\"" . $_POST['loottable_id'] . "\", ";
+  if ($loottable_id != $_POST['loottable_id']) $fields .= "loottable_id=\"" . $_POST['loottable_id'] . "\", ";
 //  if ($merchant_id != $_POST['merchant_id']) $fields .= "merchant_id=\"" . $_POST['merchant_id'] . "\", ";
   if ($npc_spells_id != $_POST['npc_spells_id']) $fields .= "npc_spells_id=\"" . $_POST['npc_spells_id'] . "\", ";
 //  if ($npc_faction_id != $_POST['npc_faction_id']) $fields .= "npc_faction_id=\"" . $_POST['npc_faction_id'] . "\", ";
@@ -382,7 +426,6 @@ function add_npc () {
   if (!isset($_POST['findable'])) $_POST['findable'] = 0;
   if (!isset($_POST['trackable'])) $_POST['trackable'] = 0;
 
-  $npcspecialattks = '';
   foreach ($specialattacks as $k => $v) {
     if (isset($_POST["$k"])) $npcspecialattks .= $_POST["$k"];
   }
@@ -403,10 +446,11 @@ function add_npc () {
   if ($_POST['hp_regen_rate'] != '') $fields .= "hp_regen_rate=\"" . $_POST['hp_regen_rate'] . "\", ";
   if ($_POST['mana_regen_rate'] != '') $fields .= "mana_regen_rate=\"" . $_POST['mana_regen_rate'] . "\", ";
   if ($_POST['npc_spells_id'] != '') $fields .= "npc_spells_id=\"" . $_POST['npc_spells_id'] . "\", ";
+  if ($_POST['loottable_id'] != '') $fields .= "loottable_id=\"" . $_POST['loottable_id'] . "\", ";
 //  if ($npc_faction_id != $_POST['npc_faction_id']) $fields .= "npc_faction_id=\"" . $_POST['npc_faction_id'] . "\", ";
   if ($_POST['mindmg'] != '') $fields .= "mindmg=\"" . $_POST['mindmg'] . "\", ";
   if ($_POST['maxdmg'] != '') $fields .= "maxdmg=\"" . $_POST['maxdmg'] . "\", ";
-  if ($npcspecialattks != '') $fields .= "npcspecialattks=\"$new_specialattks\", ";
+  if ($npcspecialattks != '') $fields .= "npcspecialattks=\"$npcspecialattks\", ";
   if ($_POST['aggroradius'] != '') $fields .= "aggroradius=\"" . $_POST['aggroradius'] . "\", ";
   if ($_POST['face'] != '') $fields .= "face=\"" . $_POST['face'] . "\", ";
   if ($_POST['luclin_hairstyle'] != '') $fields .= "luclin_hairstyle=\"" . $_POST['luclin_hairstyle'] . "\", ";
@@ -434,8 +478,8 @@ function add_npc () {
   if ($_POST['attack_speed'] != '') $fields .= "attack_speed=\"" . $_POST['attack_speed'] . "\", ";
   if ($_POST['findable'] != '') $fields .= "findable=\"" . $_POST['findable'] . "\", ";
   if ($_POST['trackable'] != '') $fields .= "trackable=\"" . $_POST['trackable'] . "\", ";
-  if ($ATK != $_POST['ATK']) $fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
-  if ($Accuracy != $_POST['Accuracy']) $fields .= "Accuracy=\"" . $_POST['Accuracy'] . "\", ";
+  if ($_POST['ATK'] != '') $fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
+  if ($_POST['Accuracy'] != '') $fields .= "Accuracy=\"" . $_POST['Accuracy'] . "\", ";
   if ($_POST['STR'] != '') $fields .= "STR=\"" . $_POST['STR'] . "\", ";
   if ($_POST['STA'] != '') $fields .= "STA=\"" . $_POST['STA'] . "\", ";
   if ($_POST['DEX'] != '') $fields .= "DEX=\"" . $_POST['DEX'] . "\", ";

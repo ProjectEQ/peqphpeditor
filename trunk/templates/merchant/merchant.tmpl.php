@@ -9,6 +9,7 @@
              </a>
            </div>
            Merchant ID: <?=$id?>
+           <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=8">Temp List</a>
          </div>
          <div class="table_content" style="padding: 0px;">
 <? if (isset($slots)):?>
