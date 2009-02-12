@@ -134,16 +134,14 @@
                 <td align="left" width="34%">NPC Spells ID: <?=$npc_spells_id?></td>
 			  </tr>
 			  <tr>
+                <td align="left" width="33%">Loottable ID: <?=$loottable_id?></td>
                 <td align="left" width="33%">HP Regen: <?=$hp_regen_rate?></td>
-                <td align="left" width="33%">MP Regen: <?=$mana_regen_rate?></td>
-                <td align="left" width="34%">Aggro: <?=$aggroradius?></td>
+                <td align="left" width="34%">MP Regen: <?=$mana_regen_rate?></td>
               </tr>
               <tr>
+                <td align="left" width="33%">Aggro: <?=$aggroradius?></td>
                 <td align="left" width="33%">Atk Speed: <?=$attack_speed?></td>
                 <td align="left" width="34%">Special Atks: <?=$npcspecialattks?></td>
-                <td align="left" width="33%">&nbsp;</td>
-              </tr>
-              <tr>
               </tr>
              </table>
             </fieldset>
@@ -180,7 +178,12 @@
                <tr>
                <td align="left" width="34%">Trackable: <?=$trackable?></td>
                  <td align="left" width="33%">Spawn Limit: <?=$spawn_limit?></td>
-                 <td align="left" width="33%">&nbsp;</td>
+                 <? if ($pet == 1):?>
+                 <td align="left" width="33%">Pet: Yes</td>
+                 <? endif;?>
+                 <? if ($pet == 0):?>
+                 <td align="left" width="33%">Pet: No</td>
+                 <? endif;?>
                </tr>
              </table>
            </td>

@@ -127,13 +127,14 @@
            <legend><strong><font size="4">Combat</font></strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
                <tr>
-                <td align="left" width="14%">Min Dmg:  <br><input type="text" name="mindmg" size="5" value=""></td>
-                <td align="left" width="14%">Max Dmg:  <br><input type="text" name="maxdmg" size="5" value=""></td>
-                <td align="left" width="14%">Spells ID:  <br><input type="text" name="npc_spells_id" size="5" value=""></td>
-                <td align="left" width="14%">HP Regen:  <br><input type="text" name="hp_regen_rate" size="5" value=""></td>
-                <td align="left" width="14%">Mana Regen:  <br><input type="text" name="mana_regen_rate" size="5" value=""></td>
-                <td align="left" width="15%">Aggroradius:  <br><input type="text" name="aggroradius" size="5" value=""></td>
-                <td align="left" width="15%">Atk Speed%: <br><input type="text" name="attack_speed" size="5" value=""></td>
+                <td align="left" width="12%">Min Dmg:  <br><input type="text" name="mindmg" size="5" value=""></td>
+                <td align="left" width="12%">Max Dmg:  <br><input type="text" name="maxdmg" size="5" value=""></td>
+                <td align="left" width="12%">Spells ID:  <br><input type="text" name="npc_spells_id" size="5" value=""></td>
+                <td align="left" width="12%">Loot ID:  <br><input type="text" name="loottable_id" size="5" value=""></td>
+                <td align="left" width="13%">HP Regen:  <br><input type="text" name="hp_regen_rate" size="5" value=""></td>
+                <td align="left" width="13%">Mana Regen:  <br><input type="text" name="mana_regen_rate" size="5" value=""></td>
+                <td align="left" width="13%">Aggroradius:  <br><input type="text" name="aggroradius" size="5" value=""></td>
+                <td align="left" width="13%">Atk Speed%: <br><input type="text" name="attack_speed" size="5" value=""></td>
               </tr>
             </table>
             <center>
@@ -196,6 +197,7 @@
            <input type="checkbox" name="npc_aggro" value="1">Can Aggro NPCs<br>
            <input type="checkbox" name="findable" value="1">NPC is Findable<br>
            <input type="checkbox" name="trackable" value="1">NPC is trackable<br>
+           <input type="checkbox" name="pet" value="1">NPC is a Pet<br><br>
            Spawn Limit: <br><input type="text" name="spawn_limit" size="10" value="0">
          </fieldset><br>
          <center>
