@@ -6,7 +6,7 @@ if(isset($_GET['name']) && ($_GET['name'] != '')) {
   require("../../config.php");
   require("../../classes/mysql.php");
   $name = $_GET['name'];
-  $query = "SELECT spellid, name FROM spells WHERE name rlike \"$name\" ORDER BY spellid";
+  $query = "SELECT id, name FROM spells_new WHERE name rlike \"$name\" ORDER BY id";
   $results = $mysql->query_mult_assoc($query);
   if($results == '') {
     print "No spells found!<br>";
@@ -14,7 +14,7 @@ if(isset($_GET['name']) && ($_GET['name'] != '')) {
   else {
     foreach($results as $result) {
       extract($result);
-      print "<a href=\"javascript:parent.document.getElementById('id').value=$spellid;parent.hideSearch()\">$spellid: $name</a><br>";
+      print "<a href=\"javascript:parent.document.getElementById('id').value=$id;parent.hideSearch()\">$id: $name</a><br>";
     }
   }
   echo "<br>";
