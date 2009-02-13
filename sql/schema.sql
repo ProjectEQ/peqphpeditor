@@ -1,4 +1,4 @@
-DROP TABLE peq_admin;
+DROP TABLE IF EXISTS `peq_admin`;
 
 CREATE TABLE peq_admin (
 id INT(11) auto_increment primary key,
