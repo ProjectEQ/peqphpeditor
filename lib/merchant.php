@@ -131,12 +131,14 @@ function get_merchantlist() {
   $array = array();
 
   $array['id'] = $mid;
-  $query = "SELECT * FROM merchantlist WHERE merchantid=$mid";
+  $query = "SELECT m.merchantid,m.slot,m.item,i.price,i.sellrate 
+            FROM merchantlist AS m, items AS i 
+            WHERE i.id = m.item AND merchantid=$mid";
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
     foreach ($results as $result) {
       $result['item_name'] = get_item_name($result['item']);
-      $array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name']);
+      $array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name'], "price"=>$result['price'], "sellrate"=>$result['sellrate']);
     }
   }
   
@@ -148,12 +150,14 @@ function get_merchantlist_temp() {
   $array = array();
 
   $npcid = $_GET['npcid'];
-  $query = "SELECT * FROM merchantlist_temp WHERE npcid=$npcid";
+  $query = "SELECT m.npcid,m.slot,m.itemid,m.charges,i.price,i.sellrate 
+            FROM merchantlist_temp AS m, items AS i 
+            WHERE i.id = m.itemid and npcid=$npcid";
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
     foreach ($results as $result) {
       $result['item_name'] = get_item_name($result['itemid']);
-      $array['slots'][$result['slot']] = array("itemid"=>$result['itemid'], "charges"=>$result['charges'], "item_name"=>$result['item_name']);
+      $array['slots'][$result['slot']] = array("itemid"=>$result['itemid'], "charges"=>$result['charges'], "item_name"=>$result['item_name'], "price"=>$result['price'], "sellrate"=>$result['sellrate']);
     }
   }
   
