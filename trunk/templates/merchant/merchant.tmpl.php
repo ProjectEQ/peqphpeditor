@@ -1,5 +1,5 @@
 <?if ($id != 0):?>
-      <div class="table_container" style="width: 500px;">
+      <div class="table_container" style="width: 550px;">
          <div class="table_header">
            <div style="float:right;">
              <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=4"><img src="images/add.gif" border=0 title="Add an Item"></a>&nbsp;
@@ -19,14 +19,63 @@
             <th align="center">Item ID</th>
             <th>Item</th>
             <th>&nbsp;</th>
-            <th>&nbsp;</th>
+            <th>Buy for:</th>
+            <th>Sell for:</th>
           </tr>
 <?$x=0; foreach($slots as $slot=>$v):?>
+<?if ($v['price'] > 999):?>
+<?php ($cost = $v['price']/1000);?>
+<?endif;?>
+<?if ($v['price']*$v['sellrate'] > 999):?>
+            <?php ($sells = ($v['price']*$v['sellrate'])/1000);?>
+<?endif;?>
+<?if ($v['price'] < 999 && $v['price'] > 99):?>
+<?php ($cost = $v['price']/100);?>
+<?endif;?>
+<?if ($v['price']*$v['sellrate'] < 999 && $v['price']*$v['sellrate'] > 99):?>
+            <?php ($sells = ($v['price']*$v['sellrate'])/100);?>
+<?endif;?>
+<?if ($v['price'] < 99 && $v['price'] > 9):?>
+<?php ($cost = $v['price']/10);?>
+<?endif;?>
+<?if ($v['price']*$v['sellrate'] < 99 && $v['price']*$v['sellrate'] > 9):?>
+            <?php ($sells = ($v['price']*$v['sellrate'])/10);?>
+<?endif;?>
+<?if ($v['price'] < 10):?>
+<?php ($cost = $v['price']);?>
+<?endif;?>
+<?if ($v['price']*$v['sellrate'] < 10):?>
+            <?php ($sells = ($v['price']*$v['sellrate']));?>
+<?endif;?>
           <tr<? echo ($x % 2 == 1) ? " bgcolor=\"#BBBBBB" : "";?>">
             <td align="center"><?=$slot?></td>
             <td align="center"><?=$v['item']?></td>
             <td><?=$v['item_name']?></td>
             <td><a href="http://lucy.allakhazam.com/item.html?id=<?=$v['item']?>">Lucy</a></td>
+<?if ($v['price'] > 999):?>
+            <td><?=$cost?>pp</td>
+<?endif;?>
+<?if ($v['price'] < 999 && $v['price'] > 99):?>
+            <td><?=$cost?>gp</td>
+<?endif;?>
+<?if ($v['price'] < 99 && $v['price'] > 9):?>
+            <td><?=$cost?>sp</td>
+<?endif;?>
+<?if ($v['price'] < 10):?>
+            <td><?=$cost?>cp</td>
+<?endif;?>
+<?if ($v['price']*$v['sellrate'] > 999):?>
+            <td><?=$sells?>pp</td>
+<?endif;?>
+<?if ($v['price']*$v['sellrate'] < 999 && $v['price']*$v['sellrate'] > 99):?>
+            <td><?=$sells?>gp</td>
+<?endif;?>
+<?if ($v['price']*$v['sellrate'] < 99 && $v['price']*$v['sellrate'] > 9):?>
+            <td><?=$sells?>sp</td>
+<?endif;?>
+<?if ($v['price']*$v['sellrate'] < 10):?>
+            <td><?=$sells?>cp</td>
+<?endif;?>
             <td align="right" style="padding-right: 10px;">
               <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&slot=<?=$slot?>&id=<?=$v['item']?>&action=3" onClick="return confirm('Really remove this item from the merchant?');">
                 <img src="images/remove.gif" border="0" title="Delete item from Merchantlist">
