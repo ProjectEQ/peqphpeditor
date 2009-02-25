@@ -73,7 +73,7 @@
               <tr>
                 <td align="left" width="33%">Outdoor: <?=$yesno[$castoutdoor]?></td>
                 <td align="left" width="33%">Combat: <?=$yesno[$cancombat]?></td>
-                <td align="left" width="34%">&nbsp;</td>
+                <td align="left" width="33%">PEQZone: <?=$yesno[$peqzone]?></td>
               </tr>
              </table>
            </fieldset>

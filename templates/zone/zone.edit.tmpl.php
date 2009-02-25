@@ -82,6 +82,13 @@
 			      <option value="1"<?echo ($cancombat == 1) ? " selected" : ""?>>Yes</option>
 			     </select>
 			   </td>
+		 <td align="left" width="25%">
+                 PEQ Zone:  <br>
+			      <select name="peqzone">
+			      <option value="0"<?echo ($peqzone == 0) ? " selected" : ""?>>No</option>
+			      <option value="1"<?echo ($peqzone == 1) ? " selected" : ""?>>Yes</option>
+			     </select>
+			   </td>
 	        <td align="left" width="25%">
 	          Can Bind:  <br>
 			      <select name="canbind">
