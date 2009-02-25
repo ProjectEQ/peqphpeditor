@@ -23,7 +23,7 @@
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
             <td>
-              Spawngroup: "<a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$name?></a>" - <?=$spawngroupID?>
+              Spawngroup: <?=$name?> - "<a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$spawngroupID?></a>"
             </td>
             <td>
               spawn_limit: <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$spawn_limit?></a>
