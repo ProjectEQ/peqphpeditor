@@ -15,14 +15,14 @@ Step 3:
 Go to www.php.net and download and install PHP.
 
 
-Step 4:
+Step 4: (Not required if gotten from SVN)
 
 Unzip the files in peq_editor.zip into a public html directory.
 
 
 Step 5:
 
-Source schema.sql (in the editor's /sql directory) into your database first, then source in allspells.sql.
+Source schema.sql (in the editor's /sql directory) into your database.
 
 
 Step 6:
