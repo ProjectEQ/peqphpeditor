@@ -63,7 +63,12 @@ switch ($action) {
     if (isset($_GET['npcid']) && $_GET['npcid'] != "ID") {
       $results = search_npc_by_id();
     }
-   else $results = search_merchant_by_item();
+    if (isset($_GET['search1']) && $_GET['search1'] != "Item ID") {
+      $results = search_temp_merchant();
+    }	
+    if (isset($_GET['search']) && $_GET['search'] != "Enter Item ID") {
+      $results = search_merchant_by_item();
+    }
     $body->set("results", $results);
     break;
   case 8:  // View Temp Merchanlist
@@ -294,6 +299,18 @@ function search_merchant_by_item() {
   $query = "SELECT npc_types.id,npc_types.name FROM merchantlist
             INNER JOIN npc_types ON npc_types.merchant_id = merchantlist.merchantid
             WHERE merchantlist.item = \"$search\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function search_temp_merchant() {
+  global $mysql;
+  $search = $_GET['search1'];
+
+
+  $query = "SELECT npc_types.id,npc_types.name FROM merchantlist_temp
+	     INNER JOIN npc_types ON npc_types.id = merchantlist_temp.npcid	
+            WHERE merchantlist_temp.itemid = \"$search\"";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
