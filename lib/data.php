@@ -814,7 +814,8 @@ $world_containers = array(
   50 => "ERUDFORGE",
   51 => "UNKNOWN51",
   52 => "UNKNOWN52",
-  53 => "AUGMENT"
+  53 => "AUGMENT",
+  255 => "TAANAN?"
 );
 
 ?>

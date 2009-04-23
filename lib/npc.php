@@ -26,11 +26,12 @@ switch ($action) {
         }
       }
     }
-    else {
-      if ($z) {
-        $body = new Template("templates/npc/npc.default.tmpl.php");
+    if ($z) {
+        $body = new Template("templates/npc/npc.zdefault.tmpl.php");
         $body->set('currzone', $z);
       }
+    else {
+        $body = new Template("templates/npc/npc.default.tmpl.php");
     }
     break;
   case 1: // Edit NPC

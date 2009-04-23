@@ -28,8 +28,8 @@
           <td align="center" width="8%"><?=$v['heading']?></td>
         <td align="right">    
           <a href="index.php?editor=zone&z=<?=$currzone?>&graveyard_id=<?=$v['graveyard_id']?>&action=5"><img src="images/edit2.gif" border="0" title="Edit Graveyard"></a>          
-          <a href="index.php?editor=zone&z=<?=$currzone?>&graveyard_id=<?=$v['graveyard_id']?>&action=11"><img src="images/remove3.gif" border="0" title="Delete this Graveyard"></a>
+          <a onClick="return confirm('Really Delete Graveyard <?=$v['graveyard_id']?>?');" href="index.php?editor=zone&z=<?=$currzone?>&graveyard_id=<?=$v['graveyard_id']?>&action=11"><img src="images/remove3.gif" border="0" title="Delete this Graveyard"></a>
             </td>
         </tr>
 <?$x++; endforeach;?>
-        </table>
+        

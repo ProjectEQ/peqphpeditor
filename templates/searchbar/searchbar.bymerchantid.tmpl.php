@@ -34,7 +34,7 @@
               <form action="index.php" method="GET">
                 <input type="hidden" name="editor" value="merchant">
                 <input type="hidden" name="action" value="7">
-                <input type="text" name="search1" size="22" value="Item ID" onFocus="clearField(document.forms[0].search1);">
+                <input type="text" name="search1" size="12" value="Item ID" onFocus="clearField(document.forms[0].search1);">
                 <input type="submit" value=" GO ">
               </form>
             </td>

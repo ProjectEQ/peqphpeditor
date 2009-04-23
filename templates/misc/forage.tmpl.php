@@ -27,7 +27,7 @@
           <td align="center" width="15%"><?=$v['chance']?>%</td>  
           <td align="right">      
             <a href="index.php?editor=misc&z=<?=$currzone?>&fgid=<?=$v['fgid']?>&action=8"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-            <a href="index.php?editor=misc&z=<?=$currzone?>&fgid=<?=$v['fgid']?>&action=10"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a onClick="return confirm('Really Delete Entry <?=$v['fgid']?>?');" href="index.php?editor=misc&z=<?=$currzone?>&fgid=<?=$v['fgid']?>&action=10"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>

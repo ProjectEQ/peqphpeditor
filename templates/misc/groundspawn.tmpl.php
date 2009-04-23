@@ -37,7 +37,7 @@
           <td align="center" width="5%"><?=$v['respawn_timer']?></td>  
           <td align="right">      
             <a href="index.php?editor=misc&z=<?=$currzone?>&gsid=<?=$v['gsid']?>&action=14"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-            <a href="index.php?editor=misc&z=<?=$currzone?>&gsid=<?=$v['gsid']?>&action=16"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a onClick="return confirm('Really Delete Entry <?=$v['gsid']?>?');" href="index.php?editor=misc&z=<?=$currzone?>&gsid=<?=$v['gsid']?>&action=16"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>

@@ -45,7 +45,7 @@
           <td align="center" width="5%"><?=getZoneName($v['target_zone_id'])?></td>
           <td align="right">      
             <a href="index.php?editor=zone&z=<?=$currzone?>&zpid=<?=$v['zpid']?>&action=13"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-            <a href="index.php?editor=zone&z=<?=$currzone?>&zpid=<?=$v['zpid']?>&action=15"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a onClick="return confirm('Really Delete Point <?=$v['zpid']?>?');" href="index.php?editor=zone&z=<?=$currzone?>&zpid=<?=$v['zpid']?>&action=15"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>

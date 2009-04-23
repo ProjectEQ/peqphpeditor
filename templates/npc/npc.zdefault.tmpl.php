@@ -1,12 +1,12 @@
        <table class="edit_form">
          <tr>
            <td class="edit_form_header">
-             Options
+             Add an NPC to <?=$currzone?>
            </td>
          </tr>
          <tr>
            <td class="edit_form_content">
-             <center><a href="index.php?editor=merchant&action=15" onClick="return confirm('Really delete all temp merchantlists?');">Wipe Temp Merchant lists</a><br></center>
+             <a href="index.php?editor=npc&z=<?=$currzone?>&action=25">Add an NPC to <?=$currzone?></a>
            </td>
          </tr>
        </table>

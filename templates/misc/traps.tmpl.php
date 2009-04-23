@@ -60,7 +60,7 @@
           <td align="center" width="5%"><?=$v['respawn_var']?></td>
           <td align="right">      
             <a href="index.php?editor=misc&z=<?=$currzone?>&tid=<?=$v['tid']?>&action=20"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-            <a href="index.php?editor=misc&z=<?=$currzone?>&tid=<?=$v['tid']?>&action=22"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a onClick="return confirm('Really Delete Trap <?=$v['tid']?>?');" href="index.php?editor=misc&z=<?=$currzone?>&tid=<?=$v['tid']?>&action=22"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>
