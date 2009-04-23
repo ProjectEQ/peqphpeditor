@@ -26,7 +26,7 @@ switch ($action) {
         }
       }
     }
-    if ($z) {
+    else if ($z) {
         $body = new Template("templates/npc/npc.zdefault.tmpl.php");
         $body->set('currzone', $z);
       }
