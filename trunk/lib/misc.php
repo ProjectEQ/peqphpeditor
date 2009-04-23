@@ -338,8 +338,52 @@ switch ($action) {
     add_doors();
     header("Location: index.php?editor=misc&z=$z&action=35");
     exit;
-
-
+  case 41: // View objects
+    $body = new Template("templates/misc/objects.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set("world_containers", $world_containers);
+    $objects = get_objects();
+    if ($objects) {
+      foreach ($objects as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 42: // Edit objects
+    check_authorization();
+    $body = new Template("templates/misc/objects.edit.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set("world_containers", $world_containers);
+    $objects = objects_info();
+    if ($objects) {
+      foreach ($objects as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 43: // Update objects
+    check_authorization();
+    update_objects();
+    header("Location: index.php?editor=misc&z=$z&action=41");
+    exit;
+  case 44: // Delete objects
+    check_authorization();
+    delete_objects();
+    header("Location: index.php?editor=misc&z=$z&action=41");
+    exit;
+  case 45: // Get objects ID
+    check_authorization();
+    $body = new Template("templates/misc/objects.add.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('zid', getZoneID($z));
+    $body->set("world_containers", $world_containers);
+    $body->set('suggestobjid', suggest_object_id());
+    break;
+  case 46: // Add objects
+    check_authorization();
+    add_objects();
+    header("Location: index.php?editor=misc&z=$z&action=41");
+    exit;
 }
 
 function get_fishing() {
@@ -445,6 +489,22 @@ function get_doors() {
   return $array;
   }
 
+function get_objects() {
+  global $mysql, $z;
+
+  $zid = getZoneID($z);
+  $array = array();
+  
+  $query = "SELECT * FROM object WHERE zoneid=\"$zid\"";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['objects'][$result['id']] = array("objid"=>$result['id'], "objectname"=>$result['objectname'], "xpos"=>$result['xpos'], "ypos"=>$result['ypos'], "zpos"=>$result['zpos'], "heading"=>$result['heading'], "itemid"=>$result['itemid'], "charges"=>$result['charges'], "type"=>$result['type'], "icon"=>$result['icon'], "linked_list_addr_01"=>$result['linked_list_addr_01'], "linked_list_addr_02"=>$result['linked_list_addr_02']);
+         }
+       }
+  return $array;
+  }
+
 function fishing_info() {
   global $mysql;
 
@@ -506,6 +566,17 @@ function doors_info() {
   $drid = $_GET['drid'];
 
   $query = "SELECT * FROM doors WHERE id=\"$drid\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+}
+
+function objects_info() {
+  global $mysql;
+
+  $objid = $_GET['objid'];
+
+  $query = "SELECT * FROM object WHERE id=\"$objid\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -630,6 +701,27 @@ function update_doors() {
   $mysql->query_no_result($query);
 }
 
+function update_objects() {
+  global $mysql;
+
+  $objid = $_POST['objid'];
+  $objectname = $_POST['objectname'];
+  $xpos = $_POST['xpos'];
+  $ypos = $_POST['ypos'];
+  $zpos = $_POST['zpos'];
+  $heading = $_POST['heading'];
+  $itemid = $_POST['itemid']; 
+  $charges = $_POST['charges'];
+  $type = $_POST['type'];
+  $icon = $_POST['icon'];
+  $linked_list_addr_01 = $_POST['linked_list_addr_01'];
+  $linked_list_addr_02 = $_POST['linked_list_addr_02'];
+
+  $query = "UPDATE object SET objectname=\"$objectname\", xpos=\"$xpos\", ypos=\"$ypos\", zpos=\"$zpos\", heading=\"$heading\", itemid=\"$itemid\", charges=\"$charges\", type=\"$type\", icon=\"$icon\", linked_list_addr_01=\"$linked_list_addr_01\", linked_list_addr_02=\"$linked_list_addr_02\" WHERE id=\"$objid\"";
+
+  $mysql->query_no_result($query);
+}
+
 function delete_fishing() {
   global $mysql;
 
@@ -681,6 +773,15 @@ function delete_doors() {
   $drid = $_GET['drid'];
 
   $query = "DELETE from doors WHERE id=\"$drid\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_objects() {
+  global $mysql;
+
+  $objid = $_GET['objid'];
+
+  $query = "DELETE from object WHERE id=\"$objid\"";
   $mysql->query_no_result($query);
 }
 
@@ -736,6 +837,15 @@ function suggest_doorid() {
   $result = $mysql->query_assoc($query);
   
   return ($result['dorid'] + 1);
+}
+
+function suggest_object_id() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS objid FROM object";
+  $result = $mysql->query_assoc($query);
+  
+  return ($result['objid'] + 1);
 }
 
 function add_fishing() {
@@ -853,6 +963,29 @@ function add_doors() {
   $size = $_POST['size'];
 
   $query = "INSERT INTO doors SET id=\"$drid\", zone=\"$z\", doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\" buffer=\"$buffer\"";
+  $mysql->query_no_result($query);
+}
+
+function add_objects() {
+  global $mysql, $z;
+  
+  $zid = getZoneID($z);
+  $objid = $_POST['objid'];
+  $zoneid = $_POST['zoneid'];
+  $objectname = $_POST['objectname'];
+  $xpos = $_POST['xpos'];
+  $ypos = $_POST['ypos'];
+  $zpos = $_POST['zpos'];
+  $heading = $_POST['heading'];
+  $itemid = $_POST['itemid']; 
+  $charges = $_POST['charges'];
+  $type = $_POST['type'];
+  $icon = $_POST['icon'];
+  $linked_list_addr_01 = $_POST['linked_list_addr_01'];
+  $linked_list_addr_02 = $_POST['linked_list_addr_02'];
+
+  $query = "INSERT INTO object SET id=\"$objid\", zoneid=\"$zid\", objectname=\"$objectname\", xpos=\"$xpos\", ypos=\"$ypos\", zpos=\"$zpos\", heading=\"$heading\", itemid=\"$itemid\", charges=\"$charges\", type=\"$type\", icon=\"$icon\", linked_list_addr_01=\"$linked_list_addr_01\", linked_list_addr_02=\"$linked_list_addr_02\"";
+
   $mysql->query_no_result($query);
 }
 

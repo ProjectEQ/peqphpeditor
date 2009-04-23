@@ -36,7 +36,7 @@
           <td align="center" width="8%"><?=$v['npc_chance']?>%</td>
           <td align="right">      
             <a href="index.php?editor=misc&z=<?=$currzone?>&fsid=<?=$v['fsid']?>&action=2"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-            <a href="index.php?editor=misc&z=<?=$currzone?>&fsid=<?=$v['fsid']?>&action=4"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a onClick="return confirm('Really Delete Entry <?=$v['fsid']?>?');" href="index.php?editor=misc&z=<?=$currzone?>&fsid=<?=$v['fsid']?>&action=4"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>
