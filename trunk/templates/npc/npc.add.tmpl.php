@@ -144,6 +144,7 @@
                   <input type="checkbox" name="S" value="S"> Summon<br>
                   <input type="checkbox" name="E" value="E"> Enrage<br>
                   <input type="checkbox" name="R" value="R"> Rampage<br>
+                  <input type="checkbox" name="r" value="r"> AE Rampage<br>
                   <input type="checkbox" name="F" value="F"> Flurry<br>
                   <input type="checkbox" name="T" value="T"> Triple Attack<br>
                   <input type="checkbox" name="Q" value="Q"> Quad Attack<br>
@@ -155,6 +156,7 @@
                   <input type="checkbox" name="N" value="N"> Unstunable<br>
                   <input type="checkbox" name="I" value="I"> Unsnareable<br>
                   <input type="checkbox" name="D" value="D"> Unfearable<br>
+                  &nbsp;
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="A" value="A"> Immune to Melee<br>
@@ -163,6 +165,7 @@
                   <input type="checkbox" name="W" value="W"> Immune to non-Magical Melee<br>
                   <input type="checkbox" name="O" value="O"> Immune to non-Bane Melee<br>
                   <input type="checkbox" name="H" value="H"> Will Not Aggro<br>
+                  &nbsp;
                 </td>
               </tr>
             </table>
