@@ -665,6 +665,7 @@ $specialattacks = array(
   "S" => "Summon",
   "E" => "Enrage",
   "R" => "Rampage",
+  "r" => "AE Rampage",
   "F" => "Flurry",
   "T" => "Triple Attack",
   "Q" => "Quad Attack",

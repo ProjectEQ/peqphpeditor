@@ -141,6 +141,7 @@
                   <input type="checkbox" name="S" value="S"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "S") ? "checked" : "";}}?>> Summon<br>
                   <input type="checkbox" name="E" value="E"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "E") ? "checked" : "";}}?>> Enrage<br>
                   <input type="checkbox" name="R" value="R"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "R") ? "checked" : "";}}?>> Rampage<br>
+                  <input type="checkbox" name="r" value="r"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "r") ? "checked" : "";}}?>> AE Rampage<br>
                   <input type="checkbox" name="F" value="F"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "F") ? "checked" : "";}}?>> Flurry<br>
                   <input type="checkbox" name="T" value="T"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "T") ? "checked" : "";}}?>> Triple Attack<br>
                   <input type="checkbox" name="Q" value="Q"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "Q") ? "checked" : "";}}?>> Quad Attack<br>
@@ -152,6 +153,7 @@
                   <input type="checkbox" name="N" value="N"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "N") ? "checked" : "";}}?>> Unstunable<br>
                   <input type="checkbox" name="I" value="I"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "I") ? "checked" : "";}}?>> Unsnareable<br>
                   <input type="checkbox" name="D" value="D"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "D") ? "checked" : "";}}?>> Unfearable<br>
+                  &nbsp;
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="A" value="A"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "A") ? "checked" : "";}}?>> Immune to Melee<br>
@@ -160,6 +162,7 @@
                   <input type="checkbox" name="W" value="W"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "W") ? "checked" : "";}}?>> Immune to non-Magical Melee<br>
                   <input type="checkbox" name="O" value="O"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "O") ? "checked" : "";}}?>> Immune to non-Bane Melee<br>
                   <input type="checkbox" name="H" value="H"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "H") ? "checked" : "";}}?>> Will Not Aggro<br>
+                  &nbsp;
                 </td>
               </tr>
             </table>
