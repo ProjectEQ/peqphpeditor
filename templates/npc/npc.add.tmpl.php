@@ -148,6 +148,8 @@
                   <input type="checkbox" name="F" value="F"> Flurry<br>
                   <input type="checkbox" name="T" value="T"> Triple Attack<br>
                   <input type="checkbox" name="Q" value="Q"> Quad Attack<br>
+                  <input type="checkbox" name="m" value="m"> Magic Attack<br>
+                  <input type="checkbox" name="b" value="b"> Bane Attack<br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="U" value="U"> Unslowable<br>
