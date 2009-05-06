@@ -145,7 +145,9 @@
                   <input type="checkbox" name="F" value="F"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "F") ? "checked" : "";}}?>> Flurry<br>
                   <input type="checkbox" name="T" value="T"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "T") ? "checked" : "";}}?>> Triple Attack<br>
                   <input type="checkbox" name="Q" value="Q"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "Q") ? "checked" : "";}}?>> Quad Attack<br>
-                </td>
+                  <input type="checkbox" name="m" value="m"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "m") ? "checked" : "";}}?>> Magic Attack<br>
+                  <input type="checkbox" name="b" value="b"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "b") ? "checked" : "";}}?>> Bane Attack<br> 
+                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="U" value="U"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "U") ? "checked" : "";}}?>> Unslowable<br>
                   <input type="checkbox" name="M" value="M"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "M") ? "checked" : "";}}?>> Unmezable<br>
