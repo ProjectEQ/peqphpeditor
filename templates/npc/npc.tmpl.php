@@ -164,6 +164,11 @@
                 <td align="left" width="33%">Eye Color: <?=$luclin_eyecolor?></td>
                 <td align="left" width="34%">Beard Color: <?=$luclin_beardcolor?></td>
               </tr>
+              <tr>
+                <td align="left" width="33%">Melee1: <?=$d_meele_texture1?></td>
+                <td align="left" width="33%">Melee2: <?=$d_meele_texture2?></td>
+                <td align="left" width="34%">&nbsp;</td>
+              </tr>
              </table>
             </fieldset>
 
