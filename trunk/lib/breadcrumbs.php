@@ -30,6 +30,10 @@ switch ($editor) {
   case 'misc':
     $breadcrumbs = "Miscellaneous Editor";
     break;
+  case 'server':
+    $breadcrumbs = "Server Config";
+    break;
+
 }
 
 if ($z != '') $breadcrumbs .= " >> " . getZoneLongName($z);
