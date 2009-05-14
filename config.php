@@ -18,7 +18,7 @@ $db = 'database_name';
  *    7 = Lost Dungeons of Norrath
  *    8 = Gates of Discord
  */
-$expansion_limit = 8;
+$expansion_limit = 10;
 
 // Don't want to have to type the username and password every time you start the editor?
 // Set the two variables below to the values you want to be in the form when you start it up.

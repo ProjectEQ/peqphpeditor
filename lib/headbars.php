@@ -90,6 +90,9 @@ switch ($editor) {
     $searchbar->set('zones', $zones);
     $searchbar->set('currzone', $z);
     break;
+  case 'server':
+    $zones = $zones;
+    break;
 }
 
 function build_tabs () {
@@ -104,6 +107,7 @@ function build_tabs () {
   $tabstatus7 = "off";
   $tabstatus8 = "off";
   $tabstatus9 = "off";
+  $tabstatus10 = "off";
 
   $url = '';
   if ($z) $url = $url . "&z=$z";
@@ -139,6 +143,9 @@ function build_tabs () {
     case 'misc':
       $tabstatus9 = "on";
       break;
+    case 'server':
+      $tabstatus10 = "on";
+      break;
   }
 
   $admin = '';
@@ -154,11 +161,12 @@ function build_tabs () {
         <div class=\"$tabstatus2\"><a href=\"index.php?editor=loot$url\">Loot</a></div>
         <div class=\"$tabstatus3\"><a href=\"index.php?editor=spawn$url\">Spawns</a></div>
         <div class=\"$tabstatus4\"><a href=\"index.php?editor=merchant$url\">Merchants</a></div>
-        <div class=\"$tabstatus5\"><a href=\"index.php?editor=spellset$url\">Spellset</a></div>
+        <div class=\"$tabstatus5\"><a href=\"index.php?editor=spellset$url\">Spells</a></div>
         <div class=\"$tabstatus6\"><a href=\"index.php?editor=faction\">Factions</a></div>
         <div class=\"$tabstatus7\"><a href=\"index.php?editor=tradeskill\">Tradeskills</a></div>
         <div class=\"$tabstatus8\"><a href=\"index.php?editor=zone$url\">Zone</a></div>
         <div class=\"$tabstatus9\"><a href=\"index.php?editor=misc$url\">Misc</a></div>
+        <div class=\"$tabstatus10\"><a href=\"index.php?editor=server$url\">Server</a></div>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div>
       </div>
  ";

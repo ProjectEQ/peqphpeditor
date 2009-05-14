@@ -27,7 +27,7 @@
           <td align="center" width="15%"><?=$v['name']?></td>
           <td align="right">      
             <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&scid=<?=$v['scid']?>&action=42"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-            <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&scid=<?=$v['scid']?>&action=44"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a onClick="return confirm('Really Delete Condition <?=$v['scid']?>?');" href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&scid=<?=$v['scid']?>&action=44"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>
@@ -88,7 +88,7 @@
           <td align="center" width="5%"><?=$v['argument']?></td>
           <td align="right">      
             <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&seid=<?=$v['seid']?>&action=37"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-            <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&seid=<?=$v['seid']?>&action=39"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a onClick="return confirm('Really Delete Condition <?=$v['seid']?>?');" href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&seid=<?=$v['seid']?>&action=39"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>

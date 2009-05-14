@@ -62,6 +62,9 @@ switch ($editor) {
   case 'misc':
     require_once('lib/misc.php');
     break;
+  case 'server':
+    require_once('lib/server.php');
+    break;
 }
 
 $tmpl->set('javascript', $javascript);
