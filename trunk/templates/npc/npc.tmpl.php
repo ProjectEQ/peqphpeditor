@@ -179,17 +179,22 @@
                  <td align="left" width="33%">qglobal: <?=$qglobal?></td>
                  <td align="left" width="33%">npc_aggro: <?=$npc_aggro?></td>
                  <td align="left" width="34%">Findable: <?=$findable?></td>
+                 
                </tr>
                <tr>
-               <td align="left" width="34%">Trackable: <?=$trackable?></td>
+               <td align="left" width="33%">Trackable: <?=$trackable?></td>
                  <td align="left" width="33%">Spawn Limit: <?=$spawn_limit?></td>
-                 <? if ($pet == 1):?>
+                 <td align="left" width="33%">Version: <?=$version?></td>
+                 <td align="left" width="34%">&nbsp;</td>
+               </tr>
+               <tr>
+                <? if ($pet == 1):?>
                  <td align="left" width="33%">Pet: Yes</td>
                  <? endif;?>
                  <? if ($pet == 0):?>
                  <td align="left" width="33%">Pet: No</td>
                  <? endif;?>
-               </tr>
+                 </tr>
              </table>
            </td>
          </tr>
@@ -250,6 +255,7 @@
 <input type="hidden" name="_INT" value="<?=$_INT?>">
 <input type="hidden" name="WIS" value="<?=$WIS?>">
 <input type="hidden" name="CHA" value="<?=$CHA?>">
+<input type="hidden" name="version" value="<?=$version?>">
 <input type="hidden" name="npcspecialattks" value="<?=$npcspecialattks?>">
             <td align="left" width="17%">NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>"></td>
             <input type="submit" value="Copy NPC">
