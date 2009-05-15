@@ -184,8 +184,7 @@
                <tr>
                <td align="left" width="33%">Trackable: <?=$trackable?></td>
                  <td align="left" width="33%">Spawn Limit: <?=$spawn_limit?></td>
-                 <td align="left" width="33%">Version: <?=$version?></td>
-                 <td align="left" width="34%">&nbsp;</td>
+                 <td align="left" width="34%">Version: <?=$version?></td>
                </tr>
                <tr>
                 <? if ($pet == 1):?>
