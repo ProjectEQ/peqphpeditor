@@ -409,6 +409,7 @@ function update_npc () {
   if ($_INT != $_POST['_INT']) $fields .= "_INT=\"" . $_POST['_INT'] . "\", ";
   if ($WIS != $_POST['WIS']) $fields .= "WIS=\"" . $_POST['WIS'] . "\", ";
   if ($CHA != $_POST['CHA']) $fields .= "CHA=\"" . $_POST['CHA'] . "\", ";
+  if ($version != $_POST['version']) $fields .= "version=\"" . $_POST['version'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -488,6 +489,7 @@ function add_npc () {
   if ($_POST['_INT'] != '') $fields .= "_INT=\"" . $_POST['_INT'] . "\", ";
   if ($_POST['WIS'] != '') $fields .= "WIS=\"" . $_POST['WIS'] . "\", ";
   if ($_POST['CHA'] != '') $fields .= "CHA=\"" . $_POST['CHA'] . "\", ";
+  if ($_POST['version'] != '') $fields .= "version=\"" . $_POST['version'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -558,6 +560,7 @@ $fields .= "AGI=\"" . $_POST['AGI'] . "\", ";
 $fields .= "_INT=\"" . $_POST['_INT'] . "\", ";
 $fields .= "WIS=\"" . $_POST['WIS'] . "\", ";
 $fields .= "CHA=\"" . $_POST['CHA'] . "\", ";
+$fields .= "version=\"" . $_POST['version'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {

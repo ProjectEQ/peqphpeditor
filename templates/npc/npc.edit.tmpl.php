@@ -195,13 +195,22 @@
 
          <fieldset>
            <legend><strong><font size="4">Misc</font></strong></legend>
+           <table width="100%" border="0" cellpadding="3" cellspacing="0">
+           <tr>
+          <td align="left" width="17%">Spawn Limit: <br><input type="text" name="spawn_limit" size="10" value="<?=$spawn_limit?>"></td>
+          <td align="left" width="17%">Version: <br><input type="text" name="version" size="10" value="<?=$version?>"></td>
+          <td align="left" width="17%">&nbsp;</td>
+          <td align="left" width="17%">&nbsp;</td>
+          <td align="left" width="16%">&nbsp;</td>
+          <td align="left" width="16%">&nbsp;</td>
+         </tr>
+         </table><br>
            <input type="checkbox" name="qglobal" value="1"<?echo ($qglobal == 1) ? "checked" : "";?>>Enable Quest Globals<br>
            <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>>Can Aggro NPCs<br>
            <input type="checkbox" name="findable" value="1"<?echo ($findable == 1) ? "checked" : "";?>>NPC is Findable<br>
            <input type="checkbox" name="trackable" value="1"<?echo ($trackable == 1) ? "checked" : "";?>>NPC is Trackable<br>
            <input type="checkbox" name="pet" value="1"<?echo ($pet == 1) ? "checked" : "";?>>NPC is a Pet<br><br> 
-          Spawn Limit: <br><input type="text" name="spawn_limit" size="10" value="<?=$spawn_limit?>">
-         </fieldset><br>
+          </fieldset><br>
          <center>
             <input type="submit" value="Submit Changes">
          </center>
