@@ -31,6 +31,7 @@ switch ($action) {
     $body = new Template("templates/server/server.default.tmpl.php");
     break;
   case 1: // Preview Bugs
+    check_authorization();
     $body = new Template("templates/server/bugs.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $bugs = get_bugs();
@@ -41,6 +42,7 @@ switch ($action) {
     }
     break;
   case 2: // View Bugs
+    check_authorization();
     $body = new Template("templates/server/bugs.view.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $body->set("flags", $flags);
