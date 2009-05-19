@@ -499,6 +499,7 @@ check_authorization();
    case 48: // Update respawn time
     check_authorization();
     update_spawntimer();
+
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
     $sid = $_GET['sid'];
@@ -643,6 +644,7 @@ function update_spawngroup_name() {
   $max_y = $_POST['max_y'];
   $min_y = $_POST['min_y'];
   $delay = $_POST['delay'];
+
 
   $query = "UPDATE spawngroup SET name=\"$name\", spawn_limit=\"$spawn_limit\", dist=\"$dist\", max_x=\"$max_x\", min_x=\"$min_x\", max_y=\"$max_y\", min_y=\"$min_y\", delay=\"$delay\" WHERE id=$sid";
   $mysql->query_no_result($query);
@@ -958,8 +960,9 @@ function add_spawnpoint() {
   $pathgrid = $_POST['pathgrid'];
   $condition = $_POST['_condition'];
   $cond_value = $_POST['cond_value'];
+  $version = $_POST['version'];
 
-  $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value";
+  $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version";
   $mysql->query_no_result($query);
 }
 
@@ -1051,11 +1054,11 @@ function is_spawned() {
   $spid = intval($_GET['spid']);  
 
   $array['id'] = $spid;
-  $query = "SELECT * FROM respawn_times where id=$spid";
-  $result = $mysql->query_assoc($query);
+  $query = "SELECT * FROM respawn_times where id=$spid and instance_id = 0";
+  $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['spawned'][$result['id']] = array("start"=>$result['start'], "duration"=>$result['duration']);
+     $array['spawned'][$result['id']] = array("start"=>$result['start'], "duration"=>$result['duration'], "instance_id"=>$result['instance_id']);
          }
        }
        
@@ -1066,7 +1069,7 @@ function view_respawn() {
   global $mysql;
   $spid = intval($_GET['spid']); 
   
-  $query = "SELECT * FROM respawn_times where id=$spid";
+  $query = "SELECT * FROM respawn_times where id=$spid and instance_id = 0";
   $result = $mysql->query_assoc($query);
  
   return $result;
@@ -1075,8 +1078,9 @@ function view_respawn() {
 function force_spawn() {
   global $mysql;
   $spid = intval($_GET['spid']);  
+  $instance_id = intval($_GET['instance_id']);
 
-  $query = "DELETE FROM respawn_times where id=$spid";
+  $query = "DELETE FROM respawn_times where id=$spid and instance_id=$instance_id";
   $mysql->query_no_result($query);
 }
 

@@ -49,6 +49,14 @@
 					  <input type="text" name="cond_value" value="<?=$cond_value?>">
 					</td>
 		          </tr>
+                        <tr>
+		            <td width="33%">
+                                     version:<br>
+					  <input type="text" name="version" value="<?=$version?>">
+					</td>
+                          <td align="left" width="33%">&nbsp;</td>
+                          <td align="left" width="34%">&nbsp;</td>
+		          </tr>
 		</table><br><br>
 
         <center>

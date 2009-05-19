@@ -1,4 +1,4 @@
-   <div class="edit_form" style="width: 225px">
+   <div class="edit_form" style="width: 250px">
    <div class="edit_form_header">
             Respawn Time: <?=$id?>
            </div>

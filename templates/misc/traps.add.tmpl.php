@@ -14,7 +14,7 @@
             <th>z</th>
             <th>maxzdiff</th>
             <th>radius</th>
-            <th>effect</th>
+            <th>version</th>
           </tr>
           <tr>
             <td><input type="text" size="7" name="tid" value="<?=$suggesttid?>"></td>
@@ -24,11 +24,8 @@
             <td><input type="text" size="7" name="z_coord" value="0"></td>
             <td><input type="text" size="7" name="maxzdiff" value="0"></td>
             <td><input type="text" size="7" name="radius" value="0"></td>
-            <td><select class="left" name="effect">
-<?foreach($traptype as $k => $v):?>
-              <option value="<?=$k?>"<? echo ($k == $effect) ? " selected" : ""?>><?=$v?></option>
-<?$x++; endforeach;?>
-           </td>
+            <td><input type="text" size="7" name="version" value="0"></td>
+            
           </tr>
           <tr>
             
@@ -39,6 +36,7 @@
             <th>level</th>
             <th>respawn</th>
             <th>variance</th>
+            <th>effect</th>
             <th>message</th>
           </tr>
           <tr>
@@ -49,7 +47,12 @@
             <td><input type="text" size="7" name="level" value="1"></td>
             <td><input type="text" size="7" name="respawn_time" value="60"></td>
             <td><input type="text" size="7" name="respawn_var" value="0"></td>
-            <td><input type="text" size="20" name="message" value=""></td>
+            <td><select class="left" name="effect">
+<?foreach($traptype as $k => $v):?>
+              <option value="<?=$k?>"<? echo ($k == $effect) ? " selected" : ""?>><?=$v?></optio
+<?$x++; endforeach;?>
+           </td> 
+            <td><input type="text" size="14" name="message" value=""></td>  
           </tr>            
               </table><br><br>
         <center>

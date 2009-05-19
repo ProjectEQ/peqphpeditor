@@ -193,6 +193,14 @@
                 <td align="left" width="16%">d_melee_texture1:  <br><input type="text" name="d_meele_texture1" size="10" value=""></td>
                 <td align="left" width="16%">d_melee_texture2:  <br><input type="text" name="d_meele_texture2" size="10" value=""></td>
               </tr>
+              <tr>
+                <td align="left" width="17%">Heritage:  <br><input type="text" name="drakkin_heritage" size="10" value=""></td>
+                <td align="left" width="17%">Tattoo:  <br><input type="text" name="drakkin_tattoo" size="10" value=""></td>
+                <td align="left" width="17%">Details:  <br><input type="text" name="drakkin_details" size="10" value=""></td>
+                <td align="left" width="17%">Armor Red:  <br><input type="text" name="armortint_red" size="10" value=""></td>
+                <td align="left" width="16%">Armor Green:  <br><input type="text" name="armortint_green" size="10" value=""></td>
+                <td align="left" width="16%">Armor Blue:  <br><input type="text" name="armortint_blue" size="10" value=""></td>
+              </tr>
             </table>
          </fieldset><br>
 

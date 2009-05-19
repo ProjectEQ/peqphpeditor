@@ -55,6 +55,14 @@
 			  cond_value:<br>
 			  <input type="text" name="cond_value" value="1">
 			</td>
+            <tr>
+		            <td width="33%">
+                                     version:<br>
+					  <input type="text" name="version" value="0">
+					</td>
+                          <td align="left" width="33%">&nbsp;</td>
+                          <td align="left" width="34%">&nbsp;</td>
+		          </tr>
           </tr>
 		</table><br><br>
 

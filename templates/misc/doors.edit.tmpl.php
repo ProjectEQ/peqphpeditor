@@ -53,6 +53,7 @@
             <th>doorisopen</th>
             <th>invert</th>
             <th>incline</th>
+            <th>version</th>
          </tr>
           <tr>
             <td><input type="text" size="7" name="triggerdoor" value="<?=$triggerdoor?>"></td>
@@ -61,7 +62,7 @@
             <td><input type="text" size="7" name="doorisopen" value="<?=$doorisopen?>"></td>
             <td><input type="text" size="7" name="invert_state" value="<?=$invert_state?>"></td>
             <td><input type="text" size="7" name="incline" value="<?=$incline?>"></td>
-            
+            <td><input type="text" size="7" name="version" value="<?=$version?>"></td>
          </tr>
               </table><br><br>
         <center>
