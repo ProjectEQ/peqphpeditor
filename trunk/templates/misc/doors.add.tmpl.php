@@ -54,6 +54,7 @@
             <th>invert</th>
             <th>incline</th>
             <th>keyitem</th>
+            <th>version</th>
          </tr>
           <tr>
             <td><input type="text" size="7" name="keyitem" value="0"></td>    
@@ -63,7 +64,7 @@
             <td><input type="text" size="7" name="doorisopen" value="0"></td>
             <td><input type="text" size="7" name="invert_state" value="0"></td>
             <td><input type="text" size="7" name="incline" value="0"></td>
-            
+            <td><input type="text" size="7" name="version" value="0"></td>
          </tr>
               </table><br><br>
         <center>

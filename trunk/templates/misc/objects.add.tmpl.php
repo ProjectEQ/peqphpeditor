@@ -35,14 +35,12 @@
            </td> 
           </tr>
           <tr>
-            <th>linked 1</th>
-            <th>linked 2</th>
+            <th>version</th>
             <th>icon</th> 
             <th>name</th>
           </tr>
           <tr>
-            <td><input type="text" size="7" name="linked_list_addr_01" value="0"></td>
-            <td><input type="text" size="7" name="linked_list_addr_02" value="0"></td>
+            <td><input type="text" size="7" name="version" value="0"></td>
             <td><input type="text" size="7" name="icon" value="0"></td>
             <td><input type="text" size="20" name="objectname" value="ITxxxxx_ACTORDEF"></td>
           </tr>       

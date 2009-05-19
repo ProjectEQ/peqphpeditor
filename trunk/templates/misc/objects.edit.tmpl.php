@@ -35,13 +35,11 @@
            </td> 
           </tr>
           <tr>
-            <th>linked 1</th>
-            <th>linked 2</th>
+            <th>version</th>
             <th>icon</th> 
           </tr>
           <tr>
-            <td><input type="text" size="7" name="linked_list_addr_01" value="<?=$linked_list_addr_01?>"></td>
-            <td><input type="text" size="7" name="linked_list_addr_02" value="<?=$linked_list_addr_02?>"></td>
+            <td><input type="text" size="7" name="version" value="<?=$version?>"></td>
             <td><input type="text" size="7" name="icon" value="<?=$icon?>"></td>
           </tr>       
               </table><br><br>

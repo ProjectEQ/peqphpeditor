@@ -31,6 +31,8 @@
             <input class="indented" id="id" type="text" name="max_allowed" size="7" value="1"><br><br>
             <strong>Respawn</strong><br>
             <input class="indented" id="id" type="text" name="respawn_timer" size="7" value="300000"><br><br>
+            <strong>Version</strong><br>
+            <input class="indented" id="id" type="text" name="version" size="7" value="0"><br><br>
             <strong>Name</strong><br>
             <input class="indented" id="id" type="text" name="name" size="20" value="IT"><br><br>
             <strong>Comment</strong><br>

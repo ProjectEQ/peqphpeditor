@@ -165,6 +165,16 @@
                 <td align="left" width="34%">Beard Color: <?=$luclin_beardcolor?></td>
               </tr>
               <tr>
+                <td align="left" width="33%">Drakkin Heritage: <?=$drakkin_heritage?></td>
+                <td align="left" width="33%">Drakkin Tattoo: <?=$drakkin_tattoo?></td>
+                <td align="left" width="34%">Drakkin Details: <?=$drakkin_details?></td>
+              </tr>
+              <tr>
+                <td align="left" width="33%">Armor Red: <?=$armortint_red?></td>
+                <td align="left" width="33%">Armor Green: <?=$armortint_green?></td>
+                <td align="left" width="34%">Armor Blue: <?=$armortint_blue?></td>
+              </tr>
+              <tr>
                 <td align="left" width="33%">Melee1: <?=$d_meele_texture1?></td>
                 <td align="left" width="33%">Melee2: <?=$d_meele_texture2?></td>
                 <td align="left" width="34%">&nbsp;</td>
@@ -226,6 +236,12 @@
 <input type="hidden" name="luclin_eyecolor2" value="<?=$luclin_eyecolor2?>">
 <input type="hidden" name="luclin_beardcolor" value="<?=$luclin_beardcolor?>"
 <input type="hidden" name="luclin_beard" value="<?=$luclin_beard?>">
+<input type="hidden" name="drakkin_heritage" value="<?=$drakkin_heritage?>">
+<input type="hidden" name="drakkin_tattoo" value="<?=$drakkin_tattoo?>">
+<input type="hidden" name="drakkin_details" value="<?=$drakkin_details?>">
+<input type="hidden" name="armortint_red" value="<?=$armortint_red?>">
+<input type="hidden" name="armortint_green" value="<?=$armortint_green?>">
+<input type="hidden" name="armortint_blue" value="<?=$armortint_blue?>">
 <input type="hidden" name="d_meele_texture1" value="<?=$d_meele_texture1?>">
 <input type="hidden" name="d_meele_texture2" value="<?=$d_meele_texture2?>">
 <input type="hidden" name="runspeed" value="<?=$runspeed?>">

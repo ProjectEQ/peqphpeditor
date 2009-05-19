@@ -1,8 +1,13 @@
  <form name="bug_edit" method="post" action="index.php?editor=server&action=3">
-       <div class="edit_form">
-         <div class="edit_form_header">
-           View Bug <?=$bid?>
-         </div>
+      <div class="table_container" style="width: 600px;">
+      <div class="table_header">
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+          View Bug <?=$bid?>           
+           <a align="right" href="index.php?editor=server&action=1">View Open Bugs</a>
+           </tr>        
+         </table>
+      </div>
          <div class="edit_form_content">
          <center>
          <fieldset style="text-align: left;">

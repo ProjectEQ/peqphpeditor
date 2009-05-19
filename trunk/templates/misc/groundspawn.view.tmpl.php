@@ -22,6 +22,7 @@
           <td align="center" width="5%"><strong>min x</strong></td>
           <td align="center" width="5%"><strong>min y</strong></td>
           <td align="center" width="5%"><strong>respawn</strong></td>
+          <td align="center" width="5%"><strong>version</strong></td>
           <th width="5%"></th>
          </tr>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
@@ -40,6 +41,7 @@
           <td align="center" width="5%"><?=$min_x?></td>
           <td align="center" width="5%"><?=$min_y?></td>
           <td align="center" width="5%"><?=$respawn_timer?></td>  
+          <td align="center" width="5%"><?=$version?></td>
           <td align="right">      
             <a href="index.php?editor=misc&z=<?=$currzone?>&gsid=<?=$gsid?>&action=14"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
             <a href="index.php?editor=misc&z=<?=$currzone?>&gsid=<?=$gsid?>&action=16"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>

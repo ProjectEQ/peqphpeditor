@@ -13,7 +13,10 @@
             <th>maxzdiff</th>
             <th>radius</th>
             <th>chance</th>
-            <th>effect</th>
+            <th>version</th>
+            <th>message</th>
+            
+            
           </tr>
           <tr>
             <td><input type="text" size="7" name="x_coord" value="<?=$x?>"></td>
@@ -22,11 +25,10 @@
             <td><input type="text" size="7" name="maxzdiff" value="<?=$maxzdiff?>"></td>
             <td><input type="text" size="7" name="radius" value="<?=$radius?>"></td>
             <td><input type="text" size="7" name="chance" value="<?=$chance?>"></td> 
-            <td><select class="left" name="effect">
-<?foreach($traptype as $k => $v):?>
-              <option value="<?=$k?>"<? echo ($k == $effect) ? " selected" : ""?>><?=$v?></option>
-<?endforeach;?>       
-           </td>
+            <td><input type="text" size="7" name="version" value="<?=$version?>"></td>
+            <td><input type="text" size="20" name="message" value="<?=$message?>"></td>
+             
+            
           </tr>
           <tr>
             
@@ -36,7 +38,7 @@
             <th>level</th>
             <th>respawn</th>
             <th>variance</th>
-            <th>message</th>
+            <th>effect</th>
           </tr>
           <tr>
            
@@ -46,7 +48,11 @@
             <td><input type="text" size="7" name="level" value="<?=$level?>"></td>
             <td><input type="text" size="7" name="respawn_time" value="<?=$respawn_time?>"></td>
             <td><input type="text" size="7" name="respawn_var" value="<?=$respawn_var?>"></td>
-            <td><input type="text" size="20" name="message" value="<?=$message?>"></td>
+            <td><select class="left" name="effect">
+<?foreach($traptype as $k => $v):?>
+              <option value="<?=$k?>"<? echo ($k == $effect) ? " selected" : ""?>><?=$v?></option>
+<?endforeach;?>       
+           </td>
           </tr>            
               </table><br><br>
         <center>

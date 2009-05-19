@@ -53,6 +53,11 @@
           <?endif;?>  
             <td width="34%">cond_value: <?=$cond_value?></td>
           </tr>
+          <tr>
+           <td width="33%">version: <?=$version?></td>
+           <td width="33%">&nbsp;</td>
+           <td width="34%">&nbsp;</td>
+          </tr>
 		</table>
       </div>
       </div>
