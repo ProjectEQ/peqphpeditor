@@ -175,6 +175,11 @@
                 <td align="left" width="34%">Armor Blue: <?=$armortint_blue?></td>
               </tr>
               <tr>
+                <td align="left" width="33%">Eye Color 2: <?=$luclin_eyecolor2?></td>
+                <td align="left" width="33%">Beard: <?=$luclin_beard?></td>
+                <td align="left" width="34%">&nbsp;</td>
+              </tr>
+              <tr>
                 <td align="left" width="33%">Melee1: <?=$d_meele_texture1?></td>
                 <td align="left" width="33%">Melee2: <?=$d_meele_texture2?></td>
                 <td align="left" width="34%">&nbsp;</td>
