@@ -115,8 +115,7 @@ $bodytypes = array (
 65 => 'Trap',
 66 => 'InvisMan',
 67 => 'Special',
-68 => 'Unknown68'
-);
+68 => 'Unknown68');
 
 $races = array (
   0 => 'Doug',

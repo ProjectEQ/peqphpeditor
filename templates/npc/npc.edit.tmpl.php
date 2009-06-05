@@ -38,8 +38,8 @@
 
                  Bodytype:<br>
                  <select name="bodytype" style="width: 265px;">
-<?foreach($themetype as $key=>$value):?>
-                   <option value="<?=$key?>"<?echo ($key == $theme)? " selected" : "";?>><?=$key?>: <?=$value?></option>
+<?foreach($bodytypes as $key=>$value):?>
+                   <option value="<?=$key?>"<?echo ($key == $bodytype)? " selected" : "";?>><?=$key?>: <?=$value?></option>
 <?endforeach;?>
                  </select>
                 </td>
@@ -146,7 +146,7 @@
                   <input type="checkbox" name="T" value="T"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "T") ? "checked" : "";}}?>> Triple Attack<br>
                   <input type="checkbox" name="Q" value="Q"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "Q") ? "checked" : "";}}?>> Quad Attack<br>
                   <input type="checkbox" name="m" value="m"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "m") ? "checked" : "";}}?>> Magic Attack<br>
-                  <input type="checkbox" name="b" value="b"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "b") ? "checked" : "";}}?>> Bane Attack<br> 
+                  <input type="checkbox" name="b" value="b"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "b") ? "checked" : "";}}?>> Bane Attack<br>
                  </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="U" value="U"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "U") ? "checked" : "";}}?>> Unslowable<br>
@@ -189,7 +189,7 @@
                 <td align="left" width="17%">Beardcolor:  <br><input type="text" name="luclin_beardcolor" size="10" value="<?=$luclin_beardcolor?>"></td>
                 <td align="left" width="16%">d_melee_texture1:  <br><input type="text" name="d_meele_texture1" size="10" value="<?=$d_meele_texture1?>"></td>
                 <td align="left" width="16%">d_melee_texture2:  <br><input type="text" name="d_meele_texture2" size="10" value="<?=$d_meele_texture2?>"></td>
-              </tr> 
+              </tr>
               <tr>
                 <td align="left" width="17%">Heritage:  <br><input type="text" name="drakkin_heritage" size="10" value="<?=$drakkin_heritage?>"></td>
                 <td align="left" width="17%">Tattoo:  <br><input type="text" name="drakkin_tattoo" size="10" value="<?=$drakkin_tattoo?>"></td>
@@ -207,7 +207,7 @@
            <tr>
           <td align="left" width="17%">Spawn Limit: <br><input type="text" name="spawn_limit" size="10" value="<?=$spawn_limit?>"></td>
           <td align="left" width="17%">Version: <br><input type="text" name="version" size="10" value="<?=$version?>"></td>
-          <td align="left" width="17%">Trap ID: <br><input type="text" name="trap_template" size="10" value="<?=$trap_template?>"></td>
+          <td align="left" width="17%">&nbsp;</td>
           <td align="left" width="17%">&nbsp;</td>
           <td align="left" width="16%">&nbsp;</td>
           <td align="left" width="16%">&nbsp;</td>
