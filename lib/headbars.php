@@ -92,6 +92,8 @@ switch ($editor) {
     break;
   case 'server':
     $zones = $zones;
+  case 'adventures':
+    $zones = $zones;
     break;
 }
 
@@ -108,6 +110,7 @@ function build_tabs () {
   $tabstatus8 = "off";
   $tabstatus9 = "off";
   $tabstatus10 = "off";
+  $tabstatus11 = "off";
 
   $url = '';
   if ($z) $url = $url . "&z=$z";
@@ -146,6 +149,9 @@ function build_tabs () {
     case 'server':
       $tabstatus10 = "on";
       break;
+    case 'adventures':
+      $tabstatus11 = "on";
+      break;
   }
 
   $admin = '';
@@ -167,7 +173,8 @@ function build_tabs () {
         <div class=\"$tabstatus8\"><a href=\"index.php?editor=zone$url\">Zone</a></div>
         <div class=\"$tabstatus9\"><a href=\"index.php?editor=misc$url\">Misc</a></div>
         <div class=\"$tabstatus10\"><a href=\"index.php?editor=server$url\">Server</a></div>
-        <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div>
+        <div class=\"$tabstatus11\"><a href=\"index.php?editor=adventures$url\">Adventures</a></div><br>
+        <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br>
       </div>
  ";
 

@@ -38,8 +38,8 @@
 
                  Bodytype:<br>
                  <select name="bodytype" style="width: 265px;">
-<?foreach($bodytypes as $key=>$value):?>
-                   <option value="<?=$key?>"<?echo ($key == $bodytype)? " selected" : "";?>><?=$key?>: <?=$value?></option>
+<?foreach($themetype as $key=>$value):?>
+                   <option value="<?=$key?>"<?echo ($key == $theme)? " selected" : "";?>><?=$key?>: <?=$value?></option>
 <?endforeach;?>
                  </select>
                 </td>
@@ -207,7 +207,7 @@
            <tr>
           <td align="left" width="17%">Spawn Limit: <br><input type="text" name="spawn_limit" size="10" value="<?=$spawn_limit?>"></td>
           <td align="left" width="17%">Version: <br><input type="text" name="version" size="10" value="<?=$version?>"></td>
-          <td align="left" width="17%">&nbsp;</td>
+          <td align="left" width="17%">Trap ID: <br><input type="text" name="trap_template" size="10" value="<?=$trap_template?>"></td>
           <td align="left" width="17%">&nbsp;</td>
           <td align="left" width="16%">&nbsp;</td>
           <td align="left" width="16%">&nbsp;</td>
@@ -217,7 +217,8 @@
            <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>>Can Aggro NPCs<br>
            <input type="checkbox" name="findable" value="1"<?echo ($findable == 1) ? "checked" : "";?>>NPC is Findable<br>
            <input type="checkbox" name="trackable" value="1"<?echo ($trackable == 1) ? "checked" : "";?>>NPC is Trackable<br>
-           <input type="checkbox" name="pet" value="1"<?echo ($pet == 1) ? "checked" : "";?>>NPC is a Pet<br><br> 
+           <input type="checkbox" name="pet" value="1"<?echo ($pet == 1) ? "checked" : "";?>>NPC is a Pet<br>
+           <input type="checkbox" name="isbot" value="1"<?echo ($isbot == 1) ? "checked" : "";?>>NPC is a Bot<br><br>
           </fieldset><br>
          <center>
             <input type="submit" value="Submit Changes">

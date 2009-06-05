@@ -251,6 +251,32 @@ switch ($action) {
     $npcid = $_POST['id'];
     header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
     exit;
+  case 29: // Edit Adventure id
+    check_authorization();
+    $body = new Template("templates/npc/adventureid.edit.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $body->set('adventure_id', get_adventure_id());
+    $body->set('suggested_id', suggest_adventure_id());
+    break;
+  case 30:  // Update adventure id
+    check_authorization();
+    update_adventure_id();
+    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    exit;
+  case 31: // Edit Trap id
+    check_authorization();
+    $body = new Template("templates/npc/traptemplate.edit.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $body->set('trap_id', get_trap_template());
+    $body->set('suggested_id', suggest_trap_template());
+    break;
+  case 32:  // Update trap id
+    check_authorization();
+    update_trap_template();
+    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    exit;
 }
 
 function npc_info () {
@@ -416,6 +442,10 @@ function update_npc () {
   if ($WIS != $_POST['WIS']) $fields .= "WIS=\"" . $_POST['WIS'] . "\", ";
   if ($CHA != $_POST['CHA']) $fields .= "CHA=\"" . $_POST['CHA'] . "\", ";
   if ($version != $_POST['version']) $fields .= "version=\"" . $_POST['version'] . "\", ";
+  if ($isbot != $_POST['isbot']) $fields .= "isbot=\"" . $_POST['isbot'] . "\", ";
+  if ($adventure_template_id != $_POST['adventure_template_id']) $fields .= "adventure_template_id=\"" . $_POST['adventure_template_id'] . "\", ";
+  if ($trap_template != $_POST['trap_template']) $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
+
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -502,6 +532,9 @@ function add_npc () {
   if ($_POST['WIS'] != '') $fields .= "WIS=\"" . $_POST['WIS'] . "\", ";
   if ($_POST['CHA'] != '') $fields .= "CHA=\"" . $_POST['CHA'] . "\", ";
   if ($_POST['version'] != '') $fields .= "version=\"" . $_POST['version'] . "\", ";
+  if ($_POST['isbot'] != '') $fields .= "isbot=\"" . $_POST['isbot'] . "\", ";
+  if ($_POST['adventure_template_id'] != '') $fields .= "adventure_template_id=\"" . $_POST['adventure_template_id'] . "\", ";
+  if ($_POST['trap_template'] != '') $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -579,6 +612,9 @@ $fields .= "_INT=\"" . $_POST['_INT'] . "\", ";
 $fields .= "WIS=\"" . $_POST['WIS'] . "\", ";
 $fields .= "CHA=\"" . $_POST['CHA'] . "\", ";
 $fields .= "version=\"" . $_POST['version'] . "\", ";
+$fields .= "isbot=\"" . $_POST['isbot'] . "\", ";
+$fields .= "adventure_template_id=\"" . $_POST['adventure_template_id'] . "\", ";
+$fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -739,11 +775,41 @@ function suggest_merchant_id() {
   return ($result['id'] + 1);
 }
 
+function suggest_adventure_id() {
+  global $mysql;
+  $query = "SELECT MAX(adventure_template_id) as id FROM npc_types";
+  $result = $mysql->query_assoc($query);
+  return ($result['id'] + 1);
+}
+
+function suggest_trap_template() {
+  global $mysql;
+  $query = "SELECT MAX(trap_template) as id FROM npc_types";
+  $result = $mysql->query_assoc($query);
+  return ($result['id'] + 1);
+}
+
 function update_merchant_id() {
   check_authorization();
   global $mysql, $npcid;
   $merchant_id = $_REQUEST['merchant_id'];
   $query = "UPDATE npc_types SET merchant_id=$merchant_id WHERE id=$npcid";
+  $mysql->query_no_result($query);
+}
+
+function update_adventure_id() {
+  check_authorization();
+  global $mysql, $npcid;
+  $adventure_template_id = $_REQUEST['adventure_template_id'];
+  $query = "UPDATE npc_types SET adventure_template_id=$adventure_template_id WHERE id=$npcid";
+  $mysql->query_no_result($query);
+}
+
+function update_trap_template() {
+  check_authorization();
+  global $mysql, $npcid;
+  $trap_template = $_REQUEST['trap_template'];
+  $query = "UPDATE npc_types SET trap_template=$trap_template WHERE id=$npcid";
   $mysql->query_no_result($query);
 }
 

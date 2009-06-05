@@ -13,7 +13,8 @@
             <th>y</th>
             <th>z</th>
             <th>heading</th>
-            <th>opentype</th>                
+            <th>opentype</th> 
+            <th>LDoN</th>               
           </tr>
           <tr>
             <td><input type="text" size="7" name="drid" value="<?=$suggestdrid?>"></td>
@@ -24,7 +25,12 @@
             <td><input type="text" size="7" name="pos_z" value="0"></td>
             <td><input type="text" size="7" name="heading" value="0"></td>
             <td><input type="text" size="7" name="opentype" value="0"></td>
-            
+            <td>
+                 <select name="is_ldon_door">
+                   <option value="0"<?echo ($is_ldon_door == 0) ? " selected" : ""?>>No</option>
+                   <option value="1"<?echo ($is_ldon_door == 1) ? " selected" : ""?>>Yes</option>
+                 </select>
+               </td>
            </tr>
           <tr>
             <th>guild</th>

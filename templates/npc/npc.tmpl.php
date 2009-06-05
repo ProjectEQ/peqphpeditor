@@ -23,7 +23,9 @@
                  <strong>Class:</strong> <?=$classes[$class]?><br>
                  <strong>Level:</strong> <?=$level?><br>
                  <strong>Body Type:</strong> <?=$bodytypes[$bodytype]?><br>
-                 <strong>Vendor:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=22"><?echo ($merchant_id != 0 ? $merchant_id : "no");?></a>
+                 <strong>Vendor:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=22"><?echo ($merchant_id != 0 ? $merchant_id : "no");?></a><br>
+                 <strong>Adventure:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=29"><?echo ($adventure_template_id != 0 ? $adventure_template_id : "no");?></a><br>
+                 <strong>Trap:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=31"><?echo ($trap_template != 0 ? $trap_template : "no");?></a>
              </td>
            </tr>
          </table>
@@ -208,6 +210,13 @@
                  <? if ($pet == 0):?>
                  <td align="left" width="33%">Pet: No</td>
                  <? endif;?>
+                <? if ($isbot == 1):?>
+                 <td align="left" width="33%">Bot: Yes</td>
+                 <? endif;?>
+                 <? if ($isbot == 0):?>
+                 <td align="left" width="33%">Bot: No</td>
+                 <? endif;?>
+                 <td align="left" width="34%">&nbsp;</td>
                  </tr>
              </table>
            </td>
@@ -276,6 +285,9 @@
 <input type="hidden" name="WIS" value="<?=$WIS?>">
 <input type="hidden" name="CHA" value="<?=$CHA?>">
 <input type="hidden" name="version" value="<?=$version?>">
+<input type="hidden" name="isbot" value="<?=$isbot?>">
+<input type="hidden" name="adventure_template_id" value="<?=$adventure_template_id?>">
+<input type="hidden" name="trap_template" value="<?=$trap_template?>">
 <input type="hidden" name="npcspecialattks" value="<?=$npcspecialattks?>">
             <td align="left" width="17%">NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>"></td>
             <input type="submit" value="Copy NPC">
