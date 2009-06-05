@@ -54,6 +54,7 @@
             <th>invert</th>
             <th>incline</th>
             <th>version</th>
+            <th>LDoN Door</th>
          </tr>
           <tr>
             <td><input type="text" size="7" name="triggerdoor" value="<?=$triggerdoor?>"></td>
@@ -63,6 +64,13 @@
             <td><input type="text" size="7" name="invert_state" value="<?=$invert_state?>"></td>
             <td><input type="text" size="7" name="incline" value="<?=$incline?>"></td>
             <td><input type="text" size="7" name="version" value="<?=$version?>"></td>
+             <td>
+                 <select name="is_ldon_door">
+                   <option value="0"<?echo ($is_ldon_door == 0) ? " selected" : ""?>>No</option>
+                   <option value="1"<?echo ($is_ldon_door == 1) ? " selected" : ""?>>Yes</option>
+                 </select>
+               </td>
+
          </tr>
               </table><br><br>
         <center>

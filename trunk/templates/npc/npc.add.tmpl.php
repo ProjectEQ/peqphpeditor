@@ -133,7 +133,7 @@
                 <td align="left" width="12%">Loot ID:  <br><input type="text" name="loottable_id" size="5" value=""></td>
                 <td align="left" width="13%">HP Regen:  <br><input type="text" name="hp_regen_rate" size="5" value=""></td>
                 <td align="left" width="13%">Mana Regen:  <br><input type="text" name="mana_regen_rate" size="5" value=""></td>
-                <td align="left" width="13%">Aggroradius:  <br><input type="text" name="aggroradius" size="5" value=""></td>
+                <td align="left" width="13%">Aggroradius:  <br><input type="text" name="aggroradius" size="5" value="55"></td>
                 <td align="left" width="13%">Atk Speed%: <br><input type="text" name="attack_speed" size="5" value=""></td>
               </tr>
             </table>
@@ -178,28 +178,28 @@
            <legend><strong><font size="4">Appearance</font></strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
                <tr>
-                <td align="left" width="17%">Size:  <br><input type="text" name="size" size="10" value=""></td>
-                <td align="left" width="17%">Texture:  <br><input type="text" name="texture" size="10" value=""></td>
-                <td align="left" width="17%">HelmTexture:  <br><input type="text" name="helmtexture" size="10" value=""></td>
-                <td align="left" width="17%">Face:  <br><input type="text" name="face" size="10" value=""></td>
-                <td align="left" width="16%">Haircolor:  <br><input type="text" name="luclin_haircolor" size="10" value=""></td>
-                <td align="left" width="16%">Hairstyle:  <br><input type="text" name="luclin_hairstyle" size="10" value=""></td>
+                <td align="left" width="17%">Size:  <br><input type="text" name="size" size="10" value="5"></td>
+                <td align="left" width="17%">Texture:  <br><input type="text" name="texture" size="10" value="0"></td>
+                <td align="left" width="17%">HelmTexture:  <br><input type="text" name="helmtexture" size="10" value="0"></td>
+                <td align="left" width="17%">Face:  <br><input type="text" name="face" size="10" value="0"></td>
+                <td align="left" width="16%">Haircolor:  <br><input type="text" name="luclin_haircolor" size="10" value="0"></td>
+                <td align="left" width="16%">Hairstyle:  <br><input type="text" name="luclin_hairstyle" size="10" value="0"></td>
               </tr>
               <tr>
-                <td align="left" width="17%">Eyecolor:  <br><input type="text" name="luclin_eyecolor" size="10" value=""></td>
-                <td align="left" width="17%">Eyecolor2:  <br><input type="text" name="luclin_eyecolor2" size="10" value=""></td>
-                <td align="left" width="17%">Beard:  <br><input type="text" name="luclin_beard" size="10" value=""></td>
-                <td align="left" width="17%">Beardcolor:  <br><input type="text" name="luclin_beardcolor" size="10" value=""></td>
-                <td align="left" width="16%">d_melee_texture1:  <br><input type="text" name="d_meele_texture1" size="10" value=""></td>
-                <td align="left" width="16%">d_melee_texture2:  <br><input type="text" name="d_meele_texture2" size="10" value=""></td>
+                <td align="left" width="17%">Eyecolor:  <br><input type="text" name="luclin_eyecolor" size="10" value="0"></td>
+                <td align="left" width="17%">Eyecolor2:  <br><input type="text" name="luclin_eyecolor2" size="10" value="0"></td>
+                <td align="left" width="17%">Beard:  <br><input type="text" name="luclin_beard" size="10" value="0"></td>
+                <td align="left" width="17%">Beardcolor:  <br><input type="text" name="luclin_beardcolor" size="10" value="0"></td>
+                <td align="left" width="16%">d_melee_texture1:  <br><input type="text" name="d_meele_texture1" size="10" value="0"></td>
+                <td align="left" width="16%">d_melee_texture2:  <br><input type="text" name="d_meele_texture2" size="10" value="0"></td>
               </tr>
               <tr>
-                <td align="left" width="17%">Heritage:  <br><input type="text" name="drakkin_heritage" size="10" value=""></td>
-                <td align="left" width="17%">Tattoo:  <br><input type="text" name="drakkin_tattoo" size="10" value=""></td>
-                <td align="left" width="17%">Details:  <br><input type="text" name="drakkin_details" size="10" value=""></td>
-                <td align="left" width="17%">Armor Red:  <br><input type="text" name="armortint_red" size="10" value=""></td>
-                <td align="left" width="16%">Armor Green:  <br><input type="text" name="armortint_green" size="10" value=""></td>
-                <td align="left" width="16%">Armor Blue:  <br><input type="text" name="armortint_blue" size="10" value=""></td>
+                <td align="left" width="17%">Heritage:  <br><input type="text" name="drakkin_heritage" size="10" value="0"></td>
+                <td align="left" width="17%">Tattoo:  <br><input type="text" name="drakkin_tattoo" size="10" value="0"></td>
+                <td align="left" width="17%">Details:  <br><input type="text" name="drakkin_details" size="10" value="0"></td>
+                <td align="left" width="17%">Armor Red:  <br><input type="text" name="armortint_red" size="10" value="0"></td>
+                <td align="left" width="16%">Armor Green:  <br><input type="text" name="armortint_green" size="10" value="0"></td>
+                <td align="left" width="16%">Armor Blue:  <br><input type="text" name="armortint_blue" size="10" value="0"></td>
               </tr>
             </table>
          </fieldset><br>
@@ -217,10 +217,11 @@
          </tr>
          </table><br>
            <input type="checkbox" name="qglobal" value="1">Enable Quest Globals<br>
-           <input type="checkbox" name="npc_aggro" value="1">Can Aggro NPCs<br>
+           <input type="checkbox" name="npc_aggro" value="0">Can Aggro NPCs<br>
            <input type="checkbox" name="findable" value="1">NPC is Findable<br>
            <input type="checkbox" name="trackable" value="1">NPC is trackable<br>
-           <input type="checkbox" name="pet" value="1">NPC is a Pet<br><br>
+           <input type="checkbox" name="pet" value="0">NPC is a Pet<br>
+           <input type="checkbox" name="isbot" value="0">NPC is a Bot<br><br>
          </fieldset><br>
          <center>
             <input type="submit" value="Submit Changes">

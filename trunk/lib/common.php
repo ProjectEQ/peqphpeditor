@@ -47,6 +47,20 @@ function get_merchant_id() {
   return $result['merchant_id'];
 }
 
+function get_adventure_id() {
+  global $mysql, $npcid;
+  $query = "SELECT adventure_template_id as id FROM npc_types WHERE id=$npcid";
+  $result = $mysql->query_assoc($query);
+  return $result['id'];
+}
+
+function get_trap_template() {
+  global $mysql, $npcid;
+  $query = "SELECT trap_template as id FROM npc_types WHERE id=$npcid";
+  $result = $mysql->query_assoc($query);
+  return $result['id'];
+}
+
 function get_item_name($id) {
   global $mysql;
   $query = "SELECT name FROM items WHERE id=$id";

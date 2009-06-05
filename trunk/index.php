@@ -65,6 +65,9 @@ switch ($editor) {
   case 'server':
     require_once('lib/server.php');
     break;
+  case 'adventures':
+    require_once('lib/adventures.php');
+    break;
 }
 
 $tmpl->set('javascript', $javascript);

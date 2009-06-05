@@ -658,7 +658,7 @@ $classes = array (
   59 => 'Unknown59',
   60 => 'LDoN Adventure Recruiter',
   61 => 'LDoN Adventure Merchant',
-  62 => 'Unknown62',
+  62 => 'LDoN Object',
   63 => 'Tribute Master');
 
 $specialattacks = array(

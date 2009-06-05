@@ -33,6 +33,9 @@ switch ($editor) {
   case 'server':
     $breadcrumbs = "Server Config";
     break;
+  case 'adventures':
+    $breadcrumbs = "Adventures Editor";
+    break;
 
 }
 

@@ -27,6 +27,7 @@
           <td align="center" width="2%"><strong>Dest Y</strong></td>
           <td align="center" width="2%"><strong>Dest Z</strong></td>
           <td align="center" width="2%"><strong>Version</strong></td>
+          <td align="center" width="2%"><strong>LDoN</strong></td>
           <th width="5%"></th>
          </tr>
 <?$x=0; foreach($doors as $doors=>$v):?>
@@ -50,6 +51,7 @@
           <td align="center" width="2%"><?=$v['dest_y']?></td>
           <td align="center" width="2%"><?=$v['dest_z']?></td>
           <td align="center" width="2%"><?=$v['version']?></td>
+          <td align="center" width="2%"><?=$yesno[$v['is_ldon_door']]?></td>
           <td align="right">      
             <a href="index.php?editor=misc&z=<?=$currzone?>&drid=<?=$v['drid']?>&action=36"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
             <a onClick="return confirm('Really Delete Door <?=$v['drid']?>?');" href="index.php?editor=misc&z=<?=$currzone?>&drid=<?=$v['drid']?>&action=38"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
