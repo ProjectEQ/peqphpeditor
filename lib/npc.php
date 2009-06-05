@@ -1,4 +1,4 @@
-<? 
+<?
 
 $factions = faction_list();
 $faction_values = array(-1=>"Aggressive", 0=>"Passive", 1=>"Assist");
@@ -281,7 +281,7 @@ switch ($action) {
 
 function npc_info () {
   global $mysql, $npcid;
-  
+
   $query = "SELECT * FROM npc_types WHERE id=$npcid";
   $result = $mysql->query_assoc($query);
   $factionid = $result['npc_faction_id'];
@@ -290,8 +290,8 @@ function npc_info () {
   $result['primaryfaction'] = '';
   $result['primaryfactionname'] = '';
   $result['faction_hits'] = '';
-  
-  
+
+
   if ($factionid != 0) {
     $query = "SELECT * FROM npc_faction WHERE id=$factionid";
     $result2 = $mysql->query_assoc($query);
@@ -406,7 +406,7 @@ function update_npc () {
   if ($luclin_eyecolor != $_POST['luclin_eyecolor']) $fields .= "luclin_eyecolor=\"" . $_POST['luclin_eyecolor'] . "\", ";
   if ($luclin_eyecolor2 != $_POST['luclin_eyecolor2']) $fields .= "luclin_eyecolor2=\"" . $_POST['luclin_eyecolor2'] . "\", ";
   if ($luclin_beardcolor != $_POST['luclin_beardcolor']) $fields .= "luclin_beardcolor=\"" . $_POST['luclin_beardcolor'] . "\", ";
-  if ($luclin_beard != $_POST['luclin_beard']) $fields .= "luclin_beard=\"" . $_POST['luclin_beard'] . "\", "; 
+  if ($luclin_beard != $_POST['luclin_beard']) $fields .= "luclin_beard=\"" . $_POST['luclin_beard'] . "\", ";
   if ($drakkin_heritage != $_POST['drakkin_heritage']) $fields .= "drakkin_heritage=\"" . $_POST['drakkin_heritage'] . "\", ";
   if ($drakkin_tattoo != $_POST['drakkin_tattoo']) $fields .= "drakkin_tattoo=\"" . $_POST['drakkin_tattoo'] . "\", ";
   if ($drakkin_details != $_POST['drakkin_details']) $fields .= "drakkin_details=\"" . $_POST['drakkin_details'] . "\", ";
@@ -443,8 +443,8 @@ function update_npc () {
   if ($CHA != $_POST['CHA']) $fields .= "CHA=\"" . $_POST['CHA'] . "\", ";
   if ($version != $_POST['version']) $fields .= "version=\"" . $_POST['version'] . "\", ";
   if ($isbot != $_POST['isbot']) $fields .= "isbot=\"" . $_POST['isbot'] . "\", ";
-  if ($adventure_template_id != $_POST['adventure_template_id']) $fields .= "adventure_template_id=\"" . $_POST['adventure_template_id'] . "\", ";
-  if ($trap_template != $_POST['trap_template']) $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
+  // if ($adventure_template_id != $_POST['adventure_template_id']) $fields .= "adventure_template_id=\"" . $_POST['adventure_template_id'] . "\", ";
+  // if ($trap_template != $_POST['trap_template']) $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -533,8 +533,8 @@ function add_npc () {
   if ($_POST['CHA'] != '') $fields .= "CHA=\"" . $_POST['CHA'] . "\", ";
   if ($_POST['version'] != '') $fields .= "version=\"" . $_POST['version'] . "\", ";
   if ($_POST['isbot'] != '') $fields .= "isbot=\"" . $_POST['isbot'] . "\", ";
-  if ($_POST['adventure_template_id'] != '') $fields .= "adventure_template_id=\"" . $_POST['adventure_template_id'] . "\", ";
-  if ($_POST['trap_template'] != '') $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
+  // if ($_POST['adventure_template_id'] != '') $fields .= "adventure_template_id=\"" . $_POST['adventure_template_id'] . "\", ";
+  // if ($_POST['trap_template'] != '') $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -625,19 +625,19 @@ $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
 
 function get_faction_name ($id) {
   global $mysql;
-  
+
   $query = "SELECT name FROM faction_list WHERE id=$id";
   $result = $mysql->query_assoc($query);
-  
+
   return $result['name'];
 }
 
 function faction_list() {
   global $mysql;
-  
+
   $query = "SELECT id, name FROM faction_list";
   $results = $mysql->query_mult_assoc($query);
-  
+
   foreach ($results as $result) {
     $array[$result['id']] = $result['name'];
   }
@@ -830,7 +830,7 @@ function suggest_npcid() {
 
   $query = "SELECT MAX(id) as id FROM npc_types WHERE id like \"$zid\"";
   $result = $mysql->query_assoc($query);
-  
+
   return (($result['id'] == 0) ? "" : $result['id'] + 1);
 }
 
