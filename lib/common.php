@@ -75,6 +75,13 @@ function getFactionName($fid) {
   return $result['name'];
 }
 
+function getTaskTitle($tskid) {
+  global $mysql;
+  $query = "SELECT title FROM tasks WHERE id=$tskid";
+  $result = $mysql->query_assoc($query);
+  return $result['title'];
+}
+
 function getRecipeName($id) {
   global $mysql;
   $query = "SELECT name FROM tradeskill_recipe WHERE id=$id";

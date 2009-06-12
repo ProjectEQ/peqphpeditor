@@ -28,9 +28,6 @@ switch ($action) {
       $body->set('currzone', $z);
       $body->set('npcid', $npcid);
     }
-    else {
-        $body = new Template("templates/adventures/adventures.default.tmpl.php");
-    }
     break;
   case 1: // Assassinate Adventures
       $body = new Template("templates/adventures/assassinate.tmpl.php");
