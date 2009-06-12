@@ -47,6 +47,7 @@ switch ($action) {
     }
     break;
   case 1:  // Edit task info
+      check_authorization();
       $body = new Template("templates/tasks/tasks.edit.tmpl.php");
       $body->set('rewardmethods', $rewardmethods);
       $body->set('yesno', $yesno);
@@ -83,6 +84,7 @@ switch ($action) {
     header("Location: index.php?editor=tasks&tskid=$tskid");
     exit;
   case 6:  // Edit activity info
+      check_authorization();
       $body = new Template("templates/tasks/activity.edit.tmpl.php");
       $body->set('rewardmethods', $rewardmethods);
       $body->set('activitytypes', $activitytypes);
@@ -181,6 +183,7 @@ switch ($action) {
       }	
     break;
   case 18:  // Edit proximity info
+      check_authorization();
       $body = new Template("templates/tasks/proximity.edit.tmpl.php");
       $body->set('zoneids', $zoneids);
       $body->set('tskid', $_GET['tskid']);
