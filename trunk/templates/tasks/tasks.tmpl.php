@@ -112,13 +112,13 @@
           <?if($v['activitytype'] == 5 && $v['goalid'] > 0):?>
           <td align="center" width="5%"><a href="index.php?editor=tasks&tskid=<?=$id?>&eid=<?=$v['goalid']?>&aid=<?=$v['activityid']?>&action=17"><?=$v['goalid']?></td>
           <?endif;?>
-          <?if(($v['activitytype'] == 3 || $v['activitytype'] == 2) && $v['goalid'] == 0 && $v['goalmethod'] == 1):?>
+          <?if(($v['activitytype'] == 3 || $v['activitytype'] == 2 || $v['activitytype'] == 7 || $v['activitytype'] == 8) && $v['goalid'] == 0 && $v['goalmethod'] == 1):?>
           <td align="center" width="5%"><a href="index.php?editor=tasks&tskid=<?=$id?>&aid=<?=$v['activityid']?>&action=23"><?=$v['goalid']?></td>
           <?endif;?>
-          <?if(($v['activitytype'] == 3 || $v['activitytype'] == 2) && $v['goalid'] > 0 && $v['goalmethod'] == 1):?>
+          <?if(($v['activitytype'] == 3 || $v['activitytype'] == 2 || $v['activitytype'] == 7 || $v['activitytype'] == 8) && $v['goalid'] > 0 && $v['goalmethod'] == 1):?>
           <td align="center" width="5%"><a href="index.php?editor=tasks&tskid=<?=$id?>&lid=<?=$v['goalid']?>&aid=<?=$v['activityid']?>&action=26"><?=$v['goalid']?></td>
           <?endif;?>
-          <?if(($v['activitytype'] > 5 || $v['activitytype'] < 2 || $v['activitytype'] == 4) || ($v['goalmethod'] != 1 && ($v['activitytype'] == 3 || $v['activitytype'] == 2))):?>
+          <?if(($v['activitytype'] > 8 || $v['activitytype'] < 2 || $v['activitytype'] == 4 || $v['activitytype'] == 6) || ($v['goalmethod'] != 1 && ($v['activitytype'] == 3 || $v['activitytype'] == 2 || $v['activitytype'] == 7 || $v['activitytype'] == 8))):?>
           <td align="center" width="5%"><?=$v['goalid']?></td>
           <?endif;?>
           <td align="center" width="5%"><?=$rewardmethods[$v['goalmethod']]?></td>
