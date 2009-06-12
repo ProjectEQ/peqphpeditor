@@ -1,12 +1,12 @@
-       <table class="edit_form">
+<table class="edit_form">
          <tr>
            <td class="edit_form_header">
-             Adventures
+             Tasks
            </td>
          </tr>
          <tr>
            <td class="edit_form_content">
-             <center><a href="index.php?editor=adventures&action=" onClick="return confirm('');"></a><br></center>
+             <center><a href="index.php?editor=tasks&action=4">Add a new task</a><br></center>
            </td>
          </tr>
        </table>

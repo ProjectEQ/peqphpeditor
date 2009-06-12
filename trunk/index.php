@@ -14,6 +14,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : 0);
 $npcid = (isset($_GET['npcid']) ? $_GET['npcid'] : null);
 $z = (isset($_GET['z']) ? $_GET['z'] : '');
 $fid = (isset($_GET['fid']) ? $_GET['fid'] : '');
+$tskid = (isset($_GET['tskid']) ? $_GET['tskid'] : '');
 $ts = (isset($_GET['ts']) ? $_GET['ts'] : '');
 $rec = (isset($_GET['rec']) ? intval($_GET['rec']) : '0');
 $spellset = (isset($_GET['spellset']) ? $_GET['spellset'] : '');
@@ -68,6 +69,9 @@ switch ($editor) {
   case 'adventures':
     require_once('lib/adventures.php');
     break;
+  case 'tasks':
+    require_once('lib/tasks.php');
+    break;	
 }
 
 $tmpl->set('javascript', $javascript);

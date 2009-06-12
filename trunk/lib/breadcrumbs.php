@@ -36,12 +36,16 @@ switch ($editor) {
   case 'adventures':
     $breadcrumbs = "Adventures Editor";
     break;
+  case 'tasks':
+    $breadcrumbs = "Task Editor";
+    break;
 
 }
 
 if ($z != '') $breadcrumbs .= " >> " . getZoneLongName($z);
 if ($npcid != '') $breadcrumbs .= " >> " . getNPCName($npcid) . " ($npcid)";
 if ($fid != '') $breadcrumbs .= " >> " . getFactionName($fid);
+if ($tskid != '') $breadcrumbs .= " >> " . getTaskTitle($tskid);
 if ($ts != '') $breadcrumbs .= " >> " . $tradeskills[$ts];
 if ($rec != '0') $breadcrumbs .= " >> " . getRecipeName($rec);
 if ($spellset != '') $breadcrumbs .= " >> " . getSpellsetName($spellset);

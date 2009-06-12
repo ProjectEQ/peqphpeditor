@@ -95,6 +95,13 @@ switch ($editor) {
   case 'adventures':
     $zones = $zones;
     break;
+  case 'tasks':
+    $tasks = tasks();
+    $searchbar = new Template("templates/searchbar/searchbar.tasks.tmpl.php");
+    $searchbar->set('curreditor', $editor);
+    $searchbar->set('currtask', $tskid);
+    $searchbar->set('tasks', $tasks);
+    break;
 }
 
 function build_tabs () {
@@ -111,6 +118,7 @@ function build_tabs () {
   $tabstatus9 = "off";
   $tabstatus10 = "off";
   $tabstatus11 = "off";
+  $tabstatus12 = "off";
 
   $url = '';
   if ($z) $url = $url . "&z=$z";
@@ -152,6 +160,9 @@ function build_tabs () {
     case 'adventures':
       $tabstatus11 = "on";
       break;
+    case 'tasks':
+      $tabstatus12 = "on";
+      break;
   }
 
   $admin = '';
@@ -175,6 +186,7 @@ function build_tabs () {
         <div class=\"$tabstatus10\"><a href=\"index.php?editor=server$url\">Server</a></div>
         <div class=\"$tabstatus11\"><a href=\"index.php?editor=adventures$url\">Adventures</a></div><br>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br>
+        <div class=\"$tabstatus12\"><a href=\"index.php?editor=tasks$url\">Task Editor</a></div><br>
       </div>
  ";
 
@@ -234,6 +246,15 @@ function recipes() {
     $query = "SELECT id, name FROM tradeskill_recipe WHERE tradeskill=$ts ORDER BY name";
     $results = $mysql->query_mult_assoc($query);
   }
+
+  return $results;
+}
+
+function tasks() {
+  global $mysql;
+
+    $query = "SELECT id, title FROM tasks ORDER BY title";
+    $results = $mysql->query_mult_assoc($query);
 
   return $results;
 }
