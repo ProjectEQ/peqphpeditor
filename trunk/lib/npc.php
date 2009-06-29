@@ -277,6 +277,40 @@ switch ($action) {
     update_trap_template();
     header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
     exit;
+  case 33: // Edit Tint id
+    check_authorization();
+    $body = new Template("templates/npc/dyetemplate.edit.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $tint = tint_info();
+    if ($tint) {
+      foreach ($tint as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 34:  // Update Tint id
+    check_authorization();
+    update_tint();
+    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    exit;
+  case 35: // Add Tint id
+    check_authorization();
+    $body = new Template("templates/npc/dyetemplate.add.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $body->set('suggested_id', suggest_dye_template());
+    break;
+  case 36:  // Update Tint id
+    check_authorization();
+    add_dye_template();
+    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    exit;
+  case 37: // Delete Tint
+    check_authorization();
+    delete_tint();
+    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    exit;
 }
 
 function npc_info () {
@@ -615,6 +649,7 @@ $fields .= "version=\"" . $_POST['version'] . "\", ";
 $fields .= "isbot=\"" . $_POST['isbot'] . "\", ";
 $fields .= "adventure_template_id=\"" . $_POST['adventure_template_id'] . "\", ";
 $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
+$fields .= "armortint_id=\"" . $_POST['armortint_id'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -789,6 +824,13 @@ function suggest_trap_template() {
   return ($result['id'] + 1);
 }
 
+function suggest_dye_template() {
+  global $mysql;
+  $query = "SELECT MAX(armortint_id) as id FROM npc_types";
+  $result = $mysql->query_assoc($query);
+  return ($result['id'] + 1);
+}
+
 function update_merchant_id() {
   check_authorization();
   global $mysql, $npcid;
@@ -813,6 +855,62 @@ function update_trap_template() {
   $mysql->query_no_result($query);
 }
 
+function update_tint() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $red1h = $_POST['red1h'];
+  $grn1h = $_POST['grn1h'];
+  $blu1h = $_POST['blu1h'];
+  $red2c = $_POST['red2c'];
+  $grn2c = $_POST['grn2c'];
+  $blu2c = $_POST['blu2c'];
+  $red3a = $_POST['red3a']; 
+  $grn3a = $_POST['grn3a'];
+  $blu3a = $_POST['blu3a'];
+  $red4b = $_POST['red4b'];
+  $grn4b = $_POST['grn4b'];
+  $blu4b = $_POST['blu4b'];
+  $red5g = $_POST['red5g'];
+  $grn5g = $_POST['grn5g'];
+  $blu5g = $_POST['blu5g'];
+  $red6l = $_POST['red6l'];
+  $grn6l = $_POST['grn6l'];
+  $blu6l = $_POST['blu6l'];
+  $red7f = $_POST['red7f'];
+  $grn7f = $_POST['grn7f'];
+  $blu7f = $_POST['blu7f'];
+
+  $query = "UPDATE npc_types_tint SET red1h=\"$red1h\", grn1h=\"$grn1h\", blu1h=\"$blu1h\", red2c=\"$red2c\", grn2c=\"$grn2c\", blu2c=\"$blu2c\", red3a=\"$red3a\", grn3a=\"$grn3a\", blu3a=\"$blu3a\", red4b=\"$red4b\", grn4b=\"$grn4b\", blu4b=\"$blu4b\", red5g=\"$red5g\", grn5g=\"$grn5g\", blu5g=\"$blu5g\", red6l=\"$red6l\", grn6l=\"$grn6l\", blu6l=\"$blu6l\", red7f=\"$red7f\", grn7f=\"$grn7f\", blu7f=\"$blu7f\" WHERE id=\"$id\"";
+  $mysql->query_no_result($query);
+}
+
+function add_dye_template() {
+  check_authorization();
+  global $mysql, $npcid;
+  $armortint_id = $_REQUEST['armortint_id'];
+  $query = "UPDATE npc_types SET armortint_id=$armortint_id WHERE id=$npcid";
+  $mysql->query_no_result($query);
+  
+  $query = "INSERT INTO npc_types_tint (id) values ($armortint_id)";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE npc_types SET armortint_red = 0, armortint_green = 0, armortint_blue = 0 WHERE id=$npcid";
+  $mysql->query_no_result($query);
+}
+
+function delete_tint() {
+  check_authorization();
+  global $mysql, $npcid;
+  
+  $id = $_GET['tint_id']; 
+  $query = "DELETE FROM npc_types_tint WHERE id=$id";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE npc_types SET armortint_id = 0 WHERE id=$npcid";
+  $mysql->query_no_result($query);
+}
+
 function delete_npc() {
   check_authorization();
   global $mysql, $npcid;
@@ -832,6 +930,17 @@ function suggest_npcid() {
   $result = $mysql->query_assoc($query);
 
   return (($result['id'] == 0) ? "" : $result['id'] + 1);
+}
+
+function tint_info() {
+  global $mysql;
+
+  $tint_id = $_GET['tint_id'];
+
+  $query = "SELECT * FROM npc_types_tint WHERE id=\"$tint_id\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
 }
 
 ?>

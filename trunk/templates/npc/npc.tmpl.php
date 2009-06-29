@@ -25,7 +25,13 @@
                  <strong>Body Type:</strong> <?=$bodytypes[$bodytype]?><br>
                  <strong>Vendor:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=22"><?echo ($merchant_id != 0 ? $merchant_id : "no");?></a><br>
                  <strong>Adventure:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=29"><?echo ($adventure_template_id != 0 ? $adventure_template_id : "no");?></a><br>
-                 <strong>Trap:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=31"><?echo ($trap_template != 0 ? $trap_template : "no");?></a>
+                 <strong>Trap:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=31"><?echo ($trap_template != 0 ? $trap_template : "no");?></a><br>
+                 <?if($armortint_id != 0):?>
+                 <strong>Tint:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&tint_id=<?=$armortint_id?>&action=33"><?=$armortint_id?></a>
+                 <?endif;?>
+                 <?if($armortint_id == 0):?>
+                 <strong>Tint:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=35"><?=no?></a>
+                 <?endif;?>
              </td>
            </tr>
          </table>
@@ -159,6 +165,7 @@
               <tr>
                 <td align="left" width="33%">Size: <?=$size?></td>
                 <td align="left" width="33%">Face: <?=$face?></td>
+
                 <td align="left" width="34%">Hair Style: <?=$luclin_hairstyle?></td>
               </tr>
               <tr>
@@ -288,6 +295,7 @@
 <input type="hidden" name="isbot" value="<?=$isbot?>">
 <input type="hidden" name="adventure_template_id" value="<?=$adventure_template_id?>">
 <input type="hidden" name="trap_template" value="<?=$trap_template?>">
+<input type="hidden" name="armortint_id" value="<?=$armortint_id?>">
 <input type="hidden" name="npcspecialattks" value="<?=$npcspecialattks?>">
             <td align="left" width="17%">NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>"></td>
             <input type="submit" value="Copy NPC">

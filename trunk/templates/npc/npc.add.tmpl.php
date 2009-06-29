@@ -158,7 +158,7 @@
                   <input type="checkbox" name="N" value="N"> Unstunable<br>
                   <input type="checkbox" name="I" value="I"> Unsnareable<br>
                   <input type="checkbox" name="D" value="D"> Unfearable<br>
-                  &nbsp;
+                  <input type="checkbox" name="g" value="g"> Resist ranged spells<br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="A" value="A"> Immune to Melee<br>
