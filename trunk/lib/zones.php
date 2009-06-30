@@ -296,7 +296,27 @@ $eqzones = array(
   array('expansion' => 10, 'zone' => 'stillmoona'),
   array('expansion' => 10, 'zone' => 'stillmoonb'),
   array('expansion' => 10, 'zone' => 'thenest'),
-  array('expansion' => 10, 'zone' => 'thundercrest')
+  array('expansion' => 10, 'zone' => 'thundercrest'),
+
+  array('expansion' => 11, 'zone' => 'eastkorlach'),
+  array('expansion' => 11, 'zone' => 'eastkorlacha'),
+  array('expansion' => 11, 'zone' => 'shadowspine'),
+  array('expansion' => 11, 'zone' => 'westkorlach'),
+  array('expansion' => 11, 'zone' => 'westkorlacha'),
+  array('expansion' => 11, 'zone' => 'westkorlachb'),
+  array('expansion' => 11, 'zone' => 'westkorlachc'),
+  array('expansion' => 11, 'zone' => 'corathus'),
+  array('expansion' => 11, 'zone' => 'corathusa'),
+  array('expansion' => 11, 'zone' => 'corathusb'),
+  array('expansion' => 11, 'zone' => 'illsalin'),
+  array('expansion' => 11, 'zone' => 'illsalina'),
+  array('expansion' => 11, 'zone' => 'illsalinb'),
+  array('expansion' => 11, 'zone' => 'illsalinc'),
+  array('expansion' => 11, 'zone' => 'drachnidhive'),
+  array('expansion' => 11, 'zone' => 'drachnidhivea'),
+  array('expansion' => 11, 'zone' => 'drachnidhiveb'),
+  array('expansion' => 11, 'zone' => 'drachnidhivec'),
+  array('expansion' => 11, 'zone' => 'dreadspire')
 );
 
 $zoneids = array (

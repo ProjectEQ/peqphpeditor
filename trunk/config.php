@@ -17,8 +17,11 @@ $db = 'database_name';
  *    6 = Legacy of Ykesha
  *    7 = Lost Dungeons of Norrath
  *    8 = Gates of Discord
+ *    9 = Omens of War
+ *    10 = Dragons of Norrath
+ *    11 = Depths of Darkhollow
  */
-$expansion_limit = 10;
+$expansion_limit = 11;
 
 // Don't want to have to type the username and password every time you start the editor?
 // Set the two variables below to the values you want to be in the form when you start it up.
