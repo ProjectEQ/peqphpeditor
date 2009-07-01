@@ -167,6 +167,7 @@
                   <input type="checkbox" name="W" value="W"> Immune to non-Magical Melee<br>
                   <input type="checkbox" name="O" value="O"> Immune to non-Bane Melee<br>
                   <input type="checkbox" name="H" value="H"> Will Not Aggro<br>
+                  <input type="checkbox" name="d" value="d"> See through Feign Death<br>
                   &nbsp;
                 </td>
               </tr>
