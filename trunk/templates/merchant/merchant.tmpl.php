@@ -23,29 +23,29 @@
             <th>Sell for:</th>
           </tr>
 <?$x=0; foreach($slots as $slot=>$v):?>
-<?if ($v['price'] > 999):?>
-<?php ($cost = $v['price']/1000);?>
+<?if ($v['price']*0.95 > 999):?>
+<?php ($cost = $v['price']*0.95/1000);?>
 <?endif;?>
-<?if ($v['price']*$v['sellrate'] > 999):?>
-            <?php ($sells = ($v['price']*$v['sellrate'])/1000);?>
+<?if ($v['price']*$v['sellrate']*1.05 > 999):?>
+            <?php ($sells = ($v['price']*$v['sellrate']*1.05)/1000);?>
 <?endif;?>
-<?if ($v['price'] < 999 && $v['price'] > 99):?>
-<?php ($cost = $v['price']/100);?>
+<?if ($v['price']*0.95 < 999 && $v['price']*0.95 > 99):?>
+<?php ($cost = $v['price']*0.95/100);?>
 <?endif;?>
-<?if ($v['price']*$v['sellrate'] < 999 && $v['price']*$v['sellrate'] > 99):?>
-            <?php ($sells = ($v['price']*$v['sellrate'])/100);?>
+<?if ($v['price']*$v['sellrate']*1.05 < 999 && $v['price']*$v['sellrate']*1.05 > 99):?>
+            <?php ($sells = ($v['price']*$v['sellrate']*1.05)/100);?>
 <?endif;?>
-<?if ($v['price'] < 99 && $v['price'] > 9):?>
-<?php ($cost = $v['price']/10);?>
+<?if ($v['price']*0.95 < 99 && $v['price']*0.95 > 9):?>
+<?php ($cost = $v['price']*0.95/10);?>
 <?endif;?>
-<?if ($v['price']*$v['sellrate'] < 99 && $v['price']*$v['sellrate'] > 9):?>
-            <?php ($sells = ($v['price']*$v['sellrate'])/10);?>
+<?if ($v['price']*$v['sellrate']*1.05 < 99 && $v['price']*$v['sellrate']*1.05 > 9):?>
+            <?php ($sells = ($v['price']*$v['sellrate']*1.05)/10);?>
 <?endif;?>
-<?if ($v['price'] < 10):?>
-<?php ($cost = $v['price']);?>
+<?if ($v['price']*0.95 < 10):?>
+<?php ($cost = $v['price']*0.95);?>
 <?endif;?>
-<?if ($v['price']*$v['sellrate'] < 10):?>
-            <?php ($sells = ($v['price']*$v['sellrate']));?>
+<?if ($v['price']*$v['sellrate']*1.05 < 10):?>
+            <?php ($sells = ($v['price']*$v['sellrate']*1.05));?>
 <?endif;?>
           <tr<? echo ($x % 2 == 1) ? " bgcolor=\"#BBBBBB" : "";?>">
             <td align="center"><?=$slot?></td>

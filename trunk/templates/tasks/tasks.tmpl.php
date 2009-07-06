@@ -4,7 +4,7 @@
             <a href="index.php?editor=tasks&tskid=<?=$id?>&action=1"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
             <a onClick="return confirm('Really Delete Task <?=$id?> and all associated activities?');" href="index.php?editor=tasks&tskid=<?=$id?>&action=3"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
            </div>
-           <td> Task: <?=$title?> (<?=$id?>)
+           <td> Task: <?=$title?> (<?=$id?>) Task Set: <td align="center" width="5%"><a href="index.php?editor=tasks&tskid=<?=$id?>&tsksetid=<?=$tsksetsid?>&action=29">(<?=$tsksetsid?>)</td>
            </div>
            <div class="table_content">
          <table cellspacing=0 border=0 width="100%">
@@ -29,7 +29,7 @@
            <legend><strong>Reward</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
-               <td align="left" width="35%">Reward:  <?=$reward?></td>
+               <td align="left" width="35%">Reward Text:  <?=$reward?></td>
                <td align="left" width="25%">Reward Method: <?=$rewardmethods[$rewardmethod]?></td>
                <td align="left" width="20%">Reward Cash: <?=$cashreward?></td>
                <td align="left" width="20%">Reward XP:  <?=$xpreward?></td>            
@@ -107,22 +107,22 @@
           <td align="center" width="10%"><?=$v['text2']?></td>
           <td align="center" width="10%"><?=$v['text3']?></td>
           <?if($v['activitytype'] == 5 && $v['goalid'] == 0):?>
-          <td align="center" width="5%"><a href="index.php?editor=tasks&tskid=<?=$id?>&aid=<?=$v['activityid']?>&action=21"><?=$v['goalid']?></td>
+          <td align="center" width="5%"><a href="index.php?editor=tasks&tskid=<?=$id?>&aid=<?=$v['activityid']?>&atype=<?=$v['activitytype']?>&action=21"><?=$v['goalid']?></td>
           <?endif;?>
           <?if($v['activitytype'] == 5 && $v['goalid'] > 0):?>
-          <td align="center" width="5%"><a href="index.php?editor=tasks&tskid=<?=$id?>&eid=<?=$v['goalid']?>&aid=<?=$v['activityid']?>&action=17"><?=$v['goalid']?></td>
+          <td align="center" width="5%"><a href="index.php?editor=tasks&tskid=<?=$id?>&eid=<?=$v['goalid']?>&aid=<?=$v['activityid']?>&atype=<?=$v['activitytype']?>&action=17"><?=$v['goalid']?></td>
           <?endif;?>
           <?if(($v['activitytype'] == 3 || $v['activitytype'] == 2 || $v['activitytype'] == 7 || $v['activitytype'] == 8  || $v['activitytype'] == 6) && $v['goalid'] == 0 && $v['goalmethod'] == 1):?>
-          <td align="center" width="5%"><a href="index.php?editor=tasks&tskid=<?=$id?>&aid=<?=$v['activityid']?>&action=23"><?=$v['goalid']?></td>
+          <td align="center" width="5%"><a href="index.php?editor=tasks&tskid=<?=$id?>&aid=<?=$v['activityid']?>&atype=<?=$v['activitytype']?>&action=23"><?=$v['goalid']?></td>
           <?endif;?>
           <?if(($v['activitytype'] == 3 || $v['activitytype'] == 2 || $v['activitytype'] == 7 || $v['activitytype'] == 8  || $v['activitytype'] == 6) && $v['goalid'] > 0 && $v['goalmethod'] == 1):?>
-          <td align="center" width="5%"><a href="index.php?editor=tasks&tskid=<?=$id?>&lid=<?=$v['goalid']?>&aid=<?=$v['activityid']?>&action=26"><?=$v['goalid']?></td>
+          <td align="center" width="5%"><a href="index.php?editor=tasks&tskid=<?=$id?>&lid=<?=$v['goalid']?>&aid=<?=$v['activityid']?>&atype=<?=$v['activitytype']?>&action=26"><?=$v['goalid']?></td>
           <?endif;?>
           <?if($v['activitytype'] > 8 || $v['activitytype'] == 0):?>
           <td align="center" width="5%"><?=$v['goalid']?></td>
           <?endif;?>
           <?if(($v['activitytype'] == 4 && $v['goalmethod'] != 2) || ($v['goalmethod'] != 1 && $v['activitytype'] == 2)) :?>
-          <td align="center" width="5%"><a href="index.php?editor=npc&z=$z&npcid=<?=$v['goalid']?>"><?=$v['goalid']?></td>
+          <td align="center" width="5%"><a href="index.php?editor=npc&z=<?=get_zone_by_npcid($v['goalid'])?>&npcid=<?=$v['goalid']?>"><?=$v['goalid']?></td>
           <?endif;?>
           <?if($v['activitytype'] == 4 && $v['goalmethod'] == 2):?>
           <td align="center" width="5%"><?=$v['goalid']?></td>
@@ -139,7 +139,7 @@
           <td align="center" width="5%"><?=$v['delivertonpc']?></td>
           <?endif;?> 
           <?if($v['delivertonpc'] > 0):?>
-          <td align="center" width="5%"><a href="index.php?editor=npc&z=$z&npcid=<?=$v['delivertonpc']?>"><?=$v['delivertonpc']?></td>
+          <td align="center" width="5%"><a href="index.php?editor=npc&z=<?=get_zone_by_npcid($v['delivertonpc'])?>&npcid=<?=$v['delivertonpc']?>"><?=$v['delivertonpc']?></td>
           <?endif;?>
           <td align="center" width="5%"><?=getZoneName($v['zoneid'])?></td>
           <td align="center" width="5%"><?=$yesno[$v['optional']]?></td>

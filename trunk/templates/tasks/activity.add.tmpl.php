@@ -2,7 +2,7 @@
        <table style="border: 1px solid black; background-color: #CCC;">
          <tr><td colspan=2><b>Legend:</b></td></tr>
          <tr><td align=center>&nbsp;Text1: NPC Name/Item Name/Area or Zone&nbsp;</td></tr>
-         <tr><td align=center>Text2: Item Name</td></tr>
+         <tr><td align=center>Text2: Item Name (Deliver, Loot)</td></tr>
          <tr><td align=center>Text3: Overwrites both</td></tr>
        </table><br><br>
        </center>

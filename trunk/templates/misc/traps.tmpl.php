@@ -41,7 +41,7 @@
           <td align="center" width="5%"><?=$v['chance']?>%</td>
           <td align="center" width="10%"><?=$traptype[$v['effect']]?></td>
 <?if($v['effect'] == 2 || $v['effect'] == 3):?>
-          <td align="center" width="10%"><a href="index.php?editor=npc&z=$z&npcid=<?=$v['effectvalue']?>"><?=getNPCName($v['effectvalue'])?></td>
+          <td align="center" width="10%"><a href="index.php?editor=npc&z=<?=get_zone_by_npcid($v['effectvalue'])?>&npcid=<?=$v['effectvalue']?>"><?=getNPCName($v['effectvalue'])?></td>
 <?endif;?>
 <?if($v['effect'] == 1 || $v['effect'] == 4):?>
           <td align="center" width="10%"><?=$v['effectvalue']?></td>

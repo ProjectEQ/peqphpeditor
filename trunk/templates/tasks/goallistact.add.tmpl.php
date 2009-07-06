@@ -9,13 +9,14 @@
           Add Goallist Entry
         </div>
         <div class="edit_form_content">
-            <strong>Item ID</strong> (<a href="javascript:showSearch();">search</a>)<br>
+            <strong>NPC or Item ID</strong> (<a href="javascript:showSearch();">search items</a>)<br>
             <input class="indented" id="id" type="text" name="entry" size="7" value=""><br><br>
             <strong>ID</strong><br>
             <input class="indented" id="id" type="text" name="listid" size="7" value="<?=$suggestid?>"><br><br>
         <center>
           <input type="hidden" name="taskid" value="<?=$tskid?>">
           <input type="hidden" name="aid" value="<?=$aid?>">
+          <input type="hidden" name="atype" value="<?=$atype?>">
           <input type="submit" value="Submit Changes">
         </center>
       </form>

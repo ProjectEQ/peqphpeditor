@@ -32,6 +32,7 @@ switch ($action) {
       $body->set('rewardmethods', $rewardmethods);
       $body->set('yesno', $yesno);
       $body->set('activitytypes', $activitytypes);
+      $body->set('tsksetsid', tasksets_id());
       $vars = tasks_info();
       $activity = get_activities();
       if ($vars) {
@@ -129,6 +130,7 @@ switch ($action) {
     $body = new Template("templates/tasks/goallist.tmpl.php");
     $body->set('tskid', $_GET['tskid']);
     $body->set('lid', $_GET['lid']);
+    $body->set('atype', $_GET['atype']);
     $vars = get_goallist();
     if ($vars) {
         foreach ($vars as $key=>$value) {
@@ -213,6 +215,7 @@ switch ($action) {
     $body->set('zoneids', $zoneids);
     $body->set('tskid', $_GET['tskid']);
     $body->set('aid', $_GET['aid']);
+    $body->set('atype', $_GET['atype']);
     $body->set('suggestid', suggest_explore_id());
     break;
   case 22: // Add proximity
@@ -228,6 +231,7 @@ switch ($action) {
     $body = new Template("templates/tasks/goallistact.add.tmpl.php");
     $body->set('tskid', $_GET['tskid']);
     $body->set('aid', $_GET['aid']);
+    $body->set('atype', $_GET['atype']);
     $body->set('suggestid', suggest_list_id());
     break;
   case 24: // Add goallist
@@ -236,7 +240,8 @@ switch ($action) {
     $tskid = $_POST['taskid'];
     $lid = $_POST['listid'];
     $aid = $_POST['aid'];
-    header("Location: index.php?editor=tasks&tskid=$tskid&lid=$lid&aid=$aid&action=26");
+    $atype = $_POST['atype'];
+    header("Location: index.php?editor=tasks&tskid=$tskid&lid=$lid&aid=$aid&atype=$atype&action=26");
     exit;
   case 25: // Delete Goallists
     check_authorization();
@@ -249,6 +254,7 @@ switch ($action) {
     $body->set('tskid', $_GET['tskid']);
     $body->set('lid', $_GET['lid']);
     $body->set('aid', $_GET['aid']);
+    $body->set('atype', $_GET['atype']);
     $vars = get_goallist();
     if ($vars) {
         foreach ($vars as $key=>$value) {
@@ -263,6 +269,7 @@ switch ($action) {
     $body->set('tskid', $_GET['tskid']);
     $body->set('lid', $_GET['lid']);
     $body->set('aid', $_GET['aid']);
+    $body->set('atype', $_GET['atype']);
     break;
   case 28: // Delete Goallist
     check_authorization();
@@ -270,7 +277,55 @@ switch ($action) {
     $tskid = $_GET['tskid'];
     $lid = $_GET['lid'];
     $aid = $_GET['aid'];
-    header("Location: index.php?editor=tasks&tskid=$tskid&lid=$lid&aid=$aid&action=26");
+    $atype = $_GET['atype'];
+    header("Location: index.php?editor=tasks&tskid=$tskid&lid=$lid&aid=$aid&atype=$atype&action=26");
+    exit;
+  case 29:  // View Task Set info
+    $body = new Template("templates/tasks/tasksets.tmpl.php");
+    $body->set('tskid', $_GET['tskid']);
+    $body->set('tsksetsid', tasksets_id());
+    $vars = get_taskset();
+    if ($vars) {
+        foreach ($vars as $key=>$value) {
+          $body->set($key, $value);
+        }
+      }	
+    break;
+  case 30: // Add Task Set
+    check_authorization();
+    $body = new Template("templates/tasks/taskset.add.tmpl.php");
+    $body->set('suggested_id', suggest_taskset_id());
+    $body->set('tsksetsid', tasksets_id());
+    $body->set('tskid', $_GET['tskid']);
+    $tsksetid = $_GET['tsksetid'];
+    if (isset($_GET['tsksetid']) && $_GET['tsksetid'] != ""){
+      $vars = taskset_info();
+    if ($vars) {
+        foreach ($vars as $key=>$value) {
+          $body->set($key, $value);
+        }
+      } 
+    } 	
+    break;
+  case 31:  // Update Task Set
+    check_authorization();
+    add_taskset();
+    $tskid = $_POST['taskid'];
+    $tsksetid = $_POST['id'];
+    header("Location: index.php?editor=tasks&tskid=$tskid&tsksetid=$tsksetid&action=29");
+    exit;
+  case 32: // Delete Task Entry
+    check_authorization();
+    delete_taskentry();
+    $tskid = $_GET['tskid'];
+    $tsksetid = $_GET['tsksetid'];
+    header("Location: index.php?editor=tasks&tskid=$tskid&tsksetid=$tsksetid&action=29");
+    exit;
+  case 33: // Delete Task Set
+    check_authorization();
+    delete_taskset();
+    $tskid = $_GET['tskid'];
+    header("Location: index.php?editor=tasks&tskid=$tskid");
     exit;
 }
 
@@ -303,6 +358,27 @@ function goallist_info() {
   $result = $mysql->query_assoc($query);
   
   return $result;
+}
+
+function taskset_info() {
+  global $mysql;
+  
+  $id = $_GET['tsksetid'];
+  $taskid = $_GET['tskid'];
+
+  $query = "SELECT * FROM tasksets WHERE id=$id and taskid=$taskid";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+}
+
+function tasksets_id() {
+  global $mysql, $tskid;
+  
+  $query = "SELECT id AS tsksetid FROM tasksets WHERE taskid=$tskid";
+  $result = $mysql->query_assoc($query);
+  
+  return ($result['tsksetid']);
 }
 
 function get_activities() {
@@ -345,7 +421,6 @@ function proximity_info() {
   
   return $result;
 }
-  
 
 function get_proximity() {
   global $mysql;
@@ -358,6 +433,22 @@ function get_proximity() {
   if ($result) {
     foreach ($result as $result) {
      $array['proximity'][$result['maxx']] = array("exploreid"=>$result['exploreid'], "zoneid"=>$result['zoneid'], "minx"=>$result['minx'], "miny"=>$result['miny'], "minz"=>$result['minz'], "maxx"=>$result['maxx'], "maxy"=>$result['maxy'], "maxz"=>$result['maxz']);
+         }
+       }
+  return $array;
+  }
+
+function get_taskset() {
+  global $mysql;
+  $array = array();
+  
+  $id = $_GET['tsksetid'];
+
+  $query = "SELECT * FROM tasksets WHERE id=\"$id\"";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['tasksets'][$result['taskid']] = array("id"=>$result['id'], "taskid"=>$result['taskid']);
          }
        }
   return $array;
@@ -438,6 +529,27 @@ function delete_goallist() {
   $entry = $_GET['entry'];
 
   $query = "DELETE FROM goallists WHERE listid=\"$listid\" AND entry=\"$entry\"";
+  $mysql->query_no_result($query);
+
+}
+
+function delete_taskentry() {
+  global $mysql;
+  
+  $taskid = $_GET['entry'];
+  $id = $_GET['tsksetid'];
+
+  $query = "DELETE FROM tasksets WHERE id=\"$id\" AND taskid=\"$taskid\"";
+  $mysql->query_no_result($query);
+
+}
+
+function delete_taskset() {
+  global $mysql;
+  
+  $id = $_GET['tsksetid'];
+
+  $query = "DELETE FROM tasksets WHERE id=\"$id\"";
   $mysql->query_no_result($query);
 
 }
@@ -531,6 +643,12 @@ function suggest_explore_id() {
   return ($result['eid'] + 1);
 }
 
+function suggest_taskset_id() {
+  global $mysql;
+  $query = "SELECT MAX(id) AS tasksetid FROM tasksets";
+  $result = $mysql->query_assoc($query);
+  return ($result['tasksetid'] + 1);
+}
 
 function suggest_step() {
   global $mysql, $tskid;
@@ -630,6 +748,16 @@ function add_proximity() {
   $mysql->query_no_result($query);
 
   $query = "UPDATE activities SET goalid=\"$exploreid\" WHERE taskid=\"$tskid\" AND activityid=\"$aid\"";
+  $mysql->query_no_result($query);
+}
+
+function add_taskset() {
+  check_authorization();
+  global $mysql;
+  $id = $_POST['id'];
+  $taskid = $_POST['taskid'];
+
+  $query = "INSERT INTO tasksets values ($id,$taskid)";
   $mysql->query_no_result($query);
 }
 ?>
