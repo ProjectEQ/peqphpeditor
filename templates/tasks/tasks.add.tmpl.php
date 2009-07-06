@@ -55,7 +55,7 @@
                  </select></td>
              </tr>
               <tr>
-               <td align="left" width="33%">Reward:  <br><input type="text" name="reward" size="30" value=""></td> 
+               <td align="left" width="33%">Reward Text:  <br><input type="text" name="reward" size="30" value=""></td> 
                <td align="left" width="33%">&nbsp;</td>
                <td align="left" width="34%">&nbsp;</td>             
                 </td>

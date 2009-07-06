@@ -477,6 +477,7 @@ function update_npc () {
   if ($CHA != $_POST['CHA']) $fields .= "CHA=\"" . $_POST['CHA'] . "\", ";
   if ($version != $_POST['version']) $fields .= "version=\"" . $_POST['version'] . "\", ";
   if ($isbot != $_POST['isbot']) $fields .= "isbot=\"" . $_POST['isbot'] . "\", ";
+  if ($slow_mitigation != $_POST['slow_mitigation']) $fields .= "slow_mitigation=\"" . $_POST['slow_mitigation'] . "\", ";
   // if ($adventure_template_id != $_POST['adventure_template_id']) $fields .= "adventure_template_id=\"" . $_POST['adventure_template_id'] . "\", ";
   // if ($trap_template != $_POST['trap_template']) $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
 
@@ -567,6 +568,7 @@ function add_npc () {
   if ($_POST['CHA'] != '') $fields .= "CHA=\"" . $_POST['CHA'] . "\", ";
   if ($_POST['version'] != '') $fields .= "version=\"" . $_POST['version'] . "\", ";
   if ($_POST['isbot'] != '') $fields .= "isbot=\"" . $_POST['isbot'] . "\", ";
+  if ($_POST['slow_mitigation'] != '') $fields .= "slow_mitigation=\"" . $_POST['slow_mitigation'] . "\", ";
   // if ($_POST['adventure_template_id'] != '') $fields .= "adventure_template_id=\"" . $_POST['adventure_template_id'] . "\", ";
   // if ($_POST['trap_template'] != '') $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
   $fields =  rtrim($fields, ", ");
@@ -650,6 +652,7 @@ $fields .= "isbot=\"" . $_POST['isbot'] . "\", ";
 $fields .= "adventure_template_id=\"" . $_POST['adventure_template_id'] . "\", ";
 $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
 $fields .= "armortint_id=\"" . $_POST['armortint_id'] . "\", ";
+$fields .= "slow_mitigation=\"" . $_POST['slow_mitigation'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {

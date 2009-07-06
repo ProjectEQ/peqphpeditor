@@ -28,7 +28,7 @@
           <td align="center" width="8%"><?=$v['skill_level']?></td>
           <td align="center" width="8%"><?=$v['chance']?>%</td>
 <?if($v['npc_id'] > 0):?>
-          <td align="center" width="10%"> <a href="index.php?editor=npc&z=$z&npcid=<?=$v['npc_id']?>"><?=getNPCName($v['npc_id'])?></td>
+          <td align="center" width="10%"> <a href="index.php?editor=npc&z=<?=get_zone_by_npcid($v['npc_id'])?>&npcid=<?=$v['npc_id']?>"><?=getNPCName($v['npc_id'])?></td>
 <?endif;?>      
 <?if($v['npc_id'] < 1):?>     
           <td align="center" width="8%"><?=$v['npc_id']?></td>

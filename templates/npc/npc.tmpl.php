@@ -2,6 +2,7 @@
      <div class="table_container">
        <div class="table_header">
          <div style="float:right">
+           <a href="index.php?editor=npc&z=<?=$currzone?>&action=25"><img src="images/add.gif" border=0 title="Add an NPC"></a>
            <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" border=0 title="Edit this NPC"></a>
            <a onClick="return confirm('Really delete npcid <?=$npcid?>?');" href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=24"><img src="images/table.gif" border=0 title="Delete this NPC"></a>
          </div>
@@ -151,6 +152,12 @@
                 <td align="left" width="33%">Atk Speed: <?=$attack_speed?></td>
                 <td align="left" width="34%">Special Atks: <?=$npcspecialattks?></td>
               </tr>
+              <tr>
+                 <td align="left" width="33%">Slow Mit: <?=$slow_mitigation?></td>
+                 <td align="left" width="33%">&nbsp;</td>
+                 <td align="left" width="34%">&nbsp;</td>
+                
+              </tr>
              </table>
             </fieldset>
 
@@ -297,6 +304,7 @@
 <input type="hidden" name="trap_template" value="<?=$trap_template?>">
 <input type="hidden" name="armortint_id" value="<?=$armortint_id?>">
 <input type="hidden" name="npcspecialattks" value="<?=$npcspecialattks?>">
+<input type="hidden" name="slow_mitigation" value="<?=$slow_mitigation?>">
             <td align="left" width="17%">NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>"></td>
             <input type="submit" value="Copy NPC">
      </center>

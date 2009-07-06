@@ -124,14 +124,15 @@
            <legend><strong><font size="4">Combat</font></strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
                <tr>
-                <td align="left" width="12%">Min Dmg:  <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>"></td>
-                <td align="left" width="12%">Max Dmg:  <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>"></td>
-                <td align="left" width="12%">Spells ID:  <br><input type="text" name="npc_spells_id" size="5" value="<?=$npc_spells_id?>"></td>
-                <td align="left" width="12%">Loot ID:  <br><input type="text" name="loottable_id" size="5" value="<?=$loottable_id?>"></td>
-                <td align="left" width="13%">HP Regen:  <br><input type="text" name="hp_regen_rate" size="5" value="<?=$hp_regen_rate?>"></td>
-                <td align="left" width="13%">Mana Regen:  <br><input type="text" name="mana_regen_rate" size="5" value="<?=$mana_regen_rate?>"></td>
-                <td align="left" width="13%">Aggroradius:  <br><input type="text" name="aggroradius" size="5" value="<?=$aggroradius?>"></td>
-                <td align="left" width="13%">Atk Speed%: <br><input type="text" name="attack_speed" size="5" value="<?=$attack_speed?>"></td>
+                <td align="left" width="11%">Min Dmg:  <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>"></td>
+                <td align="left" width="11%">Max Dmg:  <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>"></td>
+                <td align="left" width="11%">Spells ID:  <br><input type="text" name="npc_spells_id" size="5" value="<?=$npc_spells_id?>"></td>
+                <td align="left" width="11%">Loot ID:  <br><input type="text" name="loottable_id" size="5" value="<?=$loottable_id?>"></td>
+                <td align="left" width="11%">HP Regen:  <br><input type="text" name="hp_regen_rate" size="5" value="<?=$hp_regen_rate?>"></td>
+                <td align="left" width="12%">Mana Regen:  <br><input type="text" name="mana_regen_rate" size="5" value="<?=$mana_regen_rate?>"></td>
+                <td align="left" width="11%">Aggroradius:  <br><input type="text" name="aggroradius" size="5" value="<?=$aggroradius?>"></td>
+                <td align="left" width="11%">Atk Speed%: <br><input type="text" name="attack_speed" size="5" value="<?=$attack_speed?>"></td>
+                <td align="left" width="11%">Slow Mit: <br><input type="text" name="slow_mitigation" size="5" value="<?=$slow_mitigation?>"></td>
               </tr>
             </table>
             <center>
@@ -165,8 +166,8 @@
                   <input type="checkbox" name="O" value="O"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "O") ? "checked" : "";}}?>> Immune to non-Bane Melee<br>
                   <input type="checkbox" name="H" value="H"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "H") ? "checked" : "";}}?>> Will Not Aggro<br>
                   <input type="checkbox" name="d" value="d"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "d") ? "checked" : "";}}?>> See through Feign Death<br>
-                  &nbsp;
-                </td>
+                  &nbsp;    
+               </td>
               </tr>
             </table>
             </center>
