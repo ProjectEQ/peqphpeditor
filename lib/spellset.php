@@ -12,7 +12,8 @@ $spelltypes = array(
   256 => "DOT",
   512 => "Dispel",
   1024 => "In-Combat Buff",
-  2048 => "Mez"
+  2048 => "Mez",
+  4096 => "Charm"
 );
 
 switch($action) {
