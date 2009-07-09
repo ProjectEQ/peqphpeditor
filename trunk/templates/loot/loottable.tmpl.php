@@ -1,14 +1,14 @@
-<?if (!isset($loottable_id)){?>
+<?if (!isset($loottable_id) || !isset($loottable_name)){?>
       <div class="table_container" style="width: 350px">
         <div class="table_header">
         <div style="float: right">
           <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&action=11"><img src="images/create.gif" border="0" title="Change LootTable"></a>
         </div>
-        No Assigned Loottable
+        No Assigned or Valid Loottable
       </div>
       <div class="table_content">
         <center>
-          No Loottable currently assigned.<br><br>
+          No Valid Loottable currently assigned.<br><br>
           <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&action=11">Click here to change</a>
         </center>
       </div>
