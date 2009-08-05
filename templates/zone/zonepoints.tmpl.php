@@ -15,7 +15,7 @@
          <tr>
           <td align="center" width="5%"><strong>id</strong></td>
           <td align="center" width="5%"><strong>zone</strong></td>
-          <td align="center" width="5%"><strong>number</strong></td
+          <td align="center" width="5%"><strong>number</strong></td>
           <td align="center" width="5%"><strong>x</strong></td>
           <td align="center" width="5%"><strong>y</strong></td>
           <td align="center" width="5%"><strong>z</strong></td>
