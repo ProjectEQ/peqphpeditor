@@ -19,7 +19,7 @@
           <td align="center" width="5%"><strong>z</strong></td>
           <td align="center" width="5%"><strong>maxzdiff</strong></td>
           <td align="center" width="5%"><strong>radius</strong></td>
-          <td align="center" width="5%"><strong>chance</strong></td
+          <td align="center" width="5%"><strong>chance</strong></td>
           <td align="center" width="10%"><strong>effect</strong></td>
           <td align="center" width="10%"><strong>value</strong></td>
           <td align="center" width="10%"><strong>value2</strong></td>
