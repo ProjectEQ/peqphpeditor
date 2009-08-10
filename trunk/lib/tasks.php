@@ -480,6 +480,7 @@ function update_activity() {
 
   $taskid = $_POST['taskid'];
   $activityid = $_POST['activityid'];
+  $newactivityid = $_POST['newactivityid'];
   $step = $_POST['step'];
   $activitytype = $_POST['activitytype']; 
   $text1 = $_POST['text1'];
@@ -492,7 +493,10 @@ function update_activity() {
   $zoneid = $_POST['zoneid'];
   $optional = $_POST['optional'];
 
-  $query = "UPDATE activities SET step=\"$step\", activityid=\"$activityid\", activitytype=\"$activitytype\", text1=\"$text1\", text2=\"$text2\", text3=\"$text3\", goalid=\"$goalid\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", zoneid=\"$zoneid\", optional=\"$optional\" WHERE taskid=\"$taskid\" AND activityid=\"$activityid\"";
+  $query = "DELETE FROM activities WHERE taskid=\"$taskid\" AND activityid=\"$activityid\"";
+  $mysql->query_no_result($query);
+
+  $query = "INSERT INTO activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$newactivityid\", activitytype=\"$activitytype\", text1=\"$text1\", text2=\"$text2\", text3=\"$text3\", goalid=\"$goalid\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", zoneid=\"$zoneid\", optional=\"$optional\"";
   $mysql->query_no_result($query);
 }
 
