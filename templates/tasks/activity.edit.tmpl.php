@@ -19,7 +19,7 @@
            <legend><strong><font size="4">General</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
-               <td align="left" width="20%">ID: <br><input type="text" name="activityid" size="5" value="<?=$activityid?>"></td>
+               <td align="left" width="20%">ID: <br><input type="text" name="newactivityid" size="5" value="<?=$activityid?>"></td>
                <td align="left" width="20%">Step: <br><input type="text" name="step" size="5" value="<?=$step?>"></td>
                </select></td>
                <td align="left" width="20%">
@@ -73,7 +73,7 @@
            </table><br>
            <center>
             <input type="hidden" name="taskid" value="<?=$taskid?>">
-     
+            <input type="hidden" name="activityid" value="<?=$activityid?>">
             <input type="submit" value="Submit Changes">
          </center>
            </div>
