@@ -91,8 +91,8 @@
                 </tr>
               <tr>
                 <td align="left" width="33%">See Imp Hide: <?=$yesno[$see_improved_hide]?></td>
-                <td align="left" width="34%">&nbsp;</td>
-                <td align="left" width="34%">&nbsp;</td>
+                <td align="left" width="20%">Max Level: <?=$maxlevel?></td>
+                <td align="left" width="20%">Scalerate: <?=$scalerate?></td>
               </tr>
              </table>
            </fieldset>
@@ -224,12 +224,7 @@
                  <? if ($pet == 0):?>
                  <td align="left" width="33%">Pet: No</td>
                  <? endif;?>
-                <? if ($isbot == 1):?>
-                 <td align="left" width="33%">Bot: Yes</td>
-                 <? endif;?>
-                 <? if ($isbot == 0):?>
-                 <td align="left" width="33%">Bot: No</td>
-                 <? endif;?>
+                 <td align="left" width="33%">&nbsp;</td>
                  <td align="left" width="34%">&nbsp;</td>
                  </tr>
              </table>
@@ -299,12 +294,13 @@
 <input type="hidden" name="WIS" value="<?=$WIS?>">
 <input type="hidden" name="CHA" value="<?=$CHA?>">
 <input type="hidden" name="version" value="<?=$version?>">
-<input type="hidden" name="isbot" value="<?=$isbot?>">
 <input type="hidden" name="adventure_template_id" value="<?=$adventure_template_id?>">
 <input type="hidden" name="trap_template" value="<?=$trap_template?>">
 <input type="hidden" name="armortint_id" value="<?=$armortint_id?>">
 <input type="hidden" name="npcspecialattks" value="<?=$npcspecialattks?>">
 <input type="hidden" name="slow_mitigation" value="<?=$slow_mitigation?>">
+<input type="hidden" name="maxlevel" value="<?=$maxlevel?>">
+<input type="hidden" name="scalerate" value="<?=$scalerate?>">
             <td align="left" width="17%">NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>"></td>
             <input type="submit" value="Copy NPC">
      </center>

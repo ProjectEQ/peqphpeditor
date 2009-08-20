@@ -52,12 +52,14 @@
            <legend><strong><font size="4">Vitals</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
-               <td align="left" width="20%">HP:  <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
-               <td align="left" width="20%">AC:  <br><input type="text" name="AC" size="10" value="<?=$AC?>"></td>
-               <td align="left" width="20%">Runspeed:  <br><input type="text" name="runspeed" size="10" value="<?=$runspeed?>"></td>
-               <td align="left" width="20%">ATK:  <br><input type="text" name="ATK" size="10" value="<?=$ATK?>"></td>
-               <td align="left" width="20%">Accuracy:  <br><input type="text" name="Accuracy" size="10" value="<?=$Accuracy?>"></td>
-             </tr>
+               <td align="left" width="14%">HP:  <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
+               <td align="left" width="14%">AC:  <br><input type="text" name="AC" size="10" value="<?=$AC?>"></td>
+               <td align="left" width="14%">Runspeed:  <br><input type="text" name="runspeed" size="10" value="<?=$runspeed?>"></td>
+               <td align="left" width="14%">ATK:  <br><input type="text" name="ATK" size="10" value="<?=$ATK?>"></td>
+               <td align="left" width="14%">Accuracy:  <br><input type="text" name="Accuracy" size="10" value="<?=$Accuracy?>"></td>
+               <td align="left" width="15%">Max Level:  <br><input type="text" name="maxlevel" size="10" value="<?=$maxlevel?>"></td>
+               <td align="left" width="15%">Scalerate:  <br><input type="text" name="scalerate" size="10" value="<?=$scalerate?>"></td> 
+            </tr>
               <tr>
                <td align="left" width="25%">
                  See Invis:  <br>
@@ -220,7 +222,6 @@
            <input type="checkbox" name="findable" value="1"<?echo ($findable == 1) ? "checked" : "";?>>NPC is Findable<br>
            <input type="checkbox" name="trackable" value="1"<?echo ($trackable == 1) ? "checked" : "";?>>NPC is Trackable<br>
            <input type="checkbox" name="pet" value="1"<?echo ($pet == 1) ? "checked" : "";?>>NPC is a Pet<br>
-           <input type="checkbox" name="isbot" value="1"<?echo ($isbot == 1) ? "checked" : "";?>>NPC is a Bot<br><br>
           </fieldset><br>
          <center>
             <input type="submit" value="Submit Changes">

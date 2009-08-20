@@ -60,7 +60,10 @@
                                      version:<br>
 					  <input type="text" name="version" value="0">
 					</td>
-                          <td align="left" width="33%">&nbsp;</td>
+                          <td width="33%">
+                                     enabled:<br>
+					  <input type="text" name="enabled" value="1">
+					</td>
                           <td align="left" width="34%">&nbsp;</td>
 		          </tr>
           </tr>
