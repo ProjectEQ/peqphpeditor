@@ -54,11 +54,13 @@
            <legend><strong><font size="4">Vitals</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
-               <td align="left" width="20%">HP:  <br><input type="text" name="hp" size="10" value="0"></td>
-               <td align="left" width="20%">AC:  <br><input type="text" name="AC" size="10" value="0"></td>
-               <td align="left" width="20%">Runspeed:  <br><input type="text" name="runspeed" size="10" value="1.25"></td>
-               <td align="left" width="20%">ATK:  <br><input type="text" name="ATK" size="10" value="0"></td>
-               <td align="left" width="20%">Accuracy:  <br><input type="text" name="Accuracy" size="10" value="0"></td>
+               <td align="left" width="14%">HP:  <br><input type="text" name="hp" size="10" value="0"></td>
+               <td align="left" width="14%">AC:  <br><input type="text" name="AC" size="10" value="0"></td>
+               <td align="left" width="14%">Runspeed:  <br><input type="text" name="runspeed" size="10" value="1.25"></td>
+               <td align="left" width="14%">ATK:  <br><input type="text" name="ATK" size="10" value="0"></td>
+               <td align="left" width="14%">Accuracy:  <br><input type="text" name="Accuracy" size="10" value="0"></td>
+               <td align="left" width="15%">Max Level:  <br><input type="text" name="maxlevel" size="10" value="0"></td>
+               <td align="left" width="15%">Scalerate:  <br><input type="text" name="scalerate" size="10" value="100"></td>
              </tr>
               <tr>
               <td align="left" width="25%">
@@ -223,7 +225,6 @@
            <input type="checkbox" name="findable" value="1">NPC is Findable<br>
            <input type="checkbox" name="trackable" value="1">NPC is trackable<br>
            <input type="checkbox" name="pet" value="0">NPC is a Pet<br>
-           <input type="checkbox" name="isbot" value="0">NPC is a Bot<br><br>
          </fieldset><br>
          <center>
             <input type="submit" value="Submit Changes">

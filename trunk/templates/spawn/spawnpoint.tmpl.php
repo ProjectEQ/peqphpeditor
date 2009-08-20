@@ -55,7 +55,7 @@
           </tr>
           <tr>
            <td width="33%">version: <?=$version?></td>
-           <td width="33%">&nbsp;</td>
+           <td width="33%">enabled: <?=$enabled?></td>
            <td width="34%">&nbsp;</td>
           </tr>
 		</table>

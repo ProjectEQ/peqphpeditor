@@ -500,6 +500,7 @@ check_authorization();
     check_authorization();
     update_spawntimer();
 
+
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
     $sid = $_GET['sid'];
@@ -644,6 +645,7 @@ function update_spawngroup_name() {
   $max_y = $_POST['max_y'];
   $min_y = $_POST['min_y'];
   $delay = $_POST['delay'];
+
 
 
   $query = "UPDATE spawngroup SET name=\"$name\", spawn_limit=\"$spawn_limit\", dist=\"$dist\", max_x=\"$max_x\", min_x=\"$min_x\", max_y=\"$max_y\", min_y=\"$min_y\", delay=\"$delay\" WHERE id=$sid";
@@ -961,8 +963,9 @@ function add_spawnpoint() {
   $condition = $_POST['_condition'];
   $cond_value = $_POST['cond_value'];
   $version = $_POST['version'];
+  $enabled = $_POST['enabled'];
 
-  $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version";
+  $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled";
   $mysql->query_no_result($query);
 }
 
