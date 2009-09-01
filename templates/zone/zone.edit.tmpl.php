@@ -32,13 +32,6 @@
                <td align="left" width="25%">Exp Multiplier:  <br><input type="text" name="zone_exp_multiplier" size="7" value="<?=$zone_exp_multiplier?>"></td>
                <td align="left" width="25%">Walkspeed:  <br><input type="text" name="walkspeed" size="7" value="<?=$walkspeed?>"></td>
                <td align="left" width="25%">
-                 Instance:  <br>
-                 <select name="insttype">
-                   <option value="0"<?echo ($insttype == 0) ? " selected" : ""?>>No</option>
-                   <option value="1"<?echo ($insttype == 1) ? " selected" : ""?>>Yes</option>
-                 </select>
-               </td>
-               <td align="left" width="25%">
 	          Weather:  <br>
 			      <select name="weather">
 			      <option value="0"<?echo ($weather == 0) ? " selected" : ""?>>None</option>
@@ -46,7 +39,13 @@
                            <option value="2"<?echo ($weather == 2) ? " selected" : ""?>>Snow</option>
                  </select>
                 </td>
-               
+               <td align="left" width="25%">
+                 Hotzone:  <br>
+                 <select name="hotzone">
+                   <option value="0"<?echo ($hotzone == 0) ? " selected" : ""?>>No</option>
+                   <option value="1"<?echo ($hotzone == 1) ? " selected" : ""?>>Yes</option>
+                 </select>
+               </td>
              </tr>
             </table>
          </fieldset><br>
@@ -61,35 +60,35 @@
                <td align="left" width="25%">Flag:  <br><input type="text" name="flag_needed" size="15" value="<?=$flag_needed?>"></td>
              </tr>
               <tr>
-               <td align="left" width="25%">
+               <td align="left" width="20%">
                  Can Levitate:  <br>
                  <select name="canlevitate">
                    <option value="0"<?echo ($canlevitate == 0) ? " selected" : ""?>>No</option>
                    <option value="1"<?echo ($canlevitate == 1) ? " selected" : ""?>>Yes</option>
                  </select>
                </td>
-               <td align="left" width="25%">
+               <td align="left" width="20%">
                  Outdoor:  <br>
                  <select name="castoutdoor">
                    <option value="0"<?echo ($castoutdoor == 0) ? " selected" : ""?>>No</option>
                    <option value="1"<?echo ($castoutdoor == 1) ? " selected" : ""?>>Yes</option>
                  </select>
                </td>
-               <td align="left" width="25%">
+               <td align="left" width="20%">
                  Can Combat:  <br>
 			      <select name="cancombat">
 			      <option value="0"<?echo ($cancombat == 0) ? " selected" : ""?>>No</option>
 			      <option value="1"<?echo ($cancombat == 1) ? " selected" : ""?>>Yes</option>
 			     </select>
 			   </td>
-		 <td align="left" width="25%">
+		 <td align="left" width="20%">
                  PEQ Zone:  <br>
 			      <select name="peqzone">
 			      <option value="0"<?echo ($peqzone == 0) ? " selected" : ""?>>No</option>
 			      <option value="1"<?echo ($peqzone == 1) ? " selected" : ""?>>Yes</option>
 			     </select>
 			   </td>
-	        <td align="left" width="25%">
+	        <td align="left" width="20%">
 	          Can Bind:  <br>
 			      <select name="canbind">
 			      <option value="0"<?echo ($canbind == 0) ? " selected" : ""?>>No</option>
