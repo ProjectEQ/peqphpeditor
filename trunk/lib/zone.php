@@ -323,6 +323,7 @@ function update_zone () {
   if ($fog_blue4 != $_POST['fog_blue4']) $fields .= "fog_blue4=\"" . $_POST['fog_blue4'] . "\", ";
   if ($fog_red4 != $_POST['fog_red4']) $fields .= "fog_red4=\"" . $_POST['fog_red4'] . "\", ";
   if ($fog_green4 != $_POST['fog_green4']) $fields .= "fog_green4=\"" . $_POST['fog_green4'] . "\", ";
+  if ($hotzone != $_POST['hotzone']) $fields .= "hotzone=\"" . $_POST['hotzone'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {

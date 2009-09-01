@@ -31,28 +31,28 @@
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
 <?if($graveyard_id > 0):?>  
-                <td align="left" width="20%">Graveyard: <a href="index.php?editor=zone&z=<?=$currzone?>&graveyard_id=<?=$graveyard_id?>&action=4"> <?=$graveyard_id?></td>
+                <td align="left" width="33%">Graveyard: <a href="index.php?editor=zone&z=<?=$currzone?>&graveyard_id=<?=$graveyard_id?>&action=4"> <?=$graveyard_id?></td>
 <?endif;?> 
 <?if($graveyard_id < 1):?>
-               <td align="left" width="20%">Graveyard: <?=$graveyard_id?></td>
+               <td align="left" width="33%">Graveyard: <?=$graveyard_id?></td>
 <?endif;?>
-                <td align="left" width="20%">Timezone: <?=$timezone?></td>
-                <td align="left" width="20%">Time Type: <?=$time_type?></td>
+                <td align="left" width=33%">Timezone: <?=$timezone?></td>
+                <td align="left" width="34%">Time Type: <?=$time_type?></td>
               </tr>
               <tr>
-                <td align="left" width="20%">Instance: <?=$yesno[$insttype]?></td>
-                <td align="left" width="20%">Shutdown: <?=$shutdowndelay?></td>
-                <td align="left" width="20%">Underworld: <?=$underworld?></td>
+                <td align="left" width="33%">Hotzone: <?=$yesno[$hotzone]?></td>
+                <td align="left" width="33%">Shutdown: <?=$shutdowndelay?></td>
+                <td align="left" width="34%">Underworld: <?=$underworld?></td>
               </tr>
                 <tr>
-                <td align="left" width="20%">Zone Type: <?=$ztype?></td>
-                <td align="left" width="20%">Exp: <?=$zone_exp_multiplier?></td>
-                <td align="left" width="20%">Walkspeed: <?=$walkspeed?></td>
+                <td align="left" width="33%">Zone Type: <?=$ztype?></td>
+                <td align="left" width="33%">Exp: <?=$zone_exp_multiplier?></td>
+                <td align="left" width="34%">Walkspeed: <?=$walkspeed?></td>
               </tr>
                 <tr>
-                <td align="left" width="20%">Weather: <?=$weathertype[$weather]?></td>
-                <td align="left" width="20%">Note: <?=$note?></td>
-                <td align="left" width="20%">&nbsp;</td>
+                <td align="left" width="33%">Weather: <?=$weathertype[$weather]?></td>
+                <td align="left" width="33%">Note: <?=$note?></td>
+                <td align="left" width="34%">&nbsp;</td>
               </tr>
               </table>
            </fieldset>
@@ -73,7 +73,7 @@
               <tr>
                 <td align="left" width="33%">Outdoor: <?=$yesno[$castoutdoor]?></td>
                 <td align="left" width="33%">Combat: <?=$yesno[$cancombat]?></td>
-                <td align="left" width="33%">PEQZone: <?=$yesno[$peqzone]?></td>
+                <td align="left" width="34%">PEQZone: <?=$yesno[$peqzone]?></td>
               </tr>
              </table>
            </fieldset>
@@ -81,7 +81,7 @@
            <fieldset>
              <legend><strong>Sky</strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
-			  <tr>
+	       <tr>
                 <td align="left" width="33%">Sky: <?=$sky?></td>
                 <td align="left" width="33%">Min Clip: <?=$minclip?></td>
                 <td align="left" width="34%">Max Clip: <?=$maxclip?></td>
@@ -89,56 +89,56 @@
               <tr>
                 <td align="left" width="33%">Fog Maxclip: <?=$fog_maxclip?></td>
                 <td align="left" width="33%">Fog Minclip: <?=$fog_minclip?></td>
-                <td align="left" width="33%">Fog Blue: <?=$fog_blue?></td>
+                <td align="left" width="34%">Fog Blue: <?=$fog_blue?></td>
                 
               </tr>
               <tr>
                 
                 <td align="left" width="33%">Fog Red: <?=$fog_red?></td>
                 <td align="left" width="33%">Fog Green: <?=$fog_green?></td>
-                <td align="left" width="33%">Fog Maxclip1: <?=$fog_maxclip1?></td>
+                <td align="left" width="34%">Fog Maxclip1: <?=$fog_maxclip1?></td>
               </tr>
               <tr>
                 
                 <td align="left" width="33%">Fog Minclip1: <?=$fog_minclip1?></td>
                 <td align="left" width="33%">Fog Blue1: <?=$fog_blue1?></td>
-                <td align="left" width="33%">Fog Red1: <?=$fog_red1?></td>
+                <td align="left" width="34%">Fog Red1: <?=$fog_red1?></td>
               </tr>
               <tr>
                 
                 <td align="left" width="33%">Fog Green1: <?=$fog_green1?></td>
                 <td align="left" width="33%">Fog Maxclip2: <?=$fog_maxclip2?></td> 
-                <td align="left" width="33%">Fog Minclip2: <?=$fog_minclip1?></td>             
+                <td align="left" width="34%">Fog Minclip2: <?=$fog_minclip1?></td>             
               </tr>
               <tr>
                 
                 <td align="left" width="33%">Fog Blue2: <?=$fog_blue2?></td>
                 <td align="left" width="33%">Fog Red2: <?=$fog_red2?></td>
-                <td align="left" width="33%">Fog Green: <?=$fog_green2?></td>
+                <td align="left" width="34%">Fog Green: <?=$fog_green2?></td>
               </tr>
               <tr>
                 
                 <td align="left" width="33%">Fog Maxclip3: <?=$fog_maxclip3?></td>
                 <td align="left" width="33%">Fog Minclip3: <?=$fog_minclip3?></td>
-                <td align="left" width="33%">Fog Blue3: <?=$fog_blue3?></td>
+                <td align="left" width="34%">Fog Blue3: <?=$fog_blue3?></td>
               </tr>
               <tr>
                 
                 <td align="left" width="33%">Fog Red3: <?=$fog_red3?></td>
                 <td align="left" width="33%">Fog Green3: <?=$fog_green3?></td>
-                <td align="left" width="33%">Fog Maclip4: <?=$fog_maxclip4?></td>
+                <td align="left" width="34%">Fog Maclip4: <?=$fog_maxclip4?></td>
               </tr>
               <tr>
                 
                 <td align="left" width="33%">Fog Minclip4: <?=$fog_minclip4?></td>
                 <td align="left" width="33%">Fog Blue4: <?=$fog_blue4?></td>
-                <td align="left" width="33%">Fog Red4: <?=$fog_red4?></td>
+                <td align="left" width="34%">Fog Red4: <?=$fog_red4?></td>
               </tr>
               <tr>
                 
                 <td align="left" width="33%">Fog Green4: <?=$fog_green4?></td>
                 <td align="left" width="33%">&nbsp;</td>
-                <td align="left" width="33%">&nbsp;</td>
+                <td align="left" width="34%">&nbsp;</td>
               </tr>
              </table>
            </fieldset>
