@@ -128,6 +128,15 @@ switch ($action) {
     wipe_merchantlist_temp();
     header("Location: index.php?editor=merchant");
     exit;
+  case 16: // NPCs using merchantlist
+    check_authorization(); 
+    $body = new Template("templates/merchant/npcsbymerchant.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $_GET['npcid']);
+    $body->set('merid', $_GET['merid']);
+    $merlist = npcs_using_merchantlist();
+    $body->set("merlist", $merlist);
+    break;
 }
 
 function get_merchantlist() {
@@ -314,5 +323,15 @@ function search_temp_merchant() {
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
+
+function npcs_using_merchantlist () {
+  global $mysql;
+  $array = array();
+  $merid = $_GET['merid'];
+
+  $query = "SELECT id AS npcid, name from npc_types where merchant_id=$merid";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+  }
 
 ?>

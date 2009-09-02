@@ -2,14 +2,14 @@
       <div class="table_container" style="width: 550px;">
          <div class="table_header">
            <div style="float:right;">
+             <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=8">Temp List</a>
              <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=4"><img src="images/add.gif" border=0 title="Add an Item"></a>&nbsp;
              <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" border=0 title="Edit this Merchant"></a>&nbsp;
              <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=6" onClick="return confirm('Really delete this merchantlist?');">
                <img src="images/table.gif" border=0 title="Delete this Merchantlist">
              </a>
            </div>
-           Merchant ID: <?=$id?>
-           <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=8">Temp List</a>
+           Merchant ID: <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&merid=<?=$id?>&action=16"><?=$id?></a>
          </div>
          <div class="table_content" style="padding: 0px;">
 <? if (isset($slots)):?>
