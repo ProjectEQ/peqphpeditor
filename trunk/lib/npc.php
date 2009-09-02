@@ -311,6 +311,21 @@ switch ($action) {
     delete_tint();
     header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
     exit;
+  case 38: // Search npc_faction_ids
+    check_authorization();
+    $body = new Template("templates/npc/factionprimary.search.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $body->set('npc_faction_id', get_npc_faction_id());
+    break;
+  case 39: // Search results for npc_faction_ids
+    check_authorization();
+    $body = new Template("templates/npc/factionprimary.searchresults.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $body->set('results', search_npc_faction_ids_primary($_POST['search']));
+    $body->set('npc_faction_id', get_npc_faction_id());
+    break;
 }
 
 function npc_info () {
@@ -720,6 +735,15 @@ function create_npc_faction_id () {
 function search_npc_faction_ids($search) {
   global $mysql;
   $query = "SELECT id, name FROM npc_faction WHERE name rlike \"$search\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function search_npc_faction_ids_primary($search) {
+  global $mysql;
+  $query = "SELECT nf.id, nf.name, fl.name AS primaryfaction FROM npc_faction nf 
+            INNER JOIN faction_list fl ON fl.id = nf.primaryfaction
+            WHERE fl.name rlike \"$search\";";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }

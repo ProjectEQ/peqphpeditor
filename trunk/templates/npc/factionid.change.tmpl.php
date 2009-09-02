@@ -11,6 +11,7 @@
               <input type="hidden" name="z" value="<?=$currzone?>">
               <input type="hidden" name="npcid" value="<?=$npcid?>">
               <input type="radio" name="action" value="6">Search for an NPC Faction ID by name<br>
+              <input type="radio" name="action" value="38">Search for an NPC Faction ID by primary name<br>
               <input type="radio" name="action" value="4">Enter an existing NPC Faction ID<br>
               <input type="radio" name="action" value="8">Create a new NPC Faction ID<br><br>
               <center>
