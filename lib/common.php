@@ -114,6 +114,17 @@ function check_authorization() {
   }
 }
 
+function check_admin_authorization() {
+  global $tmpl;
+  
+  if(!session::is_admin()) {
+    $body = "<center><br><br><br><br><br><h2>Sorry, only admins have access to this function.<br><br><a href=\"javascript:history.back();\">Go Back</a></h2>";
+    $tmpl->set('body', $body);
+    echo $tmpl->fetch('templates/index.tmpl.php');
+    exit;
+  }
+}
+
 function search_npc_by_id() {
   global $mysql;
   $npcid = $_GET['npcid'];
