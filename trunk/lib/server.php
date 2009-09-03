@@ -73,6 +73,34 @@ switch ($action) {
     delete_bugs();
     header("Location: index.php?editor=server&action=1");
     exit;
+   case 6: // Preview Hackers
+    if (session::is_admin()) {
+    $body = new Template("templates/server/hackers.tmpl.php");
+    $hackers = get_hackers();
+    if ($hackers) {
+      foreach ($hackers as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+   }
+    break;
+   case 7: // Delete Hacker
+    if (session::is_admin()) {
+    delete_hacker();
+    header("Location: index.php?editor=server&action=6");
+    exit;
+   }
+   case 8: // View Hacker
+    if (session::is_admin()) {
+    $body = new Template("templates/server/hackers.view.tmpl.php");
+    $hackers = view_hackers();
+    if ($hackers) {
+      foreach ($hackers as $key=>$value) {
+        $body->set($key, $value);
+       }
+     }
+    }
+    break;
 }
 
 function get_bugs() {
@@ -88,12 +116,36 @@ function get_bugs() {
   return $array;
   }
 
+function get_hackers() {
+  global $mysql;
+
+  $query = "SELECT id, account, name, hacked, zone, date FROM hackers limit 500";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['hackers'][$result['id']] = array("hid"=>$result['id'], "account"=>$result['account'], "name"=>$result['name'], "hacked"=>$result['hacked'], "date"=>$result['date'], "zone"=>$result['zone']);
+         }
+       }
+  return $array;
+  }
+
 function view_bugs() {
   global $mysql;
 
   $bid = $_GET['bid'];
 
   $query = "SELECT id AS bid, zone, name, ui, x, y, z, type, flag, target, bug, date, status FROM bugs where id = \"$bid\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+  }
+
+function view_hackers() {
+  global $mysql;
+
+  $hid = $_GET['hid'];
+
+  $query = "SELECT id AS hid, account, name, hacked, zone, date FROM hackers where id = \"$hid\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -118,4 +170,12 @@ function delete_bugs() {
   $mysql->query_no_result($query);
 }
 
+function delete_hacker() {
+  global $mysql;
+
+  $hid = $_GET['hid'];
+
+  $query = "DELETE FROM hackers WHERE id=\"$hid\"";
+  $mysql->query_no_result($query);
+}
 ?>
