@@ -98,6 +98,31 @@ switch ($action) {
        }
      }
     break;
+   case 9: // Preview Reports
+    check_admin_authorization();
+    $body = new Template("templates/server/reports.tmpl.php");
+    $reports = get_reports();
+    if ($reports) {
+      foreach ($reports as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+   case 10: // Delete Report
+    check_admin_authorization();
+    delete_report();
+    header("Location: index.php?editor=server&action=9");
+    exit;
+   case 11: // View Report
+    check_admin_authorization();
+    $body = new Template("templates/server/reports.view.tmpl.php");
+    $reports = view_reports();
+    if ($reports) {
+      foreach ($reports as $key=>$value) {
+        $body->set($key, $value);
+       }
+     }
+    break;
 }
 
 function get_bugs() {
@@ -126,6 +151,19 @@ function get_hackers() {
   return $array;
   }
 
+function get_reports() {
+  global $mysql;
+
+  $query = "SELECT id, name, reported, reported_text FROM reports";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['reports'][$result['id']] = array("rid"=>$result['id'], "name"=>$result['name'], "reported"=>$result['reported'], "reported_text"=>$result['reported_text']);
+         }
+       }
+  return $array;
+  }
+
 function view_bugs() {
   global $mysql;
 
@@ -143,6 +181,17 @@ function view_hackers() {
   $hid = $_GET['hid'];
 
   $query = "SELECT id AS hid, account, name, hacked, zone, date FROM hackers where id = \"$hid\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+  }
+
+function view_reports() {
+  global $mysql;
+
+  $rid = $_GET['rid'];
+
+  $query = "SELECT id AS rid, name, reported, reported_text FROM reports where id = \"$rid\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -173,6 +222,15 @@ function delete_hacker() {
   $hid = $_GET['hid'];
 
   $query = "DELETE FROM hackers WHERE id=\"$hid\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_report() {
+  global $mysql;
+
+  $rid = $_GET['rid'];
+
+  $query = "DELETE FROM reports WHERE id=\"$rid\"";
   $mysql->query_no_result($query);
 }
 ?>
