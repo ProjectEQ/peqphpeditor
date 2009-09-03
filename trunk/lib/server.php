@@ -74,7 +74,7 @@ switch ($action) {
     header("Location: index.php?editor=server&action=1");
     exit;
    case 6: // Preview Hackers
-    if (session::is_admin()) {
+    check_admin_authorization();
     $body = new Template("templates/server/hackers.tmpl.php");
     $hackers = get_hackers();
     if ($hackers) {
@@ -82,16 +82,14 @@ switch ($action) {
         $body->set($key, $value);
       }
     }
-   }
     break;
    case 7: // Delete Hacker
-    if (session::is_admin()) {
+    check_admin_authorization();
     delete_hacker();
     header("Location: index.php?editor=server&action=6");
     exit;
-   }
    case 8: // View Hacker
-    if (session::is_admin()) {
+    check_admin_authorization();
     $body = new Template("templates/server/hackers.view.tmpl.php");
     $hackers = view_hackers();
     if ($hackers) {
@@ -99,7 +97,6 @@ switch ($action) {
         $body->set($key, $value);
        }
      }
-    }
     break;
 }
 
