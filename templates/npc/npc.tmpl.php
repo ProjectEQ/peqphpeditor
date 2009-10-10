@@ -224,8 +224,8 @@
                  <? if ($pet == 0):?>
                  <td align="left" width="33%">Pet: No</td>
                  <? endif;?>
-                 <td align="left" width="33%">&nbsp;</td>
-                 <td align="left" width="34%">&nbsp;</td>
+                 <td align="left" width="33%">private_corpse: <?=$private_corpse?></td>
+                 <td align="left" width="34%">unique_spawn: <?=$unique_spawn_by_name?></td>
                  </tr>
              </table>
            </td>
@@ -301,6 +301,8 @@
 <input type="hidden" name="slow_mitigation" value="<?=$slow_mitigation?>">
 <input type="hidden" name="maxlevel" value="<?=$maxlevel?>">
 <input type="hidden" name="scalerate" value="<?=$scalerate?>">
+<input type="hidden" name="private_corpse" value="<?=$private_corpse?>">
+<input type="hidden" name="unique_spawn_by_name" value="<?=$unique_spawn_by_name?>">
             <td align="left" width="17%">NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>"></td>
             <input type="submit" value="Copy NPC">
      </center>

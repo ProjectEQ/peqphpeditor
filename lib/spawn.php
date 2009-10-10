@@ -1041,6 +1041,7 @@ function update_gridentry() {
 
   $zid = getZoneID($z);
   $pathgrid = intval($_POST['pathgrid']);
+  $number2 = intval($_POST['number2']);
   $number = intval($_POST['number']);
   $x_coord = $_POST['x_coord'];
   $y_coord = $_POST['y_coord'];
@@ -1048,7 +1049,7 @@ function update_gridentry() {
   $heading = $_POST['heading'];
   $pause = intval($_POST['pause']);
 
-  $query = "UPDATE grid_entries SET x=\"$x_coord\", y=\"$y_coord\", z=\"$z_coord\", pause=\"$pause\", heading=\"$heading\" WHERE gridid=\"$pathgrid\" AND number=$number AND zoneid=$zid";
+  $query = "UPDATE grid_entries SET number=\"$number2\", x=\"$x_coord\", y=\"$y_coord\", z=\"$z_coord\", pause=\"$pause\", heading=\"$heading\" WHERE gridid=\"$pathgrid\" AND number=$number AND zoneid=$zid";
   $mysql->query_no_result($query);
 }
 

@@ -222,6 +222,8 @@
            <input type="checkbox" name="findable" value="1"<?echo ($findable == 1) ? "checked" : "";?>>NPC is Findable<br>
            <input type="checkbox" name="trackable" value="1"<?echo ($trackable == 1) ? "checked" : "";?>>NPC is Trackable<br>
            <input type="checkbox" name="pet" value="1"<?echo ($pet == 1) ? "checked" : "";?>>NPC is a Pet<br>
+           <input type="checkbox" name="private_corpse" value="1"<?echo ($private_corpse == 1) ? "checked" : "";?>>Corpse does not unlock<br>
+           <input type="checkbox" name="unique_spawn_by_name" value="1"<?echo ($unique_spawn_by_name == 1) ? "checked" : "";?>>Unique by name<br>
           </fieldset><br>
          <center>
             <input type="submit" value="Submit Changes">

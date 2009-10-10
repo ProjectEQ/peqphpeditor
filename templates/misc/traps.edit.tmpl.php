@@ -2,7 +2,6 @@
       <div class="edit_form_header">
         Edit Trap: <?=$id?>
       </div>
-
       <div class="edit_form_content">
         <form name="traps" method="post" action=index.php?editor=misc&z=<?=$currzone?>&action=21">
         <table width="100%">
@@ -14,9 +13,6 @@
             <th>radius</th>
             <th>chance</th>
             <th>version</th>
-            <th>message</th>
-            
-            
           </tr>
           <tr>
             <td><input type="text" size="7" name="x_coord" value="<?=$x?>"></td>
@@ -25,13 +21,9 @@
             <td><input type="text" size="7" name="maxzdiff" value="<?=$maxzdiff?>"></td>
             <td><input type="text" size="7" name="radius" value="<?=$radius?>"></td>
             <td><input type="text" size="7" name="chance" value="<?=$chance?>"></td> 
-            <td><input type="text" size="7" name="version" value="<?=$version?>"></td>
-            <td><input type="text" size="20" name="message" value="<?=$message?>"></td>
-             
-            
+            <td><input type="text" size="7" name="version" value="<?=$version?>"></td>  
           </tr>
-          <tr>
-            
+          <tr>  
             <th>effectvalue</th>
             <th>effectvalue2</th>
             <th>skill</th>
@@ -39,9 +31,9 @@
             <th>respawn</th>
             <th>variance</th>
             <th>effect</th>
+            <th>message</th>
           </tr>
           <tr>
-           
             <td><input type="text" size="7" name="effectvalue" value="<?=$effectvalue?>"></td>
             <td><input type="text" size="7" name="effectvalue2" value="<?=$effectvalue2?>"></td>
             <td><input type="text" size="7" name="skill" value="<?=$skill?>"></td>
@@ -53,6 +45,7 @@
               <option value="<?=$k?>"<? echo ($k == $effect) ? " selected" : ""?>><?=$v?></option>
 <?endforeach;?>       
            </td>
+            <td><input type="text" size="20" name="message" value="<?=$message?>"></td>
           </tr>            
               </table><br><br>
         <center>
