@@ -137,6 +137,11 @@ switch ($action) {
     $merlist = npcs_using_merchantlist();
     $body->set("merlist", $merlist);
     break;
+  case 17: // Drop Merchantlist
+    check_authorization();
+    drop_merchantlist();
+    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
+    exit;
 }
 
 function get_merchantlist() {
@@ -333,5 +338,13 @@ function npcs_using_merchantlist () {
   $results = $mysql->query_mult_assoc($query);
   return $results;
   }
+
+function drop_merchantlist() {
+  check_authorization();
+  global $mysql, $npcid;
+
+  $query = "UPDATE npc_types SET merchant_id=0 WHERE id=$npcid";
+  $mysql->query_no_result($query);
+}
 
 ?>

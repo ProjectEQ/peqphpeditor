@@ -250,6 +250,11 @@ switch ($action) {
     $ldrop = loottables_using_lootdrop();
     $body->set("ldrop", $ldrop);
     break;
+  case 34: // Drop loottable
+    check_authorization();
+    drop_loottable();
+    header("Location: index.php?editor=loot&z=$z&npcid=$npcid");
+    exit;
 }
 
 function loottable_info () {
@@ -600,4 +605,14 @@ function search_loot_by_item() {
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
+
+function drop_loottable() {
+  check_authorization();
+  global $mysql, $npcid;
+
+  $query = "UPDATE npc_types SET loottable_id=0 WHERE id=$npcid";
+  $mysql->query_no_result($query);
+
+}
+
 ?>

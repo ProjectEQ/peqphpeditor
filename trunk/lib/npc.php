@@ -497,6 +497,8 @@ function update_npc () {
   // if ($trap_template != $_POST['trap_template']) $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
   if ($maxlevel != $_POST['maxlevel']) $fields .= "maxlevel=\"" . $_POST['maxlevel'] . "\", ";
   if ($scalerate != $_POST['scalerate']) $fields .= "scalerate=\"" . $_POST['scalerate'] . "\", ";
+  if ($private_corpse != $_POST['private_corpse']) $fields .= "private_corpse=\"" . $_POST['private_corpse'] . "\", ";
+  if ($unique_spawn_by_name != $_POST['unique_spawn_by_name']) $fields .= "unique_spawn_by_name=\"" . $_POST['unique_spawn_by_name'] . "\", ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -590,6 +592,8 @@ function add_npc () {
   // if ($_POST['trap_template'] != '') $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
   if ($_POST['maxlevel'] != '') $fields .= "maxlevel=\"" . $_POST['maxlevel'] . "\", ";
   if ($_POST['scalerate'] != '') $fields .= "scalerate=\"" . $_POST['scalerate'] . "\", ";
+  if ($_POST['private_corpse'] != '') $fields .= "private_corpse=\"" . $_POST['private_corpse'] . "\", ";
+  if ($_POST['unique_spawn_by_name'] != '') $fields .= "unique_spawn_by_name=\"" . $_POST['unique_spawn_by_name'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -674,6 +678,8 @@ $fields .= "armortint_id=\"" . $_POST['armortint_id'] . "\", ";
 $fields .= "slow_mitigation=\"" . $_POST['slow_mitigation'] . "\", ";
 $fields .= "maxlevel=\"" . $_POST['maxlevel'] . "\", ";
 $fields .= "scalerate=\"" . $_POST['scalerate'] . "\", ";
+$fields .= "private_corpse=\"" . $_POST['private_corpse'] . "\", ";
+$fields .= "unique_spawn_by_name=\"" . $_POST['unique_spawn_by_name'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
