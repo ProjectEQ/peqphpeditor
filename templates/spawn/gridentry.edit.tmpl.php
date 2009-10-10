@@ -7,6 +7,7 @@
         <form name="gridentry" method="post" action=index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?$pathgrid?>&action=25">
         <table width="100%">
           <tr>
+            <th>number:</th>
             <th>X:</th>
             <th>Y:</th>
             <th>Z:</th>
@@ -14,6 +15,7 @@
             <th>Pause:</th>
           </tr>
           <tr>
+            <td><input type="text" size="7" name="number2" value="<?=$number?>"></td>
             <td><input type="text" size="7" name="x_coord" value="<?=$x?>"></td>
             <td><input type="text" size="7" name="y_coord" value="<?=$y?>"></td>
             <td><input type="text" size="7" name="z_coord" value="<?=$z?>"></td>
