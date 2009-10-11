@@ -39,6 +39,9 @@ switch ($editor) {
   case 'tasks':
     $breadcrumbs = "Task Editor";
     break;
+  case 'items':
+    $breadcrumbs = "Item Editor";
+    break;
 
 }
 

@@ -255,6 +255,11 @@ switch ($action) {
     drop_loottable();
     header("Location: index.php?editor=loot&z=$z&npcid=$npcid");
     exit;
+  case 35: // Copy lootdrop
+    check_authorization();
+    copy_lootdrop();
+    header("Location: index.php?editor=loot&z=$z&npcid=$npcid");
+    exit;
 }
 
 function loottable_info () {
@@ -613,6 +618,41 @@ function drop_loottable() {
   $query = "UPDATE npc_types SET loottable_id=0 WHERE id=$npcid";
   $mysql->query_no_result($query);
 
+}
+
+function copy_lootdrop() {
+  check_authorization();
+  global $mysql;
+  $ldid = $_GET['ldid'];
+  $name = $_GET['name'];
+
+  $query = "SELECT MAX(id) as lid FROM lootdrop";
+  $result = $mysql->query_assoc($query);
+  $nlid = $result['lid'] + 1;
+  
+  $query = "DELETE FROM loottable_entries WHERE lootdrop_id=0";
+  $mysql->query_no_result($query);
+
+  $query = "DELETE FROM lootdrop_entries WHERE lootdrop_id=0";
+  $mysql->query_no_result($query);
+
+  $newname = $name . '_' . $nlid;
+  $query = "INSERT INTO lootdrop SET id=\"$nlid\", name=\"$newname\"";
+  $mysql->query_no_result($query);
+
+  $query = "INSERT INTO loottable_entries (loottable_id,multiplier,probability) 
+            SELECT loottable_id,multiplier,probability FROM loottable_entries where lootdrop_id=$ldid";
+  $mysql->query_no_result($query);
+
+  $query = "INSERT INTO lootdrop_entries (item_id,item_charges,equip_item,chance) 
+            SELECT item_id,item_charges,equip_item,chance FROM lootdrop_entries where lootdrop_id=$ldid";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE loottable_entries set lootdrop_id=$nlid where lootdrop_id=0";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE lootdrop_entries set lootdrop_id=$nlid where lootdrop_id=0";
+  $mysql->query_no_result($query);
 }
 
 ?>
