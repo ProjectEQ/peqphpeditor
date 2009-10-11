@@ -142,6 +142,11 @@ switch ($action) {
     drop_merchantlist();
     header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
     exit;
+  case 18: // Copy Merchantlist
+    check_authorization();
+    copy_merchantlist();
+    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
+    exit;
 }
 
 function get_merchantlist() {
@@ -344,6 +349,29 @@ function drop_merchantlist() {
   global $mysql, $npcid;
 
   $query = "UPDATE npc_types SET merchant_id=0 WHERE id=$npcid";
+  $mysql->query_no_result($query);
+}
+
+function copy_merchantlist() {
+  check_authorization();
+  global $mysql, $npcid;
+  $mid = $_REQUEST['mid'];
+  
+  $query = "SELECT MAX(merchantid) as merid FROM merchantlist";
+  $result = $mysql->query_assoc($query);
+  $nmid = $result['merid'] + 1;
+  
+  $query = "DELETE FROM merchantlist WHERE merchantid = 0";
+  $mysql->query_no_result($query);
+
+  $query = "INSERT INTO merchantlist (slot,item) 
+            SELECT slot,item FROM merchantlist where merchantid=$mid";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE merchantlist set merchantid=$nmid where merchantid=0";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE npc_types set merchant_id=$nmid where id=$npcid";
   $mysql->query_no_result($query);
 }
 

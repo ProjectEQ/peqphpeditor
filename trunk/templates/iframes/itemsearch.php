@@ -15,7 +15,7 @@ if(isset($_GET['name']) && ($_GET['name'] != '')) {
     echo "<ul>";
     foreach($results as $result) {
       extract($result);
-      print "<li><a href=\"javascript:parent.document.getElementById('id').value=$id;parent.hideSearch('search')\">$id: $name ($lore)</a></li>";
+      print "<li>$id: <a href=\"javascript:parent.document.getElementById('id').value=$id;parent.hideSearch('search')\">$name ($lore)</a></li>";
     }
     echo "</ul>";
   }

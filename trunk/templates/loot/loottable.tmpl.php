@@ -76,7 +76,9 @@
               <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&action=20&ldid=<?=$lootdrop['id']?>">
                 <img src="images/add.gif" border="0" title="Add an Item to this LootDrop Table">
               </a>
-              
+              <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&action=35&ldid=<?=$lootdrop['id']?>&name=<?=$lootdrop['name']?>">
+                <img src="images/last.gif" border="0" title="Copy lootdrop">
+              </a>
               <a onClick="return confirm('Really remove LootDrop <?=$lootdrop['id']?> from LootTable <?=$loottable_id?>?  All <?=$usage['count']?> NPCs that use LootTable 5370 will be affected.');" href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&action=19&ltid=<?=$loottable_id?>&ldid=<?=$lootdrop['id']?>">
                 <img src="images/minus2.gif" border="0" title="Remove this LootDrop from LootTable <?=$loottable_id?>">
               </a>

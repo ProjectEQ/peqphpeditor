@@ -102,6 +102,10 @@ switch ($editor) {
     $searchbar->set('currtask', $tskid);
     $searchbar->set('tasks', $tasks);
     break;
+  case 'items':
+    $zones = $zones;
+    $npcs = npcs();
+    break;
 }
 
 function build_tabs () {
@@ -119,6 +123,7 @@ function build_tabs () {
   $tabstatus10 = "off";
   $tabstatus11 = "off";
   $tabstatus12 = "off";
+  $tabstatus13 = "off";
 
   $url = '';
   if ($z) $url = $url . "&z=$z";
@@ -163,6 +168,9 @@ function build_tabs () {
     case 'tasks':
       $tabstatus12 = "on";
       break;
+    case 'items':
+      $tabstatus13 = "on";
+      break;
   }
 
   $admin = '';
@@ -186,7 +194,8 @@ function build_tabs () {
         <div class=\"$tabstatus10\"><a href=\"index.php?editor=server$url\">Server</a></div>
         <div class=\"$tabstatus11\"><a href=\"index.php?editor=adventures$url\">Adventures</a></div><br>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br>
-        <div class=\"$tabstatus12\"><a href=\"index.php?editor=tasks$url\">Task Editor</a></div><br>
+        <div class=\"$tabstatus12\"><a href=\"index.php?editor=tasks$url\">Task Editor</a></div>
+        <div class=\"$tabstatus13\"><a href=\"index.php?editor=items$url\">Items Editor</a></div><br>
       </div>
  ";
 
