@@ -72,6 +72,9 @@ switch ($editor) {
   case 'tasks':
     require_once('lib/tasks.php');
     break;	
+  case 'items':
+    require_once('lib/items.php');
+    break;
 }
 
 $tmpl->set('javascript', $javascript);
