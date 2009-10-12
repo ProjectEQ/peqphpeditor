@@ -19,6 +19,7 @@
         <div class="table_header">
           <div style="float: right">
             <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&action=1"><img src="images/c_table.gif" border="0" title="Edit Recipe"></a>&nbsp;
+            <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&action=12"><img src="images/last.gif" border="0" title="Copy Recipe"></a>&nbsp;
             <a onClick="return confirm('Really Delete Recipe <?=$id?>?');" href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&action=3"><img src="images/remove3.gif" border="0" title="Delete Recipe"></a>
           </div>
           Recipe <?=$id?>: "<?=$name?>"

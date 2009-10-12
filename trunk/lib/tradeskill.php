@@ -129,6 +129,12 @@ switch ($action) {
     $id = add_recipe();
     header("Location: index.php?editor=tradeskill&rec=$id");
     exit;
+  case 12:  // Copy tradeskill
+    check_authorization();
+    copy_tradeskill();
+    $nrec = get_new_id();
+    header("Location: index.php?editor=tradeskill&ts=$ts&rec=$nrec");
+    exit;
 }
 
 
@@ -332,6 +338,43 @@ function add_recipe() {
   $mysql->query_no_result($query);
   
   return $id;
+}
+
+function copy_tradeskill() {
+  check_authorization();
+  global $mysql;
+  $rec = $_GET['rec'];
+
+  $query = "SELECT MAX(id) as tid FROM tradeskill_recipe";
+  $result = $mysql->query_assoc($query);
+  $nrec = $result['tid'] + 1;
+  
+  $query = "DELETE FROM tradeskill_recipe WHERE id=0";
+  $mysql->query_no_result($query);
+
+  $query = "DELETE FROM tradeskill_recipe_entries WHERE recipe_id=0";
+  $mysql->query_no_result($query);
+
+  $query = "INSERT INTO tradeskill_recipe (name,tradeskill,skillneeded,trivial,nofail,replace_container,notes) 
+            SELECT name,tradeskill,skillneeded,trivial,nofail,replace_container,notes FROM tradeskill_recipe where id=$rec";
+  $mysql->query_no_result($query);
+
+  $query = "INSERT INTO tradeskill_recipe_entries (item_id,successcount,failcount,componentcount,iscontainer) 
+            SELECT item_id,successcount,failcount,componentcount,iscontainer FROM tradeskill_recipe_entries where recipe_id=$rec";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE tradeskill_recipe_entries set recipe_id=$nrec where recipe_id=0";
+  $mysql->query_no_result($query);
+}
+
+function get_new_id() {
+  check_authorization();
+  global $mysql;
+
+  $query = "SELECT MAX(id) as tid FROM tradeskill_recipe";
+  $result = $mysql->query_assoc($query);
+  $nrec = $result['tid'];
+  return $nrec;
 }
 
 ?>
