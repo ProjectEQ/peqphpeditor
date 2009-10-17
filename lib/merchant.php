@@ -329,7 +329,7 @@ function search_temp_merchant() {
 
   $query = "SELECT npc_types.id,npc_types.name FROM merchantlist_temp
 	     INNER JOIN npc_types ON npc_types.id = merchantlist_temp.npcid	
-            WHERE merchantlist_temp.itemid = \"$search\"";
+            WHERE merchantlist_temp.slot < 80 and merchantlist_temp.itemid = \"$search\"";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
