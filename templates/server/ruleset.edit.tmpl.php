@@ -23,6 +23,7 @@
            </tr>
               </table><br><br>
         <center>
+          <input type="hidden" name="ruleset_id" value="<?=$ruleset_id?>">
           <input type="submit" value="Submit Changes">
         </center>
       </form>
