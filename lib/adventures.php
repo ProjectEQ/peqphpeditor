@@ -23,7 +23,13 @@ $ldontraptype = array(
 
 switch ($action) {
   case 0:         
-    if ($npcid) {
+    if (!$npcid) {
+      check_authorization();
+      $body = new Template("templates/adventures/adventures.searchresults.tmpl.php");
+      $results = search_adventure_npc();
+      $body->set("results", $results);
+    }
+    else if ($npcid) {
       $body = new Template("templates/adventures/adventures.tmpl.php");
       $body->set('currzone', $z);
       $body->set('npcid', $npcid);
@@ -503,4 +509,10 @@ function suggest_trap_template_id() {
   return ($result['ttid'] + 1);
 }
 
+function search_adventure_npc() {
+  global $mysql;
+  $query = "SELECT id,name FROM npc_types where adventure_template_id > 0";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
 ?>

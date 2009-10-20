@@ -515,6 +515,42 @@ check_authorization();
    else $results = search_npcs();
     $body->set("results", $results);
     break;
+   case 50:  // Copy Spawnpoint
+    check_authorization();
+    $body = new Template("templates/spawn/spawnpoint.copy.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $spawnpoint = spawnpoint_info();
+    if ($spawnpoint) {
+      foreach ($spawnpoint as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+   case 51: // Copy spawnpoint
+    check_authorization();
+    copy_spawnpoint();
+    $sid = $_POST['sgid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
+    exit;
+   case 52:  // Copy Spawnpoint
+    check_authorization();
+    $body = new Template("templates/spawn/spawnpoint.move.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $spawnpoint = spawnpoint_info();
+    if ($spawnpoint) {
+      foreach ($spawnpoint as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+   case 53: // Move spawnpoint
+    check_authorization();
+    move_spawnpoint();
+    $sid = $_POST['sgid'];
+    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
+    exit;
 }
 
 function get_spawngroups() {
@@ -1212,4 +1248,36 @@ function add_spawncondition() {
   $query = "INSERT INTO spawn_conditions SET id=\"$scid\", zone=\"$z\", value=\"$value\", onchange=\"$onchange\", name=\"$name\"";
   $mysql->query_no_result($query);
 }
+
+function copy_spawnpoint() {
+  check_authorization();
+  global $mysql;
+    $zone = $_POST['zone'];
+    $x = $_POST['x'];
+    $y = $_POST['y'];
+    $z = $_POST['z'];
+    $heading = $_POST['heading'];
+    $respawntime = $_POST['respawntime'];
+    $variance = $_POST['variance'];
+    $pathgrid = $_POST['pathgrid'];
+    $condition = $_POST['condition'];
+    $cond_value = $_POST['cond_value'];
+    $version = $_POST['version'];
+    $enabled = $_POST['enabled'];
+    $sgid = $_POST['sgid'];
+
+  $query = "INSERT INTO spawn2 SET spawngroupID=\"$sgid\", zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled";
+  $mysql->query_no_result($query);
+}
+
+function move_spawnpoint() {
+  check_authorization();
+  global $mysql;
+    $id = $_POST['id'];
+    $sgid = $_POST['sgid'];
+
+  $query = "UPDATE spawn2 set spawngroupID=\"$sgid\" where id=$id";
+  $mysql->query_no_result($query);
+}
+
 ?>

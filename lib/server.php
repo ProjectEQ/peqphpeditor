@@ -123,6 +123,100 @@ switch ($action) {
        }
      }
     break;
+  case 12: // View Petitions
+    check_admin_authorization();
+    $body = new Template("templates/server/petition.tmpl.php");
+    $petitions = get_petitions();
+    if ($petitions) {
+      foreach ($petitions as $key=>$value) {
+        $body->set($key, $value);
+       }
+     }
+    break;
+  case 13: // View Petition
+    check_admin_authorization();
+    $body = new Template("templates/server/petition.view.tmpl.php");
+    $body->set('yesno', $yesno);
+    $body->set('classes', $classes);
+    $body->set('races', $races);
+    $petition = view_petition();
+    if ($petition) {
+      foreach ($petition as $key=>$value) {
+        $body->set($key, $value);
+       }
+     }
+    break;
+  case 14: // Update Petition
+    check_admin_authorization();
+    update_petition();
+    header("Location: index.php?editor=server&action=12");
+    exit;
+  case 15: // Delete Petition
+    check_admin_authorization();
+    delete_petition();
+    header("Location: index.php?editor=server&action=12");
+    exit;
+  case 16: // View Rules
+    check_admin_authorization();
+    $body = new Template("templates/server/rules.tmpl.php");
+    $rules = get_rules();
+    if ($rules) {
+      foreach ($rules as $key=>$value) {
+        $body->set($key, $value);
+       }
+     }
+    break;
+  case 17: // Edit Rules
+    check_admin_authorization();
+    $body = new Template("templates/server/rules.edit.tmpl.php");
+    $rules = view_rule();
+    if ($rules) {
+      foreach ($rules as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 18: // Update Rule
+    check_admin_authorization();
+    update_rule();
+    header("Location: index.php?editor=server&action=16");
+    exit;
+  case 19: // Add Rule
+    check_admin_authorization();
+    $body = new Template("templates/server/rules.add.tmpl.php");
+    $body->set('suggestruleset', suggest_ruleset());
+    break;
+  case 20: // Add Rule
+    check_admin_authorization();
+    add_rule();
+    header("Location: index.php?editor=server&action=16");
+    exit; 
+  case 21: // Delete Rule
+    check_admin_authorization();
+    delete_rule();
+    header("Location: index.php?editor=server&action=16");
+    exit;
+  case 22: // Edit Ruleset
+    check_admin_authorization();
+    $body = new Template("templates/server/ruleset.edit.tmpl.php");
+    $body->set('ruleset_id', $_GET['ruleset_id']);
+    $ruleset = view_ruleset();
+    if ($ruleset) {
+      foreach ($ruleset as $key=>$value) {
+        $body->set($key, $value);
+       }
+     }
+    break;
+  case 23: // Update Rule Set
+    check_admin_authorization();
+    update_ruleset();
+    header("Location: index.php?editor=server&action=16");
+    exit;
+  case 24: // Delete Rule Set
+    check_admin_authorization();
+    delete_ruleset();
+    header("Location: index.php?editor=server&action=16");
+    exit;
 }
 
 function get_bugs() {
@@ -141,7 +235,7 @@ function get_bugs() {
 function get_hackers() {
   global $mysql;
 
-  $query = "SELECT id, account, name, hacked, zone, date FROM hackers limit 500";
+  $query = "SELECT id, account, name, hacked, zone, date FROM hackers orser by id desc limit 500";
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
@@ -159,6 +253,32 @@ function get_reports() {
   if ($result) {
     foreach ($result as $result) {
      $array['reports'][$result['id']] = array("rid"=>$result['id'], "name"=>$result['name'], "reported"=>$result['reported'], "reported_text"=>$result['reported_text']);
+         }
+       }
+  return $array;
+  }
+
+function get_petitions() {
+  global $mysql;
+
+  $query = "SELECT dib, petid, accountname, charname, zone, senttime FROM petitions";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['petitions'][$result['dib']] = array("dib"=>$result['dib'], "petid"=>$result['petid'], "accountname"=>$result['accountname'], "charname"=>$result['charname'], "senttime"=>$result['senttime'], "zone"=>$result['zone']);
+         }
+       }
+  return $array;
+  }
+
+function get_rules() {
+  global $mysql;
+
+  $query = "SELECT ruleset_id, rule_name, rule_value, notes FROM rule_values order by rule_name";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['rules'][$result['rule_name']] = array("ruleset_id"=>$result['ruleset_id'], "rule_value"=>$result['rule_value'], "rule_name"=>$result['rule_name'], "notes"=>$result['notes']);
          }
        }
   return $array;
@@ -197,6 +317,39 @@ function view_reports() {
   return $result;
   }
 
+function view_petition() {
+  global $mysql;
+
+  $dib = $_GET['dib'];
+
+  $query = "SELECT * FROM petitions where dib = \"$dib\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+  }
+
+function view_rule() {
+  global $mysql;
+
+  $rule_name = $_GET['rule_name'];
+
+  $query = "SELECT * FROM rule_values where rule_name = \"$rule_name\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+  }
+
+function view_ruleset() {
+  global $mysql;
+
+  $ruleset_id = $_GET['ruleset_id'];
+
+  $query = "SELECT * FROM rule_sets where ruleset_id = \"$ruleset_id\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+  }
+
 function update_bugs() {
   global $mysql;
 
@@ -204,6 +357,42 @@ function update_bugs() {
   $status = $_POST['status'];
 
   $query = "UPDATE bugs SET status=\"$status\" WHERE id=\"$bid\"";
+  $mysql->query_no_result($query);
+}
+
+function update_petition() {
+  global $mysql;
+
+  $dib = $_POST['dib'];
+  $ischeckedout = $_POST['ischeckedout'];
+  $lastgm = $_POST['lastgm'];
+  $gmtext = $_POST['gmtext'];
+
+  $query = "UPDATE petitions SET ischeckedout=\"$ischeckedout\", lastgm=\"$lastgm\", gmtext=\"$gmtext\" WHERE dib=\"$dib\"";
+  $mysql->query_no_result($query);
+}
+
+function update_rule() {
+  global $mysql;
+
+  $rule_name = $_POST['rule_name'];
+  $rule_name1 = $_POST['rule_name1'];
+  $ruleset_id = $_POST['ruleset_id'];
+  $rule_value = $_POST['rule_value'];
+  $notes = $_POST['notes'];
+
+  $query = "UPDATE rule_values SET rule_name=\"$rule_name1\", rule_value=\"$rule_value\", ruleset_id=\"$ruleset_id\", notes=\"$notes\" WHERE rule_name=\"$rule_name\"";
+  $mysql->query_no_result($query);
+}
+
+function update_ruleset() {
+  global $mysql;
+
+  $ruleset_id = $_POST['ruleset_id'];
+  $ruleset_id = $_POST['ruleset_id1'];
+  $name = $_POST['name'];
+
+  $query = "REPLACE INTO rule_sets SET name=\"$name\", ruleset_id=\"$ruleset_id\"";
   $mysql->query_no_result($query);
 }
 
@@ -231,6 +420,54 @@ function delete_report() {
   $rid = $_GET['rid'];
 
   $query = "DELETE FROM reports WHERE id=\"$rid\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_petition() {
+  global $mysql;
+
+  $dib = $_GET['dib'];
+
+  $query = "DELETE FROM petitions WHERE dib=\"$dib\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_rule() {
+  global $mysql;
+
+  $rule_name = $_GET['rule_name'];
+
+  $query = "DELETE FROM rule_values WHERE rule_name=\"$rule_name\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_ruleset() {
+  global $mysql;
+
+  $ruleset_id = $_GET['ruleset_id'];
+
+  $query = "DELETE FROM rule_sets WHERE ruleset_id=\"$ruleset_id\"";
+  $mysql->query_no_result($query);
+}
+
+function suggest_ruleset() {
+  global $mysql;
+
+  $query = "SELECT ruleset_id FROM rule_sets where name=\"default\"";
+  $result = $mysql->query_assoc($query);
+  
+  return ($result['ruleset_id']);
+}
+
+function add_rule() {
+  global $mysql;
+
+  $ruleset_id = $_POST['ruleset_id'];
+  $rule_value = $_POST['rule_value'];
+  $rule_name = $_POST['rule_name']; 
+  $notes = $_POST['notes'];
+
+  $query = "INSERT INTO rule_values SET ruleset_id=\"$ruleset_id\", rule_name=\"$rule_name\", rule_value=\"$rule_value\", notes=\"$notes\"";
   $mysql->query_no_result($query);
 }
 ?>
