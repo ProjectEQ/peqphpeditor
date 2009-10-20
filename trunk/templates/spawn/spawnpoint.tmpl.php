@@ -1,4 +1,4 @@
-      <center>
+     <center>
         <table>
           <tr>
             <td style="background-color: #CCC; border: 1px solid black; padding: 5px;">
@@ -20,6 +20,8 @@
               <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>">View Spawngroups for this spawnpoint</a>
               <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$id?>&sid=<?=$sid?>&action=18"><img src="images/add.gif" border="0" title="Add a grid to this Spawnpoint"></a>&nbsp;
               <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$id?>&action=11"><img src="images/c_table.gif" border="0" title="Edit this Spawnpoint"></a>&nbsp;
+              <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$id?>&action=50"><img src="images/last.gif" border="0" title="Copy this Spawnpoint"></a>&nbsp;
+              <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$id?>&action=52"><img src="images/next.gif" border="0" title="Move this Spawnpoint"></a>&nbsp;
               <a onClick="return confirm('Really delete this spawnpoint?');" href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&sid=<?=$sid?>&id=<?=$id?>&action=13"><img src="images/table.gif" border="0" title="Delete this Spawnpoint"></a>
             </td>
           </tr>
@@ -73,3 +75,4 @@
       </div>
       </div>
 <?endif;?>
+    
