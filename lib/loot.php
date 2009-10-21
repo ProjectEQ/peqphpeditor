@@ -533,9 +533,19 @@ function add_lootdrop_item ($itemid) {
   check_authorization();
   global $mysql;
   $ldid = $_GET['ldid'];
-  
-  $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$ldid, item_id=$itemid";
+
+  $query = "SELECT slots AS slts from items WHERE id=$itemid";
+  $result = $mysql->query_assoc($query);
+
+  $slots = $result['slts'];
+
+  if ($slots&1 || $slots&2 || $slots&4 || $slots&8 || $slots&16 || $slots&32 || $slots&64 || $slots&128 || $slots&256 || $slots&512 || $slots&1024 || $slots&2048 || $slots&4096 || $slots&8192 || $slots&16384 || $slots&32768 || $slots&65536 || $slots&131072 || $slots&262144 || $slots&524288 || $slots&1048576 || $slots&2097152 || $slots&4194304) $eitem = 1;
+
+  else $eitem = 0;
+
+  $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$ldid, item_id=$itemid, equip_item=$eitem";
   $mysql->query_no_result($query);
+  
 }
 
 function assign_lootdrop () {
