@@ -405,6 +405,9 @@ function update_npc () {
   if (!isset($_POST['npc_aggro'])) $_POST['npc_aggro'] = 0;
   if (!isset($_POST['findable'])) $_POST['findable'] = 0;
   if (!isset($_POST['trackable'])) $_POST['trackable'] = 0;
+  if (!isset($_POST['pet'])) $_POST['pet'] = 0;
+  if (!isset($_POST['private_corpse'])) $_POST['private_corpse'] = 0;
+  if (!isset($_POST['unique_spawn_by_name'])) $_POST['unique_spawn_by_name'] = 0;
 
   $new_specialattks = '';
   foreach ($specialattacks as $k => $v) {
@@ -517,6 +520,9 @@ function add_npc () {
   if (!isset($_POST['npc_aggro'])) $_POST['npc_aggro'] = 0;
   if (!isset($_POST['findable'])) $_POST['findable'] = 0;
   if (!isset($_POST['trackable'])) $_POST['trackable'] = 0;
+  if (!isset($_POST['pet'])) $_POST['pet'] = 0;
+  if (!isset($_POST['private_corpse'])) $_POST['private_corpse'] = 0;
+  if (!isset($_POST['unique_spawn_by_name'])) $_POST['unique_spawn_by_name'] = 0;
 
   foreach ($specialattacks as $k => $v) {
     if (isset($_POST["$k"])) $npcspecialattks .= $_POST["$k"];
