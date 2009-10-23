@@ -349,7 +349,7 @@ switch ($action) {
 function get_bugs() {
   global $mysql;
 
-  $query = "SELECT id, zone, name, ui, x, y, z, type, flag, target, bug, date, status FROM bugs";
+  $query = "SELECT id, zone, name, ui, x, y, z, type, flag, target, bug, date, status FROM bugs limit 500";
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
