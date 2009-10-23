@@ -28,5 +28,10 @@
          </td>
        </tr>
         <?$x++; endforeach;?>
-         </table>
+         <?endif;?>
+           <? if (!isset($reports)):?>
+        <tr>
+          <td align="left" width="100" style="padding: 10px;">No reported players</td>
+        </tr>
         <?endif;?>
+        </table>

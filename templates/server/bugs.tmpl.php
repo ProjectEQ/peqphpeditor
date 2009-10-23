@@ -38,5 +38,10 @@
        </tr>
         <?endif;?>
         <?$x++; endforeach;?>
-         </table>
+         <?endif;?>
+           <? if (!isset($bugs)):?>
+        <tr>
+          <td align="left" width="100" style="padding: 10px;">No bugs</td>
+        </tr>
         <?endif;?>
+        </table>
