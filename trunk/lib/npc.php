@@ -326,6 +326,21 @@ switch ($action) {
     $body->set('results', search_npc_faction_ids_primary($_POST['search']));
     $body->set('npc_faction_id', get_npc_faction_id());
     break;
+  case 40: // Get next ID
+    check_authorization();
+    $body = new Template("templates/npc/nextid.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $body->set('zoneids', $zoneids);
+    $body->set('zoneid', getZoneID($z));
+    break;
+  case 41: // Get next ID
+    check_authorization();
+    $body = new Template("templates/npc/nextid.result.tmpl.php");
+    $body->set('next_npcid', next_npcid());
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    break;
 }
 
 function npc_info () {
@@ -987,5 +1002,16 @@ function tint_info() {
   
   return $result;
 }
+
+function next_npcid() {
+  global $mysql, $z;
+
+  $npczoneid = $_POST['npczoneid'];
+
+  $query = "SELECT max(id) AS npcid FROM npc_types WHERE id < \"$npczoneid\"*1000+1000";
+  $result = $mysql->query_assoc($query);
+  return ($result['npcid'] + 1);
+}
+
 
 ?>
