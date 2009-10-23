@@ -32,5 +32,10 @@
          </td>
        </tr>
         <?$x++; endforeach;?>
-         </table>
+         <?endif;?>
+           <? if (!isset($petitions)):?>
+        <tr>
+          <td align="left" width="100" style="padding: 10px;">No petitions</td>
+        </tr>
         <?endif;?>
+        </table>

@@ -29,5 +29,10 @@
           </td>
         </tr>
         <?$x++; endforeach;?>
-        </table>
+         <?endif;?>
+           <? if (!isset($ruleset)):?>
+        <tr>
+          <td align="left" width="100" style="padding: 10px;">No rulesets</td>
+        </tr>
         <?endif;?>
+        </table>

@@ -32,5 +32,10 @@
          </td>
        </tr>
         <?$x++; endforeach;?>
-         </table>
         <?endif;?>
+       <? if (!isset($hackers)):?>
+        <tr>
+          <td align="left" width="100" style="padding: 10px;">No hackers</td>
+        </tr>
+        <?endif;?>
+        </table>

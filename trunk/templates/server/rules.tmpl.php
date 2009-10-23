@@ -30,5 +30,10 @@
           </td>
         </tr>
         <?$x++; endforeach;?>
-        </table>
+         <?endif;?>
+           <? if (!isset($rules)):?>
+        <tr>
+          <td align="left" width="100" style="padding: 10px;">No rules</td>
+        </tr>
         <?endif;?>
+        </table>

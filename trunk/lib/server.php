@@ -268,6 +268,82 @@ switch ($action) {
     add_ruleset();
     header("Location: index.php?editor=server&action=27");
     exit;
+  case 32: // View Zones
+    check_admin_authorization();
+    $body = new Template("templates/server/zones.tmpl.php");
+    $zones = get_zones();
+    if ($zones) {
+      foreach ($zones as $key=>$value) {
+        $body->set($key, $value);
+       }
+     }
+    $launchers = get_launchers();
+    if ($launchers) {
+      foreach ($launchers as $key=>$value) {
+        $body->set($key, $value);
+       }
+     }
+    break;
+  case 33: // Edit Zone
+    check_admin_authorization();
+    $body = new Template("templates/server/zones.edit.tmpl.php");
+    $body->set('zoneids', $zoneids);
+    $zones = view_zone();
+    if ($zones) {
+      foreach ($zones as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 34: // Update Zone
+    check_admin_authorization();
+    update_zone();
+    header("Location: index.php?editor=server&action=32");
+    exit;
+  case 35: // Delete Zone
+    check_admin_authorization();
+    delete_zone();
+    header("Location: index.php?editor=server&action=32");
+    exit;
+  case 36: // Add Zone
+    check_admin_authorization();
+    $body = new Template("templates/server/zones.add.tmpl.php");
+    $body->set('suggestlauncher', suggest_launcher());
+    break;
+  case 37: // Add Zone
+    check_admin_authorization();
+    add_zone();
+    header("Location: index.php?editor=server&action=32");
+    exit;
+  case 38: // Edit launcher
+    check_admin_authorization();
+    $body = new Template("templates/server/launcher.edit.tmpl.php");
+    $launchers = view_launcher();
+    if ($launchers) {
+      foreach ($launchers as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 39: // Update launcher
+    check_admin_authorization();
+    update_launcher();
+    header("Location: index.php?editor=server&action=32");
+    exit;
+  case 40: // Delete launcher
+    check_admin_authorization();
+    delete_launcher();
+    header("Location: index.php?editor=server&action=32");
+    exit;
+  case 41: // Add launcher
+    check_admin_authorization();
+    $body = new Template("templates/server/launcher.add.tmpl.php");
+    break;
+  case 42: // Add launcher
+    check_admin_authorization();
+    add_launcher();
+    header("Location: index.php?editor=server&action=32");
+    exit;
 }
 
 function get_bugs() {
@@ -346,6 +422,32 @@ function get_rules_from_ruleset() {
   if ($result) {
     foreach ($result as $result) {
      $array['rules'][$result['rule_name']] = array("ruleset_id"=>$result['ruleset_id'], "rule_value"=>$result['rule_value'], "rule_name"=>$result['rule_name'], "notes"=>$result['notes']);
+         }
+       }
+  return $array;
+  }
+
+function get_zones() {
+  global $mysql;
+
+  $query = "SELECT launcher, zone, port FROM launcher_zones order by zone";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['zones'][$result['zone']] = array("launcher"=>$result['launcher'], "zone"=>$result['zone'], "port"=>$result['port']);
+         }
+       }
+  return $array;
+  }
+
+function get_launchers() {
+  global $mysql;
+
+  $query = "SELECT name, dynamics FROM launcher";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['launchers'][$result['name']] = array("name"=>$result['name'], "dynamics"=>$result['dynamics']);
          }
        }
   return $array;
@@ -431,6 +533,29 @@ function view_rulesets() {
   return $array;
   }
 
+function view_zone() {
+  global $mysql;
+
+  $zone = $_GET['zone'];
+  $launcher = $_GET['launcher'];
+
+  $query = "SELECT * FROM launcher_zones where launcher = \"$launcher\" and zone = \"$zone\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+  }
+
+function view_launcher() {
+  global $mysql;
+
+  $name = $_GET['name'];
+
+  $query = "SELECT * FROM launcher where name = \"$name\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+  }
+
 function update_bugs() {
   global $mysql;
 
@@ -475,6 +600,30 @@ function update_ruleset() {
   $name = $_POST['name'];
 
   $query = "UPDATE rule_sets SET name=\"$name\", ruleset_id=\"$ruleset_id1\" WHERE ruleset_id=\"$ruleset_id\"";
+  $mysql->query_no_result($query);
+}
+
+function update_zone() {
+  global $mysql;
+
+  $launcher1 = $_POST['launcher1'];
+  $launcher = $_POST['launcher'];
+  $zone1 = $_POST['zone1'];
+  $zone = $_POST['zone'];
+  $port = $_POST['port'];
+
+  $query = "UPDATE launcher_zones SET launcher=\"$launcher1\", zone=\"$zone1\", port=\"$port\" WHERE launcher=\"$launcher\" and zone=\"$zone\"";
+  $mysql->query_no_result($query);
+}
+
+function update_launcher() {
+  global $mysql;
+
+  $name1 = $_POST['name1'];
+  $name = $_POST['name'];
+  $dynamics = $_POST['dynamics'];
+
+  $query = "UPDATE launcher SET name=\"$name1\", dynamics=\"$dynamics\" WHERE name=\"$name\"";
   $mysql->query_no_result($query);
 }
 
@@ -545,6 +694,25 @@ function delete_ruleset_rules() {
   $mysql->query_no_result($query);
 }
 
+function delete_zone() {
+  global $mysql;
+
+  $launcher = $_GET['launcher'];
+  $zone = $_GET['zone'];
+
+  $query = "DELETE FROM launcher_zones WHERE launcher=\"$launcher\" and zone=\"$zone\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_launcher() {
+  global $mysql;
+
+  $name = $_GET['name'];
+
+  $query = "DELETE FROM launcher WHERE name=\"$name\"";
+  $mysql->query_no_result($query);
+}
+
 function add_rule() {
   global $mysql;
 
@@ -564,6 +732,27 @@ function add_ruleset() {
   $name = $_POST['name']; 
 
   $query = "INSERT INTO rule_sets SET ruleset_id=\"$ruleset_id\", name=\"$name\"";
+  $mysql->query_no_result($query);
+}
+
+function add_zone() {
+  global $mysql;
+
+  $launcher = $_POST['launcher'];
+  $zone = $_POST['zone']; 
+  $port = $_POST['port']; 
+
+  $query = "INSERT INTO launcher_zones SET launcher=\"$launcher\", zone=\"$zone\", port=\"$port\"";
+  $mysql->query_no_result($query);
+}
+
+function add_launcher() {
+  global $mysql;
+
+  $name = $_POST['name'];
+  $dynamics = $_POST['dynamics']; 
+
+  $query = "INSERT INTO launcher SET name=\"$name\", dynamics=\"$dynamics\"";
   $mysql->query_no_result($query);
 }
 
@@ -605,5 +794,14 @@ function suggest_ruleset_id() {
   $result = $mysql->query_assoc($query);
   
   return ($result['rsid'] + 1);
+}
+
+function suggest_launcher() {
+  global $mysql;
+
+  $query = "SELECT name FROM launcher limit 1";
+  $result = $mysql->query_assoc($query);
+  
+  return $result['name'];
 }
 ?>
