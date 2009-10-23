@@ -1,4 +1,4 @@
-<?
+<?php
 
 switch ($action) {
   case 0:  // View faction info
@@ -139,6 +139,7 @@ $fields .= "mod_r1=\"" . $_POST['mod_r1'] . "\", ";
 $fields .= "mod_r2=\"" . $_POST['mod_r2'] . "\", ";
 $fields .= "mod_r3=\"" . $_POST['mod_r3'] . "\", ";
 $fields .= "mod_r4=\"" . $_POST['mod_r4'] . "\", ";
+
 $fields .= "mod_r5=\"" . $_POST['mod_r5'] . "\", ";
 $fields .= "mod_r6=\"" . $_POST['mod_r6'] . "\", ";
 $fields .= "mod_r8=\"" . $_POST['mod_r8'] . "\", ";

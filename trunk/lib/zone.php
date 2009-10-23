@@ -1,4 +1,4 @@
-<?
+<?php
 
 $bindallowed = array(
   0   => "No",

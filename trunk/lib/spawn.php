@@ -1,4 +1,4 @@
-<?
+<?php
 
 $wandertype = array(
   0   => "Circular",

@@ -1,4 +1,4 @@
-<?
+<?php
 
 $factions = faction_list();
 $faction_values = array(-1=>"Aggressive", 0=>"Passive", 1=>"Assist");

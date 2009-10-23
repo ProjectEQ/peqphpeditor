@@ -1,4 +1,4 @@
-<?
+<?php
 
 $rewardmethods = array(
   0   => "Single ID",

@@ -1,4 +1,4 @@
-<?
+<?php
 
 $spelltypes = array(
   1   => "Nuke",

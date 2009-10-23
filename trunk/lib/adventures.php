@@ -1,4 +1,4 @@
-<? 
+<?php
 
 $advtype = array(
   1   => "Assassinate",

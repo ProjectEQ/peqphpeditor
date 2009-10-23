@@ -1,4 +1,4 @@
-<?
+<?php
 
 // Database Information:
 $dbhost = 'localhost';

@@ -1,4 +1,4 @@
-<?
+<?php
 
 if ($ts == '' && intval($rec) != '0') {
   $ts = getRecipeTradeskill();

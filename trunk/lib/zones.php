@@ -1,4 +1,4 @@
-<?
+<?php
 
 $eqzones = array(
   array('expansion' => 1, 'zone' => 'airplane'),
