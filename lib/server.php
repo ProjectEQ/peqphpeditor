@@ -1,4 +1,4 @@
-<?
+<?php
 
 $bugstatus = array(
   0   => "Open",

@@ -1,4 +1,4 @@
-<?
+<?php
 
 switch ($editor) {
   case '':

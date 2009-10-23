@@ -1,4 +1,5 @@
-<?
+<?php
+
 switch ($action) {
   case 0: 
     $javascript = new Template("templates/iframes/js.tmpl.php");

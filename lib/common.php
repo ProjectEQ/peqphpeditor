@@ -1,4 +1,4 @@
-<?
+<?php
 
 function getNPCName($npcid) {
   global $mysql;

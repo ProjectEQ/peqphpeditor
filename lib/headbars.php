@@ -1,4 +1,4 @@
-<?
+<?php
 
 // If user is logged in, build Editor tabs
 

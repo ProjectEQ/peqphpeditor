@@ -1,4 +1,4 @@
-<?
+<?php
 
 $traptype = array(
   0   => "Casting",

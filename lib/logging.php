@@ -1,4 +1,4 @@
-<?
+<?php
 
 function logSQL ($query) {
   global $log_file, $logging;

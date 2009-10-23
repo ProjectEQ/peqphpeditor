@@ -1,4 +1,4 @@
-<?
+<?php
 switch ($action) {
   case 0:
     if (session::is_admin()) {
