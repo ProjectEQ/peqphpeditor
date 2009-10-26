@@ -388,7 +388,7 @@ function get_reports() {
 function get_petitions() {
   global $mysql;
 
-  $query = "SELECT dib, petid, accountname, charname, zone, senttime FROM petitions";
+  $query = "SELECT dib, petid, accountname, charname, zone, senttime FROM petitions order by senttime";
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
