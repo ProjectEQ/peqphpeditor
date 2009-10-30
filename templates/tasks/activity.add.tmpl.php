@@ -19,7 +19,7 @@
            <legend><strong><font size="4">General</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
-               <?if($suggeststep > 1):?>
+               <?if($suggeststep > 0):?>
                <td align="left" width="20%">ID: <br><input type="text" name="activityid" size="5" value="<?=$suggestid?>"></td>
                <?endif;?> 
                <?if($suggestid == 1 && $suggeststep == 1):?>
