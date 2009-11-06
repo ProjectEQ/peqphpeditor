@@ -19,8 +19,8 @@
           <td align="center" width="5%"><strong>raid</strong></td>
           <td align="center" width="5%"><strong>min level</strong></td>
           <td align="center" width="5%"><strong>max level</strong></td>
-          <td align="center" width="15%"><strong>type</strong></td
-          <td align="center" width="10%"><strong>data</strong></td
+          <td align="center" width="15%"><strong>type</strong></td>
+          <td align="center" width="10%"><strong>data</strong></td>
           <td align="center" width="20%"><strong>theme</strong></td>
           <td align="center" width="10%"><strong>zone in</strong></td>
           <th width="5%"></th>
