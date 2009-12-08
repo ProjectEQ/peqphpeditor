@@ -4,7 +4,7 @@
             <a href="index.php?editor=tasks&tskid=<?=$id?>&action=1"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
             <a onClick="return confirm('Really Delete Task <?=$id?> and all associated activities?');" href="index.php?editor=tasks&tskid=<?=$id?>&action=3"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
            </div>
-           <td> Task: <?=$title?> (<?=$id?>) Task Set: <td align="center" width="5%"><a href="index.php?editor=tasks&tskid=<?=$id?>&tsksetid=<?=$tsksetsid?>&action=29">(<?=$tsksetsid?>)</td>
+           <td> Task: <?=$title?> (<?=$id?>) Task Set: <td align="center" width="5%"><a href="index.php?editor=tasks&tskid=<?=$id?>&tsksetid=<?=$tsksetsid?>&action=29">(<?=$tsksetsid?>)</a></td>
            </div>
            <div class="table_content">
          <table cellspacing=0 border=0 width="100%">
