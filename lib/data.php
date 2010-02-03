@@ -814,7 +814,7 @@ $classes = array (
   64 => 'Unknown64',
   65 => 'Unknown65',
   66 => 'Unknown66',
-  67 => 'Norrath's Keepers Merchant',
+  67 => 'Norraths Keepers Merchant',
   68 => 'Dark Reign Merchant');
 
 $specialattacks = array(
