@@ -311,6 +311,8 @@
 <input type="hidden" name="scalerate" value="<?=$scalerate?>">
 <input type="hidden" name="private_corpse" value="<?=$private_corpse?>">
 <input type="hidden" name="unique_spawn_by_name" value="<?=$unique_spawn_by_name?>">
+<input type="hidden" name="prim_melee_type" value="<?=$prim_melee_type?>">
+<input type="hidden" name="sec_melee_type" value="<?=$sec_melee_type?>">
             <td align="left" width="17%">NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>"></td>
             <input type="submit" value="Copy NPC">
      </center>
