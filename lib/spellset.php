@@ -142,6 +142,12 @@ switch($action) {
     $results = search_spells();
     $body->set("results", $results);
     break;
+  case 16:  // Copy spellset
+    check_authorization();
+    copy_spellset();
+    $nss = get_new_id();
+    header("Location: index.php?editor=spellset&z=$z&npcid=$npcid");
+    exit;
 }
 
 function spells_info () {
@@ -334,5 +340,53 @@ function search_spells() {
   WHERE spells_new.name rlike \"$search\"";
   $results = $mysql->query_mult_assoc($query);
   return $results;
+}
+
+function copy_spellset() {
+  check_authorization();
+  global $mysql;
+  $spellsetid = $_GET['spellsetid'];
+  $npcid = $_GET['npcid'];
+
+  $query = "SELECT MAX(id) as sid FROM npc_spells";
+  $result = $mysql->query_assoc($query);
+  $nss = $result['sid'] + 1;
+  
+  $query = "DELETE FROM npc_spells WHERE id=0";
+  $mysql->query_no_result($query);
+
+  $query = "DELETE FROM npc_spells_entries WHERE npc_spells_id=0";
+  $mysql->query_no_result($query);
+
+  $query = "INSERT INTO npc_spells (name,parent_list,attack_proc,proc_chance) 
+            SELECT name,parent_list,attack_proc,proc_chance FROM npc_spells where id=$spellsetid";
+  $mysql->query_no_result($query);
+
+  $query = "INSERT INTO npc_spells_entries (spellid,type,minlevel,maxlevel,manacost,recast_delay,priority) 
+            SELECT spellid,type,minlevel,maxlevel,manacost,recast_delay,priority FROM npc_spells_entries where npc_spells_id=$spellsetid";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE npc_spells_entries set npc_spells_id=$nss where npc_spells_id=0";
+  $mysql->query_no_result($query);
+
+  $query = "SELECT name FROM npc_types WHERE id=$npcid";
+  $result = $mysql->query_assoc($query);
+  $name = $result['name'];
+
+  $query = "UPDATE npc_types set npc_spells_id=$nss where id=$npcid";
+  $mysql->query_no_result($query);  
+
+  $query = "UPDATE npc_spells set name=\"$name\" where id=$nss";
+  $mysql->query_no_result($query);
+}
+
+function get_new_id() {
+  check_authorization();
+  global $mysql;
+
+  $query = "SELECT MAX(id) as sid FROM npc_spells";
+  $result = $mysql->query_assoc($query);
+  $nss = $result['sid'];
+  return $nss;
 }
 ?>

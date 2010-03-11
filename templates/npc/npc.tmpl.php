@@ -24,6 +24,7 @@
                  <strong>Race:</strong> <?=$races[$race]?><br>
                  <strong>Class:</strong> <?=$classes[$class]?><br>
                  <strong>Level:</strong> <?=$level?><br>
+                 <strong>Max Level:</strong> <?=$maxlevel?><br>
                  <strong>Body Type:</strong> <?=$bodytypes[$bodytype]?><br>
                  <strong>Vendor:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=22"><?echo ($merchant_id != 0 ? $merchant_id : "no");?></a><br>
                  <strong>Adventure:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=29"><?echo ($adventure_template_id != 0 ? $adventure_template_id : "no");?></a><br>
@@ -77,23 +78,24 @@
              <legend><strong>Vitals</strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
 			  <tr>
-                <td align="left" width="20%">AC: <?=$AC?></td>
-                <td align="left" width="20%">HP: <?=$hp?></td>
-                <td align="left" width="20%">Run: <?=$runspeed?></td>
+                <td align="left" width="33%">AC: <?=$AC?></td>
+                <td align="left" width="33%">HP: <?=$hp?></td>
+                <td align="left" width="34%">Scalerate: <?=$scalerate?></td>
               </tr>
-              <tr>
-                <td align="left" width="20%">ATK: <?=$ATK?></td>
-                <td align="left" width="20%">Acy: <?=$Accuracy?></td>
+                <tr>
+                <td align="left" width="33%">Run: <?=$runspeed?></td>
+                <td align="left" width="33%">Acy: <?=$Accuracy?></td>
+                <td align="left" width="34%">ATK: <?=$ATK?></td>
               </tr>
               <tr>
                 <td align="left" width="33%">See Invis: <?=$yesno[$see_invis]?></td>
                 <td align="left" width="33%">See ITU: <?=$yesno[$see_invis_undead]?></td>
-                <td align="left" width="33%">See Hide: <?=$yesno[$see_hide]?></td>
+                <td align="left" width="34%">See Hide: <?=$yesno[$see_hide]?></td>
                 </tr>
               <tr>
                 <td align="left" width="33%">See Imp Hide: <?=$yesno[$see_improved_hide]?></td>
-                <td align="left" width="20%">Max Level: <?=$maxlevel?></td>
-                <td align="left" width="20%">Scalerate: <?=$scalerate?></td>
+                <td align="left" width="33%">&nbsp;</td>
+                <td align="left" width="34%">&nbsp;</td>
               </tr>
              </table>
            </fieldset>
@@ -155,7 +157,7 @@
               </tr>
               <tr>
                  <td align="left" width="33%">Slow Mit: <?=$slow_mitigation?></td>
-                 <td align="left" width="33%">&nbsp;</td>
+                 <td align="left" width="33%">NPC Aggro: <?=$npc_aggro?></td>
                  <td align="left" width="34%">&nbsp;</td>
                 
               </tr>
@@ -167,18 +169,23 @@
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
                 <td align="left" width="33%">Gender: <?=$genders[$gender]?></td>
-                <td align="left" width="33%">Texture: <?=$texture?></td>
-                <td align="left" width="34%">Helm: <?=$helmtexture?></td>
-              </tr>
-              <tr>
                 <td align="left" width="33%">Size: <?=$size?></td>
-                <td align="left" width="33%">Face: <?=$face?></td>
-
-                <td align="left" width="34%">Hair Style: <?=$luclin_hairstyle?></td>
+                <td align="left" width="34%">Texture: <?=$texture?></td> 
               </tr>
               <tr>
+                <td align="left" width="33%">Face: <?=$face?></td>
+                <td align="left" width="33%">Helm: <?=$helmtexture?></td>
+                <td align="left" width="34%">&nbsp;</td>
+              </tr>
+              <tr>
+                <td align="left" width="33%">Hair Style: <?=$luclin_hairstyle?></td>
                 <td align="left" width="33%">Hair Color: <?=$luclin_haircolor?></td>
-                <td align="left" width="33%">Eye Color: <?=$luclin_eyecolor?></td>
+                <td align="left" width="34%">Eye Color: <?=$luclin_eyecolor?></td>
+                
+              </tr>
+              <tr>
+                <td align="left" width="33%">Eye Color 2: <?=$luclin_eyecolor2?></td>
+                <td align="left" width="33%">Beard: <?=$luclin_beard?></td>
                 <td align="left" width="34%">Beard Color: <?=$luclin_beardcolor?></td>
               </tr>
               <tr>
@@ -192,14 +199,14 @@
                 <td align="left" width="34%">Armor Blue: <?=$armortint_blue?></td>
               </tr>
               <tr>
-                <td align="left" width="33%">Eye Color 2: <?=$luclin_eyecolor2?></td>
-                <td align="left" width="33%">Beard: <?=$luclin_beard?></td>
-                <td align="left" width="34%">&nbsp;</td>
-              </tr>
-              <tr>
                 <td align="left" width="33%">Melee1: <?=$d_meele_texture1?></td>
                 <td align="left" width="33%">Melee2: <?=$d_meele_texture2?></td>
                 <td align="left" width="34%">&nbsp;</td>
+              </tr>
+              <tr>
+               <td align="left" width="33%">Melee1 Type: <?=$prim_melee_type?></td>
+               <td align="left" width="33%">Melee2 Type: <?=$sec_melee_type?></td>
+               <td align="left" width="34%">&nbsp;</td>
               </tr>
              </table>
             </fieldset>
@@ -208,14 +215,14 @@
              <legend><strong>Misc</strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
                <tr>
-                 <td align="left" width="33%">qglobal: <?=$qglobal?></td>
-                 <td align="left" width="33%">npc_aggro: <?=$npc_aggro?></td>
-                 <td align="left" width="34%">Findable: <?=$findable?></td>
-                 
+                 <td align="left" width="33%">Qglobal: <?=$qglobal?></td>
+                 <td align="left" width="33%">Findable: <?=$findable?></td>
+                 <td align="left" width="34%">Trackable: <?=$trackable?></td>
                </tr>
                <tr>
-               <td align="left" width="33%">Trackable: <?=$trackable?></td>
+               
                  <td align="left" width="33%">Spawn Limit: <?=$spawn_limit?></td>
+                 <td align="left" width="33%">Unique Spawn: <?=$unique_spawn_by_name?></td>
                  <td align="left" width="34%">Version: <?=$version?></td>
                </tr>
                <tr>
@@ -225,8 +232,8 @@
                  <? if ($pet == 0):?>
                  <td align="left" width="33%">Pet: No</td>
                  <? endif;?>
-                 <td align="left" width="33%">private_corpse: <?=$private_corpse?></td>
-                 <td align="left" width="34%">unique_spawn: <?=$unique_spawn_by_name?></td>
+                 <td align="left" width="33%">Private Corpse: <?=$private_corpse?></td>
+                 <td align="left" width="34%">&nbsp;</td>
                  </tr>
              </table>
            </td>
