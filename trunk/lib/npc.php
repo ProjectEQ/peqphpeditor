@@ -14,6 +14,7 @@ switch ($action) {
       $body->set('bodytypes', $bodytypes);
       $body->set('races', $races);
       $body->set('yesno', $yesno);
+      $body->set('skilltypes', $skilltypes);
       $body->set('suggestedid', suggest_npcid());
       $body->set('npc_name', getNPCName($npcid));
       $body->set('factions', $factions);
@@ -43,6 +44,7 @@ switch ($action) {
     $body->set('genders', $genders);
     $body->set('factions', $factions);
     $body->set('yesno', $yesno);
+    $body->set('skilltypes', $skilltypes);
     $body->set('bodytypes', $bodytypes);
     $body->set('races', $races);
     $body->set('classes', $classes);
@@ -222,6 +224,7 @@ switch ($action) {
     $body->set('genders', $genders);
     $body->set('factions', $factions);
     $body->set('yesno', $yesno);
+    $body->set('skilltypes', $skilltypes);
     $body->set('bodytypes', $bodytypes);
     $body->set('races', $races);
     $body->set('classes', $classes);
@@ -517,7 +520,8 @@ function update_npc () {
   if ($scalerate != $_POST['scalerate']) $fields .= "scalerate=\"" . $_POST['scalerate'] . "\", ";
   if ($private_corpse != $_POST['private_corpse']) $fields .= "private_corpse=\"" . $_POST['private_corpse'] . "\", ";
   if ($unique_spawn_by_name != $_POST['unique_spawn_by_name']) $fields .= "unique_spawn_by_name=\"" . $_POST['unique_spawn_by_name'] . "\", ";
-
+  if ($prim_melee_type != $_POST['prim_melee_type']) $fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
+  if ($sec_melee_type != $_POST['sec_melee_type']) $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -615,6 +619,8 @@ function add_npc () {
   if ($_POST['scalerate'] != '') $fields .= "scalerate=\"" . $_POST['scalerate'] . "\", ";
   if ($_POST['private_corpse'] != '') $fields .= "private_corpse=\"" . $_POST['private_corpse'] . "\", ";
   if ($_POST['unique_spawn_by_name'] != '') $fields .= "unique_spawn_by_name=\"" . $_POST['unique_spawn_by_name'] . "\", ";
+  if ($_POST['prim_melee_type'] != '') $fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
+  if ($_POST['sec_melee_type'] != '') $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -701,6 +707,8 @@ $fields .= "maxlevel=\"" . $_POST['maxlevel'] . "\", ";
 $fields .= "scalerate=\"" . $_POST['scalerate'] . "\", ";
 $fields .= "private_corpse=\"" . $_POST['private_corpse'] . "\", ";
 $fields .= "unique_spawn_by_name=\"" . $_POST['unique_spawn_by_name'] . "\", ";
+$fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
+$fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {

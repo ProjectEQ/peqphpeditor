@@ -14,12 +14,7 @@
                  NPC Name: <br><input type="text" name="name" size="40" value="<?=$name?>"><br><br>
                  Title: <br><input type="text" name="lastname" size="40" value="<?=$lastname?>"><br><br>
                  Level:  <br><input type="text" name="level" size="10" value="<?=$level?>"><br><br>
-                 Gender:  <br>
-                 <select name="gender">
-<?foreach($genders as $key=>$value):?>
-                   <option value="<?=$key?>"<?echo ($key == $gender)? " selected" : "";?>><?=$value?></option>
-<?endforeach;?>
-                 </select>
+                 Max Level:  <br><input type="text" name="maxlevel" size="10" value="<?=$maxlevel?>"><br><br>
                 </td>
                 <td valign="top">
                  Race:<br>
@@ -41,6 +36,13 @@
 <?foreach($bodytypes as $key=>$value):?>
                    <option value="<?=$key?>"<?echo ($key == $bodytype)? " selected" : "";?>><?=$key?>: <?=$value?></option>
 <?endforeach;?>
+                 </select><br><br>
+                 
+                 Gender:  <br>
+                 <select name="gender">
+<?foreach($genders as $key=>$value):?>
+                   <option value="<?=$key?>"<?echo ($key == $gender)? " selected" : "";?>><?=$value?></option>
+<?endforeach;?>
                  </select>
                 </td>
               </tr>
@@ -52,14 +54,16 @@
            <legend><strong><font size="4">Vitals</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
-               <td align="left" width="14%">HP:  <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
-               <td align="left" width="14%">AC:  <br><input type="text" name="AC" size="10" value="<?=$AC?>"></td>
-               <td align="left" width="14%">Runspeed:  <br><input type="text" name="runspeed" size="10" value="<?=$runspeed?>"></td>
-               <td align="left" width="14%">ATK:  <br><input type="text" name="ATK" size="10" value="<?=$ATK?>"></td>
-               <td align="left" width="14%">Accuracy:  <br><input type="text" name="Accuracy" size="10" value="<?=$Accuracy?>"></td>
-               <td align="left" width="15%">Max Level:  <br><input type="text" name="maxlevel" size="10" value="<?=$maxlevel?>"></td>
+               <td align="left" width="17%">HP:         <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
+               <td align="left" width="17%">AC:         <br><input type="text" name="AC" size="10" value="<?=$AC?>"></td>
+               <td align="left" width="17%">Runspeed:   <br><input type="text" name="runspeed" size="10" value="<?=$runspeed?>"></td>
+               <td align="left" width="17%">ATK:        <br><input type="text" name="ATK" size="10" value="<?=$ATK?>"></td>
+               <td align="left" width="17%">Accuracy:   <br><input type="text" name="Accuracy" size="10" value="<?=$Accuracy?>"></td>
                <td align="left" width="15%">Scalerate:  <br><input type="text" name="scalerate" size="10" value="<?=$scalerate?>"></td> 
             </tr>
+            </table>
+
+            <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
                <td align="left" width="25%">
                  See Invis:  <br>
@@ -131,10 +135,10 @@
                 <td align="left" width="11%">Spells ID:  <br><input type="text" name="npc_spells_id" size="5" value="<?=$npc_spells_id?>"></td>
                 <td align="left" width="11%">Loot ID:  <br><input type="text" name="loottable_id" size="5" value="<?=$loottable_id?>"></td>
                 <td align="left" width="11%">HP Regen:  <br><input type="text" name="hp_regen_rate" size="5" value="<?=$hp_regen_rate?>"></td>
-                <td align="left" width="12%">Mana Regen:  <br><input type="text" name="mana_regen_rate" size="5" value="<?=$mana_regen_rate?>"></td>
+                <td align="left" width="11%">MP Regen:  <br><input type="text" name="mana_regen_rate" size="5" value="<?=$mana_regen_rate?>"></td>
                 <td align="left" width="11%">Aggroradius:  <br><input type="text" name="aggroradius" size="5" value="<?=$aggroradius?>"></td>
                 <td align="left" width="11%">Atk Speed%: <br><input type="text" name="attack_speed" size="5" value="<?=$attack_speed?>"></td>
-                <td align="left" width="11%">Slow Mit: <br><input type="text" name="slow_mitigation" size="5" value="<?=$slow_mitigation?>"></td>
+                <td align="left" width="12%">Slow Mit: <br><input type="text" name="slow_mitigation" size="5" value="<?=$slow_mitigation?>"></td>
               </tr>
             </table>
             <center>
@@ -168,6 +172,7 @@
                   <input type="checkbox" name="O" value="O"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "O") ? "checked" : "";}}?>> Immune to non-Bane Melee<br>
                   <input type="checkbox" name="H" value="H"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "H") ? "checked" : "";}}?>> Will Not Aggro<br>
                   <input type="checkbox" name="d" value="d"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "d") ? "checked" : "";}}?>> See through Feign Death<br>
+                  <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>> Can Aggro NPCs<br>
                   &nbsp;    
                </td>
               </tr>
@@ -191,10 +196,10 @@
                 <td align="left" width="17%">Eyecolor2:  <br><input type="text" name="luclin_eyecolor2" size="10" value="<?=$luclin_eyecolor2?>"></td>
                 <td align="left" width="17%">Beard:  <br><input type="text" name="luclin_beard" size="10" value="<?=$luclin_beard?>"></td>
                 <td align="left" width="17%">Beardcolor:  <br><input type="text" name="luclin_beardcolor" size="10" value="<?=$luclin_beardcolor?>"></td>
-                <td align="left" width="16%">d_melee_texture1:  <br><input type="text" name="d_meele_texture1" size="10" value="<?=$d_meele_texture1?>"></td>
-                <td align="left" width="16%">d_melee_texture2:  <br><input type="text" name="d_meele_texture2" size="10" value="<?=$d_meele_texture2?>"></td>
+                <td align="left" width="16%">Melee1:  <br><input type="text" name="d_meele_texture1" size="10" value="<?=$d_meele_texture1?>"></td>
+                <td align="left" width="16%">Melee2:  <br><input type="text" name="d_meele_texture2" size="10" value="<?=$d_meele_texture2?>"></td>
               </tr>
-              <tr>
+                <tr>
                 <td align="left" width="17%">Heritage:  <br><input type="text" name="drakkin_heritage" size="10" value="<?=$drakkin_heritage?>"></td>
                 <td align="left" width="17%">Tattoo:  <br><input type="text" name="drakkin_tattoo" size="10" value="<?=$drakkin_tattoo?>"></td>
                 <td align="left" width="17%">Details:  <br><input type="text" name="drakkin_details" size="10" value="<?=$drakkin_details?>"></td>
@@ -202,6 +207,26 @@
                 <td align="left" width="16%">Armor Green:  <br><input type="text" name="armortint_green" size="10" value="<?=$armortint_green?>"></td>
                 <td align="left" width="16%">Armor Blue:  <br><input type="text" name="armortint_blue" size="10" value="<?=$armortint_blue?>"></td>
               </tr>
+              </table>
+             <table width="100%" border="0" cellpadding="3" cellspacing="0">
+             <tr>
+              <td align="left" width="50%">
+               Melee1 Type: <br>
+               <select name="prim_melee_type" style="width: 200px;">
+<?foreach($skilltypes as $key=>$value):?>
+                   <option value="<?=$key?>"<?echo ($key == $prim_melee_type)? " selected" : "";?>><?=$key?>: <?=$value?></option>
+<?endforeach;?>
+                 </select>
+                 </td> 
+                 <td align="left" width="50%">               
+                 Melee2 Type: <br>
+               <select name="sec_melee_type" style="width: 200px;">
+<?foreach($skilltypes as $key=>$value):?>
+                   <option value="<?=$key?>"<?echo ($key == $sec_melee_type)? " selected" : "";?>><?=$key?>: <?=$value?></option>
+<?endforeach;?>
+                 </select>
+                </td>
+                </tr>
             </table>
          </fieldset><br>
 
@@ -217,13 +242,22 @@
           <td align="left" width="16%">&nbsp;</td>
          </tr>
          </table><br>
-           <input type="checkbox" name="qglobal" value="1"<?echo ($qglobal == 1) ? "checked" : "";?>>Enable Quest Globals<br>
-           <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>>Can Aggro NPCs<br>
-           <input type="checkbox" name="findable" value="1"<?echo ($findable == 1) ? "checked" : "";?>>NPC is Findable<br>
-           <input type="checkbox" name="trackable" value="1"<?echo ($trackable == 1) ? "checked" : "";?>>NPC is Trackable<br>
-           <input type="checkbox" name="pet" value="1"<?echo ($pet == 1) ? "checked" : "";?>>NPC is a Pet<br>
-           <input type="checkbox" name="private_corpse" value="1"<?echo ($private_corpse == 1) ? "checked" : "";?>>Corpse does not unlock<br>
-           <input type="checkbox" name="unique_spawn_by_name" value="1"<?echo ($unique_spawn_by_name == 1) ? "checked" : "";?>>Unique by name<br>
+         <center>
+            <table cellpadding="20px">
+              <tr>
+           <td valign="top" align="left">
+           <input type="checkbox" name="qglobal" value="1"<?echo ($qglobal == 1) ? "checked" : "";?>> Enable Quest Globals<br>
+           <input type="checkbox" name="findable" value="1"<?echo ($findable == 1) ? "checked" : "";?>> NPC is Findable<br>
+           <input type="checkbox" name="trackable" value="1"<?echo ($trackable == 1) ? "checked" : "";?>> NPC is Trackable<br>
+            </td>
+           <td valign="top" align="left">
+           <input type="checkbox" name="pet" value="1"<?echo ($pet == 1) ? "checked" : "";?>> NPC is a Pet<br>
+           <input type="checkbox" name="private_corpse" value="1"<?echo ($private_corpse == 1) ? "checked" : "";?>> Corpse does not Unlock<br>
+           <input type="checkbox" name="unique_spawn_by_name" value="1"<?echo ($unique_spawn_by_name == 1) ? "checked" : "";?>> Unique by Name<br>    
+               </td>
+              </tr>
+            </table>
+            </center>
           </fieldset><br>
          <center>
             <input type="submit" value="Submit Changes">
