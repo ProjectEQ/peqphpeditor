@@ -348,10 +348,6 @@ function copy_spellset() {
   $spellsetid = $_GET['spellsetid'];
   $npcid = $_GET['npcid'];
 
-  $query = "SELECT MAX(id) as sid FROM npc_spells";
-  $result = $mysql->query_assoc($query);
-  $nss = $result['sid'] + 1;
-  
   $query = "DELETE FROM npc_spells WHERE id=0";
   $mysql->query_no_result($query);
 
@@ -365,6 +361,10 @@ function copy_spellset() {
   $query = "INSERT INTO npc_spells_entries (spellid,type,minlevel,maxlevel,manacost,recast_delay,priority) 
             SELECT spellid,type,minlevel,maxlevel,manacost,recast_delay,priority FROM npc_spells_entries where npc_spells_id=$spellsetid";
   $mysql->query_no_result($query);
+
+  $query = "SELECT MAX(id) as sid FROM npc_spells";
+  $result = $mysql->query_assoc($query);
+  $nss = $result['sid'];
 
   $query = "UPDATE npc_spells_entries set npc_spells_id=$nss where npc_spells_id=0";
   $mysql->query_no_result($query);

@@ -345,10 +345,6 @@ function copy_tradeskill() {
   global $mysql;
   $rec = $_GET['rec'];
 
-  $query = "SELECT MAX(id) as tid FROM tradeskill_recipe";
-  $result = $mysql->query_assoc($query);
-  $nrec = $result['tid'] + 1;
-  
   $query = "DELETE FROM tradeskill_recipe WHERE id=0";
   $mysql->query_no_result($query);
 
@@ -362,6 +358,10 @@ function copy_tradeskill() {
   $query = "INSERT INTO tradeskill_recipe_entries (item_id,successcount,failcount,componentcount,iscontainer) 
             SELECT item_id,successcount,failcount,componentcount,iscontainer FROM tradeskill_recipe_entries where recipe_id=$rec";
   $mysql->query_no_result($query);
+
+  $query = "SELECT MAX(id) as tid FROM tradeskill_recipe";
+  $result = $mysql->query_assoc($query);
+  $nrec = $result['tid'];
 
   $query = "UPDATE tradeskill_recipe_entries set recipe_id=$nrec where recipe_id=0";
   $mysql->query_no_result($query);
