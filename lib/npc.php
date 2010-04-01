@@ -229,6 +229,12 @@ switch ($action) {
     $body->set('races', $races);
     $body->set('classes', $classes);
     $body->set('specialattacks', $specialattacks);
+    $vars = get_stats();
+    if ($vars) {
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
     break;
   case 26:  // Insert npc
     check_authorization();
@@ -343,6 +349,10 @@ switch ($action) {
     $body->set('next_npcid', next_npcid());
     $body->set('currzone', $z);
     $body->set('npcid', $npcid);
+    break;
+   case 42: // Add npc by level
+    check_authorization();
+    $body = new Template("templates/npc/npc.addbylevel.tmpl.php");
     break;
 }
 
@@ -1021,5 +1031,41 @@ function next_npcid() {
   return ($result['npcid'] + 1);
 }
 
+function get_stats() {
+  global $mysql;
+ 
+ $npc_level = $_POST['npc_level'];
+ 
+ if($npc_level < 11) {
+ $query = "SELECT level, avg(hp) AS hp, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 1000 and race != 240 and str < 300 and id < 200000 group by level";
+ $results = $mysql->query_assoc($query);
+ return $results;
+ }
+ if($npc_level > 10 && $npc_level < 31) {
+  $query = "SELECT level, avg(hp) AS hp, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 2500 and race != 240 and str < 300 and id < 200000 group by level";
+ $results = $mysql->query_assoc($query);
+ return $results;
+ }
+  if($npc_level > 30 && $npc_level < 51) {
+  $query = "SELECT level, avg(hp) AS hp, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 5000 and race != 240 and str < 300 and id < 200000 group by level";
+ $results = $mysql->query_assoc($query);
+ return $results;
+ }
+ if($npc_level > 50 && $npc_level < 61) {
+  $query = "SELECT level, avg(hp) AS hp, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 7000 and race != 240 and str < 300 group by level";
+ $results = $mysql->query_assoc($query);
+ return $results;
+ }
+ if($npc_level > 60 && $npc_level < 66) {
+ $query = "SELECT level, avg(hp) AS hp, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 7500 and race != 240 group by level";
+ $results = $mysql->query_assoc($query);
+ return $results;
+ }
+ else {
+ $query = "SELECT level, avg(hp) AS hp, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 50000 and race != 240 group by level";
+ $results = $mysql->query_assoc($query);
+ return $results;
+ }
+}
 
 ?>

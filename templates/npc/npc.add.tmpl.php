@@ -15,7 +15,7 @@
                  <input type="text" name="id" value="<?=$suggestedid?>"><br><br>
                  NPC Name: <br><input type="text" name="name" size="40" value=""><br><br>
                  Title: <br><input type="text" name="lastname" size="40" value=""><br><br>
-                 Level:  <br><input type="text" name="level" size="10" value="1"><br><br>
+                 Level:  <br><input type="text" name="level" size="10" value="<?=$level?>"><br><br>
                  Max Level:  <br><input type="text" name="maxlevel" size="10" value="0"><br><br>
                 <td valign="top">
                  Race:<br>
@@ -56,8 +56,8 @@
            <legend><strong><font size="4">Vitals</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
-               <td align="left" width="17%">HP:  <br><input type="text" name="hp" size="10" value="0"></td>
-               <td align="left" width="17%">AC:  <br><input type="text" name="AC" size="10" value="0"></td>
+               <td align="left" width="17%">HP:  <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
+               <td align="left" width="17%">AC:  <br><input type="text" name="AC" size="10" value="<?=$ac?>"></td>
                <td align="left" width="17%">Runspeed:  <br><input type="text" name="runspeed" size="10" value="1.25"></td>
                <td align="left" width="17%">ATK:  <br><input type="text" name="ATK" size="10" value="0"></td>
                <td align="left" width="17%">Accuracy:  <br><input type="text" name="Accuracy" size="10" value="0"></td>
@@ -103,13 +103,13 @@
            <legend><strong><font size="4">Stats</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
-               <td align="left" width="14%">STR:  <br><input type="text" name="STR" size="5" value="0"></td>
-               <td align="left" width="14%">STA:  <br><input type="text" name="STA" size="5" value="0"></td>
-               <td align="left" width="14%">DEX:  <br><input type="text" name="DEX" size="5" value="0"></td>
-               <td align="left" width="14%">AGI:  <br><input type="text" name="AGI" size="5" value="0"></td>
-               <td align="left" width="14%">INT:  <br><input type="text" name="_INT" size="5" value="0"></td>
-               <td align="left" width="15%">WIS:  <br><input type="text" name="WIS" size="5" value="0"></td>
-               <td align="left" width="15%">CHA:  <br><input type="text" name="CHA" size="5" value="0"></td>
+               <td align="left" width="14%">STR:  <br><input type="text" name="STR" size="5" value="<?=$stats?>"></td>
+               <td align="left" width="14%">STA:  <br><input type="text" name="STA" size="5" value="<?=$stats?>"></td>
+               <td align="left" width="14%">DEX:  <br><input type="text" name="DEX" size="5" value="<?=$stats?>"></td>
+               <td align="left" width="14%">AGI:  <br><input type="text" name="AGI" size="5" value="<?=$stats?>"></td>
+               <td align="left" width="14%">INT:  <br><input type="text" name="_INT" size="5" value="<?=$stats?>"></td>
+               <td align="left" width="15%">WIS:  <br><input type="text" name="WIS" size="5" value="<?=$stats?>"></td>
+               <td align="left" width="15%">CHA:  <br><input type="text" name="CHA" size="5" value="<?=$stats?>"></td>
              </tr>
            </table>
          </fieldset><br>
@@ -118,11 +118,11 @@
            <legend><strong><font size="4">Resists</font></strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
                <tr>
-                <td align="left" width="14%">MR:  <br><input type="text" name="MR" size="5" value="0"></td>
-                <td align="left" width="14%">CR:  <br><input type="text" name="CR" size="5" value="0"></td>
-                <td align="left" width="14%">FR:  <br><input type="text" name="FR" size="5" value="0"></td>
-                <td align="left" width="14%">PR:  <br><input type="text" name="PR" size="5" value="0"></td>
-                <td align="left" width="14%">DR:  <br><input type="text" name="DR" size="5" value="0"></td>
+                <td align="left" width="14%">MR:  <br><input type="text" name="MR" size="5" value="<?=$resists?>"></td>
+                <td align="left" width="14%">CR:  <br><input type="text" name="CR" size="5" value="<?=$resists?>"></td>
+                <td align="left" width="14%">FR:  <br><input type="text" name="FR" size="5" value="<?=$resists?>"></td>
+                <td align="left" width="14%">PR:  <br><input type="text" name="PR" size="5" value="<?=$resists?>"></td>
+                <td align="left" width="14%">DR:  <br><input type="text" name="DR" size="5" value="<?=$resists?>"></td>
                 <td align="left" width="15%">&nbsp;</td>
                 <td align="left" width="15%">&nbsp;</td>
               </tr>
@@ -133,8 +133,8 @@
            <legend><strong><font size="4">Combat</font></strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
                <tr>
-                <td align="left" width="11%">Min Dmg:  <br><input type="text" name="mindmg" size="5" value="0"></td>
-                <td align="left" width="11%">Max Dmg:  <br><input type="text" name="maxdmg" size="5" value="0"></td>
+                <td align="left" width="11%">Min Dmg:  <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>"></td>
+                <td align="left" width="11%">Max Dmg:  <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>"></td>
                 <td align="left" width="11%">Spells ID:  <br><input type="text" name="npc_spells_id" size="5" value="0"></td>
                 <td align="left" width="11%">Loot ID:  <br><input type="text" name="loottable_id" size="5" value="0"></td>
                 <td align="left" width="11%">HP Regen:  <br><input type="text" name="hp_regen_rate" size="5" value="0"></td>
