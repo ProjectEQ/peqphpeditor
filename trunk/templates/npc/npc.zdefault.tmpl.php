@@ -6,7 +6,7 @@
          </tr>
          <tr>
            <td class="edit_form_content">
-             <a href="index.php?editor=npc&z=<?=$currzone?>&action=25">Add an NPC to <?=$currzone?></a>
+             <a href="index.php?editor=npc&z=<?=$currzone?>&action=42">Add an NPC to <?=$currzone?></a>
            </td>
          </tr>
        </table>

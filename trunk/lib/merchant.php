@@ -165,7 +165,7 @@ function get_merchantlist() {
       $array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name'], "price"=>$result['price'], "sellrate"=>$result['sellrate']);
     }
   }
-  
+
   return $array;
 }
 

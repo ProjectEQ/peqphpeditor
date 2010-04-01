@@ -2,7 +2,7 @@
      <div class="table_container">
        <div class="table_header">
          <div style="float:right">
-           <a href="index.php?editor=npc&z=<?=$currzone?>&action=25"><img src="images/add.gif" border=0 title="Add an NPC"></a>
+           <a href="index.php?editor=npc&z=<?=$currzone?>&action=42"><img src="images/add.gif" border=0 title="Add an NPC"></a>
            <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" border=0 title="Edit this NPC"></a>
             <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=40"><img src="images/zone.gif" border=0 title="Get next npcid for a zone"></a>
            <a onClick="return confirm('Really delete npcid <?=$npcid?>?');" href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=24"><img src="images/table.gif" border=0 title="Delete this NPC"></a>
