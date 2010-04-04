@@ -32,6 +32,7 @@ switch ($action) {
     header("Location: index.php?editor=faction&fid=$fid");
     exit;
   case 3:  // Search factions
+    check_authorization();
     $body = new Template("templates/faction/faction.searchresults.tmpl.php");
     $results = search_factions();
     $body->set("results", $results);
@@ -52,6 +53,16 @@ switch ($action) {
     check_authorization();
     delete_faction();
     header("Location: index.php?editor=faction");
+    exit;
+  case 7:  // Get faction values
+    check_authorization();
+    $body = new Template("templates/faction/faction.getvalues.tmpl.php");
+    $body->set('id', $fid);
+    break;
+  case 8:  // Update faction values
+    check_authorization();
+    update_faction_values();
+    header("Location: index.php?editor=faction&fid=$fid");
     exit;
 }
 
@@ -181,4 +192,74 @@ $fields =  rtrim($fields, ", ");
   }
 }
 
+function update_faction_values () {
+  check_authorization();
+  global $mysql, $fid;
+  $faction_id = $_POST['faction_id'];
+  
+$query = "SELECT * FROM faction_list where id = \"$faction_id\"";
+$result = $mysql->query_assoc($query);
+   
+$fields .= "base=\"" . $result['base'] . "\", ";
+$fields .= "mod_c1=\"" . $result['mod_c1'] . "\", ";
+$fields .= "mod_c2=\"" . $result['mod_c2'] . "\", ";
+$fields .= "mod_c3=\"" . $result['mod_c3'] . "\", ";
+$fields .= "mod_c4=\"" . $result['mod_c4'] . "\", ";
+$fields .= "mod_c5=\"" . $result['mod_c5'] . "\", ";
+$fields .= "mod_c6=\"" . $result['mod_c6'] . "\", ";
+$fields .= "mod_c7=\"" . $result['mod_c7'] . "\", ";
+$fields .= "mod_c8=\"" . $result['mod_c8'] . "\", ";
+$fields .= "mod_c9=\"" . $result['mod_c9'] . "\", ";
+$fields .= "mod_c10=\"" . $result['mod_c10'] . "\", ";
+$fields .= "mod_c11=\"" . $result['mod_c11'] . "\", ";
+$fields .= "mod_c12=\"" . $result['mod_c12'] . "\", ";
+$fields .= "mod_c13=\"" . $result['mod_c13'] . "\", ";
+$fields .= "mod_c14=\"" . $result['mod_c14'] . "\", ";
+$fields .= "mod_c15=\"" . $result['mod_c15'] . "\", ";
+$fields .= "mod_c16=\"" . $result['mod_c16'] . "\", ";
+$fields .= "mod_r1=\"" . $result['mod_r1'] . "\", ";
+$fields .= "mod_r2=\"" . $result['mod_r2'] . "\", ";
+$fields .= "mod_r3=\"" . $result['mod_r3'] . "\", ";
+$fields .= "mod_r4=\"" . $result['mod_r4'] . "\", ";
+
+$fields .= "mod_r5=\"" . $result['mod_r5'] . "\", ";
+$fields .= "mod_r6=\"" . $result['mod_r6'] . "\", ";
+$fields .= "mod_r8=\"" . $result['mod_r8'] . "\", ";
+$fields .= "mod_r9=\"" . $result['mod_r9'] . "\", ";
+$fields .= "mod_r10=\"" . $result['mod_r10'] . "\", ";
+$fields .= "mod_r11=\"" . $result['mod_r11'] . "\", ";
+$fields .= "mod_r12=\"" . $result['mod_r12'] . "\", ";
+$fields .= "mod_r14=\"" . $result['mod_r14'] . "\", ";
+$fields .= "mod_r60=\"" . $result['mod_r60'] . "\", ";
+$fields .= "mod_r75=\"" . $result['mod_r75'] . "\", ";
+$fields .= "mod_r108=\"" . $result['mod_r108'] . "\", ";
+$fields .= "mod_r120=\"" . $result['mod_r120'] . "\", ";
+$fields .= "mod_r128=\"" . $result['mod_r128'] . "\", ";
+$fields .= "mod_r130=\"" . $result['mod_r130'] . "\", ";
+$fields .= "mod_r161=\"" . $result['mod_r161'] . "\", ";
+$fields .= "mod_r330=\"" . $result['mod_r330'] . "\", ";
+$fields .= "mod_d201=\"" . $result['mod_d201'] . "\", ";
+$fields .= "mod_d202=\"" . $result['mod_d202'] . "\", ";
+$fields .= "mod_d203=\"" . $result['mod_d203'] . "\", ";
+$fields .= "mod_d204=\"" . $result['mod_d204'] . "\", ";
+$fields .= "mod_d205=\"" . $result['mod_d205'] . "\", ";
+$fields .= "mod_d206=\"" . $result['mod_d206'] . "\", ";
+$fields .= "mod_d207=\"" . $result['mod_d207'] . "\", ";
+$fields .= "mod_d208=\"" . $result['mod_d208'] . "\", ";
+$fields .= "mod_d209=\"" . $result['mod_d209'] . "\", ";
+$fields .= "mod_d210=\"" . $result['mod_d210'] . "\", ";
+$fields .= "mod_d211=\"" . $result['mod_d211'] . "\", ";
+$fields .= "mod_d212=\"" . $result['mod_d212'] . "\", ";
+$fields .= "mod_d213=\"" . $result['mod_d213'] . "\", ";
+$fields .= "mod_d214=\"" . $result['mod_d214'] . "\", ";
+$fields .= "mod_d215=\"" . $result['mod_d215'] . "\", ";
+$fields .= "mod_d216=\"" . $result['mod_d216'] . "\", ";
+$fields .= "mod_d140=\"" . $result['mod_d140'] . "\", ";
+$fields =  rtrim($fields, ", ");
+
+  if ($fields != '') {
+    $query = "UPDATE faction_list SET $fields WHERE id=\"$fid\"";
+    $mysql->query_no_result($query);
+  }
+}
 ?>

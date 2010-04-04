@@ -17,6 +17,7 @@
        <div class="edit_form_header" style="height: 16px; line-height: 16px;">
          <div style="float: right">
            <a href="index.php?editor=faction&fid=<?=$id?>&action=1"><img src="images/c_table.gif" title="Edit this Faction" border="0"></a>
+           <a href="index.php?editor=faction&fid=<?=$id?>&action=7"><img src="images/download.gif" title="Get Values" border="0"></a>
            <a onClick="return confirm('Really Delete Faction <?=$id?>?');" href="index.php?editor=faction&fid=<?=$id?>&action=6"><img src="images/remove3.gif" title="Delete this faction" border="0"></a>
          </div>
           <?=$name?> (Faction ID: <?=$id?>)

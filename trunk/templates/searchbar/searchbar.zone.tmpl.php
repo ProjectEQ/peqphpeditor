@@ -10,6 +10,15 @@
 <?php endforeach;?>
               </select>
              </td>
+             <td>or <strong>&nbsp;2.</strong>
+            <select OnChange="gotosite(this.options[this.selectedIndex].value)">
+                <option value="">Select a Zone</option>
+<?php foreach ($zones as $zone): ?>
+                <option value="index.php?editor=<?=$curreditor?>&z=<?=$zone?>"<?php if ($currzone == $zone): ?> selected<?php endif;?>><?=getZoneLongName($zone)?></option>
+<?php endforeach;?>
+              </select>
+             </td>
+
            </tr>
         </table>
       </div>
