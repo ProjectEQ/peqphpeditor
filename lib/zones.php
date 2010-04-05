@@ -250,7 +250,7 @@ $eqzones = array(
   array('expansion' => 8, 'zone' => 'barindu'),
   array('expansion' => 8, 'zone' => 'ferubi'),
   array('expansion' => 8, 'zone' => 'ikkinz'),
-  array('expansion' => 8, 'zone' => 'inkuta'),
+  array('expansion' => 8, 'zone' => 'inktuta'),
   array('expansion' => 8, 'zone' => 'kodtaz'),
   array('expansion' => 8, 'zone' => 'natimbi'),
   array('expansion' => 8, 'zone' => 'nedaria'),
