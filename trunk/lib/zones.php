@@ -316,7 +316,9 @@ $eqzones = array(
   array('expansion' => 11, 'zone' => 'drachnidhivea'),
   array('expansion' => 11, 'zone' => 'drachnidhiveb'),
   array('expansion' => 11, 'zone' => 'drachnidhivec'),
-  array('expansion' => 11, 'zone' => 'dreadspire')
+  array('expansion' => 11, 'zone' => 'dreadspire'),
+
+  array('expansion' => 13, 'zone' => 'crescent')
 );
 
 $zoneids = array (
