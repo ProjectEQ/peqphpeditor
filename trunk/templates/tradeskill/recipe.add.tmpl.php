@@ -28,6 +28,13 @@
             </select><br><br>
 	  				Notes:<br>
             <input type="text" name="notes" value=""><br><br>
+            Learned: <br>
+            <select name='must_learn'>
+<?foreach($learned as $k=>$v):?>
+              <option value="<?=$k?>"><?=$v?></option>
+<?endforeach;?>
+            </select><br><br>
+
             <center>
               <input type="submit" name="submit" value="Submit Changes">
             </center>
