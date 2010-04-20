@@ -810,9 +810,9 @@ $classes = array (
   61 => 'LDoN Adventure Merchant',
   62 => 'LDoN Object',
   63 => 'Tribute Master',
-  64 => 'Unknown64',
+  64 => 'Guild Tribute Master',
   65 => 'Unknown65',
-  66 => 'Unknown66',
+  66 => 'Guild Banker',
   67 => 'Norraths Keepers Merchant',
   68 => 'Dark Reign Merchant');
 
