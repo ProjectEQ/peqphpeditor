@@ -147,6 +147,11 @@ switch ($action) {
     copy_merchantlist();
     header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
     exit;
+  case 19: // Sort Merchantlist
+    check_authorization();
+    sort_merchantlist();
+    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
+    exit; 
 }
 
 function get_merchantlist() {
@@ -375,4 +380,36 @@ function copy_merchantlist() {
   $mysql->query_no_result($query);
 }
 
+function sort_merchantlist() {
+  check_authorization();
+  global $mysql;
+  $merchantid = get_merchant_id();
+  $item_id = array();
+ 
+  $query = "SELECT COUNT(slot) AS item_count FROM merchantlist WHERE merchantid=$merchantid";
+  $result = $mysql->query_assoc($query);
+  $item_count = $result['item_count'];
+
+  $query = "SELECT MAX(slot) AS max_slot FROM merchantlist WHERE merchantid=$merchantid";
+  $result = $mysql->query_assoc($query);
+  $max_slot = $result['max_slot'];
+ 
+  $query = "SELECT item FROM merchantlist WHERE merchantid=$merchantid";
+  $results = $mysql->query_mult_assoc($query);
+
+  foreach ($results as $result) {
+    $item_id[] = $result['item'];
+  }
+ 
+  for ($i=0; $i<$item_count; $i++) {
+    $query = "UPDATE merchantlist SET slot=$max_slot+$i+1 WHERE merchantid=$merchantid AND item=$item_id[$i]";
+    $mysql->query_no_result($query);
+  }
+
+  for ($i=0; $i<$item_count; $i++) {
+    $query = "UPDATE merchantlist SET slot=$i+1 WHERE merchantid=$merchantid AND item=$item_id[$i]";
+   $mysql->query_no_result($query);
+  }   
+}
+ 
 ?>

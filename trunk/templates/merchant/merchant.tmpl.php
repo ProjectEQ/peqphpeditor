@@ -3,6 +3,7 @@
          <div class="table_header">
            <div style="float:right;">
              <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=8">Temp List</a>
+             <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=19"><img src="images/sort.gif" border=0 title="Sort this merchantlist">
              <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=4"><img src="images/add.gif" border=0 title="Add an Item"></a>&nbsp;
              <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" border=0 title="Edit this Merchant"></a>&nbsp;
              <a onClick="return confirm('Really Copy Merchant <?=$id?>?');" href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=18"><img src="images/last.gif" border=0 title="Copy this merchantlist"></a>&nbsp;
