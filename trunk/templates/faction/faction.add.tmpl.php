@@ -89,15 +89,15 @@
               <td width="20%">Froglok: <br> <input size="10" type="text" name="mod_r330" value="0"></td>
             </tr>
             <tr>
+		<td width="20%">Drakkin: <br> <input size="10" type="text" name="mod_r522" value="0"></td>
               <td width="20%">Eye of Zomm: <br> <input size="10" type="text" name="mod_r108" value="0"></td>
-              <td width="20%">Wolf-form: <br> <input size="10" type="text" name="mod_r120" value="0"></td>
+              <td width="20%">Wolf-form: <br> <input size="10" type="text" name="mod_r42" value="0"></td>
               <td width="20%">Werewolf: <br> <input size="10" type="text" name="mod_r14" value="0"></td>
-              <td width="20%">Skeleton: <br> <input size="10" type="text" name="mod_r60" value="0"></td>
-              <td width="20%">Iksar Skeleton: <br> <input size="10" type="text" name="mod_r161" value="0"></td>
+              <td width="20%">Skeleton: <br> <input size="10" type="text" name="mod_r367" value="0"></td> 
             </tr>
             <tr>
+		<td width="20%">Iksar Skeleton: <br> <input size="10" type="text" name="mod_r161" value="0"></td>
               <td width="20%">Elemental: <br> <input size="10" type="text" name="mod_r75" value="0"></td>
-              <td width="20%">&nbsp;</td>
               <td width="20%">&nbsp;</td>
               <td width="20%">&nbsp;</td>
               <td width="20%">&nbsp;</td>
@@ -128,6 +128,7 @@
               <td width="20%">Rodcet Nife: <br> <input size="10" type="text" name="mod_d212" value="0"></td>
               <td width="20%">Solusek Ro: <br> <input size="10" type="text" name="mod_d213" value="0"></td>
               <td width="20%">Tribunal: <br> <input size="10" type="text" name="mod_d214" value="0"></td>
+
               <td width="20%">Tunare: <br> <input size="10" type="text" name="mod_d215" value="0"></td>
             </tr>
             <tr>

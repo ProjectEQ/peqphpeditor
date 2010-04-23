@@ -83,18 +83,26 @@
               <td width="20%">Froglok: <?=$mod_r330?></td> 
             </tr>
             <tr>
-              <td width="20%">Eye of Zomm: <?=$mod_r108?></td>
-              <td width="20%">Wolf-form: <?=$mod_r120?></td>
-              <td width="20%">Werewolf: <?=$mod_r14?></td>
-              <td width="20%">Skeleton: <?=$mod_r60?></td>
-              <td width="20%">Iksar Skeleton: <?=$mod_r161?></td>
+		<td width="20%">Drakkin: <?=$mod_r522?></td>
+		<td width="20%">&nbsp;</td>
+              <td width="20%">&nbsp;</td>
+              <td width="20%">&nbsp;</td>
+		<td width="20%">&nbsp;</td>
             </tr>
               <tr>
+		<td width="20%">Eye of Zomm: <?=$mod_r108?></td>
+              <td width="20%">Wolf-form: <?=$mod_r42?></td>
+              <td width="20%">Werewolf: <?=$mod_r14?></td>
+              <td width="20%">Skeleton: <?=$mod_r367?></td>
               <td width="20%">Elemental: <?=$mod_r75?></td>
+             </tr>
+              <tr>
+		<td width="20%">Iksar Skeleton: <?=$mod_r161?></td>
               <td width="20%">&nbsp;</td>
               <td width="20%">&nbsp;</td>
+		<td width="20%">&nbsp;</td>
               <td width="20%">&nbsp;</td>
-              <td width="20%">&nbsp;</td>
+		<td width="20%">&nbsp;</td>
             </tr>
           </table>
         </fieldset><br>
