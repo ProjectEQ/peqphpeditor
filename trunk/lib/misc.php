@@ -297,7 +297,6 @@ switch ($action) {
    case 35: // View doors
     $body = new Template("templates/misc/doors.tmpl.php");
     $body->set('currzone', $z);
-    $body->set('yesno', $yesno);
     $doors = get_doors();
     if ($doors) {
       foreach ($doors as $key=>$value) {
@@ -383,6 +382,90 @@ switch ($action) {
   case 46: // Add objects
     check_authorization();
     add_objects();
+    header("Location: index.php?editor=misc&z=$z&action=41");
+    exit;
+  case 47:  // Copy doors
+    check_authorization();
+    $body = new Template("templates/misc/doors.copyver.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('doorversion', get_max_doorversion());
+    break;
+  case 48:  // Copy doors
+    check_authorization();
+    copy_doors();
+    header("Location: index.php?editor=misc&z=$z&action=35");
+    exit;
+  case 49:  // Copy GSpawns
+    check_authorization();
+    $body = new Template("templates/misc/groundspawns.copyver.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('gsversion', get_max_gsversion());
+    break;
+  case 50:  // Copy GSpawns
+    check_authorization();
+    copy_groundspawns();
+    header("Location: index.php?editor=misc&z=$z&action=13");
+    exit;
+  case 51:  // Copy Traps
+    check_authorization();
+    $body = new Template("templates/misc/traps.copyver.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('trapversion', get_max_trapversion());
+    break;
+  case 52:  // Copy Traps
+    check_authorization();
+    copy_traps();
+    header("Location: index.php?editor=misc&z=$z&action=19");
+    exit;
+  case 53:  // Copy Objects
+    check_authorization();
+    $body = new Template("templates/misc/objects.copyver.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('objectversion', get_max_objectversion());
+    break;
+  case 54:  // Copy Objects
+    check_authorization();
+    copy_objects();
+    header("Location: index.php?editor=misc&z=$z&action=41");
+    exit;
+  case 55:  // Delete doors
+    check_authorization();
+    $body = new Template("templates/misc/doors.delver.tmpl.php");
+    $body->set('currzone', $z);
+    break;
+  case 56:  // Delete doors
+    check_authorization();
+    delete_doors_ver();
+    header("Location: index.php?editor=misc&z=$z&action=35");
+    exit;
+  case 57:  // Delete GSpawns
+    check_authorization();
+    $body = new Template("templates/misc/groundspawns.delver.tmpl.php");
+    $body->set('currzone', $z);
+    break;
+  case 58:  // Delete GSpawns
+    check_authorization();
+    delete_groundspawns_ver();
+    header("Location: index.php?editor=misc&z=$z&action=13");
+    exit;
+  case 59:  // Delete Traps
+    check_authorization();
+    $body = new Template("templates/misc/traps.delver.tmpl.php");
+    $body->set('currzone', $z);
+    break;
+  case 60:  // Delete Traps
+    check_authorization();
+    delete_traps_ver();
+    header("Location: index.php?editor=misc&z=$z&action=19");
+    exit;
+  case 61:  // Delete Objects
+    check_authorization();
+    $body = new Template("templates/misc/objects.delver.tmpl.php");
+    $body->set('currzone', $z);
+    break;
+  case 62:  // Delete Objects
+    check_authorization();
+    delete_objects_ver();
     header("Location: index.php?editor=misc&z=$z&action=41");
     exit;
 }
@@ -484,7 +567,7 @@ function get_doors() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door']);
+     $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring']);
          }
        }
   return $array;
@@ -701,8 +784,9 @@ function update_doors() {
   $size = $_POST['size'];
   $version = $_POST['version'];
   $is_ldon_door = $_POST['is_ldon_door'];
+  $nokeyring = $_POST['nokeyring'];
 
-  $query = "UPDATE doors SET doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\", version=\"$version\", is_ldon_door=\"$is_ldon_door\" WHERE id=\"$drid\"";
+  $query = "UPDATE doors SET doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\", version=\"$version\", is_ldon_door=\"$is_ldon_door\", nokeyring=\"$nokeyring\" WHERE id=\"$drid\"";
   $mysql->query_no_result($query);
 }
 
@@ -969,8 +1053,9 @@ function add_doors() {
   $size = $_POST['size'];
   $version = $_POST['version'];
   $is_ldon_door = $_POST['is_ldon_door'];
+  $nokeyring = $_POST['nokeyring'];
 
-  $query = "INSERT INTO doors SET id=\"$drid\", zone=\"$z\", doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\", buffer=0, is_ldon_door=\"$is_ldon_door\", version=\"$version\"";
+  $query = "INSERT INTO doors SET id=\"$drid\", zone=\"$z\", doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\", buffer=0, is_ldon_door=\"$is_ldon_door\", version=\"$version\", nokeyring=\"$nokeyring\"";
   $mysql->query_no_result($query);
 }
 
@@ -1029,4 +1114,221 @@ function search_forage_by_id() {
    return $results;
 }
 
+function get_max_doorversion() {
+   global $mysql, $z;
+
+   $query = "SELECT MAX(version) AS version FROM doors WHERE zone=\"$z\"";
+   $result = $mysql->query_assoc($query);
+  
+  return ($result['version'] + 1);
+}
+
+function get_max_gsversion() {
+   global $mysql, $z;
+   $zid=getZoneID($z);
+
+   $query = "SELECT MAX(version) AS version FROM ground_spawns WHERE zoneid=\"$zid\"";
+   $result = $mysql->query_assoc($query);
+  
+  return ($result['version'] + 1);
+}
+
+function get_max_trapversion() {
+   global $mysql, $z;
+
+   $query = "SELECT MAX(version) AS version FROM traps WHERE zone=\"$z\"";
+   $result = $mysql->query_assoc($query);
+  
+  return ($result['version'] + 1);
+}
+
+function get_max_objectversion() {
+   global $mysql, $z;
+   $zid=getZoneID($z);
+
+   $query = "SELECT MAX(version) AS version FROM object WHERE zoneid=\"$zid\"";
+   $result = $mysql->query_assoc($query);
+  
+  return ($result['version'] + 1);
+}
+
+function copy_doors() {
+   global $mysql, $z;
+
+   $door_version = $_POST['door_version'];
+   $new_version = $_POST['new_version'];
+   
+   $query = "CREATE TEMPORARY TABLE `doors_temp` (
+  `id` int(11) NOT NULL,
+  `doorid` smallint(4) NOT NULL auto_increment,
+  `zone` varchar(16) NOT NULL default '',
+  `version` smallint(5) unsigned NOT NULL default '0',
+  `name` varchar(32) NOT NULL default '',
+  `pos_y` float NOT NULL default '0',
+  `pos_x` float NOT NULL default '0',
+  `pos_z` float NOT NULL default '0',
+  `heading` float NOT NULL default '0',
+  `opentype` smallint(4) NOT NULL default '0',
+  `guild` smallint(4) NOT NULL default '0',
+  `lockpick` smallint(4) NOT NULL default '0',
+  `keyitem` int(11) NOT NULL default '0',
+  `nokeyring` tinyint(3) unsigned NOT NULL default '0',
+  `triggerdoor` smallint(4) NOT NULL default '0',
+  `triggertype` smallint(4) NOT NULL default '0',
+  `doorisopen` smallint(4) NOT NULL default '0',
+  `door_param` int(4) NOT NULL default '0',
+  `dest_zone` varchar(16) default 'NONE',
+  `dest_x` float default '0',
+  `dest_y` float default '0',
+  `dest_z` float default '0',
+  `dest_heading` float default '0',
+  `invert_state` int(11) default '0',
+  `incline` int(11) default '0',
+  `size` smallint(5) unsigned NOT NULL default '100',
+  `buffer` float default '0',
+  `is_ldon_door` smallint(6) NOT NULL default '0',
+  PRIMARY KEY  (`doorid`)
+)";
+   $mysql->query_no_result($query);
+  
+
+   $query = "INSERT INTO doors_temp (id,doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door) 
+            SELECT id,doorid,zone,name,version,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door FROM doors WHERE zone=\"$z\"";
+   $mysql->query_no_result($query);
+
+   $query = "UPDATE doors SET version=$new_version WHERE version=$door_version";
+   $mysql->query_no_result($query);
+
+   $query = "INSERT INTO doors_temp (zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door) 
+            SELECT zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door FROM doors WHERE zone=\"$z\" AND version=$new_version";
+   $mysql->query_no_result($query);
+
+   $query = "UPDATE doors SET version=$door_version WHERE version=$new_version";
+   $mysql->query_no_result($query);
+
+   $query = "INSERT INTO doors (doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door) 
+            SELECT doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door FROM doors_temp WHERE version=$new_version AND zone=\"$z\"";
+   $mysql->query_no_result($query);
+  
+   $query = "DROP table `doors_temp`";
+   $mysql->query_no_result($query);
+} 
+
+function copy_groundspawns() {
+   global $mysql, $z;
+   $zid = getZoneID($z);
+  
+   $gs_version = $_POST['gs_version'];
+   $new_version = $_POST['new_version'];
+
+   $query = "UPDATE ground_spawns SET version=10000 WHERE version=$gs_version";
+   $mysql->query_no_result($query);
+
+   $query = "UPDATE ground_spawns SET version=9999 WHERE version=0";
+   $mysql->query_no_result($query);
+
+   $query = "INSERT INTO ground_spawns (zoneid,max_x,max_y,max_z,min_x,min_y,heading,name,item,max_allowed,comment,respawn_timer) 
+            SELECT zoneid,max_x,max_y,max_z,min_x,min_y,heading,name,item,max_allowed,comment,respawn_timer FROM ground_spawns WHERE zoneid=\"$zid\" AND version=10000";
+   $mysql->query_no_result($query);
+
+   $query = "UPDATE ground_spawns SET version=$new_version WHERE version=0";
+   $mysql->query_no_result($query);
+
+   $query = "UPDATE ground_spawns SET version=$gs_version WHERE version=10000";
+   $mysql->query_no_result($query);
+
+  $query = "UPDATE ground_spawns SET version=0 WHERE version=9999";
+   $mysql->query_no_result($query);
+} 
+
+function copy_traps() {
+   global $mysql, $z;
+  
+   $trap_version = $_POST['trap_version'];
+   $new_version = $_POST['new_version'];
+
+   $query = "UPDATE traps SET version=10000 WHERE version=$trap_version";
+   $mysql->query_no_result($query);
+
+   $query = "UPDATE traps SET version=9999 WHERE version=0";
+   $mysql->query_no_result($query);
+
+   $query = "INSERT INTO traps (zone,x,y,z,chance,maxzdiff,radius,effect,effectvalue,effectvalue2,message,skill,level,respawn_time,respawn_var) 
+            SELECT zone,x,y,z,chance,maxzdiff,radius,effect,effectvalue,effectvalue2,message,skill,level,respawn_time,respawn_var FROM traps WHERE zone=\"$z\" AND version=10000";
+   $mysql->query_no_result($query);
+
+   $query = "UPDATE traps SET version=$new_version WHERE version=0";
+   $mysql->query_no_result($query);
+
+   $query = "UPDATE traps SET version=$trap_version WHERE version=10000";
+   $mysql->query_no_result($query);
+
+  $query = "UPDATE traps SET version=0 WHERE version=9999";
+   $mysql->query_no_result($query);
+} 
+
+function copy_objects() {
+   global $mysql, $z;
+   $zid = getZoneID($z);
+  
+   $object_version = $_POST['object_version'];
+   $new_version = $_POST['new_version'];
+
+   $query = "UPDATE object SET version=10000 WHERE version=$object_version";
+   $mysql->query_no_result($query);
+
+   $query = "UPDATE object SET version=9999 WHERE version=0";
+   $mysql->query_no_result($query);
+
+   $query = "INSERT INTO object (zoneid,xpos,ypos,zpos,heading,itemid,charges,objectname,type,icon) 
+            SELECT zoneid,xpos,ypos,zpos,heading,itemid,charges,objectname,type,icon FROM object WHERE zoneid=\"$zid\" AND version=10000";
+   $mysql->query_no_result($query);
+
+   $query = "UPDATE object SET version=$new_version WHERE version=0";
+   $mysql->query_no_result($query);
+
+   $query = "UPDATE object SET version=$object_version WHERE version=10000";
+   $mysql->query_no_result($query);
+
+  $query = "UPDATE object SET version=0 WHERE version=9999";
+   $mysql->query_no_result($query);
+} 
+
+function delete_traps_ver() {
+  global $mysql, $z;
+
+  $trap_version = $_POST['trap_version'];
+
+  $query = "DELETE from traps WHERE version=\"$trap_version\" AND zone=\"$z\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_doors_ver() {
+  global $mysql, $z;
+
+  $door_version = $_POST['door_version'];
+
+  $query = "DELETE from doors WHERE version=\"$door_version\" AND zone=\"$z\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_groundspawns_ver() {
+  global $mysql, $z;
+  
+  $zid = getZoneID($z);
+  $gs_version = $_POST['gs_version'];
+
+  $query = "DELETE from ground_spawns WHERE version=\"$gs_version\" AND zoneid=\"$zid\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_objects_ver() {
+  global $mysql, $z;
+
+  $zid = getZoneID($z);
+  $object_version = $_POST['object_version'];
+
+  $query = "DELETE from object WHERE version=\"$object_version\" AND zoneid=\"$zid\"";
+  $mysql->query_no_result($query);
+}
 ?>

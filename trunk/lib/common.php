@@ -143,6 +143,24 @@ function search_npcs() {
   return $results;
 }
 
+function search_item_by_id() {
+  global $mysql;
+  $id = $_GET['id'];
+
+  $query = "SELECT id, name FROM items WHERE id=\"$id\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function search_items() {
+  global $mysql;
+  $search = $_GET['search'];
+
+  $query = "SELECT id, name FROM items WHERE name rlike \"$search\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
 function get_zone_by_npcid($npcid) {
   global $mysql;
   $npczone = substr($npcid, 0, -3);
