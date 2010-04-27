@@ -8,8 +8,8 @@
            <td class="edit_form_content">
              <form name="door_version" method="post" action="index.php?editor=misc&z=<?=$currzone?>&action=56">
              Delete version: <br>
-             <input type="text" name="door_version" value="">
-             <center>
+             <input type="text" size="7" name="door_version" value="">
+             <center><br>
                <input type="submit" value="Submit"></form><br><br>
              </center>
            </td>
