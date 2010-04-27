@@ -8,8 +8,8 @@
            <td class="edit_form_content">
              <form name="object_version" method="post" action="index.php?editor=misc&z=<?=$currzone?>&action=54">
              Copy version: <br>
-             <input type="text" name="object_version" value="0"> to 
-             <input type="text" name="new_version" value="<?=$objectversion?>">
+             <input type="text" size="7" name="object_version" value="0"> to 
+             <input type="text" size="7" name="new_version" value="<?=$objectversion?>">
              <center>
                <input type="submit" value="Submit"></form><br><br>
              </center>
