@@ -70,7 +70,17 @@
                    <option value="1"<?echo ($is_ldon_door == 1) ? " selected" : ""?>>Yes</option>
                  </select>
                </td>
-
+         </tr>
+          <tr>
+            <th>no keyring</th>
+         </tr>
+          <tr>
+             <td>
+                 <select name="nokeyring">
+                   <option value="0"<?echo ($nokeyring == 0) ? " selected" : ""?>>No</option>
+                   <option value="1"<?echo ($nokeyring == 1) ? " selected" : ""?>>Yes</option>
+                 </select>
+               </td>
          </tr>
               </table><br><br>
         <center>

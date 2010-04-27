@@ -4,7 +4,9 @@
             <tr>
              <td>Objects</td>
              <td align="right">    
+            <a href="index.php?editor=misc&z=<?=$currzone?>&action=53"><img src="images/last.gif" border="0" title="Copy objects by version"></a>
             <a href="index.php?editor=misc&z=<?=$currzone?>&action=45"><img src="images/add.gif" border="0" title="Add an entry to this zone"></a>
+            <a href="index.php?editor=misc&z=<?=$currzone?>&action=61"><img src="images/remove3.gif" border="0" title="Delete objects by version"></a>
               </td>
              </tr>        
            </table>

@@ -390,6 +390,16 @@ switch ($action) {
       }
     }
     break;
+ case 45:  // Change NPC level
+    check_authorization();
+    $body = new Template("templates/npc/npc.changelevelver.tmpl.php");
+    $body->set('currzone', $z);
+    break;
+  case 46:  // Change NPC level
+    check_authorization();
+    change_npc_level_ver();
+    header("Location: index.php?editor=npc&z=$z");
+    exit;
 }
 
 function npc_info () {
@@ -1104,4 +1114,36 @@ function get_stats() {
  }
 }
 
+function change_npc_level_ver() {
+  global $mysql, $z;
+ 
+  $zid = getZoneID($z);
+  $npc_version = $_POST['npc_version'];
+  $npc_level = $_POST['npc_level'];
+  $minlevel = $zid*1000-1;
+  $maxlevel = $zid*1000+1000;
+  if($npc_level > -1) {
+  $leveldiff = "+$npc_level";
+  }
+  if($npc_level < 0) {
+  $leveldiff = $npc_level;
+  }
+  $finaldiff = "(level)$leveldiff";
+  $finalmaxdiff = "(maxlevel)$leveldiff";
+ 
+  $query = "UPDATE npc_types SET level=$finaldiff WHERE version=$npc_version AND id>$minlevel AND id<$maxlevel";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE npc_types SET maxlevel=$finalmaxdiff WHERE maxlevel > 0 AND version=$npc_version AND id>$minlevel AND id<$maxlevel";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE npc_types SET level=1 WHERE version=$npc_version AND level in (0,255) AND id>$minlevel AND id<$maxlevel";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE npc_types SET maxlevel=1 WHERE version=$npc_version AND maxlevel=255 AND id>$minlevel AND id<$maxlevel";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE npc_types SET maxlevel=1 WHERE version=$npc_version AND maxlevel<0 AND id>$minlevel AND id<$maxlevel";
+  $mysql->query_no_result($query);
+}
 ?>

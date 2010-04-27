@@ -3,8 +3,10 @@
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
            <td>Ground Spawns</td>
-           <td align="right">    
+           <td align="right">  
+          <a href="index.php?editor=misc&z=<?=$currzone?>&action=49"><img src="images/last.gif" border="0" title="Copy ground spawns by version"></a>  
           <a href="index.php?editor=misc&z=<?=$currzone?>&action=17"><img src="images/add.gif" border="0" title="Add an entry to this zone"></a>
+          <a href="index.php?editor=misc&z=<?=$currzone?>&action=57"><img src="images/remove3.gif" border="0" title="Delete ground spawns by version"></a>
             </td>
            </tr>        
          </table>
