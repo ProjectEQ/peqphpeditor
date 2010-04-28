@@ -2,16 +2,13 @@
       <div class="table_container" style="width: 550px;">
          <div class="table_header">
            <div style="float:right;">
-             <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=8">Temp List </a>&nbsp;
+             <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=8">Temp List</a>&nbsp;
              <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=19"><img src="images/sort.gif" border=0 title="Sort this merchantlist"></a>&nbsp;
              <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=4"><img src="images/add.gif" border=0 title="Add an Item"></a>&nbsp;
              <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" border=0 title="Edit this Merchant"></a>&nbsp;
-             <a onClick="return confirm('Really Copy Merchant <?=$id?>?');" href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=18"><img src="images/last.gif" border=0 title="Copy this merchantlist"></a>&nbsp;
-             <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=17" onClick="return confirm('Really remove this merchantlist from the selected NPC?');">
-               <img src="images/minus2.gif" border=0 title="Drop this Merchantlist">&nbsp;
-             <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=6" onClick="return confirm('Really delete this merchantlist? This will affect all NPCs that share the list!');">
-               <img src="images/table.gif" border=0 title="Delete this Merchantlist">
-             </a>
+             <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=18" onClick="return confirm('Really Copy Merchant <?=$id?>?');"><img src="images/last.gif" border=0 title="Copy this merchantlist"></a>&nbsp;
+             <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=17" onClick="return confirm('Really remove this merchantlist from the selected NPC?');"><img src="images/minus2.gif" border=0 title="Drop this Merchantlist"></a>&nbsp;
+             <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=6" onClick="return confirm('Really delete this merchantlist? This will affect all NPCs that share the list!');"><img src="images/table.gif" border=0 title="Delete this Merchantlist"></a>
            </div>
            Merchant ID: <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&merid=<?=$id?>&action=16"><?=$id?></a>
          </div>
