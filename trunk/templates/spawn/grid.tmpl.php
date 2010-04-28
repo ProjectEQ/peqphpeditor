@@ -21,10 +21,8 @@
           <tr>
            <td>Grid Entries:</td>
            <td align="right">    
-          <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&action=27">
-                <img src="images/add.gif" border="0" title="Add an item to this Grid Entry Table">
-              </a>
-          <a onClick="return confirm('Really delete these Grid Entries from Grid <?=$pathgrid?>?');" href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&number=<?=$number?>&action=26"> <img src="images/table.gif" border="0" title="Permanently delete this Grid Entry set"></a></a>
+          <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&action=27"><img src="images/add.gif" border="0" title="Add an item to this Grid Entry Table"></a>
+          <a onClick="return confirm('Really delete these Grid Entries from Grid <?=$pathgrid?>?');" href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&number=<?=$number?>&action=26"><img src="images/table.gif" border="0" title="Permanently delete this Grid Entry set"></a>
             </td>
            </tr>        
          </table>
@@ -50,12 +48,8 @@
           <td align="center" width="10%"><?=$v['heading']?></td>
           <td align="center" width="10%"><?=$v['pause']?></td>
           <td align="right">      
-            <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&number=<?=$number?>&action=24">
-              <img src="images/edit2.gif" border="0" title="Edit Grid Entry">
-            </a>          
-            <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&number=<?=$number?>&action=23">
-              <img src="images/remove3.gif" border="0" title="Remove Grid Entry">
-            </a>
+            <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&number=<?=$number?>&action=24"><img src="images/edit2.gif" border="0" title="Edit Grid Entry"></a>
+            <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&number=<?=$number?>&action=23"><img src="images/remove3.gif" border="0" title="Remove Grid Entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>
@@ -65,4 +59,5 @@
         <tr>
           <td align="left" width="100" style="padding: 10px;">No grid entries currently assigned</td>
         </tr>
+	</table>
 <?endif;?>
