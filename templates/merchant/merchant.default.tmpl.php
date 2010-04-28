@@ -6,7 +6,7 @@
          </tr>
          <tr>
            <td class="edit_form_content">
-             <center><a href="index.php?editor=merchant&action=15" onClick="return confirm('Really delete all temp merchantlists?');">Wipe Temp Merchant lists</a><br></center>
+             <center><a href="index.php?editor=merchant&action=15" onClick="return confirm('Really delete all temp merchantlists?');">Wipe Temp Merchant lists</a></center>
            </td>
          </tr>
        </table>

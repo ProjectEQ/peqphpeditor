@@ -78,9 +78,7 @@
             <td><?=$sells?>cp</td>
 <?endif;?>
             <td align="right" style="padding-right: 10px;">
-              <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&slot=<?=$slot?>&id=<?=$v['item']?>&action=3" onClick="return confirm('Really remove this item from the merchant?');">
-                <img src="images/remove.gif" border="0" title="Delete item from Merchantlist">
-              </a>
+              <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&mid=<?=$id?>&slot=<?=$slot?>&id=<?=$v['item']?>&action=3" onClick="return confirm('Really remove this item from the merchant?');"><img src="images/remove.gif" border="0" title="Delete item from Merchantlist"></a>
             </td>
           </tr>
 <?$x++;endforeach;?>
