@@ -4,7 +4,7 @@
       </center>
 
       <form method="post" action="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&action=8">
-      <div class="edit_form" style="width: 200px;">
+      <div class="edit_form" style="width: 250px;">
         <div class="edit_form_header">
           Add Recipe Component
         </div>
@@ -18,6 +18,82 @@
               <option value="1">Component</option>
               <option value="2">Product</option>
             </select><br><br>
+			<table width="100%">
+              <tr>
+			    <td align="center" width="5%"><a href="javascript:toggleContainer();" id="ContainerCollapsed" style="display:inline;" name="Show Common Containers">[+]</a><a href="javascript:toggleContainer();" id="ContainerExpanded" style="display:none;" name="Show Common Containers">[-]</a></td>
+			    <td width="30%"><strong> Common Containers</strong></td>
+			  </tr>
+			</table><br>
+            <table id="ContainerTable" style="display:none;" width="100%">
+              <tr>
+                <td align="center" width="10%"><strong>ID</strong></td>
+                <td width="30%"><strong>Name</strong></td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">9</td>
+                <td width="30%">Medicine Bag</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">15</td>
+                <td width="30%">Oven</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">16</td>
+                <td width="30%">Loom</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">17</td>
+                <td width="30%">Forge</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">18</td>
+                <td width="30%">Fletching Kit</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">19</td>
+                <td width="30%">Brew Barrel</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">20</td>
+                <td width="30%">Jeweler's Kit</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">21</td>
+                <td width="30%">Pottery Wheel</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">22</td>
+                <td width="30%">Kiln</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">24</td>
+                <td width="30%">Wizard Lexicon</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">25</td>
+                <td width="30%">Magician Lexicon</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">26</td>
+                <td width="30%">Necromancer Lexicon</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">27</td>
+                <td width="30%">Enchanter Lexicon</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">32</td>
+                <td width="30%">Teir`Dal Forge</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">33</td>
+                <td width="30%">Oggok Forge</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%">46</td>
+                <td width="30%">Tackle Box</td>
+              </tr>
+            </table>
             <fieldset>
               <legend><strong><font size="-1">Components:</font></strong></legend>
 		    			Qty Required:<br>

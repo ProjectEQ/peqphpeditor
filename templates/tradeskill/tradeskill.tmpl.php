@@ -41,9 +41,7 @@
       <div class="table_container">
         <div class="table_header">
           <div style="float:right;">
-            <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&action=7">
-              <img src="images/add.gif" border="0" title="Add item to recipe">
-            </a>
+            <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&action=7"><img src="images/add.gif" border="0" title="Add item to recipe"></a>
           </div>
           Recipe Details
         </div>
@@ -70,12 +68,8 @@
                 &nbsp;
               </td>
               <td align="right" width="15%">
-                <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&id=<?=$id?>&action=5">
-                  <img src="images/edit2.gif" border="0" title="Edit this container">
-                </a>&nbsp;
-                <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&id=<?=$id?>&action=4" onClick="return confirm('Really delete this container?');">
-                  <img src="images/remove.gif" border="0" title="Delete this container">
-                </a>
+                <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&id=<?=$id?>&action=5"><img src="images/edit2.gif" border="0" title="Edit this container"></a>&nbsp;
+                <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&id=<?=$id?>&action=4" onClick="return confirm('Really delete this container?');"><img src="images/remove.gif" border="0" title="Delete this container"></a>
               </td>
             </tr>
 <?endforeach;?>
@@ -107,12 +101,8 @@
                 Returned: <?=$failcount?>
               </td>
               <td align="right" width="15%">
-                <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&id=<?=$id?>&action=5">
-                  <img src="images/edit2.gif" border="0" title="Edit this component">
-                </a>&nbsp;
-                <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&id=<?=$id?>&action=4" onClick="return confirm('Really delete this component?');">
-                  <img src="images/remove.gif" border="0" title="Delete this component">
-                </a>
+                <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&id=<?=$id?>&action=5"><img src="images/edit2.gif" border="0" title="Edit this component"></a>&nbsp;
+                <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&id=<?=$id?>&action=4" onClick="return confirm('Really delete this component?');"><img src="images/remove.gif" border="0" title="Delete this component"></a>
               </td>
             </tr>
 <?endforeach;?>
@@ -145,12 +135,8 @@
                 &nbsp;
               </td>
               <td align="right" width="15%">
-                <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&id=<?=$id?>&action=5">
-                  <img src="images/edit2.gif" border="0" title="Edit this product">
-                </a>&nbsp;
-                <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&id=<?=$id?>&action=4" onClick="return confirm('Really delete this product?');">
-                  <img src="images/remove.gif" border="0" title="Delete this product">
-                </a>
+                <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&id=<?=$id?>&action=5"><img src="images/edit2.gif" border="0" title="Edit this product"></a>&nbsp;
+                <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&id=<?=$id?>&action=4" onClick="return confirm('Really delete this product?');"><img src="images/remove.gif" border="0" title="Delete this product"></a>
               </td>
             </tr>
 <?endforeach;?>
