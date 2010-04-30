@@ -73,17 +73,10 @@
         Multiplier: <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&ltid=<?=$loottable_id?>&ldid=<?=$lootdrop['id']?>&action=7"><?=$lootdrop['multiplier']?></a>
             </td>
             <td align="right">
-              <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&action=20&ldid=<?=$lootdrop['id']?>">
-                <img src="images/add.gif" border="0" title="Add an Item to this LootDrop Table">
-              </a>
-              <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&action=35&ldid=<?=$lootdrop['id']?>&name=<?=$lootdrop['name']?>">
-                <img src="images/last.gif" border="0" title="Copy lootdrop">
-              </a>
-              <a onClick="return confirm('Really remove LootDrop <?=$lootdrop['id']?> from LootTable <?=$loottable_id?>?  All <?=$usage['count']?> NPCs that use LootTable 5370 will be affected.');" href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&action=19&ltid=<?=$loottable_id?>&ldid=<?=$lootdrop['id']?>">
-                <img src="images/minus2.gif" border="0" title="Remove this LootDrop from LootTable <?=$loottable_id?>">
-              </a>
-
-          <a onClick="return confirm('Really delete LootDrop <?=$lootdrop['id']?>?  All LootTables that use this LootDrop will be affected.');" href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&action=26&ldid=<?=$lootdrop['id']?>"><img src="images/remove2.gif" border="0" title="Permanently delete this LootDrop"></a>
+              <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&action=20&ldid=<?=$lootdrop['id']?>"><img src="images/add.gif" border="0" title="Add an Item to this LootDrop Table"></a>
+              <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&action=35&ldid=<?=$lootdrop['id']?>&name=<?=$lootdrop['name']?>"><img src="images/last.gif" border="0" title="Copy lootdrop"></a>
+              <a onClick="return confirm('Really remove LootDrop <?=$lootdrop['id']?> from LootTable <?=$loottable_id?>?  All <?=$usage['count']?> NPCs that use LootTable 5370 will be affected.');" href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&action=19&ltid=<?=$loottable_id?>&ldid=<?=$lootdrop['id']?>"><img src="images/minus2.gif" border="0" title="Remove this LootDrop from LootTable <?=$loottable_id?>"></a>
+              <a onClick="return confirm('Really delete LootDrop <?=$lootdrop['id']?>?  All LootTables that use this LootDrop will be affected.');" href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&action=26&ldid=<?=$lootdrop['id']?>"><img src="images/remove2.gif" border="0" title="Permanently delete this LootDrop"></a>
             </td>
           </tr>
         </table>
@@ -100,8 +93,10 @@
           <th align="center" width="10%">Overall Chance</th>
           <th width="5%"></th>
         </tr>
-<?php foreach ($lootdrop['items'] as $item): extract($item);?>
-<?php ($total = (($chance/100) * ($lootdrop['probability']/100)) * 100);?>
+<?php foreach ($lootdrop['items'] as $item): extract($item);
+      $total = (($chance/100) * ($lootdrop['probability']/100)) * 100;
+      $chance_total += $chance;
+?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
           <td align="center"><?=$item_id?></td>
           <td align="center"><?=$name?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$item_id?>">lucy</a>]</span></td>
@@ -117,19 +112,14 @@
             <?=$total?>%
            </td>
           <td align="right">
-            <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=5">
-              <img src="images/edit2.gif" border="0" title="Edit Lootdrop Item">
-            </a>
-          
-            <a onClick="return confirm('Really remove item <?=$item_id?> from LootDrop <?=$lootdrop['id']?>?');" href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=17">
-              <img src="images/remove3.gif" border="0" title="Remove Item">
-            </a>
+            <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=5"><img src="images/edit2.gif" border="0" title="Edit Lootdrop Item"></a>
+            <a onClick="return confirm('Really remove item <?=$item_id?> from LootDrop <?=$lootdrop['id']?>?');" href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=17"><img src="images/remove3.gif" border="0" title="Remove Item"></a>
           </td>
         </tr>
 <?php $x++; endforeach;?>
         <tr>
-          <td align="right" colspan="6">
-            <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=18">Balance Item Drop Rate</a>
+          <td align="right" colspan="8">
+            <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=18">Balance Item Drop Rate</a> (<?if ($chance_total!=100) { echo "<strong><font color='red'>"; } else { echo "<font color='green'>";}?>Currently: <?=$chance_total?>%</font><?if ($chance_total!=100) echo "</strong>";?>)<?$chance_total=0;?>
           </td>
         </tr>
 <?php endif;?>
