@@ -929,9 +929,21 @@ function delete_factionhit () {
 
 function suggest_merchant_id() {
   global $mysql;
-  $query = "SELECT MAX(merchant_id) as id FROM npc_types";
+  $query = "SELECT MAX(merchantid) as id FROM merchantlist";
   $result = $mysql->query_assoc($query);
-  return ($result['id'] + 1);
+  
+  $query2 = "SELECT MAX(merchant_id) as npc_mid FROM npc_types";
+  $result2 = $mysql->query_assoc($query2);
+
+  if($result['id'] > $result2['npc_mid']){
+  $result = $result['id'] + 1;
+  }
+
+  else {
+  $result = $result2['npc_mid'] + 1;
+  }
+
+  return $result;
 }
 
 function suggest_adventure_id() {
@@ -1131,7 +1143,7 @@ function change_npc_level_ver() {
   $finaldiff = "(level)$leveldiff";
   $finalmaxdiff = "(maxlevel)$leveldiff";
  
-  $query = "UPDATE npc_types SET level=$finaldiff WHERE version=$npc_version AND id>$minlevel AND id<$maxlevel";
+  $query = "UPDATE npc_types SET level=$finaldiff WHERE version=$npc_version AND id>$minlevel AND id<$maxlevel AND level > 1";
   $mysql->query_no_result($query);
 
   $query = "UPDATE npc_types SET maxlevel=$finalmaxdiff WHERE maxlevel > 0 AND version=$npc_version AND id>$minlevel AND id<$maxlevel";
