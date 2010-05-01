@@ -1158,4 +1158,37 @@ function change_npc_level_ver() {
   $query = "UPDATE npc_types SET maxlevel=1 WHERE version=$npc_version AND maxlevel<0 AND id>$minlevel AND id<$maxlevel";
   $mysql->query_no_result($query);
 }
+
+function export_sql($export_type) {
+  global $mysql, $npcid;
+
+  $query = "SELECT * FROM npc_types WHERE id = $npcid";
+  $results = $mysql->query_assoc($query);
+
+  if ($export_type == "insert") {
+    foreach ($results as $key=>$value) {
+      if($table_string) {
+        $table_string .= ", " . $key;
+        $value_string .= ", '" . $value . "'";
+      }
+      else {
+        $table_string = $key;
+        $value_string = "'" . $value . "'";
+      }
+    }
+  $query_out = "INSERT INTO npc_types ($table_string) VALUES ($value_string);";
+  }
+  else {
+    foreach ($results as $key=>$value) {
+      if($update_string) {
+        $update_string .= ", " . $key . "='" . $value . "'";
+      }
+      else {
+        $update_string = $key . "='" . $value . "'";
+      }
+    }
+  $query_out = "UPDATE npc_types SET $update_string WHERE id='$npcid';";
+  }
+  return($query_out);
+}
 ?>
