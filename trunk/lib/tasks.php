@@ -327,6 +327,12 @@ switch ($action) {
     $tskid = $_GET['tskid'];
     header("Location: index.php?editor=tasks&tskid=$tskid");
     exit;
+  case 34: // Search tasks
+    check_authorization();
+    $body = new Template("templates/tasks/tasks.searchresults.tmpl.php");
+    $results = search_tasks();
+    $body->set("results", $results);
+    break;
 }
 
 function tasks_info() {
@@ -763,5 +769,14 @@ function add_taskset() {
 
   $query = "INSERT INTO tasksets values ($id,$taskid)";
   $mysql->query_no_result($query);
+}
+
+function search_tasks() {
+  global $mysql;
+  $search = $_GET['search'];
+
+  $query = "SELECT id, title FROM tasks WHERE title rlike \"$search\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
 }
 ?>
