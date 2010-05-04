@@ -10,6 +10,14 @@
 <?php endforeach;?>
               </select>
             </td>
+              <td align="right"> or <strong>2.</strong>
+              <form action="index.php" method="GET">
+                <input type="hidden" name="editor" value="tasks">
+                <input type="hidden" name="action" value="34">
+                <input type="text" name="search" size="22" value="Task Name" onFocus="clearField(document.forms[0].search);">
+                <input type="submit" value=" GO ">
+              </form>
+            </td>
            </tr>
         </table>
       </div>
