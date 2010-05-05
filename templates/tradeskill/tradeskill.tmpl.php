@@ -56,7 +56,12 @@
 <?php foreach ($containers as $container): extract($container);?>
             <tr>
               <td width="40%">
+                <?if($item_id < 1001):?>
                 <?=$name?> (<?=$item_id?>)
+                <?endif;?>
+                <?if($item_id > 1000):?>
+                <?=$name?> (<a href="index.php?editor=items&ts=<?=$ts?>&rec=<?=$rec?>&tsid=<?=$id?>&id=<?=$item_id?>&action=2"><?=$item_id?></a>)
+                <?endif;?>
               </td>
               <td width="15%">
                 [<a href="http://lucy.allakhazam.com/item.html?id=<?=$item_id?>">Lucy</a>]
@@ -89,7 +94,7 @@
 <?php foreach ($components as $component): extract($component);?>
             <tr>
               <td width="40%">
-                <?=$name?> (<?=$item_id?>)
+                <?=$name?> (<a href="index.php?editor=items&ts=<?=$ts?>&rec=<?=$rec?>&tsid=<?=$id?>&id=<?=$item_id?>&action=2"><?=$item_id?></a>)
               </td>
               <td width="15%">
                 [<a href="http://lucy.allakhazam.com/item.html?id=<?=$item_id?>">Lucy</a>]
@@ -123,7 +128,7 @@
 <?php foreach ($products as $product): extract($product);?>
             <tr>
               <td width="40%">
-                <?=$name?> (<?=$item_id?>)
+                <?=$name?> (<a href="index.php?editor=items&ts=<?=$ts?>&rec=<?=$rec?>&tsid=<?=$id?>&id=<?=$item_id?>&action=2"><?=$item_id?></a>)
               </td>
               <td width="15%">
                 [<a href="http://lucy.allakhazam.com/item.html?id=<?=$item_id?>">Lucy</a>]

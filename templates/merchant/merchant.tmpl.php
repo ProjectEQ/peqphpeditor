@@ -50,7 +50,7 @@
 <?endif;?>
           <tr<? echo ($x % 2 == 1) ? " bgcolor=\"#BBBBBB" : "";?>">
             <td align="center"><?=$slot?></td>
-            <td align="center"><?=$v['item']?></td>
+            <td align="center"><a href="index.php?editor=items&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$v['item']?>&action=2"><?=$v['item']?></a></td>
             <td><?=$v['item_name']?></td>
             <td><a href="http://lucy.allakhazam.com/item.html?id=<?=$v['item']?>">Lucy</a></td>
 <?if ($v['price'] > 999):?>
