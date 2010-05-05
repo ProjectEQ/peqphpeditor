@@ -105,6 +105,8 @@ switch ($editor) {
   case 'items':
     $zones = $zones;
     $npcs = npcs();
+    $searchbar = new Template("templates/searchbar/searchbar.items.tmpl.php");
+    $searchbar->set('curreditor', $editor);
     break;
 }
 

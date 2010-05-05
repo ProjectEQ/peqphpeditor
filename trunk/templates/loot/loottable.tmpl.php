@@ -98,7 +98,7 @@
       $chance_total += $chance;
 ?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
-          <td align="center"><?=$item_id?></td>
+          <td align="center"><a href="index.php?editor=items&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$item_id?>&action=2"><?=$item_id?></td>
           <td align="center"><?=$name?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$item_id?>">lucy</a>]</span></td>
           <td align="center" width="100">
 <?php echo (($equip_item == 0)) ? "No" : "Yes";?>

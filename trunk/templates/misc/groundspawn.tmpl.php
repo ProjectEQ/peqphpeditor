@@ -30,7 +30,7 @@
 <?$x=0; foreach($gspawn as $gspawn=>$v):?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
           <td align="center" width="5%"><?=$v['gsid']?></td>
-          <td align="center" width="20%"><?=$v['iname']?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['giid']?>">lucy</a>]</span></td>
+          <td align="center" width="20%"><a href="index.php?editor=items&z=<?=$currzone?>&id=<?=$v['giid']?>&action=2"><?=$v['iname']?></a> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['giid']?>">lucy</a>]</span></td>
           <td align="center" width="5%"><?=$v['max_allowed']?></td>
           <td align="center" width="5%"><?=$v['max_x']?></td>
           <td align="center" width="5%"><?=$v['max_y']?></td>
