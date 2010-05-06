@@ -28,16 +28,16 @@
                
               </tr>
               <tr>
-               <td align="left" width="25%">Min Level: <br><input type="text" name="min_level" size="7" value="0"></td>
-               <td align="left" width="25%">Max Level:  <br><input type="text" name="max_level" size="7" value="0"></td>
-               <td align="left" width="25%">Duration:  <br><input type="text" name="duration" size="7" value="0"></td>
-               <td align="left" width="25%">Zone In Time:  <br><input type="text" name="zone_in_time" size="7" value="0"></td>
+               <td align="left" width="25%">Min Level: <br><input type="text" name="min_level" size="7" value="15"></td>
+               <td align="left" width="25%">Max Level:  <br><input type="text" name="max_level" size="7" value="20"></td>
+               <td align="left" width="25%">Duration:  <br><input type="text" name="duration" size="7" value="10800"></td>
+               <td align="left" width="25%">Zone In Time:  <br><input type="text" name="zone_in_time" size="7" value="1800"></td>
                
               </tr> 
               <tr>
                <td align="left" width="25%">Win Pts:  <br><input type="text" name="win_points" size="7" value="0"></td>
                <td align="left" width="25%">Lose Pts:  <br><input type="text" name="lose_points" size="7" value="0"></td>
-               <td align="left" width="25%">Zone Version: <br><input type="text" name="zone_version" size="7" value="0"></td>
+               <td align="left" width="25%">Zone Version: <br><input type="text" name="zone_version" size="7" value="1"></td>
                <td align="left" width="25%">Theme:<br>
                  <select name="theme" style="width: 180px;">
 <?foreach($themetype as $key=>$value):?>
