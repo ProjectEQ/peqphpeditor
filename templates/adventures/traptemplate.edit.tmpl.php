@@ -5,7 +5,7 @@
         
       <div class="table_container" style="width: 225px">
         <div class="edit_form_header">
-            Edit Trap Template <?=$id?>
+            Edit Trap Template <?=$id?> 
         </div>
         <div class="edit_form_content">
           <form method="post" action="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&action=14">

@@ -202,6 +202,16 @@ switch ($action) {
     add_trap_template();
     header("Location: index.php?editor=adventures&z=$z&npcid=$npcid");
     exit;
+   case 18: // Create instances
+    check_authorization();
+    copy_adventure_instance();
+    header("Location: index.php?editor=adventures&z=$z&npcid=$npcid");
+    exit;
+   case 19: // Copy adventure
+    check_authorization();
+    copy_adventure_template();
+    header("Location: index.php?editor=adventures&z=$z&npcid=$npcid");
+    exit;
 }
 
 function get_assassinatelist() {
@@ -514,5 +524,218 @@ function search_adventure_npc() {
   $query = "SELECT id,name FROM npc_types where adventure_template_id > 0";
   $results = $mysql->query_mult_assoc($query);
   return $results;
+}
+
+function copy_adventure_instance() {
+  global $mysql;
+  $id = $_GET['id'];
+
+  $query = "SELECT * FROM adventure_template WHERE id=$id";
+  $result = $mysql->query_assoc($query);
+
+  $query2 = "SELECT id as aid FROM adventure_template_entry where template_id=$id";
+  $result2 = $mysql->query_assoc($query2);
+  
+  $query3 = "SELECT MAX(id) as tid FROM adventure_template";
+  $result3 = $mysql->query_assoc($query3);
+
+$zone = $result['zone'];
+$text = $result['text'];
+$is_hard = $result['is_hard'];
+$is_raid = $result['is_raid'];
+$type = $result['type'];
+$type_data = $result['type_data'];
+$type_count = $result['type_count'];
+$assa_x = $result['assa_x'];
+$assa_y = $result['assa_y'];
+$assa_z = $result['assa_z'];
+$assa_h = $result['assa_h'];
+$zone_in_zone_id = $result['zone_in_zone_id'];
+$dest_x = $result['dest_x'];
+$dest_y = $result['dest_y'];
+$dest_z = $result['dest_z'];
+$dest_h = $result['dest_h'];
+$duration = $result['duration'];
+$zone_in_time = $result['zone_in_time'];
+$theme = $result['theme'];
+$zone_in_x = $result['zone_in_x'];
+$zone_in_y = $result['zone_in_y'];
+$zone_in_object_id = $result['zone_in_object_id'];
+$aid = $result2['aid'];
+
+$zone_version1 = $result['zone_version'] + 1;
+$zone_version2 = $result['zone_version'] + 2;
+$zone_version3 = $result['zone_version'] + 3;
+$zone_version4 = $result['zone_version'] + 4;
+$zone_version5 = $result['zone_version'] + 5;
+$zone_version6 = $result['zone_version'] + 6;
+$zone_version7 = $result['zone_version'] + 7;
+$zone_version8 = $result['zone_version'] + 8;
+$zone_version9 = $result['zone_version'] + 9;
+
+$tid1 = $result3['tid'] + 1;
+$tid2 = $result3['tid'] + 2;
+$tid3 = $result3['tid'] + 3;
+$tid4 = $result3['tid'] + 4;
+$tid5 = $result3['tid'] + 5;
+$tid6 = $result3['tid'] + 6;
+$tid7 = $result3['tid'] + 7;
+$tid8 = $result3['tid'] + 8;
+
+$min_level1 = $result['min_level'] + 6;
+$min_level2 = $result['min_level'] + 12;
+$min_level3 = $result['min_level'] + 18;
+$min_level4 = $result['min_level'] + 24;
+$min_level5 = $result['min_level'] + 30;
+$min_level6 = $result['min_level'] + 36;
+$min_level7 = $result['min_level'] + 42;
+$min_level8 = $result['min_level'] + 48;
+
+$max_level1 = $result['max_level'] + 6;
+$max_level2 = $result['max_level'] + 12;
+$max_level3 = $result['max_level'] + 18;
+$max_level4 = $result['max_level'] + 24;
+$max_level5 = $result['max_level'] + 30;
+$max_level6 = $result['max_level'] + 36;
+$max_level7 = $result['max_level'] + 42;
+$max_level8 = $result['max_level'] + 55;
+
+if($is_hard == 0){
+$win_points1 = $result['win_points'] + 10;
+$win_points2 = $result['win_points'] + 20;
+$win_points3 = $result['win_points'] + 30;
+$win_points4 = $result['win_points'] + 40;
+$win_points5 = $result['win_points'] + 50;
+$win_points6 = $result['win_points'] + 60;
+$win_points7 = $result['win_points'] + 70;
+$win_points8 = $result['win_points'] + 80;
+
+$lose_points1 = $result['lose_points'] + 5;
+$lose_points2 = $result['lose_points'] + 10;
+$lose_points3 = $result['lose_points'] + 15;
+$lose_points4 = $result['lose_points'] + 20;
+$lose_points5 = $result['lose_points'] + 25;
+$lose_points6 = $result['lose_points'] + 30;
+$lose_points7 = $result['lose_points'] + 35;
+$lose_points8 = $result['lose_points'] + 40;
+}
+
+if($is_hard == 1){
+$win_points1 = $result['win_points'] + 20;
+$win_points2 = $result['win_points'] + 40;
+$win_points3 = $result['win_points'] + 60;
+$win_points4 = $result['win_points'] + 80;
+$win_points5 = $result['win_points'] + 100;
+$win_points6 = $result['win_points'] + 120;
+$win_points7 = $result['win_points'] + 140;
+$win_points8 = $result['win_points'] + 160;
+
+$lose_points1 = $result['lose_points'] + 10;
+$lose_points2 = $result['lose_points'] + 20;
+$lose_points3 = $result['lose_points'] + 30;
+$lose_points4 = $result['lose_points'] + 40;
+$lose_points5 = $result['lose_points'] + 50;
+$lose_points6 = $result['lose_points'] + 60;
+$lose_points7 = $result['lose_points'] + 70;
+$lose_points8 = $result['lose_points'] + 80;
+}
+  
+  $query = "INSERT INTO adventure_template SET id=\"$tid1\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version1\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level1\", max_level=\"$max_level1\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points1\", lose_points=\"$lose_points1\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+  $mysql->query_no_result($query);
+
+  $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid1\"";
+  $mysql->query_no_result($query);
+  
+  $query = "INSERT INTO adventure_template SET id=\"$tid2\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version2\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level2\", max_level=\"$max_level2\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points2\", lose_points=\"$lose_points2\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+    $mysql->query_no_result($query);
+  
+    $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid2\"";
+  $mysql->query_no_result($query);
+  
+  $query = "INSERT INTO adventure_template SET id=\"$tid3\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version3\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level3\", max_level=\"$max_level3\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points3\", lose_points=\"$lose_points3\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+    $mysql->query_no_result($query);
+  
+    $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid3\"";
+  $mysql->query_no_result($query);
+  
+  $query = "INSERT INTO adventure_template SET id=\"$tid4\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version4\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level4\", max_level=\"$max_level4\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points4\", lose_points=\"$lose_points4\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+    $mysql->query_no_result($query);
+  
+    $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid4\"";
+  $mysql->query_no_result($query);
+  
+  $query = "INSERT INTO adventure_template SET id=\"$tid5\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version5\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level5\", max_level=\"$max_level5\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points5\", lose_points=\"$lose_points5\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+    $mysql->query_no_result($query);
+  
+    $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid5\"";
+  $mysql->query_no_result($query);
+  
+  $query = "INSERT INTO adventure_template SET id=\"$tid6\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version6\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level6\", max_level=\"$max_level6\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points6\", lose_points=\"$lose_points6\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+    $mysql->query_no_result($query);
+  
+    $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid6\"";
+  $mysql->query_no_result($query);
+  
+  $query = "INSERT INTO adventure_template SET id=\"$tid7\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version7\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level7\", max_level=\"$max_level7\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points7\", lose_points=\"$lose_points7\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+    $mysql->query_no_result($query);
+  
+    $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid7\"";
+  $mysql->query_no_result($query);
+  
+  $query = "INSERT INTO adventure_template SET id=\"$tid8\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version8\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level8\", max_level=\"$max_level8\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points8\", lose_points=\"$lose_points8\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+    $mysql->query_no_result($query);
+  
+    $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid8\"";
+  $mysql->query_no_result($query);
+}
+
+function copy_adventure_template() {
+  global $mysql;
+  $id = $_GET['id'];
+
+  $query = "SELECT * FROM adventure_template WHERE id=$id";
+  $result = $mysql->query_assoc($query);
+
+  $query2 = "SELECT id as aid FROM adventure_template_entry where template_id=$id";
+  $result2 = $mysql->query_assoc($query2);
+  
+  $query3 = "SELECT MAX(id) as tid FROM adventure_template";
+  $result3 = $mysql->query_assoc($query3);
+
+$zone = $result['zone'];
+$text = $result['text'];
+$is_hard = $result['is_hard'];
+$is_raid = $result['is_raid'];
+$type = $result['type'];
+$type_data = $result['type_data'];
+$type_count = $result['type_count'];
+$assa_x = $result['assa_x'];
+$assa_y = $result['assa_y'];
+$assa_z = $result['assa_z'];
+$assa_h = $result['assa_h'];
+$zone_in_zone_id = $result['zone_in_zone_id'];
+$dest_x = $result['dest_x'];
+$dest_y = $result['dest_y'];
+$dest_z = $result['dest_z'];
+$dest_h = $result['dest_h'];
+$duration = $result['duration'];
+$zone_in_time = $result['zone_in_time'];
+$theme = $result['theme'];
+$zone_in_x = $result['zone_in_x'];
+$zone_in_y = $result['zone_in_y'];
+$zone_in_object_id = $result['zone_in_object_id'];
+$aid = $result2['aid'];
+$zone_version1 = $result['zone_version'];
+$tid1 = $result3['tid'] + 1;
+$min_level1 = $result['min_level'];
+$max_level1 = $result['max_level'];
+$win_points1 = $result['win_points'];
+$lose_points1 = $result['lose_points'];
+
+ $query = "INSERT INTO adventure_template SET id=\"$tid1\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version1\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level1\", max_level=\"$max_level1\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points1\", lose_points=\"$lose_points1\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+  $mysql->query_no_result($query);
+
+$query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid1\"";
+  $mysql->query_no_result($query);
 }
 ?>

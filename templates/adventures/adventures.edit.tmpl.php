@@ -2,6 +2,9 @@
        <div class="edit_form">
          <div class="edit_form_header">
            Edit Adventure: <?=$id?>
+           <div style="float:right">  
+          <a href="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$id?>&action=19"><img src="images/next.gif" border="0" title="Copy single entry"></a>
+          <a href="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$id?>&action=18"><img src="images/last.gif" border="0" title="Create all instances"></a></div>
          </div>
          <div class="edit_form_content">
          <center>

@@ -2,12 +2,12 @@
 <form name="item_edit" method="post" action="index.php?editor=items&id=<?=$id?>&action=6">
        <div class="edit_form">
          <div class="edit_form_header">
+             Edit Item <?=$id?>
              <div style="float:right">
              <a href="index.php?editor=items&action=8"><img src="images/add.gif" border=0 title="Add an Item"></a>
              <a href="index.php?editor=items&id=<?=$id?>&action=7" onClick="return confirm('Really Copy Item <?=$id?>?');"><img src="images/last.gif" border=0 title="Copy this Item"></a>
              <a href="index.php?editor=items&id=<?=$id?>&action=5" onClick="return confirm('Really delete Item <?=$id?>?');"><img src="images/table.gif" border=0 title="Delete this Item"></a>
              </div>
-           Edit Item <?=$id?>
          </div>
          <div class="edit_form_content">
          <center>
