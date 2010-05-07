@@ -544,7 +544,6 @@ $text = $result['text'];
 $is_hard = $result['is_hard'];
 $is_raid = $result['is_raid'];
 $type = $result['type'];
-$type_data = $result['type_data'];
 $type_count = $result['type_count'];
 $assa_x = $result['assa_x'];
 $assa_y = $result['assa_y'];
@@ -571,7 +570,6 @@ $zone_version5 = $result['zone_version'] + 5;
 $zone_version6 = $result['zone_version'] + 6;
 $zone_version7 = $result['zone_version'] + 7;
 $zone_version8 = $result['zone_version'] + 8;
-$zone_version9 = $result['zone_version'] + 9;
 
 $tid1 = $result3['tid'] + 1;
 $tid2 = $result3['tid'] + 2;
@@ -599,6 +597,28 @@ $max_level5 = $result['max_level'] + 30;
 $max_level6 = $result['max_level'] + 36;
 $max_level7 = $result['max_level'] + 42;
 $max_level8 = $result['max_level'] + 55;
+
+if($theme == 1){
+$type_data1 = $result['type_data'] + 1;
+$type_data2 = $result['type_data'] + 2;
+$type_data3 = $result['type_data'] + 3;
+$type_data4 = $result['type_data'] + 4;
+$type_data5 = $result['type_data'] + 5;
+$type_data6 = $result['type_data'] + 6;
+$type_data7 = $result['type_data'] + 7;
+$type_data8 = $result['type_data'] + 8;
+}
+
+if($theme > 1){
+$type_data1 = $result['type_data'];
+$type_data2 = $result['type_data'];
+$type_data3 = $result['type_data'];
+$type_data4 = $result['type_data'];
+$type_data5 = $result['type_data'];
+$type_data6 = $result['type_data'];
+$type_data7 = $result['type_data'];
+$type_data8 = $result['type_data'];
+}
 
 if($is_hard == 0){
 $win_points1 = $result['win_points'] + 10;
@@ -640,49 +660,49 @@ $lose_points7 = $result['lose_points'] + 70;
 $lose_points8 = $result['lose_points'] + 80;
 }
   
-  $query = "INSERT INTO adventure_template SET id=\"$tid1\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version1\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level1\", max_level=\"$max_level1\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points1\", lose_points=\"$lose_points1\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+  $query = "INSERT INTO adventure_template SET id=\"$tid1\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version1\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level1\", max_level=\"$max_level1\", type=\"$type\", type_data=\"$type_data1\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points1\", lose_points=\"$lose_points1\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
   $mysql->query_no_result($query);
 
   $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid1\"";
   $mysql->query_no_result($query);
   
-  $query = "INSERT INTO adventure_template SET id=\"$tid2\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version2\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level2\", max_level=\"$max_level2\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points2\", lose_points=\"$lose_points2\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+  $query = "INSERT INTO adventure_template SET id=\"$tid2\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version2\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level2\", max_level=\"$max_level2\", type=\"$type\", type_data=\"$type_data2\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points2\", lose_points=\"$lose_points2\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
     $mysql->query_no_result($query);
   
     $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid2\"";
   $mysql->query_no_result($query);
   
-  $query = "INSERT INTO adventure_template SET id=\"$tid3\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version3\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level3\", max_level=\"$max_level3\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points3\", lose_points=\"$lose_points3\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+  $query = "INSERT INTO adventure_template SET id=\"$tid3\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version3\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level3\", max_level=\"$max_level3\", type=\"$type\", type_data=\"$type_data3\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points3\", lose_points=\"$lose_points3\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
     $mysql->query_no_result($query);
   
     $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid3\"";
   $mysql->query_no_result($query);
   
-  $query = "INSERT INTO adventure_template SET id=\"$tid4\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version4\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level4\", max_level=\"$max_level4\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points4\", lose_points=\"$lose_points4\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+  $query = "INSERT INTO adventure_template SET id=\"$tid4\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version4\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level4\", max_level=\"$max_level4\", type=\"$type\", type_data=\"$type_data4\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points4\", lose_points=\"$lose_points4\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
     $mysql->query_no_result($query);
   
     $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid4\"";
   $mysql->query_no_result($query);
   
-  $query = "INSERT INTO adventure_template SET id=\"$tid5\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version5\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level5\", max_level=\"$max_level5\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points5\", lose_points=\"$lose_points5\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+  $query = "INSERT INTO adventure_template SET id=\"$tid5\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version5\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level5\", max_level=\"$max_level5\", type=\"$type\", type_data=\"$type_data5\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points5\", lose_points=\"$lose_points5\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
     $mysql->query_no_result($query);
   
     $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid5\"";
   $mysql->query_no_result($query);
   
-  $query = "INSERT INTO adventure_template SET id=\"$tid6\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version6\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level6\", max_level=\"$max_level6\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points6\", lose_points=\"$lose_points6\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+  $query = "INSERT INTO adventure_template SET id=\"$tid6\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version6\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level6\", max_level=\"$max_level6\", type=\"$type\", type_data=\"$type_data6\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points6\", lose_points=\"$lose_points6\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
     $mysql->query_no_result($query);
   
     $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid6\"";
   $mysql->query_no_result($query);
   
-  $query = "INSERT INTO adventure_template SET id=\"$tid7\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version7\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level7\", max_level=\"$max_level7\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points7\", lose_points=\"$lose_points7\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+  $query = "INSERT INTO adventure_template SET id=\"$tid7\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version7\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level7\", max_level=\"$max_level7\", type=\"$type\", type_data=\"$type_data7\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points7\", lose_points=\"$lose_points7\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
     $mysql->query_no_result($query);
   
     $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid7\"";
   $mysql->query_no_result($query);
   
-  $query = "INSERT INTO adventure_template SET id=\"$tid8\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version8\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level8\", max_level=\"$max_level8\", type=\"$type\", type_data=\"$type_data\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points8\", lose_points=\"$lose_points8\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
+  $query = "INSERT INTO adventure_template SET id=\"$tid8\", zone=\"$zone\", text=\"$text\", zone_version=\"$zone_version8\", is_hard=\"$is_hard\", is_raid=\"$is_raid\", min_level=\"$min_level8\", max_level=\"$max_level8\", type=\"$type\", type_data=\"$type_data8\", type_count=\"$type_count\", assa_x=\"$assa_x\", assa_y=\"$assa_y\", assa_z=\"$assa_z\", assa_h=\"$assa_h\", zone_in_zone_id=\"$zone_in_zone_id\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_h=\"$dest_h\", duration=\"$duration\", zone_in_time=\"$zone_in_time\", win_points=\"$win_points8\", lose_points=\"$lose_points8\", theme=\"$theme\", zone_in_x=\"$zone_in_x\", zone_in_y=\"$zone_in_y\", zone_in_object_id=\"$zone_in_object_id\"";
     $mysql->query_no_result($query);
   
     $query = "INSERT INTO adventure_template_entry SET id=\"$aid\", template_id=\"$tid8\"";
