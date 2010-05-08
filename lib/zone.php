@@ -284,7 +284,6 @@ function update_zone () {
   if ($ztype != $_POST['ztype']) $fields .= "ztype=\"" . $_POST['ztype'] . "\", ";
   if ($zone_exp_multiplier != $_POST['zone_exp_multiplier']) $fields .= "zone_exp_multiplier=\"" . $_POST['zone_exp_multiplier'] . "\", ";
   if ($walkspeed != $_POST['walkspeed']) $fields .= "walkspeed=\"" . $_POST['walkspeed'] . "\", ";
-  if ($insttype != $_POST['insttype']) $fields .= "insttype=\"" . $_POST['insttype'] . "\", ";
   if ($weather != $_POST['weather']) $fields .= "weather=\"" . $_POST['weather'] . "\", ";
   if ($min_level != $_POST['min_level']) $fields .= "min_level=\"" . $_POST['min_level'] . "\", ";
   if ($min_status != $_POST['min_status']) $fields .= "min_status=\"" . $_POST['min_status'] . "\", ";
