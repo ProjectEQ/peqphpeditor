@@ -598,18 +598,7 @@ $max_level6 = $result['max_level'] + 36;
 $max_level7 = $result['max_level'] + 42;
 $max_level8 = $result['max_level'] + 55;
 
-if($theme == 2 || $theme == 3 || $theme == 4){
-$type_data1 = $result['type_data'];
-$type_data2 = $result['type_data'];
-$type_data3 = $result['type_data'];
-$type_data4 = $result['type_data'];
-$type_data5 = $result['type_data'];
-$type_data6 = $result['type_data'];
-$type_data7 = $result['type_data'];
-$type_data8 = $result['type_data'];
-}
-
-if($theme == 1){
+if($type == 1){
 $type_data1 = $result['type_data'] + 1;
 $type_data2 = $result['type_data'] + 2;
 $type_data3 = $result['type_data'] + 3;
@@ -618,6 +607,17 @@ $type_data5 = $result['type_data'] + 5;
 $type_data6 = $result['type_data'] + 6;
 $type_data7 = $result['type_data'] + 7;
 $type_data8 = $result['type_data'] + 8;
+}
+
+if($type > 1){
+$type_data1 = $result['type_data'];
+$type_data2 = $result['type_data'];
+$type_data3 = $result['type_data'];
+$type_data4 = $result['type_data'];
+$type_data5 = $result['type_data'];
+$type_data6 = $result['type_data'];
+$type_data7 = $result['type_data'];
+$type_data8 = $result['type_data'];
 }
 
 if($is_hard == 0){
