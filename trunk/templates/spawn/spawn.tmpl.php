@@ -70,7 +70,8 @@
             <th width="25%" align="center">Chance</th>
             <th width="25%" align="center">&nbsp;</th>
           </tr>
-<?$x=0; foreach($npcs as $npc): extract($npc);?>
+<?$x=0; foreach($npcs as $npc): extract($npc);
+  $chance_total += $chance;?>
           <tr bgcolor="#<? echo ($x % 2 == 1) ? "AAAAAA" : "BBBBBB";?>">
             <td>
               <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcID?>"><?=$name?></a> (<?=$npcID?>)
@@ -84,7 +85,7 @@
 <?$x++;endforeach;?>
           <tr bgcolor="#AAAAAA">
             <td colspan="3" align="right">
-              <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=3">Balance Spawn Rates</a>
+              <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=3">Balance Spawn Rates</a> (<?if ($chance_total!=100) { echo "<strong><font color='red'>"; } else { echo "<font color='green'>";}?>Currently: <?=$chance_total?>%</font><?if ($chance_total!=100) echo "</strong>";?>)<?$chance_total=0;?>
             </td>
           </tr>
         </table>
