@@ -82,7 +82,6 @@ switch ($editor) {
     $searchbar->set('zones', $zones);
     $searchbar->set('currzone', $z);
     break;
-    break;
   case 'misc':
     $zones = $zones;
     $searchbar = new Template("templates/searchbar/searchbar.misc.tmpl.php");
@@ -92,6 +91,7 @@ switch ($editor) {
     break;
   case 'server':
     $zones = $zones;
+    break;
   case 'adventures':
     $zones = $zones;
     break;
@@ -127,9 +127,10 @@ function build_tabs () {
   $tabstatus12 = "off";
   $tabstatus13 = "off";
 
-  $url = '';
-  if ($z) $url = $url . "&z=$z";
-  if ($npcid) $url = $url . "&npcid=$npcid";
+  $zoneurl = "";
+  $npcurl = "";
+  if ($z) $zoneurl = "&z=$z";
+  if ($npcid) $npcurl = "&npcid=$npcid";
 
   switch ($editor) {
     case '':
@@ -184,20 +185,20 @@ function build_tabs () {
 
   echo "
       <div id=\"menubar\">
-        <div class=\"$tabstatus1\"><a href=\"index.php?editor=npc$url\">NPCs</a></div>
-        <div class=\"$tabstatus2\"><a href=\"index.php?editor=loot$url\">Loot</a></div>
-        <div class=\"$tabstatus3\"><a href=\"index.php?editor=spawn$url\">Spawns</a></div>
-        <div class=\"$tabstatus4\"><a href=\"index.php?editor=merchant$url\">Merchants</a></div>
-        <div class=\"$tabstatus5\"><a href=\"index.php?editor=spellset$url\">Spells</a></div>
+        <div class=\"$tabstatus1\"><a href=\"index.php?editor=npc$zoneurl$npcurl\">NPCs</a></div>
+        <div class=\"$tabstatus2\"><a href=\"index.php?editor=loot$zoneurl$npcurl\">Loot</a></div>
+        <div class=\"$tabstatus3\"><a href=\"index.php?editor=spawn$zoneurl$npcurl\">Spawns</a></div>
+        <div class=\"$tabstatus4\"><a href=\"index.php?editor=merchant$zoneurl$npcurl\">Merchants</a></div>
+        <div class=\"$tabstatus5\"><a href=\"index.php?editor=spellset$zoneurl$npcurl\">Spells</a></div>
         <div class=\"$tabstatus6\"><a href=\"index.php?editor=faction\">Factions</a></div>
         <div class=\"$tabstatus7\"><a href=\"index.php?editor=tradeskill\">Tradeskills</a></div>
-        <div class=\"$tabstatus8\"><a href=\"index.php?editor=zone$url\">Zone</a></div>
-        <div class=\"$tabstatus9\"><a href=\"index.php?editor=misc$url\">Misc</a></div>
-        <div class=\"$tabstatus10\"><a href=\"index.php?editor=server$url\">Server</a></div>
-        <div class=\"$tabstatus11\"><a href=\"index.php?editor=adventures$url\">Adventures</a></div><br>
+        <div class=\"$tabstatus8\"><a href=\"index.php?editor=zone$zoneurl\">Zone</a></div>
+        <div class=\"$tabstatus9\"><a href=\"index.php?editor=misc$zoneurl\">Misc</a></div>
+        <div class=\"$tabstatus10\"><a href=\"index.php?editor=server\">Server</a></div>
+        <div class=\"$tabstatus11\"><a href=\"index.php?editor=adventures\">Adventures</a></div><br>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br>
-        <div class=\"$tabstatus12\"><a href=\"index.php?editor=tasks$url\">Task Editor</a></div>
-        <div class=\"$tabstatus13\"><a href=\"index.php?editor=items$url\">Items Editor</a></div><br>
+        <div class=\"$tabstatus12\"><a href=\"index.php?editor=tasks\">Task Editor</a></div>
+        <div class=\"$tabstatus13\"><a href=\"index.php?editor=items\">Items Editor</a></div><br>
       </div>
  ";
 
