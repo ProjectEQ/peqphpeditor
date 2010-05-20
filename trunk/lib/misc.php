@@ -1196,14 +1196,14 @@ function copy_doors() {
             SELECT id,doorid,zone,name,version,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door FROM doors WHERE zone=\"$z\"";
    $mysql->query_no_result($query);
 
-   $query = "UPDATE doors SET version=$new_version WHERE version=$door_version";
+   $query = "UPDATE doors SET version=$new_version WHERE version=$door_version AND zone=\"$z\"";
    $mysql->query_no_result($query);
 
    $query = "INSERT INTO doors_temp (zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door) 
             SELECT zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door FROM doors WHERE zone=\"$z\" AND version=$new_version";
    $mysql->query_no_result($query);
 
-   $query = "UPDATE doors SET version=$door_version WHERE version=$new_version";
+   $query = "UPDATE doors SET version=$door_version WHERE version=$new_version AND zone=\"$z\"";
    $mysql->query_no_result($query);
 
    $query = "INSERT INTO doors (doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door) 
@@ -1221,23 +1221,23 @@ function copy_groundspawns() {
    $gs_version = $_POST['gs_version'];
    $new_version = $_POST['new_version'];
 
-   $query = "UPDATE ground_spawns SET version=10000 WHERE version=$gs_version";
+   $query = "UPDATE ground_spawns SET version=10000 WHERE version=$gs_version AND zoneid=\"$zid\"";
    $mysql->query_no_result($query);
 
-   $query = "UPDATE ground_spawns SET version=9999 WHERE version=0";
+   $query = "UPDATE ground_spawns SET version=9999 WHERE version=0 AND zoneid=\"$zid\"";
    $mysql->query_no_result($query);
 
    $query = "INSERT INTO ground_spawns (zoneid,max_x,max_y,max_z,min_x,min_y,heading,name,item,max_allowed,comment,respawn_timer) 
             SELECT zoneid,max_x,max_y,max_z,min_x,min_y,heading,name,item,max_allowed,comment,respawn_timer FROM ground_spawns WHERE zoneid=\"$zid\" AND version=10000";
    $mysql->query_no_result($query);
 
-   $query = "UPDATE ground_spawns SET version=$new_version WHERE version=0";
+   $query = "UPDATE ground_spawns SET version=$new_version WHERE version=0 AND zoneid=\"$zid\"";
    $mysql->query_no_result($query);
 
-   $query = "UPDATE ground_spawns SET version=$gs_version WHERE version=10000";
+   $query = "UPDATE ground_spawns SET version=$gs_version WHERE version=10000 AND zoneid=\"$zid\"";
    $mysql->query_no_result($query);
 
-  $query = "UPDATE ground_spawns SET version=0 WHERE version=9999";
+  $query = "UPDATE ground_spawns SET version=0 WHERE version=9999 AND zoneid=\"$zid\"";
    $mysql->query_no_result($query);
 } 
 
@@ -1247,23 +1247,23 @@ function copy_traps() {
    $trap_version = $_POST['trap_version'];
    $new_version = $_POST['new_version'];
 
-   $query = "UPDATE traps SET version=10000 WHERE version=$trap_version";
+   $query = "UPDATE traps SET version=10000 WHERE version=$trap_version AND zone=\"$z\"";
    $mysql->query_no_result($query);
 
-   $query = "UPDATE traps SET version=9999 WHERE version=0";
+   $query = "UPDATE traps SET version=9999 WHERE version=0 AND zone=\"$z\"";
    $mysql->query_no_result($query);
 
    $query = "INSERT INTO traps (zone,x,y,z,chance,maxzdiff,radius,effect,effectvalue,effectvalue2,message,skill,level,respawn_time,respawn_var) 
             SELECT zone,x,y,z,chance,maxzdiff,radius,effect,effectvalue,effectvalue2,message,skill,level,respawn_time,respawn_var FROM traps WHERE zone=\"$z\" AND version=10000";
    $mysql->query_no_result($query);
 
-   $query = "UPDATE traps SET version=$new_version WHERE version=0";
+   $query = "UPDATE traps SET version=$new_version WHERE version=0 AND zone=\"$z\"";
    $mysql->query_no_result($query);
 
-   $query = "UPDATE traps SET version=$trap_version WHERE version=10000";
+   $query = "UPDATE traps SET version=$trap_version WHERE version=10000 AND zone=\"$z\"";
    $mysql->query_no_result($query);
 
-  $query = "UPDATE traps SET version=0 WHERE version=9999";
+  $query = "UPDATE traps SET version=0 WHERE version=9999 AND zone=\"$z\"";
    $mysql->query_no_result($query);
 } 
 
@@ -1274,23 +1274,23 @@ function copy_objects() {
    $object_version = $_POST['object_version'];
    $new_version = $_POST['new_version'];
 
-   $query = "UPDATE object SET version=10000 WHERE version=$object_version";
+   $query = "UPDATE object SET version=10000 WHERE version=$object_version AND zoneid=\"$zid\"";
    $mysql->query_no_result($query);
 
-   $query = "UPDATE object SET version=9999 WHERE version=0";
+   $query = "UPDATE object SET version=9999 WHERE version=0 AND zoneid=\"$zid\"";
    $mysql->query_no_result($query);
 
    $query = "INSERT INTO object (zoneid,xpos,ypos,zpos,heading,itemid,charges,objectname,type,icon) 
             SELECT zoneid,xpos,ypos,zpos,heading,itemid,charges,objectname,type,icon FROM object WHERE zoneid=\"$zid\" AND version=10000";
    $mysql->query_no_result($query);
 
-   $query = "UPDATE object SET version=$new_version WHERE version=0";
+   $query = "UPDATE object SET version=$new_version WHERE version=0 AND zoneid=\"$zid\"";
    $mysql->query_no_result($query);
 
-   $query = "UPDATE object SET version=$object_version WHERE version=10000";
+   $query = "UPDATE object SET version=$object_version WHERE version=10000 AND zoneid=\"$zid\"";
    $mysql->query_no_result($query);
 
-  $query = "UPDATE object SET version=0 WHERE version=9999";
+  $query = "UPDATE object SET version=0 WHERE version=9999 AND zoneid=\"$zid\"";
    $mysql->query_no_result($query);
 } 
 
