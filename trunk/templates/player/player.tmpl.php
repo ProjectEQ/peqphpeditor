@@ -16,7 +16,7 @@
               <td>
                 <fieldset>
                   <legend><strong>Character Name</strong></legend>
-                  Name: <?=trim($name)?><br />
+                  First Name: <?=trim($name)?><br />
                   Last Name: <?=trim($last_name)?><br />
                   Title: <?=trim($title)?><br />
                   Suffix: <?=trim($suffix)?><br />
@@ -68,11 +68,12 @@
                   <legend><strong>Other Info</strong></legend>
                   Birth: <?=$birthday?><br />
                   Anonymous: <?=$anonymity[$anon]?><br />
+                  LFG: <?=$yesno[$lfg]?><br />
+                  LFP: <?=$yesno[$lfp]?><br />
+                  Group ID: <?=($groupid > 0 ? $groupid : "Not Grouped");?><br />
                   Drunkness: <?=$drunk?><br />
                   Toxicity: <?=$toxicity?><br />
                 </fieldset>
-                &nbsp;<br />
-                &nbsp;<br />
               </td>
             </tr>
           </table>

@@ -93,8 +93,8 @@ function player_info () {
   $player_array['level'] = ord(substr($profile,116,4));
   $player_array['deity'] = ord(substr($profile,220,4));
   $player_array['guildid'] = ord(substr($profile,224,4));
-  $player_array['birthday'] = ord(substr($profile,228,4)); //Time not system time?
-  $player_array['lastzone'] = ord(substr($profile,232,4)); //Time not system time?
+  $player_array['birthday'] = ord(substr($profile,228,4)); //Time not system time. Maybe minutes from server start?
+  $player_array['lastzone'] = ord(substr($profile,232,4)); //Time not system time. Maybe minutes from server start?
   $player_array['timeplayed'] = ord(substr($profile,236,4));
   $player_array['pvp'] = ord(substr($profile,240,1));
   $player_array['anon'] = ord(substr($profile,242,1));
@@ -110,7 +110,7 @@ function player_info () {
   $player_array['beard'] = ord(substr($profile,301,1));
   $player_array['title'] = substr($profile,2384,32);
   $player_array['suffix'] = substr($profile,2416,32);
-  $player_array['exp'] = ord(substr($profile,2452,4));
+  $player_array['exp'] = ord(substr($profile,2452,4)); //0-?
   $player_array['practice'] = ord(substr($profile,2460,4));
   $player_array['mana'] = ord(substr($profile,2464,4));
   $player_array['hp'] = ord(substr($profile,2468,4)); //Something's not right with this
@@ -172,8 +172,8 @@ function player_info () {
   $player_array['tribute_points'] = ord(substr($profile,7212,4));
   $player_array['tribute_active'] = ord(substr($profile,7220,4));
   $player_array['endurance'] = ord(substr($profile,7904,4));
-  $player_array['group_exp'] = ord(substr($profile,7908,4)); //0-1000
-  $player_array['raid_exp'] = ord(substr($profile,7912,4)); //0-2000
+  $player_array['group_exp'] = ord(substr($profile,7908,4)); //0-1000?
+  $player_array['raid_exp'] = ord(substr($profile,7912,4)); //0-2000?
   $player_array['group_points'] = ord(substr($profile,7916,4));
   $player_array['raid_points'] = ord(substr($profile,7920,4));
   $player_array['air'] = ord(substr($profile,8184,4));
