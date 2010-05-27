@@ -169,4 +169,39 @@ function get_zone_by_npcid($npcid) {
   $result = $mysql->query_assoc($query);
   return $result['short_name'];
 }
+
+function getPlayerName($playerid) {
+  global $mysql;
+  
+  $query = "SELECT name FROM character_ WHERE id=$playerid";
+  $result = $mysql->query_assoc($query);
+  return $result['name'];
+}
+
+function search_players() {
+  global $mysql;
+  $search = $_GET['search'];
+
+  $query = "SELECT id, name FROM character_ WHERE name rlike \"$search\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function search_players_by_id() {
+  global $mysql;
+  $playerid = $_GET['playerid'];
+
+  $query = "SELECT id, name FROM character_ WHERE id=\"$playerid\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function get_guild ($guildid) {
+  global $mysql;
+
+  $query = "SELECT name FROM guilds WHERE id = $guildid";
+  $result = $mysql->query_assoc($query);
+  return $result['name'];
+}
+
 ?>
