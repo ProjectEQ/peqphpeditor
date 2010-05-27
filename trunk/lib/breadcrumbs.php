@@ -42,7 +42,9 @@ switch ($editor) {
   case 'items':
     $breadcrumbs = "Item Editor";
     break;
-
+  case 'player':
+    $breadcrumbs = "Players";
+    break;
 }
 
 if ($z != '') $breadcrumbs .= " >> " . getZoneLongName($z);
@@ -52,5 +54,6 @@ if ($tskid != '') $breadcrumbs .= " >> " . getTaskTitle($tskid);
 if ($ts != '') $breadcrumbs .= " >> " . $tradeskills[$ts];
 if ($rec != '0') $breadcrumbs .= " >> " . getRecipeName($rec);
 if ($spellset != '') $breadcrumbs .= " >> " . getSpellsetName($spellset);
+if ($playerid != '') $breadcrumbs .= " >> " . getPlayerName($playerid) . " ($playerid)";
 
 ?>

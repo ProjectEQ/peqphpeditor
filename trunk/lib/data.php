@@ -1169,4 +1169,31 @@ $itemsaugrestrict = array (
 13 => "Shields Only",
 14 => "1H Slash, 1H Blunt, or Hand to Hand Only"
 );
+
+$deities = array (
+201 => "Bertoxxulous",
+202 => "Brell Serilis",
+203 => "Cazic-Thule",
+204 => "Erollisi Marr",
+205 => "Bristlebane",
+206 => "Innoruuk",
+207 => "Karana",
+208 => "Mithaniel Marr",
+209 => "Prexus",
+210 => "Quellious",
+211 => "Rallos Zek",
+212 => "Rodcet Nife",
+213 => "Solusek Ro",
+214 => "The Tribunal",
+215 => "Tunare",
+216 => "Veeshan",
+396 => "Agnostic"
+);
+
+$anonymity = array (
+0 => "No",
+1 => "Anonymous",
+2 => "Roleplay"
+);
+
 ?>

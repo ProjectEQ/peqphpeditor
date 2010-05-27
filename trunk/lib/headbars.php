@@ -108,10 +108,16 @@ switch ($editor) {
     $searchbar = new Template("templates/searchbar/searchbar.items.tmpl.php");
     $searchbar->set('curreditor', $editor);
     break;
+  case 'player':
+    $players = players();
+    $searchbar = new Template("templates/searchbar/searchbar.byplayerid.tmpl.php");
+    $searchbar->set('curreditor', $editor);
+    $searchbar->set('players', $players);
+    $searchbar->set('currplayer', $playerid);
 }
 
 function build_tabs () {
-  global $editor, $z, $npcid;
+  global $editor, $z, $npcid, $playerid;
 
   $tabstatus1 = "off";
   $tabstatus2 = "off";
@@ -126,6 +132,7 @@ function build_tabs () {
   $tabstatus11 = "off";
   $tabstatus12 = "off";
   $tabstatus13 = "off";
+  $tabstatus14 = "off";
 
   $zoneurl = "";
   $npcurl = "";
@@ -174,6 +181,9 @@ function build_tabs () {
     case 'items':
       $tabstatus13 = "on";
       break;
+    case 'player':
+      $tabstatus14 = "on";
+      break;
   }
 
   $admin = '';
@@ -198,7 +208,8 @@ function build_tabs () {
         <div class=\"$tabstatus11\"><a href=\"index.php?editor=adventures\">Adventures</a></div><br>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br>
         <div class=\"$tabstatus12\"><a href=\"index.php?editor=tasks\">Task Editor</a></div>
-        <div class=\"$tabstatus13\"><a href=\"index.php?editor=items\">Items Editor</a></div><br>
+        <div class=\"$tabstatus13\"><a href=\"index.php?editor=items\">Items Editor</a></div>
+        <div class=\"$tabstatus14\"><a href=\"index.php?editor=player\">Players</a></div><br>
       </div>
  ";
 
@@ -290,4 +301,12 @@ function spellsets () {
   return $results;
 }
 
+function players() {
+  global $mysql;
+
+  $query = "SELECT id, name FROM character_ ORDER BY name ASC";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
+}
 ?>
