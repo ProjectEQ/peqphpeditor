@@ -1159,36 +1159,35 @@ function change_npc_level_ver() {
   $mysql->query_no_result($query);
 }
 
-function export_sql($export_type) {
+function export_sql() {
   global $mysql, $npcid;
+  $export_array = array();
 
   $query = "SELECT * FROM npc_types WHERE id = $npcid";
   $results = $mysql->query_assoc($query);
 
-  if ($export_type == "insert") {
-    foreach ($results as $key=>$value) {
-      if($table_string) {
-        $table_string .= ", " . $key;
-        $value_string .= ", '" . $value . "'";
-      }
-      else {
-        $table_string = $key;
-        $value_string = "'" . $value . "'";
-      }
+  foreach ($results as $key=>$value) {
+    if($table_string) {
+      $table_string .= ", " . $key;
+      $value_string .= ", '" . $value . "'";
     }
-  $query_out = "INSERT INTO npc_types ($table_string) VALUES ($value_string);";
-  }
-  else {
-    foreach ($results as $key=>$value) {
-      if($update_string) {
-        $update_string .= ", " . $key . "='" . $value . "'";
-      }
-      else {
-        $update_string = $key . "='" . $value . "'";
-      }
+    else {
+      $table_string = $key;
+      $value_string = "'" . $value . "'";
     }
-  $query_out = "UPDATE npc_types SET $update_string WHERE id='$npcid';";
   }
-  return($query_out);
+  $export_array['insert'] = "INSERT INTO npc_types ($table_string) VALUES ($value_string);";
+
+  foreach ($results as $key=>$value) {
+    if($update_string) {
+      $update_string .= ", " . $key . "='" . $value . "'";
+    }
+    else {
+      $update_string = $key . "='" . $value . "'";
+    }
+  }
+  $export_array['update'] = "UPDATE npc_types SET $update_string WHERE id='$npcid';";
+
+  return($export_array);
 }
 ?>
