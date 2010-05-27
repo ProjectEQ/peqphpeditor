@@ -1,7 +1,8 @@
+  <?$export_sql_array = export_sql();?>
   <div id="sql_block" style="display:none">
     <center>
-      <textarea id="insert_sql" rows="3" cols="90"><?=export_sql("insert");?></textarea><br><br>
-      <textarea id="update_sql" rows="3" cols="90"><?=export_sql("update");?></textarea><br><br>
+      <textarea id="insert_sql" rows="3" cols="90"><?=$export_sql_array['insert']?></textarea><br><br>
+      <textarea id="update_sql" rows="3" cols="90"><?=$export_sql_array['update']?></textarea><br><br>
       <button type="button" id="copy_insert" onClick="clipboardData.setData('Text', insert_sql.value);">Copy INSERT to Clipboard</button>&nbsp;
       <button type="button" id="copy_update" onClick="clipboardData.setData('Text', update_sql.value);">Copy UPDATE to Clipboard</button>&nbsp;
       <button type="button" id="hide_sql" onClick="document.getElementById('sql_block').style.display='none';">Hide SQL</button>
