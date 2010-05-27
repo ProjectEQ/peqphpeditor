@@ -185,6 +185,9 @@ function player_info () {
   $player_array['pvp_deathstreak_max'] = ord(substr($profile,8208,4));
   $player_array['pvp_killstreak_now'] = ord(substr($profile,8212,4));
   $player_array['pvp_kills_today'] = ord(substr($profile,8392,4));
+  $player_array['aa_spent'] = ord(substr($profile,12796,4));
+  $player_array['aa_exp'] = ord(substr($profile,12800,4));
+  $player_array['aa_points'] = ord(substr($profile,12804,4));
   $player_array['radiant_crystals'] = ord(substr($profile,19540,4));
   $player_array['radiant_total'] = ord(substr($profile,19544,4));
   $player_array['ebon_crystals'] = ord(substr($profile,19548,4));
@@ -192,10 +195,6 @@ function player_info () {
   $player_array['group_consent'] = ord(substr($profile,19556,1));
   $player_array['raid_consent'] = ord(substr($profile,19557,1));
   $player_array['guild_consent'] = ord(substr($profile,19558,1));
-
-  $player_array['aa_spent'] = ord(substr($profile,12796,4));
-  $player_array['aa_exp'] = ord(substr($profile,12800,4));
-  $player_array['aa_points'] = ord(substr($profile,12804,4));
 
   return $player_array;
 }
