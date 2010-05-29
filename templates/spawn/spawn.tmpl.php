@@ -17,6 +17,7 @@
        </table>
 <?endif;?>
 <?if($spawngroups != ''):?>
+<center><a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&action=16">Click here to add this NPC to another spawngroup</a></center><br />
 <?foreach($spawngroups as $sg): extract($sg);?>
       <div style="border: 1px solid black; margin-bottom: 15px;">
       <div class="table_header">
@@ -93,5 +94,4 @@
 <?endif;?>
       </div>
 <?endforeach;?>
-<center><a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&action=16">Click here to add this NPC to another spawngroup</a></center>
 <?endif;?>
