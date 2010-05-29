@@ -10,7 +10,7 @@
              To create a spawngroup for this NPC:<br>
              <ul style="padding-left: 25px;">
              <li>Make sure the desired zone is selected from the search bar</li>
-             <li><a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&action=16">Click here to create a new spawngroup</a></li> 
+             <li><a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&action=54">Click here to create a new spawngroup</a></li> 
             </ul>
            </td>
          </tr>
@@ -93,4 +93,5 @@
 <?endif;?>
       </div>
 <?endforeach;?>
+<center><a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&action=16">Click here to add this NPC to another spawngroup</a></center>
 <?endif;?>
