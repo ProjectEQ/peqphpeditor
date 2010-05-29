@@ -176,11 +176,10 @@ check_authorization();
     $sid = $_POST['spawngroupID'];
     header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
     exit;
-  case 16: // Add Spawngroup
+  case 16: // Add Spawngroup Choice
     check_authorization();
     $body = new Template("templates/spawn/spawngroup.add.tmpl.php");
     $body->set('currzone', $z);
-    $body->set('suggestedid', suggest_spawngroup_id());
     $body->set('npcid', $npcid);
     break;
   case 17:  // Add Spawngroup
@@ -551,6 +550,41 @@ check_authorization();
     $sid = $_POST['sgid'];
     header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
     exit;
+  case 54: // New spawngroup
+    check_authorization();
+    $body = new Template("templates/spawn/spawngroup.new.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('suggestedid', suggest_spawngroup_id());
+    $body->set('npcid', $npcid);
+    break;
+  case 55: // Search spawngroup by name
+    check_authorization();
+    $body = new Template("templates/spawn/spawngroup.search.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $body->set('sid', $_GET['sid']);
+    break;
+  case 56: // Add spawngroup by id
+    $body = new Template("templates/spawn/spawngroup.addbyid.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    break;
+  case 57: // Search spawngroups by name
+    check_authorization();
+    $body = new Template("templates/spawn/spawngroup.searchresults.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $body->set('sid', $_GET['sid']);
+    $vars = search_spawngroups($_POST['search']);
+    $body->set('results', $vars);
+    break;
+  case 58: // Add spawngroup by name
+    check_authorization();
+    $body = new Template("templates/spawn/spawngroup.addbysearch.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('npcid', $npcid);
+    $body->set('sid', $_GET['sid']);
+    break;
 }
 
 function get_spawngroups() {
@@ -1278,6 +1312,13 @@ function move_spawnpoint() {
 
   $query = "UPDATE spawn2 set spawngroupID=\"$sgid\" where id=$id";
   $mysql->query_no_result($query);
+}
+
+function search_spawngroups($search) {
+  global $mysql;
+  $query = "SELECT * FROM spawngroup WHERE name rlike \"$search\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
 }
 
 ?>
