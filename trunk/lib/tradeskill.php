@@ -366,7 +366,7 @@ function copy_tradeskill() {
   $mysql->query_no_result($query);
 
   $query = "INSERT INTO tradeskill_recipe (name,tradeskill,skillneeded,trivial,nofail,replace_container,notes,must_learn) 
-            SELECT name,tradeskill,skillneeded,trivial,nofail,replace_container,notes,must_learn FROM tradeskill_recipe where id=$rec";
+            SELECT CONCAT(name,' - Copy'),tradeskill,skillneeded,trivial,nofail,replace_container,notes,must_learn FROM tradeskill_recipe where id=$rec";
   $mysql->query_no_result($query);
 
   $query = "INSERT INTO tradeskill_recipe_entries (item_id,successcount,failcount,componentcount,iscontainer) 
