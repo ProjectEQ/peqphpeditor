@@ -691,7 +691,7 @@ function copy_npc () {
 
 $fields = '';
 $fields .= "id=\"" . $_POST['id']. "\", ";
-$fields .= "name=\"" . $_POST['name'] . "\", ";
+$fields .= "name=\"" . $_POST['name'] . " - Copy\", ";
 $fields .= "lastname=\"" . $_POST['lastname'] . "\", ";
 $fields .= "level=\"" . $_POST['level'] . "\", ";
 $fields .= "race=\"" . $_POST['race'] . "\", ";
