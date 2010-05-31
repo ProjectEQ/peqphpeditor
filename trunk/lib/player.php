@@ -93,8 +93,8 @@ function player_info () {
   $player_array['level'] = ord(substr($profile,116,4));
   $player_array['deity'] = ord(substr($profile,220,4));
   $player_array['guildid'] = ord(substr($profile,224,4));
-  $player_array['birthday'] = ord(substr($profile,228,4)); //Time not system time. Maybe minutes from server start?
-  $player_array['lastzone'] = ord(substr($profile,232,4)); //Time not system time. Maybe minutes from server start?
+  $player_array['birthday'] = ord(substr($profile,228,4)); //Time not system time. Maybe minutes from server start for the day?
+  $player_array['lastzone'] = ord(substr($profile,232,4)); //Time not system time. Maybe minutes from server start for the day?
   $player_array['timeplayed'] = ord(substr($profile,236,4));
   $player_array['pvp'] = ord(substr($profile,240,1));
   $player_array['anon'] = ord(substr($profile,242,1));
@@ -125,7 +125,7 @@ function player_info () {
   //$player_array['y'] = ord(substr($profile,4700,4)); //Still need to figure out floats
   //$player_array['x'] = ord(substr($profile,4704,4)); //Still need to figure out floats
   //$player_array['z'] = ord(substr($profile,4708,4)); //Still need to figure out floats
-  //$player_array['heading'] = ord(substr($profile,4712,4)); //Still need to figure out floats
+  $player_array['heading'] = ord(substr($profile,4712,4)); //Still need to figure out floats
   $player_array['platinum'] = ord(substr($profile,4720,4));
   $player_array['gold'] = ord(substr($profile,4724,4));
   $player_array['silver'] = ord(substr($profile,4728,4));
@@ -192,9 +192,9 @@ function player_info () {
   $player_array['radiant_total'] = ord(substr($profile,19544,4));
   $player_array['ebon_crystals'] = ord(substr($profile,19548,4));
   $player_array['ebon_total'] = ord(substr($profile,19552,4));
-  $player_array['group_consent'] = ord(substr($profile,19556,1));
-  $player_array['raid_consent'] = ord(substr($profile,19557,1));
-  $player_array['guild_consent'] = ord(substr($profile,19558,1));
+  $player_array['group_consent'] = ord(substr($profile,19556,1)); //Not right yet
+  $player_array['raid_consent'] = ord(substr($profile,19557,1)); //Not right yet
+  $player_array['guild_consent'] = ord(substr($profile,19558,1)); //Not right yet
 
   return $player_array;
 }
