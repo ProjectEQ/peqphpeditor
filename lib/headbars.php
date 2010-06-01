@@ -202,7 +202,7 @@ function build_tabs () {
         <div class=\"$tabstatus5\"><a href=\"index.php?editor=spellset$zoneurl$npcurl\">Spells</a></div>
         <div class=\"$tabstatus6\"><a href=\"index.php?editor=faction\">Factions</a></div>
         <div class=\"$tabstatus7\"><a href=\"index.php?editor=tradeskill\">Tradeskills</a></div>
-        <div class=\"$tabstatus8\"><a href=\"index.php?editor=zone$zoneurl\">Zone</a></div>
+        <div class=\"$tabstatus8\"><a href=\"index.php?editor=zone$zoneurl\">Zones</a></div>
         <div class=\"$tabstatus9\"><a href=\"index.php?editor=misc$zoneurl\">Misc</a></div>
         <div class=\"$tabstatus10\"><a href=\"index.php?editor=server\">Server</a></div>
         <div class=\"$tabstatus11\"><a href=\"index.php?editor=adventures\">Adventures</a></div><br>
