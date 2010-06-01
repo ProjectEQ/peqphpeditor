@@ -207,8 +207,8 @@ function build_tabs () {
         <div class=\"$tabstatus10\"><a href=\"index.php?editor=server\">Server</a></div>
         <div class=\"$tabstatus11\"><a href=\"index.php?editor=adventures\">Adventures</a></div><br>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br>
-        <div class=\"$tabstatus12\"><a href=\"index.php?editor=tasks\">Task Editor</a></div>
-        <div class=\"$tabstatus13\"><a href=\"index.php?editor=items\">Items Editor</a></div>
+        <div class=\"$tabstatus12\"><a href=\"index.php?editor=tasks\">Tasks</a></div>
+        <div class=\"$tabstatus13\"><a href=\"index.php?editor=items\">Items</a></div>
         <div class=\"$tabstatus14\"><a href=\"index.php?editor=player\">Players</a></div><br>
       </div>
  ";
