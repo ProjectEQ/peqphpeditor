@@ -5,18 +5,20 @@ $wandertype = array(
   1   => "Random 10",
   2   => "Random",
   3   => "Patrol",
+  4   => "One Way",
+  5   => "Random 5 LoS"
 );
 
 $pausetype = array(
   0   => "Random Half",
   1   => "Full",
-  2   => "Random",
+  2   => "Random"
 );
 
 $ochangetype = array(
   0   => "Nothing",
   1   => "Depop",
-  2   => "Repop",
+  2   => "Repop"
 );
 
 $actiontype = array(
@@ -24,7 +26,7 @@ $actiontype = array(
   1   => "Add",
   2   => "Subtract",
   3   => "Multiply",
-  4   => "Divide",
+  4   => "Divide"
 );
 
 switch ($action) {
