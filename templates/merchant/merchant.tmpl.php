@@ -91,13 +91,15 @@
         </div>
 <?endif;?>
 <?if ($id == 0):?>
-      <center>
-      <div style="width: 350px; border: 1px solid black;">
-        <div class="table_header" align="left">
-        Merchant ID: <?=$id?>
-      </div>
-      <div class="table_content">
-        No Merchantlist currently assigned.<br><br>
-        <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=22">Click here to change</a>
-       </center>
+       <table class="edit_form">
+         <tr>
+           <td class="edit_form_header">Merchant ID: <?=$id?></td>
+         </tr>
+         <tr>
+           <td class="edit_form_content">
+             No Merchantlist currently assigned.<br/><br/>
+             <center><a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=22">Click here to change</a></center>
+           </td>
+         </tr>
+       </table>
 <?endif;?>
