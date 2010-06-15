@@ -9,6 +9,7 @@
             <form name="searchmethod" method="get" action="index.php">
               <input type="hidden" name="editor" value="npc">
               <input type="hidden" name="z" value="<?=$currzone?>">
+              <input type="hidden" name="zoneid" value="<?=$currzoneid?>">
               <input type="hidden" name="npcid" value="<?=$npcid?>">
               <input type="radio" name="action" value="6">Search for an NPC Faction ID by name<br>
               <input type="radio" name="action" value="38">Search for an NPC Faction ID by primary name<br>
