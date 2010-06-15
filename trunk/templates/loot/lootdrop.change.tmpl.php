@@ -9,6 +9,7 @@
             <form name="searchmethod" method="get" action="index.php">
               <input type="hidden" name="editor" value="loot">
               <input type="hidden" name="z" value="<?=$currzone?>">
+              <input type="hidden" name="zoneid" value="<?=$currzoneid?>">
               <input type="hidden" name="npcid" value="<?=$npcid?>">
               <input type="hidden" name="ltid" value="<?=$ltid?>">
               <input type="radio" name="action" value="25">Search for a LootDrop by name<br>

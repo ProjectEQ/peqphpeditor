@@ -9,6 +9,7 @@
             <form name="searchmethod" method="get" action="index.php">
               <input type="hidden" name="editor" value="spellset">
               <input type="hidden" name="z" value="<?=$currzone?>">
+              <input type="hidden" name="zoneid" value="<?=$currzoneid?>">
               <input type="hidden" name="npcid" value="<?=$npcid?>">
               <input type="radio" name="action" value="10">Create a new Spellset<br>
               <input type="radio" name="action" value="12">Choose an existing Spellset<br><br>
