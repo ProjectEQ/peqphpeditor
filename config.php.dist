@@ -20,10 +20,17 @@ $db = 'database_name';
  *    9 = Omens of War
  *    10 = Dragons of Norrath
  *    11 = Depths of Darkhollow
+ *    12 = Prophecy of Ro
+ *    13 = The Serpents Spine
+ *    14 = The Buried Sea
+ *    15 = Secrets of Faydwer
+ *    16 = Seeds of Destruction
+ *    17 = Underfoot
+ *    99 = Other
  */
-$expansion_limit = 11;
+$expansion_limit = 17;
 
-// Don't want to have to type the username and password every time you start the editor?
+// Dont want to have to type the username and password every time you start the editor?
 // Set the two variables below to the values you want to be in the form when you start it up.
 // (default login: admin  pw: password)
 $login = 'admin';
