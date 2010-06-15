@@ -245,7 +245,7 @@ function zones () {
 function zones2 () {
   global $mysql;
 
-  $query = "SELECT id, long_name, version, expansion FROM zone ORDER BY long_name ASC";
+  $query = "SELECT id, short_name, long_name, version, expansion FROM zone ORDER BY long_name ASC";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;

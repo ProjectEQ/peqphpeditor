@@ -344,10 +344,12 @@ function mobs_using_loottable () {
   $result = $mysql->query_assoc($query);
   $ltid = $result['loottable_id'];
 
+  if($ltid > 0){
   $query = "SELECT id, name FROM npc_types WHERE loottable_id=$ltid";
   $results = $mysql->query_mult_assoc($query);
   $count = count($results);
   return array("count"=>$count, "mobs"=>$results);
+  }
 }
 
 function loottables_using_lootdrop () {
