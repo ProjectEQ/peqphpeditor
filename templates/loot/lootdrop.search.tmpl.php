@@ -6,7 +6,7 @@
          </tr>
          <tr>
            <td class="edit_form_content">
-             <form name="search" method="post" action="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&ltid=<?=$ltid?>&action=28">
+             <form name="search" method="post" action="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ltid=<?=$ltid?>&action=28">
                Search Lootdrops For:<br><br>
                <input type="text" name="search"><br><br>
                <center>

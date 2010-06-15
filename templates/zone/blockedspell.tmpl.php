@@ -4,7 +4,7 @@
           <tr>
            <td>Blocked Spells</a></td>
            <td align="right">    
-          <a href="index.php?editor=zone&z=<?=$currzone?>&action=22"><img src="images/add.gif" border="0" title="Edit Blocked Spell"></a>          
+          <a href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=22"><img src="images/add.gif" border="0" title="Edit Blocked Spell"></a>          
             </td>
            </tr>        
          </table>
@@ -40,8 +40,8 @@
           <td align="center" width="25%"><?=$v['message']?></td> 
           <td align="center" width="10%"><?=$v['description']?></td>
           <td align="right">      
-            <a href="index.php?editor=zone&z=<?=$currzone?>&bsid=<?=$v['bsid']?>&action=19"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-            <a onClick="return confirm('Really Delete Spell <?=$v['bsid']?>?');"href="index.php?editor=zone&z=<?=$currzone?>&bsid=<?=$v['bsid']?>&action=21"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&bsid=<?=$v['bsid']?>&action=19"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
+            <a onClick="return confirm('Really Delete Spell <?=$v['bsid']?>?');"href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&bsid=<?=$v['bsid']?>&action=21"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>

@@ -4,7 +4,7 @@
           Add a Spawngroup to <?=$currzone?>
         </div>
         <div class="edit_form_content">
-          <form method="post" action="index.php?editor=spawn&z=<?=$currzone?>&action=17">
+          <form method="post" action="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=17">
  	 <center>
            <strong>Suggested ID:&nbsp;&nbsp;&nbsp;spawn_limit:</strong> <br>
             <input  type="text" name="id" size="6"  value="<?=$suggestedid?>">

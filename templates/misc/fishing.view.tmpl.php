@@ -4,7 +4,7 @@
           <tr>
            <td>Fishing</td>
            <td align="right">    
-          <a href="index.php?editor=misc&z=<?=$currzone?>&action=5"><img src="images/add.gif" border="0" title="Add an entry to this zone"></a>
+          <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=5"><img src="images/add.gif" border="0" title="Add an entry to this zone"></a>
             </td>
            </tr>        
          </table>
@@ -40,8 +40,8 @@
 <?endif;?>
           <td align="center" width="8%"><?=$npc_chance?>%</td>
           <td align="right">      
-            <a href="index.php?editor=misc&z=<?=$currzone?>&fsid=<?=$fsid?>&action=2"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-            <a href="index.php?editor=misc&z=<?=$currzone?>&fsid=<?=$fsid?>&action=4"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&fsid=<?=$fsid?>&action=2"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
+            <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&fsid=<?=$fsid?>&action=4"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         </table>

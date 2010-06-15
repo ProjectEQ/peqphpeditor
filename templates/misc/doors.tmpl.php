@@ -4,9 +4,9 @@
           <tr>
            <td>Doors</td>
            <td align="right">    
-          <a href="index.php?editor=misc&z=<?=$currzone?>&action=47"><img src="images/last.gif" border="0" title="Copy doors by version"></a>
-          <a href="index.php?editor=misc&z=<?=$currzone?>&action=39"><img src="images/add.gif" border="0" title="Add an entry to this zone"></a>
-          <a href="index.php?editor=misc&z=<?=$currzone?>&action=55"><img src="images/remove3.gif" border="0" title="Delete doors by version"></a>
+          <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=47"><img src="images/last.gif" border="0" title="Copy doors by version"></a>
+          <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=39"><img src="images/add.gif" border="0" title="Add an entry to this zone"></a>
+          <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=55"><img src="images/remove3.gif" border="0" title="Delete doors by version"></a>
             </td>
            </tr>        
          </table>
@@ -52,8 +52,8 @@
           <td align="center" width="7%"><?=$v['dest_z']?></td>
           <td align="center" width="5%"><?=$v['version']?></td>
           <td align="right">      
-            <a href="index.php?editor=misc&z=<?=$currzone?>&drid=<?=$v['drid']?>&action=36"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-            <a onClick="return confirm('Really Delete Door <?=$v['drid']?>?');" href="index.php?editor=misc&z=<?=$currzone?>&drid=<?=$v['drid']?>&action=38"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&drid=<?=$v['drid']?>&action=36"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
+            <a onClick="return confirm('Really Delete Door <?=$v['drid']?>?');" href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&drid=<?=$v['drid']?>&action=38"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>

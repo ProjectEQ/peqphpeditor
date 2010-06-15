@@ -5,7 +5,7 @@
         <div class="edit_form_content">
           <strong>Spawngroup:</strong> <?=$spawngroupID?><br>
           <strong>NPC:</strong> <?=$npcname?><br><br>
-          <form method="post" action="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&action=2">
+          <form method="post" action="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=2">
             <strong>Chance:</strong><br>
             <input class="indented" type="text" size="5" name="chance" value="<?=$chance?>">%<br><br>
               <center>

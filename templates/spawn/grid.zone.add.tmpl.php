@@ -10,7 +10,7 @@
       </div>
 
       <div class="edit_form_content">
-        <form name="grid" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&action&action=34">
+        <form name="grid" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action&action=34">
         <table width="100%" cellspacing="0">
           <tr>
             <td width="33%">

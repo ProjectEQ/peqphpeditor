@@ -8,7 +8,7 @@
             Edit Trap Template <?=$id?>
         </div>
         <div class="edit_form_content">
-          <form method="post" action="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&action=17">
+          <form method="post" action="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=17">
             <strong>ID:</strong> <br>
               <input class="indented" type="text" name="id" size="5" value="<?=$suggestedid?>"><br><br>
             <td align="left" width="25%"><strong>Type:</strong><br>

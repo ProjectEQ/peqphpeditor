@@ -1,4 +1,4 @@
-       <form name="npc_edit" method="post" action="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=2">
+       <form name="npc_edit" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=2">
        <div class="edit_form">
          <div class="edit_form_header">
            Edit NPC <?=$npcid?>

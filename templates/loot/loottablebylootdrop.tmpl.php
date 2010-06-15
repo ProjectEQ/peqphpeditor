@@ -18,7 +18,7 @@
          </tr>
   <?foreach($ldrop as $ldrop):?>
             <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
-            <td align="center" width="5%"> <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$ldrop['npcid']?>"> <?=$ldrop['loottid']?></td>
+            <td align="center" width="5%"> <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$ldrop['npcid']?>"> <?=$ldrop['loottid']?></td>
             <td align="center" width="5%"><?=$ldrop['loottname']?></td>
            </tr>
  <?endforeach;?>

@@ -4,7 +4,7 @@
           <tr>
            <td>Forage</td>
            <td align="right">    
-          <a href="index.php?editor=misc&z=<?=$currzone?>&action=11"><img src="images/add.gif" border="0" title="Add an entry to this zone"></a>
+          <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=11"><img src="images/add.gif" border="0" title="Add an entry to this zone"></a>
             </td>
            </tr>        
          </table>
@@ -22,12 +22,12 @@
 <?$x=0; foreach($forage as $forage=>$v):?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
           <td align="center" width="5%"><?=$v['fgid']?></td>
-          <td align="center" width="20%"><a href="index.php?editor=items&z=<?=$currzone?>&id=<?=$v['fgiid']?>&action=2"><?=$v['name']?></a> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['fgiid']?>">lucy</a>]</span></td>
+          <td align="center" width="20%"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&id=<?=$v['fgiid']?>&action=2"><?=$v['name']?></a> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['fgiid']?>">lucy</a>]</span></td>
           <td align="center" width="15%"><?=$v['level']?></td>
           <td align="center" width="15%"><?=$v['chance']?>%</td>  
           <td align="right">      
-            <a href="index.php?editor=misc&z=<?=$currzone?>&fgid=<?=$v['fgid']?>&action=8"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-            <a onClick="return confirm('Really Delete Entry <?=$v['fgid']?>?');" href="index.php?editor=misc&z=<?=$currzone?>&fgid=<?=$v['fgid']?>&action=10"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&fgid=<?=$v['fgid']?>&action=8"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
+            <a onClick="return confirm('Really Delete Entry <?=$v['fgid']?>?');" href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&fgid=<?=$v['fgid']?>&action=10"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>

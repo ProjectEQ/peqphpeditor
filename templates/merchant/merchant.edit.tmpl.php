@@ -4,7 +4,7 @@
       </div>
 
       <div class="edit_form_content">
-        <form name="merchantlist" method="post" action="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=2">
+        <form name="merchantlist" method="post" action="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=2">
         <table width="100%">
           <tr>
             <th>Slot</th>

@@ -3,7 +3,7 @@
         <input id="button" type="button" value='Hide Item Search' onclick='hideSearch("searchframe");' style='display:none; margin-bottom: 20px;'>
       </center>
 
-       <form method="post" action="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=5">
+       <form method="post" action="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=5">
          <div class="edit_form" style="width: 200px">
            <div class="edit_form_header">
 	  	       Add an Item to Merchant <?=$mid?>

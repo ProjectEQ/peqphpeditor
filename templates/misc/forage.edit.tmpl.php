@@ -3,7 +3,7 @@
         <input id="button" type="button" value='Hide Item Search' onclick='hideSearch();' style='display:none; margin-bottom: 20px;'>
       </center>
 
-        <form name="forage" method="post" action=index.php?editor=misc&z=<?=$currzone?>&action=9">
+        <form name="forage" method="post" action=index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=9">
          <div class="edit_form" style="width: 200px;">
         <div class="edit_form_header">
           Edit Forage Entry <?=$fgid?>

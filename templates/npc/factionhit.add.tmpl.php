@@ -8,7 +8,7 @@
            <td class="edit_form_content">
              <strong><?=$name?></strong><br><br>
 
-             <form name="addhit" method="post" action="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&fid=<?=$fid?>&action=18">
+             <form name="addhit" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&fid=<?=$fid?>&action=18">
 			 Adjustment: <br>
              <input type="text" name="value"><br><br>
 

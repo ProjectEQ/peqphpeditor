@@ -1,9 +1,9 @@
       <div class="table_container" style="width: 500px;">
          <div class="table_header">
            <div style="float:right;">
-             <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=12"><img src="images/add.gif" border=0 title="Add an Item"></a>&nbsp;
-             <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=9"><img src="images/c_table.gif" border=0 title="Edit this Merchant"></a>&nbsp;
-             <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&action=14" onClick="return confirm('Really delete this merchantlist?');"><img src="images/table.gif" border=0 title="Delete this Merchantlist"></a>
+             <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=12"><img src="images/add.gif" border=0 title="Add an Item"></a>&nbsp;
+             <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=9"><img src="images/c_table.gif" border=0 title="Edit this Merchant"></a>&nbsp;
+             <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=14" onClick="return confirm('Really delete this merchantlist?');"><img src="images/table.gif" border=0 title="Delete this Merchantlist"></a>
            </div>
            Temp Merchant list for NPC <?=$npcid?>
          </div>
@@ -76,7 +76,7 @@
             <td><?=$sells?>cp</td>
 <?endif;?>
             <td align="right" style="padding-right: 10px;">
-              <a href="index.php?editor=merchant&z=<?=$currzone?>&npcid=<?=$npcid?>&slot=<?=$slot?>&itemid=<?=$v['itemid']?>&action=11" onClick="return confirm('Really remove this item from the merchant?');"><img src="images/remove.gif" border="0" title="Delete item from Merchantlist"></a>
+              <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&slot=<?=$slot?>&itemid=<?=$v['itemid']?>&action=11" onClick="return confirm('Really remove this item from the merchant?');"><img src="images/remove.gif" border="0" title="Delete item from Merchantlist"></a>
             </td>
           </tr>
 <?$x++;endforeach;?>

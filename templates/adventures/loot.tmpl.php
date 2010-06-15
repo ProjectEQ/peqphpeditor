@@ -4,7 +4,7 @@
           <tr>
            <td>Loot Adventures</td>
            <td align="right">    
-          <a href="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&action=10"><img src="images/add.gif" border="0" title="Add an adventure"></a>            </td>
+          <a href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=10"><img src="images/add.gif" border="0" title="Add an adventure"></a>            </td>
            </tr>        
          </table>
       </div>
@@ -38,7 +38,7 @@
           <td align="center" width="18%"><a href="index.php?editor=npc&z=$z&npcid=<?=$v['type_data']?>"><?=getNPCName($v['type_data'])?></td>
 <?endif;?>
 <?if($v['type'] == 3):?>
-          <td align="center" width="18%"><a href="index.php?editor=items&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$v['type_data']?>&action=2"><?=get_item_name($v['type_data'])?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['type_data']?>">lucy</a>]</span>
+          <td align="center" width="18%"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['type_data']?>&action=2"><?=get_item_name($v['type_data'])?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['type_data']?>">lucy</a>]</span>
 <?endif;?>    
 <?if($v['type'] == 2):?>   
           <td align="center" width="18%">Any</td>  
@@ -47,8 +47,8 @@
           <td align="center" width="20%"><?=$themetype[$v['theme']]?></td>
           <td align="center" width="10%"><?=getZoneName($v['zone_in_zone_id'])?></td>
           <td align="right">      
-            <a href="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=8"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>    
-            <a onClick="return confirm('Really Delete Adventure <?=$v['id']?>?');" href="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=7"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=8"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>    
+            <a onClick="return confirm('Really Delete Adventure <?=$v['id']?>?');" href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=7"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>

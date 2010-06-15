@@ -3,7 +3,7 @@
         Edit Trap: <?=$id?>
       </div>
       <div class="edit_form_content">
-        <form name="traps" method="post" action=index.php?editor=misc&z=<?=$currzone?>&action=21">
+        <form name="traps" method="post" action=index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=21">
         <table width="100%">
           <tr>
             <th>x</th>

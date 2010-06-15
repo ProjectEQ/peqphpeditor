@@ -4,7 +4,7 @@
           <tr>
            <td>Trap Templates</td>
            <td align="right">    
-          <a href="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&action=16"><img src="images/add.gif" border="0" title="Add a trap template"></a>
+          <a href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16"><img src="images/add.gif" border="0" title="Add a trap template"></a>
             </td>
            </tr>        
          </table>
@@ -33,8 +33,8 @@
           <td align="center" width="10%"><?=$v['skill']?></td>
           <td align="center" width="20%"><?=$yesno[$v['locked']]?></td>
           <td align="right">      
-            <a href="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=13"><img src="images/edit2.gif" border="0" title="Edit Trap Template"></a>          
-            <a onClick="return confirm('Really Delete Trap Template <?=$v['id']?>?');" href="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=15"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=13"><img src="images/edit2.gif" border="0" title="Edit Trap Template"></a>          
+            <a onClick="return confirm('Really Delete Trap Template <?=$v['id']?>?');" href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=15"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>

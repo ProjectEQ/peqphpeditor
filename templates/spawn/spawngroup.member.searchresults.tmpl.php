@@ -9,14 +9,14 @@
 <?if ($results != ''):?>
              <ul>
 <?foreach($results as $result): extract($result);?>
-             <li><a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&sid=<?=$sid?>&npc=<?=$id?>&action=9"><?=$name?> (<?=$id?>) - Level <?=$level?></a></li>
+             <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$sid?>&npc=<?=$id?>&action=9"><?=$name?> (<?=$id?>) - Level <?=$level?></a></li>
 <?endforeach;?>
              </ul>
 <?endif;?>
 <?if ($results == ''):?>
             <center>
               Your search produced no results!<br><br>
-              <a href="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&sid=<?=$sid?>&action=8">Try again</a>
+              <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$sid?>&action=8">Try again</a>
             </center>
 <?endif;?>
            </td>

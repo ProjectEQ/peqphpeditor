@@ -4,7 +4,7 @@
           <tr>
            <td>NPC ID:</td>
            <td align="right">    
-          <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>">Go Back</a>
+          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">Go Back</a>
             </td>
            </tr>        
          </table>

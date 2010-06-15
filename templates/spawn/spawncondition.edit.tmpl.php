@@ -4,7 +4,7 @@
       </div>
 
       <div class="edit_form_content">
-        <form name="spawncondition" method="post" action=index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&action=43">
+        <form name="spawncondition" method="post" action=index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&action=43">
         <table width="100%">
           <tr>
             <th>Value:</th>

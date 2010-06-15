@@ -8,7 +8,7 @@
             Edit Trap Template <?=$id?> 
         </div>
         <div class="edit_form_content">
-          <form method="post" action="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&action=14">
+          <form method="post" action="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=14">
             <td align="left" width="25%"><strong>Type:</strong><br>
                  <select name="type" style="width: 125px;">
 <?foreach($ldontraptype as $key=>$value):?>

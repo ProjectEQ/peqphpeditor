@@ -3,7 +3,7 @@
         Add Object
       </div>
       <div class="edit_form_content">
-        <form name="door" method="post" action=index.php?editor=misc&z=<?=$currzone?>&action=46">
+        <form name="door" method="post" action=index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=46">
         <table width="100%">
           <tr>
             <th>ID</th>

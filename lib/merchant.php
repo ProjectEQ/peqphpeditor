@@ -5,6 +5,7 @@ switch ($action) {
     if ($npcid) {
       $body = new Template("templates/merchant/merchant.tmpl.php");
       $body->set('currzone', $z);
+      $body->set('currzoneid', $zoneid);
       $body->set('npcid', $npcid);
       $vars = get_merchantlist();
       if ($vars) {
@@ -21,6 +22,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/merchant/merchant.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $vars = get_merchantlist();
     if ($vars) {
@@ -32,30 +34,31 @@ switch ($action) {
   case 2:
     check_authorization();
     update_merchantlist();
-    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=merchant&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 3:  // Delete item from merchant
     check_authorization();
     delete_ware();
-    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=merchant&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 4: // Add item to Merchant
     check_authorization();
     $javascript .= file_get_contents("templates/iframes/js.tmpl.php");
     $body = new Template("templates/merchant/item.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('mid', $_GET['mid']);
     break;
   case 5: // Add item
     check_authorization();
     add_merchant_item();
-    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=merchant&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 6: // Delete Merchantlist
     check_authorization();
     delete_merchantlist();
-    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=merchant&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 7:  // Search merchant by item
     check_authorization();
@@ -75,6 +78,7 @@ switch ($action) {
     if ($npcid) {
       $body = new Template("templates/merchant/merchant_temp.tmpl.php");
       $body->set('currzone', $z);
+      $body->set('currzoneid', $zoneid);
       $body->set('npcid', $npcid);
       $vars = get_merchantlist_temp();
       if ($vars) {
@@ -88,6 +92,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/merchant/merchant_temp.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $vars = get_merchantlist_temp();
     if ($vars) {
@@ -99,29 +104,30 @@ switch ($action) {
   case 10:
     check_authorization();
     update_merchantlist_temp();
-    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid&action=8");
+    header("Location: index.php?editor=merchant&z=$z&zoneid=$zoneid&npcid=$npcid&action=8");
     exit;
   case 11:  // Delete temp item from merchant
     check_authorization();
     delete_temp_ware();
-    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid&action=8");
+    header("Location: index.php?editor=merchant&z=$z&zoneid=$zoneid&npcid=$npcid&action=8");
     exit;
   case 12: // Add temp item to Merchant
     check_authorization();
     $javascript .= file_get_contents("templates/iframes/js.tmpl.php");
     $body = new Template("templates/merchant/item_temp.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     break;
   case 13: // Add item
     check_authorization();
     add_merchant_item_temp();
-    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid&action=8");
+    header("Location: index.php?editor=merchant&z=$z&zoneid=$zoneid&npcid=$npcid&action=8");
     exit;
   case 14: // Delete Temp Merchantlist
     check_authorization();
     delete_merchantlist_temp();
-    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=merchant&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 15: // Wipe Temp Merchantlists
     check_authorization();
@@ -132,6 +138,7 @@ switch ($action) {
     check_authorization(); 
     $body = new Template("templates/merchant/npcsbymerchant.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $_GET['npcid']);
     $body->set('merid', $_GET['merid']);
     $merlist = npcs_using_merchantlist();
@@ -140,17 +147,17 @@ switch ($action) {
   case 17: // Drop Merchantlist
     check_authorization();
     drop_merchantlist();
-    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=merchant&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 18: // Copy Merchantlist
     check_authorization();
     copy_merchantlist();
-    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=merchant&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 19: // Sort Merchantlist
     check_authorization();
     sort_merchantlist();
-    header("Location: index.php?editor=merchant&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=merchant&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit; 
 }
 

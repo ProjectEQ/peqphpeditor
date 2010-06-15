@@ -6,7 +6,7 @@
         </tr>
         <tr>
           <td class="edit_form_content">
-            <form name="npcfaction" method="post" action="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=9">
+            <form name="npcfaction" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=9">
               Suggested ID:<br>
               <input type="text" name="id" size="25" value="<?=$id?>"><br><br>
               Suggested Name:<br>

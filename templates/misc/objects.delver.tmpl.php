@@ -6,7 +6,7 @@
          </tr>
          <tr>
            <td class="edit_form_content">
-             <form name="object_version" method="post" action="index.php?editor=misc&z=<?=$currzone?>&action=62">
+             <form name="object_version" method="post" action="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=62">
              Delete version: <br>
              <input type="text" size="7" name="object_version" value="">
              <center><br>

@@ -8,7 +8,7 @@
            Change Spellset
          </div>
          <div class="edit_form_content">
-           <form method="post" action="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&action=13">
+           <form method="post" action="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=13">
              <strong>Spellset ID:</strong> (<a href="javascript:showSearch();">search</a>)<br>
              <input class="indented" id="id" type="text" size="10" name="id"><br><br>
              <center>

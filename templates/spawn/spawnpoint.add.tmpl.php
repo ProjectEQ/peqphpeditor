@@ -10,7 +10,7 @@
       </div>
 
       <div class="edit_form_content">
-        <form name="spawnpoint" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&action=15">
+        <form name="spawnpoint" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=15">
         Suggested ID:<br>
         <input type="text" name="id" value="<?=$suggestedid?>"><br><br>
         <table width="100%" cellspacing="0">

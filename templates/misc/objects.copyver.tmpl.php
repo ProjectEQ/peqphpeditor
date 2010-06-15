@@ -6,7 +6,7 @@
          </tr>
          <tr>
            <td class="edit_form_content">
-             <form name="object_version" method="post" action="index.php?editor=misc&z=<?=$currzone?>&action=54">
+             <form name="object_version" method="post" action="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=54">
              Copy version: <br>
              <input type="text" size="7" name="object_version" value="0"> to 
              <input type="text" size="7" name="new_version" value="<?=$objectversion?>">

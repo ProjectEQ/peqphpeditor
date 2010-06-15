@@ -4,7 +4,7 @@
           <tr>
            <td>Kill Adventures</td>
            <td align="right">    
-          <a href="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&action=10"><img src="images/add.gif" border="0" title="Add an adventure"></a>            </td>
+          <a href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=10"><img src="images/add.gif" border="0" title="Add an adventure"></a>            </td>
            </tr>        
          </table>
       </div>
@@ -37,8 +37,8 @@
           <td align="center" width="20%"><?=$themetype[$v['theme']]?></td>
           <td align="center" width="10%"><?=getZoneName($v['zone_in_zone_id'])?></td>
           <td align="right">      
-            <a href="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=8"><img src="images/edit2.gif" border="0" title="Edit Entry"></a> 
-            <a onClick="return confirm('Really Delete Adventure <?=$v['id']?>?');" href="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=7"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=8"><img src="images/edit2.gif" border="0" title="Edit Entry"></a> 
+            <a onClick="return confirm('Really Delete Adventure <?=$v['id']?>?');" href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=7"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>

@@ -5,15 +5,17 @@
               <strong>1.</strong>
               <select OnChange="gotosite(this.options[this.selectedIndex].value)">
                 <option value="">Select a Zone</option>
-<?php foreach ($zones as $zone): ?>
-                <option value="index.php?editor=<?=$curreditor?>&z=<?=$zone?>"<?php if ($currzone == $zone): ?> selected<?php endif;?>><?=$zone?></option>
+<?php foreach ($zonelist as $zone): ?>
+<?php if ($zone['expansion'] <= $expansion_limit): ?>
+                <option value="index.php?editor=<?=$curreditor?>&z=<?=$zone['short_name']?>&zoneid=<?=$zone['id']?>"<?php if ($currzoneid == $zone['id']): ?> selected<?php endif;?>><?=$zone['short_name']?> (<?=$zone['version']?>)</option>
+<?php endif;?>
 <?php endforeach;?>
               </select>
               &nbsp; and &nbsp;
               <select OnChange="gotosite(this.options[this.selectedIndex].value)">
                 <option value="">Select an NPC</option>
 <?php foreach ($npcs as $npc): ?>
-                <option value="index.php?editor=<?=$curreditor?>&z=<?=$currzone?>&npcid=<?=$npc['id']?>"<?php if ($currnpc == $npc['id']): ?> selected<?php endif;?>><?=$npc['name']?></option>
+                <option value="index.php?editor=<?=$curreditor?>&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npc['id']?>"<?php if ($currnpc == $npc['id']): ?> selected<?php endif;?>><?=$npc['name']?></option>
 <?php endforeach;?>
               </select>
             </td>

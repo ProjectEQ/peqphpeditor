@@ -1,4 +1,4 @@
-       <form name="zone_edit" method="post" action="index.php?editor=zone&z=<?=$currzone?>&action=3">
+       <form name="zone_edit" method="post" action="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=3">
        <div class="edit_form">
          <div class="edit_form_header">
            Edit Zone: <?=$zoneidnumber?> (<?=$short_name?>)
@@ -27,6 +27,11 @@
                <td align="left" width="23%">Shutdown:  <br><input type="text" name="shutdowndelay" size="7" value="<?=$shutdowndelay?>"></td>
                <td align="left" width="23%">Graveyard: <br><input type="text" name="graveyard_id" size="7" value="<?=$graveyard_id?>"></td>
                <td align="left" width="24%">Zone Type: <br><input type="text" name="ztype" size="7" value="<?=$ztype?>"></td>
+             </tr>
+             <tr>
+               <td align="left" width="30%">Map:  <br><input type="text" name="map_file_name" size="20" value="<?=$map_file_name?>"></td>
+               <td align="left" width="23%">Ruleset:  <br><input type="text" name="ruleset" size="7" value="<?=$ruleset?>"></td>
+               <td align="left" width="23%">Version: <br><input type="text" name="version" size="7" value="<?=$version?>"></td>
              </tr>
              <tr>
                <td align="left" width="25%">Exp Multiplier:  <br><input type="text" name="zone_exp_multiplier" size="7" value="<?=$zone_exp_multiplier?>"></td>
@@ -141,6 +146,7 @@
                <td align="left" width="15%">Fog Red4:  <br><input type="text" name="fog_red4" size="5" value="<?=$fog_red4?>"></td>
                <td align="left" width="15%">Fog Green4:  <br><input type="text" name="fog_green4" size="5" value="<?=$fog_green4?>"></td>
              </tr>
+		 <td align="left" width="14%">Fog Density: <br><input type="text" name="fog_density" size="5" value="<?=$fog_density?>"></td>
            </table>
            </fieldset><br>
            <center>

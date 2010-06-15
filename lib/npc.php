@@ -8,6 +8,7 @@ switch ($action) {
     if ($npcid) {
       $body = new Template("templates/npc/npc.tmpl.php");
       $body->set('currzone', $z);
+      $body->set('currzoneid', $zoneid);
       $body->set('npcid', $npcid);
       $body->set('classes', $classes);
       $body->set('genders', $genders);
@@ -30,6 +31,7 @@ switch ($action) {
     else if ($z) {
         $body = new Template("templates/npc/npc.zdefault.tmpl.php");
         $body->set('currzone', $z);
+        $body->set('currzoneid', $zoneid);
       }
     else {
         $body = new Template("templates/npc/npc.default.tmpl.php");
@@ -39,6 +41,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/npc/npc.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('npc_name', getNPCName($npcid));
     $body->set('genders', $genders);
@@ -65,12 +68,13 @@ switch ($action) {
     update_pet();
     }
     else delete_pet();
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 3: // Change npc_faction_id
     check_authorization();
     $body = new Template("templates/npc/factionid.change.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('npc_faction_id', get_npc_faction_id());
     break;
@@ -78,18 +82,20 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/npc/factionid.changebyid.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('npc_faction_id', get_npc_faction_id());
     break;
   case 5:  // Update npc_faction_id
     check_authorization();
     update_npc_faction_id($_REQUEST['npc_faction_id']);
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 6: // Search npc_faction_ids
     check_authorization();
     $body = new Template("templates/npc/factionid.search.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('npc_faction_id', get_npc_faction_id());
     break;
@@ -97,6 +103,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/npc/factionid.searchresults.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('results', search_npc_faction_ids($_POST['search']));
     $body->set('npc_faction_id', get_npc_faction_id());
@@ -105,6 +112,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/npc/factionid.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('id', suggest_npc_faction_id());
     $body->set('npc_name', getNPCName($npcid));
@@ -113,12 +121,13 @@ switch ($action) {
     check_authorization();
     create_npc_faction_id();
     update_npc_faction_id($_POST['id']);
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 10: // Create new npc_faction_id
     check_authorization();
     $body = new Template("templates/npc/factionid.edit.name.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $vars = get_npc_faction_id_name();
     if ($vars) {
@@ -130,36 +139,40 @@ switch ($action) {
   case 11:  // Update npc_faction_id name
     check_authorization();
     update_npc_faction_id_name();
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 12: // Search for primary faction
     check_authorization();
     $body = new Template("templates/npc/primaryfaction.search.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     break;
   case 13: // Primary faction search results
     check_authorization();
     $body = new Template("templates/npc/primaryfaction.searchresults.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('results', search_factions($_POST['search']));
     break;
   case 14:  // Update primary faction
     check_authorization();
     update_primary_faction();
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 15: // Add faction hit search
     check_authorization();
     $body = new Template("templates/npc/factionhit.search.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     break;
   case 16: // Faction hit search results
     check_authorization();
     $body = new Template("templates/npc/factionhit.searchresults.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('results', search_factions($_POST['search']));
     break;
@@ -167,6 +180,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/npc/factionhit.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('fid', $_GET['fid']);
     $body->set('name', get_faction_name($_GET['fid']));
@@ -174,12 +188,13 @@ switch ($action) {
   case 18:  // Insert faction hit
     check_authorization();
     add_faction_hit();
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 19: // Edit faction hit
     check_authorization();
     $body = new Template("templates/npc/factionhit.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $vars = get_factionhit_info();
     if ($vars) {
@@ -191,17 +206,18 @@ switch ($action) {
   case 20:  // Update faction hit
     check_authorization();
     update_factionhit();
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 21:  // Delete faction hit
     check_authorization();
     delete_factionhit();
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 22: // Edit merchant id
     check_authorization();
     $body = new Template("templates/npc/merchantid.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('merchant_id', get_merchant_id());
     $body->set('suggested_id', suggest_merchant_id());
@@ -209,17 +225,18 @@ switch ($action) {
   case 23:  // Update merchant id
     check_authorization();
     update_merchant_id();
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 24:  // Delete npc
     check_authorization();
     delete_npc();
-    header("Location: index.php?editor=npc&z=$z");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid");
     exit;
   case 25: // Add npc
     check_authorization();
     $body = new Template("templates/npc/npc.add.tmpl.php"); 
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('suggestedid', suggest_npcid());
     $body->set('genders', $genders);
     $body->set('factions', $factions);
@@ -243,7 +260,7 @@ switch ($action) {
     add_pet();
     }
     $npcid = $_POST['id'];
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 27:  // Search npcs
     //check_authorization();
@@ -258,12 +275,13 @@ switch ($action) {
     check_authorization();
     copy_npc();
     $npcid = $_POST['id'];
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 29: // Edit Adventure id
     check_authorization();
     $body = new Template("templates/npc/adventureid.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('adventure_id', get_adventure_id());
     $body->set('suggested_id', suggest_adventure_id());
@@ -271,12 +289,13 @@ switch ($action) {
   case 30:  // Update adventure id
     check_authorization();
     update_adventure_id();
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 31: // Edit Trap id
     check_authorization();
     $body = new Template("templates/npc/traptemplate.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('trap_id', get_trap_template());
     $body->set('suggested_id', suggest_trap_template());
@@ -284,12 +303,13 @@ switch ($action) {
   case 32:  // Update trap id
     check_authorization();
     update_trap_template();
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 33: // Edit Tint id
     check_authorization();
     $body = new Template("templates/npc/dyetemplate.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $tint = tint_info();
     if ($tint) {
@@ -301,29 +321,31 @@ switch ($action) {
   case 34:  // Update Tint id
     check_authorization();
     update_tint();
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 35: // Add Tint id
     check_authorization();
     $body = new Template("templates/npc/dyetemplate.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('suggested_id', suggest_dye_template());
     break;
   case 36:  // Update Tint id
     check_authorization();
     add_dye_template();
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 37: // Delete Tint
     check_authorization();
     delete_tint();
-    header("Location: index.php?editor=npc&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 38: // Search npc_faction_ids
     check_authorization();
     $body = new Template("templates/npc/factionprimary.search.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('npc_faction_id', get_npc_faction_id());
     break;
@@ -331,6 +353,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/npc/factionprimary.searchresults.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('results', search_npc_faction_ids_primary($_POST['search']));
     $body->set('npc_faction_id', get_npc_faction_id());
@@ -339,6 +362,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/npc/nextid.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('zoneids', $zoneids);
     $body->set('zoneid', getZoneID($z));
@@ -348,23 +372,27 @@ switch ($action) {
     $body = new Template("templates/npc/nextid.result.tmpl.php");
     $body->set('next_npcid', next_npcid());
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     break;
    case 42: // Add npc by level
     check_authorization();
     $body = new Template("templates/npc/npc.addbylevel.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     break;
   case 43: // Change NPC level
     check_authorization();
     $body = new Template("templates/npc/npc.changelevel.tmpl.php");
     $body->set('npcid', $npcid);
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     break;
   case 44: // Edit NPC Level
     check_authorization();
     $body = new Template("templates/npc/npc.editlevel.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('npc_name', getNPCName($npcid));
     $body->set('genders', $genders);
@@ -394,16 +422,17 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/npc/npc.changelevelver.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     break;
   case 46:  // Change NPC level
     check_authorization();
     change_npc_level_ver();
-    header("Location: index.php?editor=npc&z=$z");
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid");
     exit;
 }
 
 function npc_info () {
-  global $mysql, $npcid;
+  global $mysql, $npcid, $zoneid;
 
   $query = "SELECT * FROM npc_types WHERE id=$npcid";
   $result = $mysql->query_assoc($query);

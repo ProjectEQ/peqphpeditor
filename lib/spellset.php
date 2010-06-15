@@ -21,6 +21,7 @@ switch($action) {
     if ($npcid || $spellset) {
       $body = new Template("templates/spellset/spell.tmpl.php");
       $body->set('currzone', $z);
+      $body->set('currzoneid', $zoneid);
       $body->set('npcid', $npcid);
       $body->set('spellset', $spellset);
       $body->set('spelltypes', $spelltypes);
@@ -37,6 +38,7 @@ switch($action) {
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/spellset/spellset.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('spellset', $spellset);
     $body->set('npcid', $npcid);
     $vars = spells_info();
@@ -49,13 +51,14 @@ switch($action) {
   case 2:
     check_authorization();
     update_spellset();
-    header("Location: index.php?editor=spellset&z=$z&npcid=$npcid&spellset=$spellset");
+    header("Location: index.php?editor=spellset&z=$z&zoneid=$zoneid&npcid=$npcid&spellset=$spellset");
     exit;
   case 3: // Add Spell
     check_authorization();
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/spellset/spell.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('spellset', $spellset);
     $body->set('npcid', $npcid);
     $body->set('spelltypes', $spelltypes);
@@ -64,18 +67,19 @@ switch($action) {
   case 4:
     check_authorization();
     add_spell();
-    header("Location: index.php?editor=spellset&z=$z&npcid=$npcid&spellset=$spellset");
+    header("Location: index.php?editor=spellset&z=$z&zoneid=$zoneid&npcid=$npcid&spellset=$spellset");
     exit;
   case 5: // Delete spell
     check_authorization();
     delete_spell();
-    header("Location: index.php?editor=spellset&z=$z&npcid=$npcid&spellset=$spellset");
+    header("Location: index.php?editor=spellset&z=$z&zoneid=$zoneid&npcid=$npcid&spellset=$spellset");
     exit;
   case 6: // Edit spell
     check_authorization();
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/spellset/spell.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('spellset', $spellset);
     $body->set('npcid', $npcid);
     $body->set('spelltypes', $spelltypes);
@@ -89,18 +93,19 @@ switch($action) {
   case 7:
     check_authorization();
     delete_spellset();
-    header("Location: index.php?editor=spellset&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=spellset&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 8:
     check_authorization();
     update_spell();
-    header("Location: index.php?editor=spellset&z=$z&npcid=$npcid&spellset=$spellset");
+    header("Location: index.php?editor=spellset&z=$z&zoneid=$zoneid&npcid=$npcid&spellset=$spellset");
     exit;
   case 9: // Change Spellset
     check_authorization();
     $body = new Template("templates/spellset/spellset.change.tmpl.php");
     $body->set('spellset', $spellset);
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     break;
   case 10: // Add new Spellset
@@ -109,6 +114,7 @@ switch($action) {
     $body = new Template("templates/spellset/spellset.add.tmpl.php");
     $body->set('spellset', $spellset);
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('name', getNPCName($npcid));
     $body->set('id', suggest_spellset_id());
@@ -117,7 +123,7 @@ switch($action) {
     check_authorization();
     add_spellset();
     update_npc_spellset();
-    header("Location: index.php?editor=spellset&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=spellset&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 12: // Change Spellset by id
     check_authorization();
@@ -125,17 +131,18 @@ switch($action) {
     $body = new Template("templates/spellset/spellset.changebyid.tmpl.php");
     $body->set('spellset', $spellset);
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     break;
   case 13:
     check_authorization();
     update_npc_spellset();
-    header("Location: index.php?editor=spellset&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=spellset&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 14:
     check_authorization();
     remove_spellset();
-    header("Location: index.php?editor=spellset&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=spellset&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 15:  // Search spells
     $body = new Template("templates/spellset/spell.searchresults.tmpl.php");
@@ -146,7 +153,7 @@ switch($action) {
     check_authorization();
     copy_spellset();
     $nss = get_new_id();
-    header("Location: index.php?editor=spellset&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=spellset&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
 }
 
