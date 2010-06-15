@@ -1,10 +1,10 @@
-<form name="adventure_edit" method="post" action="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&action=9">
+<form name="adventure_edit" method="post" action="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=9">
        <div class="edit_form">
          <div class="edit_form_header">
            Edit Adventure: <?=$id?>
            <div style="float:right">  
-          <a href="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$id?>&action=19"><img src="images/next.gif" border="0" title="Copy single entry"></a>
-          <a href="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$id?>&action=18"><img src="images/last.gif" border="0" title="Create all instances"></a></div>
+          <a href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$id?>&action=19"><img src="images/next.gif" border="0" title="Copy single entry"></a>
+          <a href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$id?>&action=18"><img src="images/last.gif" border="0" title="Create all instances"></a></div>
          </div>
          <div class="edit_form_content">
          <center>
@@ -91,6 +91,24 @@
                <td align="left" width="25%">Dest Y:  <br><input type="text" name="dest_y" size="7" value="<?=$dest_y?>"></td>
                <td align="left" width="25%">Dest Z:  <br><input type="text" name="dest_z" size="7" value="<?=$dest_z?>"></td>
                <td align="left" width="25%">Dest Heading:  <br><input type="text" name="dest_h" size="7" value="<?=$dest_h?>"></td>
+           </tr>
+           </table>
+           </fieldset><br>
+
+           <fieldset>
+           <legend><strong><font size="4">Graveyard</font></strong></legend>
+           <table width="100%" border="0" cellpadding="3" cellspacing="0">
+             <tr>
+               <td align="left" width="25%">Graveyard Zone ID:  <br><input type="text" name="graveyard_zone_id" size="7" value="<?=$graveyard_zone_id?>"></td>
+               <td align="left" width="25%">Graveyard X:  <br><input type="text" name="graveyard_x" size="7" value="<?=$graveyard_x?>"></td>
+               <td align="left" width="25%">Graveyard Y:  <br><input type="text" name="graveyard_y" size="7" value="<?=$graveyard_y?>"></td>
+               <td align="left" width="25%">Graveyard Z:  <br><input type="text" name="graveyard_z" size="7" value="<?=$graveyard_z?>"></td>
+             </tr>
+             <tr>
+               <td align="left" width="25%">Graveyard Radius:  <br><input type="text" name="graveyard_radius" size="7" value="<?=$graveyard_radius?>"></td>
+               <td align="left" width="25%">&nbsp;</td>
+               <td align="left" width="25%">&nbsp;</td>
+               <td align="left" width="25%">&nbsp;</td>
            </tr>
            </table>
            </fieldset><br>

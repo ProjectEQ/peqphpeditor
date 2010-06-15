@@ -9,14 +9,14 @@
 <?if ($results != ''):?>
              <ul style="padding-left: 20px;">
 <?foreach($results as $result):?>
-             <li><a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&fid=<?=$result['id']?>&action=14"><?=$result['name']?></a></li>
+             <li><a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&fid=<?=$result['id']?>&action=14"><?=$result['name']?></a></li>
 <?endforeach;?>
              </ul>
 <?endif;?>
 <?if ($results == ''):?>
             <center>
               Your search produced no results!<br><br>
-              <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=6">Try again</a>
+              <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=6">Try again</a>
             </center>
 <?endif;?>
            </td>

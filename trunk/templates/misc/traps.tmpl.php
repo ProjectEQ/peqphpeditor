@@ -4,9 +4,9 @@
           <tr>
            <td>Traps</td>
            <td align="right">    
-          <a href="index.php?editor=misc&z=<?=$currzone?>&action=51"><img src="images/last.gif" border="0" title="Copy traps by version"></a>
-          <a href="index.php?editor=misc&z=<?=$currzone?>&action=23"><img src="images/add.gif" border="0" title="Add an entry to this zone"></a>
-          <a href="index.php?editor=misc&z=<?=$currzone?>&action=59"><img src="images/remove3.gif" border="0" title="Delete traps by version"></a>
+          <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=51"><img src="images/last.gif" border="0" title="Copy traps by version"></a>
+          <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=23"><img src="images/add.gif" border="0" title="Add an entry to this zone"></a>
+          <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=59"><img src="images/remove3.gif" border="0" title="Delete traps by version"></a>
             </td>
            </tr>        
          </table>
@@ -43,7 +43,7 @@
           <td align="center" width="5%"><?=$v['chance']?>%</td>
           <td align="center" width="10%"><?=$traptype[$v['effect']]?></td>
 <?if($v['effect'] == 2 || $v['effect'] == 3):?>
-          <td align="center" width="10%"><a href="index.php?editor=npc&z=<?=get_zone_by_npcid($v['effectvalue'])?>&npcid=<?=$v['effectvalue']?>"><?=getNPCName($v['effectvalue'])?></td>
+          <td align="center" width="10%"><a href="index.php?editor=npc&z=<?=get_zone_by_npcid($v['effectvalue'])?>&zoneid=<?=get_zoneid_by_npcid($v['effectvalue'])?>&npcid=<?=$v['effectvalue']?>"><?=getNPCName($v['effectvalue'])?></td>
 <?endif;?>
 <?if($v['effect'] == 1 || $v['effect'] == 4):?>
           <td align="center" width="10%"><?=$v['effectvalue']?></td>
@@ -63,8 +63,8 @@
           <td align="center" width="5%"><?=$v['respawn_var']?></td>
           <td align="center" width="5%"><?=$v['version']?></td>
           <td align="right">      
-            <a href="index.php?editor=misc&z=<?=$currzone?>&tid=<?=$v['tid']?>&action=20"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-            <a onClick="return confirm('Really Delete Trap <?=$v['tid']?>?');" href="index.php?editor=misc&z=<?=$currzone?>&tid=<?=$v['tid']?>&action=22"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&tid=<?=$v['tid']?>&action=20"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
+            <a onClick="return confirm('Really Delete Trap <?=$v['tid']?>?');" href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&tid=<?=$v['tid']?>&action=22"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>

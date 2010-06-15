@@ -7,7 +7,7 @@
          <tr>
            <td class="edit_form_content">
               Name: <br>
-             <form name="name" method="post" action="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=11">
+             <form name="name" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=11">
              <input type="text" name="name" value="<?=$name?>"><br><br>
               Ignore Primary Assist:  <br>
 			      <select name="ipa">

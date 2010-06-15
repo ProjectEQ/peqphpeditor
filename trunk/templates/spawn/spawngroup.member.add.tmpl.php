@@ -1,4 +1,4 @@
-       <form name="addnpc" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&sid=<?=$sid?>&action=9">
+       <form name="addnpc" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$sid?>&action=9">
        <table class="edit_form">
          <tr>
            <td class="edit_form_header" colspan=3>

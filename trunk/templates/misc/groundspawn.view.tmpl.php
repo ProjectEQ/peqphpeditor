@@ -4,7 +4,7 @@
           <tr>
            <td>Ground Spawns</td>
            <td align="right">    
-          <a href="index.php?editor=misc&z=<?=$currzone?>&action=17"><img src="images/add.gif" border="0" title="Add an entry to this zone"></a>
+          <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=17"><img src="images/add.gif" border="0" title="Add an entry to this zone"></a>
             </td>
            </tr>        
          </table>
@@ -43,8 +43,8 @@
           <td align="center" width="5%"><?=$respawn_timer?></td>  
           <td align="center" width="5%"><?=$version?></td>
           <td align="right">      
-            <a href="index.php?editor=misc&z=<?=$currzone?>&gsid=<?=$gsid?>&action=14"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-            <a href="index.php?editor=misc&z=<?=$currzone?>&gsid=<?=$gsid?>&action=16"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+            <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&gsid=<?=$gsid?>&action=14"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
+            <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&gsid=<?=$gsid?>&action=16"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
         </table>

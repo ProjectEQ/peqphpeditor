@@ -8,16 +8,16 @@
       <button type="button" id="hide_sql" onClick="document.getElementById('sql_block').style.display='none';">Hide SQL</button>
     </center>
   </div>
-    <form name="npc" method="post" action="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=28">
+    <form name="npc" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=28">
      <div class="table_container">
        <div class="table_header">
          <div style="float:right">
            <a onClick="document.getElementById('sql_block').style.display='block';"><img src="images/sql.gif" border=0 title="Show SQL"></a>
-           <a href="index.php?editor=npc&z=<?=$currzone?>&action=42"><img src="images/add.gif" border=0 title="Add an NPC"></a>
-           <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" border=0 title="Edit this NPC"></a>
-           <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=43"><img src="images/upgrade.gif" border=0 title="Change NPC's Level"></a>
-            <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=40"><img src="images/zone.gif" border=0 title="Get next npcid for a zone"></a>
-           <a onClick="return confirm('Really delete npcid <?=$npcid?>?');" href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=24"><img src="images/table.gif" border=0 title="Delete this NPC"></a>
+           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=42"><img src="images/add.gif" border=0 title="Add an NPC"></a>
+           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" border=0 title="Edit this NPC"></a>
+           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=43"><img src="images/upgrade.gif" border=0 title="Change NPC's Level"></a>
+            <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=40"><img src="images/zone.gif" border=0 title="Get next npcid for a zone"></a>
+           <a onClick="return confirm('Really delete npcid <?=$npcid?>?');" href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=24"><img src="images/table.gif" border=0 title="Delete this NPC"></a>
          </div>
          <?=$id?> - <?=$name?> <?echo ($lastname != '' ? "($lastname)" : '');?>
        </div>
@@ -38,27 +38,27 @@
                  <strong>Level:</strong> <?=$level?><br>
                  <strong>Max Level:</strong> <?=$maxlevel?><br>
                  <strong>Body Type:</strong> <?=$bodytypes[$bodytype]?><br>
-                 <strong>Vendor:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=22"><?echo ($merchant_id != 0 ? $merchant_id : "no");?></a><br>
-                 <strong>Adventure:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=29"><?echo ($adventure_template_id != 0 ? $adventure_template_id : "no");?></a><br>
-                 <strong>Trap:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=31"><?echo ($trap_template != 0 ? $trap_template : "no");?></a><br>
+                 <strong>Vendor:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=22"><?echo ($merchant_id != 0 ? $merchant_id : "no");?></a><br>
+                 <strong>Adventure:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=29"><?echo ($adventure_template_id != 0 ? $adventure_template_id : "no");?></a><br>
+                 <strong>Trap:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=31"><?echo ($trap_template != 0 ? $trap_template : "no");?></a><br>
                  <?if($armortint_id != 0):?>
-                 <strong>Tint:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&tint_id=<?=$armortint_id?>&action=33"><?=$armortint_id?></a>
+                 <strong>Tint:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&tint_id=<?=$armortint_id?>&action=33"><?=$armortint_id?></a>
                  <?endif;?>
                  <?if($armortint_id == 0):?>
-                 <strong>Tint:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=35"><?=no?></a>
+                 <strong>Tint:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=35"><?=no?></a>
                  <?endif;?>
              </td>
            </tr>
          </table>
 
          <div style="padding: 10px; border: 1px solid grey; margin-right: 10px;">
-         <b>NPC Faction ID</b>: <?=$npc_faction_id?> [<a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=3">edit</a>]<br>
+         <b>NPC Faction ID</b>: <?=$npc_faction_id?> [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=3">edit</a>]<br>
 <? if ($npc_faction_id != 0):?>
-         "<a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=10"><?=$factionname?></a>"<br><br>
+         "<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=10"><?=$factionname?></a>"<br><br>
 <? endif;?>
-         <b>Primary Faction</b>: [<a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=12">edit</a>]<br>
+         <b>Primary Faction</b>: [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=12">edit</a>]<br>
          <? echo ($primaryfactionname != '') ? $primaryfactionname : "None";?><br><br>
-         <b>Faction Hits:</b> <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=15"><img src="images/add.gif" border="0" title="Add Faction Hit"></a><br>
+         <b>Faction Hits:</b> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=15"><img src="images/add.gif" border="0" title="Add Faction Hit"></a><br>
 <? if ($faction_hits != ''){?>
          <table width="90%">
 <?foreach($faction_hits as $hit): extract($hit);?>
@@ -73,8 +73,8 @@
                <?=$faction_values[$npc_value]?>
              </td>
              <td align="right">
-         <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=19"><img src="images/edit2.gif" border="0" title="Edit this Faction Hit"></a>
-         <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=21" onClick="return confirm('Are you sure you want to remove this faction hit?');"><img src="images/remove.gif" border="0" title="Remove this Faction Hit"></a>
+         <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=19"><img src="images/edit2.gif" border="0" title="Edit this Faction Hit"></a>
+         <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=21" onClick="return confirm('Are you sure you want to remove this faction hit?');"><img src="images/remove.gif" border="0" title="Remove this Faction Hit"></a>
              </td>
             </tr>
 <?endforeach;?>

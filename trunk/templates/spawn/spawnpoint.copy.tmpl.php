@@ -1,4 +1,4 @@
-  <form name="spawnpoint" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&action=51">
+  <form name="spawnpoint" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=51">
          <div class="edit_form" style="width: 200px;">
         <div class="edit_form_header">
          Copy Spawnpoint ID: <?=$id?>

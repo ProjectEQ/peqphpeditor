@@ -4,7 +4,7 @@
       </div>
 
       <div class="edit_form_content">
-        <form name="door" method="post" action=index.php?editor=misc&z=<?=$currzone?>&action=37">
+        <form name="door" method="post" action=index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=37">
         <table width="100%">
           <tr>
             <th>doorid</th>
@@ -72,10 +72,14 @@
                </td>
          </tr>
           <tr>
+            <th>dest instance</th>
+            <th>client</th>
             <th>no keyring</th>
          </tr>
           <tr>
-             <td>
+            <td><input type="text" size="7" name="dest_instance" value="<?=$dest_instance?>"></td>
+            <td><input type="text" size="7" name="client_version_mask" value="<?=$client_version_mask?>"></td>
+          <td>
                  <select name="nokeyring">
                    <option value="0"<?echo ($nokeyring == 0) ? " selected" : ""?>>No</option>
                    <option value="1"<?echo ($nokeyring == 1) ? " selected" : ""?>>Yes</option>

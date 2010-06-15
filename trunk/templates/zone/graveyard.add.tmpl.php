@@ -4,7 +4,7 @@
       </div>
 
       <div class="edit_form_content">
-        <form name="graveyard" method="post" action=index.php?editor=zone&z=<?=$currzone?>&graveyard_id=<?=$id?>&action=9">
+        <form name="graveyard" method="post" action=index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&graveyard_id=<?=$id?>&action=9">
         <table width="100%">
           <tr>
             <th>ID</th>

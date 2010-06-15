@@ -1,8 +1,8 @@
     <div class="table_container">
        <div class="table_header">
          <div style="float:right">
-          <a href="index.php?editor=zone&z=<?=$currzone?>&action=8"><img src="images/add.gif" border="0" title="Add a graveyard to <?=$short_name?>"></a>
-           <a href="index.php?editor=zone&z=<?=$currzone?>&action=2"><img src="images/c_table.gif" border=0 title="Edit this Zone"></a>
+          <a href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=8"><img src="images/add.gif" border="0" title="Add a graveyard to <?=$short_name?>"></a>
+           <a href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=2"><img src="images/c_table.gif" border=0 title="Edit this Zone"></a>
          </div>
          <?=$zoneidnumber?> - <?=$long_name?> <?echo ($short_name != '' ? "($short_name)" : '');?>
        </div>
@@ -18,6 +18,7 @@
          <table style="font-size: 12px; margin-bottom: 80px;">
            <tr>
              <td>
+                 <strong>Map:</strong> <?=$map_file_name?><br>
                  <strong>File:</strong> <?=$file_name?><br>
                  <strong>Safe X:</strong> <?=$safe_x?><br>
                  <strong>Safe Y:</strong> <?=$safe_y?><br>
@@ -31,7 +32,7 @@
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
 <?if($graveyard_id > 0):?>  
-                <td align="left" width="33%">Graveyard: <a href="index.php?editor=zone&z=<?=$currzone?>&graveyard_id=<?=$graveyard_id?>&action=4"> <?=$graveyard_id?></td>
+                <td align="left" width="33%">Graveyard: <a href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&graveyard_id=<?=$graveyard_id?>&action=4"> <?=$graveyard_id?></td>
 <?endif;?> 
 <?if($graveyard_id < 1):?>
                <td align="left" width="33%">Graveyard: <?=$graveyard_id?></td>
@@ -51,7 +52,12 @@
               </tr>
                 <tr>
                 <td align="left" width="33%">Weather: <?=$weathertype[$weather]?></td>
+                <td align="left" width="33%">Version: <?=$version?></td>
+                <td align="left" width="34%">Ruleset: <?=$ruleset?></td>
+              </tr>
+                <tr>
                 <td align="left" width="33%">Note: <?=$note?></td>
+                <td align="left" width="33%">&nbsp;</td>
                 <td align="left" width="34%">&nbsp;</td>
               </tr>
               </table>
@@ -137,7 +143,7 @@
               <tr>
                 
                 <td align="left" width="33%">Fog Green4: <?=$fog_green4?></td>
-                <td align="left" width="33%">&nbsp;</td>
+                <td align="left" width="33%">Fog Density: <?=$fog_density?></td>
                 <td align="left" width="34%">&nbsp;</td>
               </tr>
              </table>

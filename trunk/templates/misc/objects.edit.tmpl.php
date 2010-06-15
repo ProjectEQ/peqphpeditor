@@ -4,7 +4,7 @@
       </div>
 
       <div class="edit_form_content">
-        <form name="door" method="post" action=index.php?editor=misc&z=<?=$currzone?>&action=43">
+        <form name="door" method="post" action=index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=43">
         <table width="100%">
           <tr>
             <th>x</th>

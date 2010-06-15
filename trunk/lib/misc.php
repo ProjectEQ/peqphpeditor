@@ -20,11 +20,13 @@ switch ($action) {
     else {
         $body = new Template("templates/misc/misc.default.tmpl.php");
         $body->set('currzone', $z);
+        $body->set('currzoneid', $zoneid);
     }
     break;
   case 1: // View fishing
     $body = new Template("templates/misc/fishing.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $fishing = get_fishing();
     if ($fishing) {
       foreach ($fishing as $key=>$value) {
@@ -37,6 +39,7 @@ switch ($action) {
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/fishing.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $fishing = fishing_info();
     if ($fishing) {
       foreach ($fishing as $key=>$value) {
@@ -47,29 +50,31 @@ switch ($action) {
   case 3: // Update fishing
     check_authorization();
     update_fishing();
-    header("Location: index.php?editor=misc&z=$z&action=1");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=1");
     exit;
   case 4: // Delete fishing
     check_authorization();
     delete_fishing();
-    header("Location: index.php?editor=misc&z=$z&action=1");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=1");
     exit;
   case 5: // Get fishing ID
     check_authorization();
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/fishing.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('zid', getZoneID($z));
     $body->set('suggestfsid', suggest_fishing_id());
     break;
   case 6: // Add fishing
     check_authorization();
     add_fishing();
-    header("Location: index.php?editor=misc&z=$z&action=1");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=1");
     exit;
   case 7: // View forage
     $body = new Template("templates/misc/forage.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $forage = get_forage();
     if ($forage) {
       foreach ($forage as $key=>$value) {
@@ -82,6 +87,7 @@ switch ($action) {
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/forage.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $forage = forage_info();
     if ($forage) {
       foreach ($forage as $key=>$value) {
@@ -92,30 +98,32 @@ switch ($action) {
    case 9: // Update forage
     check_authorization();
     update_forage();
-    header("Location: index.php?editor=misc&z=$z&action=7");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=7");
     exit;
    case 10: // Delete forage
     check_authorization();
     delete_forage();
-    header("Location: index.php?editor=misc&z=$z&action=7");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=7");
     exit;
    case 11: // Get forage ID
     check_authorization();
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/forage.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('zid', getZoneID($z));
     $body->set('suggestfgid', suggest_forage_id());
     break;
    case 12: // Add forage
     check_authorization();
     add_forage();
-    header("Location: index.php?editor=misc&z=$z&action=7");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=7");
     exit;
    case 13: // View ground spawns
     check_authorization();
     $body = new Template("templates/misc/groundspawn.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $gspawn = get_gspawn();
     if ($gspawn) {
       foreach ($gspawn as $key=>$value) {
@@ -128,6 +136,7 @@ switch ($action) {
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/groundspawn.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $gspawn = gspawn_info();
     if ($gspawn) {
       foreach ($gspawn as $key=>$value) {
@@ -138,30 +147,32 @@ switch ($action) {
    case 15: // Update ground spawns
     check_authorization();
     update_gspawn();
-    header("Location: index.php?editor=misc&z=$z&action=13");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=13");
     exit;
    case 16: // Delete ground spawns
     check_authorization();
     delete_gspawn();
-    header("Location: index.php?editor=misc&z=$z&action=13");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=13");
     exit;
    case 17: // Get ground spawn ID
     check_authorization();
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/groundspawn.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('zid', getZoneID($z));
     $body->set('suggestgsid', suggest_gspawn_id());
     break;
    case 18: // Add ground spawn
     check_authorization();
     add_gspawn();
-    header("Location: index.php?editor=misc&z=$z&action=13");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=13");
     exit;
    case 19: // View traps
     check_authorization();
     $body = new Template("templates/misc/traps.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set("traptype", $traptype);
     $body->set("alarmtype", $alarmtype);
     $traps = get_traps();
@@ -175,6 +186,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/misc/traps.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set("traptype", $traptype);
     $traps = traps_info();
     if ($traps) {
@@ -186,17 +198,18 @@ switch ($action) {
    case 21: // Update traps
     check_authorization();
     update_traps();
-    header("Location: index.php?editor=misc&z=$z&action=19");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=19");
     exit;
    case 22: // Delete traps
     check_authorization();
     delete_traps();
-    header("Location: index.php?editor=misc&z=$z&action=19");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=19");
     exit;
    case 23: // Get traps ID
     check_authorization();
     $body = new Template("templates/misc/traps.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set("traptype", $traptype);
     $body->set("alarmtype", $alarmtype);
     $body->set('suggesttid', suggest_traps_id());
@@ -204,7 +217,7 @@ switch ($action) {
    case 24: // Add traps
     check_authorization();
     add_traps();
-    header("Location: index.php?editor=misc&z=$z&action=19");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=19");
     exit; 
    case 25:  // Search functions
     //check_authorization();
@@ -276,12 +289,12 @@ switch ($action) {
    case 31: // Update horses
     check_authorization();
     update_horses();
-    header("Location: index.php?editor=misc&z=$z&action=29");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=29");
     exit;
    case 32: // Delete horses
     check_authorization();
     delete_horses();
-    header("Location: index.php?editor=misc&z=$z&action=29");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=29");
     exit;
    case 33: // Add horses
     check_authorization();
@@ -292,11 +305,12 @@ switch ($action) {
    case 34: // Add horses
     check_authorization();
     add_horses();
-    header("Location: index.php?editor=misc&z=$z&action=29");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=29");
     exit;
    case 35: // View doors
     $body = new Template("templates/misc/doors.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $doors = get_doors();
     if ($doors) {
       foreach ($doors as $key=>$value) {
@@ -308,6 +322,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/misc/doors.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $doors = doors_info();
     if ($doors) {
       foreach ($doors as $key=>$value) {
@@ -318,17 +333,18 @@ switch ($action) {
   case 37: // Update doors
     check_authorization();
     update_doors();
-    header("Location: index.php?editor=misc&z=$z&action=35");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=35");
     exit;
   case 38: // Delete doors
     check_authorization();
     delete_doors();
-    header("Location: index.php?editor=misc&z=$z&action=35");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=35");
     exit;
   case 39: // Get doors ID
     check_authorization();
     $body = new Template("templates/misc/doors.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('zid', getZoneID($z));
     $body->set('suggestdrid', suggest_door_id());
     $body->set('suggestdoorid', suggest_doorid());
@@ -336,11 +352,12 @@ switch ($action) {
   case 40: // Add doors
     check_authorization();
     add_doors();
-    header("Location: index.php?editor=misc&z=$z&action=35");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=35");
     exit;
   case 41: // View objects
     $body = new Template("templates/misc/objects.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set("world_containers", $world_containers);
     $objects = get_objects();
     if ($objects) {
@@ -353,6 +370,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/misc/objects.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set("world_containers", $world_containers);
     $objects = objects_info();
     if ($objects) {
@@ -364,17 +382,18 @@ switch ($action) {
   case 43: // Update objects
     check_authorization();
     update_objects();
-    header("Location: index.php?editor=misc&z=$z&action=41");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=41");
     exit;
   case 44: // Delete objects
     check_authorization();
     delete_objects();
-    header("Location: index.php?editor=misc&z=$z&action=41");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=41");
     exit;
   case 45: // Get objects ID
     check_authorization();
     $body = new Template("templates/misc/objects.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('zid', getZoneID($z));
     $body->set("world_containers", $world_containers);
     $body->set('suggestobjid', suggest_object_id());
@@ -382,91 +401,99 @@ switch ($action) {
   case 46: // Add objects
     check_authorization();
     add_objects();
-    header("Location: index.php?editor=misc&z=$z&action=41");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=41");
     exit;
   case 47:  // Copy doors
     check_authorization();
     $body = new Template("templates/misc/doors.copyver.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('doorversion', get_max_doorversion());
     break;
   case 48:  // Copy doors
     check_authorization();
     copy_doors();
-    header("Location: index.php?editor=misc&z=$z&action=35");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=35");
     exit;
   case 49:  // Copy GSpawns
     check_authorization();
     $body = new Template("templates/misc/groundspawns.copyver.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('gsversion', get_max_gsversion());
     break;
   case 50:  // Copy GSpawns
     check_authorization();
     copy_groundspawns();
-    header("Location: index.php?editor=misc&z=$z&action=13");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=13");
     exit;
   case 51:  // Copy Traps
     check_authorization();
     $body = new Template("templates/misc/traps.copyver.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('trapversion', get_max_trapversion());
     break;
   case 52:  // Copy Traps
     check_authorization();
     copy_traps();
-    header("Location: index.php?editor=misc&z=$z&action=19");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=19");
     exit;
   case 53:  // Copy Objects
     check_authorization();
     $body = new Template("templates/misc/objects.copyver.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('objectversion', get_max_objectversion());
     break;
   case 54:  // Copy Objects
     check_authorization();
     copy_objects();
-    header("Location: index.php?editor=misc&z=$z&action=41");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=41");
     exit;
   case 55:  // Delete doors
     check_authorization();
     $body = new Template("templates/misc/doors.delver.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     break;
   case 56:  // Delete doors
     check_authorization();
     delete_doors_ver();
-    header("Location: index.php?editor=misc&z=$z&action=35");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=35");
     exit;
   case 57:  // Delete GSpawns
     check_authorization();
     $body = new Template("templates/misc/groundspawns.delver.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     break;
   case 58:  // Delete GSpawns
     check_authorization();
     delete_groundspawns_ver();
-    header("Location: index.php?editor=misc&z=$z&action=13");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=13");
     exit;
   case 59:  // Delete Traps
     check_authorization();
     $body = new Template("templates/misc/traps.delver.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     break;
   case 60:  // Delete Traps
     check_authorization();
     delete_traps_ver();
-    header("Location: index.php?editor=misc&z=$z&action=19");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=19");
     exit;
   case 61:  // Delete Objects
     check_authorization();
     $body = new Template("templates/misc/objects.delver.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     break;
   case 62:  // Delete Objects
     check_authorization();
     delete_objects_ver();
-    header("Location: index.php?editor=misc&z=$z&action=41");
+    header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=41");
     exit;
 }
 
@@ -567,7 +594,7 @@ function get_doors() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring']);
+     $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask']);
          }
        }
   return $array;
@@ -785,8 +812,10 @@ function update_doors() {
   $version = $_POST['version'];
   $is_ldon_door = $_POST['is_ldon_door'];
   $nokeyring = $_POST['nokeyring'];
-
-  $query = "UPDATE doors SET doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\", version=\"$version\", is_ldon_door=\"$is_ldon_door\", nokeyring=\"$nokeyring\" WHERE id=\"$drid\"";
+  $dest_instance = $_POST['dest_instance'];   
+  $client_version_mask = $_POST['client_version_mask'];
+ 
+  $query = "UPDATE doors SET doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\", version=\"$version\", is_ldon_door=\"$is_ldon_door\", nokeyring=\"$nokeyring\", dest_instance=\"$dest_instance\", client_version_mask=\"$client_version_mask\" WHERE id=\"$drid\"";
   $mysql->query_no_result($query);
 }
 
@@ -1054,8 +1083,10 @@ function add_doors() {
   $version = $_POST['version'];
   $is_ldon_door = $_POST['is_ldon_door'];
   $nokeyring = $_POST['nokeyring'];
+  $dest_instance = $_POST['dest_instance'];   
+  $client_version_mask = $_POST['client_version_mask'];
 
-  $query = "INSERT INTO doors SET id=\"$drid\", zone=\"$z\", doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\", buffer=0, is_ldon_door=\"$is_ldon_door\", version=\"$version\", nokeyring=\"$nokeyring\"";
+  $query = "INSERT INTO doors SET id=\"$drid\", zone=\"$z\", doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\", buffer=0, is_ldon_door=\"$is_ldon_door\", version=\"$version\", nokeyring=\"$nokeyring\", dest_instance=\"$dest_instance\", client_version_mask=\"$client_version_mask\"";
   $mysql->query_no_result($query);
 }
 
@@ -1187,27 +1218,30 @@ function copy_doors() {
   `size` smallint(5) unsigned NOT NULL default '100',
   `buffer` float default '0',
   `is_ldon_door` smallint(6) NOT NULL default '0',
+  `dest_instance` int UNSIGNED default 0 NOT NULL,
+  `client_version_mask` int UNSIGNED default 4294967295 NOT NULL,
+
   PRIMARY KEY  (`doorid`)
 )";
    $mysql->query_no_result($query);
   
 
-   $query = "INSERT INTO doors_temp (id,doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door) 
-            SELECT id,doorid,zone,name,version,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door FROM doors WHERE zone=\"$z\"";
+   $query = "INSERT INTO doors_temp (id,doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask) 
+            SELECT id,doorid,zone,name,version,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask FROM doors WHERE zone=\"$z\"";
    $mysql->query_no_result($query);
 
    $query = "UPDATE doors SET version=$new_version WHERE version=$door_version AND zone=\"$z\"";
    $mysql->query_no_result($query);
 
-   $query = "INSERT INTO doors_temp (zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door) 
-            SELECT zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door FROM doors WHERE zone=\"$z\" AND version=$new_version";
+   $query = "INSERT INTO doors_temp (zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask) 
+            SELECT zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask FROM doors WHERE zone=\"$z\" AND version=$new_version";
    $mysql->query_no_result($query);
 
    $query = "UPDATE doors SET version=$door_version WHERE version=$new_version AND zone=\"$z\"";
    $mysql->query_no_result($query);
 
-   $query = "INSERT INTO doors (doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door) 
-            SELECT doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door FROM doors_temp WHERE version=$new_version AND zone=\"$z\"";
+   $query = "INSERT INTO doors (doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask) 
+            SELECT doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask FROM doors_temp WHERE version=$new_version AND zone=\"$z\"";
    $mysql->query_no_result($query);
   
    $query = "DROP table `doors_temp`";

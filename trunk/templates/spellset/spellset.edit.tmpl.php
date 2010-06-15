@@ -8,7 +8,7 @@
             Edit Spellset
         </div>
         <div class="edit_form_content">
-          <form method="post" action="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&action=2">
+          <form method="post" action="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&action=2">
             <strong>Spellset Name:</strong><br>
             <input class="indented" type="text" name="name" size="25" value="<?=$name?>"><br><br>
             <fieldset>

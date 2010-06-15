@@ -9,7 +9,7 @@
 <?if ($results != ''):?>
              <ul>
 <?foreach($results as $result):?>
-             <li><a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&ldid=<?=$ldid?>&action=21&itemid=<?=$result['id']?>"><?=$result['name']?><br>
+             <li><a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$ldid?>&action=21&itemid=<?=$result['id']?>"><?=$result['name']?><br>
              &nbsp;&nbsp; (Lore: <?=$result['lore']?>)</a></li>
 <?endforeach;?>
              </ul>
@@ -17,7 +17,7 @@
 <?if ($results == ''):?>
             <center>
               Your search produced no results!<br><br>
-              <a href="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&ldid=<?=$ldid?>&action=20">Try again</a>
+              <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$ldid?>&action=20">Try again</a>
             </center>
 <?endif;?>
            </td>

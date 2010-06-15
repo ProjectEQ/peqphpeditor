@@ -6,7 +6,7 @@
          </tr>
          <tr>
            <td class="edit_form_content">
-             <form name="merchant_id" method="post" action="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=23">
+             <form name="merchant_id" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=23">
              New Merchant ID: <br>
              <input type="text" name="merchant_id" value="<?=$merchant_id?>"><br><br>
              <center>
@@ -14,7 +14,7 @@
              
                or<br><br>
              
-               <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&merchant_id=<?=$suggested_id?>&action=23">Assign next available ID</a>
+               <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&merchant_id=<?=$suggested_id?>&action=23">Assign next available ID</a>
              </center>
            </td>
          </tr>

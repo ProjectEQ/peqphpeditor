@@ -6,7 +6,7 @@
         </tr>
         <tr>
           <td class="edit_form_content">
-            <form name="grid" id="grid" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&action=22">
+            <form name="grid" id="grid" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&action=22">
               <strong>Wander Type:</strong><br>
               <select class="indented" name="type">
 <?foreach($wandertype as $k => $v):?>

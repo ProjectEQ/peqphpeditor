@@ -8,7 +8,7 @@
             Edit Spellset
         </div>
         <div class="edit_form_content">
-          <form method="post" action="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&action=11">
+          <form method="post" action="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=11">
             <strong>Suggested ID:</strong><br>
             <input class="indented" type="text" name="id" size="10" value="<?=$id?>"><br><br>
 

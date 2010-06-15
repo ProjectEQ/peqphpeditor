@@ -4,7 +4,7 @@
            Spawngroup <?=$sid?>
          </div>
          <div class="edit_form_content">
-           <form method="post" action="index.php?editor=spawn&z=<?=$currzone?>&npcid=<?=$npcid?>&sid=<?=$sid?>&action=5">
+           <form method="post" action="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$sid?>&action=5">
              <center>
              <strong>Spawngroup Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spawn_limit:</strong><br>
              <input type="text" name="name" size="15" value="<?=$name?>">

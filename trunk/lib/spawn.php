@@ -34,6 +34,7 @@ switch ($action) {
     if ($npcid) {
       $body = new Template("templates/spawn/spawn.tmpl.php");
       $body->set('currzone', $z);
+      $body->set('currzoneid', $zoneid);
       $body->set('npcid', $npcid);
       $spawngroups = get_spawngroups();
       $body->set('spawngroups', $spawngroups);
@@ -42,6 +43,7 @@ switch ($action) {
       if ($z) {
         $body = new Template("templates/spawn/spawn.default.tmpl.php");
         $body->set('currzone', $z);
+        $body->set('currzoneid', $zoneid);
       }
     }
     break;
@@ -49,6 +51,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/spawn/spawn.member.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('sgnpcid', $_GET['sgnpcid']);
     $body->set('npcname', getNPCName($_GET['sgnpcid']));
@@ -62,17 +65,18 @@ switch ($action) {
   case 2:  // Update Spawngroup member
     check_authorization();
     update_spawngroup_member();
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 3:  // Balance spawngroup spawns
     check_authorization();
     balance_spawns();
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 4: // Edit Spawngroup name
     check_authorization();
     $body = new Template("templates/spawn/spawngroup.name.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('sid', $_GET['sid']);
     $vars = get_spawngroup_info();
@@ -85,22 +89,23 @@ switch ($action) {
   case 5:  // Update spawngroup name
     check_authorization();
     update_spawngroup_name();
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 6:  // Delete spawngroup
     check_authorization();
     delete_spawngroup();
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 7:  // Delete spawngroup member
     check_authorization();
     delete_spawngroup_member();
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 8: // Add spawngroup member
     check_authorization();
     $body = new Template("templates/spawn/spawngroup.member.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('sid', $_GET['sid']);
     $vars = get_spawngroup_info();
@@ -115,6 +120,7 @@ switch ($action) {
     if (isset($_POST['search']) && ($_POST['search'] != '')) {
       $body = new Template("templates/spawn/spawngroup.member.searchresults.tmpl.php");
       $body->set('currzone', $z);
+      $body->set('currzoneid', $zoneid);
       $body->set('npcid', $npcid);
       $body->set('sid', $_GET['sid']);
       $results = search_npc_types($_POST['search']);
@@ -122,7 +128,7 @@ switch ($action) {
     }
     else {
       add_spawngroup_member($_REQUEST['npc']);
-      header("Location: index.php?editor=spawn&z=$z&npcid=$npcid");
+      header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid");
       exit;
     }
     break;
@@ -131,6 +137,7 @@ check_authorization();
   if ($npcid) {
       $body = new Template("templates/spawn/spawnpoint.tmpl.php");
       $body->set('currzone', $z);
+      $body->set('currzoneid', $zoneid);
       $body->set('npcid', $npcid);
       $sid = $_GET['sid'];
       $body->set('sid', $sid);
@@ -142,6 +149,7 @@ check_authorization();
     check_authorization();
     $body = new Template("templates/spawn/spawnpoint.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $spawnpoint = spawnpoint_info();
     if ($spawnpoint) {
@@ -154,18 +162,19 @@ check_authorization();
     check_authorization();
     update_spawnpoint();
     $sid = $_POST['spawngroupID'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
     exit;
   case 13: // Delete spawnpoint
     check_authorization();
     delete_spawnpoint();
     $sid = $_GET['sid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
     exit;
   case 14: // Add spawnpoint
     check_authorization();
     $body = new Template("templates/spawn/spawnpoint.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('zone', $z);
     $body->set('npcid', $npcid);
     $sid = $_GET['sid'];
@@ -176,24 +185,26 @@ check_authorization();
     check_authorization();
     add_spawnpoint();
     $sid = $_POST['spawngroupID'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
     exit;
   case 16: // Add Spawngroup Choice
     check_authorization();
     $body = new Template("templates/spawn/spawngroup.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     break;
   case 17:  // Add Spawngroup
     check_authorization();
     add_spawngroup();
     $npcid = $_POST['npcID'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 18: // Add Grid
     check_authorization();
     $body = new Template("templates/spawn/grid.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('zid', getZoneID($z));
     $body->set('wandertype', $wandertype);
     $body->set('pausetype', $pausetype);
@@ -209,12 +220,13 @@ check_authorization();
     add_grid();
     $npcid = $_POST['npcid'];
     $sid = $_POST['sid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
     exit;
   case 20: // View grid
     check_authorization();
     $body = new Template("templates/spawn/grid.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('wandertype', $wandertype);
     $body->set('pausetype', $pausetype);
     $body->set('npcid', $npcid);
@@ -237,6 +249,7 @@ check_authorization();
     check_authorization();
     $body = new Template("templates/spawn/grid.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('wandertype', $wandertype);
     $body->set('pausetype', $pausetype);
     $body->set('npcid', $npcid);
@@ -255,7 +268,7 @@ check_authorization();
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];    
     $pathgrid = $_POST['pathgrid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20");
     exit;
    case 23:  // Delete Grid Entry
     check_authorization();
@@ -263,12 +276,13 @@ check_authorization();
     $npcid = $_GET['npcid'];
     $pathgrid = $_GET['pathgrid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20"); 
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20"); 
     exit;
    case 24: // Edit Grid Entry
     check_authorization();
     $body = new Template("templates/spawn/gridentry.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('pathgrid', $_GET['pathgrid']);
     $body->set('spid', $_GET['spid']);
@@ -285,7 +299,7 @@ check_authorization();
     $npcid = $_GET['npcid'];
     $pathgrid = $_POST['pathgrid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20");
     exit;
    case 26:  // Delete Grid Entries
     check_authorization();
@@ -293,12 +307,13 @@ check_authorization();
     $npcid = $_GET['npcid'];
     $pathgrid = $_GET['pathgrid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20"); 
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20"); 
     exit;
    case 27: // Add Grid Entry
     check_authorization();
     $body = new Template("templates/spawn/gridentry.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('zid', getZoneID($z));
     $body->set('npcid', $npcid);
     $body->set('pathgrid', $_GET['pathgrid']);
@@ -311,7 +326,7 @@ check_authorization();
     $npcid = $_GET['npcid'];
     $pathgrid = $_POST['pathgrid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20"); 
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20"); 
     exit;
    case 29:  // Delete Grid
     check_authorization();
@@ -320,18 +335,19 @@ check_authorization();
     $npcid = $_GET['npcid'];
     $pathgrid = $_GET['pathgrid'];
     //$sid = $_GET['sid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10"); 
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10"); 
     exit;
    case 30: // Reset respawn timer
     check_authorization();
     force_spawn();
     $sid = $_GET['sid'];  
     $npcid = $_GET['npcid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
    case 31: // View zone grids
     check_authorization();
     $body = new Template("templates/spawn/grid.zone.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('wandertype', $wandertype);
     $body->set('pausetype', $pausetype);
     $body->set('npcid', $npcid);
@@ -346,12 +362,13 @@ check_authorization();
     check_authorization();
     delete_grid_ns();
     $pathgrid = $_GET['pathgrid'];
-    header("Location: index.php?editor=spawn&z=$z&action=31"); 
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&action=31"); 
     exit;
    case 33: // Add Grid from zone page
     check_authorization();
     $body = new Template("templates/spawn/grid.zone.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('zid', getZoneID($z));
     $body->set('wandertype', $wandertype);
     $body->set('pausetype', $pausetype);
@@ -360,12 +377,13 @@ check_authorization();
    case 34:  // Add grid from zone page
     check_authorization();
     add_grid();
-    header("Location: index.php?editor=spawn&z=$z&action=31");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&action=31");
     exit;
    case 35: // // View spawn time
     check_authorization(); 
     $body = new Template("templates/spawn/spawntimer.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $_GET['npcid']);
     $body->set('sid', $_GET['sid']);
     $body->set('spid', $_GET['spid']);
@@ -380,6 +398,7 @@ check_authorization();
     check_authorization();
     $body = new Template("templates/spawn/spawncondition.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $_GET['npcid']);
     $body->set('spid', $_GET['spid']);
     $body->set('ochangetype', $ochangetype);
@@ -402,6 +421,7 @@ check_authorization();
     check_authorization();
     $body = new Template("templates/spawn/spawnevent.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('spid', $_GET['spid']);
     $vars = spawnevent_info(); 
@@ -416,19 +436,20 @@ check_authorization();
     update_spawnevent();
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&action=36");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&action=36");
     exit;
    case 39:  // Delete spawnevent
     check_authorization();
     delete_spawnevent();
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&action=36"); 
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&action=36"); 
     exit;
    case 40: // Add spawnevent
     check_authorization();
     $body = new Template("templates/spawn/spawnevent.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('spid', $_GET['spid']);
     $body->set('suggestedseid', suggest_spawnevent_id());
@@ -438,12 +459,13 @@ check_authorization();
     add_spawnevent();
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&action=36");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&action=36");
     exit;
    case 42: // Edit spawncondition
     check_authorization();
     $body = new Template("templates/spawn/spawncondition.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('spid', $_GET['spid']);
     $vars = spawncondition_info(); 
@@ -458,19 +480,20 @@ check_authorization();
     update_spawncondition();
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&action=36");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&action=36");
     exit;
    case 44:  // Delete spawncondition
     check_authorization();
     delete_spawncondition();
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&action=36"); 
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&action=36"); 
     exit;
    case 45: // Add spawncondition
     check_authorization();
     $body = new Template("templates/spawn/spawncondition.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('spid', $_GET['spid']);
     $body->set('suggestedscid', suggest_spawncondition_id());
@@ -481,12 +504,13 @@ check_authorization();
     add_spawncondition();
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&spid=$spid&action=36");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&action=36");
     exit;
    case 47: // // View respawn time
     check_authorization(); 
     $body = new Template("templates/spawn/spawntimer.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $_GET['npcid']);
     $body->set('spid', $_GET['spid']);
     $body->set('sid', $_GET['sid']);
@@ -505,7 +529,7 @@ check_authorization();
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
     $sid = $_GET['sid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
     exit;
    case 49:  // Search npcs
     //check_authorization();
@@ -520,6 +544,7 @@ check_authorization();
     check_authorization();
     $body = new Template("templates/spawn/spawnpoint.copy.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $spawnpoint = spawnpoint_info();
     if ($spawnpoint) {
@@ -532,12 +557,13 @@ check_authorization();
     check_authorization();
     copy_spawnpoint();
     $sid = $_POST['sgid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
     exit;
    case 52:  // Copy Spawnpoint
     check_authorization();
     $body = new Template("templates/spawn/spawnpoint.move.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $spawnpoint = spawnpoint_info();
     if ($spawnpoint) {
@@ -550,12 +576,13 @@ check_authorization();
     check_authorization();
     move_spawnpoint();
     $sid = $_POST['sgid'];
-    header("Location: index.php?editor=spawn&z=$z&npcid=$npcid&sid=$sid&action=10");
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
     exit;
   case 54: // New spawngroup
     check_authorization();
     $body = new Template("templates/spawn/spawngroup.new.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('suggestedid', suggest_spawngroup_id());
     $body->set('npcid', $npcid);
     break;
@@ -563,18 +590,21 @@ check_authorization();
     check_authorization();
     $body = new Template("templates/spawn/spawngroup.search.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('sid', $_GET['sid']);
     break;
   case 56: // Add spawngroup by id
     $body = new Template("templates/spawn/spawngroup.addbyid.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     break;
   case 57: // Search spawngroups by name
     check_authorization();
     $body = new Template("templates/spawn/spawngroup.searchresults.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('sid', $_GET['sid']);
     $vars = search_spawngroups($_POST['search']);
@@ -584,6 +614,7 @@ check_authorization();
     check_authorization();
     $body = new Template("templates/spawn/spawngroup.addbysearch.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('sid', $_GET['sid']);
     break;

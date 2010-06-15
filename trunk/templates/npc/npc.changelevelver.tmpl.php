@@ -6,7 +6,7 @@
          </tr>
          <tr>
            <td class="edit_form_content">
-             <form name="npc_level" method="post" action="index.php?editor=npc&z=<?=$currzone?>&action=46">
+             <form name="npc_level" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=46">
              <table width="100%">
              <tr>
              <th>Version:</th>

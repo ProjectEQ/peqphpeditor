@@ -8,7 +8,7 @@
             Edit a Spell
         </div>
         <div class="edit_form_content">
-          <form method="post" action="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&action=8">
+          <form method="post" action="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&action=8">
             <strong>Spell ID:</strong> (<a href="javascript:showSearch();">search</a>)<br>
             <input class="indented" id="id" type="text" name="spellid" size="10" value="<?=$spellid?>"><br><br>
 

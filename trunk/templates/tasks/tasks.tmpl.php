@@ -122,7 +122,7 @@
           <td align="center" width="5%"><?=$v['goalid']?></td>
           <?endif;?>
           <?if(($v['activitytype'] == 4 && $v['goalmethod'] != 2) || ($v['goalmethod'] != 1 && $v['activitytype'] == 2)) :?>
-          <td align="center" width="5%"><a href="index.php?editor=npc&z=<?=get_zone_by_npcid($v['goalid'])?>&npcid=<?=$v['goalid']?>"><?=$v['goalid']?></td>
+          <td align="center" width="5%"><a href="index.php?editor=npc&z=<?=get_zone_by_npcid($v['goalid'])?>&zoneid=<?=get_zoneid_by_npcid($v['goalid'])?>&npcid=<?=$v['goalid']?>"><?=$v['goalid']?></td>
           <?endif;?>
           <?if($v['activitytype'] == 4 && $v['goalmethod'] == 2):?>
           <td align="center" width="5%"><?=$v['goalid']?></td>
@@ -139,7 +139,7 @@
           <td align="center" width="5%"><?=$v['delivertonpc']?></td>
           <?endif;?> 
           <?if($v['delivertonpc'] > 0):?>
-          <td align="center" width="5%"><a href="index.php?editor=npc&z=<?=get_zone_by_npcid($v['delivertonpc'])?>&npcid=<?=$v['delivertonpc']?>"><?=$v['delivertonpc']?></td>
+          <td align="center" width="5%"><a href="index.php?editor=npc&z=<?=get_zone_by_npcid($v['delivertonpc'])?>&zoneid=<?=get_zoneid_by_npcid($v['delivertonpc'])?>&npcid=<?=$v['delivertonpc']?>"><?=$v['delivertonpc']?></td>
           <?endif;?>
           <td align="center" width="5%"><?=getZoneName($v['zoneid'])?></td>
           <td align="center" width="5%"><?=$yesno[$v['optional']]?></td>

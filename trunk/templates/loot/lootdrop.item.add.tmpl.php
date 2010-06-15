@@ -3,7 +3,7 @@
         <input id="button" type="button" value='Hide Item Search' onclick='hideSearch("searchframe");' style='display:none; margin-bottom: 20px;'>
       </center>
 
-       <form name="addloot" method="post" action="index.php?editor=loot&z=<?=$currzone?>&npcid=<?=$npcid?>&ldid=<?=$ldid?>&action=21">
+       <form name="addloot" method="post" action="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$ldid?>&action=21">
          <div class="edit_form" style="width: 200px">
            <div class="edit_form_header">
              Add an Item to LootDrop <?=$ldid?>

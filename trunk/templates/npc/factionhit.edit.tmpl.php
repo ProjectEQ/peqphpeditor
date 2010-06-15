@@ -8,7 +8,7 @@
            <td class="edit_form_content">
              <strong><?=$name?></strong><br><br>
 
-             <form name="edithit" method="post" action="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=20">
+             <form name="edithit" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=20">
 			 Adjustment: <br>
              <input type="text" name="value" value=<?=$value?>><br><br>
 

@@ -1,4 +1,4 @@
-       <form name="npc_add" method="post" action="index.php?editor=npc&z=<?=$currzone?>&action=26">
+       <form name="npc_add" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=26">
        <div class="edit_form">
          <div class="edit_form_header">
            Add an NPC to <?=$currzone?>

@@ -7,12 +7,12 @@ require_once("classes/template.php");
 require_once("classes/session.php");
 require_once("lib/common.php");
 require_once("lib/data.php");
-require_once("lib/zones.php");
 
 $editor = (isset($_GET['editor']) ? $_GET['editor'] : '');
 $action = (isset($_GET['action']) ? $_GET['action'] : 0);
 $npcid = (isset($_GET['npcid']) ? $_GET['npcid'] : null);
 $z = (isset($_GET['z']) ? $_GET['z'] : '');
+$zoneid = (isset($_GET['zoneid']) ? $_GET['zoneid'] : '');
 $fid = (isset($_GET['fid']) ? $_GET['fid'] : '');
 $tskid = (isset($_GET['tskid']) ? $_GET['tskid'] : '');
 $ts = (isset($_GET['ts']) ? $_GET['ts'] : '');

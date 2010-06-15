@@ -22,7 +22,7 @@
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
           <td align="center" width="5%"><?=$v['listid']?></td>
           <?if($atype == '2'):?>
-          <td align="center" width="5%"><a href="index.php?editor=npc&z=<?=get_zone_by_npcid($v['entry'])?>&npcid=<?=$v['entry']?>"><?=getNPCName($v['entry'])?></td>
+          <td align="center" width="5%"><a href="index.php?editor=npc&z=<?=get_zone_by_npcid($v['entry'])?>&zoneid=<?=get_zoneid_by_npcid($v['entry'])?>&npcid=<?=$v['entry']?>"><?=getNPCName($v['entry'])?></td>
           <?endif;?>
           <?if($atype != '2'):?>
           <td align="center" width="20%"><a href="index.php?editor=items&tskid=<?=$id?>&id=<?=$v['entry']?>&action=2"><?=get_item_name($v['entry'])?></a> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['entry']?>">lucy</a>]</span></td>

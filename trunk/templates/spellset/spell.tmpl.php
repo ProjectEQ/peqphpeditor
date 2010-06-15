@@ -2,21 +2,21 @@
       <div class="table_container" style="width: 350px;">
         <div class="table_header">
           <div style="float:right">
-            <a href="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&action=1">
+            <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&action=1">
               <img src="images/c_table.gif" border="0" title="Edit Spellset">
             </a>
 
 <? if(!$spellset):?>
-            <a href="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&action=9">
+            <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=9">
               <img src="images/create.gif" border="0" title="Change Spellset">
             </a>
-           <a onClick="return confirm('Really Copy Spellset <?=$id?>?');" href="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&spellsetid=<?=$id?>&action=16"><img src="images/last.gif" border="0" title="Copy Spellset"></a>&nbsp;
-            <a href="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&action=14" onClick="return confirm('Really unassign this NPC\'s spellset?')">
+           <a onClick="return confirm('Really Copy Spellset <?=$id?>?');" href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellsetid=<?=$id?>&action=16"><img src="images/last.gif" border="0" title="Copy Spellset"></a>&nbsp;
+            <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=14" onClick="return confirm('Really unassign this NPC\'s spellset?')">
               <img src="images/minus2.gif" border="0" title="Unassign Spellset">
             </a>
 <?endif;?>
 
-            <a href="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$id?>&action=7" onClick="return confirm('Really delete this spellset? This will affect all NPCs that share this list!')">
+            <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$id?>&action=7" onClick="return confirm('Really delete this spellset? This will affect all NPCs that share this list!')">
               <img src="images/table.gif" border="0" title="Delete Spellset">
             </a>
           </div>
@@ -37,7 +37,7 @@
       <div class="table_container">
         <div class="table_header">
           <div style="float:right">
-            <a href="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$id?>&action=3">
+            <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$id?>&action=3">
               <img src="images/add.gif" border="0" title="Add a Spell">
             </a>
           </div>
@@ -65,11 +65,11 @@
               <td align="center"><?echo ($recast_delay != -1) ? $recast_delay : "Default";?></td>
               <td align="center"><?=$priority?></td>
               <td align="right">
-                <a href="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$id?>&action=6">
+                <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$id?>&action=6">
                   <img src="images/edit2.gif" border="0" title="Edit Spell">
                 </a>&nbsp;
 
-                <a href="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$id?>&action=5" onClick="return confirm('Really remove this spell from the spellset?');">
+                <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$id?>&action=5" onClick="return confirm('Really remove this spell from the spellset?');">
                   <img src="images/remove3.gif" border="0" title="Remove Spell from Spellset">
                 </a>
               </td>
@@ -86,7 +86,7 @@
       <div class="table_container">
         <div class="table_header">
           <div style="float:right">
-            <a href="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&id=<?=$id?>&action=3">
+            <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$id?>&action=3">
               <img src="images/add.gif" border="0" title="Add a Spell">
             </a>
           </div>
@@ -104,7 +104,7 @@
       <div class="table_container">
         <div class="table_header">
           <div style="float:right">
-            <a href="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$parent['id']?>&action=3">
+            <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$parent['id']?>&action=3">
               <img src="images/add.gif" border="0" title="Add a Spell">
             </a>
           </div>
@@ -133,11 +133,11 @@
               <td align="center"><?echo ($recast_delay != -1) ? $recast_delay : "Default";?></td>
               <td align="center"><?=$priority?></td>
               <td align="right">
-                <a href="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$id?>&action=6">
+                <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$id?>&action=6">
                   <img src="images/edit2.gif" border="0" title="Edit Spell">
                 </a>&nbsp;
 
-                <a href="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$id?>&action=5" onClick="return confirm('Really remove this spell from the spellset?');">
+                <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$id?>&action=5" onClick="return confirm('Really remove this spell from the spellset?');">
                   <img src="images/remove3.gif" border="0" title="Remove Spell from Spellset">
                 </a>
               </td>
@@ -163,7 +163,7 @@
         <div class="table_content">
           <center>
             No spellset currently assigned.<br><br>
-            <a href="index.php?editor=spellset&z=<?=$currzone?>&npcid=<?=$npcid?>&action=9">Click to change</a>
+            <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=9">Click to change</a>
           </center>
         </div>
       </div>

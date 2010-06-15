@@ -10,32 +10,38 @@ switch ($editor) {
   case '':
     break;
   case 'npc':
-    $zones = $zones;
     $npcs = npcs();
+    $zonelist = zones();
     $searchbar = new Template("templates/searchbar/searchbar.bynpcid.tmpl.php");
     $searchbar->set('curreditor', $editor);
-    $searchbar->set('zones', $zones);
     $searchbar->set('currzone', $z);
+    $searchbar->set('currzoneid', $zoneid);
+    $searchbar->set('zonelist', $zonelist);
+    $searchbar->set('expansion_limit', $expansion_limit);
     $searchbar->set('npcs', $npcs);
     $searchbar->set('currnpc', $npcid);
     break;
   case 'loot':
-    $zones = $zones;
+    $zonelist = zones();
     $npcs = npcs();
     $searchbar = new Template("templates/searchbar/searchbar.loot.tmpl.php");
     $searchbar->set('curreditor', $editor);
-    $searchbar->set('zones', $zones);
     $searchbar->set('currzone', $z);
+    $searchbar->set('currzoneid', $zoneid);
+    $searchbar->set('zonelist', $zonelist);
+    $searchbar->set('expansion_limit', $expansion_limit);
     $searchbar->set('npcs', $npcs);
     $searchbar->set('currnpc', $npcid);
     break;
   case 'merchant':
-    $zones = $zones;
+    $zonelist = zones();
     $npcs = npcs_by_merchantid();
     $searchbar = new Template("templates/searchbar/searchbar.bymerchantid.tmpl.php");
     $searchbar->set('curreditor', $editor);
-    $searchbar->set('zones', $zones);
     $searchbar->set('currzone', $z);
+    $searchbar->set('currzoneid', $zoneid);
+    $searchbar->set('zonelist', $zonelist);
+    $searchbar->set('expansion_limit', $expansion_limit);
     $searchbar->set('npcs', $npcs);
     $searchbar->set('currnpc', $npcid);
     break;
@@ -47,12 +53,14 @@ switch ($editor) {
     $searchbar->set('factions', $factions);
     break;
   case 'spawn':
-    $zones = $zones;
+    $zonelist = zones();
     $npcs = npcs();
     $searchbar = new Template("templates/searchbar/searchbar.byspawn.tmpl.php");
     $searchbar->set('curreditor', $editor);
-    $searchbar->set('zones', $zones);
     $searchbar->set('currzone', $z);
+    $searchbar->set('currzoneid', $zoneid);
+    $searchbar->set('zonelist', $zonelist);
+    $searchbar->set('expansion_limit', $expansion_limit);
     $searchbar->set('npcs', $npcs);
     $searchbar->set('currnpc', $npcid);
     break;
@@ -64,36 +72,42 @@ switch ($editor) {
     $searchbar->set('currrec', $rec);
     break;
   case 'spellset':
-    $zones = $zones;
+    $zonelist = zones();
     $npcs = npcs_by_spellid();
     $searchbar = new Template("templates/searchbar/searchbar.spells.tmpl.php");
     $searchbar->set('curreditor', $editor);
     $searchbar->set('currspellset', $spellset);
-    $searchbar->set('zones', $zones);
     $searchbar->set('spellsets', spellsets());
     $searchbar->set('currzone', $z);
+    $searchbar->set('currzoneid', $zoneid);
+    $searchbar->set('zonelist', $zonelist);
+    $searchbar->set('expansion_limit', $expansion_limit);
     $searchbar->set('npcs', $npcs);
     $searchbar->set('currnpc', $npcid);
     break;
   case 'zone':
-    $zones = $zones;
+    $zonelist = zones();
+    $zonelist2 = zones2();
     $searchbar = new Template("templates/searchbar/searchbar.zone.tmpl.php");
     $searchbar->set('curreditor', $editor);
-    $searchbar->set('zones', $zones);
     $searchbar->set('currzone', $z);
+    $searchbar->set('currzoneid', $zoneid);
+    $searchbar->set('zonelist', $zonelist);
+    $searchbar->set('zonelist2', $zonelist2);
+    $searchbar->set('expansion_limit', $expansion_limit);
     break;
   case 'misc':
-    $zones = $zones;
+    $zonelist = zones();
     $searchbar = new Template("templates/searchbar/searchbar.misc.tmpl.php");
     $searchbar->set('curreditor', $editor);
-    $searchbar->set('zones', $zones);
     $searchbar->set('currzone', $z);
+    $searchbar->set('currzoneid', $zoneid);
+    $searchbar->set('zonelist', $zonelist);
+    $searchbar->set('expansion_limit', $expansion_limit);
     break;
   case 'server':
-    $zones = $zones;
     break;
   case 'adventures':
-    $zones = $zones;
     break;
   case 'tasks':
     $tasks = tasks();
@@ -103,7 +117,6 @@ switch ($editor) {
     $searchbar->set('tasks', $tasks);
     break;
   case 'items':
-    $zones = $zones;
     $npcs = npcs();
     $searchbar = new Template("templates/searchbar/searchbar.items.tmpl.php");
     $searchbar->set('curreditor', $editor);
@@ -117,7 +130,7 @@ switch ($editor) {
 }
 
 function build_tabs () {
-  global $editor, $z, $npcid, $playerid;
+  global $editor, $z, $zoneid, $npcid, $playerid;
 
   $tabstatus1 = "off";
   $tabstatus2 = "off";
@@ -136,7 +149,7 @@ function build_tabs () {
 
   $zoneurl = "";
   $npcurl = "";
-  if ($z) $zoneurl = "&z=$z";
+  if ($z) $zoneurl = "&z=$z&zoneid=$zoneid";
   if ($npcid) $npcurl = "&npcid=$npcid";
 
   switch ($editor) {
@@ -205,7 +218,7 @@ function build_tabs () {
         <div class=\"$tabstatus8\"><a href=\"index.php?editor=zone$zoneurl\">Zones</a></div>
         <div class=\"$tabstatus9\"><a href=\"index.php?editor=misc$zoneurl\">Misc</a></div>
         <div class=\"$tabstatus10\"><a href=\"index.php?editor=server\">Server</a></div>
-        <div class=\"$tabstatus11\"><a href=\"index.php?editor=adventures\">Adventures</a></div><br>
+        <div class=\"$tabstatus11\"><a href=\"index.php?editor=adventures$zoneurl$npcurl\">Adventures</a></div><br>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br>
         <div class=\"$tabstatus12\"><a href=\"index.php?editor=tasks\">Tasks</a></div>
         <div class=\"$tabstatus13\"><a href=\"index.php?editor=items\">Items</a></div>
@@ -223,31 +236,77 @@ function build_tabs () {
 function zones () {
   global $mysql;
 
-  $query = "SELECT short_name, long_name, zoneidnumber FROM zone ORDER BY short_name ASC";
+  $query = "SELECT id, short_name, version, expansion FROM zone ORDER BY short_name ASC";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
+}
+
+function zones2 () {
+  global $mysql;
+
+  $query = "SELECT id, long_name, version, expansion FROM zone ORDER BY long_name ASC";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
 }
 
 function npcs() {
-  global $mysql, $z;
+  global $mysql, $z, $zoneid;
 
   $zid = getZoneID($z) . "___";
+  
+  if($z){
+  $query = "SELECT version FROM zone WHERE id = $zoneid";
+  $result = $mysql->query_assoc($query);
+  $version = $result['version'];
 
-  $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" GROUP BY id ORDER BY name ASC";
-
-//  $query = "SELECT npc_types.id AS id, npc_types.name AS name FROM npc_types,spawnentry,spawn2 WHERE (spawn2.spawngroupid=spawnentry.spawngroupid AND npc_types.id=spawnentry.npcid) AND spawn2.zone = '$z' GROUP BY npc_types.id ORDER BY npc_types.name ASC";
+  if ($version > 0) {
+  $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND version = $version GROUP BY id ORDER BY name ASC";
   $results = $mysql->query_mult_assoc($query);
+  }
+  
+  if ($version == 0){
+  $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" GROUP BY id ORDER BY name ASC";
+  $results = $mysql->query_mult_assoc($query);
+  }
+  }
+
+  else {
+  $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" GROUP BY id ORDER BY name ASC";
+  $results = $mysql->query_mult_assoc($query);
+  }
 
   return $results;
+//  $query = "SELECT npc_types.id AS id, npc_types.name AS name FROM npc_types,spawnentry,spawn2 WHERE (spawn2.spawngroupid=spawnentry.spawngroupid AND npc_types.id=spawnentry.npcid) AND spawn2.zone = '$z' GROUP BY npc_types.id ORDER BY npc_types.name ASC";
+  
 }
 
 function npcs_by_merchantid() {
-  global $mysql, $z;
+  global $mysql, $z, $zoneid;
 
-  $zid = getZoneId($z) . "___";
-  $query = "SELECT id, name FROM npc_types WHERE id LIKE \"$zid\" AND merchant_id != 0 GROUP BY id ORDER BY name ASC";
+  $zid = getZoneID($z) . "___";
+
+  if($z){
+  $query = "SELECT version FROM zone WHERE id = $zoneid";
+  $result = $mysql->query_assoc($query);
+  $version = $result['version'];
+
+  if ($version > 0) {
+  $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND version = $version AND merchant_id != 0 GROUP BY id ORDER BY name ASC";
   $results = $mysql->query_mult_assoc($query);
+  }
+  
+  if ($version == 0){
+  $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND merchant_id != 0 GROUP BY id ORDER BY name ASC";
+  $results = $mysql->query_mult_assoc($query);
+  }
+  }
+
+  else {
+  $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND merchant_id != 0 GROUP BY id ORDER BY name ASC";
+  $results = $mysql->query_mult_assoc($query);
+  }
 
   return $results;
 }
@@ -283,11 +342,30 @@ function tasks() {
 }
 
 function npcs_by_spellid() {
-  global $mysql, $z;
+  global $mysql, $z, $zoneid;
 
-  $zid = getZoneId($z) . "___";
-  $query = "SELECT id, name FROM npc_types WHERE id LIKE \"$zid\" AND npc_spells_id != 0 GROUP BY id ORDER BY name ASC";
+  $zid = getZoneID($z) . "___";
+
+  if($z){
+  $query = "SELECT version FROM zone WHERE id = $zoneid";
+  $result = $mysql->query_assoc($query);
+  $version = $result['version'];
+
+  if ($version > 0) {
+  $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND version = $version AND npc_spells_id != 0 GROUP BY id ORDER BY name ASC";
   $results = $mysql->query_mult_assoc($query);
+  }
+  
+  if ($version == 0){
+  $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND npc_spells_id != 0 GROUP BY id ORDER BY name ASC";
+  $results = $mysql->query_mult_assoc($query);
+  }
+  }
+
+  else {
+  $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND npc_spells_id != 0 GROUP BY id ORDER BY name ASC";
+  $results = $mysql->query_mult_assoc($query);
+  }
 
   return $results;
 }

@@ -6,7 +6,7 @@
         </tr>
         <tr>
           <td class="edit_form_content">
-            <form name="loottable" method="post" action="index.php?editor=loot&z=<?=$currzone?>&action=10&npcid=<?=$npcid?>">
+            <form name="loottable" method="post" action="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=10&npcid=<?=$npcid?>">
               Suggested ID:<br>
               <input type="text" name="id" size="25" value="<?=$id?>"><br><br>
               Suggested Name:<br>

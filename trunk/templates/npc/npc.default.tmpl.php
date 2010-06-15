@@ -6,7 +6,7 @@
          </tr>
          <tr>
            <td class="edit_form_content">
-           <center><a href="index.php?editor=misc&z=<?=$currzone?>&action=29">View Horses</a><br></center>
+           <center><a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=29">View Horses</a><br></center>
           </td>
          </tr>
        </table>

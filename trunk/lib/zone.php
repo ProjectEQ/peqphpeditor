@@ -25,12 +25,14 @@ switch ($action) {
     else {
         $body = new Template("templates/zone/zone.default.tmpl.php");
         $body->set('currzone', $z);
+        $body->set('currzoneid', $zoneid);
     }
     break;
   case 1: // View zone data
     check_authorization();
     $body = new Template("templates/zone/zone.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set("yesno", $yesno);
     $body->set("bindallowed", $bindallowed);
     $body->set("weathertype", $weathertype);
@@ -45,6 +47,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/zone/zone.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set("yesno", $yesno);
     $body->set("bindallowed", $bindallowed);
     $body->set("weathertype", $weathertype);
@@ -58,11 +61,12 @@ switch ($action) {
    case 3: // Update zone data
     check_authorization();
     update_zone();
-    header("Location: index.php?editor=zone&z=$z&action=1");
+    header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=1");
     exit;
    case 4: // View graveyard data
     $body = new Template("templates/zone/graveyard.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('gravezone', get_graveyard_zone());
     $graveyard = get_graveyard();
     if ($graveyard) {
@@ -75,6 +79,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/zone/graveyard.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $graveyard = get_graveyard();
     if ($graveyard) {
       foreach ($graveyard as $key=>$value) {
@@ -86,7 +91,7 @@ switch ($action) {
     check_authorization();
     update_graveyard();
     $graveyard_id = $_POST['graveyard_id'];
-    header("Location: index.php?editor=zone&z=$z&graveyard_id=$graveyard_id&action=4");
+    header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&graveyard_id=$graveyard_id&action=4");
     exit;
    case 7: // Delete graveyard data
     check_authorization();
@@ -97,6 +102,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/zone/graveyard.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('zid', getZoneID($z));
     $body->set('suggestgid', suggest_graveyard_id());
     break;
@@ -104,11 +110,12 @@ switch ($action) {
     check_authorization();
     add_graveyard();
     $graveyard_id = $_POST['graveyard_id'];
-    header("Location: index.php?editor=zone&z=$z&graveyard_id=$graveyard_id&action=4");
+    header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&graveyard_id=$graveyard_id&action=4");
     exit;
    case 10: // View graveyard data
     $body = new Template("templates/zone/graveyard.view.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $graveyard = graveyard_info();
     if ($graveyard) {
       foreach ($graveyard as $key=>$value) {
@@ -125,6 +132,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/zone/zonepoints.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $zonepoints = zonepoints_info();
     if ($zonepoints) {
       foreach ($zonepoints as $key=>$value) {
@@ -136,6 +144,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/zone/zonepoints.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $zonepoints = get_zonepoints();
     if ($zonepoints) {
       foreach ($zonepoints as $key=>$value) {
@@ -146,17 +155,18 @@ switch ($action) {
    case 14: // Update zone points
     check_authorization();
     update_zonepoints();
-    header("Location: index.php?editor=zone&z=$z&action=12");
+    header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=12");
     exit;
    case 15: // Delete zone points
     check_authorization();
     delete_zonepoints();
-    header("Location: index.php?editor=zone&z=$z&action=12");
+    header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=12");
     exit;
    case 16: // Get zonepoint ID
     check_authorization();
     $body = new Template("templates/zone/zonepoints.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('zid', getZoneID($z));
     $body->set('suggestzpid', suggest_zonepoint_id());
     $body->set('suggestnum', suggest_zonepoint_number());
@@ -164,12 +174,13 @@ switch ($action) {
    case 17: // Add zonepoint
     check_authorization();
     add_zonepoints();
-    header("Location: index.php?editor=zone&z=$z&action=12");
+    header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=12");
     exit;
    case 18: // View blocked spells
     check_authorization();
     $body = new Template("templates/zone/blockedspell.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set("blockedtype", $blockedtype);
     $blockedspell = blockedspell_info();
     if ($blockedspell) {
@@ -183,6 +194,7 @@ switch ($action) {
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/zone/blockedspell.edit.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set("blockedtype", $blockedtype);
     $blockedspell = get_blockedspell();
     if ($blockedspell) {
@@ -194,34 +206,33 @@ switch ($action) {
    case 20: // Update blocked spells
     check_authorization();
     update_blockedspell();
-    header("Location: index.php?editor=zone&z=$z&action=18");
+    header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=18");
     exit;
    case 21: // Delete blocked spells
     check_authorization();
     delete_blockedspell();
-    header("Location: index.php?editor=zone&z=$z&action=18");
+    header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=18");
     exit;
    case 22: // Get blocked spell ID
     check_authorization();
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/zone/blockedspell.add.tmpl.php");
     $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
     $body->set('zid', getZoneID($z));
     $body->set('suggestbsid', suggest_blockedspell_id());
     break;
    case 23: // Add blockspell
     check_authorization();
     add_blockedspell();
-    header("Location: index.php?editor=zone&z=$z&action=18");
+    header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=18");
     exit;
 }
 
 function get_zone() {
-  global $mysql,$z;
+  global $mysql, $zoneid;
 
-  $zid = getZoneID($z);  
-
-  $query = "SELECT * FROM zone WHERE zoneidnumber=$zid";
+  $query = "SELECT * FROM zone WHERE id=$zoneid";
   $result = $mysql->query_assoc($query);
 
   return $result;
@@ -262,7 +273,7 @@ function get_blockedspell() {
 
 function update_zone () {
   check_authorization();
-  global $mysql;
+  global $mysql, $zoneid;
 
   $oldstats = get_zone();
   extract($oldstats);
@@ -322,11 +333,15 @@ function update_zone () {
   if ($fog_blue4 != $_POST['fog_blue4']) $fields .= "fog_blue4=\"" . $_POST['fog_blue4'] . "\", ";
   if ($fog_red4 != $_POST['fog_red4']) $fields .= "fog_red4=\"" . $_POST['fog_red4'] . "\", ";
   if ($fog_green4 != $_POST['fog_green4']) $fields .= "fog_green4=\"" . $_POST['fog_green4'] . "\", ";
-  if ($hotzone != $_POST['hotzone']) $fields .= "hotzone=\"" . $_POST['hotzone'] . "\", ";
+  if ($ruleset != $_POST['ruleset']) $fields .= "ruleset=\"" . $_POST['ruleset'] . "\", ";
+  if ($version != $_POST['version']) $fields .= "version=\"" . $_POST['version'] . "\", ";
+  if ($map_file_name != $_POST['map_file_name']) $fields .= "map_file_name=\"" . $_POST['map_file_name'] . "\", ";
+  if ($fog_density != $_POST['fog_density']) $fields .= "fog_density=\"" . $_POST['fog_density'] . "\", ";
+
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
-    $query = "UPDATE zone SET $fields WHERE zoneidnumber=$zoneidnumber";
+    $query = "UPDATE zone SET $fields WHERE id=$zoneid";
     $mysql->query_no_result($query);
   }
 }
@@ -362,8 +377,11 @@ function update_zonepoints() {
   $target_heading = $_POST['target_heading'];
   $zoneinst = $_POST['zoneinst'];
   $target_zone_id = $_POST['target_zone_id'];
+  $version = $_POST['version'];
+  $target_instance = $_POST['target_instance'];
+  $client_version_mask = $_POST['client_version_mask'];
 
-  $query = "UPDATE zone_points SET zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z_coord\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", zoneinst=\"$zoneinst\", target_zone_id=\"$target_zone_id\" WHERE id=\"$zpid\"";
+  $query = "UPDATE zone_points SET zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z_coord\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", zoneinst=\"$zoneinst\", target_zone_id=\"$target_zone_id\", version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\" WHERE id=\"$zpid\"";
   $mysql->query_no_result($query);
 }
 
@@ -486,8 +504,11 @@ function add_zonepoints() {
   $target_heading = $_POST['target_heading'];
   $zoneinst = $_POST['zoneinst'];
   $target_zone_id = $_POST['target_zone_id'];
+  $version = $_POST['version'];
+  $target_instance = $_POST['target_instance'];
+  $client_version_mask = $_POST['client_version_mask'];
 
-  $query = "INSERT INTO zone_points SET id=\"$zpid\", zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z_coord\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", zoneinst=\"$zoneinst\", target_zone_id=\"$target_zone_id\", buffer=0";
+  $query = "INSERT INTO zone_points SET id=\"$zpid\", zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z_coord\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", zoneinst=\"$zoneinst\", target_zone_id=\"$target_zone_id\", buffer=0, version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\"";
   $mysql->query_no_result($query);
 }
 
@@ -533,7 +554,7 @@ function zonepoints_info() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['zonepoints'][$result['id']] = array("zpid"=>$result['id'], "zone"=>$result['zone'], "number"=>$result['number'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "heading"=>$result['heading'], "target_x"=>$result['target_x'], "target_y"=>$result['target_y'], "target_z"=>$result['target_z'], "target_heading"=>$result['target_heading'], "zoneinst"=>$result['zoneinst'], "target_zone_id"=>$result['target_zone_id']);
+    $array['zonepoints'][$result['id']] = array("zpid"=>$result['id'], "zone"=>$result['zone'], "number"=>$result['number'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "heading"=>$result['heading'], "target_x"=>$result['target_x'], "target_y"=>$result['target_y'], "target_z"=>$result['target_z'], "target_heading"=>$result['target_heading'], "zoneinst"=>$result['zoneinst'], "target_zone_id"=>$result['target_zone_id'], "version"=>$result['version'], "target_instance"=>$result['target_instance'], "client_version_mask"=>$result['client_version_mask']);
          }
        }
   return $array;

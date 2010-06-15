@@ -3,7 +3,7 @@
         <input id="button" type="button" value='Hide Spell Search' onclick='hideSearch();' style='display:none; margin-bottom: 20px;'>
       </center>
 
-        <form name="blockedspell" method="post" action=index.php?editor=zone&z=<?=$currzone?>&action=23">
+        <form name="blockedspell" method="post" action=index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=23">
          <div class="edit_form" style="width: 225px;">
         <div class="edit_form_header">
           Add Blocked Spell

@@ -6,7 +6,7 @@
         </tr>
         <tr>
           <td class="edit_form_content">
-          <form method="post" action="index.php?editor=loot&z=<?=$currzone?>&action=2&npcid=<?=$npcid?>">
+          <form method="post" action="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=2&npcid=<?=$npcid?>">
             <strong>LootTable Name:</strong><br>
             <input class="indented" type="text" name="name" size="25" value="<?=$loottable_name?>"><br><br>
             <strong>Min. Cash:</strong><br>

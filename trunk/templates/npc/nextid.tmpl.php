@@ -3,7 +3,7 @@
         Find next available NPCID in
       </div>
       <div class="edit_form_content">
-        <form name="npc_id" method="post" action=index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=41>
+        <form name="npc_id" method="post" action=index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=41>
         <table width="100%">
           <tr>
             <td align="left" width="30%"> Zone:<br>

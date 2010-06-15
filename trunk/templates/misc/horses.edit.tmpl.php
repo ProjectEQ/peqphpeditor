@@ -4,7 +4,7 @@
       </div>
 
       <div class="edit_form_content">
-        <form name="horses" method="post" action=index.php?editor=misc&z=<?=$currzone?>&action=31">
+        <form name="horses" method="post" action=index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=31">
         <table width="100%">
           <tr>
             <th>Filename</th>

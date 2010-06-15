@@ -4,14 +4,14 @@
         <tr>
         <td>Edit Armor tint ID <?=$id?></td>
         <td align="right"> 
-        <a onClick="return confirm('Really Delete Tint <?=$id?>?');" href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&tint_id=<?=$id?>&action=37"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+        <a onClick="return confirm('Really Delete Tint <?=$id?>?');" href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&tint_id=<?=$id?>&action=37"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
         </td>
         </tr>
          </table>
        </div>
 
       <div class="edit_form_content">
-        <form name="Armor tint" method="post" action=index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=34">
+        <form name="Armor tint" method="post" action=index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=34">
         <table width="100%">
            <tr>
             <td align="left" width="33%">&nbsp;</td>

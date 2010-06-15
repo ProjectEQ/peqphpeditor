@@ -1,4 +1,4 @@
-<form name="adventure_edit" method="post" action="index.php?editor=adventures&z=<?=$currzone?>&npcid=<?=$npcid?>&action=11">
+<form name="adventure_edit" method="post" action="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=11">
        <div class="edit_form">
          <div class="edit_form_header">
            Add Adventure
@@ -88,6 +88,24 @@
                <td align="left" width="25%">Dest Y:  <br><input type="text" name="dest_y" size="7" value="0"></td>
                <td align="left" width="25%">Dest Z:  <br><input type="text" name="dest_z" size="7" value="0"></td>
                <td align="left" width="25%">Dest Heading:  <br><input type="text" name="dest_h" size="7" value="0"></td>
+           </tr>
+           </table>
+           </fieldset><br>
+
+          <fieldset>
+           <legend><strong><font size="4">Graveyard</font></strong></legend>
+           <table width="100%" border="0" cellpadding="3" cellspacing="0">
+             <tr>
+               <td align="left" width="25%">Graveyard Zone ID:  <br><input type="text" name="graveyard_zone_id" size="7" value="0"></td>
+               <td align="left" width="25%">Graveyard X:  <br><input type="text" name="graveyard_x" size="7" value="0"></td>
+               <td align="left" width="25%">Graveyard Y:  <br><input type="text" name="graveyard_y" size="7" value="0"></td>
+               <td align="left" width="25%">Graveyard Z:  <br><input type="text" name="graveyard_z" size="7" value="0"></td>
+             </tr>
+             <tr>
+               <td align="left" width="25%">Graveyard Radius:  <br><input type="text" name="graveyard_radius" size="7" value="0"></td>
+               <td align="left" width="25%">&nbsp;</td>
+               <td align="left" width="25%">&nbsp;</td>
+               <td align="left" width="25%">&nbsp;</td>
            </tr>
            </table>
            </fieldset><br>

@@ -24,6 +24,14 @@ function getZoneID($short_name) {
   return $result['id'];
 }
 
+function getZoneIDByName($short_name) {
+  global $mysql;
+
+  $query = "SELECT id FROM zone WHERE short_name=\"$short_name\"";
+  $result = $mysql->query_assoc($query);
+  return $result['id'];
+}
+
 function getZoneName($zoneidnumber) {
   global $mysql;
 
@@ -168,6 +176,15 @@ function get_zone_by_npcid($npcid) {
   $query = "SELECT short_name FROM zone WHERE zoneidnumber=\"$npczone\"";
   $result = $mysql->query_assoc($query);
   return $result['short_name'];
+}
+
+function get_zoneid_by_npcid($npcid) {
+  global $mysql;
+  $npczone = substr($npcid, 0, -3);
+
+  $query = "SELECT id FROM zone WHERE zoneidnumber=\"$npczone\"";
+  $result = $mysql->query_assoc($query);
+  return $result['id'];
 }
 
 function getPlayerName($playerid) {

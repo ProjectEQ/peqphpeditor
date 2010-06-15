@@ -6,7 +6,7 @@
          </tr>
          <tr>
            <td class="edit_form_content">
-             <form name="armortint_id" method="post" action="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&action=36">
+             <form name="armortint_id" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=36">
              New Dye Template: <br>
              <input type="text" name="armortint_id" value="<?=$armortint_id?>"><br><br>
              <center>
@@ -14,7 +14,7 @@
              
                or<br><br>
              
-               <a href="index.php?editor=npc&z=<?=$currzone?>&npcid=<?=$npcid?>&armortint_id=<?=$suggested_id?>&action=36">Assign next available ID</a>
+               <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&armortint_id=<?=$suggested_id?>&action=36">Assign next available ID</a>
              </center>
            </td>
          </tr>

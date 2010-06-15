@@ -6,7 +6,7 @@
         </tr>
         <tr>
           <td class="edit_form_content">
-          <form name="item" method="post" action="index.php?editor=loot&z=<?=$currzone?>&action=6&npcid=<?=$npcid?>&ldid=<?=$ldid?>&itemid=<?=$itemid?>">
+          <form name="item" method="post" action="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=6&npcid=<?=$npcid?>&ldid=<?=$ldid?>&itemid=<?=$itemid?>">
             <strong>Lootdrop:</strong> <?=$ldid?><br>
             <strong>Item:</strong> <?=$itemid?><br><br>
             <strong>Equipped:</strong><br>
