@@ -36,7 +36,7 @@
           <tr>    
             <td><input type="text" size="7" name="itemid" value="0"></td>
             <td><input type="text" size="7" name="charges" value="0"></td>  
-            <td><input type="text" size="7" name="version" value="0"></td>
+            <td><input type="text" size="7" name="version" value="<?=$suggestver?>"></td>
             <td><input type="text" size="7" name="icon" value="0"></td>    
             <td align="left" size="7">&nbsp;</td>   
             <td><input type="text" size="20" name="objectname" value="ITxxxxx_ACTORDEF"></td>  

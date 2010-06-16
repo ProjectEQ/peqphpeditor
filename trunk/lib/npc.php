@@ -429,6 +429,43 @@ switch ($action) {
     change_npc_level_ver();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid");
     exit;
+  case 47: // Mass change faction 
+    check_authorization();
+    $body = new Template("templates/npc/npc.factionchange.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('npcfid', $_GET['npcfid']);
+    break;
+  case 48:
+    check_authorization();
+    $body = new Template("templates/npc/factionid.changebyname.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('npcfid', $_GET['npcfid']);
+    break;
+  case 49:
+    check_authorization();
+    $body = new Template("templates/npc/factionid.changebyrace.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('races', $races);
+    $body->set('npcfid', $_GET['npcfid']);
+    break;
+  case 50: // Change faction by NPC Name
+    check_authorization();
+    change_faction_byname();
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
+  case 51: // Change faction by NPC Race
+    check_authorization();
+    change_faction_byrace();
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
+
+
 }
 
 function npc_info () {
@@ -839,6 +876,48 @@ function update_npc_faction_id ($fid) {
 
   $query = "UPDATE npc_types SET npc_faction_id=$fid WHERE id=$npcid";
   $mysql->query_no_result($query);
+}
+
+function change_faction_byname () {
+  check_authorization();
+  global $mysql, $npcid, $z;
+  $zid = getZoneID($z);
+  $min_id = $zid*1000-1;
+  $max_id = $zid*1000+1000;
+  $npcfid = $_GET['npcfid'];
+  $npcname = $_POST['npcname'];
+  $updateall = $_POST['updateall'];
+ 
+  if($updateall == 0){
+  $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE name like \"%$npcname%\" AND id > $min_id AND id < $max_id AND npc_faction_id = 0";
+  $mysql->query_no_result($query);
+  }
+
+  if($updateall == 1){
+  $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE name like \"%$npcname%\" AND id > $min_id AND id < $max_id";
+  $mysql->query_no_result($query);
+  }
+}
+
+function change_faction_byrace () {
+  check_authorization();
+  global $mysql, $npcid, $z;
+  $zid = getZoneID($z);
+  $min_id = $zid*1000-1;
+  $max_id = $zid*1000+1000;
+  $npcfid = $_GET['npcfid'];
+  $npcrace = $_POST['npcrace'];
+  $updateall = $_POST['updateall'];
+ 
+  if($updateall == 0){
+  $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE race = $npcrace AND id > $min_id AND id < $max_id AND npc_faction_id = 0";
+  $mysql->query_no_result($query);
+  }
+
+  if($updateall == 1){
+  $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE race = $npcrace AND id > $min_id AND id < $max_id";
+  $mysql->query_no_result($query);
+  }
 }
 
 function create_npc_faction_id () {

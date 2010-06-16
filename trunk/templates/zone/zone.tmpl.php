@@ -3,6 +3,10 @@
          <div style="float:right">
           <a href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=8"><img src="images/add.gif" border="0" title="Add a graveyard to <?=$short_name?>"></a>
            <a href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=2"><img src="images/c_table.gif" border=0 title="Edit this Zone"></a>
+           <a onClick="return confirm('Really Copy Zone <?=$currzone?>?');" href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=24"><img src="images/next.gif" border=0 title="Copy this Zone"></a>
+            <?if($version > 0):?>
+           <a onClick="return confirm('Really Delete Zone <?=$currzone?>?');" href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=25"><img src="images/remove2.gif" border=0 title="Delete this Zone"></a>
+           <?endif;?>
          </div>
          <?=$zoneidnumber?> - <?=$long_name?> <?echo ($short_name != '' ? "($short_name)" : '');?>
        </div>
@@ -13,11 +17,13 @@
          <center>
 
          <h1><?=$long_name?><br>
-         (<?echo ($short_name != '' ? "$short_name" : 'no title');?>)</h1><br>
+         (<?echo ($short_name != '' ? "$short_name" : 'no title');?>)<br></h1>
+         
 
          <table style="font-size: 12px; margin-bottom: 80px;">
            <tr>
              <td>
+                 <strong><?=$eqexpansions[$expansion]?></strong><br><br>
                  <strong>Map:</strong> <?=$map_file_name?><br>
                  <strong>File:</strong> <?=$file_name?><br>
                  <strong>Safe X:</strong> <?=$safe_x?><br>
@@ -53,11 +59,11 @@
                 <tr>
                 <td align="left" width="33%">Weather: <?=$weathertype[$weather]?></td>
                 <td align="left" width="33%">Version: <?=$version?></td>
-                <td align="left" width="34%">Ruleset: <?=$ruleset?></td>
+                <td align="left" width="34%">Ruleset: <a href="index.php?editor=server&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&ruleset_id=<?=$ruleset?>&action=28"> <?=$ruleset?></td>
               </tr>
                 <tr>
                 <td align="left" width="33%">Note: <?=$note?></td>
-                <td align="left" width="33%">&nbsp;</td>
+                <td align="left" width="33%">Global: <?=$yesno[$global]?></td>
                 <td align="left" width="34%">&nbsp;</td>
               </tr>
               </table>

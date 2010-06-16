@@ -63,7 +63,7 @@
             <td><input type="text" size="7" name="doorisopen" value="0"></td>
             <td><input type="text" size="7" name="invert_state" value="0"></td>
             <td><input type="text" size="7" name="incline" value="0"></td>
-            <td><input type="text" size="7" name="version" value="0"></td>
+            <td><input type="text" size="7" name="version" value="<?=$suggestver?>"></td>
          </tr>
          <tr>
             <th>dest instance</th>

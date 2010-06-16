@@ -278,6 +278,41 @@ switch ($action) {
     copy_lootdrop();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
+  case 36: // Mass change loottable 
+    check_authorization();
+    $body = new Template("templates/loot/loottable.masschange.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('ltid', $_GET['ltid']);
+    break;
+  case 37:
+    check_authorization();
+    $body = new Template("templates/loot/loottable.changebyname.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('ltid', $_GET['ltid']);
+    break;
+  case 38:
+    check_authorization();
+    $body = new Template("templates/loot/loottable.changebyrace.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('races', $races);
+    $body->set('ltid', $_GET['ltid']);
+    break;
+  case 39: // Change loottable by NPC Name
+    check_authorization();
+    change_loottable_byname();
+    header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
+  case 40: // Change loottable by NPC Race
+    check_authorization();
+    change_loottable_byrace();
+    header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
 }
 
 function loottable_info () {
@@ -400,6 +435,48 @@ function change_npc_loottable () {
   $id = $_REQUEST['id'];
   $query = "UPDATE npc_types SET loottable_id=$id WHERE id=$npcid";
   $mysql->query_no_result($query);
+}
+
+function change_loottable_byname () {
+  check_authorization();
+  global $mysql, $npcid, $z;
+  $zid = getZoneID($z);
+  $min_id = $zid*1000-1;
+  $max_id = $zid*1000+1000;
+  $ltid = $_GET['ltid'];
+  $npcname = $_POST['npcname'];
+  $updateall = $_POST['updateall'];
+ 
+  if($updateall == 0){
+  $query = "UPDATE npc_types SET loottable_id=$ltid WHERE name like \"%$npcname%\" AND id > $min_id AND id < $max_id AND loottable_id = 0";
+  $mysql->query_no_result($query);
+  }
+
+  if($updateall == 1){
+  $query = "UPDATE npc_types SET loottable_id=$ltid WHERE name like \"%$npcname%\" AND id > $min_id AND id < $max_id";
+  $mysql->query_no_result($query);
+  }
+}
+
+function change_loottable_byrace () {
+  check_authorization();
+  global $mysql, $npcid, $z;
+  $zid = getZoneID($z);
+  $min_id = $zid*1000-1;
+  $max_id = $zid*1000+1000;
+  $ltid = $_GET['ltid'];
+  $npcrace = $_POST['npcrace'];
+  $updateall = $_POST['updateall'];
+ 
+  if($updateall == 0){
+  $query = "UPDATE npc_types SET loottable_id=$ltid WHERE race = $npcrace AND id > $min_id AND id < $max_id AND loottable_id = 0";
+  $mysql->query_no_result($query);
+  }
+
+  if($updateall == 1){
+  $query = "UPDATE npc_types SET loottable_id=$ltid WHERE race = $npcrace AND id > $min_id AND id < $max_id";
+  $mysql->query_no_result($query);
+  }
 }
 
 function suggest_new_loottable () {

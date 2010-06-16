@@ -17,6 +17,7 @@
         <div class="table_header">
         <div style="float: right">
           <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=11"><img src="images/create.gif" border="0" title="Change LootTable"></a>&nbsp;
+          <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ltid=<?=$loottable_id?>&action=36"><img src="images/last.gif" border="0" title="Apply LootTable to Multiple NPCs"></a>&nbsp;
           <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=34" onClick="return confirm('Really remove this loottable from the selected NPC?');">
                <img src="images/minus2.gif" border=0 title="Drop this loottable">
           <a onClick="return confirm('Really Delete LootTable <?=$loottable_id?>?');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16&ltid=<?=$loottable_id?>"><img src="images/remove3.gif" border="0" title="Delete LootTable"></a>
