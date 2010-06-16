@@ -221,4 +221,13 @@ function get_guild ($guildid) {
   return $result['name'];
 }
 
+function suggest_version() {
+  global $mysql, $zoneid;
+
+  $query = "SELECT version from zone where id=$zoneid";
+  $result = $mysql->query_assoc($query);
+  
+  return $result['version'];
+}
+
 ?>

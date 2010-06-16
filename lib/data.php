@@ -1636,4 +1636,25 @@ $zoneids = array (
 999 => 'apprentice'
 );
 
+$eqexpansions = array (    
+0 => 'None Selected',
+1 => 'EverQuest',
+2 => 'Ruins of Kunark',
+3 => 'Scars of Velious',
+4 => 'Shadows of Luclin',
+5 => 'Planes of Power',
+6 => 'Legacy of Ykesha',
+7 => 'Lost Dungeons of Norrath',
+8 => 'Gates of Discord',
+9 => 'Omens of War',
+10 => 'Dragons of Norrath',
+11 => 'Depths of Darkhollow',
+12 => 'Prophecy of Ro',
+13 => 'The Serpents Spine',
+14 => 'The Buried Sea',
+15 => 'Secrets of Faydwer',
+16 => 'Seeds of Destruction',
+17 => 'Underfoot',
+99 => 'Other'
+);
 ?>

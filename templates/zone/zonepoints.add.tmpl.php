@@ -40,7 +40,7 @@
             <td><input type="text" size="7" name="target_y" value="0"></td>
             <td><input type="text" size="7" name="target_z" value="0"></td>
             <td><input type="text" size="7" name="target_heading" value="0"></td>
-            <td><input type="text" size="7" name="version" value="0"></td>
+            <td><input type="text" size="7" name="version" value="<?=$suggestver?>"></td>
           </tr>
           <th>Target Zone</th>
           </tr>

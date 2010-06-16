@@ -34,8 +34,10 @@ switch ($action) {
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set("yesno", $yesno);
+    $body->set("eqexpansions", $eqexpansions);
     $body->set("bindallowed", $bindallowed);
     $body->set("weathertype", $weathertype);
+    $body->set('global', get_isglobal());
     $zone = get_zone();
     if ($zone) {
       foreach ($zone as $key=>$value) {
@@ -49,8 +51,10 @@ switch ($action) {
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set("yesno", $yesno);
+    $body->set("eqexpansions", $eqexpansions);
     $body->set("bindallowed", $bindallowed);
     $body->set("weathertype", $weathertype);
+    $body->set('global', get_isglobal());
     $zone = get_zone();
     if ($zone) {
       foreach ($zone as $key=>$value) {
@@ -61,6 +65,10 @@ switch ($action) {
    case 3: // Update zone data
     check_authorization();
     update_zone();
+    if (isset($_POST['global']) && $_POST['global'] == 1){
+    update_global();
+    }
+    else delete_global();
     header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=1");
     exit;
    case 4: // View graveyard data
@@ -170,6 +178,7 @@ switch ($action) {
     $body->set('zid', getZoneID($z));
     $body->set('suggestzpid', suggest_zonepoint_id());
     $body->set('suggestnum', suggest_zonepoint_number());
+    $body->set('suggestver', suggest_version());
     break;
    case 17: // Add zonepoint
     check_authorization();
@@ -226,6 +235,16 @@ switch ($action) {
     check_authorization();
     add_blockedspell();
     header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=18");
+    exit;
+   case 24:  // Copy zone
+    check_authorization();
+    $nzone = copy_zone();
+     header("Location: index.php?editor=zone&z=$z&zoneid=$nzone&action=1");
+    exit;
+   case 25:  // Delete zone
+    check_authorization();
+    delete_zone();
+    header("Location: index.php?editor=zone");
     exit;
 }
 
@@ -337,6 +356,7 @@ function update_zone () {
   if ($version != $_POST['version']) $fields .= "version=\"" . $_POST['version'] . "\", ";
   if ($map_file_name != $_POST['map_file_name']) $fields .= "map_file_name=\"" . $_POST['map_file_name'] . "\", ";
   if ($fog_density != $_POST['fog_density']) $fields .= "fog_density=\"" . $_POST['fog_density'] . "\", ";
+  if ($expansion != $_POST['expansion']) $fields .= "expansion=\"" . $_POST['expansion'] . "\", ";  
 
   $fields =  rtrim($fields, ", ");
 
@@ -547,10 +567,14 @@ function graveyard_info() {
   }
 
 function zonepoints_info() {
-  global $mysql, $z;
+  global $mysql, $z, $zoneid;
   $array = array();
 
-  $query = "SELECT * FROM zone_points WHERE zone=\"$z\"";
+  $query = "SELECT version AS zversion FROM zone where id=$zoneid";
+  $result = $mysql->query_assoc($query);
+  $zversion = $result['zversion'];
+
+  $query = "SELECT * FROM zone_points WHERE zone=\"$z\" AND version=$zversion";
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
@@ -586,4 +610,81 @@ function get_graveyard_zone() {
   return $result['short_name'];
 }
 
+function copy_zone() {
+  check_authorization();
+  global $mysql, $zoneid, $z;
+
+  $query = "DELETE FROM zone WHERE id=0";
+  $mysql->query_no_result($query);
+
+  $query = "INSERT INTO zone (`short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `weather`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`) 
+            SELECT `short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `weather`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion` FROM zone where id=$zoneid";
+  $mysql->query_no_result($query);
+
+  $query = "SELECT MAX(id) as zid FROM zone";
+  $result = $mysql->query_assoc($query);
+  $nzone = $result['zid'];
+
+  $query2 = "SELECT MAX(version+1) as zver FROM zone WHERE short_name=\"$z\"";
+  $result2 = $mysql->query_assoc($query2);
+  $nver = $result2['zver'];
+
+  $query = "UPDATE zone set version=$nver where id=$nzone";
+  $mysql->query_no_result($query);
+   
+  return $nzone;
+}
+
+function delete_zone() {
+  check_authorization();
+  global $mysql, $zoneid;
+
+  $query = "DELETE FROM zone WHERE id=$zoneid";
+  $mysql->query_no_result($query);
+}
+   
+function get_isglobal () {
+  global $mysql, $z, $zoneid;
+
+  $zid = getZoneID($z);
+
+  $query1 = "SELECT version AS zversion FROM zone where id=$zoneid";
+  $result1 = $mysql->query_assoc($query1);
+  $zversion = $result1['zversion'];
+
+  $query = "SELECT count(*) FROM instance_lockout WHERE zone=$zid AND version=$zversion";
+  $result = $mysql->query_assoc($query);
+
+  return $result['count(*)'];
+}
+
+function update_global () {
+  global $mysql, $z, $zoneid;
+
+  $zid = getZoneID($z);
+
+  $query1 = "SELECT version AS zversion FROM zone where id=$zoneid";
+  $result1 = $mysql->query_assoc($query1);
+  $zversion = $result1['zversion'];
+
+  $query2 = "SELECT id AS currid from instance_lockout WHERE zone=$zid AND version=$zversion AND id < 30";
+  $result2 = $mysql->query_assoc($query2);
+  $currid = $result2['currid'];
+
+  $query = "REPLACE INTO instance_lockout SET id=$currid, zone=$zid, version=$zversion, is_global=1, never_expires=1";
+  $mysql->query_no_result($query);
+  }
+
+function delete_global () {
+  global $mysql, $z, $zoneid;
+
+  $zid = getZoneID($z);
+
+  $query1 = "SELECT version AS zversion FROM zone where id=$zoneid";
+  $result1 = $mysql->query_assoc($query1);
+  $zversion = $result1['zversion'];
+
+  $query = "DELETE FROM instance_lockout WHERE zone=$zid AND version=$zversion AND id < 30";
+  $mysql->query_no_result($query);
+}
 ?>

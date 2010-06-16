@@ -162,6 +162,7 @@ switch ($action) {
     $body->set('currzoneid', $zoneid);
     $body->set('zid', getZoneID($z));
     $body->set('suggestgsid', suggest_gspawn_id());
+    $body->set('suggestver', suggest_version());
     break;
    case 18: // Add ground spawn
     check_authorization();
@@ -213,6 +214,7 @@ switch ($action) {
     $body->set("traptype", $traptype);
     $body->set("alarmtype", $alarmtype);
     $body->set('suggesttid', suggest_traps_id());
+    $body->set('suggestver', suggest_version());
     break;
    case 24: // Add traps
     check_authorization();
@@ -348,6 +350,7 @@ switch ($action) {
     $body->set('zid', getZoneID($z));
     $body->set('suggestdrid', suggest_door_id());
     $body->set('suggestdoorid', suggest_doorid());
+    $body->set('suggestver', suggest_version());
     break;
   case 40: // Add doors
     check_authorization();
@@ -397,6 +400,7 @@ switch ($action) {
     $body->set('zid', getZoneID($z));
     $body->set("world_containers", $world_containers);
     $body->set('suggestobjid', suggest_object_id());
+    $body->set('suggestver', suggest_version());
     break;
   case 46: // Add objects
     check_authorization();
@@ -538,10 +542,15 @@ function get_forage() {
   }
 
 function get_gspawn() {
-  global $mysql, $z;
+  global $mysql, $z, $zoneid;
   $zid = getZoneID($z);
   $array = array();
   
+  $query = "SELECT version AS zversion FROM zone where id=$zoneid";
+  $result = $mysql->query_assoc($query);
+  $zversion = $result['zversion'];
+
+  if($zversion == 0){
   $query = "SELECT ground_spawns.id,zoneid,max_x,max_y,max_z,min_x,min_y,heading,max_allowed,respawn_timer,version,item AS giid, items.name AS name
                 FROM ground_spawns, items
                 WHERE ground_spawns.zoneid=$zid 
@@ -554,13 +563,34 @@ function get_gspawn() {
      $array['gspawn'][$result['id']] = array("gsid"=>$result['id'], "giid"=>$result['giid'], "zoneid"=>$result['zoneid'], "max_x"=>$result['max_x'], "max_y"=>$result['max_y'], "max_z"=>$result['max_z'], "min_x"=>$result['min_x'], "min_y"=>$result['min_y'], "heading"=>$result['heading'], "gname"=>$result['gname'], "max_allowed"=>$result['max_allowed'], "comment"=>$result['comment'], "respawn_timer"=>$result['respawn_timer'], "iname"=>$result['name'], "version"=>$result['version']);
          }
        }
+  }
+  if($zversion > 0){
+  $query = "SELECT ground_spawns.id,zoneid,max_x,max_y,max_z,min_x,min_y,heading,max_allowed,respawn_timer,version,item AS giid, items.name AS name
+                FROM ground_spawns, items
+                WHERE ground_spawns.zoneid=$zid 
+                AND ground_spawns.version=$zversion
+                AND ground_spawns.item=items.id
+                OR ground_spawns.zoneid=0
+                AND ground_spawns.item=items.id";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['gspawn'][$result['id']] = array("gsid"=>$result['id'], "giid"=>$result['giid'], "zoneid"=>$result['zoneid'], "max_x"=>$result['max_x'], "max_y"=>$result['max_y'], "max_z"=>$result['max_z'], "min_x"=>$result['min_x'], "min_y"=>$result['min_y'], "heading"=>$result['heading'], "gname"=>$result['gname'], "max_allowed"=>$result['max_allowed'], "comment"=>$result['comment'], "respawn_timer"=>$result['respawn_timer'], "iname"=>$result['name'], "version"=>$result['version']);
+         }
+       }
+  }
   return $array;
   }
 
 function get_traps() {
-  global $mysql, $z;
+  global $mysql, $z, $zoneid;
   $array = array();
   
+$query = "SELECT version AS zversion FROM zone where id=$zoneid";
+  $result = $mysql->query_assoc($query);
+  $zversion = $result['zversion'];
+
+  if($zversion == 0){
   $query = "SELECT * FROM traps WHERE zone=\"$z\"";
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
@@ -568,6 +598,17 @@ function get_traps() {
      $array['traps'][$result['id']] = array("tid"=>$result['id'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "chance"=>$result['chance'], "maxzdiff"=>$result['maxzdiff'], "radius"=>$result['radius'], "effect"=>$result['effect'], "effectvalue"=>$result['effectvalue'], "effectvalue2"=>$result['effectvalue2'], "message"=>$result['message'], "skill"=>$result['skill'], "level"=>$result['level'], "respawn_time"=>$result['respawn_time'], "respawn_var"=>$result['respawn_var'], "version"=>$result['version']);
          }
        }
+   }
+  
+  if($zversion > 0){
+  $query = "SELECT * FROM traps WHERE zone=\"$z\" AND version=$zversion";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['traps'][$result['id']] = array("tid"=>$result['id'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "chance"=>$result['chance'], "maxzdiff"=>$result['maxzdiff'], "radius"=>$result['radius'], "effect"=>$result['effect'], "effectvalue"=>$result['effectvalue'], "effectvalue2"=>$result['effectvalue2'], "message"=>$result['message'], "skill"=>$result['skill'], "level"=>$result['level'], "respawn_time"=>$result['respawn_time'], "respawn_var"=>$result['respawn_var'], "version"=>$result['version']);
+         }
+       }
+   }
   return $array;
   }
 
@@ -586,10 +627,15 @@ function get_horses() {
   }
 
 function get_doors() {
-  global $mysql, $z;
+  global $mysql, $z, $zoneid;
 
   $array = array();
   
+  $query = "SELECT version AS zversion FROM zone where id=$zoneid";
+  $result = $mysql->query_assoc($query);
+  $zversion = $result['zversion'];
+
+  if($zversion == 0){
   $query = "SELECT * FROM doors WHERE zone=\"$z\"";
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
@@ -597,15 +643,30 @@ function get_doors() {
      $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask']);
          }
        }
+   }
+   if($zversion > 0){
+  $query = "SELECT * FROM doors WHERE zone=\"$z\" AND version=$zversion";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask']);
+         }
+       }
+   }
   return $array;
   }
 
 function get_objects() {
-  global $mysql, $z;
+  global $mysql, $z, $zoneid;
 
   $zid = getZoneID($z);
   $array = array();
   
+  $query = "SELECT version AS zversion FROM zone where id=$zoneid";
+  $result = $mysql->query_assoc($query);
+  $zversion = $result['zversion'];
+
+  if($zversion == 0){
   $query = "SELECT * FROM object WHERE zoneid=\"$zid\"";
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
@@ -613,6 +674,16 @@ function get_objects() {
      $array['objects'][$result['id']] = array("objid"=>$result['id'], "objectname"=>$result['objectname'], "xpos"=>$result['xpos'], "ypos"=>$result['ypos'], "zpos"=>$result['zpos'], "heading"=>$result['heading'], "itemid"=>$result['itemid'], "charges"=>$result['charges'], "type"=>$result['type'], "icon"=>$result['icon'], "version"=>$result['version']);
          }
        }
+   }
+  if($zversion > 0){
+  $query = "SELECT * FROM object WHERE zoneid=\"$zid\" AND version=$zversion";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+     $array['objects'][$result['id']] = array("objid"=>$result['id'], "objectname"=>$result['objectname'], "xpos"=>$result['xpos'], "ypos"=>$result['ypos'], "zpos"=>$result['zpos'], "heading"=>$result['heading'], "itemid"=>$result['itemid'], "charges"=>$result['charges'], "type"=>$result['type'], "icon"=>$result['icon'], "version"=>$result['version']);
+         }
+       }
+   }
   return $array;
   }
 
@@ -928,6 +999,7 @@ function suggest_gspawn_id() {
   
   return ($result['gsid'] + 1);
 }
+
 
 function suggest_traps_id() {
   global $mysql;
