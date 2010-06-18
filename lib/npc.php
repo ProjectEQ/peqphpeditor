@@ -3,6 +3,32 @@
 $factions = faction_list();
 $faction_values = array(-1=>"Aggressive", 0=>"Passive", 1=>"Assist");
 
+$npctier = array(
+  1   => "Normal",
+  2   => "Dungeon",
+  3   => "Velious High",
+  4   => "Luclin High",
+  5  => "PoP Tier 1",
+  6  => "PoP Tier 2",
+  7  => "PoP Tier 3",
+  8 => "PoP Elem",
+  9 => "PoP Time"
+);
+
+$npctype = array(
+  1   => "Normal",
+  2   => "Named",
+  3   => "Boss",
+  4   => "Raid Boss",
+);
+
+$npcchange = array(
+  1   => "Current",
+  2   => "Same Name",
+  3   => "Same Race",
+  4   => "Custom",
+);
+
 switch ($action) {
   case 0:  // View Loottable
     if ($npcid) {
@@ -464,8 +490,23 @@ switch ($action) {
     change_faction_byrace();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-
-
+  case 52:
+    check_authorization();
+    $body = new Template("templates/npc/npc.changestats.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('races', $races);
+    $body->set('classes', $classes);
+    $body->set('npctier', $npctier);
+    $body->set('npctype', $npctype);
+    $body->set('npcchange', $npcchange);
+    break;
+  case 53: // Change NPC by tier
+    check_authorization();
+    update_npc_bytier();
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
 }
 
 function npc_info () {
@@ -837,6 +878,96 @@ $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
     $query = "INSERT INTO npc_types SET $fields";
     $mysql->query_no_result($query);
   }
+}
+
+function update_npc_bytier() {
+  global $mysql, $z, $npcid;
+
+  $zid = getZoneID($z);
+  $min_id = $zid*1000-1;
+  $max_id = $zid*1000+1000;
+  $class = $_POST['class_selected'];
+  $race = $_POST['race_selected'];
+  $type = $_POST['npcchange_selected'];
+  $name = $_POST['npcname'];
+  
+  $npctype = 0;
+  if ($_POST['npctype_selected'] == 1) $npctype = 1.0;
+  if ($_POST['npctype_selected'] == 2) $npctype = 1.1;
+  if ($_POST['npctype_selected'] == 3) $npctype = 1.2;
+  if ($_POST['npctype_selected'] == 4) $npctype = 1.35;
+
+  $npctier = 0;
+  if ($_POST['npctier_selected'] == 1) $npctier = 1.0;
+  if ($_POST['npctier_selected'] == 2) $npctier = 1.25;
+  if ($_POST['npctier_selected'] == 3) $npctier = 1.75;
+  if ($_POST['npctier_selected'] == 4) $npctier = 1.9;
+  if ($_POST['npctier_selected'] == 5) $npctier = 2.0;
+  if ($_POST['npctier_selected'] == 6) $npctier = 2.5;
+  if ($_POST['npctier_selected'] == 7) $npctier = 2.75;
+  if ($_POST['npctier_selected'] == 8) $npctier = 3.0;
+  if ($_POST['npctier_selected'] == 9) $npctier = 3.15;
+
+  if($type == 1){
+  $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE id=$npcid";
+  $mysql->query_no_result($query);
+  }
+
+  if($type == 2){
+  
+  $query = "SELECT name FROM npc_types WHERE id=$npcid";
+  $result = $mysql->query_assoc($query);
+  $nname = $result['name'];
+  
+  $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE name=\"$nname\" AND id > $min_id AND id < $max_id";
+  $mysql->query_no_result($query);
+  }
+
+  if($type == 3){
+  
+  $query = "SELECT race FROM npc_types WHERE id=$npcid";
+  $result = $mysql->query_assoc($query);
+  $nrace = $result['race'];
+  
+  $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE race=$nrace AND id > $min_id AND id < $max_id";
+  $mysql->query_no_result($query);
+  }
+  
+  if($type == 4){
+	if($name == '' && $class == 0 && $race == 0){
+	$query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE id=$npcid";
+       $mysql->query_no_result($query);
+  	}
+       if($name != '' && $class == 0 && $race == 0){
+       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE name=\"$name\" AND id > $min_id AND id < $max_id";
+       $mysql->query_no_result($query);
+       }
+       if($name != '' && $class > 0 && $race == 0){
+       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE name=\"$name\" AND class=$class AND id > $min_id AND id < $max_id";
+       $mysql->query_no_result($query);
+       } 
+       if($name != '' && $class == 0 && $race > 0){
+       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE name=\"$name\" AND race=$race AND id > $min_id AND id < $max_id";
+       $mysql->query_no_result($query);
+       }
+       if($name != '' && $class > 0 && $race > 0){
+       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE name=\"$name\" AND class=$class AND race=$race AND id > $min_id AND id < $max_id";
+       $mysql->query_no_result($query);
+       }
+       if($name == '' && $class > 0 && $race == 0){
+       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE class=$class AND id > $min_id AND id < $max_id";
+       $mysql->query_no_result($query);
+       }
+       if($name == '' && $class > 0 && $race > 0){
+       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE class=$class AND race=$race AND id > $min_id AND id < $max_id";
+       $mysql->query_no_result($query);
+       }
+       if($name == '' && $class == 0 && $race > 0){
+       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE race=$race AND id > $min_id AND id < $max_id";
+       $mysql->query_no_result($query);
+       }
+   }
+       
 }
 
 function get_faction_name ($id) {
