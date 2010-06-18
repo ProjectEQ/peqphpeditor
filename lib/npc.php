@@ -939,19 +939,19 @@ function update_npc_bytier() {
        $mysql->query_no_result($query);
   	}
        if($name != '' && $class == 0 && $race == 0){
-       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE name=\"$name\" AND id > $min_id AND id < $max_id";
+       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE name like \"%$name%\" AND id > $min_id AND id < $max_id";
        $mysql->query_no_result($query);
        }
        if($name != '' && $class > 0 && $race == 0){
-       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE name=\"$name\" AND class=$class AND id > $min_id AND id < $max_id";
+       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE name like \"%$name%\" AND class=$class AND id > $min_id AND id < $max_id";
        $mysql->query_no_result($query);
        } 
        if($name != '' && $class == 0 && $race > 0){
-       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE name=\"$name\" AND race=$race AND id > $min_id AND id < $max_id";
+       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE name like \"%$name%\" AND race=$race AND id > $min_id AND id < $max_id";
        $mysql->query_no_result($query);
        }
        if($name != '' && $class > 0 && $race > 0){
-       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE name=\"$name\" AND class=$class AND race=$race AND id > $min_id AND id < $max_id";
+       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype) WHERE name like \"%$name%\" AND class=$class AND race=$race AND id > $min_id AND id < $max_id";
        $mysql->query_no_result($query);
        }
        if($name == '' && $class > 0 && $race == 0){
