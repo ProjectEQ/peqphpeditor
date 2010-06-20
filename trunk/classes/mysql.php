@@ -14,7 +14,7 @@ class mysql {
       return true;
     }
     else {
-      mysql::error(mysql_error());
+      mysql::error($query . " - " .mysql_error());
       return false;
     }
   }
@@ -24,7 +24,7 @@ class mysql {
       $row = mysql_fetch_assoc($result);
       return (isset($row) ? $row : '');
     }
-    else mysql::error(mysql_error());
+    else mysql::error($query . " - " . mysql_error());
   }
 
   // Used to return multi-dimensional arrays
@@ -35,7 +35,7 @@ class mysql {
       }
       return (isset($array) ? $array : '');
     }
-    else mysql::error(mysql_error());
+    else mysql::error($query . " - " . mysql_error());
   }
 
   function generate_insert_query ($query) {

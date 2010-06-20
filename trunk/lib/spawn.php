@@ -618,6 +618,14 @@ check_authorization();
     $body->set('npcid', $npcid);
     $body->set('sid', $_GET['sid']);
     break;
+  case 59: // List spawngroups for a zone
+    check_authorization();
+    $res = get_spawngroups_by_zone($z);
+    $body = new Template("templates/spawn/spawngroup.showgroups.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('results', $res);
+    break;
 }
 
 function get_spawngroups() {
@@ -1350,6 +1358,13 @@ function move_spawnpoint() {
 function search_spawngroups($search) {
   global $mysql;
   $query = "SELECT * FROM spawngroup WHERE name rlike \"$search\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function get_spawngroups_by_zone($search) {
+  global $mysql;
+  $query = "SELECT spawn2.spawngroupID, spawngroup.name, spawnentry.npcID FROM spawn2 LEFT JOIN spawnentry USING (spawngroupID) LEFT JOIN spawngroup ON (spawn2.spawngroupID = spawngroup.id) WHERE spawn2.zone = '$search'";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
