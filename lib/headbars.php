@@ -71,6 +71,8 @@ switch ($editor) {
     $searchbar->set('recipes', recipes());
     $searchbar->set('currrec', $rec);
     break;
+  case 'spellops':
+    break;
   case 'spellset':
     $zonelist = zones();
     $npcs = npcs_by_spellid();
@@ -84,6 +86,11 @@ switch ($editor) {
     $searchbar->set('expansion_limit', $expansion_limit);
     $searchbar->set('npcs', $npcs);
     $searchbar->set('currnpc', $npcid);
+    break;
+  case 'spells':
+    $zones = $zones;
+    $searchbar = new Template("templates/searchbar/searchbar.spellsed.tmpl.php");
+    $searchbar->set('curreditor', $editor);
     break;
   case 'zone':
     $zonelist = zones();
@@ -170,6 +177,12 @@ function build_tabs () {
     case 'spellset':
       $tabstatus5 = "on";
       break;
+    case 'spells':
+      $tabstatus5 = "on";
+      break;
+    case 'spellops':
+      $tabstatus5 = "on";
+      break;
     case 'faction':
       $tabstatus6 = "on";
       break;
@@ -212,7 +225,7 @@ function build_tabs () {
         <div class=\"$tabstatus2\"><a href=\"index.php?editor=loot$zoneurl$npcurl\">Loot</a></div>
         <div class=\"$tabstatus3\"><a href=\"index.php?editor=spawn$zoneurl$npcurl\">Spawns</a></div>
         <div class=\"$tabstatus4\"><a href=\"index.php?editor=merchant$zoneurl$npcurl\">Merchants</a></div>
-        <div class=\"$tabstatus5\"><a href=\"index.php?editor=spellset$zoneurl$npcurl\">Spells</a></div>
+        <div class=\"$tabstatus5\"><a href=\"index.php?editor=spellops\">Spells</a></div>
         <div class=\"$tabstatus6\"><a href=\"index.php?editor=faction\">Factions</a></div>
         <div class=\"$tabstatus7\"><a href=\"index.php?editor=tradeskill\">Tradeskills</a></div>
         <div class=\"$tabstatus8\"><a href=\"index.php?editor=zone$zoneurl\">Zones</a></div>
@@ -257,7 +270,7 @@ function npcs() {
   $zid = getZoneID($z) . "___";
   
   if($z){
-  $query = "SELECT version FROM zone WHERE id = $zoneid";
+  $query = "SELECT version FROM zone WHERE id = \"$zoneid\"";
   $result = $mysql->query_assoc($query);
   $version = $result['version'];
 
@@ -288,7 +301,7 @@ function npcs_by_merchantid() {
   $zid = getZoneID($z) . "___";
 
   if($z){
-  $query = "SELECT version FROM zone WHERE id = $zoneid";
+  $query = "SELECT version FROM zone WHERE id = \"$zoneid\"";
   $result = $mysql->query_assoc($query);
   $version = $result['version'];
 

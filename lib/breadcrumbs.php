@@ -18,6 +18,12 @@ switch ($editor) {
   case 'faction':
     $breadcrumbs = "Faction Editor";
     break;
+  case 'spellops':
+    $breadcrumbs = "Spell Options";
+    break;
+  case 'spells':
+    $breadcrumbs = "Spell Editor";
+    break;
   case 'spellset':
     $breadcrumbs = "Spellset Editor";
     break;

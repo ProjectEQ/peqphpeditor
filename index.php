@@ -73,12 +73,19 @@ switch ($editor) {
     break;
   case 'tasks':
     require_once('lib/tasks.php');
-    break;	
+    break;
   case 'items':
     require_once('lib/items.php');
     break;
   case 'player':
     require_once('lib/player.php');
+    break;
+  case 'spells':
+    require_once('lib/spellenums.php');
+    require_once('lib/spells.php');
+    break;
+  case 'spellops':
+    require_once('lib/spellops.php');
     break;
 }
 
