@@ -27,7 +27,7 @@ function getZoneID($short_name) {
 function getZoneIDByName($short_name) {
   global $mysql;
 
-  $query = "SELECT zoneidnumber AS id FROM zone WHERE short_name=\"$short_name\"";
+  $query = "SELECT id FROM zone WHERE short_name=\"$short_name\"";
   $result = $mysql->query_assoc($query);
   return $result['id'];
 }
@@ -182,7 +182,7 @@ function get_zoneid_by_npcid($npcid) {
   global $mysql;
   $npczone = substr($npcid, 0, -3);
 
-  $query = "SELECT zoneidnumber AS id FROM zone WHERE zoneidnumber=\"$npczone\"";
+  $query = "SELECT id FROM zone WHERE zoneidnumber=\"$npczone\"";
   $result = $mysql->query_assoc($query);
   return $result['id'];
 }
