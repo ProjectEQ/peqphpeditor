@@ -157,6 +157,7 @@
                   <input type="checkbox" name="Q" value="Q"> Quad Attack<br>
                   <input type="checkbox" name="m" value="m"> Magic Attack<br>
                   <input type="checkbox" name="b" value="b"> Bane Attack<br>
+                  <input type="checkbox" name="L" value="L"> Dual Wield<br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="U" value="U"> Unslowable<br>

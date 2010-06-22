@@ -154,6 +154,7 @@
                   <input type="checkbox" name="Q" value="Q"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "Q") ? "checked" : "";}}?>> Quad Attack<br>
                   <input type="checkbox" name="m" value="m"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "m") ? "checked" : "";}}?>> Magic Attack<br>
                   <input type="checkbox" name="b" value="b"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "b") ? "checked" : "";}}?>> Bane Attack<br>
+                  <input type="checkbox" name="L" value="L"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "L") ? "checked" : "";}}?>> Dual Wield<br>
                  </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="U" value="U"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "U") ? "checked" : "";}}?>> Unslowable<br>
