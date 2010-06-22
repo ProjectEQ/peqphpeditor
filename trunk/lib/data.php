@@ -864,7 +864,8 @@ $specialattacks = array(
   "O" => "Immune to non-Bane Melee",
   "H" => "Will Not Aggro",
   "g" => "Resist ranged spells",
-  "d" => "See through Feign Death"
+  "d" => "See through Feign Death",
+  "L" => "Dual Wield"
 );
 
 $tradeskills = array(
