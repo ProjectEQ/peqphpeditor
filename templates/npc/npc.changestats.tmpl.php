@@ -1,6 +1,6 @@
 <div class="edit_form" style="width: 700px">
       <div class="edit_form_header">
-        Change NPC Stats
+        Change NPC Stats (AC and Resists)
                </div>
         <div class="edit_form_content">
         <form method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=53">
@@ -19,6 +19,15 @@ NPC Tier:<br>
 <select name="npctier_selected">
 <?foreach($npctier as $key=>$value):?>
                    <option value="<?=$key?>"<?echo ($key == $npctier_selected)? " selected" : "";?>> <?=$value?></option>
+<?endforeach;?>
+                 </select>               
+            </td>
+</td> 
+<td valign="top">   
+NPC Class:<br>       
+<select name="npcclass_selected">
+<?foreach($npcclass as $key=>$value):?>
+                   <option value="<?=$key?>"<?echo ($key == $npcclass_selected)? " selected" : "";?>> <?=$value?></option>
 <?endforeach;?>
                  </select>               
             </td>

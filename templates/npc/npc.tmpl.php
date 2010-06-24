@@ -16,7 +16,7 @@
            <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=42"><img src="images/add.gif" border=0 title="Add an NPC"></a>
            <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" border=0 title="Edit this NPC"></a>
            <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=43"><img src="images/upgrade.gif" border=0 title="Change NPC's Level"></a>
-           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=52"><img src="images/create.gif" border=0 title="Change NPC's AC"></a>
+           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=52"><img src="images/create.gif" border=0 title="Change NPC's AC/Resists"></a>
             <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=40"><img src="images/zone.gif" border=0 title="Get next npcid for a zone"></a>
            <a onClick="return confirm('Really delete npcid <?=$npcid?>?');" href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=24"><img src="images/table.gif" border=0 title="Delete this NPC"></a>
          </div>
@@ -138,14 +138,19 @@
            <fieldset>
              <legend><strong>Resists</strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
+                <?php ($mrper = $MR*0.4); ?>
+                <?php ($crper = $CR*0.4); ?>
+                <?php ($frper = $FR*0.4); ?>
+                <?php ($prper = $PR*0.4); ?>
+                <?php ($drper = $DR*0.4); ?>
 			  <tr>
-                <td align="left" width="33%">MR: <?=$MR?></td>
-                <td align="left" width="33%">CR: <?=$CR?></td>
-                <td align="left" width="34%">FR: <?=$FR?></td>
+                <td align="left" width="33%">MR: <?=$MR?> (<?=$mrper?>%)</td>
+                <td align="left" width="33%">CR: <?=$CR?> (<?=$crper?>%)</td>
+                <td align="left" width="34%">FR: <?=$FR?> (<?=$frper?>%)</td>
               </tr>
               <tr>
-                <td align="left" width="33%">PR: <?=$PR?></td>
-                <td align="left" width="33%">DR: <?=$DR?></td>
+                <td align="left" width="33%">PR: <?=$PR?> (<?=$prper?>%)</td>
+                <td align="left" width="33%">DR: <?=$DR?> (<?=$drper?>%)</td>
                 <td align="left" width="34%">&nbsp;</td>
               </tr>
              </table>
