@@ -47,14 +47,30 @@ $itempointtype= array(
 );
 
 $itemcasttype= array(
-  0   => "None/Proc",
-  1   => "Cast from any slot",
-  2   => "Worn",
-  3   => "Cast from any slot",
-  4   => "Must be equipped - Self",
-  5   => "Must be equipped - Target",
-  6   => "Focus",
-  7   => "Scroll"
+0 => "None",
+1 => "Click from inventory w/Lvl",
+3 => "Expendable",
+4 => "Must equip to click",
+5 => "Click from inventory w/Lvl/Class/Race"
+);
+
+$proccasttype= array(
+0   => "None/Proc"
+);
+
+$worncasttype= array(
+0   => "None",
+2   => "Worn"
+);
+
+$focuscasttype= array(
+0   => "None",
+6   => "Focus"
+);
+
+$scrollcasttype= array(
+0   => "None",
+7   => "Scroll"
 );
 
 switch ($action) {
@@ -86,6 +102,11 @@ switch ($action) {
     $body->set("itembardtype", $itembardtype);
     $body->set("itempointtype", $itempointtype);
     $body->set("itemcasttype", $itemcasttype);
+    $body->set("proccasttype", $proccasttype);
+    $body->set("worncasttype", $worncasttype);
+    $body->set("focuscasttype", $focuscasttype);
+    $body->set("scrollcasttype", $scrollcasttype);
+    $body->set("equipslots", $equipslots);
     $vars = item_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -215,9 +236,9 @@ function delete_item () {
 function update_item () {
   global $mysql;
 
-   $id = $_POST['id'];
-   
-  // Define checkbox fields:
+  $id = $_POST['id'];
+
+   // Define checkbox fields:
   $slots = 0;
   if (isset($_POST['slot_Charm'])) $slots = $slots+1;
   if (isset($_POST['slot_Ear01'])) $slots = $slots+2;

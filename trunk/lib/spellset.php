@@ -155,6 +155,41 @@ switch($action) {
     $nss = get_new_id();
     header("Location: index.php?editor=spellset&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
+  case 17: // Mass change spellset 
+    check_authorization();
+    $body = new Template("templates/spellset/spellset.masschange.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('id', $_GET['id']);
+    break;
+  case 18:
+    check_authorization();
+    $body = new Template("templates/spellset/spellset.changebyname.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('id', $_GET['id']);
+    break;
+  case 19:
+    check_authorization();
+    $body = new Template("templates/spellset/spellset.changebyclass.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('classes', $classes);
+    $body->set('id', $_GET['id']);
+    break;
+  case 20: // Change spellset by NPC Name
+    check_authorization();
+    change_spellset_byname();
+    header("Location: index.php?editor=spellset&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
+  case 21: // Change spellset by NPC Race
+    check_authorization();
+    change_spellset_byclass();
+    header("Location: index.php?editor=spellset&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
 }
 
 function spells_info () {
@@ -395,5 +430,47 @@ function get_new_id() {
   $result = $mysql->query_assoc($query);
   $nss = $result['sid'];
   return $nss;
+}
+
+function change_spellset_byname () {
+  check_authorization();
+  global $mysql, $npcid, $z;
+  $zid = getZoneID($z);
+  $min_id = $zid*1000-1;
+  $max_id = $zid*1000+1000;
+  $id = $_GET['id'];
+  $npcname = $_POST['npcname'];
+  $updateall = $_POST['updateall'];
+ 
+  if($updateall == 0){
+  $query = "UPDATE npc_types SET npc_spells_id=$id WHERE name like \"%$npcname%\" AND id > $min_id AND id < $max_id AND npc_spells_id = 0";
+  $mysql->query_no_result($query);
+  }
+
+  if($updateall == 1){
+  $query = "UPDATE npc_types SET npc_spells_id=$id WHERE name like \"%$npcname%\" AND id > $min_id AND id < $max_id";
+  $mysql->query_no_result($query);
+  }
+}
+
+function change_spellset_byclass () {
+  check_authorization();
+  global $mysql, $npcid, $z;
+  $zid = getZoneID($z);
+  $min_id = $zid*1000-1;
+  $max_id = $zid*1000+1000;
+  $id = $_GET['id'];
+  $npcclass = $_POST['npcclass'];
+  $updateall = $_POST['updateall'];
+ 
+  if($updateall == 0){
+  $query = "UPDATE npc_types SET npc_spells_id=$id WHERE class = $npcclass AND id > $min_id AND id < $max_id AND npc_spells_id = 0";
+  $mysql->query_no_result($query);
+  }
+
+  if($updateall == 1){
+  $query = "UPDATE npc_types SET npc_spells_id=$id WHERE class = $npcclass AND id > $min_id AND id < $max_id";
+  $mysql->query_no_result($query);
+  }
 }
 ?>

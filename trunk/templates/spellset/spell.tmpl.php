@@ -13,9 +13,9 @@
            <a onClick="return confirm('Really Copy Spellset <?=$id?>?');" href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellsetid=<?=$id?>&action=16"><img src="images/last.gif" border="0" title="Copy Spellset"></a>&nbsp;
             <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=14" onClick="return confirm('Really unassign this NPC\'s spellset?')">
               <img src="images/minus2.gif" border="0" title="Unassign Spellset">
+            <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$id?>&action=17"><img src="images/upgrade.gif" border="0" title="Apply Spellset to Multiple NPCs"></a>&nbsp;
             </a>
 <?endif;?>
-
             <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$id?>&action=7" onClick="return confirm('Really delete this spellset? This will affect all NPCs that share this list!')">
               <img src="images/table.gif" border="0" title="Delete Spellset">
             </a>

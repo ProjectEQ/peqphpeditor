@@ -1658,4 +1658,31 @@ $eqexpansions = array (
 17 => 'Underfoot',
 99 => 'Other'
 );
+
+$equipslots = array (  
+1 => 'slot_Charm',
+2 => 'slot_Ear01',
+4 => 'slot_Head',
+8 => 'slot_Face',
+16 => 'slot_Ear02',
+32 => 'slot_Neck',
+64 => 'slot_Shoulder',
+128 =>	'slot_Arms',
+256 =>	'slot_Back',
+512 =>	'slot_Bracer01',
+1024 => 'slot_Bracer02',
+2048 => 'slot_Range',
+4096 => 'slot_Hands',
+8192 => 'slot_Primary',
+6384 => 'slot_Secondary',
+32768 => 'slot_Ring01',
+65536 => 'slot_Ring02',
+131072 => 'slot_Chest',
+262144 => 'slot_Legs',
+524288 => 'slot_Feet',
+1048576 => 'slot_Waist',
+2097152 => 'slot_Ammo',
+4194304 => 'slot_Powersource'
+);
+
 ?>
