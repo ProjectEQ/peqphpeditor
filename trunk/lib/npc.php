@@ -975,7 +975,7 @@ function update_npc_bytier() {
        $mysql->query_no_result($query);
        }
        if($name == '' && $class > 0 && $race > 0){
-       $query = "UPDATE npc_types ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype), mr = $resist, cr = $resist, dr = $resist, pr = $resist, fr = $resist WHERE class=$class AND race=$race AND id > $min_id AND id < $max_id";
+       $query = "UPDATE npc_types SET ac = ((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype), mr = $resist, cr = $resist, dr = $resist, pr = $resist, fr = $resist WHERE class=$class AND race=$race AND id > $min_id AND id < $max_id";
        $mysql->query_no_result($query);
        }
        if($name == '' && $class == 0 && $race > 0){
