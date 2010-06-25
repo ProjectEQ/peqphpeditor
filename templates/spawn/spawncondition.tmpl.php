@@ -1,4 +1,4 @@
-      <div class="table_container" style="width: 450px;">
+      <div class="table_container" style="width: 550px;">
       <div class="table_header">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
@@ -16,7 +16,7 @@
           <td align="center" width="5%"><strong>id</strong></td>
           <td align="center" width="10%"><strong>value</strong></td>
           <td align="center" width="10%"><strong>onchange</strong></td>
-          <td align="center" width="15%"><strong>name</strong></td>
+          <td align="center" width="10%"><strong>name</strong></td>
           <th width="5%"></th>
          </tr>
 <?$x=0; foreach($spawnc as $spawnc=>$v):?>
@@ -24,9 +24,10 @@
           <td align="center" width="5%"><?=$v['scid']?></td>
           <td align="center" width="10%"><?=$v['value']?></td>
           <td align="center" width="10%"><?=$ochangetype[$v['onchange']]?></td>
-          <td align="center" width="15%"><?=$v['name']?></td>
+          <td align="center" width="10%"><?=$v['name']?></td>
           <td align="right">      
-            <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&scid=<?=$v['scid']?>&action=42"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
+            <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&scid=<?=$v['scid']?>&action=42"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>    
+            <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&scid=<?=$v['scid']?>&action=60"><img src="images/config.gif" border="0" title="View entries"></a>      
             <a onClick="return confirm('Really Delete Condition <?=$v['scid']?>?');" href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&scid=<?=$v['scid']?>&action=44"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>

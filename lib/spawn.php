@@ -626,6 +626,37 @@ check_authorization();
     $body->set('currzoneid', $zoneid);
     $body->set('results', $res);
     break;
+  case 60: // View spawn_condition values
+    check_authorization();
+    $body = new Template("templates/spawn/spawnconditionvalue.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $_GET['npcid']);
+    $body->set('spid', $_GET['spid']);
+    $body->set('scid', $_GET['scid']); 
+    $spawncv = get_spawn_condition_value();
+    if ($spawncv) {
+      foreach ($spawncv as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+   case 61:  // Add spawncondition value
+    check_authorization();
+    add_spawnconditionvalue();
+    $npcid = $_GET['npcid'];
+    $spid = $_GET['spid'];
+    $scid = $_GET['scid'];
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&scid=$scid&action=60");
+    exit;
+   case 62:  // Delete spawncondition value
+    check_authorization();
+    delete_spawnconditionvalue();
+    $npcid = $_GET['npcid'];
+    $spid = $_GET['spid'];
+    $scid = $_GET['scid'];
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&scid=$scid&action=60");
+    exit;
 }
 
 function get_spawngroups() {
@@ -935,6 +966,19 @@ function delete_spawncondition() {
 
   $query = "DELETE FROM spawn_conditions WHERE id=$scid AND zone=\"$z\"";
   $mysql->query_no_result($query);
+
+  $query = "DELETE FROM spawn_condition_values WHERE id=$scid AND zone=\"$z\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_spawnconditionvalue() {
+  check_authorization();
+  global $mysql, $z;
+  $scid = $_GET['scid'];
+  $instance_id = $_GET['instance_id'];
+
+  $query = "DELETE FROM spawn_condition_values WHERE id=$scid AND zone=\"$z\" AND instance_id = $instance_id";
+  $mysql->query_no_result($query);
 }
 
 function spawnpoint_info () {
@@ -1230,6 +1274,22 @@ function get_spawn_condition () {
        return $array;
 }
 
+function get_spawn_condition_value() {
+  global $mysql, $z;
+  $array = array();
+  
+  $scid = $_GET['scid'];
+
+  $query = "SELECT id AS scvid, zone, value, instance_id FROM spawn_condition_values WHERE zone=\"$z\" AND id=$scid";
+  $results = $mysql->query_mult_assoc($query);
+  if ($results) {
+    foreach ($results as $result) {
+     $array['spawncv'][$result['instance_id']] = array("zone"=>$result['zone'], "value"=>$result['value'], "instance_id"=>$result['instance_id']);
+         }
+       }
+       return $array;
+}
+
 function get_spawn_event () {
   global $mysql, $z;
   $array = array();
@@ -1321,6 +1381,24 @@ function add_spawncondition() {
   $name = $_POST['name'];
 
   $query = "INSERT INTO spawn_conditions SET id=\"$scid\", zone=\"$z\", value=\"$value\", onchange=\"$onchange\", name=\"$name\"";
+  $mysql->query_no_result($query);
+
+  $query = "INSERT INTO spawn_condition_values SET id=\"$scid\", zone=\"$z\", value=\"$value\", instance_id=0";
+  $mysql->query_no_result($query);
+}
+
+function add_spawnconditionvalue() {
+  check_authorization();
+  global $mysql, $z;
+
+  $scid = $_GET['scid'];
+  
+  $query = "SELECT MAX(instance_id) AS scvinst FROM spawn_condition_values WHERE zone=\"$z\" AND id=$scid";
+  $result = $mysql->query_assoc($query);
+  
+  $instance_id = ($result['scvinst'] + 1);
+
+  $query = "INSERT INTO spawn_condition_values SET id=\"$scid\", zone=\"$z\", value=0, instance_id=\"$instance_id\"";
   $mysql->query_no_result($query);
 }
 
