@@ -35,9 +35,9 @@
                <td align="left" width="20%">Reward XP:  <?=$xpreward?></td>            
              </tr>
               <tr>
-               <td align="left" width="35%">Reward ID:
+               <td align="left" width="35%" colspan="2">Reward:
                <?if(($rewardmethod == 0 || $rewardmethod == 2) && $rewardid > 1000):?>
-          <a href="index.php?editor=items&tskid=<?=$id?>&id=<?=$rewardid?>&action=2"><?=get_item_name($rewardid)?></a> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$rewardid?>">lucy</a>]</span></td>
+          <a href="index.php?editor=items&tskid=<?=$id?>&id=<?=$rewardid?>&action=2"><?echo $rewardid . " - " . get_item_name($rewardid)?></a> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$rewardid?>">lucy</a>]</span></td>
               <?endif;?> 
                <?if($rewardmethod == 2 && $rewardid < 1001):?>
           <?=$rewardid?></td>
