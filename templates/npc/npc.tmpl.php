@@ -159,6 +159,7 @@
            <fieldset>
              <legend><strong>Combat</strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
+              <?php ($slotmit = $slow_mitigation*100); ?>
               <tr>
                 <td align="left" width="33%">MinDmg: <?=$mindmg?></td>
                 <td align="left" width="33%">MaxDmg: <?=$maxdmg?></td>
@@ -171,11 +172,11 @@
               </tr>
               <tr>
                 <td align="left" width="33%">Aggro: <?=$aggroradius?></td>
-                <td align="left" width="33%">Atk Speed: <?=$attack_speed?></td>
+                <td align="left" width="33%">Atk Speed: <?=$attack_speed?>%</td>
                 <td align="left" width="34%">Special Atks: <?=$npcspecialattks?></td>
               </tr>
               <tr>
-                 <td align="left" width="33%">Slow Mit: <?=$slow_mitigation?></td>
+                 <td align="left" width="33%">Slow Mit: <?=$slow_mitigation?> (<?=$slotmit?>%)</td>
                  <td align="left" width="33%">NPC Aggro: <?=$npc_aggro?></td>
                  <td align="left" width="34%">&nbsp;</td>
                 

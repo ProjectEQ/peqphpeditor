@@ -138,7 +138,7 @@
                 <td align="left" width="11%">HP Regen:  <br><input type="text" name="hp_regen_rate" size="5" value="<?=$hp_regen_rate?>"></td>
                 <td align="left" width="11%">MP Regen:  <br><input type="text" name="mana_regen_rate" size="5" value="<?=$mana_regen_rate?>"></td>
                 <td align="left" width="11%">Aggroradius:  <br><input type="text" name="aggroradius" size="5" value="<?=$aggroradius?>"></td>
-                <td align="left" width="11%">Atk Speed%: <br><input type="text" name="attack_speed" size="5" value="<?=$attack_speed?>"></td>
+                <td align="left" width="11%">Atk Speed: <br><input type="text" name="attack_speed" size="5" value="<?=$attack_speed?>">%</td>
                 <td align="left" width="12%">Slow Mit: <br><input type="text" name="slow_mitigation" size="5" value="<?=$slow_mitigation?>"></td>
               </tr>
             </table>

@@ -1,4 +1,13 @@
-<div class="edit_form" style="width: 700px">
+     <center>
+       <table style="border: 1px solid black; background-color: #CCC;">
+        <tr><td colspan=2><b>Reminder:</b></td></tr>
+
+         <tr><td align=right>If you wish to use the WHERE options you must select Custom for NPC to Change.</td></tr>
+
+       </table><br><br>
+       </center>
+
+<div class="edit_form" style="width: 750px">
       <div class="edit_form_header">
         Change NPC Stats (AC and Resists)
                </div>
@@ -39,15 +48,26 @@ NPC to Change:<br>
 <?endforeach;?>
                  </select>               
             </td>
+<td valign="top">   
+Stat to Change:<br>       
+<select name="npcstatchange_selected">
+<?foreach($npcstatchange as $key=>$value):?>
+                   <option value="<?=$key?>"<?echo ($key == $npcstatchange_selected)? " selected" : "";?>> <?=$value?></option>
+<?endforeach;?>
+                 </select>               
+            </td>
 
              </tr>
                  </table>
-<center><B>WHERE<B><br></center>
+<center><B>WHERE:<B><br></center>
 <table width="100%">
            <tr>
-               <td valign="top">
+<td valign="top">
 Name:<br>
 <input type="text" size="25" name="npcname" value=""></td> 
+<td valign="top">
+Level:<br>
+<input type="text" size="5" name="npclevel" value=""></td> 
 <td valign="top">   
 Race:<br>       
 <select name="race_selected">

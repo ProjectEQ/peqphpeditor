@@ -243,7 +243,7 @@ function build_tabs () {
   ob_end_clean();
 
   return $headbar;
-
+  
 }
 
 function zones () {
@@ -265,34 +265,41 @@ function zones2 () {
 }
 
 function npcs() {
-  global $mysql, $z, $zoneid;
+  global $mysql, $z, $zoneid, $npc_list;
 
+  if($npc_list == ''){ $npc_list = 1; }
   $zid = getZoneID($z) . "___";
   
   if($z){
   $query = "SELECT version FROM zone WHERE id = \"$zoneid\"";
   $result = $mysql->query_assoc($query);
   $version = $result['version'];
-
+  }
+ 
+  if($npc_list == 1){
   if ($version > 0) {
   $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND version = $version GROUP BY id ORDER BY name ASC";
   $results = $mysql->query_mult_assoc($query);
   }
   
-  if ($version == 0){
+  if ($version < 1){
   $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" GROUP BY id ORDER BY name ASC";
   $results = $mysql->query_mult_assoc($query);
   }
   }
 
-  else {
-  $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" GROUP BY id ORDER BY name ASC";
-  $results = $mysql->query_mult_assoc($query);
+  if($npc_list == 2){
+  if ($version > 0) {
+   $query = "SELECT npc_types.id AS id, npc_types.name AS name FROM npc_types,spawnentry,spawn2 WHERE (spawn2.spawngroupid=spawnentry.spawngroupid AND npc_types.id=spawnentry.npcid) AND spawn2.zone = '$z' AND spawn2.version = $version GROUP BY npc_types.id ORDER BY npc_types.name ASC";
+   $results = $mysql->query_mult_assoc($query);
   }
-
+  if ($version < 1){
+   $query = "SELECT npc_types.id AS id, npc_types.name AS name FROM npc_types,spawnentry,spawn2 WHERE (spawn2.spawngroupid=spawnentry.spawngroupid AND npc_types.id=spawnentry.npcid) AND spawn2.zone = '$z' GROUP BY npc_types.id ORDER BY npc_types.name ASC";
+   $results = $mysql->query_mult_assoc($query);
+  }
+  }
   return $results;
-//  $query = "SELECT npc_types.id AS id, npc_types.name AS name FROM npc_types,spawnentry,spawn2 WHERE (spawn2.spawngroupid=spawnentry.spawngroupid AND npc_types.id=spawnentry.npcid) AND spawn2.zone = '$z' GROUP BY npc_types.id ORDER BY npc_types.name ASC";
-  
+
 }
 
 function npcs_by_merchantid() {
