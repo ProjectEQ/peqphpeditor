@@ -30,6 +30,9 @@ $db = 'database_name';
  */
 $expansion_limit = 17;
 
+// How NPCs are listed. 1 = by NPCID (zoneidnumber*1000), 2 = By spawn2 entry
+$npc_list = 1;
+
 // Dont want to have to type the username and password every time you start the editor?
 // Set the two variables below to the values you want to be in the form when you start it up.
 // (default login: admin  pw: password)
