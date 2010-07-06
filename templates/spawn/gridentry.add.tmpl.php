@@ -19,7 +19,7 @@
             <td><input type="text" size="7" name="x_coord" value="0"></td>
             <td><input type="text" size="7" name="y_coord" value="0"></td>
             <td><input type="text" size="7" name="z_coord" value="0"></td>
-            <td><input type="text" size="7" name="heading" value="0"></td>
+            <td><input type="text" size="7" name="heading" value="-1"></td>
             <td><input type="text" size="7" name="pause" value="0"></td>
           </tr>
         </table><br><br>
