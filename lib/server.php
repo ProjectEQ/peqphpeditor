@@ -4,7 +4,7 @@ $bugstatus = array(
   0   => "Open",
   1   => "Corrected",
   2   => "Invalid",
-  3   => "Moved",
+  3   => "Moved"
 );
 
 $flags = array(
@@ -23,7 +23,7 @@ $flags = array(
   12  => "Target/Flags",
   13  => "Duplicate/Target/Flags",
   14  => "Crash/Target/Flags",
-  15  => "Duplicate/Crash/Target/Flags",
+  15  => "Duplicate/Crash/Target/Flags"
 );
 
 switch ($action) {
@@ -767,7 +767,7 @@ function copy_ruleset() {
   $mysql->query_no_result($query);
 
   $query = "UPDATE rule_values rv
-	     INNER JOIN rule_sets rs ON rv.ruleset_id = rs.ruleset_id
+            INNER JOIN rule_sets rs ON rv.ruleset_id = rs.ruleset_id
             SET rv.ruleset_id=\"$ruleset_id\"
             WHERE rs.name=\"$name\"";
   $mysql->query_no_result($query);

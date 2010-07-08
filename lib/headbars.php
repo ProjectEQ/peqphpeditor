@@ -219,8 +219,7 @@ function build_tabs () {
 
   ob_start();
 
-  echo "
-      <div id=\"menubar\">
+  echo "      <div id=\"menubar\">
         <div class=\"$tabstatus1\"><a href=\"index.php?editor=npc$zoneurl$npcurl\">NPCs</a></div>
         <div class=\"$tabstatus2\"><a href=\"index.php?editor=loot$zoneurl$npcurl\">Loot</a></div>
         <div class=\"$tabstatus3\"><a href=\"index.php?editor=spawn$zoneurl$npcurl\">Spawns</a></div>
@@ -237,7 +236,7 @@ function build_tabs () {
         <div class=\"$tabstatus13\"><a href=\"index.php?editor=items\">Items</a></div>
         <div class=\"$tabstatus14\"><a href=\"index.php?editor=player\">Players</a></div><br>
       </div>
- ";
+";
 
   $headbar = ob_get_contents();
   ob_end_clean();
