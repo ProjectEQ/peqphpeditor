@@ -149,19 +149,19 @@ $sp_targets = array(
     20 => "Targeted AE, Tap",
     24 => "AE Undead",
     25 => "AE Summoned",
-    32 => "Unknown(32)",
+    32 => "AE Caster2",
     33 => "NPC Hatelist",
     34 => "Dungeon Object",
-    35 => "Unknown(35)",
+    35 => "Muramite",
     36 => "Area - PC Only",
     37 => "Area - NPC Only",
     38 => "Summoned Pet",
-    39 => "Unknown(39)",
+    39 => "Group No Pets",
     40 => "AE PC v2",
     41 => "Group v2",
-    42 => "Self",
-    43 => "Unknown(43)",
-    44 => "Unknown(44)"
+    42 => "Self (Directional)",
+    43 => "Group With Pets",
+    44 => "Beam"
 );
 
 $sp_npccats = array(
