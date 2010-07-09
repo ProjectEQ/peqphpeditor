@@ -259,6 +259,7 @@
 <input type="checkbox" name="slot_Waist" value=1048576 <?echo ($slots & 1048576) ? "checked" : ""?>> Waist<br>
 <input type="checkbox" name="slot_Ammo" value=2097152 <?echo ($slots & 2097152) ? "checked" : ""?>> Ammo<br>
 <input type="checkbox" name="slot_Powersource" value=4194304 <?echo ($slots & 4194304) ? "checked" : ""?>> Powersource<br>
+<input type="checkbox" name="all_none" value="yes" onClick="Check(document.item_edit)"><b>All/None</b><br>
                  </td>
                 </tr>
            </table>
@@ -297,6 +298,7 @@
 <td valign="top" align="left">
 <br>
  <input type="checkbox" name="race_Shroud" value=65536 <?echo ($races & 65536) ? "checked" : ""?>> Shroud<br>
+<input type="checkbox" name="all_none2" value="yes" onClick="Check2(document.item_edit)"><b>All/None</b><br>
                   </td>
                 </tr>
            </table>
@@ -332,6 +334,10 @@
 <input type="checkbox" name="class_Enchanter" value=8192 <?echo ($classes & 8192) ? "checked" : ""?>> Enchanter<br>
 <input type="checkbox" name="class_Beastlord" value=16384 <?echo ($classes & 16384) ? "checked" : ""?>> Beastlord<br>
 <input type="checkbox" name="class_Berserker" value=32768 <?echo ($classes & 32768) ? "checked" : ""?>> Berserker<br>
+   </td>
+<td valign="top" align="left">
+<br>
+<input type="checkbox" name="all_none3" value="yes" onClick="Check3(document.item_edit)"><b>All/None</b><br>
    </td>
   </tr>
   </table>
@@ -370,6 +376,7 @@
 <td valign="top" align="left">
 <br>
  <input type="checkbox" name="deity_Veeshan" value=65536 <?echo ($deity & 65536) ? "checked" : ""?>> Veeshan<br>
+<input type="checkbox" name="all_none4" value="yes" onClick="Check4(document.item_edit)"><b>All/None</b><br>
                   </td>
                 </tr>
            </table>
@@ -379,7 +386,9 @@
 
         <fieldset>
           
-           <legend><strong><font size="4">Stats</font></strong></legend>
+           <legend><strong><font size="4">Stats</font></strong></legend><br>
+           <fieldset>
+           <legend><font size="4">Damage</font></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
                <td align="left" width="33%">Damage:  <br><input type="text" name="damage" size="5" value="0"></td>
@@ -393,22 +402,38 @@
                <td align="left" width="14%">Bane Race Dmg:  <br><input type="text" name="banedmgraceamt" size="5" value="0"></td>
                       <td align="left" width="14%">
           Bane Race:  <br>
-          <select class="left" name="banedmgrace">
-              <?foreach($itemraces as $k => $v):?>
-              <option value="<?=$k?>"<? echo ($k == $banedmgrace) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
-               <?endforeach;?>       
-             </select>
-               </td>
-                    <td align="left" width="14%">
-          Bane Bodytype:  <br>
-          <select class="left" name="banedmgbody">
-              <?foreach($bodytypes as $k => $v):?>
-              <option value="<?=$k?>"<? echo ($k == $banedmgbody) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
-               <?endforeach;?>       
-             </select>
-               </td>
-             </tr>
+	            <select class="left" name="banedmgrace">
+	                <?foreach($itemraces as $k => $v):?>
+	                <option value="<?=$k?>"<? echo ($k == $banedmgrace) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+	                 <?endforeach;?>       
+	               </select>
+	                 </td>
+	                      <td align="left" width="14%">
+	            Bane Bodytype:  <br>
+	            <select class="left" name="banedmgbody">
+	                <?foreach($bodytypes as $k => $v):?>
+	                <option value="<?=$k?>"<? echo ($k == $banedmgbody) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+	                 <?endforeach;?>       
+	               </select>
+	                 </td>
+	               </tr>
+	                </table><br>
+	                 <fieldset>
+               <table width="100%" border="0" cellpadding="3" cellspacing="0">
+               
+               <tr>
+              <td align="left" width="14%">Extra Dmg Skill:  <br><input type="text" name="extradmgskill" size="5" value="0"></td>
+               <td align="left" width="14%">Extra Dmg Amt:  <br><input type="text" name="extradmgamt" size="5" value="0"></td>
+               <td align="left" width="14%">Elem Dmg Type:  <br><input type="text" name="elemdmgtype" size="5" value="0"></td>
+               <td align="left" width="14%">Elem Dmg Amt:  <br><input type="text" name="elemdmgamt" size="5" value="0"></td>
+               <td align="left" width="15%">Spell Dmg:  <br><input type="text" name="spelldmg" size="5" value="0"></td>
+               <td align="left" width="15%">Backstab Dmg:  <br><input type="text" name="backstabdmg" size="5" value="0"></td>
+               </tr>
               </table>
+              </fieldset>
+              </fieldset><br><br>
+             <fieldset>
+              <legend><font size="4">Base Stats</font></legend>
               <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
                <td align="left" width="14%">HP:  <br><input type="text" name="hp" size="5" value="0"></td>
@@ -417,17 +442,19 @@
                <td align="left" width="14%">AC:  <br><input type="text" name="ac" size="5" value="0"></td>
                <td align="left" width="14%">Accuracy:  <br><input type="text" name="accuracy" size="5" value="0"></td>
                <td align="left" width="14%">Attack:  <br><input type="text" name="attack" size="5" value="0"></td>
-               <td align="left" width="14%">Light:  <br><input type="text" name="light" size="5" value="0"></td>
              </tr>
                 <tr>
                <td align="left" width="14%">HP Regen:  <br><input type="text" name="regen" size="5" value="0"></td>
                <td align="left" width="14%">Mana Regen:  <br><input type="text" name="manaregen" size="5" value="0"></td>
                <td align="left" width="15%">End Regen:  <br><input type="text" name="enduranceregen" size="5" value="0"></td>
                <td align="left" width="14%">Haste:  <br><input type="text" name="haste" size="5" value="0"></td>
-               <td align="left" width="14%">Avoidance:  <br><input type="text" name="avoidance" size="5" value="0"></td>
-               <td align="left" width="14%">Purity:  <br><input type="text" name="purity" size="5" value="0"></td>
-               <td align="left" width="14%">Combat Effects:  <br><input type="text" name="combateffects" size="5" value="0"></td>
+               <td align="left" width="14%">Light:  <br><input type="text" name="light" size="5" value="0"></td>
              </tr>
+           </table>
+           </fieldset><br><br>
+            <fieldset>
+              <legend><font size="4">Stats</font></legend>
+              <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
                <td align="left" width="14%">AGI:  <br><input type="text" name="aagi" size="5" value="0"></td>
                <td align="left" width="14%">CHA:  <br><input type="text" name="acha" size="5" value="0"></td>
@@ -446,6 +473,11 @@
                <td align="left" width="15%">Corruption:  <br><input type="text" name="svcorruption" size="5" value="0"></td>
                <td align="left" width="15%">Stun:  <br><input type="text" name="stunresist" size="5" value="0"></td>
              </tr>
+             </table>
+           </fieldset><br><br>
+            <fieldset>
+              <legend><font size="4">Heroic Stats</font></legend>
+              <table width="100%" border="0" cellpadding="3" cellspacing="0">
                <tr>
                <td align="left" width="14%">Heroic AGI:  <br><input type="text" name="heroic_agi" size="5" value="0"></td>
                <td align="left" width="14%">Heroic CHA:  <br><input type="text" name="heroic_cha" size="5" value="0"></td>
@@ -463,39 +495,44 @@
                <td align="left" width="14%">Heroic Poison:  <br><input type="text" name="heroic_pr" size="5" value="0"></td>
                <td align="left" width="15%">Heroic Corruption:  <br><input type="text" name="heroic_svcorrup" size="5" value="0"></td>
              </tr>
+             </table>
+           </fieldset><br><br>
+             <fieldset>
+              <legend><font size="4">Spell/Ability Stats</font></legend>
+              <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
                <td align="left" width="14%">DMG Shield:  <br><input type="text" name="damageshield" size="5" value="0"></td>
                <td align="left" width="14%">DOT Shielding:  <br><input type="text" name="dotshielding" size="5" value="0"></td>
                <td align="left" width="14%">Shielding:  <br><input type="text" name="shielding" size="5" value="0"></td>
                <td align="left" width="14%">Spell Shield:  <br><input type="text" name="spellshield" size="5" value="0"></td>
                <td align="left" width="14%">Strikethrough:  <br><input type="text" name="strikethrough" size="5" value="0"></td>
-               <td align="left" width="15%">Spell Dmg:  <br><input type="text" name="spelldmg" size="5" value="0"></td>
-               <td align="left" width="15%">Backstab Dmg:  <br><input type="text" name="backstabdmg" size="5" value="0"></td>
+               <td align="left" width="14%">Combat Effects:  <br><input type="text" name="combateffects" size="5" value="0"></td>
              </tr>
              <tr>
-               <td align="left" width="14%">Extra Dmg Skill:  <br><input type="text" name="extradmgskill" size="5" value="0"></td>
-               <td align="left" width="14%">Extra Dmg Amt:  <br><input type="text" name="extradmgamt" size="5" value="0"></td>
-               <td align="left" width="14%">Elem Dmg Type:  <br><input type="text" name="elemdmgtype" size="5" value="0"></td>
-               <td align="left" width="14%">Elem Dmg Amt:  <br><input type="text" name="elemdmgamt" size="5" value="0"></td>
+               <td align="left" width="14%">Avoidance:  <br><input type="text" name="avoidance" size="5" value="0"></td>
                <td align="left" width="14%">Dmg Shield Mit:  <br><input type="text" name="dsmitigation" size="5" value="0"></td>
                <td align="left" width="15%">Heal Amt:  <br><input type="text" name="healamt" size="5" value="0"></td>
                <td align="left" width="15%">Clairvoyance:  <br><input type="text" name="clairvoyance" size="5" value="0"></td>
+               <td align="left" width="14%">Purity:  <br><input type="text" name="purity" size="5" value="0"></td>
              </tr>
-           
                </table>
- <table width="100%" border="0" cellpadding="3" cellspacing="0">
-             <tr>
-                  <td align="left" width="50%">
-          Skill Mod:  <br>
-          <select class="left" name="skillmodtype">
-              <?foreach($skilltypes as $k => $v):?>
-              <option value="<?=$k?>"<? echo ($k == $skillmodtype) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
-               <?endforeach;?>       
-             </select>
-               </td>
-            <td align="left" width="50%">Skill Mod Value:  <br><input type="text" name="skillmodvalue" size="5" value="0"></td> 
-           </table>
-            </tr>
+                            </fieldset><br><br>
+	                    <fieldset>
+	                    <legend><font size="4">Skill Stats</font></legend>
+	       <table width="100%" border="0" cellpadding="3" cellspacing="0">
+	                   <tr>
+	                        <td align="left" width="50%">
+	                Skill Mod:  <br>
+	                <select class="left" name="skillmodtype">
+	                    <?foreach($skilltypes as $k => $v):?>
+	                    <option value="<?=$k?>"<? echo ($k == $skillmodtype) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+	                     <?endforeach;?>       
+	                   </select>
+	                     </td>
+	                  <td align="left" width="50%">Skill Mod Value:  <br><input type="text" name="skillmodvalue" size="5" value="0"></td> 
+	                 </table>
+	                  </tr>
+	                </fieldset><br>
          </fieldset><br>
 
          <fieldset>
@@ -609,7 +646,7 @@
             <td align="left" width="14%">
           Proc Type:  <br>
           <select class="left" name="proctype">
-               <?foreach($itemcasttype as $k => $v):?>
+               <?foreach($proccasttype as $k => $v):?>
               <option value="<?=$k?>"<? echo ($k == $proctype) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
                <?endforeach;?>       
              </select>
@@ -625,7 +662,7 @@
             <td align="left" width="14%">
           Worn Type:  <br>
           <select class="left" name="worntype">
-               <?foreach($itemcasttype as $k => $v):?>
+               <?foreach($worncasttype as $k => $v):?>
               <option value="<?=$k?>"<? echo ($k == $worntype) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
                <?endforeach;?>       
              </select>
@@ -641,7 +678,7 @@
             <td align="left" width="14%">
           Focus Type:  <br>
           <select class="left" name="focustype">
-               <?foreach($itemcasttype as $k => $v):?>
+               <?foreach($focuscasttype as $k => $v):?>
               <option value="<?=$k?>"<? echo ($k == $focustype) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
                <?endforeach;?>       
              </select>
@@ -657,7 +694,7 @@
             <td align="left" width="14%">
           Scroll Type:  <br>
           <select class="left" name="scrolltype">
-               <?foreach($itemcasttype as $k => $v):?>
+               <?foreach($scrollcasttype as $k => $v):?>
               <option value="<?=$k?>"<? echo ($k == $scrolltype) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
                <?endforeach;?>       
              </select>
@@ -774,8 +811,10 @@
 		                  <input type="checkbox" name="augtype_Type_10" value=512 <?echo ($augtype & 512) ? "checked" : ""?>> Type 10<br>
 		                  <input type="checkbox" name="augtype_Type_11" value=1024 <?echo ($augtype & 1024) ? "checked" : ""?>> Type 11<br>
 		                  <input type="checkbox" name="augtype_Type_12" value=2048 <?echo ($augtype & 2048) ? "checked" : ""?>> Type 12<br>
+                              <td valign="top" align="left">
+                                <br>
+                                <input type="checkbox" name="all_none5" value="yes" onClick="Check5(document.item_edit)"><b>All/None</b><br>
 		   </td>
-                  </td>
                 </tr>
            </table>
            </fieldset>

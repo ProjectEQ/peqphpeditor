@@ -171,6 +171,10 @@ switch ($action) {
      $body->set("itembardtype", $itembardtype);
      $body->set("itempointtype", $itempointtype);
      $body->set("itemcasttype", $itemcasttype);
+     $body->set("proccasttype", $proccasttype);
+     $body->set("worncasttype", $worncasttype);
+     $body->set("focuscasttype", $focuscasttype);
+     $body->set("scrollcasttype", $scrollcasttype);
      $body->set("yesno", $yesno);
      $body->set('newid', get_max_id());
      $vars = getdate();
