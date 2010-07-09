@@ -820,7 +820,6 @@
                                 <br>
                                 <input type="checkbox" name="all_none5" value="yes" onClick="Check5(document.item_edit)"><b>All/None</b><br>
 		   </td>
-                  </td>
                 </tr>
            </table>
            </fieldset>
