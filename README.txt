@@ -12,7 +12,7 @@ Go to www.apache.org and download and install the Apache http server.
 
 Step 3:
 
-Go to www.php.net and download and install PHP.
+Go to www.php.net and download and install PHP. Make sure you edit your php.ini file to allow short tags (short_open_tag = On).
 
 
 Step 4: (Not required if gotten from SVN)
