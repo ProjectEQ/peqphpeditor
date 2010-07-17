@@ -31,7 +31,8 @@
           <strong>No Fail:</strong> <?=$yesno[$nofail]?><br>
           <strong>Replace Container:</strong> <?=$yesno[$replace_container]?><br>
           <strong>Notes:</strong> <?=$notes?><br>
-	   <strong>Learned:</strong> <?=$learned[$must_learn]?><br>
+          <strong>Learned:</strong> <?=$learned[$must_learn]?><br>
+          <strong>Quest Controlled:</strong> <?=$yesno[$quest]?>
         </div>
       </div>
 

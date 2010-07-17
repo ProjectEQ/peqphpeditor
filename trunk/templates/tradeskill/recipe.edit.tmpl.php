@@ -14,25 +14,30 @@
             </select><br><br>
             Min Skill Needed: <br>
             <input type="text" name="skillneeded" size="5" value="<?=$skillneeded?>"><br><br>
-		  			Trivial:<br>
+            Trivial:<br>
             <input type="text" name="trivial"  size="5" value="<?=$trivial?>"><br><br>
             Is Recipe No-fail? <br>
             <select name='nofail'>
               <option value="0"<?echo($nofail == 0) ? " selected" : ""?>>no</option>
               <option value="1"<?echo($nofail == 1) ? " selected" : ""?>>yes</option>
             </select><br><br>
-		  			Replace Combine Container?<br>
+            Replace Combine Container?<br>
             <select name="replace_container">
               <option value="0"<?echo($replace_container == 0) ? " selected" : ""?>>no</option>
               <option value="1"<?echo($replace_container == 1) ? " selected" : ""?>>yes</option>
             </select><br><br>
-	  				Notes:<br>
+            Notes:<br>
             <input type="text" name="notes" value="<?=$notes?>"><br><br>
             Learned: <br>
             <select name='must_learn'>
 <?foreach($learned as $k=>$v):?>
               <option value="<?=$k?>"<?echo($k == $must_learn) ? " selected" : ""?>><?=$v?></option>
 <?endforeach;?>
+            </select><br><br>
+            Quest Controlled? <br>
+            <select name='quest'>
+              <option value="0"<?echo($quest == 0) ? " selected" : ""?>>no</option>
+              <option value="1"<?echo($quest == 1) ? " selected" : ""?>>yes</option>
             </select><br><br>
             <center>
               <input type="hidden" name="id" value="<?=$id?>">

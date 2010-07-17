@@ -5,7 +5,7 @@ $learned = array(
   1   => "Quest",
   2   => "Experiment",
   5   => "No Message",
-  6   => "Unlisted",
+  6   => "Unlisted"
 );
 
 if ($ts == '' && intval($rec) != '0') {
@@ -23,6 +23,7 @@ switch ($action) {
       $body->set("ts", $ts);
       $body->set("rec", $rec);
       $body->set("learned", $learned);
+      $body->set("quest", $quest);
       $vars = recipe_info();
       if ($vars) {
         foreach ($vars as $key=>$value) {
@@ -66,6 +67,7 @@ switch ($action) {
     $body->set("ts", $ts);
     $body->set("rec", $rec);
     $body->set("learned", $learned);
+    $body->set("quest", $quest);
     $vars = recipe_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -200,7 +202,7 @@ function update_recipe () {
   $replace_container = $_POST['replace_container'];
   $notes = $_POST['notes'];
   $must_learn = $_POST['must_learn'];
-  
+  $quest = $_POST['quest'];
   $old = recipe_info();
   $fields = '';
 
@@ -213,6 +215,7 @@ function update_recipe () {
   if($old['replace_container'] != $replace_container) $fields .= "replace_container=$replace_container, ";
   if($old['notes'] != $notes) $fields .= "notes=\"$notes\", ";
   if($old['must_learn'] != $must_learn) $fields .= "must_learn=\"$must_learn\", ";
+  if($old['quest'] != $quest) $fields .= "quest=\"$quest\", ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -345,6 +348,7 @@ function add_recipe() {
   if(isset($_POST['replace_container'])) $fields .= "replace_container={$_POST['replace_container']}, ";
   if(isset($_POST['notes'])) $fields .= "notes=\"{$_POST['notes']}\", ";
   if(isset($_POST['must_learn'])) $fields .= "must_learn=\"{$_POST['must_learn']}\", ";
+  if(isset($_POST['quest'])) $fields .= "quest=\"{$_POST['quest']}\", ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -365,8 +369,8 @@ function copy_tradeskill() {
   $query = "DELETE FROM tradeskill_recipe_entries WHERE recipe_id=0";
   $mysql->query_no_result($query);
 
-  $query = "INSERT INTO tradeskill_recipe (name,tradeskill,skillneeded,trivial,nofail,replace_container,notes,must_learn) 
-            SELECT CONCAT(name,' - Copy'),tradeskill,skillneeded,trivial,nofail,replace_container,notes,must_learn FROM tradeskill_recipe where id=$rec";
+  $query = "INSERT INTO tradeskill_recipe (name,tradeskill,skillneeded,trivial,nofail,replace_container,notes,must_learn,quest) 
+            SELECT CONCAT(name,' - Copy'),tradeskill,skillneeded,trivial,nofail,replace_container,notes,must_learn,quest FROM tradeskill_recipe where id=$rec";
   $mysql->query_no_result($query);
 
   $query = "INSERT INTO tradeskill_recipe_entries (item_id,successcount,failcount,componentcount,iscontainer) 
