@@ -14,19 +14,19 @@
             </select><br><br>
             Min Skill Needed: <br>
             <input type="text" name="skillneeded" size="5" value=""><br><br>
-		  			Trivial:<br>
+            Trivial:<br>
             <input type="text" name="trivial" size="5" value=""><br><br>
             Is Recipe No-fail? <br>
             <select name='nofail'>
               <option value="0">no</option>
               <option value="1">yes</option>
             </select><br><br>
-		  			Replace Combine Container?<br>
+            Replace Combine Container?<br>
             <select name="replace_container">
               <option value="0">no</option>
               <option value="1">yes</option>
             </select><br><br>
-	  				Notes:<br>
+            Notes:<br>
             <input type="text" name="notes" value=""><br><br>
             Learned: <br>
             <select name='must_learn'>
@@ -34,7 +34,11 @@
               <option value="<?=$k?>"><?=$v?></option>
 <?endforeach;?>
             </select><br><br>
-
+            Quest Controlled? <br>
+            <select name='quest'>
+              <option value="0" selected>no</option>
+              <option value="1">yes</option>
+            </select><br><br>
             <center>
               <input type="submit" name="submit" value="Submit Changes">
             </center>
