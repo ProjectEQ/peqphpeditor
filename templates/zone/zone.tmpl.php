@@ -64,7 +64,7 @@
                 <tr>
                 <td align="left" width="33%">Note: <?=$note?></td>
                 <td align="left" width="33%">Global: <?=$yesno[$global]?></td>
-                <td align="left" width="34%">&nbsp;</td>
+                <td align="left" width="34%">Suspend Buffs: <?=$yesno[$suspendbuffs]?></td>
               </tr>
               </table>
            </fieldset>
