@@ -60,7 +60,14 @@
                  </select>
                 </td>
                 </tr>
-               <tr>
+                </tr>
+                <td align="left" width="25%">
+                  Suspend Buffs:  <br>
+                 <select name="suspendbuffs">
+                   <option value="0"<?echo ($suspendbuffs == 0) ? " selected" : ""?>>No</option>
+                   <option value="1"<?echo ($suspendbuffs == 1) ? " selected" : ""?>>Yes</option>
+                 </select>
+                </td>
                <td align="left" width="25%">
                Expansion:<br>
                  <select name="expansion">
