@@ -581,7 +581,7 @@
 
          
          <fieldset>
-           <legend><strong><font size="4">Apperance</font></strong></legend>
+           <legend><strong><font size="4">Appearance</font></strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
                <tr>
                 <td align="left" width="25%">Icon: <br><input type="text" name="icon" size="9" value="<?=$icon?>"></td>
