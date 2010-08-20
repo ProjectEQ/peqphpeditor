@@ -709,9 +709,13 @@ function add_spawngroup_member() {
 
   $sid = $_REQUEST['sid'];
   $npc = $_REQUEST['npc'];
+  $balance = $_REQUEST['balance'];
+  $chance = ($balance == "on") ? 0 : $_REQUEST['chance'];
 
-  $query = "INSERT INTO spawnentry SET spawngroupID=$sid, npcID=$npc";
+  $query = "INSERT INTO spawnentry SET spawngroupID=$sid, npcID=$npc, chance=$chance";
   $mysql->query_no_result($query);
+
+  if ($balance == "on") { balance_spawns(); }
 }
 
 function update_spawngroup_member() {
@@ -787,8 +791,6 @@ function update_spawngroup_name() {
   $max_y = $_POST['max_y'];
   $min_y = $_POST['min_y'];
   $delay = $_POST['delay'];
-
-
 
   $query = "UPDATE spawngroup SET name=\"$name\", spawn_limit=\"$spawn_limit\", dist=\"$dist\", max_x=\"$max_x\", min_x=\"$min_x\", max_y=\"$max_y\", min_y=\"$min_y\", delay=\"$delay\" WHERE id=$sid";
   $mysql->query_no_result($query);
@@ -1131,6 +1133,7 @@ function add_spawngroup() {
   $id = $_POST['id'];
   $name = $_POST['name'];
   $npcID = $_POST['npcID'];
+  $chance = ($_POST['chance'] >= 0 && $_POST['chance'] <= 100) ? $_POST['chance'] : 100;
   $spawn_limit = intval($_POST['spawn_limit']);
   $dist = intval($_POST['dist']);
   $max_x = $_POST['max_x'];
@@ -1141,7 +1144,7 @@ function add_spawngroup() {
   $query = "INSERT INTO spawngroup VALUES($id, \"$name\", \"$spawn_limit\", \"$dist\", \"$max_x\", \"$min_x\", \"$max_y\", \"$min_y\", \"$delay\")";
   $mysql->query_no_result($query);
 
-  $query = "INSERT INTO spawnentry SET spawngroupID=$id, npcID=$npcID, chance=100";
+  $query = "INSERT INTO spawnentry SET spawngroupID=$id, npcID=$npcID, chance=$chance";
   $mysql->query_no_result($query);
 }
 
