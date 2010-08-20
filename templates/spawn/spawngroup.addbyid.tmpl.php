@@ -10,9 +10,9 @@
                <input type="hidden" name="npc" value=<?=$npcid?>>
                Enter Spawngroup ID:<br>
                <input type="text" name="sid"><br><br>
-               <center>
-                 <input type="submit">
-               </center>
+               Enter Chance:<br/>
+               <input type="text" name="chance" value="100"><br/><br/>
+               <center><input type="submit"></center>
              </form>
            </td>
          </tr>
