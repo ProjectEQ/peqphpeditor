@@ -1,47 +1,51 @@
 <?php
 
 $factions = faction_list();
-$faction_values = array(-1=>"Aggressive", 0=>"Passive", 1=>"Assist");
+$faction_values = array(
+ -1 => "Aggressive",
+  0 => "Passive",
+  1 => "Assist"
+);
 
 $npctier = array(
-  1   => "Normal",
-  2   => "Dungeon",
-  3   => "Velious High",
-  4   => "Luclin High",
-  5  => "PoP Tier 1",
-  6  => "PoP Tier 2",
-  7  => "PoP Tier 3",
+  1 => "Normal",
+  2 => "Dungeon",
+  3 => "Velious High",
+  4 => "Luclin High",
+  5 => "PoP Tier 1",
+  6 => "PoP Tier 2",
+  7 => "PoP Tier 3",
   8 => "PoP Elem",
   9 => "PoP Time"
 );
 
 $npctype = array(
-  1   => "Normal",
-  2   => "Named",
-  3   => "Boss",
-  4   => "Raid Boss",
+  1 => "Normal",
+  2 => "Named",
+  3 => "Boss",
+  4 => "Raid Boss"
 );
 
 $npcchange = array(
-  1   => "Current",
-  2   => "Same Name",
-  3   => "Same Race",
-  4   => "Same Class",
-  5   => "Same Level",
-  6   => "Custom",
+  1 => "Current",
+  2 => "Same Name",
+  3 => "Same Race",
+  4 => "Same Class",
+  5 => "Same Level",
+  6 => "Custom"
 );
 
 $npcclass = array(
   1   => "Tank",
   2   => "Knight",
   3   => "Hybrid",
-  4   => "Caster",
+  4   => "Caster"
 );
 
 $npcstatchange = array(
   1   => "AC",
   2   => "Resists",
-  3   => "All",
+  3   => "All"
 );
 
 switch ($action) {
@@ -70,12 +74,12 @@ switch ($action) {
       }
     }
     else if ($z) {
-        $body = new Template("templates/npc/npc.zdefault.tmpl.php");
-        $body->set('currzone', $z);
-        $body->set('currzoneid', $zoneid);
-      }
+      $body = new Template("templates/npc/npc.zdefault.tmpl.php");
+      $body->set('currzone', $z);
+      $body->set('currzoneid', $zoneid);
+    }
     else {
-        $body = new Template("templates/npc/npc.default.tmpl.php");
+      $body = new Template("templates/npc/npc.default.tmpl.php");
     }
     break;
   case 1: // Edit NPC
@@ -105,10 +109,12 @@ switch ($action) {
   case 2:
     check_authorization();
     update_npc();
-    if (isset($_POST['pet']) && $_POST['pet'] == 1){
-    update_pet();
+    if (isset($_POST['pet']) && $_POST['pet'] == 1) {
+      update_pet();
     }
-    else delete_pet();
+    else {
+      delete_pet();
+    }
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 3: // Change npc_faction_id
@@ -158,7 +164,7 @@ switch ($action) {
     $body->set('id', suggest_npc_faction_id());
     $body->set('npc_name', getNPCName($npcid));
     break;
-  case 9:  // Create npc_faction_id
+  case 9: // Create npc_faction_id
     check_authorization();
     create_npc_faction_id();
     update_npc_faction_id($_POST['id']);
@@ -177,7 +183,7 @@ switch ($action) {
       }
     }
     break;
-  case 11:  // Update npc_faction_id name
+  case 11: // Update npc_faction_id name
     check_authorization();
     update_npc_faction_id_name();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
@@ -197,7 +203,7 @@ switch ($action) {
     $body->set('npcid', $npcid);
     $body->set('results', search_factions($_POST['search']));
     break;
-  case 14:  // Update primary faction
+  case 14: // Update primary faction
     check_authorization();
     update_primary_faction();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
@@ -226,7 +232,7 @@ switch ($action) {
     $body->set('fid', $_GET['fid']);
     $body->set('name', get_faction_name($_GET['fid']));
     break;
-  case 18:  // Insert faction hit
+  case 18: // Insert faction hit
     check_authorization();
     add_faction_hit();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
@@ -244,12 +250,12 @@ switch ($action) {
       }
     }
     break;
-  case 20:  // Update faction hit
+  case 20: // Update faction hit
     check_authorization();
     update_factionhit();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 21:  // Delete faction hit
+  case 21: // Delete faction hit
     check_authorization();
     delete_factionhit();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
@@ -263,12 +269,12 @@ switch ($action) {
     $body->set('merchant_id', get_merchant_id());
     $body->set('suggested_id', suggest_merchant_id());
     break;
-  case 23:  // Update merchant id
+  case 23: // Update merchant id
     check_authorization();
     update_merchant_id();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 24:  // Delete npc
+  case 24: // Delete npc
     check_authorization();
     delete_npc();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid");
@@ -294,25 +300,27 @@ switch ($action) {
       }
     }
     break;
-  case 26:  // Insert npc
+  case 26: // Insert npc
     check_authorization();
     add_npc();
-    if (isset($_POST['pet']) && $_POST['pet'] == 1){
-    add_pet();
+    if (isset($_POST['pet']) && $_POST['pet'] == 1) {
+      add_pet();
     }
     $npcid = $_POST['id'];
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 27:  // Search npcs
+  case 27: // Search npcs
     //check_authorization();
     $body = new Template("templates/npc/npc.searchresults.tmpl.php");
     if (isset($_GET['npcid']) && $_GET['npcid'] != "ID") {
       $results = search_npc_by_id();
     }
-   else $results = search_npcs();
+    else {
+      $results = search_npcs();
+    }
     $body->set("results", $results);
     break;
-  case 28:  // Copy npc
+  case 28: // Copy npc
     check_authorization();
     copy_npc();
     $npcid = $_POST['id'];
@@ -327,7 +335,7 @@ switch ($action) {
     $body->set('adventure_id', get_adventure_id());
     $body->set('suggested_id', suggest_adventure_id());
     break;
-  case 30:  // Update adventure id
+  case 30: // Update adventure id
     check_authorization();
     update_adventure_id();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
@@ -341,7 +349,7 @@ switch ($action) {
     $body->set('trap_id', get_trap_template());
     $body->set('suggested_id', suggest_trap_template());
     break;
-  case 32:  // Update trap id
+  case 32: // Update trap id
     check_authorization();
     update_trap_template();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
@@ -359,7 +367,7 @@ switch ($action) {
       }
     }
     break;
-  case 34:  // Update Tint id
+  case 34: // Update Tint id
     check_authorization();
     update_tint();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
@@ -372,7 +380,7 @@ switch ($action) {
     $body->set('npcid', $npcid);
     $body->set('suggested_id', suggest_dye_template());
     break;
-  case 36:  // Update Tint id
+  case 36: // Update Tint id
     check_authorization();
     add_dye_template();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
@@ -459,13 +467,13 @@ switch ($action) {
       }
     }
     break;
- case 45:  // Change NPC level
+ case 45: // Change NPC level
     check_authorization();
     $body = new Template("templates/npc/npc.changelevelver.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     break;
-  case 46:  // Change NPC level
+  case 46: // Change NPC level
     check_authorization();
     change_npc_level_ver();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid");
@@ -607,24 +615,16 @@ function update_npc () {
   if (!isset($_POST['private_corpse'])) $_POST['private_corpse'] = 0;
   if (!isset($_POST['unique_spawn_by_name'])) $_POST['unique_spawn_by_name'] = 0;
 
+  // Check for special attacks change
   $new_specialattks = '';
-  foreach ($specialattacks as $k => $v) {
-    if (isset($_POST["$k"])) $new_specialattks .= $_POST["$k"];
-  }
-
   $flag = 0;
+  foreach ($specialattacks as $k=>$v) {
+    if (isset($_POST["$k"])) {
+      $new_specialattks .= $_POST["$k"];
+    }
+  }
   if ($npcspecialattks != $new_specialattks) {
-    if (($npcspecialattks == '') || ($new_specialattks == '') || (strlen($new_specialattks) != strlen($npcspecialattks))) {
-      $flag = 1;
-    }
-    else {
-      for ($x=0; $x<strlen($new_specialattks); $x++) {
-        $poo = strpos($npcspecialattks, $new_specialattks[$x]);
-        if ($poo === false) {
-          $flag = 1;
-        }
-      }
-    }
+    $flag = 1;
   }
 
   $fields = '';
@@ -942,94 +942,90 @@ function update_npc_bytier() {
   if ($_POST['npctier_selected'] == 8) $npctier = 3.0;
   if ($_POST['npctier_selected'] == 9) $npctier = 3.15;
 
-  if($stat == 1){
-  $ac_ = "((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype)";
-  $mresist = "MR";
-  $cresist = "CR";
-  $dresist = "DR";
-  $presist = "PR";
-  $fresist = "FR";
+  if($stat == 1) {
+    $ac_ = "((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype)";
+    $mresist = "MR";
+    $cresist = "CR";
+    $dresist = "DR";
+    $presist = "PR";
+    $fresist = "FR";
   }
 
-  if($stat == 2){
-  $resist = "(80*0.4) * ($npctier * $npctype * $npcclass)";
-  $mresist = $resist;
-  $cresist = $resist;
-  $dresist = $resist;
-  $presist = $resist;
-  $fresist = $resist;
-  $ac_ = "AC";
+  if($stat == 2) {
+    $resist = "(80*0.4) * ($npctier * $npctype * $npcclass)";
+    $mresist = $resist;
+    $cresist = $resist;
+    $dresist = $resist;
+    $presist = $resist;
+    $fresist = $resist;
+    $ac_ = "AC";
   }
   
-  if($stat == 3){
-  $ac_ = "((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype)";
-  $resist = "(80*0.4) * ($npctier * $npctype * $npcclass)";
-  $mresist = $resist;
-  $cresist = $resist;
-  $dresist = $resist;
-  $presist = $resist;
-  $fresist = $resist;
-  }
-
-  if($type == 1){
-  $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE id=$npcid";
-  $mysql->query_no_result($query);
+  if($stat == 3) {
+    $ac_ = "((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype)";
+    $resist = "(80*0.4) * ($npctier * $npctype * $npcclass)";
+    $mresist = $resist;
+    $cresist = $resist;
+    $dresist = $resist;
+    $presist = $resist;
+    $fresist = $resist;
   }
 
-  if($type == 2){
-  
-  $query = "SELECT name FROM npc_types WHERE id=$npcid";
-  $result = $mysql->query_assoc($query);
-  $nname = $result['name'];
-  
-  $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE name=\"$nname\" AND id > $min_id AND id < $max_id";
-  $mysql->query_no_result($query);
+  if($type == 1) {
+    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE id=$npcid";
+    $mysql->query_no_result($query);
   }
 
-  if($type == 3){
-  
-  $query = "SELECT race FROM npc_types WHERE id=$npcid";
-  $result = $mysql->query_assoc($query);
-  $nrace = $result['race'];
-  
-  $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE race=$nrace AND id > $min_id AND id < $max_id";
-  $mysql->query_no_result($query);
-  }
-  
-  if($type == 4){
-  
-  $query = "SELECT class FROM npc_types WHERE id=$npcid";
-  $result = $mysql->query_assoc($query);
-  $nclass = $result['class'];
-  
-  $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE class=$nclass AND id > $min_id AND id < $max_id";
-  $mysql->query_no_result($query);
+  if($type == 2) {
+    $query = "SELECT name FROM npc_types WHERE id=$npcid";
+    $result = $mysql->query_assoc($query);
+    $nname = $result['name'];
+
+    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE name=\"$nname\" AND id > $min_id AND id < $max_id";
+    $mysql->query_no_result($query);
   }
 
-  if($type == 5){
-  
-  $query = "SELECT level FROM npc_types WHERE id=$npcid";
-  $result = $mysql->query_assoc($query);
-  $nlevel = $result['level'];
-  
-  $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE level=$nlevel AND id > $min_id AND id < $max_id";
-  $mysql->query_no_result($query);
+  if($type == 3) {
+    $query = "SELECT race FROM npc_types WHERE id=$npcid";
+    $result = $mysql->query_assoc($query);
+    $nrace = $result['race'];
+
+    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE race=$nrace AND id > $min_id AND id < $max_id";
+    $mysql->query_no_result($query);
   }
 
-  if($type == 6){
-	if($name == '' && $class == 0 && $race == 0 && ($level == '' || $level == 0)){
-	$query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE id=$npcid";
-       $mysql->query_no_result($query);
-  	}
-       if($name == '' && ($class > 0 || $race > 0 || $level > 0)) {
-       $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE name=$nname AND level=$nlevel AND class=$nclass AND race=$nrace AND id > $min_id AND id < $max_id";
-       $mysql->query_no_result($query);
-       }
-       else {
-       $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE name like \"$nname\" AND level=$nlevel AND class=$nclass AND race=$nrace AND id > $min_id AND id < $max_id";
-       $mysql->query_no_result($query);
-       }
+  if($type == 4) {
+    $query = "SELECT class FROM npc_types WHERE id=$npcid";
+    $result = $mysql->query_assoc($query);
+    $nclass = $result['class'];
+
+    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE class=$nclass AND id > $min_id AND id < $max_id";
+    $mysql->query_no_result($query);
+  }
+
+  if($type == 5) {
+    $query = "SELECT level FROM npc_types WHERE id=$npcid";
+    $result = $mysql->query_assoc($query);
+    $nlevel = $result['level'];
+
+    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE level=$nlevel AND id > $min_id AND id < $max_id";
+    $mysql->query_no_result($query);
+  }
+
+  if($type == 6) {
+    if($name == '' && $class == 0 && $race == 0 && ($level == '' || $level == 0)) {
+      $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE id=$npcid";
+      $mysql->query_no_result($query);
     }
+    if($name == '' && ($class > 0 || $race > 0 || $level > 0)) {
+      $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE name=$nname AND level=$nlevel AND class=$nclass AND race=$nrace AND id > $min_id AND id < $max_id";
+      $mysql->query_no_result($query);
+    }
+    else {
+      $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE name like \"$nname\" AND level=$nlevel AND class=$nclass AND race=$nrace AND id > $min_id AND id < $max_id";
+      $mysql->query_no_result($query);
+    }
+  }
 }
 
 function get_faction_name ($id) {
@@ -1302,7 +1298,7 @@ function update_tint() {
   $red2c = $_POST['red2c'];
   $grn2c = $_POST['grn2c'];
   $blu2c = $_POST['blu2c'];
-  $red3a = $_POST['red3a']; 
+  $red3a = $_POST['red3a'];
   $grn3a = $_POST['grn3a'];
   $blu3a = $_POST['blu3a'];
   $red4b = $_POST['red4b'];
