@@ -28,8 +28,8 @@
                   Entity ID: <?=$entityid?><br />
                   LS Name: <?=$lsname?><br />
                   LS ID: <?=$lsaccount?><br />
-                  Last On: <?=$timelaston?><br />
-                  Last Zone: <?=$lastzone?><br />
+                  Last On: <?=get_real_time($timelaston)?><br />
+                  Last Zone: <?=get_real_time($lastzone)?><br />
                   Time Played: <?=$timeplayed?> minutes<br />
                   GM: <?=$yesno[$gm]?><br />
                   Status: <?=$status?><br />
@@ -45,8 +45,8 @@
                 </fieldset>
                 <fieldset>
                   <legend><strong>Guild Info</strong></legend>
-                  Guild: <?=(($guildid == 255 || $guildid == 0) ? "None" : get_guild($guildid));?><br />
-                  Guild Rank: <?=($guildrank > 0 ? $guildrank : "N/A");?><br />
+                  Guild: <?=(($guildid == -1) ? "None" : get_guild($guildid));?><br />
+                  Guild Rank: <?=($guildid != -1 ? $guildrank : "N/A");?><br />
                   Guild Banker: <?=$yesno[$guildbanker]?><br />
                 </fieldset>
                 <fieldset>
@@ -66,7 +66,7 @@
                 </fieldset>
                 <fieldset>
                   <legend><strong>Other Info</strong></legend>
-                  Birth: <?=$birthday?><br />
+                  Birth: <?=get_real_time($birthday)?><br />
                   Anonymous: <?=$anonymity[$anon]?><br />
                   LFG: <?=$yesno[$lfg]?><br />
                   LFP: <?=$yesno[$lfp]?><br />
@@ -266,7 +266,7 @@
                   <table width="100%" border="0" cellpadding="5" cellspacing="0">
                     <tr>
                       <td>Active: <?=$yesno[$tribute_active]?></td>
-                      <td>Timer: <?=($tribute_timer == 255 ? "Off" : $tribute_timer);?></td>
+                      <td>Timer: <?=($tribute_timer == -1 ? "Off" : $tribute_timer);?></td>
                     </tr>
                     <tr>
                       <td>Points: <?=$tribute_points?></td>
