@@ -2,7 +2,7 @@
   <div class="table_header">
     <div style="float:right">
       <a onClick="javascript:alert('Not yet!');"><img src="images/c_table.gif" border="0" title="Edit this Player" /></a>
-      <a onClick="javascript:alert('Not yet!');"><img src="images/table.gif" border="0" title="Delete this Player" /></a>
+      <a onClick="return confirm('Really delete player <?=trim($name)?> (<?=$playerid?>)?');" href="index.php?editor=player&playerid=<?=$playerid?>&action=4"><img src="images/table.gif" border="0" title="Delete this Player" /></a>
     </div>
     <?=$id?> - <?echo trim($title) . " " . trim($name) . " " . trim($last_name) . " " . trim($suffix);?>
   </div>
