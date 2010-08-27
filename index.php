@@ -19,6 +19,7 @@ $ts = (isset($_GET['ts']) ? $_GET['ts'] : '');
 $rec = (isset($_GET['rec']) ? intval($_GET['rec']) : '0');
 $spellset = (isset($_GET['spellset']) ? $_GET['spellset'] : '');
 $playerid = (isset($_GET['playerid']) ? $_GET['playerid'] : null);
+$acctid = (isset($_GET['acctid']) ? $_GET['acctid'] : null);
 $searchbar = '';
 $body = '';
 $javascript = '';
@@ -86,6 +87,9 @@ switch ($editor) {
     break;
   case 'spellops':
     require_once('lib/spellops.php');
+    break;
+  case 'account':
+    require_once('lib/account.php');
     break;
 }
 

@@ -51,6 +51,9 @@ switch ($editor) {
   case 'player':
     $breadcrumbs = "Players";
     break;
+  case 'account':
+    $breadcrumbs = "Accounts";
+    break;
 }
 
 if ($z != '') $breadcrumbs .= " >> " . getZoneLongName($z);
@@ -61,5 +64,6 @@ if ($ts != '') $breadcrumbs .= " >> " . $tradeskills[$ts];
 if ($rec != '0') $breadcrumbs .= " >> " . getRecipeName($rec);
 if ($spellset != '') $breadcrumbs .= " >> " . getSpellsetName($spellset);
 if ($playerid != '') $breadcrumbs .= " >> " . getPlayerName($playerid) . " ($playerid)";
+if ($acctid != '') $breadcrumbs .= " >> " . getAccountName($acctid) . " ($acctid)";
 
 ?>

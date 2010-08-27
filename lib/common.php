@@ -248,4 +248,38 @@ function search_spells_by_name() {
   return $results;
 }
 
+function getAccountName($acctid) {
+  global $mysql;
+  
+  $query = "SELECT name FROM account WHERE id=$acctid";
+  $result = $mysql->query_assoc($query);
+  return $result['name'];
+}
+
+function search_accounts() {
+  global $mysql;
+  $search = $_GET['search'];
+
+  $query = "SELECT id, name FROM account WHERE name rlike \"$search\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function search_accounts_by_id() {
+  global $mysql;
+  $acctid = $_GET['acctid'];
+
+  $query = "SELECT id, name FROM account WHERE id=\"$acctid\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function get_real_time ($unix_time) {
+  global $mysql;
+
+  $query = "SELECT FROM_UNIXTIME($unix_time) AS real_time";
+  $result = $mysql->query_assoc($query);
+
+  return($result['real_time']);
+}
 ?>
