@@ -23,10 +23,10 @@
                 </fieldset>
                 <fieldset>
                   <legend><strong>Account Info</strong></legend>
-                  Account ID: <?=$account_id?><br />
+                  Account ID: <a href="index.php?editor=account&acctid=<?=$account_id?>"><?=$account_id?></a><br />
                   Character ID: <?=$id?><br />
                   Entity ID: <?=$entityid?><br />
-                  LS Name: <?=$lsname?><br />
+                  LS Name: <a href="index.php?editor=account&acctid=<?=$account_id?>"><?=$lsname?></a><br />
                   LS ID: <?=$lsaccount?><br />
                   Last On: <?=get_real_time($timelaston)?><br />
                   Last Zone: <?=get_real_time($lastzone)?><br />

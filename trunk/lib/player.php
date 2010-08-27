@@ -150,6 +150,7 @@ function delete_player() {
   $mysql->query_no_result($query);
   $query = "DELETE FROM mail WHERE charid=$playerid";
   $mysql->query_no_result($query);
+  //petitions?
   $query = "DELETE FROM player_corpses WHERE charid=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM player_corpses_backup WHERE charid=$playerid";
@@ -160,20 +161,12 @@ function delete_player() {
   $mysql->query_no_result($query);
   $query = "DELETE FROM raid_members WHERE charid=$playerid";
   $mysql->query_no_result($query);
+  //reports?
   $query = "DELETE FROM timers WHERE char_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM trader WHERE char_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM zone_flags WHERE charid=$playerid";
   $mysql->query_no_result($query);
-}
-
-function get_real_time ($unix_time) {
-  global $mysql;
-
-  $query = "SELECT FROM_UNIXTIME($unix_time) AS real_time";
-  $result = $mysql->query_assoc($query);
-
-  return($result['real_time']);
 }
 ?>
