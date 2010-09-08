@@ -20,6 +20,8 @@ $rec = (isset($_GET['rec']) ? intval($_GET['rec']) : '0');
 $spellset = (isset($_GET['spellset']) ? $_GET['spellset'] : '');
 $playerid = (isset($_GET['playerid']) ? $_GET['playerid'] : null);
 $acctid = (isset($_GET['acctid']) ? $_GET['acctid'] : null);
+$guildid = (isset($_GET['guildid']) ? $_GET['guildid'] : null);
+
 $searchbar = '';
 $body = '';
 $javascript = '';
@@ -90,6 +92,9 @@ switch ($editor) {
     break;
   case 'account':
     require_once('lib/account.php');
+    break;
+  case 'guild':
+    require_once('lib/guild.php');
     break;
 }
 

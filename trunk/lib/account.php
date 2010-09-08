@@ -70,14 +70,14 @@ function account_info () {
   $query = "SELECT id, name FROM character_ WHERE account_id = $acctid";
   $character_array = $mysql->query_mult_assoc($query);
   if ($character_array) {
-    $account_array['character_array'] = $character_array;
+    $account_array['characters'] = $character_array;
   }
 
   //Load ip info
   $query = "SELECT * FROM account_ip WHERE accid = $acctid";
   $ip_array = $mysql->query_mult_assoc($query);
   if ($ip_array) {
-    $account_array['ip_array'] = $ip_array;
+    $account_array['ips'] = $ip_array;
   }
 
   return $account_array;

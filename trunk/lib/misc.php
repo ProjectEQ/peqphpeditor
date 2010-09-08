@@ -5,22 +5,20 @@ $traptype = array(
   1   => "Alarm",
   2   => "NPC S. Area",
   3   => "NPC L. Area",
-  4   => "Damage",
+  4   => "Damage"
 );
 
 $alarmtype = array(
   0   => "All aggro",
-  1   => "KOS aggro",
+  1   => "KOS aggro"
 );
 
 switch ($action) {
   case 0:
-    if (!$z) {
-    }
-    else {
-        $body = new Template("templates/misc/misc.default.tmpl.php");
-        $body->set('currzone', $z);
-        $body->set('currzoneid', $zoneid);
+    if ($z) {
+      $body = new Template("templates/misc/misc.default.tmpl.php");
+      $body->set('currzone', $z);
+      $body->set('currzoneid', $zoneid);
     }
     break;
   case 1: // View fishing

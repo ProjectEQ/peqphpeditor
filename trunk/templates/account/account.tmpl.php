@@ -46,8 +46,9 @@
                       <td width="20%"><center>Login Count</center></td>
                       <td width="40%"><center>Last Login</center></td>
                     </tr>
-<?if ($ip_array) {
-    foreach ($ip_array as $ip_address) {
+<?
+  if ($ips) {
+    foreach ($ips as $ip_address) {
       echo '<tr>';
       echo '<td width="40%"><center>' . $ip_address['ip'] . '</center></td>';
       echo '<td width="20%"><center>' . $ip_address['count'] . '</center></td>';
@@ -64,9 +65,10 @@
               <td>
                 <fieldset>
                   <legend><strong>Characters</strong></legend>
-<?if ($character_array) {
+<?
+  if ($characters) {
     $count = 0;
-    foreach ($character_array as $character) {
+    foreach ($characters as $character) {
       $count++;
       echo 'Character' . $count . ': ';
       echo ($character['id'] != '') ? '<a href="index.php?editor=player&playerid=' . $character['id'] . '">' . $character['name'] . '</a>  (' . $character['id'] . ')' : 'EMPTY';

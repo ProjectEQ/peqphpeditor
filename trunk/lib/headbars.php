@@ -142,10 +142,17 @@ switch ($editor) {
     $searchbar->set('accounts', $accounts);
     $searchbar->set('curraccount', $acctid);
     break;
+  case 'guild':
+    $guilds = guilds();
+    $searchbar = new Template("templates/searchbar/searchbar.guild.tmpl.php");
+    $searchbar->set('curreditor', $editor);
+    $searchbar->set('guilds', $guilds);
+    $searchbar->set('currguild', $guildid);
+    break;
 }
 
 function build_tabs () {
-  global $editor, $z, $zoneid, $npcid, $playerid, $acctid;
+  global $editor, $z, $zoneid, $npcid, $playerid, $acctid, $guildid;
 
   $tabstatus1 = "off";
   $tabstatus2 = "off";
@@ -162,6 +169,7 @@ function build_tabs () {
   $tabstatus13 = "off";
   $tabstatus14 = "off";
   $tabstatus15 = "off";
+  $tabstatus16 = "off";
 
   $zoneurl = "";
   $npcurl = "";
@@ -222,6 +230,9 @@ function build_tabs () {
     case 'account':
       $tabstatus15 = "on";
       break;
+    case 'guild':
+      $tabstatus16 = "on";
+      break;
   }
 
   $admin = '';
@@ -247,7 +258,8 @@ function build_tabs () {
         <div class=\"$tabstatus12\"><a href=\"index.php?editor=tasks\">Tasks</a></div>
         <div class=\"$tabstatus13\"><a href=\"index.php?editor=items\">Items</a></div>
         <div class=\"$tabstatus14\"><a href=\"index.php?editor=player\">Players</a></div>
-        <div class=\"$tabstatus15\"><a href=\"index.php?editor=account\">Accounts</a></div><br>
+        <div class=\"$tabstatus15\"><a href=\"index.php?editor=account\">Accounts</a></div>
+        <div class=\"$tabstatus16\"><a href=\"index.php?editor=guild\">Guilds</a></div><br>
       </div>
 ";
 
@@ -424,6 +436,15 @@ function accounts() {
   global $mysql;
 
   $query = "SELECT id, name FROM account ORDER BY name ASC";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
+}
+
+function guilds() {
+  global $mysql;
+
+  $query = "SELECT id, name FROM guilds ORDER BY name ASC";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;

@@ -34,7 +34,7 @@ function getPPFormat() {
   $fmt .= "fbind5_z/";
   $fmt .= "fbind5_h/";
   $fmt .= "Ldeity/";
-  $fmt .= "Lguildid/";
+  $fmt .= "Lguild_id/";
   $fmt .= "Lbirthday/";
   $fmt .= "Llastzone/"; //Last character save
   $fmt .= "Ltimeplayed/";

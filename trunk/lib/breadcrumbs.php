@@ -54,6 +54,9 @@ switch ($editor) {
   case 'account':
     $breadcrumbs = "Accounts";
     break;
+  case 'guild':
+    $breadcrumbs = "Guilds";
+    break;
 }
 
 if ($z != '') $breadcrumbs .= " >> " . getZoneLongName($z);
@@ -65,5 +68,6 @@ if ($rec != '0') $breadcrumbs .= " >> " . getRecipeName($rec);
 if ($spellset != '') $breadcrumbs .= " >> " . getSpellsetName($spellset);
 if ($playerid != '') $breadcrumbs .= " >> " . getPlayerName($playerid) . " ($playerid)";
 if ($acctid != '') $breadcrumbs .= " >> " . getAccountName($acctid) . " ($acctid)";
+if ($guildid != '') $breadcrumbs .= " >> " . getGuildName($guildid) . " ($guildid)";
 
 ?>

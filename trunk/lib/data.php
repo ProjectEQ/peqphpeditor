@@ -1659,4 +1659,11 @@ $eqexpansions = array (
 99 => 'Other'
 );
 
+$permissions = array (
+  0 => "Banker Only",
+  1 => "Single Member",
+  2 => "Public if Usable",
+  3 => "Public"
+);
+
 ?>
