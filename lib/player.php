@@ -111,7 +111,7 @@ function update_player () {
   }
 }
 
-function delete_player() {
+function delete_player () {
   global $mysql, $playerid;
 
   $query = "DELETE FROM adventure_members WHERE charid=$playerid";

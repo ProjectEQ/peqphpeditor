@@ -45,8 +45,8 @@
                 </fieldset>
                 <fieldset>
                   <legend><strong>Guild Info</strong></legend>
-                  Guild: <?=(($guildid == -1) ? "None" : get_guild($guildid));?><br />
-                  Guild Rank: <?=($guildid != -1 ? $guildrank : "N/A");?><br />
+                  Guild: <?=(($guild_id == -1) ? "None" : '<a href="index.php?editor=guild&guildid=' . $guild_id . '">' . getGuildName($guild_id)) . '</a>';?><br />
+                  Guild Rank: <?=$guildrank?><br />
                   Guild Banker: <?=$yesno[$guildbanker]?><br />
                 </fieldset>
                 <fieldset>
@@ -70,7 +70,7 @@
                   Anonymous: <?=$anonymity[$anon]?><br />
                   LFG: <?=$yesno[$lfg]?><br />
                   LFP: <?=$yesno[$lfp]?><br />
-                  Group ID: <?=($groupid > 0 ? $groupid : "Not Grouped");?><br />
+                  Group ID: <?=$groupid?><br />
                   Drunkness: <?=$drunk?><br />
                   Toxicity: <?=$toxicity?><br />
                 </fieldset>

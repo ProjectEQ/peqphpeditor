@@ -213,7 +213,7 @@ function search_players_by_id() {
   return $results;
 }
 
-function get_guild ($guildid) {
+function getGuildName($guildid) {
   global $mysql;
 
   $query = "SELECT name FROM guilds WHERE id = $guildid";
@@ -274,12 +274,47 @@ function search_accounts_by_id() {
   return $results;
 }
 
-function get_real_time ($unix_time) {
+function get_real_time($unix_time) {
   global $mysql;
 
   $query = "SELECT FROM_UNIXTIME($unix_time) AS real_time";
   $result = $mysql->query_assoc($query);
 
   return($result['real_time']);
+}
+function search_guilds() {
+  global $mysql;
+  $search = $_GET['search'];
+
+  $query = "SELECT id, name FROM guilds WHERE name rlike \"$search\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function search_guilds_by_id() {
+  global $mysql;
+  $guild_id = $_GET['guild_id'];
+
+  $query = "SELECT id, name FROM guilds WHERE id=\"$guild_id\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function search_guilds_by_charid() {
+  global $mysql;
+  $charid = $_GET['charid'];
+
+  $query = "SELECT char_id, guild_id FROM guild_members WHERE char_id=\"$charid\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function search_guilds_by_charname() {
+  global $mysql;
+  $charname = $_GET['charname'];
+
+  $query = "SELECT char_id, guild_id FROM guild_members WHERE char_id IN (SELECT id FROM character_ WHERE name RLIKE \"$charname\")";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
 }
 ?>
