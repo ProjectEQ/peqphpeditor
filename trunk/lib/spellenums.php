@@ -203,7 +203,7 @@ $sp_spellgroups = array(
 );
 
 $sp_skills = array(
-    0  => "1H Blunt",
+        0  => "1H Blunt",
     1  => "1H Slashing",
     2  => "2H Blunt",
     3  => "2H Slashing",
@@ -277,7 +277,31 @@ $sp_skills = array(
     71 => "Intimidation",
     72 => "Berserking",
     73 => "Taunt",
-    74 => "Frenzy"
+    74 => "Frenzy",
+    75 => "Unknown75",
+    76 => "Unknown76",
+    77 => "Unknown77",
+    78 => "Unknown78",
+    79 => "Unknown79",
+    80 => "Unknown80",
+    81 => "Unknown81",
+    82 => "Unknown82",
+    83 => "Unknown83",
+    84 => "Unknown84",
+    85 => "Unknown85",
+    86 => "Unknown86",
+    87 => "Unknown87",
+    88 => "Unknown88",
+    89 => "Unknown89",
+    90 => "Unknown90",
+    91 => "Unknown91",
+    92 => "Unknown92",
+    93 => "Unknown93",
+    94 => "Unknown94",
+    95 => "Unknown95",
+    96 => "Unknown96",
+    97 => "Unknown97",
+    98 => "Unknown98"
 );
 
 $sp_spelltypes = array(
