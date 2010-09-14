@@ -68,12 +68,18 @@
 <?
   if ($characters) {
     $count = 0;
+    echo '<table cellspacing="0" border="0" width="100%">';
     foreach ($characters as $character) {
       $count++;
-      echo 'Character' . $count . ': ';
+      echo '<tr>';
+      echo '<td width="25%">Character' . $count . ': </td>';
+      echo '<td width="60%">';
       echo ($character['id'] != '') ? '<a href="index.php?editor=player&playerid=' . $character['id'] . '">' . $character['name'] . '</a>  (' . $character['id'] . ')' : 'EMPTY';
-      echo '<br />';
+      echo '</td>';
+      echo '<td width="15%" align="right"><a href="index.php?editor=account&acctid=' . $acctid . '&playerid=' . $character['id'] . '&action=5"><img src="images/user.gif" height="13" width="13" title="Transfer this Character"></a> <a onClick="return confirm(\'Really delete player ' . $character['name'] . ' (' . $character['id'] . ') from this account?\');" href="index.php?editor=player&playerid=' . $character['id'] . '&acctid=' . $id . '&action=4"><img src="images/remove.gif" title="Delete this Character"></a></td>';
+      echo '</tr>';
     }
+    echo '</table>';
   }
   else {
     echo '<br /><br /><center>NO CHARACTERS ON THIS ACCOUNT</center><br />';

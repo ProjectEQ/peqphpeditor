@@ -65,7 +65,12 @@ switch ($action) {
   case 4: // Delete Player
     check_admin_authorization();
     delete_player();
-    header("Location: index.php?editor=player");
+    if (isset($_GET['acctid'])) {
+      header("Location: index.php?editor=account&acctid=$acctid");
+    }
+    else {
+      header("Location: index.php?editor=player");
+    }
     exit;
 }
 
