@@ -53,6 +53,19 @@ switch ($action) {
     delete_account();
     header("Location: index.php?editor=account");
     exit;
+  case 5: // Character Transfer Selection
+    check_admin_authorization();
+    $target_accounts = accounts();
+    $body = new Template("templates/account/account.chartransfer.tmpl.php");
+    $body->set('acctid', $acctid);
+    $body->set('acctname', getAccountName($acctid));
+    $body->set('target_accounts', $target_accounts);
+    break;
+  case 6: // Transfer Character
+    check_admin_authorization();
+    char_transfer();
+    header("Location: index.php?editor=account&acctid=$acctid");
+    exit;
 }
 
 function account_info () {
@@ -115,6 +128,15 @@ function delete_account() {
   //hackers table not associated with $acctid
   //petitions table not associated with $acctid
   $query = "DELETE FROM sharedbank WHERE acctid=$acctid";
+  $mysql->query_no_result($query);
+}
+
+function char_transfer() {
+  global $mysql, $acctid;
+  $target_acct = $_GET['tacct'];
+  $char_id = $_GET['playerid'];
+
+  $query = "UPDATE character_ SET account_id=$target_acct WHERE id=$char_id";
   $mysql->query_no_result($query);
 }
 ?>
