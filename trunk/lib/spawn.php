@@ -133,8 +133,8 @@ switch ($action) {
     }
     break;
   case 10:  // View Spawnpoints
-check_authorization();
-  if ($npcid) {
+    check_authorization();
+    if ($npcid) {
       $body = new Template("templates/spawn/spawnpoint.tmpl.php");
       $body->set('currzone', $z);
       $body->set('currzoneid', $zoneid);
