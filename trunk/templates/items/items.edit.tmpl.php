@@ -8,7 +8,6 @@
              <a href="index.php?editor=items&id=<?=$id?>&action=5" onClick="return confirm('Really delete Item <?=$id?>?');"><img src="images/table.gif" border=0 title="Delete this Item"></a>
              </div>
          </div>
-        </form>
          <div class="edit_form_content">
          <center>
          <fieldset style="text-align: left;">
