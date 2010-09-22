@@ -29,7 +29,7 @@ class session {
   function logged_in() {
     global $mysql;
 
-    if (isset($_SESSION['guest']) && $_SESSION['guest'] == 1) return true;
+    if (isset($_SESSION['guest']) && $_SESSION['guest'] == 1) return false;
 
     if (!isset($_SESSION['login']) || !isset($_SESSION['password'])) return false;
 
