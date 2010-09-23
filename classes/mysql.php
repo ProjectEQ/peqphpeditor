@@ -20,7 +20,7 @@ class mysql {
   }
 
   function query_assoc ($query) {
-    if ($result = mysql_query($query)) {
+    if ($result = mysql_query(quote_smart($query))) {
       $row = mysql_fetch_assoc($result);
       return (isset($row) ? $row : '');
     }
@@ -29,7 +29,7 @@ class mysql {
 
   // Used to return multi-dimensional arrays
   function query_mult_assoc ($query) {
-    if ($result = mysql_query($query)) {
+    if ($result = mysql_query(quote_smart($query))) {
       while ($row = mysql_fetch_assoc($result)) {
         $array[] = $row;
       }
@@ -75,14 +75,24 @@ $mysql = new mysql($dbuser, $dbpass, $db, $dbhost);
 
 // Quote variable to make safe
 function quote_smart($value) {
+
   // Stripslashes
   if (get_magic_quotes_gpc()) {
-    $value = stripslashes($value);
+    //$value = stripslashes($value);
   }
+
   // Quote if not integer
   if (!is_numeric($value)) {
-    $value = "'" . mysql_real_escape_string($value) . "'";
+    //$value = mysql_real_escape_string($value);
   }
+
+  // Deter UNION SQL Injection
+  if (stripos($value, 'union')) {
+    logSQL("SQL injection monitored by user at IP: '" . getIP() . "' using the query: '" . $value . "'.");
+    header("Location: index.php");
+    exit;
+  }
+
   return $value;
 }
 

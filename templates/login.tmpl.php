@@ -29,7 +29,7 @@
             <td colspan="2" align="center">
               <br><br><input type="submit" value="Login" style="width:60px;"><br><br><br>
               
-              <?//<a href="index.php?login=guest">Click here to login as a guest</a>?>
+              <a href="index.php?login=guest">Click here to login as a guest</a>
             </td>
           </tr>
         </table>
