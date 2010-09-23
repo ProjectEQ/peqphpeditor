@@ -13,6 +13,7 @@ class session {
     $result = $mysql->query_assoc($query);
     if ($result == '') {
       $_SESSION['error'] = 1;
+      logSQL("Invalid login attempt. Bad username from IP: '" . getIP() . "'. Username: '$login' Password: '$pw'.");
       return;
     }
     extract($result);
@@ -23,13 +24,14 @@ class session {
     }
     else {
       $_SESSION['error'] = 1;
+      logSQL("Invalid login attempt. Bad password from IP: '" . getIP() . "'. Username: '$login' Password: '$pw'.");
     }
   }
   
   function logged_in() {
     global $mysql;
 
-    if (isset($_SESSION['guest']) && $_SESSION['guest'] == 1) return false;
+    if (isset($_SESSION['guest']) && $_SESSION['guest'] == 1) return true;
 
     if (!isset($_SESSION['login']) || !isset($_SESSION['password'])) return false;
 
@@ -133,5 +135,18 @@ if (session::logged_in() != TRUE) {
   exit;
 }
 
+// Get IP address
+function getIP() {
+  if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+    $ip = $_SERVER['HTTP_CLIENT_IP'];
+  }
+  elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+  }
+  else {
+    $ip= $_SERVER['REMOTE_ADDR'];
+  }
 
+  return $ip;
+}
 ?>

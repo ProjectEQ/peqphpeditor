@@ -4,6 +4,13 @@ function logSQL ($query) {
   global $log_file, $logging;
   $user = $_SESSION['login'];
 
+  if (isset($_SESSION['guest']) && ($_SESSION['guest'] == 1)) {
+    $user = 'Guest';
+  }
+  if ($user == '') {
+    $user = 'N/A';
+  }
+
   if ($logging == 1) {
     $time = date("(j-M-y  G:i:s)");
     if (!is_writable($log_file)) {
