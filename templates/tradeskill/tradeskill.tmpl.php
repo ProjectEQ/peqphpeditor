@@ -35,9 +35,6 @@
           <strong>Quest Controlled:</strong> <?=$yesno[$quest]?>
         </div>
       </div>
-
-
-
       <br>
       <div class="table_container">
         <div class="table_header">
@@ -82,9 +79,6 @@
           </table>
 <?endif;?>
           </fieldset><br><br>
-
-
-
         <fieldset>
           <legend><strong>Components</strong></legend>
 <?php if (!isset($components) || $components == ''):?>
@@ -115,10 +109,6 @@
           </table>
 <?endif;?>
           </fieldset><br><br>
-
-
-
-
         <fieldset>
           <legend><strong>Products</strong></legend>
 <?php if (!isset($products) || $products == ''):?>

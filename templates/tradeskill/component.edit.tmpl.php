@@ -39,6 +39,6 @@
               <input type="hidden" name="recipe_id" value="<?=$recipe_id?>">
               <input type="submit" name="submit" value="Submit Changes">
             </center>
-          </form>
         </div>
       </div>
+      </form>

@@ -113,6 +113,6 @@
               <input type="hidden" name="recipe_id" value="<?=$rec?>">
               <input type="submit" name="submit" value="Submit Changes" onClick="enable();">
             </center>
-          </form>
         </div>
       </div>
+      </form>
