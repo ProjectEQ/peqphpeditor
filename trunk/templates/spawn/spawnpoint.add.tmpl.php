@@ -38,14 +38,14 @@
 			  <input type="text" name="respawntime" value="1200">
 			</td>
             <td width="34%">
-			  pathgrid:<br>
-			  <input type="text" name="pathgrid" value="0">
+			  variance:<br>
+			  <input type="text" name="variance" value="0">
 			</td>
           </tr>
           <tr>
             <td width="33%">
-			  variance:<br>
-			  <input type="text" name="variance" value="0">
+			  pathgrid:<br>
+			  <input type="text" name="pathgrid" value="0">
 			</td>
             <td width="33%">
 			  condition:<br>
