@@ -425,12 +425,21 @@
                <table width="100%" border="0" cellpadding="3" cellspacing="0">
                
                <tr>
-              <td align="left" width="14%">Extra Dmg Skill:  <br><input type="text" name="extradmgskill" size="5" value="<?=$extradmgskill?>"></td>
-               <td align="left" width="14%">Extra Dmg Amt:  <br><input type="text" name="extradmgamt" size="5" value="<?=$extradmgamt?>"></td>
-               <td align="left" width="14%">Elem Dmg Type:  <br><input type="text" name="elemdmgtype" size="5" value="<?=$elemdmgtype?>"></td>
-               <td align="left" width="14%">Elem Dmg Amt:  <br><input type="text" name="elemdmgamt" size="5" value="<?=$elemdmgamt?>"></td>
-               <td align="left" width="15%">Spell Dmg:  <br><input type="text" name="spelldmg" size="5" value="<?=$spelldmg?>"></td>
-               <td align="left" width="15%">Backstab Dmg:  <br><input type="text" name="backstabdmg" size="5" value="<?=$backstabdmg?>"></td>
+               <td align="left" width="35%">Extra Dmg Skill:<br>
+                 <select class="left" name="extradmgskill">
+                   <?foreach($skilltypes as $k => $v):?>
+                   <option value="<?=$k?>"<? echo ($k == $extradmgskill) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+                   <?endforeach;?>       
+                 </select><br>
+                 Extra Dmg Amt:<br>
+                 <input type="text" name="extradmgamt" size="5" value="<?=$extradmgamt?>">
+               </td>
+               <td align="left" width="25%">Elem Dmg Type:<br>
+                 <input type="text" name="elemdmgtype" size="5" value="<?=$elemdmgtype?>"><br>
+                 Elem Dmg Amt:  <br><input type="text" name="elemdmgamt" size="5" value="<?=$elemdmgamt?>">
+               </td>
+               <td align="left" width="25%">Spell Dmg:  <br><input type="text" name="spelldmg" size="5" value="<?=$spelldmg?>"></td>
+               <td align="left" width="25%">Backstab Dmg:  <br><input type="text" name="backstabdmg" size="5" value="<?=$backstabdmg?>"></td>
                </tr>
               </table>
               </fieldset>
