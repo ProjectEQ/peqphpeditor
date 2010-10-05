@@ -839,7 +839,10 @@ $classes = array (
   65 => 'Unknown65',
   66 => 'Guild Banker',
   67 => 'Norraths Keepers Merchant',
-  68 => 'Dark Reign Merchant');
+  68 => 'Dark Reign Merchant',
+  69 => 'Unknown69',
+  70 => 'Unknown70',
+  71 => 'Mercenary Liaison');
 
 $specialattacks = array(
   "S" => "Summon",
