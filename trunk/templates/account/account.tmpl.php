@@ -35,6 +35,7 @@
                   Shared Platinum: <?=$sharedplat?><br />
                   Minilogin IP: <?=$minilogin_ip?><br />
                   Suspended: <?echo ($suspendeduntil > 0) ? $suspendeduntil : "N/A";?><br />
+                  Account Created: <?=get_real_time($time_creation)?><br />
                 </fieldset>
               </td>
               <td width="55%" rowspan="2">
