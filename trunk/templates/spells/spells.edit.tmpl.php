@@ -15,7 +15,7 @@
            <input type="hidden" name="id" value="<?=$id?>">
                 <table width="100%" border="0" cellpadding="3" cellspacing="0">
                   <tr>
-                    <td width=50%>Name: <br><input type="text" name="spellname" size="40" value="<?=$spellname?>"></td>
+                    <td width=50%>Name: <br><input type="text" name="name" size="40" value="<?=$spellname?>"></td>
                     <td>Teleport Zone / Pet Type: <br><input type="text" name="teleport_zone" size="40" value="<?=$teleport_zone?>"></td>
                   </tr>
                   <tr>
