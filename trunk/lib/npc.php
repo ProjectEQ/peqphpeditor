@@ -671,6 +671,7 @@ function update_npc () {
   if ($DR != $_POST['DR']) $fields .= "DR=\"" . $_POST['DR'] . "\", ";
   if ($FR != $_POST['FR']) $fields .= "FR=\"" . $_POST['FR'] . "\", ";
   if ($PR != $_POST['PR']) $fields .= "PR=\"" . $_POST['PR'] . "\", ";
+  if ($Corrup != $_POST['Corrup']) $fields .= "Corrup=\"" . $_POST['Corrup'] . "\", ";
   if ($see_invis != $_POST['see_invis']) $fields .= "see_invis=\"" . $_POST['see_invis'] . "\", ";
   if ($see_invis_undead != $_POST['see_invis_undead']) $fields .= "see_invis_undead=\"" . $_POST['see_invis_undead'] . "\", ";
   if ($see_hide != $_POST['see_hide']) $fields .= "see_hide=\"" . $_POST['see_hide'] . "\", ";
@@ -770,6 +771,7 @@ function add_npc () {
   if ($_POST['DR'] != '') $fields .= "DR=\"" . $_POST['DR'] . "\", ";
   if ($_POST['FR'] != '') $fields .= "FR=\"" . $_POST['FR'] . "\", ";
   if ($_POST['PR'] != '') $fields .= "PR=\"" . $_POST['PR'] . "\", ";
+  if ($_POST['Corrup'] != '') $fields .= "Corrup=\"" . $_POST['Corrup'] . "\", ";
   if ($_POST['see_invis'] != '') $fields .= "see_invis=\"" . $_POST['see_invis'] . "\", ";
   if ($_POST['see_invis_undead'] != '') $fields .= "see_invis_undead=\"" . $_POST['see_invis_undead'] . "\", ";
   if ($_POST['see_hide'] != '') $fields .= "see_hide=\"" . $_POST['see_hide'] . "\", ";
@@ -857,6 +859,7 @@ $fields .= "CR=\"" . $_POST['CR'] . "\", ";
 $fields .= "DR=\"" . $_POST['DR'] . "\", ";
 $fields .= "FR=\"" . $_POST['FR'] . "\", ";
 $fields .= "PR=\"" . $_POST['PR'] . "\", ";
+$fields .= "Corrup=\"" . $_POST['Corrup'] . "\", ";
 $fields .= "see_invis=\"" . $_POST['see_invis'] . "\", ";
 $fields .= "see_invis_undead=\"" . $_POST['see_invis_undead'] . "\", ";
 $fields .= "see_hide=\"" . $_POST['see_hide'] . "\", ";
@@ -949,6 +952,7 @@ function update_npc_bytier() {
     $dresist = "DR";
     $presist = "PR";
     $fresist = "FR";
+    $coresist = "Corrup";
   }
 
   if($stat == 2) {
@@ -958,6 +962,7 @@ function update_npc_bytier() {
     $dresist = $resist;
     $presist = $resist;
     $fresist = $resist;
+    $coresist = $resist;
     $ac_ = "AC";
   }
   
@@ -969,10 +974,11 @@ function update_npc_bytier() {
     $dresist = $resist;
     $presist = $resist;
     $fresist = $resist;
+    $coresist = $resist;
   }
 
   if($type == 1) {
-    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE id=$npcid";
+    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist, Corrup = $coresist WHERE id=$npcid";
     $mysql->query_no_result($query);
   }
 
@@ -981,7 +987,7 @@ function update_npc_bytier() {
     $result = $mysql->query_assoc($query);
     $nname = $result['name'];
 
-    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE name=\"$nname\" AND id > $min_id AND id < $max_id";
+    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist, Corrup = $coresist WHERE name=\"$nname\" AND id > $min_id AND id < $max_id";
     $mysql->query_no_result($query);
   }
 
@@ -990,7 +996,7 @@ function update_npc_bytier() {
     $result = $mysql->query_assoc($query);
     $nrace = $result['race'];
 
-    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE race=$nrace AND id > $min_id AND id < $max_id";
+    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist, Corrup = $coresist WHERE race=$nrace AND id > $min_id AND id < $max_id";
     $mysql->query_no_result($query);
   }
 
@@ -999,7 +1005,7 @@ function update_npc_bytier() {
     $result = $mysql->query_assoc($query);
     $nclass = $result['class'];
 
-    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE class=$nclass AND id > $min_id AND id < $max_id";
+    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist, Corrup = $coresist WHERE class=$nclass AND id > $min_id AND id < $max_id";
     $mysql->query_no_result($query);
   }
 
@@ -1008,21 +1014,21 @@ function update_npc_bytier() {
     $result = $mysql->query_assoc($query);
     $nlevel = $result['level'];
 
-    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE level=$nlevel AND id > $min_id AND id < $max_id";
+    $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist, Corrup = $coresist WHERE level=$nlevel AND id > $min_id AND id < $max_id";
     $mysql->query_no_result($query);
   }
 
   if($type == 6) {
     if($name == '' && $class == 0 && $race == 0 && ($level == '' || $level == 0)) {
-      $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE id=$npcid";
+      $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist, Corrup = $coresist WHERE id=$npcid";
       $mysql->query_no_result($query);
     }
     if($name == '' && ($class > 0 || $race > 0 || $level > 0)) {
-      $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE name=$nname AND level=$nlevel AND class=$nclass AND race=$nrace AND id > $min_id AND id < $max_id";
+      $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist, Corrup = $coresist WHERE name=$nname AND level=$nlevel AND class=$nclass AND race=$nrace AND id > $min_id AND id < $max_id";
       $mysql->query_no_result($query);
     }
     else {
-      $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist WHERE name like \"$nname\" AND level=$nlevel AND class=$nclass AND race=$nrace AND id > $min_id AND id < $max_id";
+      $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist, Corrup = $coresist WHERE name like \"$nname\" AND level=$nlevel AND class=$nclass AND race=$nrace AND id > $min_id AND id < $max_id";
       $mysql->query_no_result($query);
     }
   }
