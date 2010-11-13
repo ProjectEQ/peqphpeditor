@@ -120,7 +120,7 @@
                 <td align="left" width="14%">FR:  <br><input type="text" name="FR" size="5" value="<?=$resists?>"></td>
                 <td align="left" width="14%">PR:  <br><input type="text" name="PR" size="5" value="<?=$resists?>"></td>
                 <td align="left" width="14%">DR:  <br><input type="text" name="DR" size="5" value="<?=$resists?>"></td>
-                <td align="left" width="15%">&nbsp;</td>
+                <td align="left" width="14%">Corrup:  <br><input type="text" name="Corrup" size="5" value="<?=$resists?>"></td>
                 <td align="left" width="15%">&nbsp;</td>
               </tr>
             </table>

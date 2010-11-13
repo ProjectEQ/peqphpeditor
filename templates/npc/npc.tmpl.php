@@ -143,6 +143,7 @@
                 <?php ($frper = $FR*0.4); ?>
                 <?php ($prper = $PR*0.4); ?>
                 <?php ($drper = $DR*0.4); ?>
+                <?php ($corper = $Corrup*0.4); ?>
 			  <tr>
                 <td align="left" width="33%">MR: <?=$MR?> (<?=$mrper?>%)</td>
                 <td align="left" width="33%">CR: <?=$CR?> (<?=$crper?>%)</td>
@@ -151,7 +152,7 @@
               <tr>
                 <td align="left" width="33%">PR: <?=$PR?> (<?=$prper?>%)</td>
                 <td align="left" width="33%">DR: <?=$DR?> (<?=$drper?>%)</td>
-                <td align="left" width="34%">&nbsp;</td>
+                <td align="left" width="33%">Corrup: <?=$Corrup?> (<?=$corper?>%)</td>
               </tr>
              </table>
            </fieldset>
@@ -301,6 +302,7 @@
 <input type="hidden" name="DR" value="<?=$DR?>">
 <input type="hidden" name="FR" value="<?=$FR?>">
 <input type="hidden" name="PR" value="<?=$PR?>">
+<input type="hidden" name="Corrup" value="<?=$Corrup?>">
 <input type="hidden" name="see_invis" value="<?=$see_invis?>">
 <input type="hidden" name="see_invis_undead" value="<?=$see_invis_undead?>">
 <input type="hidden" name="see_hide" value="<?=$see_hide?>">
