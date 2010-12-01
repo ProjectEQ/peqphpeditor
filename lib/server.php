@@ -34,7 +34,7 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/server/bugs.tmpl.php");
     $body->set("bugstatus", $bugstatus);
-    $bugs = get_bugs();
+    $bugs = get_open_bugs();
     if ($bugs) {
       foreach ($bugs as $key=>$value) {
         $body->set($key, $value);
@@ -61,7 +61,7 @@ switch ($action) {
    case 4: // View Resolved Bugs
     $body = new Template("templates/server/bugs.resolved.tmpl.php");
     $body->set("bugstatus", $bugstatus);
-    $bugs = get_bugs();
+    $bugs = get_resolved_bugs();
     if ($bugs) {
       foreach ($bugs as $key=>$value) {
         $body->set($key, $value);
@@ -346,18 +346,31 @@ switch ($action) {
     exit;
 }
 
-function get_bugs() {
+function get_open_bugs() {
   global $mysql;
 
-  $query = "SELECT id, zone, name, ui, x, y, z, type, flag, target, bug, date, status FROM bugs limit 500";
+  $query = "SELECT id, zone, name, ui, x, y, z, type, flag, target, bug, date, status FROM bugs WHERE status = 0";
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['bugs'][$result['id']] = array("bid"=>$result['id'], "zone"=>$result['zone'], "name"=>$result['name'], "ui"=>$result['ui'], "x"=>$result['x'], "y"=>$result['y'], "z"=>$result['z'], "type"=>$result['type'], "flag"=>$result['flag'], "target"=>$result['target'], "bug"=>$result['bug'], "date"=>$result['date'], "status"=>$result['status']);
-         }
-       }
-  return $array;
+      $array['bugs'][$result['id']] = array("bid"=>$result['id'], "zone"=>$result['zone'], "name"=>$result['name'], "ui"=>$result['ui'], "x"=>$result['x'], "y"=>$result['y'], "z"=>$result['z'], "type"=>$result['type'], "flag"=>$result['flag'], "target"=>$result['target'], "bug"=>$result['bug'], "date"=>$result['date'], "status"=>$result['status']);
+    }
   }
+  return $array;
+}
+
+function get_resolved_bugs() {
+  global $mysql;
+
+  $query = "SELECT id, zone, name, ui, x, y, z, type, flag, target, bug, date, status FROM bugs WHERE status != 0 LIMIT 500";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+      $array['bugs'][$result['id']] = array("bid"=>$result['id'], "zone"=>$result['zone'], "name"=>$result['name'], "ui"=>$result['ui'], "x"=>$result['x'], "y"=>$result['y'], "z"=>$result['z'], "type"=>$result['type'], "flag"=>$result['flag'], "target"=>$result['target'], "bug"=>$result['bug'], "date"=>$result['date'], "status"=>$result['status']);
+    }
+  }
+  return $array;
+}
 
 function get_hackers() {
   global $mysql;
