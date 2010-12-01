@@ -71,7 +71,7 @@ switch ($action) {
    case 5: // Delete Bugs
     check_authorization();
     delete_bugs();
-    header("Location: index.php?editor=server&action=1");
+    header("Location: index.php?editor=server&action=4");
     exit;
    case 6: // Preview Hackers
     check_admin_authorization();
