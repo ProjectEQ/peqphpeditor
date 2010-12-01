@@ -36,7 +36,7 @@
 <?endif;?>
 <?if (!isset($bugs)):?>
             <tr>
-              <td align="left" width="100" style="padding: 10px;">No bugs</td>
+              <td align="left" width="100" style="padding: 10px;">No open bugs</td>
             </tr>
 <?endif;?>
           </table>
