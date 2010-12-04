@@ -43,6 +43,7 @@ switch ($action) {
     break;
   case 2: // View Bugs
     check_authorization();
+    $javascript = new Template("templates/server/js.tmpl.php");
     $body = new Template("templates/server/bugs.view.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $body->set("flags", $flags);
@@ -56,6 +57,9 @@ switch ($action) {
    case 3: // Update Bugs
     check_authorization();
     update_bugs();
+    if ($_POST['notify']) {
+      notify_status($bugstatus[$_POST['status']]);
+    }
     header("Location: index.php?editor=server&action=1");
     exit;
    case 4: // View Resolved Bugs
@@ -816,5 +820,25 @@ function suggest_launcher() {
   $result = $mysql->query_assoc($query);
   
   return $result['name'];
+}
+
+function notify_status($new_status) {
+  global $mysql;
+
+  $bid = $_POST['bid'];
+  $bug_date = $_POST['bug_date'];
+  $bug = $_POST['bug'];
+  $from = "SYSTEM";
+  $to = $_POST['name'];
+  $charid = getPlayerID($_POST['name']);
+  $subject = "Bug Report Status Update";
+  $note = $_POST['optional_note'];
+  $body = "This is a system generated message to notify you that the status of your bug report has changed.\nDo not reply to this message.\n\nBug ID: " . $bid . "\nNew Status: " . $new_status . "\nBug Date: " . $bug_date . "\nBug: " . $bug;
+  if ($note) {
+    $body .= "\nAdmin Note: " . $note;
+  }
+
+  $query = "INSERT INTO mail (`charid`,`timestamp`,`from`,`subject`,`body`,`to`,`status`) VALUES ($charid,UNIX_TIMESTAMP(NOW()),\"$from\",\"$subject\",\"$body\",\"$to\",1)";
+  $mysql->query_no_result($query);
 }
 ?>

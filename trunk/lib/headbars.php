@@ -1,9 +1,6 @@
 <?php
 
-// If user is logged in, build Editor tabs
-
-//  if ($_SESSION['logged_in'] == "TRUE") {
-
+// Build editor tabs
 $headbar = build_tabs();
 
 switch ($editor) {
@@ -149,6 +146,9 @@ switch ($editor) {
     $searchbar->set('guilds', $guilds);
     $searchbar->set('currguild', $guildid);
     break;
+  case 'mail':
+    $players = players();
+    break;
 }
 
 function build_tabs () {
@@ -170,6 +170,7 @@ function build_tabs () {
   $tabstatus14 = "off";
   $tabstatus15 = "off";
   $tabstatus16 = "off";
+  $tabstatus17 = "off";
 
   $zoneurl = "";
   $npcurl = "";
@@ -233,6 +234,9 @@ function build_tabs () {
     case 'guild':
       $tabstatus16 = "on";
       break;
+    case 'mail':
+      $tabstatus17 = "on";
+      break;
   }
 
   $admin = '';
@@ -259,7 +263,8 @@ function build_tabs () {
         <div class=\"$tabstatus13\"><a href=\"index.php?editor=items\">Items</a></div>
         <div class=\"$tabstatus14\"><a href=\"index.php?editor=player\">Players</a></div>
         <div class=\"$tabstatus15\"><a href=\"index.php?editor=account\">Accounts</a></div>
-        <div class=\"$tabstatus16\"><a href=\"index.php?editor=guild\">Guilds</a></div><br>
+        <div class=\"$tabstatus16\"><a href=\"index.php?editor=guild\">Guilds</a></div>
+        <div class=\"$tabstatus17\"><a href=\"index.php?editor=mail\">Mail</a></div><br>
       </div>
 ";
 

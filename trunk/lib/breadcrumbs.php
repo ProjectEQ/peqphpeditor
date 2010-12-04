@@ -57,6 +57,9 @@ switch ($editor) {
   case 'guild':
     $breadcrumbs = "Guilds";
     break;
+  case 'mail':
+    $breadcrumbs = "Mail";
+    break;
 }
 
 if ($z != '') $breadcrumbs .= " >> " . getZoneLongName($z);

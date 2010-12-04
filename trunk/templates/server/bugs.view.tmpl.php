@@ -50,7 +50,7 @@
                   <legend><strong>Bug</strong></legend>
                   <table width="100%">
                     <tr>
-                      <td align="center" width="10%"><select name="status">
+                      <td align="center" width="10%"><select name="status" onChange="toggleNotify();">
 <?foreach($bugstatus as $key=>$value):?>
                         <option value="<?=$key?>"<?echo ($key == $status)? " selected" : "";?>><?=$value?></option>
 <?endforeach;?>
@@ -58,8 +58,19 @@
                       <td align="center" width="90%"><?=$bug?></td>
                     </tr>
                   </table>
-                </fieldset><br>
+                </fieldset><br/>
+              </center>
+              <fieldset id="notify" style="display:none">
+                <legend><strong>Player Notification</strong></legend>
+                <br/><input type="checkbox" name="notify" value="notify"/>Notify player of status change<br/><br/>
+                Note to Player: (Optional)<br/>
+                <textarea name="optional_note" cols="68" rows="5"></textarea>
+              </fieldset><br/><br/>
+              <center>
                 <input type="hidden" name="bid" value="<?=$bid?>">
+                <input type="hidden" name="bug_date" value="<?=$date?>">
+                <input type="hidden" name="name" value="<?=$name?>">
+                <input type="hidden" name="bug" value="<?=$bug?>">
                 <input type="submit" value="Submit Changes">
               </center>
             </div>
