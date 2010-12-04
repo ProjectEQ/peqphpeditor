@@ -195,6 +195,14 @@ function getPlayerName($playerid) {
   return $result['name'];
 }
 
+function getPlayerID($playername) {
+  global $mysql;
+  
+  $query = "SELECT id FROM character_ WHERE name=\"$playername\"";
+  $result = $mysql->query_assoc($query);
+  return $result['id'];
+}
+
 function search_players() {
   global $mysql;
   $search = $_GET['search'];

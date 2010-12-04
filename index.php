@@ -96,6 +96,9 @@ switch ($editor) {
   case 'guild':
     require_once('lib/guild.php');
     break;
+  case 'mail':
+    require_once('lib/mail.php');
+    break;
 }
 
 $tmpl->set('javascript', $javascript);
