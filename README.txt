@@ -1,4 +1,4 @@
-For more help on getting Apache, PHP, or the Editor itself set up, visit http://www.projecteq.net/phpBB2/viewforum.php?f=29
+For more help on getting Apache, PHP, or the Editor itself set up, visit http://www.peqtgc.com/phpBB2/viewforum.php?f=29
 
 Step 1:
 
