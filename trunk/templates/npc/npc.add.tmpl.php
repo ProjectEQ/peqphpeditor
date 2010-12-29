@@ -159,6 +159,7 @@
                   <input type="checkbox" name="m" value="m"> Magic Attack<br>
                   <input type="checkbox" name="b" value="b"> Bane Attack<br>
                   <input type="checkbox" name="L" value="L"> Dual Wield<br>
+                  <input type="checkbox" name="Y" value="Y"> Ranged Attack<br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="U" value="U"> Unslowable<br>
@@ -168,8 +169,6 @@
                   <input type="checkbox" name="I" value="I"> Unsnareable<br>
                   <input type="checkbox" name="D" value="D"> Unfearable<br>
                   <input type="checkbox" name="g" value="g"> Resist Ranged Spells<br>
-                  <input type="checkbox" name="G" value="G"> Immune Target<br>
-                  <input type="checkbox" name="Y" value="Y"> Ranged Attack<br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="A" value="A"> Immune to Melee<br>
@@ -178,6 +177,7 @@
                   <input type="checkbox" name="W" value="W"> Immune to non-Magical Melee<br>
                   <input type="checkbox" name="O" value="O"> Immune to non-Bane Melee<br>
                   <input type="checkbox" name="H" value="H"> Will Not Aggro<br>
+                  <input type="checkbox" name="G" value="G"> Immune to Aggro<br>
                   <input type="checkbox" name="d" value="d"> See through Feign Death<br>
                   <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>> Can Aggro NPCs<br>
                 </td>

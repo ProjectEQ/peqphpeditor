@@ -869,7 +869,7 @@ $specialattacks = array(
   "g" => "Resist Ranged Spells",
   "d" => "See through Feign Death",
   "L" => "Dual Wield",
-  "G" => "Immune Target",
+  "G" => "Immune to Aggro",
   "Y" => "Ranged Attack"
 );
 
