@@ -156,7 +156,8 @@
                   <input type="checkbox" name="m" value="m"<?echo (strpos($npcspecialattks,"m") === false) ? "" : " checked"?>> Magic Attack<br>
                   <input type="checkbox" name="b" value="b"<?echo (strpos($npcspecialattks,"b") === false) ? "" : " checked"?>> Bane Attack<br>
                   <input type="checkbox" name="L" value="L"<?echo (strpos($npcspecialattks,"L") === false) ? "" : " checked"?>> Dual Wield<br>
-                 </td>
+                  <input type="checkbox" name="Y" value="Y"<?echo (strpos($npcspecialattks,"Y") === false) ? "" : " checked"?>> Ranged Attack<br>
+                </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="U" value="U"<?echo (strpos($npcspecialattks,"U") === false) ? "" : " checked"?>> Unslowable<br>
                   <input type="checkbox" name="M" value="M"<?echo (strpos($npcspecialattks,"M") === false) ? "" : " checked"?>> Unmezable<br>
@@ -164,7 +165,7 @@
                   <input type="checkbox" name="N" value="N"<?echo (strpos($npcspecialattks,"N") === false) ? "" : " checked"?>> Unstunable<br>
                   <input type="checkbox" name="I" value="I"<?echo (strpos($npcspecialattks,"I") === false) ? "" : " checked"?>> Unsnareable<br>
                   <input type="checkbox" name="D" value="D"<?echo (strpos($npcspecialattks,"D") === false) ? "" : " checked"?>> Unfearable<br>
-                  <input type="checkbox" name="g" value="g"<?echo (strpos($npcspecialattks,"g") === false) ? "" : " checked"?>> Resist ranged spells<br>
+                  <input type="checkbox" name="g" value="g"<?echo (strpos($npcspecialattks,"g") === false) ? "" : " checked"?>> Resist Ranged Spells<br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="A" value="A"<?echo (strpos($npcspecialattks,"A") === false) ? "" : " checked"?>> Immune to Melee<br>
@@ -173,10 +174,10 @@
                   <input type="checkbox" name="W" value="W"<?echo (strpos($npcspecialattks,"W") === false) ? "" : " checked"?>> Immune to non-Magical Melee<br>
                   <input type="checkbox" name="O" value="O"<?echo (strpos($npcspecialattks,"O") === false) ? "" : " checked"?>> Immune to non-Bane Melee<br>
                   <input type="checkbox" name="H" value="H"<?echo (strpos($npcspecialattks,"H") === false) ? "" : " checked"?>> Will Not Aggro<br>
+                  <input type="checkbox" name="G" value="G"<?echo (strpos($npcspecialattks,"G") === false) ? "" : " checked"?>> Immune to Aggro<br>
                   <input type="checkbox" name="d" value="d"<?echo (strpos($npcspecialattks,"d") === false) ? "" : " checked"?>> See through Feign Death<br>
                   <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>> Can Aggro NPCs<br>
-                  &nbsp;    
-               </td>
+                </td>
               </tr>
             </table>
             </center>
