@@ -60,6 +60,9 @@ switch ($editor) {
   case 'mail':
     $breadcrumbs = "Mail";
     break;
+  case 'aa':
+    $breadcrumbs = "AAs";
+    break;
 }
 
 if ($z != '') $breadcrumbs .= " >> " . getZoneLongName($z);
@@ -72,5 +75,6 @@ if ($spellset != '') $breadcrumbs .= " >> " . getSpellsetName($spellset);
 if ($playerid != '') $breadcrumbs .= " >> " . getPlayerName($playerid) . " ($playerid)";
 if ($acctid != '') $breadcrumbs .= " >> " . getAccountName($acctid) . " ($acctid)";
 if ($guildid != '') $breadcrumbs .= " >> " . getGuildName($guildid) . " ($guildid)";
+if ($aaid != '') $breadcrumbs .= " >> " . getAAName($aaid) . " ($aaid)";
 
 ?>

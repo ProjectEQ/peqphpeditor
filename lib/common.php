@@ -325,4 +325,30 @@ function search_guilds_by_charname() {
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
+
+function search_aas_by_name() {
+  global $mysql;
+  $search = $_GET['search'];
+
+  $query = "SELECT skill_id, name FROM altadv_vars WHERE name rlike \"$search\" ORDER BY name, skill_id";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function search_aas_by_id() {
+  global $mysql;
+  $aaid = $_GET['aaid'];
+
+  $query = "SELECT skill_id, name FROM altadv_vars WHERE skill_id=\"$aaid\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function getAAName($aaid) {
+  global $mysql;
+
+  $query = "SELECT name FROM altadv_vars WHERE skill_id=\"$aaid\"";
+  $result = $mysql->query_assoc($query);
+  return $result['name'];
+}
 ?>

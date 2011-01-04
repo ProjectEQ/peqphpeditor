@@ -149,6 +149,13 @@ switch ($editor) {
   case 'mail':
     $players = players();
     break;
+  case 'aa':
+    $aas = aas();
+    $searchbar = new Template("templates/searchbar/searchbar.byaaid.tmpl.php");
+    $searchbar->set('curreditor', $editor);
+    $searchbar->set('aas', $aas);
+    $searchbar->set('curraa', $aaid);
+    break;
 }
 
 function build_tabs () {
@@ -171,6 +178,7 @@ function build_tabs () {
   $tabstatus15 = "off";
   $tabstatus16 = "off";
   $tabstatus17 = "off";
+  $tabstatus18 = "off";
 
   $zoneurl = "";
   $npcurl = "";
@@ -237,6 +245,9 @@ function build_tabs () {
     case 'mail':
       $tabstatus17 = "on";
       break;
+    case 'aa':
+      $tabstatus18 = "on";
+      break;
   }
 
   $admin = '';
@@ -264,7 +275,8 @@ function build_tabs () {
         <div class=\"$tabstatus14\"><a href=\"index.php?editor=player\">Players</a></div>
         <div class=\"$tabstatus15\"><a href=\"index.php?editor=account\">Accounts</a></div>
         <div class=\"$tabstatus16\"><a href=\"index.php?editor=guild\">Guilds</a></div>
-        <div class=\"$tabstatus17\"><a href=\"index.php?editor=mail\">Mail</a></div><br>
+        <div class=\"$tabstatus17\"><a href=\"index.php?editor=mail\">Mail</a></div>
+        <div class=\"$tabstatus18\"><a href=\"index.php?editor=aa\">AAs</a></div><br>
       </div>
 ";
 
@@ -450,6 +462,15 @@ function guilds() {
   global $mysql;
 
   $query = "SELECT id, name FROM guilds ORDER BY name ASC";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
+}
+
+function aas() {
+  global $mysql;
+
+  $query = "SELECT skill_id, name FROM altadv_vars ORDER BY name, skill_id";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
