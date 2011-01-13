@@ -13,7 +13,7 @@
             <input class="indented" id="id" type="text" name="item_id" size="7" value=""><br><br>
 
             <strong>Item is a:</strong><br>
-            <select class="indented" name="type" onChange="toggleComponentType()">
+            <select class="indented" name="type" id="type" onChange="toggleComponentType()">
               <option value="0">Combine Container</option>
               <option value="1">Component</option>
               <option value="2">Product</option>
@@ -30,68 +30,76 @@
                 <td width="30%"><strong>Name</strong></td>
               </tr>
               <tr>
-                <td align="center" width="10%">9</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='9';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">9</a></td>
                 <td width="30%">Medicine Bag</td>
               </tr>
               <tr>
-                <td align="center" width="10%">15</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='15';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">15</a></td>
                 <td width="30%">Oven</td>
               </tr>
               <tr>
-                <td align="center" width="10%">16</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='16';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">16</a></td>
                 <td width="30%">Loom</td>
               </tr>
               <tr>
-                <td align="center" width="10%">17</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='17';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">17</a></td>
                 <td width="30%">Forge</td>
               </tr>
               <tr>
-                <td align="center" width="10%">18</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='18';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">18</a></td>
                 <td width="30%">Fletching Kit</td>
               </tr>
               <tr>
-                <td align="center" width="10%">19</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='19';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">19</a></td>
                 <td width="30%">Brew Barrel</td>
               </tr>
               <tr>
-                <td align="center" width="10%">20</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='20';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">20</a></td>
                 <td width="30%">Jeweler's Kit</td>
               </tr>
               <tr>
-                <td align="center" width="10%">21</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='21';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">21</a></td>
                 <td width="30%">Pottery Wheel</td>
               </tr>
               <tr>
-                <td align="center" width="10%">22</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='22';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">22</a></td>
                 <td width="30%">Kiln</td>
               </tr>
               <tr>
-                <td align="center" width="10%">24</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='24';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">24</a></td>
                 <td width="30%">Wizard Lexicon</td>
               </tr>
               <tr>
-                <td align="center" width="10%">25</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='25';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">25</a></td>
                 <td width="30%">Magician Lexicon</td>
               </tr>
               <tr>
-                <td align="center" width="10%">26</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='26';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">26</a></td>
                 <td width="30%">Necromancer Lexicon</td>
               </tr>
               <tr>
-                <td align="center" width="10%">27</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='27';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">27</a></td>
                 <td width="30%">Enchanter Lexicon</td>
               </tr>
               <tr>
-                <td align="center" width="10%">32</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='32';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">32</a></td>
                 <td width="30%">Teir`Dal Forge</td>
               </tr>
               <tr>
-                <td align="center" width="10%">33</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='33';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">33</a></td>
                 <td width="30%">Oggok Forge</td>
               </tr>
               <tr>
-                <td align="center" width="10%">46</td>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='46';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">46</a></td>
                 <td width="30%">Tackle Box</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='17162';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">17162</a></td>
+                <td width="30%">Collapsible Mixing Bowl</td>
+              </tr>
+              <tr>
+                <td align="center" width="10%"><a href="javascript:document.getElementById('id').value='17906';javascript:document.getElementById('type').value='0';javascript:toggleContainer();">17906</a></td>
+                <td width="30%">Mixing Bowl</td>
               </tr>
             </table>
             <fieldset>
