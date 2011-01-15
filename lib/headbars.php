@@ -156,6 +156,11 @@ switch ($editor) {
     $searchbar->set('aas', $aas);
     $searchbar->set('curraa', $aaid);
     break;
+  case 'qglobal':
+    $searchbar = new Template("templates/searchbar/searchbar.qglobal.tmpl.php");
+    $searchbar->set('curreditor', $editor);
+    $searchbar->set('currqglobal', $qglobalid);
+    break;
 }
 
 function build_tabs () {
@@ -179,6 +184,7 @@ function build_tabs () {
   $tabstatus16 = "off";
   $tabstatus17 = "off";
   $tabstatus18 = "off";
+  $tabstatus19 = "off";
 
   $zoneurl = "";
   $npcurl = "";
@@ -248,6 +254,9 @@ function build_tabs () {
     case 'aa':
       $tabstatus18 = "on";
       break;
+    case 'qglobal':
+      $tabstatus19 = "on";
+      break;
   }
 
   $admin = '';
@@ -276,7 +285,8 @@ function build_tabs () {
         <div class=\"$tabstatus15\"><a href=\"index.php?editor=account\">Accounts</a></div>
         <div class=\"$tabstatus16\"><a href=\"index.php?editor=guild\">Guilds</a></div>
         <div class=\"$tabstatus17\"><a href=\"index.php?editor=mail\">Mail</a></div>
-        <div class=\"$tabstatus18\"><a href=\"index.php?editor=aa\">AAs</a></div><br>
+        <div class=\"$tabstatus18\"><a href=\"index.php?editor=aa\">AAs</a></div>
+        <div class=\"$tabstatus19\"><a href=\"index.php?editor=qglobal\">QGlobals</a></div><br>
       </div>
 ";
 

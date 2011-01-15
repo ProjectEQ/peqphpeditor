@@ -1150,7 +1150,7 @@ $itemtypes= array(
  56 => "Augment Distillers",
  58 => "Fellowship Banner Materials",
  60 => "Cultural Armor Manuals",
- 63 => "New Curencies like Orum"
+ 63 => "New Currencies like Orum"
 );
 
 $itemsaugrestrict = array (

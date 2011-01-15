@@ -103,6 +103,9 @@ switch ($editor) {
   case 'aa':
     require_once('lib/aa.php');
     break;
+  case 'qglobal':
+    require_once('lib/qglobal.php');
+    break;
 }
 
 $tmpl->set('javascript', $javascript);
