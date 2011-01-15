@@ -63,6 +63,9 @@ switch ($editor) {
   case 'aa':
     $breadcrumbs = "AAs";
     break;
+  case 'qglobal':
+    $breadcrumbs = "Quest Globals";
+    break;
 }
 
 if ($z != '') $breadcrumbs .= " >> " . getZoneLongName($z);
