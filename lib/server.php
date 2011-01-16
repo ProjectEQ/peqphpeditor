@@ -27,7 +27,8 @@ $flags = array(
 );
 
 switch ($action) {
-  case 0: 
+  case 0:
+    check_authorization();
     $body = new Template("templates/server/server.default.tmpl.php");
     break;
   case 1: // Preview Bugs
@@ -63,6 +64,7 @@ switch ($action) {
     header("Location: index.php?editor=server&action=1");
     exit;
    case 4: // View Resolved Bugs
+    check_authorization();
     $body = new Template("templates/server/bugs.resolved.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $bugs = get_resolved_bugs();

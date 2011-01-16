@@ -30,7 +30,6 @@ switch ($action) {
           $body->set($key, $value);
         }
       }
-
       $errors = array();
       if (isset($vars['containers'])) {
         foreach ($vars['containers'] as $container) {
@@ -123,7 +122,6 @@ switch ($action) {
     header("Location: index.php?editor=tradeskill&ts=$ts&rec=$rec");
     exit;
   case 9:  // Search recipes
-   // check_authorization();
     $body = new Template("templates/tradeskill/tradeskill.searchresults.tmpl.php");
     if (isset($_GET['itemid']) && $_GET['itemid'] != "Item ID") {
       $results = search_recipes_by_item();
@@ -149,9 +147,6 @@ switch ($action) {
     header("Location: index.php?editor=tradeskill&ts=$ts&rec=$nrec");
     exit;
 }
-
-
-
 
 function getRecipeTradeskill () {
   global $mysql, $rec;

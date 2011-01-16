@@ -75,6 +75,7 @@ $scrollcasttype= array(
 
 switch ($action) {
   case 0: //Default
+    check_authorization();
     $body = new Template("templates/items/items.default.tmpl.php");
     break;
   case 1:   // Search items
@@ -87,6 +88,7 @@ switch ($action) {
     $body->set("results", $results);
     break;
   case 2: // Edit Item
+    check_authorization();
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/items/items.edit.tmpl.php");
     $body->set("itemsize", $itemsize);
@@ -122,6 +124,7 @@ switch ($action) {
      break;
     break;
   case 3: // Book Text
+     check_authorization();
      $body = new Template("templates/items/items.book.tmpl.php");
      $body->set('id', $_GET['id']);
      $body->set('name', $_GET['name']);

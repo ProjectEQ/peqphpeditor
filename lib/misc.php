@@ -220,7 +220,6 @@ switch ($action) {
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=19");
     exit; 
    case 25:  // Search functions
-    //check_authorization();
     $body = new Template("templates/misc/misc.searchresults.tmpl.php");
     if (isset($_GET['gspawnid']) && $_GET['gspawnid'] != "GroundSpawn"){
        $gspawn = search_gspawn_by_id();

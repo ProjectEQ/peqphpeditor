@@ -524,15 +524,12 @@ switch ($action) {
    case 48: // Update respawn time
     check_authorization();
     update_spawntimer();
-
-
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
     $sid = $_GET['sid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
     exit;
    case 49:  // Search npcs
-    //check_authorization();
     $body = new Template("templates/spawn/spawn.searchresults.tmpl.php");
     if (isset($_GET['npcid']) && $_GET['npcid'] != "ID") {
       $results = search_npc_by_id();
@@ -595,6 +592,7 @@ switch ($action) {
     $body->set('sid', $_GET['sid']);
     break;
   case 56: // Add spawngroup by id
+    check_authorization();
     $body = new Template("templates/spawn/spawngroup.addbyid.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);

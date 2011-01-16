@@ -3,19 +3,19 @@
 $bindallowed = array(
   0   => "No",
   1   => "Self",
-  2   => "Others",
+  2   => "Others"
 );
 
 $weathertype = array(
   0   => "None",
   1   => "Rain",
-  2   => "Snow",
+  2   => "Snow"
 );
 
 $blockedtype = array(
   0   => "Not Blocked",
   1   => "Zone Wide",
-  2   => "Coords",
+  2   => "Coords"
 );
 
 switch ($action) {
