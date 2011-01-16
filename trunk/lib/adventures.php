@@ -4,7 +4,7 @@ $advtype = array(
   1   => "Assassinate",
   2   => "Kill Count",
   3   => "Loot Count",
-  4   => "Rescue",
+  4   => "Rescue"
 );
 
 $themetype = array(
@@ -12,19 +12,19 @@ $themetype = array(
   2   => "Miragul's Menagerie",
   3   => "Mistmoore Catacombs",
   4   => "Rujarkian Hills",
-  5   => "Takish-Hiz",
+  5   => "Takish-Hiz"
 );
 
 $ldontraptype = array(
   1   => "Mechanical",
   2   => "Magical",
-  3   => "Cursed",
+  3   => "Cursed"
 );
 
 switch ($action) {
   case 0:         
+    check_authorization();
     if (!$npcid) {
-      check_authorization();
       $body = new Template("templates/adventures/adventures.searchresults.tmpl.php");
       $results = search_adventure_npc();
       $body->set("results", $results);
@@ -37,79 +37,83 @@ switch ($action) {
     }
     break;
   case 1: // Assassinate Adventures
-      $body = new Template("templates/adventures/assassinate.tmpl.php");
-      $body->set('currzone', $z);
-      $body->set('currzoneid', $zoneid);
-      $body->set('npcid', $npcid);
-      $body->set('yesno', $yesno);
-      $body->set('advtype', $advtype);
-      $body->set('themetype', $themetype); 
-      $bossassa = get_assassinatelist();
-      if ($bossassa) {
-        foreach ($bossassa as $key=>$value) {
-          $body->set($key, $value);
-        }
+    check_authorization();
+    $body = new Template("templates/adventures/assassinate.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('yesno', $yesno);
+    $body->set('advtype', $advtype);
+    $body->set('themetype', $themetype); 
+    $bossassa = get_assassinatelist();
+    if ($bossassa) {
+      foreach ($bossassa as $key=>$value) {
+        $body->set($key, $value);
       }
+    }
     break;
   case 2: // Kill Count Adventures
-      $body = new Template("templates/adventures/kill.tmpl.php");
-      $body->set('currzone', $z);
-      $body->set('currzoneid', $zoneid);
-      $body->set('npcid', $npcid);
-      $body->set('yesno', $yesno);
-      $body->set('advtype', $advtype);
-      $body->set('themetype', $themetype); 
-      $kill = get_killlist();
-      if ($kill) {
-        foreach ($kill as $key=>$value) {
-          $body->set($key, $value);
-        }
+    check_authorization();
+    $body = new Template("templates/adventures/kill.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('yesno', $yesno);
+    $body->set('advtype', $advtype);
+    $body->set('themetype', $themetype); 
+    $kill = get_killlist();
+    if ($kill) {
+      foreach ($kill as $key=>$value) {
+        $body->set($key, $value);
       }
-   break;
+    }
+    break;
   case 3: // Loot Count Adventures
-      $body = new Template("templates/adventures/loot.tmpl.php");
-      $body->set('currzone', $z);
-      $body->set('currzoneid', $zoneid);
-      $body->set('npcid', $npcid);
-      $body->set('yesno', $yesno);
-      $body->set('advtype', $advtype);
-      $body->set('themetype', $themetype); 
-      $loot = get_lootlist();
-      if ($loot) {
-        foreach ($loot as $key=>$value) {
-          $body->set($key, $value);
-        }
+    check_authorization();
+    $body = new Template("templates/adventures/loot.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('yesno', $yesno);
+    $body->set('advtype', $advtype);
+    $body->set('themetype', $themetype); 
+    $loot = get_lootlist();
+    if ($loot) {
+      foreach ($loot as $key=>$value) {
+        $body->set($key, $value);
       }
-   break;
+    }
+    break;
   case 4: // Rescue Adventures
-      $body = new Template("templates/adventures/rescue.tmpl.php");
-      $body->set('currzone', $z);
-      $body->set('currzoneid', $zoneid);
-      $body->set('npcid', $npcid);
-      $body->set('yesno', $yesno);
-      $body->set('advtype', $advtype);
-      $body->set('themetype', $themetype); 
-      $rescue = get_rescuelist();
-      if ($rescue) {
-        foreach ($rescue as $key=>$value) {
-          $body->set($key, $value);
-        }
+    check_authorization();
+    $body = new Template("templates/adventures/rescue.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('yesno', $yesno);
+    $body->set('advtype', $advtype);
+    $body->set('themetype', $themetype); 
+    $rescue = get_rescuelist();
+    if ($rescue) {
+      foreach ($rescue as $key=>$value) {
+        $body->set($key, $value);
       }
-   break;
+    }
+    break;
   case 5: // Flavor Text
-      check_authorization();
-      $body = new Template("templates/adventures/flavor.tmpl.php");
-      $body->set('currzone', $z);
-      $body->set('currzoneid', $zoneid);
-      $body->set('npcid', $npcid);
-      $body->set('aid', get_adventure_id());
-      $flavor = get_flavor();
-      if ($flavor) {
-        foreach ($flavor as $key=>$value) {
-          $body->set($key, $value);
-        }
+    check_authorization();
+    $body = new Template("templates/adventures/flavor.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('aid', get_adventure_id());
+    $flavor = get_flavor();
+    if ($flavor) {
+      foreach ($flavor as $key=>$value) {
+        $body->set($key, $value);
       }
-   break;
+    }
+    break;
   case 6: // Flavor Text
     check_authorization();
     update_flavor();
@@ -157,18 +161,19 @@ switch ($action) {
     header("Location: index.php?editor=adventures&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 12: // Trap Templates
-      $body = new Template("templates/adventures/traptemplate.tmpl.php");
-      $body->set('currzone', $z);
-      $body->set('currzoneid', $zoneid);
-      $body->set('npcid', $npcid);
-      $body->set('yesno', $yesno);
-      $body->set('ldontraptype', $ldontraptype); 
-      $ldontrap = get_traptemplate();
-      if ($ldontrap) {
-        foreach ($ldontrap as $key=>$value) {
-          $body->set($key, $value);
-        }
+    check_authorization();
+    $body = new Template("templates/adventures/traptemplate.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('yesno', $yesno);
+    $body->set('ldontraptype', $ldontraptype); 
+    $ldontrap = get_traptemplate();
+    if ($ldontrap) {
+      foreach ($ldontrap as $key=>$value) {
+        $body->set($key, $value);
       }
+    }
     break;
    case 13: // Edit Trap Template
     check_authorization();

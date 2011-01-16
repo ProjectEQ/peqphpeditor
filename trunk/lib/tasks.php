@@ -3,7 +3,7 @@
 $rewardmethods = array(
   0   => "Single ID",
   1   => "Goallist",
-  2   => "Perl",
+  2   => "Perl"
 );
 
 $activitytypes = array(
@@ -19,7 +19,7 @@ $activitytypes = array(
   10   => "Use",
   11   => "Touch",
   100   => "GiveCash",
-  999   => "Custom",
+  999   => "Custom"
 );
 
 switch ($action) {
@@ -85,18 +85,18 @@ switch ($action) {
     header("Location: index.php?editor=tasks&tskid=$tskid");
     exit;
   case 6:  // Edit activity info
-      check_authorization();
-      $body = new Template("templates/tasks/activity.edit.tmpl.php");
-      $body->set('rewardmethods', $rewardmethods);
-      $body->set('activitytypes', $activitytypes);
-      $body->set('yesno', $yesno);
-      $body->set('zoneids', $zoneids);
-      $vars = activity_info();
-      if ($vars) {
-        foreach ($vars as $key=>$value) {
-          $body->set($key, $value);
-        }
-      }	
+    check_authorization();
+    $body = new Template("templates/tasks/activity.edit.tmpl.php");
+    $body->set('rewardmethods', $rewardmethods);
+    $body->set('activitytypes', $activitytypes);
+    $body->set('yesno', $yesno);
+    $body->set('zoneids', $zoneids);
+    $vars = activity_info();
+    if ($vars) {
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }	
     break;
   case 7: // Update activities
     check_authorization();
@@ -185,16 +185,16 @@ switch ($action) {
       }	
     break;
   case 18:  // Edit proximity info
-      check_authorization();
-      $body = new Template("templates/tasks/proximity.edit.tmpl.php");
-      $body->set('zoneids', $zoneids);
-      $body->set('tskid', $_GET['tskid']);
-      $vars = proximity_info();
-      if ($vars) {
-        foreach ($vars as $key=>$value) {
-          $body->set($key, $value);
-        }
-      }	
+    check_authorization();
+    $body = new Template("templates/tasks/proximity.edit.tmpl.php");
+    $body->set('zoneids', $zoneids);
+    $body->set('tskid', $_GET['tskid']);
+    $vars = proximity_info();
+    if ($vars) {
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }	
     break;
   case 19: // Update proximity
     check_authorization();

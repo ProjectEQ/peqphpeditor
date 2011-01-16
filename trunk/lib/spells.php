@@ -14,6 +14,7 @@ switch ($action) {
     $body->set("results", $results);
     break;
   case 2: // Edit spell
+    check_authorization();
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/spells/spells.edit.tmpl.php");
     $body->set("formulas", $sp_formulas);

@@ -2,6 +2,7 @@
 
 switch ($action) {
   case 0:  // View faction info
+    check_authorization();
     if (!$fid) {
       $body = new Template("templates/faction/faction.default.tmpl.php");
     }

@@ -1,7 +1,7 @@
 <?php
 
 switch ($action) {
-  case 0:  // View Merchanlist
+  case 0:  // View Merchantlist
     if ($npcid) {
       $body = new Template("templates/merchant/merchant.tmpl.php");
       $body->set('currzone', $z);
