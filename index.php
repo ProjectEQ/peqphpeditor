@@ -1,5 +1,7 @@
 <?php
 
+$current_revision = "r224";
+
 require_once("config.php");
 require_once("lib/logging.php");
 require_once("classes/mysql.php");
@@ -41,6 +43,7 @@ if (isset($_GET['admin'])) {
 switch ($editor) {
   case '':
     $body = new Template("templates/intro.tmpl.php");
+    $body->set('current_revision', $current_revision);
     break;
   case 'loot':
     require_once('lib/loot.php');
