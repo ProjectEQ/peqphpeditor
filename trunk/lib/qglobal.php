@@ -1,12 +1,30 @@
 <?php
+$default_page = 1;
+$default_size = 25;
+$default_filter = 1;
+
+$filters = array(
+  1 => 'id',
+  2 => 'name',
+  3 => 'charid',
+  4 => 'npcid',
+  5 => 'zoneid'
+);
 
 switch ($action) {
   case 0: // View QGlobals
     check_authorization();
+    $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
+    $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
+    $curr_filter = (isset($_GET['filter'])) ? $filters[$_GET['filter']] : $filters[$default_filter];
     $body = new Template("templates/qglobal/qglobal.tmpl.php");
-    $qglobals = get_qglobals();
+    $qglobals = get_qglobals($curr_page, $curr_size, $curr_filter);
+    $page_stats = get_PageStats($curr_page, $curr_size);
+    $page_stats['filter'] = $_GET['filter'];
+    $page_stats['page'] = $curr_page;
     if ($qglobals) {
       $body->set('qglobals', $qglobals);
+      $body->set('page_stats', $page_stats);
     }
     break;
   case 1: // Search QGlobals
@@ -46,13 +64,27 @@ switch ($action) {
     exit;
 }
 
-function get_qglobals() {
+function get_qglobals($page_number, $results_per_page, $sort_filter) {
   global $mysql;
+  $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
 
-  $query = "SELECT * FROM quest_globals ORDER BY id";
+  $query = "SELECT * FROM quest_globals ORDER BY $sort_filter LIMIT $limit";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
+}
+
+function get_PageStats($curr_page, $curr_size) {
+  global $mysql;
+  $stats = array();
+
+  $query = "SELECT COUNT(id) AS total FROM quest_globals";
+  $count = $mysql->query_assoc($query);
+  $pages = ceil($count['total'] / $curr_size);
+  $stats['count'] = $count;
+  $stats['pages'] = $pages;
+
+  return $stats;
 }
 
 function view_qglobal($qglobalid) {

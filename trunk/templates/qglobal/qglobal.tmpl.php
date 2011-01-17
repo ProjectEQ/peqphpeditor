@@ -3,6 +3,7 @@
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td>Quest Globals</td>
+                <td>Page <?echo ($page_stats['page'] > 1) ? "<a href='index.php?editor=qglobal&page=1" . (($page_stats['filter'] != "") ? "&filter=" . $page_stats['filter'] : "") . "'><<</a>" : "";?>&nbsp;<?echo ($page_stats['page'] > 1) ? "<a href='index.php?editor=qglobal&page=" . ($page_stats['page'] - 1) . (($page_stats['filter'] != "") ? "&filter=" . $page_stats['filter'] : "") . "'><</a>" : "";?>&nbsp;<?=$page_stats['page']?> of <?=$page_stats['pages']?>&nbsp;<?echo ($page_stats['page'] < $page_stats['pages']) ? "<a href='index.php?editor=qglobal&page=" . ($page_stats['page'] + 1) . (($page_stats['filter'] != "") ? "&filter=" . $page_stats['filter'] : "") . "'>></a>" : "";?>&nbsp;<?echo ($page_stats['page'] < $page_stats['pages']) ? "<a href='index.php?editor=qglobal&page=" . $page_stats['pages'] . (($page_stats['filter'] != "") ? "&filter=" . $page_stats['filter'] : "") . "'>>></a>" : "";?></td>
                 <td>
                   <div style="float:right">
                     <a href="index.php?editor=qglobal&action=2"><img src="images/add.gif" border="0" title="Create New Quest Global" /></a>
@@ -14,12 +15,12 @@
           <table class="table_content2" width="100%">
 <?if (isset($qglobals)):?>
             <tr>
-              <td align="center" width="8%"><strong>ID</strong></td>
-              <td align="center" width="14%"><strong>Name</strong></td>
+              <td align="center" width="8%"><strong><a href="index.php?editor=qglobal&filter=1">ID</a></strong></td>
+              <td align="center" width="14%"><strong><a href="index.php?editor=qglobal&filter=2">Name</a></strong></td>
               <td align="center" width="2%"><strong>Value</strong></td>
-              <td align="center" width="18%"><strong>Character</strong></td>
-              <td align="center" width="18%"><strong>NPC</strong></td>
-              <td align="center" width="15%"><strong>Zone</strong></td>
+              <td align="center" width="18%"><strong><a href="index.php?editor=qglobal&filter=3">Character</a></strong></td>
+              <td align="center" width="18%"><strong><a href="index.php?editor=qglobal&filter=4">NPC</a></strong></td>
+              <td align="center" width="15%"><strong><a href="index.php?editor=qglobal&filter=5">Zone</a></strong></td>
               <td align="center" width="20%"><strong>Expires</strong></td>
               <td width="5%">&nbsp;</td>
             </tr>
