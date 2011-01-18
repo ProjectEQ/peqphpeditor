@@ -3,7 +3,13 @@
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td>Quest Globals</td>
-                <td>Page <?echo ($page_stats['page'] > 1) ? "<a href='index.php?editor=qglobal&page=1" . (($page_stats['filter'] != "") ? "&filter=" . $page_stats['filter'] : "") . "'><<</a>" : "";?>&nbsp;<?echo ($page_stats['page'] > 1) ? "<a href='index.php?editor=qglobal&page=" . ($page_stats['page'] - 1) . (($page_stats['filter'] != "") ? "&filter=" . $page_stats['filter'] : "") . "'><</a>" : "";?>&nbsp;<?=$page_stats['page']?> of <?=$page_stats['pages']?>&nbsp;<?echo ($page_stats['page'] < $page_stats['pages']) ? "<a href='index.php?editor=qglobal&page=" . ($page_stats['page'] + 1) . (($page_stats['filter'] != "") ? "&filter=" . $page_stats['filter'] : "") . "'>></a>" : "";?>&nbsp;<?echo ($page_stats['page'] < $page_stats['pages']) ? "<a href='index.php?editor=qglobal&page=" . $page_stats['pages'] . (($page_stats['filter'] != "") ? "&filter=" . $page_stats['filter'] : "") . "'>>></a>" : "";?></td>
+                <td>
+                  <?echo ($page_stats['page'] > 1) ? "<a href='index.php?editor=qglobal&page=1" . (($page_stats['sort'] != "") ? "&sort=" . $page_stats['sort'] : "") . "'><img src='images/first.gif' border='0' width='12' height='12' title='First'/></a>" : "<img src='images/first.gif' border='0' width='12' height='12'/>";?>
+                  <?echo ($page_stats['page'] > 1) ? "<a href='index.php?editor=qglobal&page=" . ($page_stats['page'] - 1) . (($page_stats['sort'] != "") ? "&sort=" . $page_stats['sort'] : "") . "'><img src='images/prev.gif' border='0' width='12' height='12' title='Previous'/></a>" : "<img src='images/prev.gif' border='0' width='12' height='12'/>";?>
+                  <?echo $page_stats['page'] . " of " . $page_stats['pages'];?>
+                  <?echo ($page_stats['page'] < $page_stats['pages']) ? "<a href='index.php?editor=qglobal&page=" . ($page_stats['page'] + 1) . (($page_stats['sort'] != "") ? "&sort=" . $page_stats['sort'] : "") . "'><img src='images/next.gif' border='0' width='12' height='12' title='Next'/></a>" : "<img src='images/next.gif' border='0' width='12' height='12'/>";?>
+                  <?echo ($page_stats['page'] < $page_stats['pages']) ? "<a href='index.php?editor=qglobal&page=" . $page_stats['pages'] . (($page_stats['sort'] != "") ? "&sort=" . $page_stats['sort'] : "") . "'><img src='images/last.gif' border='0' width='12' height='12' title='Last'/></a>" : "<img src='images/last.gif' border='0' width='12' height='12'/>";?>
+                </td>
                 <td>
                   <div style="float:right">
                     <a href="index.php?editor=qglobal&action=2"><img src="images/add.gif" border="0" title="Create New Quest Global" /></a>
@@ -15,12 +21,12 @@
           <table class="table_content2" width="100%">
 <?if (isset($qglobals)):?>
             <tr>
-              <td align="center" width="8%"><strong><a href="index.php?editor=qglobal&filter=1">ID</a></strong></td>
-              <td align="center" width="14%"><strong><a href="index.php?editor=qglobal&filter=2">Name</a></strong></td>
+              <td align="center" width="8%"><strong><?echo ($page_stats['sort'] == 1) ? "ID <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=qglobal&sort=1'>ID <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by ID'/></a>";?></strong></td>
+              <td align="center" width="14%"><strong><?echo ($page_stats['sort'] == 2) ? "Name <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=qglobal&sort=2'>Name <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Name'/></a>";?></strong></td>
               <td align="center" width="2%"><strong>Value</strong></td>
-              <td align="center" width="18%"><strong><a href="index.php?editor=qglobal&filter=3">Character</a></strong></td>
-              <td align="center" width="18%"><strong><a href="index.php?editor=qglobal&filter=4">NPC</a></strong></td>
-              <td align="center" width="15%"><strong><a href="index.php?editor=qglobal&filter=5">Zone</a></strong></td>
+              <td align="center" width="18%"><strong><?echo ($page_stats['sort'] == 3) ? "Character <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=qglobal&sort=3'>Character <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Character'/></a>";?></strong></td>
+              <td align="center" width="18%"><strong><?echo ($page_stats['sort'] == 4) ? "NPC <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=qglobal&sort=4'>NPC <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by NPC'/></a>";?></strong></td>
+              <td align="center" width="15%"><strong><?echo ($page_stats['sort'] == 5) ? "Zone <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=qglobal&sort=5'>Zone <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Zone'/></a>";?></strong></td>
               <td align="center" width="20%"><strong>Expires</strong></td>
               <td width="5%">&nbsp;</td>
             </tr>
