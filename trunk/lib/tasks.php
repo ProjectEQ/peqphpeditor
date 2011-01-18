@@ -22,6 +22,15 @@ $activitytypes = array(
   999   => "Custom"
 );
 
+$default_page = 1;
+$default_size = 20;
+$default_sort = 1;
+
+$columns = array(
+  1 => 'charid',
+  2 => 'taskid'
+);
+
 switch ($action) {
   case 0:  // View task info
     if (!$tskid) {
@@ -333,6 +342,50 @@ switch ($action) {
     $results = search_tasks();
     $body->set("results", $results);
     break;
+  case 35: // View Active Tasks
+    check_authorization();
+    $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
+    $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
+    $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
+    $body = new Template("templates/tasks/tasks.activetasks.tmpl.php");
+    $active_tasks = getActiveTasks($curr_page, $curr_size, $curr_sort);
+    $page_stats = get_ActivePageStats($curr_page, $curr_size);
+    $page_stats['sort'] = $_GET['sort'];
+    $page_stats['page'] = $curr_page;
+    if ($active_tasks) {
+      $body->set('active_tasks', $active_tasks);
+      foreach ($page_stats as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 36: // View Completed Tasks
+    check_authorization();
+    $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
+    $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
+    $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
+    $body = new Template("templates/tasks/tasks.completedtasks.tmpl.php");
+    $completed_tasks = getCompletedTasks($curr_page, $curr_size, $curr_sort);
+    $page_stats = get_CompletedPageStats($curr_page, $curr_size);
+    $page_stats['sort'] = $_GET['sort'];
+    $page_stats['page'] = $curr_page;
+    if ($completed_tasks) {
+      $body->set('completed_tasks', $completed_tasks);
+      foreach ($page_stats as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 37: // Delete Active Task
+    check_authorization();
+    delete_active_task();
+    header("Location: index.php?editor=tasks&action=35");
+    exit;
+  case 38: // Delete Completed Task
+    check_authorization();
+    delete_completed_task();
+    header("Location: index.php?editor=tasks&action=36");
+    exit;
 }
 
 function tasks_info() {
@@ -778,5 +831,69 @@ function search_tasks() {
   $query = "SELECT id, title FROM tasks WHERE title rlike \"$search\"";
   $results = $mysql->query_mult_assoc($query);
   return $results;
+}
+
+function getActiveTasks($page_number, $results_per_page, $sort_by) {
+  global $mysql;
+  $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
+
+  $query = "SELECT * FROM character_tasks ORDER BY $sort_by LIMIT $limit";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
+}
+
+function getCompletedTasks($page_number, $results_per_page, $sort_by) {
+  global $mysql;
+  $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
+
+  $query = "SELECT * FROM completed_tasks ORDER BY $sort_by LIMIT $limit";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
+}
+
+function get_ActivePageStats($curr_page, $curr_size) {
+  global $mysql;
+  $stats = array();
+
+  $query = "SELECT COUNT(*) AS total FROM character_tasks";
+  $count = $mysql->query_assoc($query);
+  $pages = ceil($count['total'] / $curr_size);
+  $stats['count'] = $count;
+  $stats['pages'] = $pages;
+
+  return $stats;
+}
+
+function get_CompletedPageStats($curr_page, $curr_size) {
+  global $mysql;
+  $stats = array();
+
+  $query = "SELECT COUNT(*) AS total FROM completed_tasks";
+  $count = $mysql->query_assoc($query);
+  $pages = ceil($count['total'] / $curr_size);
+  $stats['count'] = $count;
+  $stats['pages'] = $pages;
+
+  return $stats;
+}
+
+function delete_active_task() {
+  global $mysql;
+  $taskid = $_GET['tskid'];
+  $charid = $_GET['charid'];
+
+  $query = "DELETE FROM character_tasks WHERE taskid=\"$taskid\" AND charid=\"$charid\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_completed_task() {
+  global $mysql;
+  $taskid = $_GET['tskid'];
+  $charid = $_GET['charid'];
+
+  $query = "DELETE FROM completed_tasks WHERE taskid=\"$taskid\" AND charid=\"$charid\"";
+  $mysql->query_no_result($query);
 }
 ?>

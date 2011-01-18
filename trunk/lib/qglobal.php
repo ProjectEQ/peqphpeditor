@@ -24,7 +24,9 @@ switch ($action) {
     $page_stats['page'] = $curr_page;
     if ($qglobals) {
       $body->set('qglobals', $qglobals);
-      $body->set('page_stats', $page_stats);
+      foreach ($page_stats as $key=>$value) {
+        $body->set($key, $value);
+      }
     }
     break;
   case 1: // Search QGlobals
@@ -78,7 +80,7 @@ function get_PageStats($curr_page, $curr_size) {
   global $mysql;
   $stats = array();
 
-  $query = "SELECT COUNT(id) AS total FROM quest_globals";
+  $query = "SELECT COUNT(*) AS total FROM quest_globals";
   $count = $mysql->query_assoc($query);
   $pages = ceil($count['total'] / $curr_size);
   $stats['count'] = $count;
