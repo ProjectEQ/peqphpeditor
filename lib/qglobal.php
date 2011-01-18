@@ -1,9 +1,9 @@
 <?php
 $default_page = 1;
-$default_size = 25;
-$default_filter = 1;
+$default_size = 20;
+$default_sort = 1;
 
-$filters = array(
+$columns = array(
   1 => 'id',
   2 => 'name',
   3 => 'charid',
@@ -16,11 +16,11 @@ switch ($action) {
     check_authorization();
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
-    $curr_filter = (isset($_GET['filter'])) ? $filters[$_GET['filter']] : $filters[$default_filter];
+    $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/qglobal/qglobal.tmpl.php");
-    $qglobals = get_qglobals($curr_page, $curr_size, $curr_filter);
+    $qglobals = get_qglobals($curr_page, $curr_size, $curr_sort);
     $page_stats = get_PageStats($curr_page, $curr_size);
-    $page_stats['filter'] = $_GET['filter'];
+    $page_stats['sort'] = $_GET['sort'];
     $page_stats['page'] = $curr_page;
     if ($qglobals) {
       $body->set('qglobals', $qglobals);
@@ -64,11 +64,11 @@ switch ($action) {
     exit;
 }
 
-function get_qglobals($page_number, $results_per_page, $sort_filter) {
+function get_qglobals($page_number, $results_per_page, $sort_by) {
   global $mysql;
   $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
 
-  $query = "SELECT * FROM quest_globals ORDER BY $sort_filter LIMIT $limit";
+  $query = "SELECT * FROM quest_globals ORDER BY $sort_by LIMIT $limit";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
