@@ -655,6 +655,22 @@ switch ($action) {
     $scid = $_GET['scid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&scid=$scid&action=60");
     exit;
+  case 63: // Copy Grid Entry
+    check_authorization();
+    $body = new Template("templates/spawn/gridentry.add.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('zid', getZoneID($z));
+    $body->set('npcid', $npcid);
+    $body->set('pathgrid', $_GET['pathgrid']);
+    $body->set('spid', $_GET['spid']);
+    $body->set('suggestednum', suggest_grid_number());
+    $body->set('x_coord', $_GET['x_coord']);
+    $body->set('y_coord', $_GET['y_coord']);
+    $body->set('z_coord', $_GET['z_coord']);
+    $body->set('heading', $_GET['h_coord']);
+    $body->set('pause', $_GET['pause']);
+    break;
 }
 
 function get_spawngroups() {
@@ -862,11 +878,11 @@ function gridentry_info () {
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
     foreach ($results as $result) {
-     $array['grids'][$result['number']] = array("x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "heading"=>$result['heading'], "pause"=>$result['pause']);
-         }
-       }
-       
-       return $array;
+      $array['grids'][$result['number']] = array("x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "heading"=>$result['heading'], "pause"=>$result['pause']);
+    }
+  }
+
+  return $array;
 }
 
 function gridpoint_info () {
@@ -1448,4 +1464,54 @@ function get_spawngroups_by_zone($search) {
   return $results;
 }
 
+function export_grid_sql() {
+  global $mysql;
+  $gridid = $_GET['pathgrid'];
+  $zoneid = getZoneID($_GET['z']);
+  $table_string = "";
+  $value_string = "";
+  $export_string = "";
+
+  // Get Grid Properties
+  $export_string .= "DELETE FROM grid WHERE id = $gridid AND zoneid = $zoneid;\n";
+
+  $query = "SELECT * FROM grid WHERE id = $gridid AND zoneid = $zoneid";
+  $results = $mysql->query_assoc($query);
+  foreach ($results as $key=>$value) {
+    if($table_string) {
+      $table_string .= ", " . $key;
+      $value_string .= ", '" . $value . "'";
+    }
+    else {
+      $table_string = $key;
+      $value_string = "'" . $value . "'";
+    }
+  }
+  $export_string .= "INSERT INTO grid ($table_string) VALUES ($value_string);\n";
+  $table_string = "";
+  $value_string = "";
+
+  // Get Grid Entries
+  $export_string .= "DELETE FROM grid_entries WHERE gridid = $gridid AND zoneid = $zoneid;\n";
+
+  $query = "SELECT * FROM grid_entries WHERE gridid = $gridid AND zoneid = $zoneid";
+  $results = $mysql->query_mult_assoc($query);
+  foreach ($results as $result) {
+    foreach ($result as $key=>$value) {
+      if($table_string) {
+        $table_string .= ", " . $key;
+        $value_string .= ", '" . $value . "'";
+      }
+      else {
+        $table_string = $key;
+        $value_string = "'" . $value . "'";
+      }
+    }
+    $export_string .= "INSERT INTO grid_entries ($table_string) VALUES ($value_string);\n";
+    $table_string = "";
+    $value_string = "";
+  }
+
+  return $export_string;
+}
 ?>
