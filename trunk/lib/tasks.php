@@ -349,9 +349,7 @@ switch ($action) {
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/tasks/tasks.activetasks.tmpl.php");
     $active_tasks = getActiveTasks($curr_page, $curr_size, $curr_sort);
-    $page_stats = get_ActivePageStats($curr_page, $curr_size);
-    $page_stats['sort'] = $_GET['sort'];
-    $page_stats['page'] = $curr_page;
+    $page_stats = getPageInfo("character_tasks", $curr_page, $curr_size, $_GET['sort']);
     if ($active_tasks) {
       $body->set('active_tasks', $active_tasks);
       foreach ($page_stats as $key=>$value) {
@@ -366,9 +364,7 @@ switch ($action) {
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/tasks/tasks.completedtasks.tmpl.php");
     $completed_tasks = getCompletedTasks($curr_page, $curr_size, $curr_sort);
-    $page_stats = get_CompletedPageStats($curr_page, $curr_size);
-    $page_stats['sort'] = $_GET['sort'];
-    $page_stats['page'] = $curr_page;
+    $page_stats = getPageInfo("completed_tasks", $curr_page, $curr_size, $_GET['sort']);
     if ($completed_tasks) {
       $body->set('completed_tasks', $completed_tasks);
       foreach ($page_stats as $key=>$value) {
@@ -851,32 +847,6 @@ function getCompletedTasks($page_number, $results_per_page, $sort_by) {
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
-}
-
-function get_ActivePageStats($curr_page, $curr_size) {
-  global $mysql;
-  $stats = array();
-
-  $query = "SELECT COUNT(*) AS total FROM character_tasks";
-  $count = $mysql->query_assoc($query);
-  $pages = ceil($count['total'] / $curr_size);
-  $stats['count'] = $count;
-  $stats['pages'] = $pages;
-
-  return $stats;
-}
-
-function get_CompletedPageStats($curr_page, $curr_size) {
-  global $mysql;
-  $stats = array();
-
-  $query = "SELECT COUNT(*) AS total FROM completed_tasks";
-  $count = $mysql->query_assoc($query);
-  $pages = ceil($count['total'] / $curr_size);
-  $stats['count'] = $count;
-  $stats['pages'] = $pages;
-
-  return $stats;
 }
 
 function delete_active_task() {

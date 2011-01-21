@@ -26,6 +26,20 @@ $flags = array(
   15  => "Duplicate/Crash/Target/Flags"
 );
 
+$default_page = 1;
+$default_size = 20;
+$default_sort = 1;
+
+$columns = array(
+  1 => 'id',
+  2 => 'zone',
+  3 => 'name',
+  4 => 'type',
+  5 => 'target',
+  6 => 'date',
+  7 => 'status'
+);
+
 switch ($action) {
   case 0:
     check_authorization();
@@ -33,16 +47,23 @@ switch ($action) {
     break;
   case 1: // Preview Bugs
     check_authorization();
+    $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
+    $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
+    $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/server/bugs.tmpl.php");
     $body->set("bugstatus", $bugstatus);
-    $bugs = get_open_bugs();
+    $bugs = get_open_bugs($curr_page, $curr_size, $curr_sort);
+    $page_stats = getPageInfo("bugs", $curr_page, $curr_size, $_GET['sort']);
     if ($bugs) {
       foreach ($bugs as $key=>$value) {
         $body->set($key, $value);
       }
+      foreach ($page_stats as $key=>$value) {
+        $body->set($key, $value);
+      }
     }
     break;
-  case 2: // View Bugs
+  case 2: // View Bug
     check_authorization();
     $javascript = new Template("templates/server/js.tmpl.php");
     $body = new Template("templates/server/bugs.view.tmpl.php");
@@ -55,7 +76,7 @@ switch ($action) {
       }
     }
     break;
-   case 3: // Update Bugs
+   case 3: // Update Bug
     check_authorization();
     update_bugs();
     if ($_POST['notify']) {
@@ -65,16 +86,23 @@ switch ($action) {
     exit;
    case 4: // View Resolved Bugs
     check_authorization();
+    $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
+    $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
+    $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/server/bugs.resolved.tmpl.php");
     $body->set("bugstatus", $bugstatus);
-    $bugs = get_resolved_bugs();
+    $bugs = get_resolved_bugs($curr_page, $curr_size, $curr_sort);
+    $page_stats = getPageInfo("bugs", $curr_page, $curr_size, $_GET['sort']);
     if ($bugs) {
       foreach ($bugs as $key=>$value) {
         $body->set($key, $value);
       }
+      foreach ($page_stats as $key=>$value) {
+        $body->set($key, $value);
+      }
     }
     break;
-   case 5: // Delete Bugs
+   case 5: // Delete Bug
     check_authorization();
     delete_bugs();
     header("Location: index.php?editor=server&action=4");
@@ -352,10 +380,11 @@ switch ($action) {
     exit;
 }
 
-function get_open_bugs() {
+function get_open_bugs($page_number, $results_per_page, $sort_by) {
   global $mysql;
+  $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
 
-  $query = "SELECT id, zone, name, ui, x, y, z, type, flag, target, bug, date, status FROM bugs WHERE status = 0";
+  $query = "SELECT id, zone, name, ui, x, y, z, type, flag, target, bug, date, status FROM bugs WHERE status = 0 ORDER BY $sort_by LIMIT $limit";
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
@@ -365,10 +394,11 @@ function get_open_bugs() {
   return $array;
 }
 
-function get_resolved_bugs() {
+function get_resolved_bugs($page_number, $results_per_page, $sort_by) {
   global $mysql;
+  $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
 
-  $query = "SELECT id, zone, name, ui, x, y, z, type, flag, target, bug, date, status FROM bugs WHERE status != 0 LIMIT 500";
+  $query = "SELECT id, zone, name, ui, x, y, z, type, flag, target, bug, date, status FROM bugs WHERE status != 0 ORDER BY $sort_by LIMIT $limit";
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {

@@ -19,9 +19,7 @@ switch ($action) {
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/qglobal/qglobal.tmpl.php");
     $qglobals = get_qglobals($curr_page, $curr_size, $curr_sort);
-    $page_stats = get_PageStats($curr_page, $curr_size);
-    $page_stats['sort'] = $_GET['sort'];
-    $page_stats['page'] = $curr_page;
+    $page_stats = getPageInfo("quest_globals", $curr_page, $curr_size, $_GET['sort']);
     if ($qglobals) {
       $body->set('qglobals', $qglobals);
       foreach ($page_stats as $key=>$value) {
@@ -74,19 +72,6 @@ function get_qglobals($page_number, $results_per_page, $sort_by) {
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
-}
-
-function get_PageStats($curr_page, $curr_size) {
-  global $mysql;
-  $stats = array();
-
-  $query = "SELECT COUNT(*) AS total FROM quest_globals";
-  $count = $mysql->query_assoc($query);
-  $pages = ceil($count['total'] / $curr_size);
-  $stats['count'] = $count;
-  $stats['pages'] = $pages;
-
-  return $stats;
 }
 
 function view_qglobal($qglobalid) {
