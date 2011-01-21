@@ -351,4 +351,19 @@ function getAAName($aaid) {
   $result = $mysql->query_assoc($query);
   return $result['name'];
 }
+
+function getPageInfo($table, $page, $size, $sort) {
+  global $mysql;
+  $stats = array();
+
+  $query = "SELECT COUNT(*) AS total FROM $table";
+  $count = $mysql->query_assoc($query);
+  $pages = ceil($count['total'] / $size);
+  $stats['count'] = $count;
+  $stats['pages'] = $pages;
+  $stats['page'] = $page;
+  $stats['sort'] = $sort;
+
+  return $stats;
+}
 ?>
