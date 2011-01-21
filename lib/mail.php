@@ -21,6 +21,7 @@ switch ($action) {
     break;
   case 1: // View Message
     check_admin_authorization();
+    $breadcrumbs .= " >> View Message";
     $message = view_message();
     $body = new Template("templates/mail/mail.view.tmpl.php");
     $body->set("msg_status", $msg_status);
@@ -28,6 +29,7 @@ switch ($action) {
     break;
   case 2: // Modify Message
     check_admin_authorization();
+    $breadcrumbs .= " >> Edit Message";
     $message = view_message();
     $body = new Template("templates/mail/mail.edit.tmpl.php");
     $body->set("players", $players);
@@ -36,6 +38,7 @@ switch ($action) {
     break;
   case 3: // Create Message
     check_admin_authorization();
+    $breadcrumbs .= " >> Create Message";
     $body = new Template("templates/mail/mail.create.tmpl.php");
     $body->set("players", $players);
     break;

@@ -33,6 +33,7 @@ switch ($action) {
     break;
   case 2: //Create QGlobal
     check_authorization();
+    $breadcrumbs .= " >> Create Quest Global";
     $body = new Template("templates/qglobal/qglobal.add.tmpl.php");
     $nextid = get_next_qglobalid();
     $body->set('nextid', $nextid);
@@ -44,6 +45,7 @@ switch ($action) {
     exit;
   case 4: //Edit QGlobal
     check_authorization();
+    $breadcrumbs .= " >> Edit Quest Global";
     $body = new Template("templates/qglobal/qglobal.edit.tmpl.php");
     $qglobal = view_qglobal($_GET['qglobalid']);
     if ($qglobal) {

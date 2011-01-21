@@ -57,17 +57,17 @@ switch ($action) {
     }
     break;
   case 1:  // Edit task info
-      check_authorization();
-      $body = new Template("templates/tasks/tasks.edit.tmpl.php");
-      $body->set('rewardmethods', $rewardmethods);
-      $body->set('yesno', $yesno);
-      $body->set('zoneids', $zoneids);
-      $vars = tasks_info();
-      if ($vars) {
-        foreach ($vars as $key=>$value) {
-          $body->set($key, $value);
-        }
-      }	
+    check_authorization();
+    $body = new Template("templates/tasks/tasks.edit.tmpl.php");
+    $body->set('rewardmethods', $rewardmethods);
+    $body->set('yesno', $yesno);
+    $body->set('zoneids', $zoneids);
+    $vars = tasks_info();
+    if ($vars) {
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }	
     break;
   case 2: // Update tasks
     check_authorization();
@@ -344,6 +344,7 @@ switch ($action) {
     break;
   case 35: // View Active Tasks
     check_authorization();
+    $breadcrumbs .= " >> Active Tasks";
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
@@ -359,6 +360,7 @@ switch ($action) {
     break;
   case 36: // View Completed Tasks
     check_authorization();
+    $breadcrumbs .= " >> Completed Tasks";
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
