@@ -2,18 +2,16 @@
           <div class="table_header">
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
-                <td>Quest Globals</td>
-                <td>
+                <td align="left" width="33%">Quest Globals</td>
+                <td align="center" width="33%">
                   <?echo ($page > 1) ? "<a href='index.php?editor=qglobal&page=1" . (($sort != "") ? "&sort=" . $sort : "") . "'><img src='images/first.gif' border='0' width='12' height='12' title='First'/></a>" : "<img src='images/first.gif' border='0' width='12' height='12'/>";?>
                   <?echo ($page > 1) ? "<a href='index.php?editor=qglobal&page=" . ($page - 1) . (($sort != "") ? "&sort=" . $sort : "") . "'><img src='images/prev.gif' border='0' width='12' height='12' title='Previous'/></a>" : "<img src='images/prev.gif' border='0' width='12' height='12'/>";?>
                   <?echo $page . " of " . $pages;?>
                   <?echo ($page < $pages) ? "<a href='index.php?editor=qglobal&page=" . ($page + 1) . (($sort != "") ? "&sort=" . $sort : "") . "'><img src='images/next.gif' border='0' width='12' height='12' title='Next'/></a>" : "<img src='images/next.gif' border='0' width='12' height='12'/>";?>
                   <?echo ($page < $pages) ? "<a href='index.php?editor=qglobal&page=" . $pages . (($sort != "") ? "&sort=" . $sort : "") . "'><img src='images/last.gif' border='0' width='12' height='12' title='Last'/></a>" : "<img src='images/last.gif' border='0' width='12' height='12'/>";?>
                 </td>
-                <td>
-                  <div style="float:right">
-                    <a href="index.php?editor=qglobal&action=2"><img src="images/add.gif" border="0" title="Create New Quest Global" /></a>
-                  </div>
+                <td align="right" width="33%">
+                  <a href="index.php?editor=qglobal&action=2"><img src="images/add.gif" border="0" title="Create New Quest Global" /></a>
                 </td>
               </tr>
             </table>
