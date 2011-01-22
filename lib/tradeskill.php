@@ -8,6 +8,15 @@ $learned = array(
   6   => "Unlisted"
 );
 
+$default_page = 1;
+$default_size = 20;
+$default_sort = 1;
+
+$columns = array(
+  1 => 'char_id',
+  2 => 'recipe_id'
+);
+
 if ($ts == '' && intval($rec) != '0') {
   $ts = getRecipeTradeskill();
   header("Location: index.php?editor=tradeskill&ts=$ts&rec=$rec");
@@ -145,6 +154,27 @@ switch ($action) {
     copy_tradeskill();
     $nrec = get_new_id();
     header("Location: index.php?editor=tradeskill&ts=$ts&rec=$nrec");
+    exit;
+  case 13:  // View Learned Recipes
+    check_authorization();
+    $breadcrumbs .= " >> Learned Recipes";
+    $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
+    $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
+    $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
+    $body = new Template("templates/tradeskill/learned.tmpl.php");
+    $recipes = getLearnedRecipes($curr_page, $curr_size, $curr_sort);
+    $page_stats = getPageInfo("char_recipe_list", $curr_page, $curr_size, $_GET['sort']);
+    if ($recipes) {
+      $body->set('recipes', $recipes);
+      foreach ($page_stats as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 14:  // Delete Learned Recipe
+    check_authorization();
+    delete_LearnedRecipe();
+    header("Location: index.php?editor=tradeskill&action=13");
     exit;
 }
 
@@ -390,4 +420,22 @@ function get_new_id() {
   return $nrec;
 }
 
+function getLearnedRecipes($page_number, $results_per_page, $sort_by) {
+  global $mysql;
+  $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
+
+  $query = "SELECT * FROM char_recipe_list ORDER BY $sort_by LIMIT $limit";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
+}
+
+function delete_LearnedRecipe () {
+  global $mysql;
+  $char_id = $_GET['char_id'];
+  $recipe_id = $_GET['recipe_id'];
+  
+  $query = "DELETE FROM char_recipe_list WHERE char_id=$char_id AND recipe_id=$recipe_id";
+  $mysql->query_no_result($query);
+}
 ?>

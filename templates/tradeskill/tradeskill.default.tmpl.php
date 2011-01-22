@@ -6,7 +6,8 @@
          </tr>
          <tr>
            <td class="edit_form_content">
-             <a href="index.php?editor=tradeskill&action=10">Create a New Recipe</a>
+             <a href="index.php?editor=tradeskill&action=10">Create a New Recipe</a><br/>
+             <a href="index.php?editor=tradeskill&action=13">View Learned Recipes</a>
            </td>
          </tr>
        </table>
