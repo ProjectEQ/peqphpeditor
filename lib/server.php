@@ -54,7 +54,7 @@ switch ($action) {
     $body = new Template("templates/server/bugs.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $bugs = get_open_bugs($curr_page, $curr_size, $curr_sort);
-    $page_stats = getPageInfo("bugs", $curr_page, $curr_size, $_GET['sort']);
+    $page_stats = getPageInfo("bugs", $curr_page, $curr_size, $_GET['sort'], "status = 0");
     if ($bugs) {
       foreach ($bugs as $key=>$value) {
         $body->set($key, $value);
@@ -94,7 +94,7 @@ switch ($action) {
     $body = new Template("templates/server/bugs.resolved.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $bugs = get_resolved_bugs($curr_page, $curr_size, $curr_sort);
-    $page_stats = getPageInfo("bugs", $curr_page, $curr_size, $_GET['sort']);
+    $page_stats = getPageInfo("bugs", $curr_page, $curr_size, $_GET['sort'], "status != 0");
     if ($bugs) {
       foreach ($bugs as $key=>$value) {
         $body->set($key, $value);
