@@ -349,8 +349,8 @@ switch ($action) {
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/tasks/tasks.activetasks.tmpl.php");
-    $active_tasks = getActiveTasks($curr_page, $curr_size, $curr_sort);
     $page_stats = getPageInfo("character_tasks", $curr_page, $curr_size, $_GET['sort']);
+    $active_tasks = getActiveTasks($page_stats['page'], $curr_size, $curr_sort);
     if ($active_tasks) {
       $body->set('active_tasks', $active_tasks);
       foreach ($page_stats as $key=>$value) {
@@ -365,8 +365,8 @@ switch ($action) {
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/tasks/tasks.completedtasks.tmpl.php");
-    $completed_tasks = getCompletedTasks($curr_page, $curr_size, $curr_sort);
     $page_stats = getPageInfo("completed_tasks", $curr_page, $curr_size, $_GET['sort']);
+    $completed_tasks = getCompletedTasks($page_stats['page'], $curr_size, $curr_sort);
     if ($completed_tasks) {
       $body->set('completed_tasks', $completed_tasks);
       foreach ($page_stats as $key=>$value) {
@@ -377,12 +377,14 @@ switch ($action) {
   case 37: // Delete Active Task
     check_authorization();
     delete_active_task();
-    header("Location: index.php?editor=tasks&action=35");
+    $return_address = $_SERVER['HTTP_REFERER'];
+    header("Location: $return_address");
     exit;
   case 38: // Delete Completed Task
     check_authorization();
     delete_completed_task();
-    header("Location: index.php?editor=tasks&action=36");
+    $return_address = $_SERVER['HTTP_REFERER'];
+    header("Location: $return_address");
     exit;
 }
 

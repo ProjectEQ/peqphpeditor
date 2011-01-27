@@ -362,6 +362,9 @@ function getPageInfo($table, $page, $size, $sort, $where = "") {
   }
   $count = $mysql->query_assoc($query);
   $pages = ceil($count['total'] / $size);
+  if ($page > $pages) {
+    $page = $pages;
+  }
   $stats['count'] = $count;
   $stats['pages'] = $pages;
   $stats['page'] = $page;

@@ -18,8 +18,8 @@ switch ($action) {
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/qglobal/qglobal.tmpl.php");
-    $qglobals = get_qglobals($curr_page, $curr_size, $curr_sort);
     $page_stats = getPageInfo("quest_globals", $curr_page, $curr_size, $_GET['sort']);
+    $qglobals = get_qglobals($page_stats['page'], $curr_size, $curr_sort);
     if ($qglobals) {
       $body->set('qglobals', $qglobals);
       foreach ($page_stats as $key=>$value) {
@@ -62,7 +62,8 @@ switch ($action) {
   case 6: //Delete QGlobal
     check_authorization();
     delete_qglobal();
-    header("Location: index.php?editor=qglobal");
+    $return_address = $_SERVER['HTTP_REFERER'];
+    header("Location: $return_address");
     exit;
 }
 
