@@ -162,8 +162,8 @@ switch ($action) {
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/tradeskill/learned.tmpl.php");
-    $recipes = getLearnedRecipes($curr_page, $curr_size, $curr_sort);
     $page_stats = getPageInfo("char_recipe_list", $curr_page, $curr_size, $_GET['sort']);
+    $recipes = getLearnedRecipes($page_stats['page'], $curr_size, $curr_sort);
     if ($recipes) {
       $body->set('recipes', $recipes);
       foreach ($page_stats as $key=>$value) {
@@ -174,7 +174,8 @@ switch ($action) {
   case 14:  // Delete Learned Recipe
     check_authorization();
     delete_LearnedRecipe();
-    header("Location: index.php?editor=tradeskill&action=13");
+    $return_address = $_SERVER['HTTP_REFERER'];
+    header("Location: $return_address");
     exit;
 }
 
