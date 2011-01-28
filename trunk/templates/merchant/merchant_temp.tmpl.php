@@ -10,7 +10,7 @@
          <div class="table_content" style="padding: 0px;">
 <? if (isset($slots)):?>
         <table width="100%">
-          <tr>
+          <tr bgcolor="#BBBBBB">
             <th align="center">Slot</th>
             <th align="center">Item ID</th>
             <th>Item</th>
@@ -45,7 +45,7 @@
             <?php ($sells = ($v['price']*$v['sellrate']));?>
 <?endif;?>
 
-          <tr<? echo ($x % 2 == 1) ? " bgcolor=\"#BBBBBB" : "";?>">
+          <tr<? echo ($x % 2 == 1) ? " bgcolor=\"#BBBBBB\"" : "";?>>
             <td align="center"><?=$slot?></td>
             <td align="center"><?=$v['itemid']?></td>
             <td><?=$v['item_name']?></td>

@@ -19,7 +19,7 @@
           <td align="center" width="5%"><strong>Chance</strong></td>
           <th width="5%"></th>
          </tr>
-        <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+        <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="5%"><?=$fgid?></td>
 <?if($zoneid == 0):?>          
           <td align="center" width="10%">All</td>

@@ -22,7 +22,7 @@
           <th width="5%"></th>
          </tr>
 <?$x=0; foreach($fishing as $fishing=>$v):?>
-        <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+        <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="5%"><?=$v['fsid']?></td>
           <td align="center" width="12%"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&id=<?=$v['fiid']?>&action=2"><?=$v['name']?></a> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['fiid']?>">lucy</a>]</span></td>
           <td align="center" width="8%"><?=$v['skill_level']?></td>

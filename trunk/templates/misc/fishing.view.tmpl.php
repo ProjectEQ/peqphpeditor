@@ -21,7 +21,7 @@
           <td align="center" width="8%"><strong>NPC Chance</strong></td>
           <th width="5%"></th>
          </tr>
-        <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+        <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="5%"><?=$fsid?></td>
           <td align="center" width="12%"><?=get_item_name($fiid)?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$fiid?>">lucy</a>]</span></td>
 <?if($zoneid == 0):?>          

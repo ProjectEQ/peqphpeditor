@@ -21,7 +21,7 @@
           <td align="center" width="8%"><strong>Heading</strong></td>
           <th width="5%"></th>
          </tr>
-        <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+        <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="5%"><?=$id?></td>
           <td align="center" width="12%"><?=getZoneName($zone_id)?></td>
           <td align="center" width="8%"><?=$x?></td>

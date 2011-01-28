@@ -16,7 +16,7 @@
               <td width="5%">&nbsp;</td>
             </tr>
 <?$x=0; foreach($rules as $rules=>$v):?>
-            <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+            <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
               <td align="center" width="5%"><?=$v['ruleset_id']?></td>
               <td align="center" width="20%"><?=$v['rule_name']?></td>
               <td align="center" width="15%"><?=$v['rule_value']?></td>
