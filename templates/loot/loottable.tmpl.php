@@ -98,7 +98,7 @@
       $total = (($chance/100) * ($lootdrop['probability']/100)) * 100;
       $chance_total += $chance;
 ?>
-        <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+        <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$item_id?>&action=2"><?=$item_id?></td>
           <td align="center"><?=$name?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$item_id?>">lucy</a>]</span></td>
           <td align="center" width="100">
@@ -116,6 +116,7 @@
             <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=5"><img src="images/edit2.gif" border="0" title="Edit Lootdrop Item"></a>
             <a onClick="return confirm('Really remove item <?=$item_id?> from LootDrop <?=$lootdrop['id']?>?');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=17"><img src="images/remove3.gif" border="0" title="Remove Item"></a>
           </td>
+          <td>&nbsp;</td>
         </tr>
 <?php $x++; endforeach;?>
         <tr>

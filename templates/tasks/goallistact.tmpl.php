@@ -19,7 +19,7 @@
           <th width="5%"></th>
          </tr>
 <?$x=0; foreach($goallist as $goallist=>$v):?>
-        <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+        <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="5%"><?=$v['listid']?></td>
           <?if($atype == '2'):?>
           <td align="center" width="5%"><a href="index.php?editor=npc&z=<?=get_zone_by_npcid($v['entry'])?>&zoneid=<?=get_zoneid_by_npcid($v['entry'])?>&npcid=<?=$v['entry']?>"><?=getNPCName($v['entry'])?></td>

@@ -5,7 +5,6 @@
             <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&action=1">
               <img src="images/c_table.gif" border="0" title="Edit Spellset">
             </a>
-
 <? if(!$spellset):?>
             <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=9">
               <img src="images/create.gif" border="0" title="Change Spellset">
@@ -27,7 +26,7 @@
 <?if($attack_proc != -1):?>
           <strong>Proc Chance:</strong> <?=$proc_chance?>%<br>
 <?endif;?>
-          <br><strong>Parent List:</strong> <? echo ($parent_list != 0) ? "{$parent['name']} ({$parent['id']})" : "none";?>
+          <br><strong>Parent List:</strong> <? echo ($parent_list != 0) ? "{$parent['name']} ({$parent['id']})" : "none";?><br>
         </div>
       </div>
 <?endif;?>
@@ -45,7 +44,7 @@
         </div>
         <div class="table_content">
           <table width="100%" cellpadding="0" cellspacing="0">
-            <tr>
+            <tr bgcolor="#BBBBBB">
               <th width="35%">Spell</th>
               <th width="9%" align="center">Type</th>
               <th width="9%" align="center">minlevel</th>
@@ -56,7 +55,7 @@
               <th width="10%" align="center"></th>
             </tr>
 <?$x=0; foreach($spells as $spell): extract($spell);?>
-            <tr<?echo($x % 2 == 1) ? " BGCOLOR=\"#BBBBBB\"" : "";?>>
+            <tr<?echo($x % 2 == 1) ? " bgcolor=\"#BBBBBB\"" : "";?>>
               <td><?=$name?> (<?=$spellid?>) [<a href="http://lucy.allakhazam.com/spell.html?source=Live&id=<?=$spellid?>">Lucy</a>]</td>
               <td align="center"><?=$spelltypes[$type]?></td>
               <td align="center"><?=$minlevel?></td>
@@ -68,7 +67,6 @@
                 <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$id?>&action=6">
                   <img src="images/edit2.gif" border="0" title="Edit Spell">
                 </a>&nbsp;
-
                 <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$id?>&action=5" onClick="return confirm('Really remove this spell from the spellset?');">
                   <img src="images/remove3.gif" border="0" title="Remove Spell from Spellset">
                 </a>
@@ -79,7 +77,6 @@
         </div>
       </div>
 <?endif;?>
-
 
 <?if((isset($id)) &&  (!isset($spells) || ($spells == 0))):?>
       <br>
@@ -98,7 +95,6 @@
       </div>
 <?endif;?>
 
-
 <?if(isset($parent_list) && ($parent_list != 0)):?>
       <br>
       <div class="table_container">
@@ -110,10 +106,10 @@
           </div>
           Parent List: <?=$parent['name']?> (<?=$parent['id']?>)
         </div>
-        <div class="table_content2">
+        <div class="table_content">
           <table width="100%" cellpadding="0" cellspacing="0">
 <? if ($parent['spells']):?>
-            <tr>
+            <tr bgcolor="#BBBBBB">
               <th width="35%">Spell</th>
               <th width="9%" align="center">Type</th>
               <th width="9%" align="center">minlevel</th>
@@ -124,7 +120,7 @@
               <th width="10%" align="center"></th>
             </tr>
 <?$x=0; foreach($parent['spells'] as $spell): extract($spell);?>
-            <tr<?echo($x % 2 == 1) ? " BGCOLOR=\"#999999\"" : "";?>>
+            <tr<?echo($x % 2 == 1) ? " bgcolor=\"#BBBBBB\"" : "";?>>
               <td><?=$name?> (<?=$spellid?>) [<a href="http://lucy.allakhazam.com/spell.html?source=Live&id=<?=$spellid?>">Lucy</a>]</td>
               <td align="center"><?=$spelltypes[$type]?></td>
               <td align="center"><?=$minlevel?></td>
@@ -136,7 +132,6 @@
                 <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$id?>&action=6">
                   <img src="images/edit2.gif" border="0" title="Edit Spell">
                 </a>&nbsp;
-
                 <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spellset=<?=$spellset?>&id=<?=$id?>&action=5" onClick="return confirm('Really remove this spell from the spellset?');">
                   <img src="images/remove3.gif" border="0" title="Remove Spell from Spellset">
                 </a>

@@ -15,7 +15,7 @@
               <td width="5%">&nbsp;</td>
             </tr>
 <?$x=0; foreach($launchers as $launchers=>$v):?>
-            <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+            <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
               <td align="center" width="10%"><?=$v['name']?></td>
               <td align="center" width="4%"><?=$v['dynamics']?></td>
               <td align="right"><a href="index.php?editor=server&name=<?=$v['name']?>&action=38"><img src="images/edit2.gif" border="0" title="Edit launcher"></a>&nbsp;<a onClick="return confirm('Really delete <?=$v['name']?>?');" href="index.php?editor=server&name=<?=$v['name']?>&action=40"><img src="images/remove3.gif" border="0" title="Delete this launcher"></a></td>

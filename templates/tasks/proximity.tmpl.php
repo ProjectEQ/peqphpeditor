@@ -23,7 +23,7 @@
           <th width="5%"></th>
          </tr>
         <?$x=0; foreach($proximity as $proximity=>$v):?>
-        <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+        <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="5%"><?=$v['exploreid']?></td>
           <td align="center" width="10%"><?=getZoneName($v['zoneid'])?></td>
           <td align="center" width="10%"><?=$v['minx']?></td>

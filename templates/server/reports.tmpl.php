@@ -16,7 +16,7 @@
               <td width="5%">&nbsp;</td>
             </tr>
 <?$x=0; foreach($reports as $reports=>$v):?>
-            <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+            <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
               <td align="center" width="5%"><?=$v['rid']?></td>
               <td align="center" width="15%"><?=$v['name']?></td>
               <td align="center" width="70%"><?=$v['reported']?></td>  

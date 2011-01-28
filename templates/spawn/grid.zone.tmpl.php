@@ -21,7 +21,7 @@
           <th width="5%"></th>
          </tr>
 <?$x=0; foreach($grids as $grid=>$v):?>
-        <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+        <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="5%"><?=$v['pathgrid']?></td>
           <td align="center" width="20%"><?=$wandertype[$v['type']]?></td>
           <td align="center" width="20%"><?=$pausetype[$v['type2']]?></td>

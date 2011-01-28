@@ -29,7 +29,7 @@
           <th width="5%"></th>
          </tr>
 <?$x=0; foreach($zonepoints as $zonepoints=>$v):?>
-        <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+        <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="5%"><?=$v['zpid']?></td>
           <td align="center" width="5%"><?=$v['zone']?></td>
           <td align="center" width="5%"><?=$v['number']?></td>

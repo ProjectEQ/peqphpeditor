@@ -19,7 +19,7 @@
           <th width="5%"></th>
          </tr>
 <?$x=0; foreach($goallist as $goallist=>$v):?>
-        <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+        <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="5%"><?=$v['listid']?></td>
           <td align="center" width="20%"><a href="index.php?editor=items&tskid=<?=$id?>&id=<?=$v['entry']?>&action=2"></a><?=get_item_name($v['entry'])?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['entry']?>">lucy</a>]</span></td>
           <td align="right">   

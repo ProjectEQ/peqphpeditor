@@ -18,7 +18,7 @@
               <td width="5%">&nbsp;</td>
             </tr>
 <?$x=0; foreach($hackers as $hackers=>$v):?>
-            <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+            <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
               <td align="center" width="5%"><?=$v['hid']?></td>
               <td align="center" width="5%"><?=$v['account']?></td>
               <td align="center" width="5%"><?=$v['name']?></td>

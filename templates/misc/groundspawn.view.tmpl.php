@@ -25,7 +25,7 @@
           <td align="center" width="5%"><strong>version</strong></td>
           <th width="5%"></th>
          </tr>
-        <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+        <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="5%"><?=$gsid?></td>
 <?if($zoneid == 0):?>          
           <td align="center" width="10%">All</td>

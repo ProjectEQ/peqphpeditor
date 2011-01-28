@@ -15,13 +15,14 @@
          <div class="table_content" style="padding: 0px;">
 <? if (isset($slots)):?>
         <table width="100%">
-          <tr>
+          <tr bgcolor="#BBBBBB">
             <th align="center">Slot</th>
             <th align="center">Item ID</th>
             <th>Item</th>
             <th>&nbsp;</th>
             <th>Buy for:</th>
             <th>Sell for:</th>
+            <th>&nbsp;</th>
           </tr>
 <?$x=0; foreach($slots as $slot=>$v):?>
 <?if ($v['price']*0.95 > 999):?>
@@ -48,7 +49,7 @@
 <?if ($v['price']*$v['sellrate']*1.05 < 10):?>
             <?php ($sells = ($v['price']*$v['sellrate']*1.05));?>
 <?endif;?>
-          <tr<? echo ($x % 2 == 1) ? " bgcolor=\"#BBBBBB" : "";?>">
+          <tr<? echo ($x % 2 == 1) ? " bgcolor=\"#BBBBBB\"" : "";?>>
             <td align="center"><?=$slot?></td>
             <td align="center"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['item']?>&action=2"><?=$v['item']?></a></td>
             <td><?=$v['item_name']?></td>

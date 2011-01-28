@@ -29,7 +29,7 @@
             <th width="5%"></th>
            </tr>
   <?$x=0; foreach($objects as $objects=>$v):?>
-          <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
+          <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
             <td align="center" width="2%"><?=$v['objid']?></td>
             <td align="center" width="2%"><?=$v['xpos']?></td>   
             <td align="center" width="2%"><?=$v['ypos']?></td>
