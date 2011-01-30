@@ -45,15 +45,19 @@ switch ($action) {
     exit;
   case 4: //Edit QGlobal
     check_authorization();
-    $breadcrumbs .= " >> Edit Quest Global";
-    $body = new Template("templates/qglobal/qglobal.edit.tmpl.php");
     $qglobal = view_qglobal($_GET['qglobalid']);
     if ($qglobal) {
+      $breadcrumbs .= " >> Edit Quest Global";
+      $body = new Template("templates/qglobal/qglobal.edit.tmpl.php");
       foreach ($qglobal as $key=>$value) {
         $body->set($key, $value);
       }
+      break;
     }
-    break;
+    else {
+      header("Location: index.php?editor=qglobal");
+      exit;
+    }
   case 5: //Update QGlobal
     check_authorization();
     update_qglobal();
