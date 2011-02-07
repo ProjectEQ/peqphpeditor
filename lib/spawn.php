@@ -334,7 +334,6 @@ switch ($action) {
     $sid = spawnpoint_fromgrid();
     $npcid = $_GET['npcid'];
     $pathgrid = $_GET['pathgrid'];
-    //$sid = $_GET['sid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10"); 
     exit;
    case 30: // Reset respawn timer
@@ -379,7 +378,7 @@ switch ($action) {
     add_grid();
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&action=31");
     exit;
-   case 35: // // View spawn time
+   case 35: // View spawn time
     check_authorization(); 
     $body = new Template("templates/spawn/spawntimer.tmpl.php");
     $body->set('currzone', $z);
@@ -671,6 +670,14 @@ switch ($action) {
     $body->set('heading', $_GET['h_coord']);
     $body->set('pause', $_GET['pause']);
     break;
+   case 64:  // Sort Grid Numbers
+    check_authorization();
+    sort_grid();
+    $npcid = $_GET['npcid'];
+    $pathgrid = $_GET['pathgrid'];
+    $spid = $_GET['spid'];
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20");
+    exit;
 }
 
 function get_spawngroups() {
@@ -1513,5 +1520,28 @@ function export_grid_sql() {
   }
 
   return $export_string;
+}
+
+function sort_grid() {
+  global $mysql;
+  $gridid = $_GET['pathgrid'];
+  $zoneid = getZoneID($_GET['z']);
+  $old_number = array();
+
+  $query = "SELECT number FROM grid_entries WHERE gridid = $gridid AND zoneid = $zoneid";
+  $results = $mysql->query_mult_assoc($query);
+
+  foreach ($results as $result) {
+    $old_number[] = $result['number'];
+  }
+
+  $total = count($old_number);
+
+  for ($i=0; $i<$total; $i++) {
+    if ($old_number[$i] != $i) {
+      $query = "UPDATE grid_entries SET number=$i WHERE gridid = $gridid AND zoneid = $zoneid AND number = $old_number[$i]";
+      $mysql->query_no_result($query);
+    }
+  }   
 }
 ?>
