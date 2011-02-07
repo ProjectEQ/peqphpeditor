@@ -30,6 +30,7 @@
         <tr>
           <td>Grid Entries:</td>
           <td align="right">    
+            <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&action=64"><img src="images/sort.gif" border=0 title="Sort grid numbers"></a>&nbsp;
             <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&action=27"><img src="images/add.gif" border="0" title="Add an item to this Grid Entry Table"></a>
             <a onClick="return confirm('Really delete these Grid Entries from Grid <?=$pathgrid?>?');" href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&number=<?=$number?>&action=26"><img src="images/table.gif" border="0" title="Permanently delete this Grid Entry set"></a>
           </td>
