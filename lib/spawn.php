@@ -144,6 +144,10 @@ switch ($action) {
       $spawnpoints = get_spawnpoints();
       $body->set('spawnpoints', $spawnpoints);
     }
+    else {
+      header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&action=31");
+      exit;
+    }
     break;
   case 11:  // Edit Spawnpoint
     check_authorization();
@@ -670,13 +674,18 @@ switch ($action) {
     $body->set('heading', $_GET['h_coord']);
     $body->set('pause', $_GET['pause']);
     break;
-   case 64:  // Sort Grid Numbers
+  case 64: // Sort Grid Numbers
     check_authorization();
     sort_grid();
     $npcid = $_GET['npcid'];
     $pathgrid = $_GET['pathgrid'];
     $spid = $_GET['spid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20");
+    exit;
+  case 65: // Copy Entire Grid
+    check_authorization();
+    copy_grid();
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&action=31");
     exit;
 }
 
@@ -1277,11 +1286,11 @@ function grid_info_zone () {
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
     foreach ($results as $result) {
-     $array['grids'][$result['id']] = array("pathgrid"=>$result['id'], "type"=>$result['type'], "type2"=>$result['type2']);
-         }
-       }
-       
-       return $array;
+      $array['grids'][$result['id']] = array("pathgrid"=>$result['id'], "type"=>$result['type'], "type2"=>$result['type2']);
+    }
+  }
+
+  return $array;
 }
 
 function get_spawn_condition () {
@@ -1292,10 +1301,11 @@ function get_spawn_condition () {
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
     foreach ($results as $result) {
-     $array['spawnc'][$result['scid']] = array("scid"=>$result['scid'], "zone"=>$result['zone'], "value"=>$result['value'], "onchange"=>$result['onchange'], "name"=>$result['name']);
-         }
-       }
-       return $array;
+      $array['spawnc'][$result['scid']] = array("scid"=>$result['scid'], "zone"=>$result['zone'], "value"=>$result['value'], "onchange"=>$result['onchange'], "name"=>$result['name']);
+    }
+  }
+
+  return $array;
 }
 
 function get_spawn_condition_value() {
@@ -1308,10 +1318,11 @@ function get_spawn_condition_value() {
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
     foreach ($results as $result) {
-     $array['spawncv'][$result['instance_id']] = array("zone"=>$result['zone'], "value"=>$result['value'], "instance_id"=>$result['instance_id']);
-         }
-       }
-       return $array;
+      $array['spawncv'][$result['instance_id']] = array("zone"=>$result['zone'], "value"=>$result['value'], "instance_id"=>$result['instance_id']);
+    }
+  }
+
+  return $array;
 }
 
 function get_spawn_event () {
@@ -1322,10 +1333,11 @@ function get_spawn_event () {
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
     foreach ($results as $result) {
-     $array['spawne'][$result['seid']] = array("seid"=>$result['seid'], "sezone"=>$result['sezone'], "cond_id"=>$result['cond_id'], "sename"=>$result['sename'], "period"=>$result['period'], "next_minute"=>$result['next_minute'], "next_hour"=>$result['next_hour'], "next_day"=>$result['next_day'], "next_month"=>$result['next_month'], "next_year"=>$result['next_year'], "enabled"=>$result['enabled'], "action"=>$result['action'], "argument"=>$result['argument']);
-         }
-       }
-       return $array;
+      $array['spawne'][$result['seid']] = array("seid"=>$result['seid'], "sezone"=>$result['sezone'], "cond_id"=>$result['cond_id'], "sename"=>$result['sename'], "period"=>$result['period'], "next_minute"=>$result['next_minute'], "next_hour"=>$result['next_hour'], "next_day"=>$result['next_day'], "next_month"=>$result['next_month'], "next_year"=>$result['next_year'], "enabled"=>$result['enabled'], "action"=>$result['action'], "argument"=>$result['argument']);
+    }
+  }
+
+  return $array;
 }
 
 function update_spawnevent() {
@@ -1503,20 +1515,22 @@ function export_grid_sql() {
 
   $query = "SELECT * FROM grid_entries WHERE gridid = $gridid AND zoneid = $zoneid";
   $results = $mysql->query_mult_assoc($query);
-  foreach ($results as $result) {
-    foreach ($result as $key=>$value) {
-      if($table_string) {
-        $table_string .= ", " . $key;
-        $value_string .= ", '" . $value . "'";
+  if ($results) {
+    foreach ($results as $result) {
+      foreach ($result as $key=>$value) {
+        if($table_string) {
+          $table_string .= ", " . $key;
+          $value_string .= ", '" . $value . "'";
+        }
+        else {
+          $table_string = $key;
+          $value_string = "'" . $value . "'";
+        }
       }
-      else {
-        $table_string = $key;
-        $value_string = "'" . $value . "'";
-      }
+      $export_string .= "INSERT INTO grid_entries ($table_string) VALUES ($value_string);\n";
+      $table_string = "";
+      $value_string = "";
     }
-    $export_string .= "INSERT INTO grid_entries ($table_string) VALUES ($value_string);\n";
-    $table_string = "";
-    $value_string = "";
   }
 
   return $export_string;
@@ -1531,17 +1545,53 @@ function sort_grid() {
   $query = "SELECT number FROM grid_entries WHERE gridid = $gridid AND zoneid = $zoneid";
   $results = $mysql->query_mult_assoc($query);
 
-  foreach ($results as $result) {
-    $old_number[] = $result['number'];
+  if ($results) {
+    foreach ($results as $result) {
+      $old_number[] = $result['number'];
+    }
+
+    $total = count($old_number);
+
+    for ($i=0; $i<$total; $i++) {
+      if ($old_number[$i] != $i) {
+        $query = "UPDATE grid_entries SET number=$i WHERE gridid = $gridid AND zoneid = $zoneid AND number = $old_number[$i]";
+        $mysql->query_no_result($query);
+      }
+    }
   }
+}
 
-  $total = count($old_number);
+function copy_grid() {
+  global $mysql;
+  $gridid = $_GET['pathgrid'];
+  $zoneid = getZoneID($_GET['z']);
+  $newid = suggest_grid_id();
+  $grid_entries = array();
 
-  for ($i=0; $i<$total; $i++) {
-    if ($old_number[$i] != $i) {
-      $query = "UPDATE grid_entries SET number=$i WHERE gridid = $gridid AND zoneid = $zoneid AND number = $old_number[$i]";
+  $query = "SELECT type, type2 FROM grid WHERE id = $gridid AND zoneid = $zoneid";
+  $results = $mysql->query_assoc($query);
+
+  $grid_type = $results['type'];
+  $grid_type2 = $results['type2'];
+
+  $query = "INSERT INTO grid (id, zoneid, type, type2) VALUES ($newid, $zoneid, $grid_type, $grid_type2)";
+  $mysql->query_no_result($query);
+
+  $query = "SELECT * FROM grid_entries WHERE gridid = $gridid AND zoneid = $zoneid";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    foreach ($results as $result) {
+      $number = $result['number'];
+      $x = $result['x'];
+      $y = $result['y'];
+      $z = $result['z'];
+      $heading = $result['heading'];
+      $pause = $result['pause'];
+
+      $query = "INSERT INTO grid_entries (gridid, zoneid, number, x, y, z, heading, pause) VALUES ($newid, $zoneid, $number, $x, $y, $z, $heading, $pause)";
       $mysql->query_no_result($query);
     }
-  }   
+  }
 }
 ?>

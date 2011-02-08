@@ -26,10 +26,10 @@
           <td align="center" width="20%"><?=$wandertype[$v['type']]?></td>
           <td align="center" width="20%"><?=$pausetype[$v['type2']]?></td>
           <td align="right">      
-            <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&pathgrid=<?=$v['pathgrid']?>&number=<?=$number?>&action=20">
+            <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&pathgrid=<?=$v['pathgrid']?>&action=20">
               <img src="images/edit2.gif" border="0" title="View Grid Entry">
             </a>          
-            <a onClick="return confirm('Really delete Grid <?=$v['pathgrid']?>?');" a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&pathgrid=<?=$v['pathgrid']?>&number=<?=$number?>&action=32"> <img src="images/remove3.gif" border="0" title="Permanently delete this Grid Entry set"></a>
+            <a onClick="return confirm('Really delete Grid <?=$v['pathgrid']?>?');" a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&pathgrid=<?=$v['pathgrid']?>&action=32"> <img src="images/remove3.gif" border="0" title="Permanently delete this Grid Entry set"></a>
           </td>
         </tr>
         <?$x++; endforeach;?>
