@@ -7,11 +7,20 @@
     </center>
     <br/>
   </div>
+  <div>
+    <table class="edit_form">
+      <tr>
+        <td class="edit_form_content"><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=31">View Grids for <?=$currzone?></a></td>
+      </tr>
+    </table>
+    <br />
+  </div>
   <div class="table_container" style="width: 200px">
     <div class="table_header">
       <div style="float: right">
-        <a onClick="document.getElementById('sql_block').style.display='block';"><img src="images/sql.gif" border=0 title="Show SQL"></a>
-        <a onClick="return confirm('Really Delete Grid <?=$pathgrid?>?');" href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&number=<?=$number?>&action=29"><img src="images/remove3.gif" border="0" title="Delete Grid"></a>
+        <a onClick="document.getElementById('sql_block').style.display='block';"><img src="images/sql.gif" border="0" title="Show SQL"></a>
+        <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&pathgrid=<?=$pathgrid?>&action=65"><img src="images/last.gif" border="0" title="Copy Grid <?=$pathgrid?> to next available id"></a>
+        <a onClick="return confirm('Really Delete Grid <?=$pathgrid?>?');" href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&action=29"><img src="images/remove3.gif" border="0" title="Delete Grid"></a>
       </div>
       Grid: <?=$pathgrid?>
     </div>
@@ -32,7 +41,7 @@
           <td align="right">    
             <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&action=64"><img src="images/sort.gif" border=0 title="Sort grid numbers"></a>&nbsp;
             <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&action=27"><img src="images/add.gif" border="0" title="Add an item to this Grid Entry Table"></a>
-            <a onClick="return confirm('Really delete these Grid Entries from Grid <?=$pathgrid?>?');" href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&number=<?=$number?>&action=26"><img src="images/table.gif" border="0" title="Permanently delete this Grid Entry set"></a>
+            <a onClick="return confirm('Really delete these Grid Entries from Grid <?=$pathgrid?>?');" href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&action=26"><img src="images/table.gif" border="0" title="Permanently delete this Grid Entry set"></a>
           </td>
         </tr>        
       </table>
