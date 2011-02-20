@@ -439,4 +439,56 @@ function delete_LearnedRecipe () {
   $query = "DELETE FROM char_recipe_list WHERE char_id=$char_id AND recipe_id=$recipe_id";
   $mysql->query_no_result($query);
 }
+
+function export_recipe_sql() {
+  global $mysql;
+  $recipe_id = $_GET['rec'];
+  $table_string = "";
+  $value_string = "";
+  $export_string = "";
+
+  // Get Recipe Properties
+  $export_string .= "DELETE FROM tradeskill_recipe WHERE id = $recipe_id;\n";
+
+  $query = "SELECT * FROM tradeskill_recipe WHERE id = $recipe_id";
+  $results = $mysql->query_assoc($query);
+  foreach ($results as $key=>$value) {
+    if($table_string) {
+      $table_string .= ", " . $key;
+      $value_string .= ", '" . $value . "'";
+    }
+    else {
+      $table_string = $key;
+      $value_string = "'" . $value . "'";
+    }
+  }
+  $export_string .= "INSERT INTO tradeskill_recipe ($table_string) VALUES ($value_string);\n";
+  $table_string = "";
+  $value_string = "";
+
+  // Get Recipe Entries
+  $export_string .= "DELETE FROM tradeskill_recipe_entries WHERE recipe_id = $recipe_id;\n";
+
+  $query = "SELECT * FROM tradeskill_recipe_entries WHERE recipe_id = $recipe_id";
+  $results = $mysql->query_mult_assoc($query);
+  if ($results) {
+    foreach ($results as $result) {
+      foreach ($result as $key=>$value) {
+        if($table_string) {
+          $table_string .= ", " . $key;
+          $value_string .= ", '" . $value . "'";
+        }
+        else {
+          $table_string = $key;
+          $value_string = "'" . $value . "'";
+        }
+      }
+      $export_string .= "INSERT INTO tradeskill_recipe_entries ($table_string) VALUES ($value_string);\n";
+      $table_string = "";
+      $value_string = "";
+    }
+  }
+
+  return $export_string;
+}
 ?>
