@@ -30,7 +30,7 @@ foreach($active_tasks as $task):?>
               <td align="center"><?echo "<a href='index.php?editor=tasks&tskid=" . $task['taskid'] . "'>" . getTaskTitle($task['taskid'])?></a> (<?=$task['taskid']?>)</td>
               <td align="center"><?=$task['slot']?></td>
               <td align="center"><?=get_real_time($task['acceptedtime'])?></td>
-              <td align="right"><a onClick="return confirm('Really delete task (<?=$task['taskid'])?>) from <?=getPlayerName($task['charid'])?>?');" href="index.php?editor=tasks&tskid=<?=$task['taskid']?>&charid=<?=$task['charid']?>&action=37"><img src="images/remove3.gif" border="0" title="Delete Active Task"></a></td>
+              <td align="right"><a onClick="return confirm('Really delete task (<?=$task['taskid']?>) from <?=getPlayerName($task['charid'])?>?');" href="index.php?editor=tasks&tskid=<?=$task['taskid']?>&charid=<?=$task['charid']?>&action=37"><img src="images/remove3.gif" border="0" title="Delete Active Task"></a></td>
             </tr>
 <?$x++;
 endforeach;
