@@ -174,13 +174,16 @@ function build_filter() {
   if ($filter2) { // Filter by character
     $query = "SELECT c.id FROM character_ c, quest_globals q WHERE c.id = q.charid AND c.name LIKE \"%$filter2%\" GROUP BY id";
     $results = $mysql->query_mult_assoc($query);
+    $filter_charid = "charid IN (";
     if ($results) {
-      $filter_charid = "charid IN (";
       foreach ($results as $result) {
         $filter_charid .= $result['id'] . ",";
       }
+      $filter_charid = rtrim($filter_charid, ",");
     }
-    $filter_charid = rtrim($filter_charid, ",");
+    else {
+      $filter_charid .= "NULL";
+    }
     $filter_charid .= ")";
     if ($filter_final['sql']) {
       $filter_final['sql'] .= " AND ";
@@ -190,13 +193,16 @@ function build_filter() {
   if ($filter3) { // Filter by npc
     $query = "SELECT n.id FROM npc_types n, quest_globals q WHERE n.id = q.npcid AND n.name LIKE \"%$filter3%\" GROUP BY id";
     $results = $mysql->query_mult_assoc($query);
+    $filter_npcid = "npcid IN (";
     if ($results) {
-      $filter_npcid = "npcid IN (";
       foreach ($results as $result) {
         $filter_npcid .= $result['id'] . ",";
       }
+      $filter_npcid = rtrim($filter_npcid, ",");
     }
-    $filter_npcid = rtrim($filter_npcid, ",");
+    else {
+      $filter_npcid .= "NULL";
+    }
     $filter_npcid .= ")";
     if ($filter_final['sql']) {
       $filter_final['sql'] .= " AND ";
@@ -206,13 +212,16 @@ function build_filter() {
   if ($filter4) { // Filter by zone
     $query = "SELECT z.zoneidnumber FROM zone z, quest_globals q WHERE z.zoneidnumber = q.zoneid AND z.short_name LIKE \"%$filter4%\" GROUP BY zoneidnumber";
     $results = $mysql->query_mult_assoc($query);
+    $filter_zoneid = "zoneid IN (";
     if ($results) {
-      $filter_zoneid = "zoneid IN (";
       foreach ($results as $result) {
         $filter_zoneid .= $result['zoneidnumber'] . ",";
       }
+      $filter_zoneid = rtrim($filter_zoneid, ",");
     }
-    $filter_zoneid = rtrim($filter_zoneid, ",");
+    else {
+      $filter_zoneid .= "NULL";
+    }
     $filter_zoneid .= ")";
     if ($filter_final['sql']) {
       $filter_final['sql'] .= " AND ";
