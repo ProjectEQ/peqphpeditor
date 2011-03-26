@@ -59,14 +59,14 @@
          "<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=10"><?=$factionname?></a>"<br><br>
 <? endif;?>
          <b>Primary Faction</b>: [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=12">edit</a>]<br>
-         <? echo ($primaryfactionname != '') ? $primaryfactionname : "None";?><br><br>
+         <?echo ($primaryfactionname != '') ? "<a title='Faction ID: " . $primaryfaction . "'>" . $primaryfactionname . "</a>" : "None";?><br><br>
          <b>Faction Hits:</b> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=15"><img src="images/add.gif" border="0" title="Add Faction Hit"></a><br>
 <? if ($faction_hits != ''){?>
          <table width="90%">
 <?foreach($faction_hits as $hit): extract($hit);?>
            <tr>
              <td>
-               <?=$factions[$faction_id]?>
+               <?echo "<a title='Faction ID: " . $faction_id . "'>" . $factions[$faction_id] . "</a>" ;?>
              </td>
              <td>
                <?=$value?>
