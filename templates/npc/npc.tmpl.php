@@ -80,7 +80,7 @@
               <fieldset>
                 <legend><strong>Vitals</strong></legend>
                 <table width="100%" border="0" cellpadding="3" cellspacing="0">
-			      <tr>
+                  <tr>
                     <td align="left" width="33%">AC: <?=$AC?></td>
                     <td align="left" width="33%">HP: <?=$hp?></td>
                     <td align="left" width="34%">Scalerate: <?=$scalerate?></td>
@@ -131,7 +131,7 @@
 <?($prper = $PR*0.4);?>
 <?($drper = $DR*0.4);?>
 <?($corper = $Corrup*0.4);?>
-			      <tr>
+                  <tr>
                     <td align="left" width="33%">MR: <?=$MR?> (<?=$mrper?>%)</td>
                     <td align="left" width="33%">CR: <?=$CR?> (<?=$crper?>%)</td>
                     <td align="left" width="34%">FR: <?=$FR?> (<?=$frper?>%)</td>
@@ -151,8 +151,8 @@
                     <td align="left" width="33%">MinDmg: <?=$mindmg?></td>
                     <td align="left" width="33%">MaxDmg: <?=$maxdmg?></td>
                     <td align="left" width="34%">NPC Spells ID: <?=$npc_spells_id?></td>
-			      </tr>
-			      <tr>
+                  </tr>
+                  <tr>
                     <td align="left" width="33%">Loottable ID: <?=$loottable_id?></td>
                     <td align="left" width="33%">HP Regen: <?=$hp_regen_rate?></td>
                     <td align="left" width="34%">MP Regen: <?=$mana_regen_rate?></td>
