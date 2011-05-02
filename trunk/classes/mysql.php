@@ -87,10 +87,19 @@ function quote_smart($value) {
   }
 
   // Deter UNION SQL Injection
-  if (stripos($value, 'union')) {
-    logSQL("SQL injection monitored by user at IP: '" . getIP() . "' using the query: '" . $value . "'.");
-    header("Location: index.php");
-    exit;
+  if (function_exists("stripos")) { //PHP5+ installed
+    if (stripos($value, 'union')) {
+      logSQL("SQL injection monitored by user at IP: '" . getIP() . "' using the query: '" . $value . "'.");
+      header("Location: index.php");
+      exit;
+    }
+  }
+  else { //PHP<5 installed
+    if (strpos(strtolower($value), 'union')) {
+      logSQL("SQL injection monitored by user at IP: '" . getIP() . "' using the query: '" . $value . "'.");
+      header("Location: index.php");
+      exit;
+    }
   }
 
   return $value;
