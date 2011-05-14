@@ -1,0 +1,11 @@
+<Files ~ "\.(php|sql)$">
+  Order allow,deny
+  Deny from all
+</Files>
+
+<Files index.php>
+  Order allow,deny
+  Allow from all
+</files>
+
+Options -Indexes
