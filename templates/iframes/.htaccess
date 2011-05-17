@@ -1,0 +1,14 @@
+<Files itemsearch.php>
+  Order allow,deny
+  Allow from all
+</files>
+
+<Files spellsearch.php>
+  Order allow,deny
+  Allow from all
+</files>
+
+<Files spellsetsearch.php>
+  Order allow,deny
+  Allow from all
+</files>
