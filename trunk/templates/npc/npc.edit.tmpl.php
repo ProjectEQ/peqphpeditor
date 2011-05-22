@@ -54,12 +54,13 @@
            <legend><strong><font size="4">Vitals</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
-               <td align="left" width="17%">HP:         <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
-               <td align="left" width="17%">AC:         <br><input type="text" name="AC" size="10" value="<?=$AC?>"></td>
-               <td align="left" width="17%">Runspeed:   <br><input type="text" name="runspeed" size="10" value="<?=$runspeed?>"></td>
-               <td align="left" width="17%">ATK:        <br><input type="text" name="ATK" size="10" value="<?=$ATK?>"></td>
-               <td align="left" width="17%">Accuracy:   <br><input type="text" name="Accuracy" size="10" value="<?=$Accuracy?>"></td>
-               <td align="left" width="15%">Scalerate:  <br><input type="text" name="scalerate" size="10" value="<?=$scalerate?>"></td> 
+               <td align="left" width="14%">HP:         <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
+               <td align="left" width="14%">Mana:       <br><input type="text" name="mana" size="10" value="<?=$mana?>"></td>
+               <td align="left" width="14%">AC:         <br><input type="text" name="AC" size="10" value="<?=$AC?>"></td>
+               <td align="left" width="14%">Runspeed:   <br><input type="text" name="runspeed" size="10" value="<?=$runspeed?>"></td>
+               <td align="left" width="14%">ATK:        <br><input type="text" name="ATK" size="10" value="<?=$ATK?>"></td>
+               <td align="left" width="14%">Accuracy:   <br><input type="text" name="Accuracy" size="10" value="<?=$Accuracy?>"></td>
+               <td align="left" width="14%">Scalerate:  <br><input type="text" name="scalerate" size="10" value="<?=$scalerate?>"></td> 
             </tr>
             </table>
 
@@ -131,15 +132,18 @@
            <legend><strong><font size="4">Combat</font></strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
                <tr>
-                <td align="left" width="11%">Min Dmg:  <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>"></td>
-                <td align="left" width="11%">Max Dmg:  <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>"></td>
-                <td align="left" width="11%">Spells ID:  <br><input type="text" name="npc_spells_id" size="5" value="<?=$npc_spells_id?>"></td>
-                <td align="left" width="11%">Loot ID:  <br><input type="text" name="loottable_id" size="5" value="<?=$loottable_id?>"></td>
-                <td align="left" width="11%">HP Regen:  <br><input type="text" name="hp_regen_rate" size="5" value="<?=$hp_regen_rate?>"></td>
-                <td align="left" width="11%">MP Regen:  <br><input type="text" name="mana_regen_rate" size="5" value="<?=$mana_regen_rate?>"></td>
-                <td align="left" width="11%">Aggroradius:  <br><input type="text" name="aggroradius" size="5" value="<?=$aggroradius?>"></td>
-                <td align="left" width="11%">Atk Speed: <br><input type="text" name="attack_speed" size="5" value="<?=$attack_speed?>">%</td>
-                <td align="left" width="12%">Slow Mit: <br><input type="text" name="slow_mitigation" size="5" value="<?=$slow_mitigation?>"></td>
+                <td align="left" width="20%">Min Dmg:     <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>"></td>
+                <td align="left" width="20%">Max Dmg:     <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>"></td>
+                <td align="left" width="20%">Attack Count:<br><input type="text" name="attack_count" size="5" value="<?=$attack_count?>"></td>
+                <td align="left" width="20%">Spells ID:   <br><input type="text" name="npc_spells_id" size="5" value="<?=$npc_spells_id?>"></td>
+                <td align="left" width="20%">Loot ID:     <br><input type="text" name="loottable_id" size="5" value="<?=$loottable_id?>"></td>
+              </tr>
+              </tr>
+                <td align="left" width="20%">HP Regen:  <br><input type="text" name="hp_regen_rate" size="5" value="<?=$hp_regen_rate?>"></td>
+                <td align="left" width="20%">MP Regen:  <br><input type="text" name="mana_regen_rate" size="5" value="<?=$mana_regen_rate?>"></td>
+                <td align="left" width="20%">Aggroradius:  <br><input type="text" name="aggroradius" size="5" value="<?=$aggroradius?>"></td>
+                <td align="left" width="20%">Atk Speed: <br><input type="text" name="attack_speed" size="5" value="<?=$attack_speed?>">%</td>
+                <td align="left" width="20%">Slow Mit: <br><input type="text" name="slow_mitigation" size="5" value="<?=$slow_mitigation?>"></td>
               </tr>
             </table>
             <center>
@@ -166,6 +170,9 @@
                   <input type="checkbox" name="I" value="I"<?echo (strpos($npcspecialattks,"I") === false) ? "" : " checked"?>> Unsnareable<br>
                   <input type="checkbox" name="D" value="D"<?echo (strpos($npcspecialattks,"D") === false) ? "" : " checked"?>> Unfearable<br>
                   <input type="checkbox" name="g" value="g"<?echo (strpos($npcspecialattks,"g") === false) ? "" : " checked"?>> Resist Ranged Spells<br>
+                  <input type="checkbox" name="t" value="t"<?echo (strpos($npcspecialattks,"t") === false) ? "" : " checked"?>> Tunnel Vision<br>
+                  <input type="checkbox" name="i" value="i" onClick="sanityCheck();"<?echo (strpos($npcspecialattks,"i") === false) ? "" : " checked"?>> Intelligent<br>
+                  <input type="checkbox" name="s" value="s" onClick="sanityCheck();"<?echo (strpos($npcspecialattks,"s") === false) ? "" : " checked"?>> Stupid<br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="A" value="A"<?echo (strpos($npcspecialattks,"A") === false) ? "" : " checked"?>> Immune to Melee<br>
@@ -177,6 +184,7 @@
                   <input type="checkbox" name="G" value="G"<?echo (strpos($npcspecialattks,"G") === false) ? "" : " checked"?>> Immune to Aggro<br>
                   <input type="checkbox" name="d" value="d"<?echo (strpos($npcspecialattks,"d") === false) ? "" : " checked"?>> See through Feign Death<br>
                   <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>> Can Aggro NPCs<br>
+                  <input type="checkbox" name="n" value="n"<?echo (strpos($npcspecialattks,"n") === false) ? "" : " checked"?>> Does NOT buff friends<br>
                 </td>
               </tr>
             </table>
