@@ -83,7 +83,7 @@
                   <tr>
                     <td align="left" width="33%">AC: <?=$AC?></td>
                     <td align="left" width="33%">HP: <?=$hp?></td>
-                    <td align="left" width="34%">Scalerate: <?=$scalerate?></td>
+                    <td align="left" width="34%">Mana: <?=$mana?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Run: <?=$runspeed?></td>
@@ -97,7 +97,7 @@
                   </tr>
                   <tr>
                     <td align="left" width="33%">See Imp Hide: <?=$yesno[$see_improved_hide]?></td>
-                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="33%">Scalerate: <?=$scalerate?></td>
                     <td align="left" width="34%">&nbsp;</td>
                   </tr>
                 </table>
@@ -150,7 +150,7 @@
                   <tr>
                     <td align="left" width="33%">MinDmg: <?=$mindmg?></td>
                     <td align="left" width="33%">MaxDmg: <?=$maxdmg?></td>
-                    <td align="left" width="34%">NPC Spells ID: <?=$npc_spells_id?></td>
+                    <td align="left" width="34%">Attack Count: <?=$attack_count?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Loottable ID: <?=$loottable_id?></td>
@@ -160,12 +160,12 @@
                   <tr>
                     <td align="left" width="33%">Aggro: <?=$aggroradius?></td>
                     <td align="left" width="33%">Atk Speed: <?=$attack_speed?>%</td>
-                    <td align="left" width="34%">Special Atks: <?=$npcspecialattks?></td>
+                    <td align="left" width="34%">Special Atks: <?echo ($npcspecialattks) ? $npcspecialattks : "None";?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Slow Mit: <?=$slow_mitigation?> (<?=$slotmit?>%)</td>
                     <td align="left" width="33%">NPC Aggro: <?=$npc_aggro?></td>
-                    <td align="left" width="34%">&nbsp;</td>
+                    <td align="left" width="34%">NPC Spells ID: <?=$npc_spells_id?></td>
                   </tr>
                 </table>
               </fieldset>
@@ -244,6 +244,7 @@
         <input type="hidden" name="class" value="<?=$class?>">
         <input type="hidden" name="bodytype" value="<?=$bodytype?>">
         <input type="hidden" name="hp" value="<?=$hp?>">
+        <input type="hidden" name="mana" value="<?=$mana?>">
         <input type="hidden" name="gender" value="<?=$gender?>">
         <input type="hidden" name="texture" value="<?=$texture?>">
         <input type="hidden" name="helmtexture" value="<?=$helmtexture?>">
@@ -256,6 +257,7 @@
         <input type="hidden" name="npc_faction_id" value="<?=$npc_faction_id?>">
         <input type="hidden" name="mindmg" value="<?=$mindmg?>">
         <input type="hidden" name="maxdmg" value="<?=$maxdmg?>">
+        <input type="hidden" name="attack_count" value="<?=$attack_count?>">
         <input type="hidden" name="aggroradius" value="<?=$aggroradius?>">
         <input type="hidden" name="face" value="<?=$face?>">
         <input type="hidden" name="luclin_hairstyle" value="<?=$luclin_hairstyle?>">

@@ -56,12 +56,13 @@
            <legend><strong><font size="4">Vitals</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
-               <td align="left" width="17%">HP:  <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
-               <td align="left" width="17%">AC:  <br><input type="text" name="AC" size="10" value="<?=$ac?>"></td>
-               <td align="left" width="17%">Runspeed:  <br><input type="text" name="runspeed" size="10" value="1.25"></td>
-               <td align="left" width="17%">ATK:  <br><input type="text" name="ATK" size="10" value="0"></td>
-               <td align="left" width="17%">Accuracy:  <br><input type="text" name="Accuracy" size="10" value="0"></td>
-               <td align="left" width="15%">Scalerate:  <br><input type="text" name="scalerate" size="10" value="100"></td>
+               <td align="left" width="14%">HP:       <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
+               <td align="left" width="14%">Mana:     <br><input type="text" name="mana" size="10" value="<?=$mana?>"></td>
+               <td align="left" width="14%">AC:       <br><input type="text" name="AC" size="10" value="<?=$ac?>"></td>
+               <td align="left" width="14%">Runspeed: <br><input type="text" name="runspeed" size="10" value="1.25"></td>
+               <td align="left" width="14%">ATK:      <br><input type="text" name="ATK" size="10" value="0"></td>
+               <td align="left" width="14%">Accuracy: <br><input type="text" name="Accuracy" size="10" value="0"></td>
+               <td align="left" width="14%">Scalerate:<br><input type="text" name="scalerate" size="10" value="100"></td>
              </tr>
              </table>
  
@@ -130,21 +131,24 @@
             </table>
          </fieldset><br>
 
-         <fieldset>
-           <legend><strong><font size="4">Combat</font></strong></legend>
-             <table width="100%" border="0" cellpadding="3" cellspacing="0">
-               <tr>
-                <td align="left" width="11%">Min Dmg:  <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>"></td>
-                <td align="left" width="11%">Max Dmg:  <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>"></td>
-                <td align="left" width="11%">Spells ID:  <br><input type="text" name="npc_spells_id" size="5" value="0"></td>
-                <td align="left" width="11%">Loot ID:  <br><input type="text" name="loottable_id" size="5" value="0"></td>
-                <td align="left" width="11%">HP Regen:  <br><input type="text" name="hp_regen_rate" size="5" value="0"></td>
-                <td align="left" width="11%">MP Regen:  <br><input type="text" name="mana_regen_rate" size="5" value="0"></td>
-                <td align="left" width="11%">Aggroradius:  <br><input type="text" name="aggroradius" size="5" value="70"></td>
-                <td align="left" width="11%">Atk Speed: <br><input type="text" name="attack_speed" size="5" value="<?=$attack_speed?>">%</td>
-                <td align="left" width="12%">Slow Mit: <br><input type="text" name="slow_mitigation" size="5" value="0"></td>
-              </tr>
-            </table>
+        <fieldset>
+          <legend><strong><font size="4">Combat</font></strong></legend>
+          <table width="100%" border="0" cellpadding="3" cellspacing="0">
+            <tr>
+              <td align="left" width="20%">Min Dmg:     <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>"></td>
+              <td align="left" width="20%">Max Dmg:     <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>"></td>
+              <td align="left" width="20%">Attack Count:<br><input type="text" name="attack_count" size="5" value="-1"></td>
+              <td align="left" width="20%">Spells ID:   <br><input type="text" name="npc_spells_id" size="5" value="0"></td>
+              <td align="left" width="20%">Loot ID:     <br><input type="text" name="loottable_id" size="5" value="0"></td>
+            </tr>
+            <tr>
+              <td align="left" width="20%">HP Regen:    <br><input type="text" name="hp_regen_rate" size="5" value="0"></td>
+              <td align="left" width="20%">MP Regen:    <br><input type="text" name="mana_regen_rate" size="5" value="0"></td>
+              <td align="left" width="20%">Aggroradius: <br><input type="text" name="aggroradius" size="5" value="70"></td>
+              <td align="left" width="20%">Atk Speed:   <br><input type="text" name="attack_speed" size="5" value="<?=$attack_speed?>">%</td>
+              <td align="left" width="20%">Slow Mit:    <br><input type="text" name="slow_mitigation" size="5" value="0"></td>
+            </tr>
+          </table>
             <center>
             <table cellpadding="20px">
               <tr>
@@ -169,6 +173,9 @@
                   <input type="checkbox" name="I" value="I"> Unsnareable<br>
                   <input type="checkbox" name="D" value="D"> Unfearable<br>
                   <input type="checkbox" name="g" value="g"> Resist Ranged Spells<br>
+                  <input type="checkbox" name="t" value="t"> Tunnel Vision<br>
+                  <input type="checkbox" name="i" value="i" onClick="sanityCheck();"> Intelligent<br>
+                  <input type="checkbox" name="s" value="s" onClick="sanityCheck();"> Stupid<br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="A" value="A"> Immune to Melee<br>
@@ -180,6 +187,7 @@
                   <input type="checkbox" name="G" value="G"> Immune to Aggro<br>
                   <input type="checkbox" name="d" value="d"> See through Feign Death<br>
                   <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>> Can Aggro NPCs<br>
+                  <input type="checkbox" name="n" value="n"> Does NOT buff friends<br>
                 </td>
               </tr>
             </table>

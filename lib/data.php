@@ -839,7 +839,11 @@ $specialattacks = array(
  "d" => "See through Feign Death",
  "L" => "Dual Wield",
  "G" => "Immune to Aggro",
- "Y" => "Ranged Attack"
+ "Y" => "Ranged Attack",
+ "t" => "Tunnel Vision",
+ "i" => "Intelligent",
+ "s" => "Stupid",
+ "n" => "Does NOT buff friends"
 );
 
 $tradeskills = array(

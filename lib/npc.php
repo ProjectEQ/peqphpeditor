@@ -84,6 +84,7 @@ switch ($action) {
     break;
   case 1: // Edit NPC
     check_authorization();
+    $javascript = new Template("templates/npc/js.tmpl.php");
     $body = new Template("templates/npc/npc.edit.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -281,6 +282,7 @@ switch ($action) {
     exit;
   case 25: // Add npc
     check_authorization();
+    $javascript = new Template("templates/npc/js.tmpl.php");
     $body = new Template("templates/npc/npc.add.tmpl.php"); 
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -636,6 +638,7 @@ function update_npc () {
   if ($class != $_POST['class']) $fields .= "class=\"" . $_POST['class'] . "\", ";
   if ($bodytype != $_POST['bodytype']) $fields .= "bodytype=\"" . $_POST['bodytype'] . "\", ";
   if ($hp != $_POST['hp']) $fields .= "hp=\"" . $_POST['hp'] . "\", ";
+  if ($mana != $_POST['mana']) $fields .= "mana=\"" . $_POST['mana'] . "\", ";
   if ($gender != $_POST['gender']) $fields .= "gender=\"" . $_POST['gender'] . "\", ";
   if ($texture != $_POST['texture']) $fields .= "texture=\"" . $_POST['texture'] . "\", ";
   if ($helmtexture != $_POST['helmtexture']) $fields .= "helmtexture=\"" . $_POST['helmtexture'] . "\", ";
@@ -648,6 +651,7 @@ function update_npc () {
 //  if ($npc_faction_id != $_POST['npc_faction_id']) $fields .= "npc_faction_id=\"" . $_POST['npc_faction_id'] . "\", ";
   if ($mindmg != $_POST['mindmg']) $fields .= "mindmg=\"" . $_POST['mindmg'] . "\", ";
   if ($maxdmg != $_POST['maxdmg']) $fields .= "maxdmg=\"" . $_POST['maxdmg'] . "\", ";
+  if ($attack_count != $_POST['attack_count']) $fields .= "attack_count=\"" . $_POST['attack_count'] . "\", ";
   if ($flag == 1) $fields .= "npcspecialattks=\"$new_specialattks\", ";
   if ($aggroradius != $_POST['aggroradius']) $fields .= "aggroradius=\"" . $_POST['aggroradius'] . "\", ";
   if ($face != $_POST['face']) $fields .= "face=\"" . $_POST['face'] . "\", ";
@@ -737,6 +741,7 @@ function add_npc () {
   if ($_POST['class'] != '') $fields .= "class=\"" . $_POST['class'] . "\", ";
   if ($_POST['bodytype'] != '') $fields .= "bodytype=\"" . $_POST['bodytype'] . "\", ";
   if ($_POST['hp'] != '') $fields .= "hp=\"" . $_POST['hp'] . "\", ";
+  if ($_POST['mana'] != '') $fields .= "mana=\"" . $_POST['mana'] . "\", ";
   if ($_POST['gender'] != '') $fields .= "gender=\"" . $_POST['gender'] . "\", ";
   if ($_POST['texture'] != '') $fields .= "texture=\"" . $_POST['texture'] . "\", ";
   if ($_POST['helmtexture'] != '') $fields .= "helmtexture=\"" . $_POST['helmtexture'] . "\", ";
@@ -748,6 +753,7 @@ function add_npc () {
 //  if ($npc_faction_id != $_POST['npc_faction_id']) $fields .= "npc_faction_id=\"" . $_POST['npc_faction_id'] . "\", ";
   if ($_POST['mindmg'] != '') $fields .= "mindmg=\"" . $_POST['mindmg'] . "\", ";
   if ($_POST['maxdmg'] != '') $fields .= "maxdmg=\"" . $_POST['maxdmg'] . "\", ";
+  if ($_POST['attack_count'] != '') $fields .= "attack_count=\"" . $_POST['attack_count'] . "\", ";
   if ($npcspecialattks != '') $fields .= "npcspecialattks=\"$npcspecialattks\", ";
   if ($_POST['aggroradius'] != '') $fields .= "aggroradius=\"" . $_POST['aggroradius'] . "\", ";
   if ($_POST['face'] != '') $fields .= "face=\"" . $_POST['face'] . "\", ";
@@ -824,6 +830,7 @@ $fields .= "race=\"" . $_POST['race'] . "\", ";
 $fields .= "class=\"" . $_POST['class'] . "\", ";
 $fields .= "bodytype=\"" . $_POST['bodytype'] . "\", ";
 $fields .= "hp=\"" . $_POST['hp'] . "\", ";
+$fields .= "mana=\"" . $_POST['mana'] . "\", ";
 $fields .= "gender=\"" . $_POST['gender'] . "\", ";
 $fields .= "texture=\"" . $_POST['texture'] . "\", ";
 $fields .= "helmtexture=\"" . $_POST['helmtexture'] . "\", ";
@@ -836,6 +843,7 @@ $fields .= "npc_spells_id=\"" . $_POST['npc_spells_id'] . "\", ";
 $fields .= "npc_faction_id=\"" . $_POST['npc_faction_id'] . "\", ";
 $fields .= "mindmg=\"" . $_POST['mindmg'] . "\", ";
 $fields .= "maxdmg=\"" . $_POST['maxdmg'] . "\", ";
+$fields .= "attack_count=\"" . $_POST['attack_count'] . "\", ";
 $fields .= "npcspecialattks=\"" . $_POST['npcspecialattks'] . "\", ";
 $fields .= "aggroradius=\"" . $_POST['aggroradius'] . "\", ";
 $fields .= "face=\"" . $_POST['face'] . "\", ";
@@ -892,7 +900,7 @@ $fields .= "private_corpse=\"" . $_POST['private_corpse'] . "\", ";
 $fields .= "unique_spawn_by_name=\"" . $_POST['unique_spawn_by_name'] . "\", ";
 $fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
 $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
-  $fields =  rtrim($fields, ", ");
+$fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1398,32 +1406,32 @@ function get_stats() {
  $npc_level = $_POST['npc_level'];
  
  if($npc_level < 11) {
- $query = "SELECT level, avg(hp) AS hp, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 1000 and race != 240 and str < 300 and id < 200000 group by level";
+ $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 1000 and race != 240 and str < 300 and id < 200000 group by level";
  $results = $mysql->query_assoc($query);
  return $results;
  }
  if($npc_level > 10 && $npc_level < 31) {
-  $query = "SELECT level, avg(hp) AS hp, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 2500 and race != 240 and str < 300 and id < 200000 group by level";
+  $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 2500 and race != 240 and str < 300 and id < 200000 group by level";
  $results = $mysql->query_assoc($query);
  return $results;
  }
   if($npc_level > 30 && $npc_level < 51) {
-  $query = "SELECT level, avg(hp) AS hp, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 5000 and race != 240 and str < 300 and id < 200000 group by level";
+  $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 5000 and race != 240 and str < 300 and id < 200000 group by level";
  $results = $mysql->query_assoc($query);
  return $results;
  }
  if($npc_level > 50 && $npc_level < 61) {
-  $query = "SELECT level, avg(hp) AS hp, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 7000 and race != 240 and str < 300 group by level";
+  $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 7000 and race != 240 and str < 300 group by level";
  $results = $mysql->query_assoc($query);
  return $results;
  }
  if($npc_level > 60 && $npc_level < 66) {
- $query = "SELECT level, avg(hp) AS hp, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 7500 and race != 240 group by level";
+ $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 7500 and race != 240 group by level";
  $results = $mysql->query_assoc($query);
  return $results;
  }
  else {
- $query = "SELECT level, avg(hp) AS hp, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 50000 and race != 240 group by level";
+ $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 50000 and race != 240 group by level";
  $results = $mysql->query_assoc($query);
  return $results;
  }
