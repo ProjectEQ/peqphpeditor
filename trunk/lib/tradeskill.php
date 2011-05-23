@@ -1,13 +1,5 @@
 <?php
 
-$learned = array(
-  0   => "No",
-  1   => "Quest",
-  2   => "Experiment",
-  5   => "No Message",
-  6   => "Unlisted"
-);
-
 $default_page = 1;
 $default_size = 20;
 $default_sort = 1;
@@ -31,7 +23,6 @@ switch ($action) {
       $body->set("yesno", $yesno);
       $body->set("ts", $ts);
       $body->set("rec", $rec);
-      $body->set("learned", $learned);
       $body->set("quest", $quest);
       $vars = recipe_info();
       if ($vars) {
@@ -70,15 +61,21 @@ switch ($action) {
     break;
   case 1:  //Edit recipe
     check_authorization();
+    $javascript = new Template("templates/tradeskill/js.tmpl.php");
     $body = new Template("templates/tradeskill/recipe.edit.tmpl.php");
     $body->set("tradeskills", $tradeskills);
     $body->set("ts", $ts);
     $body->set("rec", $rec);
-    $body->set("learned", $learned);
     $body->set("quest", $quest);
     $vars = recipe_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    $learn_flags = extract_learn_flags($vars['must_learn']);
+    if ($learn_flags) {
+      foreach ($learn_flags as $key=>$value) {
         $body->set($key, $value);
       }
     }
@@ -140,9 +137,9 @@ switch ($action) {
     break;
   case 10:  // Add recipe
     check_authorization();
+    $javascript = new Template("templates/tradeskill/js.tmpl.php");
     $body = new Template("templates/tradeskill/recipe.add.tmpl.php");
     $body->set("tradeskills", $tradeskills);
-    $body->set("learned", $learned);
     break;
   case 11:  // Add component
     check_authorization();
@@ -490,5 +487,25 @@ function export_recipe_sql() {
   }
 
   return $export_string;
+}
+
+function extract_learn_flags($learn_value) {
+  $learn_flags = array();
+  $l_method = 0;
+  $l_message = 0;
+  $l_search = 0;
+
+  if ($learn_value >= 32) {
+    $l_search = 32;
+    $learn_value -= 32;
+  }
+  if ($learn_value >= 16) {
+    $l_message = 16;
+    $learn_value -= 16;
+  }
+  $l_method = $learn_value;
+  $learn_flags = array("l_method" => $l_method, "l_message" => $l_message, "l_search" => $l_search);
+
+  return $learn_flags;
 }
 ?>
