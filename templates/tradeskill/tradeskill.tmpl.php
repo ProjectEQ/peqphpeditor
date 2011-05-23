@@ -39,9 +39,9 @@
           <strong>Trivial</strong>: <?=$trivial?><br>
           <strong>No Fail:</strong> <?=$yesno[$nofail]?><br>
           <strong>Replace Container:</strong> <?=$yesno[$replace_container]?><br>
-          <strong>Notes:</strong> <?=$notes?><br>
-          <strong>Learned:</strong> <?=$learned[$must_learn]?><br>
-          <strong>Quest Controlled:</strong> <?=$yesno[$quest]?>
+          <strong>Quest Controlled:</strong> <?=$yesno[$quest]?><br>
+          <strong>Learn Flag:</strong> <?echo ($must_learn) ? "Yes" : "No";?><br>
+          <strong>Notes:</strong> <?=$notes?>
         </div>
       </div>
       <br>

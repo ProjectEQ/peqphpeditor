@@ -5,7 +5,7 @@
         <div class="edit_form_content">
           <form method="post" action="index.php?editor=tradeskill&action=11">
             Recipe Name: <br>
-            <input type="text" name="name" value=""><br><br>
+            <input type="text" name="name" size="26" value=""><br><br>
             Tradeskill Used: <br>
             <select name='tradeskill'>
 <?foreach($tradeskills as $k=>$v):?>
@@ -13,9 +13,9 @@
 <?endforeach;?>
             </select><br><br>
             Min Skill Needed: <br>
-            <input type="text" name="skillneeded" size="5" value=""><br><br>
+            <input type="text" name="skillneeded" size="5" value="0"><br><br>
             Trivial:<br>
-            <input type="text" name="trivial" size="5" value=""><br><br>
+            <input type="text" name="trivial" size="5" value="0"><br><br>
             Is Recipe No-fail? <br>
             <select name='nofail'>
               <option value="0">no</option>
@@ -26,20 +26,34 @@
               <option value="0">no</option>
               <option value="1">yes</option>
             </select><br><br>
-            Notes:<br>
-            <input type="text" name="notes" value=""><br><br>
-            Learned: <br>
-            <select name='must_learn'>
-<?foreach($learned as $k=>$v):?>
-              <option value="<?=$k?>"><?=$v?></option>
-<?endforeach;?>
-            </select><br><br>
             Quest Controlled? <br>
             <select name='quest'>
               <option value="0" selected>no</option>
               <option value="1">yes</option>
             </select><br><br>
+            <fieldset>
+              <legend>Learn Flag</legend>
+              Learned:
+              <select name='l_method' onChange="javascript:updateLearn();">
+                <option value="0" selected>Not Learned</option>
+                <option value="1">Quest</option>
+                <option value="2">Experiment</option>
+              </select><br/><br/>
+              Client Message:
+              <select name='l_message' onChange="javascript:updateLearn();">
+                <option value="0" selected>Yes</option>
+                <option value="16">No</option>
+              </select><br/><br/>
+              UI Searchable:
+              <select name='l_search' onChange="javascript:updateLearn();">
+                <option value="0" selected>Yes</option>
+                <option value="32">No</option>
+              </select>
+            </fieldset><br/>
+            Notes:<br>
+            <input type="text" name="notes" size="26" value=""><br><br>
             <center>
+              <input type="hidden" name="must_learn" value="0">
               <input type="submit" name="submit" value="Submit Changes">
             </center>
           </form>
