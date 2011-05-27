@@ -184,7 +184,7 @@
                   <input type="checkbox" name="G" value="G"<?echo (strpos($npcspecialattks,"G") === false) ? "" : " checked"?>> Immune to Aggro<br>
                   <input type="checkbox" name="d" value="d"<?echo (strpos($npcspecialattks,"d") === false) ? "" : " checked"?>> See through Feign Death<br>
                   <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>> Can Aggro NPCs<br>
-                  <input type="checkbox" name="n" value="n"<?echo (strpos($npcspecialattks,"n") === false) ? "" : " checked"?>> Does NOT buff friends<br>
+                  <input type="checkbox" name="n" value="n"<?echo (strpos($npcspecialattks,"n") === false) ? "" : " checked"?>> Does NOT buff/heal friends<br>
                 </td>
               </tr>
             </table>
