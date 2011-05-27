@@ -10,7 +10,7 @@
              NPC Level: <br>
              <input type="text" name="npc_level" value=""><br><br>
              <center>
-               <input type="submit" value="Submit"></form><br><br>
+               <input type="submit" value="Submit"></form>
              </center>
            </td>
          </tr>

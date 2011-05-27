@@ -187,7 +187,7 @@
                   <input type="checkbox" name="G" value="G"> Immune to Aggro<br>
                   <input type="checkbox" name="d" value="d"> See through Feign Death<br>
                   <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>> Can Aggro NPCs<br>
-                  <input type="checkbox" name="n" value="n"> Does NOT buff friends<br>
+                  <input type="checkbox" name="n" value="n"> Does NOT buff/heal friends<br>
                 </td>
               </tr>
             </table>

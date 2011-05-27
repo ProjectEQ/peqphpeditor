@@ -843,7 +843,7 @@ $specialattacks = array(
  "t" => "Tunnel Vision",
  "i" => "Intelligent",
  "s" => "Stupid",
- "n" => "Does NOT buff friends"
+ "n" => "Does NOT buff/heal friends"
 );
 
 $tradeskills = array(
