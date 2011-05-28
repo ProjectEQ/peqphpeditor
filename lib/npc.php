@@ -1480,21 +1480,21 @@ function export_sql() {
   foreach ($results as $key=>$value) {
     if($table_string) {
       $table_string .= ", " . $key;
-      $value_string .= ", '" . $value . "'";
+      $value_string .= ", \"" . $value . "\"";
     }
     else {
       $table_string = $key;
-      $value_string = "'" . $value . "'";
+      $value_string = "\"" . $value . "\"";
     }
   }
   $export_array['insert'] = "INSERT INTO npc_types ($table_string) VALUES ($value_string);";
 
   foreach ($results as $key=>$value) {
     if($update_string) {
-      $update_string .= ", " . $key . "='" . $value . "'";
+      $update_string .= ", " . $key . "=\"" . $value . "\"";
     }
     else {
-      $update_string = $key . "='" . $value . "'";
+      $update_string = $key . "=\"" . $value . "\"";
     }
   }
   $export_array['update'] = "UPDATE npc_types SET $update_string WHERE id='$npcid';";

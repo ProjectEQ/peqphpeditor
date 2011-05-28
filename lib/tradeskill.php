@@ -452,11 +452,11 @@ function export_recipe_sql() {
   foreach ($results as $key=>$value) {
     if($table_string) {
       $table_string .= ", " . $key;
-      $value_string .= ", '" . $value . "'";
+      $value_string .= ", \"" . $value . "\"";
     }
     else {
       $table_string = $key;
-      $value_string = "'" . $value . "'";
+      $value_string = "\"" . $value . "\"";
     }
   }
   $export_string .= "INSERT INTO tradeskill_recipe ($table_string) VALUES ($value_string);\n";
@@ -473,11 +473,11 @@ function export_recipe_sql() {
       foreach ($result as $key=>$value) {
         if($table_string) {
           $table_string .= ", " . $key;
-          $value_string .= ", '" . $value . "'";
+          $value_string .= ", \"" . $value . "\"";
         }
         else {
           $table_string = $key;
-          $value_string = "'" . $value . "'";
+          $value_string = "\"" . $value . "\"";
         }
       }
       $export_string .= "INSERT INTO tradeskill_recipe_entries ($table_string) VALUES ($value_string);\n";
