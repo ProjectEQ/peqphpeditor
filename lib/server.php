@@ -380,6 +380,50 @@ switch ($action) {
     add_launcher();
     header("Location: index.php?editor=server&action=32");
     exit;
+  case 43: // View Variables
+    check_admin_authorization();
+    $breadcrumbs .= " >> Variables";
+    $body = new Template("templates/server/variables.tmpl.php");
+    $variables = get_variables();
+    if ($variables) {
+      foreach ($variables as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 44: // Edit Variable
+    check_admin_authorization();
+    $breadcrumbs .= " >> Edit Variable";
+    $body = new Template("templates/server/variables.edit.tmpl.php");
+    $body->set('varname', $_GET['varname']);
+    $variables = view_variable();
+    if ($variables) {
+      foreach ($variables as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 45: // Update Variable
+    check_admin_authorization();
+    update_variable();
+    header("Location: index.php?editor=server&action=43");
+    exit;    
+  case 46: // Create Variable
+    check_admin_authorization();
+    $breadcrumbs .= " >> Create Variable";
+    $body = new Template("templates/server/variables.add.tmpl.php");
+    break;
+  case 47: // Add Variable
+    check_admin_authorization();
+    add_variable();
+    header("Location: index.php?editor=server&action=43");
+    exit;
+  case 48: // Delete Variable
+    check_admin_authorization();
+    delete_variable();
+    $varname = $_GET['varname'];
+    header("Location: index.php?editor=server&action=43");
+    exit;
 }
 
 function get_open_bugs($page_number, $results_per_page, $sort_by) {
@@ -504,6 +548,20 @@ function get_launchers() {
   return $array;
   }
 
+function get_variables() {
+  global $mysql;
+
+  $query = "SELECT varname, value FROM variables";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    foreach ($results as $result) {
+      $array['variables'][$result['varname']] = array("varname"=>$result['varname'], "value"=>$result['value']);
+    }
+  }
+  return $array;
+}
+
 function view_bugs() {
   global $mysql;
 
@@ -607,6 +665,17 @@ function view_launcher() {
   return $result;
   }
 
+function view_variable() {
+  global $mysql;
+
+  $varname = $_GET['varname'];
+
+  $query = "SELECT * FROM variables where varname = \"$varname\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+}
+
 function update_bugs() {
   global $mysql;
 
@@ -675,6 +744,18 @@ function update_launcher() {
   $dynamics = $_POST['dynamics'];
 
   $query = "UPDATE launcher SET name=\"$name1\", dynamics=\"$dynamics\" WHERE name=\"$name\"";
+  $mysql->query_no_result($query);
+}
+
+function update_variable() {
+  global $mysql;
+
+  $varname = $_POST['varname'];
+  $value = $_POST['value']; 
+  $information = $_POST['information'];
+  $ts = $_POST['ts'];
+
+  $query = "UPDATE variables SET varname=\"$varname\", value=\"$value\", information=\"$information\", ts=\"$ts\" WHERE varname=\"$varname\"";
   $mysql->query_no_result($query);
 }
 
@@ -764,6 +845,15 @@ function delete_launcher() {
   $mysql->query_no_result($query);
 }
 
+function delete_variable() {
+  global $mysql;
+
+  $varname = $_GET['varname'];
+
+  $query = "DELETE FROM variables WHERE varname=\"$varname\"";
+  $mysql->query_no_result($query);
+}
+
 function add_rule() {
   global $mysql;
 
@@ -804,6 +894,18 @@ function add_launcher() {
   $dynamics = $_POST['dynamics']; 
 
   $query = "INSERT INTO launcher SET name=\"$name\", dynamics=\"$dynamics\"";
+  $mysql->query_no_result($query);
+}
+
+function add_variable() {
+  global $mysql;
+
+  $varname = $_POST['varname'];
+  $value = $_POST['value']; 
+  $information = $_POST['information'];
+  $ts = $_POST['ts'];
+
+  $query = "INSERT INTO variables SET varname=\"$varname\", value=\"$value\", information=\"$information\", ts=\"$ts\"";
   $mysql->query_no_result($query);
 }
 

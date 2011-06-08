@@ -183,7 +183,7 @@ table {
 }
 
 .edit_form_header {
-  padding: 3px;
+  padding: 0 5px 3px 5px;
   background-color: black;
   color: #FFF;
   font-size: 10px
@@ -203,7 +203,7 @@ table {
 }
 
 .table_header {
-  padding: 3px 3px 3px 5px;
+  padding: 0 5px 3px 5px;
   color: #FFF;
   font-size: 10px;
   color: #FFF;
@@ -215,6 +215,10 @@ table {
 .table_header A:link, .table_header A:visited, .table_header A:active {
   text-decoration: none;
   color: yellow;
+}
+
+.table_header img, .edit_form_header img {
+  vertical-align: middle;
 }
 
 .table_header A:hover {

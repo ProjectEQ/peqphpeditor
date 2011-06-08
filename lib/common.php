@@ -290,6 +290,16 @@ function get_real_time($unix_time) {
 
   return($result['real_time']);
 }
+
+function get_current_time() {
+  global $mysql;
+
+  $query = "SELECT NOW() AS timestamp";
+  $result = $mysql->query_assoc($query);
+
+  return($result['timestamp']);
+}
+
 function search_guilds() {
   global $mysql;
   $search = $_GET['search'];

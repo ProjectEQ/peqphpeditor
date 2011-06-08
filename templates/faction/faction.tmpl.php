@@ -1,15 +1,15 @@
        <center>
-       <table style="border: 1px solid black; background-color: #CCC;">
+       <table style="border: 1px solid black; background-color: #CCC; width: 22%">
          <tr><td colspan=2><b>Legend:</b></td></tr>
-         <tr><td align=right>1101+</td><td align=left> Ally</td></tr>
-         <tr><td align=right>701 to 1100</td><td align=left>Warmly</td></tr>
-         <tr><td align=right>401 to 700</td><td align=left>Kindly</td></tr>
-         <tr><td align=right>101 to 400</td><td align=left>Amiably</td></tr>
-         <tr><td align=right>0 to 100</td><td align=left>Indifferently</td></tr>
-         <tr><td align=right>-100 to -1</td><td align=left>Apprehensively</td></tr>
-         <tr><td align=right>-700 to -101</td><td align=left>Dubiously</td></tr>
-         <tr><td align=right>-999 to -701</td><td align=left>Threateningly</td></tr>
-         <tr><td align=right>-1000-</td><td align=left>Ready to attack</td></tr>
+         <tr><td align="right">Above 1100&nbsp;</td><td align="left">&nbsp;Ally</td></tr>
+         <tr><td align="right">701 to 1100&nbsp;</td><td align="left">&nbsp;Warmly</td></tr>
+         <tr><td align="right">401 to 700&nbsp;</td><td align="left">&nbsp;Kindly</td></tr>
+         <tr><td align="right">101 to 400&nbsp;</td><td align="left">&nbsp;Amiably</td></tr>
+         <tr><td align="right">0 to 100&nbsp;</td><td align="left">&nbsp;Indifferently</td></tr>
+         <tr><td align="right">-100 to -1&nbsp;</td><td align="left">&nbsp;Apprehensively</td></tr>
+         <tr><td align="right">-700 to -101&nbsp;</td><td align="left">&nbsp;Dubiously</td></tr>
+         <tr><td align="right">-999 to -701&nbsp;</td><td align="left">&nbsp;Threateningly</td></tr>
+         <tr><td align="right">Below -999&nbsp;</td><td align="left">&nbsp;Ready to attack</td></tr>
        </table><br><br>
        </center>
 
