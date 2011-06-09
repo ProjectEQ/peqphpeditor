@@ -350,7 +350,9 @@ switch ($action) {
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/tasks/tasks.activetasks.tmpl.php");
     $page_stats = getPageInfo("character_tasks", $curr_page, $curr_size, $_GET['sort']);
-    $active_tasks = getActiveTasks($page_stats['page'], $curr_size, $curr_sort);
+    if ($page_stats['page']) {
+      $active_tasks = getActiveTasks($page_stats['page'], $curr_size, $curr_sort);
+    }
     if ($active_tasks) {
       $body->set('active_tasks', $active_tasks);
       foreach ($page_stats as $key=>$value) {
@@ -366,7 +368,9 @@ switch ($action) {
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/tasks/tasks.completedtasks.tmpl.php");
     $page_stats = getPageInfo("completed_tasks", $curr_page, $curr_size, $_GET['sort']);
-    $completed_tasks = getCompletedTasks($page_stats['page'], $curr_size, $curr_sort);
+    if ($page_stats['page']) {
+      $completed_tasks = getCompletedTasks($page_stats['page'], $curr_size, $curr_sort);
+    }
     if ($completed_tasks) {
       $body->set('completed_tasks', $completed_tasks);
       foreach ($page_stats as $key=>$value) {

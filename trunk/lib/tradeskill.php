@@ -160,7 +160,9 @@ switch ($action) {
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/tradeskill/learned.tmpl.php");
     $page_stats = getPageInfo("char_recipe_list", $curr_page, $curr_size, $_GET['sort']);
-    $recipes = getLearnedRecipes($page_stats['page'], $curr_size, $curr_sort);
+    if ($page_stats['page']) {
+      $recipes = getLearnedRecipes($page_stats['page'], $curr_size, $curr_sort);
+    }
     if ($recipes) {
       $body->set('recipes', $recipes);
       foreach ($page_stats as $key=>$value) {
