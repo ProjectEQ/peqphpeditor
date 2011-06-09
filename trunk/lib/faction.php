@@ -79,7 +79,6 @@ switch ($action) {
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
-    $factions = array();
     if ($_GET['filter'] == 'on') {
       $filter = build_filter();
     }
@@ -88,11 +87,11 @@ switch ($action) {
     if ($filter) {
       $body->set('filter', $filter);
     }
-    if ($page_stats['page'] > 0) {
-      $factions = player_factions($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
+    if ($page_stats['page']) {
+      $player_factions = get_player_factions($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
     }
     if ($factions) {
-      $body->set('factions', $factions);
+      $body->set('player_factions', $player_factions);
       foreach ($page_stats as $key=>$value) {
         $body->set($key, $value);
       }
@@ -102,8 +101,9 @@ switch ($action) {
     check_authorization();
     $breadcrumbs .= " >> Edit Player Faction";
     $body = new Template("templates/faction/faction.players.edit.tmpl.php");
-    $faction = get_player_faction();
-    foreach ($faction as $key=>$value) {
+    $body->set('factions', $factions);
+    $player_faction = get_player_faction();
+    foreach ($player_faction as $key=>$value) {
       $body->set($key, $value);
     }
     break;
@@ -116,6 +116,7 @@ switch ($action) {
     check_authorization();
     $breadcrumbs .= " >> Add Player Faction";
     $body = new Template("templates/faction/faction.players.add.tmpl.php");
+    $body->set('factions', $factions);
     break;
   case 13: // Add Player Faction
     check_authorization();
@@ -330,7 +331,7 @@ $fields =  rtrim($fields, ", ");
   }
 }
 
-function player_factions($page_number, $results_per_page, $sort_by, $where = "") {
+function get_player_factions($page_number, $results_per_page, $sort_by, $where = "") {
   global $mysql;
   $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
   
@@ -360,9 +361,11 @@ function update_player_faction() {
 
   $char_id = $_POST['char_id'];
   $faction_id = $_POST['faction_id'];
-  $current_value = $_POST['current_value']; 
+  $current_value = $_POST['current_value'];
+  $o_cid = $_POST['o_cid'];
+  $o_fid = $_POST['o_fid'];
 
-  $query = "UPDATE faction_values SET char_id=\"$char_id\", faction_id=\"$faction_id\", current_value=\"$current_value\" WHERE char_id=\"$char_id\" AND faction_id=\"$faction_id\"";
+  $query = "UPDATE faction_values SET char_id=\"$char_id\", faction_id=\"$faction_id\", current_value=\"$current_value\" WHERE char_id=\"$o_cid\" AND faction_id=\"$o_fid\"";
   $mysql->query_no_result($query);
 }
 
