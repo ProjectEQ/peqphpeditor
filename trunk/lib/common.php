@@ -375,7 +375,7 @@ function getPageInfo($table, $page, $size, $sort, $where = "") {
   if ($page > $pages) {
     $page = $pages;
   }
-  $stats['count'] = $count;
+  $stats['count'] = $count['total'];
   $stats['pages'] = $pages;
   $stats['page'] = $page;
   $stats['sort'] = $sort;

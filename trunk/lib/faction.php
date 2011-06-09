@@ -1,4 +1,12 @@
 <?php
+$default_page = 1;
+$default_size = 20;
+$default_sort = 1;
+
+$columns = array(
+  1 => 'char_id',
+  2 => 'faction_id'
+);
 
 switch ($action) {
   case 0:  // View faction info
@@ -64,6 +72,60 @@ switch ($action) {
     check_authorization();
     update_faction_values();
     header("Location: index.php?editor=faction&fid=$fid");
+    exit;
+  case 9: // View Player Factions
+    check_authorization();
+    $breadcrumbs .= " >> Player Factions";
+    $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
+    $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
+    $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
+    $factions = array();
+    if ($_GET['filter'] == 'on') {
+      $filter = build_filter();
+    }
+    $body = new Template("templates/faction/faction.players.view.tmpl.php");
+    $page_stats = getPageInfo("faction_values", $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
+    if ($filter) {
+      $body->set('filter', $filter);
+    }
+    if ($page_stats['page'] > 0) {
+      $factions = player_factions($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
+    }
+    if ($factions) {
+      $body->set('factions', $factions);
+      foreach ($page_stats as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 10: // Edit Player Faction
+    check_authorization();
+    $breadcrumbs .= " >> Edit Player Faction";
+    $body = new Template("templates/faction/faction.players.edit.tmpl.php");
+    $faction = get_player_faction();
+    foreach ($faction as $key=>$value) {
+      $body->set($key, $value);
+    }
+    break;
+  case 11: // Update Player Faction
+    check_authorization();
+    update_player_faction();
+    header("Location: index.php?editor=faction&action=9");
+    exit;
+  case 12: // Create Player Faction
+    check_authorization();
+    $breadcrumbs .= " >> Add Player Faction";
+    $body = new Template("templates/faction/faction.players.add.tmpl.php");
+    break;
+  case 13: // Add Player Faction
+    check_authorization();
+    add_player_faction();
+    header("Location: index.php?editor=faction&action=9");
+    exit;
+  case 14: // Delete Player Faction
+    check_authorization();
+    delete_player_faction();
+    header("Location: index.php?editor=faction&action=9");
     exit;
 }
 
@@ -266,5 +328,100 @@ $fields =  rtrim($fields, ", ");
     $query = "UPDATE faction_list SET $fields WHERE id=\"$fid\"";
     $mysql->query_no_result($query);
   }
+}
+
+function player_factions($page_number, $results_per_page, $sort_by, $where = "") {
+  global $mysql;
+  $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
+  
+  $query = "SELECT * FROM faction_values";
+  if ($where) {
+    $query .= " WHERE $where";
+  }
+  $query .= " ORDER BY $sort_by LIMIT $limit";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
+}
+
+function get_player_faction() {
+  global $mysql;
+  $char_id = $_GET['char_id'];
+  $faction_id = $_GET['faction_id'];
+  
+  $query = "SELECT * FROM faction_values WHERE char_id = $char_id AND faction_id = $faction_id";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+}
+
+function update_player_faction() {
+  global $mysql;
+
+  $char_id = $_POST['char_id'];
+  $faction_id = $_POST['faction_id'];
+  $current_value = $_POST['current_value']; 
+
+  $query = "UPDATE faction_values SET char_id=\"$char_id\", faction_id=\"$faction_id\", current_value=\"$current_value\" WHERE char_id=\"$char_id\" AND faction_id=\"$faction_id\"";
+  $mysql->query_no_result($query);
+}
+
+function add_player_faction() {
+  global $mysql;
+
+  $char_id = $_POST['char_id'];
+  $faction_id = $_POST['faction_id'];
+  $current_value = $_POST['current_value']; 
+
+  $query = "INSERT INTO faction_values SET char_id=\"$char_id\", faction_id=\"$faction_id\", current_value=\"$current_value\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_player_faction() {
+  global $mysql;
+
+  $char_id = $_GET['char_id'];
+  $faction_id = $_GET['faction_id'];
+
+  $query = "DELETE FROM faction_values WHERE char_id=\"$char_id\" AND faction_id=\"$faction_id\"";
+  $mysql->query_no_result($query);
+}
+
+function build_filter() {
+  global $mysql;
+  $filter1 = $_GET['filter1'];
+  $filter2 = $_GET['filter2'];
+  $filter_final = array();
+
+  if ($filter1) { // Filter by character
+    $query = "SELECT c.id FROM character_ c, faction_values f WHERE c.id = f.char_id AND c.name LIKE \"%$filter1%\" GROUP BY id";
+    $results = $mysql->query_mult_assoc($query);
+    $filter_charid = "char_id IN (";
+    if ($results) {
+      foreach ($results as $result) {
+        $filter_charid .= $result['id'] . ",";
+      }
+      $filter_charid = rtrim($filter_charid, ",");
+    }
+    else {
+      $filter_charid .= "NULL";
+    }
+    $filter_charid .= ")";
+    $filter_final['sql'] = $filter_charid;
+  }
+  if ($filter2) { // Filter by faction id
+    $filter_factionid = "faction_id = $filter2";
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_factionid;
+  }
+
+  $filter_final['url'] = "&filter=on&filter1=$filter1&filter2=$filter2";
+  $filter_final['status'] = "on";
+  $filter_final['filter1'] = $filter1;
+  $filter_final['filter2'] = $filter2;
+
+  return $filter_final;
 }
 ?>
