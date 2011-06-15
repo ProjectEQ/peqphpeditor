@@ -126,7 +126,8 @@ switch ($action) {
   case 14: // Delete Player Faction
     check_authorization();
     delete_player_faction();
-    header("Location: index.php?editor=faction&action=9");
+    $return_address = $_SERVER['HTTP_REFERER'];
+    header("Location: $return_address");
     exit;
 }
 
