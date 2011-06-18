@@ -1,6 +1,6 @@
 <?
 
-$current_revision = "r263";
+$current_revision = "r264";
 
 require_once("config.php");
 require_once("lib/logging.php");

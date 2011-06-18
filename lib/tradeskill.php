@@ -340,7 +340,7 @@ function search_recipes() {
   global $mysql;
   $search = $_GET['search'];
 
-  $query = "SELECT id, name FROM tradeskill_recipe WHERE name rlike \"$search\"";
+  $query = "SELECT id, name FROM tradeskill_recipe WHERE name RLIKE \"$search\" ORDER BY name, id";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
@@ -349,7 +349,7 @@ function search_recipes_by_item() {
   global $mysql;
   $itemid = $_GET['itemid'];
 
-  $query = "SELECT recipe_id AS id, tradeskill_recipe.name AS name FROM tradeskill_recipe_entries LEFT JOIN tradeskill_recipe ON tradeskill_recipe.id=tradeskill_recipe_entries.recipe_id WHERE item_id=$itemid";
+  $query = "SELECT recipe_id AS id, tradeskill_recipe.name AS name FROM tradeskill_recipe_entries LEFT JOIN tradeskill_recipe ON tradeskill_recipe.id=tradeskill_recipe_entries.recipe_id WHERE item_id=$itemid ORDER BY name, id";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
