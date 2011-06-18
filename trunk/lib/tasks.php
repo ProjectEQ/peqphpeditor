@@ -359,6 +359,10 @@ switch ($action) {
         $body->set($key, $value);
       }
     }
+    else {
+      $body->set('page', 0);
+      $body->set('pages', 0);
+    }
     break;
   case 36: // View Completed Tasks
     check_authorization();
@@ -376,6 +380,10 @@ switch ($action) {
       foreach ($page_stats as $key=>$value) {
         $body->set($key, $value);
       }
+    }
+    else {
+      $body->set('page', 0);
+      $body->set('pages', 0);
     }
     break;
   case 37: // Delete Active Task

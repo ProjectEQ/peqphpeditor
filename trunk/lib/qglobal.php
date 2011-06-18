@@ -34,6 +34,10 @@ switch ($action) {
         $body->set($key, $value);
       }
     }
+    else {
+      $body->set('page', 0);
+      $body->set('pages', 0);
+    }
     break;
   case 1: // Search QGlobals
     check_authorization();

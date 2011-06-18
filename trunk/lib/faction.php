@@ -90,11 +90,15 @@ switch ($action) {
     if ($page_stats['page']) {
       $player_factions = get_player_factions($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
     }
-    if ($factions) {
+    if ($player_factions) {
       $body->set('player_factions', $player_factions);
       foreach ($page_stats as $key=>$value) {
         $body->set($key, $value);
       }
+    }
+    else {
+      $body->set('page', 0);
+      $body->set('pages', 0);
     }
     break;
   case 10: // Edit Player Faction
