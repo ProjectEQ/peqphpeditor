@@ -17,7 +17,7 @@
               Spawnpoint ID: <?=$id?> <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$sid?>&spid=<?=$id?>&action=35">spawn status</a></td>
             </td>
             <td align="right">
-              <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">View Spawngroups for this spawnpoint</a>
+              <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">View Spawngroups for this spawnpoint</a>&nbsp;
               <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$id?>&sid=<?=$sid?>&action=18"><img src="images/add.gif" border="0" title="Add a grid to this Spawnpoint"></a>&nbsp;
               <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$id?>&action=11"><img src="images/c_table.gif" border="0" title="Edit this Spawnpoint"></a>&nbsp;
               <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$id?>&action=50"><img src="images/last.gif" border="0" title="Copy this Spawnpoint"></a>&nbsp;
@@ -58,7 +58,12 @@
           <tr>
            <td width="33%">version: <?=$version?></td>
            <td width="33%">enabled: <?=$enabled?></td>
+           <td width="33%">animation: <?=$animations[$animation]?></td>
+          </tr>
+          <tr>
            <td width="33%">zone: <?=$zone?></td>
+           <td width="33%">&nbsp;</td>
+           <td width="33%">&nbsp;</td>
           </tr>
 		</table>
       </div>

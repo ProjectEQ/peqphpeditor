@@ -13,7 +13,7 @@
 <? if (isset($spawned)):?>
             <td width="80%">This spawnpoint is waiting to spawn in-game</td>
             <td align="right">  
-            <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$sid?>&spid=<?=$spid?>&action=47"><img src="images/add.gif" border="0" title="Edit directly (Not recommended)"></a>
+            <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$sid?>&spid=<?=$spid?>&action=47"><img src="images/edit2.gif" border="0" title="Edit directly (Not recommended)"></a>
             <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$sid?>&spid=<?=$spid?>&action=30"><img src="images/remove3.gif" border="0" title="Force respawn"></a>
             </td>
             <?endif;?>
