@@ -1,32 +1,40 @@
 <?php
 
 $wandertype = array(
-  0   => "Circular",
-  1   => "Random 10",
-  2   => "Random",
-  3   => "Patrol",
-  4   => "One Way",
-  5   => "Random 5 LoS"
+  0 => "Circular",
+  1 => "Random 10",
+  2 => "Random",
+  3 => "Patrol",
+  4 => "One Way",
+  5 => "Random 5 LoS"
 );
 
 $pausetype = array(
-  0   => "Random Half",
-  1   => "Full",
-  2   => "Random"
+  0 => "Random Half",
+  1 => "Full",
+  2 => "Random"
 );
 
 $ochangetype = array(
-  0   => "Nothing",
-  1   => "Depop",
-  2   => "Repop"
+  0 => "Nothing",
+  1 => "Depop",
+  2 => "Repop"
 );
 
 $actiontype = array(
-  0   => "Set",
-  1   => "Add",
-  2   => "Subtract",
-  3   => "Multiply",
-  4   => "Divide"
+  0 => "Set",
+  1 => "Add",
+  2 => "Subtract",
+  3 => "Multiply",
+  4 => "Divide"
+);
+
+$animations = array(
+  0 => "Standing",
+  1 => "Sitting",
+  2 => "Crouching",
+  3 => "Lying",
+  4 => "Kneeling"
 );
 
 switch ($action) {
@@ -143,6 +151,7 @@ switch ($action) {
       $body->set('sid', $sid);
       $spawnpoints = get_spawnpoints();
       $body->set('spawnpoints', $spawnpoints);
+      $body->set('animations', $animations);
     }
     else {
       header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&action=31");
@@ -155,6 +164,7 @@ switch ($action) {
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
+    $body->set('animations', $animations);
     $spawnpoint = spawnpoint_info();
     if ($spawnpoint) {
       foreach ($spawnpoint as $key=>$value) {
@@ -184,6 +194,7 @@ switch ($action) {
     $sid = $_GET['sid'];
     $body->set('spawngroupID', $sid);
     $body->set('suggestedid', suggest_spawnpoint_id());
+    $body->set('animations', $animations);
     break;
   case 15:  // Add Spawnpoint
     check_authorization();
@@ -1151,8 +1162,9 @@ function add_spawnpoint() {
   $cond_value = $_POST['cond_value'];
   $version = $_POST['version'];
   $enabled = $_POST['enabled'];
+  $animation = $_POST['animation'];
 
-  $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled";
+  $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation";
   $mysql->query_no_result($query);
 }
 
@@ -1250,11 +1262,11 @@ function is_spawned() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['spawned'][$result['id']] = array("start"=>$result['start'], "duration"=>$result['duration'], "instance_id"=>$result['instance_id']);
-         }
-       }
-       
-       return $array;
+      $array['spawned'][$result['id']] = array("start"=>$result['start'], "duration"=>$result['duration'], "instance_id"=>$result['instance_id']);
+    }
+  }
+
+  return $array;
 }
 
 function view_respawn() {
@@ -1453,9 +1465,10 @@ function copy_spawnpoint() {
     $cond_value = $_POST['cond_value'];
     $version = $_POST['version'];
     $enabled = $_POST['enabled'];
+    $animation = $_POST['animation'];
     $sgid = $_POST['sgid'];
 
-  $query = "INSERT INTO spawn2 SET spawngroupID=\"$sgid\", zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled";
+  $query = "INSERT INTO spawn2 SET spawngroupID=\"$sgid\", zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation";
   $mysql->query_no_result($query);
 }
 
