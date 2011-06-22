@@ -17,6 +17,7 @@
          <tr>
           <td align="center" width="7%"><strong>ID</strong></td>
           <td align="center" width="5%"><strong>Door ID</strong></td>
+          <td align="center" width="5%"><strong>Ver</strong></td>
           <td align="center" width="10%"><strong>Name</strong></td>
           <td align="center" width="10%"><strong>X</strong></td>
           <td align="center" width="10%"><strong>Y</strong></td>
@@ -28,12 +29,12 @@
           <td align="center" width="7%"><strong>Dest X</strong></td>
           <td align="center" width="7%"><strong>Dest Y</strong></td>
           <td align="center" width="7%"><strong>Dest Z</strong></td>
-          <td align="center" width="5%"><strong>Ver</strong></td>
          </tr>
 <?$x=0; foreach($doors as $doors=>$v):?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="7%"><?=$v['drid']?></td>
           <td align="center" width="5%"><?=$v['doorid']?></td>
+          <td align="center" width="5%"><?=$v['version']?></td>
           <td align="center" width="10%"><?=$v['name']?></td>
           <td align="center" width="10%"><?=$v['pos_x']?></td>   
           <td align="center" width="10%"><?=$v['pos_y']?></td>
@@ -50,7 +51,6 @@
           <td align="center" width="7%"><?=$v['dest_x']?></td>
           <td align="center" width="7%"><?=$v['dest_y']?></td>
           <td align="center" width="7%"><?=$v['dest_z']?></td>
-          <td align="center" width="5%"><?=$v['version']?></td>
           <td align="right">      
             <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&drid=<?=$v['drid']?>&action=36"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
             <a onClick="return confirm('Really Delete Door <?=$v['drid']?>?');" href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&drid=<?=$v['drid']?>&action=38"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
