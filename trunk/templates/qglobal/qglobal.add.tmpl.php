@@ -7,7 +7,7 @@
             </table>
           </div>
           <div class="table_content" cellpadding="0" cellspacing="0">
-            <form name="qglobal" method="post" action="index.php?editor=qglobal&qglobalid=<?=$id?>&action=3">
+            <form name="qglobal" method="post" action="index.php?editor=qglobal&action=3">
               <table width="100%">
                 <tr>
                   <td width="33%">
