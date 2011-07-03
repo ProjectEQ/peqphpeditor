@@ -5,8 +5,9 @@ $wandertype = array(
   1 => "Random 10",
   2 => "Random",
   3 => "Patrol",
-  4 => "One Way",
-  5 => "Random 5 LoS"
+  4 => "One Way Respawn",
+  5 => "Random 5 LoS",
+  6 => "One Way"
 );
 
 $pausetype = array(
