@@ -699,6 +699,14 @@ switch ($action) {
     copy_grid();
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&action=31");
     exit;
+  case 66: // View NPCs on Grid
+    check_authorization();
+    $body = new Template("templates/spawn/grid.npcs.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $grid_npcs = get_npcs_by_grid();
+    $body->set('grid_npcs', $grid_npcs);
+    break;
 }
 
 function get_spawngroups() {
@@ -1607,5 +1615,16 @@ function copy_grid() {
       $mysql->query_no_result($query);
     }
   }
+}
+
+function get_npcs_by_grid() {
+  global $mysql;
+  $pathgrid = $_GET['pathgrid'];
+  $zone = getZoneName(getZoneID($_GET['z']));
+
+  $query = "SELECT sg.name AS name, sp.spawngroupid AS spawngroupid, sp.zone AS zone, se.npcid AS npcid FROM spawngroup sg, spawn2 sp, spawnentry se WHERE sg.id = sp.spawngroupid AND sp.spawngroupid = se.spawngroupid AND pathgrid = $pathgrid AND zone = \"$zone\"";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
 }
 ?>
