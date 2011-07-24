@@ -616,6 +616,7 @@ function update_npc () {
   if (!isset($_POST['pet'])) $_POST['pet'] = 0;
   if (!isset($_POST['private_corpse'])) $_POST['private_corpse'] = 0;
   if (!isset($_POST['unique_spawn_by_name'])) $_POST['unique_spawn_by_name'] = 0;
+  if (!isset($_POST['underwater'])) $_POST['underwater'] = 0;
 
   // Check for special attacks change
   $new_specialattks = '';
@@ -707,6 +708,7 @@ function update_npc () {
   if ($unique_spawn_by_name != $_POST['unique_spawn_by_name']) $fields .= "unique_spawn_by_name=\"" . $_POST['unique_spawn_by_name'] . "\", ";
   if ($prim_melee_type != $_POST['prim_melee_type']) $fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
   if ($sec_melee_type != $_POST['sec_melee_type']) $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
+  if ($underwater != $_POST['underwater']) $fields .= "underwater=\"" . $_POST['underwater'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -727,6 +729,7 @@ function add_npc () {
   if (!isset($_POST['pet'])) $_POST['pet'] = 0;
   if (!isset($_POST['private_corpse'])) $_POST['private_corpse'] = 0;
   if (!isset($_POST['unique_spawn_by_name'])) $_POST['unique_spawn_by_name'] = 0;
+  if (!isset($_POST['underwater'])) $_POST['underwater'] = 0;
 
   foreach ($specialattacks as $k => $v) {
     if (isset($_POST["$k"])) $npcspecialattks .= $_POST["$k"];
@@ -809,6 +812,7 @@ function add_npc () {
   if ($_POST['unique_spawn_by_name'] != '') $fields .= "unique_spawn_by_name=\"" . $_POST['unique_spawn_by_name'] . "\", ";
   if ($_POST['prim_melee_type'] != '') $fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
   if ($_POST['sec_melee_type'] != '') $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
+  if ($_POST['underwater'] != '') $fields .= "underwater=\"" . $_POST['underwater'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -900,6 +904,7 @@ $fields .= "private_corpse=\"" . $_POST['private_corpse'] . "\", ";
 $fields .= "unique_spawn_by_name=\"" . $_POST['unique_spawn_by_name'] . "\", ";
 $fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
 $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
+$fields .= "underwater=\"" . $_POST['underwater'] . "\", ";
 $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {

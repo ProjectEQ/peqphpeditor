@@ -241,35 +241,36 @@
             </table>
          </fieldset><br>
 
-         <fieldset>
-           <legend><strong><font size="4">Misc</font></strong></legend>
-           <table width="100%" border="0" cellpadding="3" cellspacing="0">
-           <tr>
-          <td align="left" width="17%">Spawn Limit: <br><input type="text" name="spawn_limit" size="10" value="<?=$spawn_limit?>"></td>
-          <td align="left" width="17%">Version: <br><input type="text" name="version" size="10" value="<?=$version?>"></td>
-          <td align="left" width="17%">&nbsp;</td>
-          <td align="left" width="17%">&nbsp;</td>
-          <td align="left" width="16%">&nbsp;</td>
-          <td align="left" width="16%">&nbsp;</td>
-         </tr>
-         </table><br>
-         <center>
+        <fieldset>
+          <legend><strong><font size="4">Misc</font></strong></legend>
+          <table width="100%" border="0" cellpadding="3" cellspacing="0">
+            <tr>
+              <td align="left" width="17%">Spawn Limit: <br><input type="text" name="spawn_limit" size="10" value="<?=$spawn_limit?>"></td>
+              <td align="left" width="17%">Version: <br><input type="text" name="version" size="10" value="<?=$version?>"></td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="16%">&nbsp;</td>
+              <td align="left" width="16%">&nbsp;</td>
+            </tr>
+          </table><br>
+          <center>
             <table cellpadding="20px">
               <tr>
-           <td valign="top" align="left">
-           <input type="checkbox" name="qglobal" value="1"<?echo ($qglobal == 1) ? "checked" : "";?>> Enable Quest Globals<br>
-           <input type="checkbox" name="findable" value="1"<?echo ($findable == 1) ? "checked" : "";?>> NPC is Findable<br>
-           <input type="checkbox" name="trackable" value="1"<?echo ($trackable == 1) ? "checked" : "";?>> NPC is Trackable<br>
-            </td>
-           <td valign="top" align="left">
-           <input type="checkbox" name="pet" value="1"<?echo ($pet == 1) ? "checked" : "";?>> NPC is a Pet<br>
-           <input type="checkbox" name="private_corpse" value="1"<?echo ($private_corpse == 1) ? "checked" : "";?>> Corpse does not Unlock<br>
-           <input type="checkbox" name="unique_spawn_by_name" value="1"<?echo ($unique_spawn_by_name == 1) ? "checked" : "";?>> Unique by Name<br>    
-               </td>
+                <td valign="top" align="left">
+                  <input type="checkbox" name="qglobal" value="1"<?echo ($qglobal == 1) ? "checked" : "";?>> Enable Quest Globals<br>
+                  <input type="checkbox" name="findable" value="1"<?echo ($findable == 1) ? "checked" : "";?>> NPC is Findable<br>
+                  <input type="checkbox" name="trackable" value="1"<?echo ($trackable == 1) ? "checked" : "";?>> NPC is Trackable<br>
+                </td>
+                <td valign="top" align="left">
+                  <input type="checkbox" name="pet" value="1"<?echo ($pet == 1) ? "checked" : "";?>> NPC is a Pet<br>
+                  <input type="checkbox" name="private_corpse" value="1"<?echo ($private_corpse == 1) ? "checked" : "";?>> Corpse does not Unlock<br>
+                  <input type="checkbox" name="unique_spawn_by_name" value="1"<?echo ($unique_spawn_by_name == 1) ? "checked" : "";?>> Unique by Name<br>    
+                </td>
+                <td valign="top" align="left"><input type="checkbox" name="underwater" value="1"<?echo ($underwater == 1) ? "checked" : "";?>> Underwater NPC</td>
               </tr>
             </table>
-            </center>
-          </fieldset><br>
+          </center>
+        </fieldset><br>
          <center>
             <input type="submit" value="Submit Changes">
          </center>

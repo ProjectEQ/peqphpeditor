@@ -225,12 +225,12 @@
                   <tr>
                     <td align="left" width="33%">Spawn Limit: <?echo ($spawn_limit > 0) ? $spawn_limit : "None";?></td>
                     <td align="left" width="33%">Unique Spawn: <?=$yesno[$unique_spawn_by_name]?></td>
-                    <td align="left" width="34%">Version: <?=$version?></td>
+                    <td align="left" width="34%">Underwater: <?=$yesno[$underwater]?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Pet: <?=$yesno[$pet]?></td>
                     <td align="left" width="33%">Private Corpse: <?=$yesno[$private_corpse]?></td>
-                    <td align="left" width="34%">&nbsp;</td>
+                    <td align="left" width="34%">Version: <?=$version?></td>
                   </tr>
                 </table>
               </fieldset>
@@ -313,6 +313,7 @@
         <input type="hidden" name="unique_spawn_by_name" value="<?=$unique_spawn_by_name?>">
         <input type="hidden" name="prim_melee_type" value="<?=$prim_melee_type?>">
         <input type="hidden" name="sec_melee_type" value="<?=$sec_melee_type?>">
+        <input type="hidden" name="underwater" value="<?=$underwater?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">
