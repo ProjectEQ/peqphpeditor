@@ -172,6 +172,7 @@
                   <input type="checkbox" name="N" value="N"> Unstunable<br>
                   <input type="checkbox" name="I" value="I"> Unsnareable<br>
                   <input type="checkbox" name="D" value="D"> Unfearable<br>
+                  <input type="checkbox" name="p" value="p"> Unpacifiable<br>
                   <input type="checkbox" name="g" value="g"> Resist Ranged Spells<br>
                   <input type="checkbox" name="t" value="t"> Tunnel Vision<br>
                   <input type="checkbox" name="i" value="i" onClick="sanityCheck();"> Intelligent<br>
@@ -188,6 +189,8 @@
                   <input type="checkbox" name="d" value="d"> See through Feign Death<br>
                   <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>> Can Aggro NPCs<br>
                   <input type="checkbox" name="n" value="n"> Does NOT buff/heal friends<br>
+                  <input type="checkbox" name="j" value="j" onClick="sanityCheck();"> Tethered<br>
+                  <input type="checkbox" name="J" value="J" onClick="sanityCheck();"> Leashed<br>
                 </td>
               </tr>
             </table>
