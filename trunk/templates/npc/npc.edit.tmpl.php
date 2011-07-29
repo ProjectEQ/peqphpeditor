@@ -169,6 +169,7 @@
                   <input type="checkbox" name="N" value="N"<?echo (strpos($npcspecialattks,"N") === false) ? "" : " checked"?>> Unstunable<br>
                   <input type="checkbox" name="I" value="I"<?echo (strpos($npcspecialattks,"I") === false) ? "" : " checked"?>> Unsnareable<br>
                   <input type="checkbox" name="D" value="D"<?echo (strpos($npcspecialattks,"D") === false) ? "" : " checked"?>> Unfearable<br>
+                  <input type="checkbox" name="p" value="p"<?echo (strpos($npcspecialattks,"p") === false) ? "" : " checked"?>> Unpacifiable<br>
                   <input type="checkbox" name="g" value="g"<?echo (strpos($npcspecialattks,"g") === false) ? "" : " checked"?>> Resist Ranged Spells<br>
                   <input type="checkbox" name="t" value="t"<?echo (strpos($npcspecialattks,"t") === false) ? "" : " checked"?>> Tunnel Vision<br>
                   <input type="checkbox" name="i" value="i" onClick="sanityCheck();"<?echo (strpos($npcspecialattks,"i") === false) ? "" : " checked"?>> Intelligent<br>
@@ -185,6 +186,8 @@
                   <input type="checkbox" name="d" value="d"<?echo (strpos($npcspecialattks,"d") === false) ? "" : " checked"?>> See through Feign Death<br>
                   <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>> Can Aggro NPCs<br>
                   <input type="checkbox" name="n" value="n"<?echo (strpos($npcspecialattks,"n") === false) ? "" : " checked"?>> Does NOT buff/heal friends<br>
+                  <input type="checkbox" name="j" value="j" onClick="sanityCheck();"<?echo (strpos($npcspecialattks,"j") === false) ? "" : " checked"?>> Tethered<br>
+                  <input type="checkbox" name="J" value="J" onClick="sanityCheck();"<?echo (strpos($npcspecialattks,"J") === false) ? "" : " checked"?>> Leashed<br>
                 </td>
               </tr>
             </table>

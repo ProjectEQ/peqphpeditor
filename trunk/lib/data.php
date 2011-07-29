@@ -829,6 +829,7 @@ $specialattacks = array(
  "N" => "Unstunable",
  "I" => "Unsnareable",
  "D" => "Unfearable",
+ "p" => "Unpacifiable",
  "A" => "Immune to Melee",
  "B" => "Immune to Magic",
  "f" => "Immune to Fleeing",
@@ -843,7 +844,9 @@ $specialattacks = array(
  "t" => "Tunnel Vision",
  "i" => "Intelligent",
  "s" => "Stupid",
- "n" => "Does NOT buff/heal friends"
+ "n" => "Does NOT buff/heal friends",
+ "j" => "Tethered",
+ "J" => "Leashed"
 );
 
 $tradeskills = array(
