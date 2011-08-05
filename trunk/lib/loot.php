@@ -630,15 +630,17 @@ function add_lootdrop_item ($itemid) {
   check_authorization();
   global $mysql;
   $ldid = $_GET['ldid'];
+  $eitem = 0;
 
-  $query = "SELECT slots AS slts from items WHERE id=$itemid";
+  $query = "SELECT slots, augtype FROM items WHERE id=$itemid";
   $result = $mysql->query_assoc($query);
 
-  $slots = $result['slts'];
+  $slots = $result['slots'];
+  $augment = $result['augtype'];
 
-  if ($slots==0) $eitem = 0;
-
-  else $eitem = 1;
+  if ($slots && !$augment) {
+    $eitem = 1;
+  }
 
   $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$ldid, item_id=$itemid, equip_item=$eitem";
   $mysql->query_no_result($query);
