@@ -1,7 +1,7 @@
 <?php
 
 $default_page = 1;
-$default_size = 20;
+$default_size = 50;
 $default_sort = 1;
 
 $columns = array(
@@ -168,6 +168,10 @@ switch ($action) {
       foreach ($page_stats as $key=>$value) {
         $body->set($key, $value);
       }
+    }
+    else {
+      $body->set('page', 0);
+      $body->set('pages', 0);
     }
     break;
   case 14:  // Delete Learned Recipe
