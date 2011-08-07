@@ -27,7 +27,7 @@ $flags = array(
 );
 
 $default_page = 1;
-$default_size = 20;
+$default_size = 50;
 $default_sort = 1;
 
 $columns = array(
