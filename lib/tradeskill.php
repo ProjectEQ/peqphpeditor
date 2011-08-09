@@ -263,6 +263,9 @@ function delete_recipe () {
 
   $query = "DELETE FROM tradeskill_recipe_entries WHERE recipe_id=$rec";
   $mysql->query_no_result($query);
+
+  $query = "DELETE FROM char_recipe_list WHERE recipe_id=$rec";
+  $mysql->query_no_result($query);
 }
 
 function getItemBagtype($item) {
