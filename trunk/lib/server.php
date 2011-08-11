@@ -63,6 +63,10 @@ switch ($action) {
         $body->set($key, $value);
       }
     }
+    else {
+      $body->set('page', 0);
+      $body->set('pages', 0);
+    }
     break;
   case 2: // View Bug
     check_authorization();
@@ -102,6 +106,10 @@ switch ($action) {
       foreach ($page_stats as $key=>$value) {
         $body->set($key, $value);
       }
+    }
+    else {
+      $body->set('page', 0);
+      $body->set('pages', 0);
     }
     break;
    case 5: // Delete Bug
