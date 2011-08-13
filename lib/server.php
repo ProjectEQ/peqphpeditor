@@ -70,6 +70,7 @@ switch ($action) {
     break;
   case 2: // View Bug
     check_authorization();
+    $breadcrumbs .= " >> Bug Details";
     $javascript = new Template("templates/server/js.tmpl.php");
     $body = new Template("templates/server/bugs.view.tmpl.php");
     $body->set("bugstatus", $bugstatus);
@@ -119,6 +120,7 @@ switch ($action) {
     exit;
    case 6: // Preview Hackers
     check_admin_authorization();
+    $breadcrumbs .= " >> Hackers";
     $body = new Template("templates/server/hackers.tmpl.php");
     $hackers = get_hackers();
     if ($hackers) {
@@ -134,6 +136,7 @@ switch ($action) {
     exit;
    case 8: // View Hacker
     check_admin_authorization();
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=6'>" . "Hackers</a> >> Hacker Details";
     $body = new Template("templates/server/hackers.view.tmpl.php");
     $hackers = view_hackers();
     if ($hackers) {
@@ -144,6 +147,7 @@ switch ($action) {
     break;
    case 9: // Preview Reports
     check_admin_authorization();
+    $breadcrumbs .= " >> Reports";
     $body = new Template("templates/server/reports.tmpl.php");
     $reports = get_reports();
     if ($reports) {
@@ -159,6 +163,7 @@ switch ($action) {
     exit;
    case 11: // View Report
     check_admin_authorization();
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=9'>" . "Reports</a> >> Report Details";
     $body = new Template("templates/server/reports.view.tmpl.php");
     $reports = view_reports();
     if ($reports) {
@@ -169,6 +174,7 @@ switch ($action) {
     break;
   case 12: // View Petitions
     check_admin_authorization();
+    $breadcrumbs .= " >> Petitions";
     $body = new Template("templates/server/petition.tmpl.php");
     $petitions = get_petitions();
     if ($petitions) {
@@ -179,6 +185,7 @@ switch ($action) {
     break;
   case 13: // View Petition
     check_admin_authorization();
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=12'>" . "Petitions</a> >> Petition Details";
     $body = new Template("templates/server/petition.view.tmpl.php");
     $body->set('yesno', $yesno);
     $body->set('classes', $classes);
@@ -202,6 +209,7 @@ switch ($action) {
     exit;
   case 16: // View Rules
     check_admin_authorization();
+    $breadcrumbs .= " >> Rules";
     $body = new Template("templates/server/rules.tmpl.php");
     $rules = get_rules();
     if ($rules) {
@@ -212,6 +220,7 @@ switch ($action) {
     break;
   case 17: // Edit Rules
     check_admin_authorization();
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Rule Editor";
     $body = new Template("templates/server/rules.edit.tmpl.php");
     $body->set('ruleset_id', $_GET['ruleset_id']);
     $rules = view_rule();
@@ -229,6 +238,7 @@ switch ($action) {
     exit;
   case 19: // Add Rule
     check_admin_authorization();
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Add Rule";
     $body = new Template("templates/server/rules.add.tmpl.php");
     $body->set('suggestruleset', $_GET['ruleset_id']);
     break;
@@ -246,6 +256,7 @@ switch ($action) {
     exit;
   case 22: // Edit Ruleset
     check_admin_authorization();
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Ruleset Editor";
     $body = new Template("templates/server/ruleset.edit.tmpl.php");
     $body->set('ruleset_id', $_GET['ruleset_id']);
     $ruleset = view_ruleset();
@@ -267,6 +278,7 @@ switch ($action) {
     exit;
   case 25: // Copy Ruleset
     check_admin_authorization();
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Copy Ruleset";
     $body = new Template("templates/server/ruleset.copy.tmpl.php");
     $body->set('suggestruleid', suggest_ruleset_id());
     $body->set('name', $_GET['name']);
@@ -278,6 +290,7 @@ switch ($action) {
     exit;
   case 27: // Switch Ruleset
     check_admin_authorization();
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Switch Ruleset";
     $body = new Template("templates/server/ruleset.switch.tmpl.php");
     $ruleset = view_rulesets();
     if ($ruleset) {
@@ -288,6 +301,7 @@ switch ($action) {
     break;
   case 28: // View Rules from ruleset
     check_admin_authorization();
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Ruleset Rules";
     $body = new Template("templates/server/rules.tmpl.php");
     $body->set('ruleset_id', $_GET['ruleset_id']);
     $rules = get_rules_from_ruleset();
@@ -304,6 +318,7 @@ switch ($action) {
     exit;
   case 30: // Add Ruleset
     check_admin_authorization();
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Add Ruleset";
     $body = new Template("templates/server/ruleset.add.tmpl.php");
     $body->set('suggestruleid', suggest_ruleset_id());
     break;
@@ -314,6 +329,7 @@ switch ($action) {
     exit;
   case 32: // View Zones
     check_admin_authorization();
+    $breadcrumbs .= " >> Zone Launcher Setup";
     $body = new Template("templates/server/zones.tmpl.php");
     $zones = get_zones();
     if ($zones) {
@@ -330,6 +346,7 @@ switch ($action) {
     break;
   case 33: // Edit Zone
     check_admin_authorization();
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=32'>" . "Zone Launcher Setup</a> >> Zone Launcher Editor";
     $body = new Template("templates/server/zones.edit.tmpl.php");
     $body->set('zoneids', $zoneids);
     $zones = view_zone();
@@ -351,6 +368,7 @@ switch ($action) {
     exit;
   case 36: // Add Zone
     check_admin_authorization();
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=32'>" . "Zone Launcher Setup</a> >> Add Zone";
     $body = new Template("templates/server/zones.add.tmpl.php");
     $body->set('suggestlauncher', suggest_launcher());
     break;
@@ -361,6 +379,7 @@ switch ($action) {
     exit;
   case 38: // Edit launcher
     check_admin_authorization();
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=32'>" . "Zone Launcher Setup</a> >> Launcher Editor";
     $body = new Template("templates/server/launcher.edit.tmpl.php");
     $launchers = view_launcher();
     if ($launchers) {
@@ -381,6 +400,7 @@ switch ($action) {
     exit;
   case 41: // Add launcher
     check_admin_authorization();
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=32'>" . "Zone Launcher Setup</a> >> Add Launcher";
     $body = new Template("templates/server/launcher.add.tmpl.php");
     break;
   case 42: // Add launcher
@@ -401,7 +421,7 @@ switch ($action) {
     break;
   case 44: // Edit Variable
     check_admin_authorization();
-    $breadcrumbs .= " >> Edit Variable";
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=43'>" . "Variables</a> >> Variable Editor";
     $body = new Template("templates/server/variables.edit.tmpl.php");
     $body->set('varname', $_GET['varname']);
     $variables = view_variable();
@@ -418,7 +438,7 @@ switch ($action) {
     exit;    
   case 46: // Create Variable
     check_admin_authorization();
-    $breadcrumbs .= " >> Create Variable";
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=43'>" . "Variables</a> >> Create Variable";
     $body = new Template("templates/server/variables.add.tmpl.php");
     break;
   case 47: // Add Variable

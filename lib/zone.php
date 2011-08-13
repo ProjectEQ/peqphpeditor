@@ -30,6 +30,7 @@ switch ($action) {
     break;
   case 1: // View zone data
     check_authorization();
+    $breadcrumbs .= " >> Zone Data";
     $body = new Template("templates/zone/zone.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -47,6 +48,7 @@ switch ($action) {
     break;
    case 2: // Edit zone data
     check_authorization();
+    $breadcrumbs .= " >> Edit Zone Data";
     $body = new Template("templates/zone/zone.edit.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -66,12 +68,13 @@ switch ($action) {
     check_authorization();
     update_zone();
     if (isset($_POST['global']) && $_POST['global'] == 1){
-    update_global();
+      update_global();
     }
     else delete_global();
-    header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=1");
+      header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=1");
     exit;
    case 4: // View graveyard data
+    $breadcrumbs .= " >> Graveyard Data";
     $body = new Template("templates/zone/graveyard.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -85,6 +88,7 @@ switch ($action) {
     break;
    case 5: // Edit graveyard data
     check_authorization();
+    $breadcrumbs .= " >> Graveyard Editor";
     $body = new Template("templates/zone/graveyard.edit.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -108,6 +112,7 @@ switch ($action) {
     exit;
    case 8: // Get graveyard ID
     check_authorization();
+    $breadcrumbs .= " >> Add Graveyard";
     $body = new Template("templates/zone/graveyard.add.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -121,6 +126,7 @@ switch ($action) {
     header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&graveyard_id=$graveyard_id&action=4");
     exit;
    case 10: // View graveyard data
+    $breadcrumbs .= " >> Graveyard Data";
     $body = new Template("templates/zone/graveyard.view.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -138,6 +144,7 @@ switch ($action) {
     exit;
    case 12: // View zone points
     check_authorization();
+    $breadcrumbs .= " >> Zone Points";
     $body = new Template("templates/zone/zonepoints.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -150,6 +157,7 @@ switch ($action) {
     break;
    case 13: // Edit zone points
     check_authorization();
+    $breadcrumbs .= " >> Zone Point Editor";
     $body = new Template("templates/zone/zonepoints.edit.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -172,6 +180,7 @@ switch ($action) {
     exit;
    case 16: // Get zonepoint ID
     check_authorization();
+    $breadcrumbs .= " >> Add Zonepoint";
     $body = new Template("templates/zone/zonepoints.add.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -187,6 +196,7 @@ switch ($action) {
     exit;
    case 18: // View blocked spells
     check_authorization();
+    $breadcrumbs .= " >> Blocked Spells";
     $body = new Template("templates/zone/blockedspell.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -200,6 +210,7 @@ switch ($action) {
     break;
    case 19: // Edit blocked spells
     check_authorization();
+    $breadcrumbs .= " >> Blocked Spell Editor";
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/zone/blockedspell.edit.tmpl.php");
     $body->set('currzone', $z);
@@ -224,6 +235,7 @@ switch ($action) {
     exit;
    case 22: // Get blocked spell ID
     check_authorization();
+    $breadcrumbs .= " >> Add Blocked Spell";
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/zone/blockedspell.add.tmpl.php");
     $body->set('currzone', $z);
