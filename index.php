@@ -1,6 +1,6 @@
 <?
 
-$current_revision = "r277";
+$current_revision = "r278";
 
 require_once("config.php");
 require_once("lib/logging.php");
@@ -108,6 +108,9 @@ switch ($editor) {
     break;
   case 'qglobal':
     require_once('lib/qglobal.php');
+    break;
+  case 'util':
+    require_once('lib/util.php');
     break;
 }
 
