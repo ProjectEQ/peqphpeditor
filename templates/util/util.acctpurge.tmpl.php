@@ -29,7 +29,9 @@
 <?endif;?>
       </table>
     </div><br />
+<?if (isset($accounts)):?>
     <center>
       <input type="button" name="delete" value="Delete Marked" onClick="verify();" />&nbsp;<input type="button" name="delete" value="Delete All" onClick="mark_all();verify();" />
     </center>
+<?endif;?>
   </form>
