@@ -1,6 +1,6 @@
 <?php
 
-$default_datetime = 60 * 60 * 24 * 36; //seconds, minutes, hours, days - Currently set to 1 year
+$default_datetime = 60 * 60 * 24 * 365; //seconds, minutes, hours, days - Currently set to 1 year
 
 switch ($action) {
   case 0:
