@@ -64,7 +64,7 @@ switch ($action) {
     exit;
   case 4: // Delete Player
     check_admin_authorization();
-    delete_player();
+    delete_player($playerid);
     if (isset($_GET['acctid'])) {
       header("Location: index.php?editor=account&acctid=$acctid");
     }
@@ -116,62 +116,4 @@ function update_player () {
   }
 }
 
-function delete_player () {
-  global $mysql, $playerid;
-
-  $query = "DELETE FROM adventure_members WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM adventure_stats WHERE player_id=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM buyer WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM character_ WHERE id=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM character_activities WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM character_backup WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM character_enabledtasks WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM character_tasks WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM char_recipe_list WHERE char_id=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM completed_tasks WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM faction_values WHERE char_id=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM friends WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM group_id WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM guild_members WHERE char_id=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM instance_lockout_player WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM inventory WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM keyring WHERE char_id=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM mail WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  //petitions?
-  $query = "DELETE FROM player_corpses WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM player_corpses_backup WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM player_titlesets WHERE char_id=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM quest_globals WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM raid_members WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-  //reports?
-  $query = "DELETE FROM timers WHERE char_id=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM trader WHERE char_id=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM zone_flags WHERE charid=$playerid";
-  $mysql->query_no_result($query);
-}
 ?>

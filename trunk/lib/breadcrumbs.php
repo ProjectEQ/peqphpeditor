@@ -66,6 +66,9 @@ switch ($editor) {
   case 'qglobal':
     $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Quest Globals</a>";
     break;
+  case 'util':
+    $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Utilities</a>";
+    break;
 }
 
 if ($z != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&z=" . $z . "&zoneid=" . getZoneIDByName($z) . "'>" . getZoneLongName($z) . "</a>";

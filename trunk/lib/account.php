@@ -50,7 +50,7 @@ switch ($action) {
     exit;
   case 4: // Delete Account
     check_admin_authorization();
-    delete_account();
+    delete_account($acctid);
     header("Location: index.php?editor=account");
     exit;
   case 5: // Character Transfer Selection
@@ -110,25 +110,6 @@ function update_account () {
     $query = "UPDATE account SET $fields WHERE account_id=$acctid";
     $mysql->query_no_result($query);
   }
-}
-
-function delete_account() {
-  global $mysql, $acctid;
-
-  $query = "DELETE FROM account WHERE id=$acctid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM account_ip WHERE accid=$acctid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM account_rewards WHERE account_id=$acctid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM eventlog WHERE accountid=$acctid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM gm_ips WHERE account_id=$acctid";
-  $mysql->query_no_result($query);
-  //hackers table not associated with $acctid
-  //petitions table not associated with $acctid
-  $query = "DELETE FROM sharedbank WHERE acctid=$acctid";
-  $mysql->query_no_result($query);
 }
 
 function char_transfer() {
