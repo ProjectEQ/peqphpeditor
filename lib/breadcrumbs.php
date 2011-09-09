@@ -69,10 +69,12 @@ switch ($editor) {
   case 'util':
     $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Utilities</a>";
     break;
+  case 'altcur':
+    $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Alternate Currency</a>";
 }
 
 if ($z != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&z=" . $z . "&zoneid=" . getZoneIDByName($z) . "'>" . getZoneLongName($z) . "</a>";
-if ($npcid != '') $breadcrumbs .= " >> " . getNPCName($npcid) . " ($npcid)";
+if ($npcid != '' && $editor != 'altcur') $breadcrumbs .= " >> " . getNPCName($npcid) . " ($npcid)";
 if ($fid != '') $breadcrumbs .= " >> " . getFactionName($fid);
 if ($tskid != '') $breadcrumbs .= " >> " . getTaskTitle($tskid);
 if ($ts != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&ts=" . $ts . "'>" . $tradeskills[$ts] . "</a>";
