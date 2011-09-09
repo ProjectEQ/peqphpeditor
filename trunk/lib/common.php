@@ -396,6 +396,8 @@ function delete_player ($playerid) {
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_activities WHERE charid=$playerid";
   $mysql->query_no_result($query);
+  $query = "DELETE FROM character_alt_currency WHERE char_id=$playerid";
+  $mysql->query_no_result($query);
   $query = "DELETE FROM character_backup WHERE charid=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_enabledtasks WHERE charid=$playerid";
@@ -459,6 +461,15 @@ function delete_account($acctid) {
   //petitions table not associated with $acctid
   $query = "DELETE FROM sharedbank WHERE acctid=$acctid";
   $mysql->query_no_result($query);
+}
+
+function get_currency_name($curr_id) {
+  global $mysql;
+
+  $query = "SELECT a.item_id, i.name FROM alternate_currency a, items i WHERE a.item_id = i.id AND a.id = $curr_id";
+  $result = $mysql->query_assoc($query);
+
+  return $result['name'];
 }
 
 ?>
