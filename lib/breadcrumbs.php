@@ -80,7 +80,7 @@ if ($tskid != '') $breadcrumbs .= " >> " . getTaskTitle($tskid);
 if ($ts != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&ts=" . $ts . "'>" . $tradeskills[$ts] . "</a>";
 if ($rec != '0') $breadcrumbs .= " >> " . getRecipeName($rec);
 if ($spellset != '') $breadcrumbs .= " >> " . getSpellsetName($spellset);
-if ($playerid != '') $breadcrumbs .= " >> " . getPlayerName($playerid) . " ($playerid)";
+if ($playerid != '') $breadcrumbs .= " >> <a href='index.php?editor=" . $editor . "&playerid=" . $playerid . "'>" . getPlayerName($playerid) . " ($playerid)</a>";
 if ($acctid != '') $breadcrumbs .= " >> " . getAccountName($acctid) . " ($acctid)";
 if ($guildid != '') $breadcrumbs .= " >> " . getGuildName($guildid) . " ($guildid)";
 if ($aaid != '') $breadcrumbs .= " >> " . getAAName($aaid) . " ($aaid)";

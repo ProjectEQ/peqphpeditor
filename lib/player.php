@@ -72,6 +72,14 @@ switch ($action) {
       header("Location: index.php?editor=player");
     }
     exit;
+  case 5: // View Raw Profile
+    check_admin_authorization();
+    $breadcrumbs .= " >> Raw Profile";
+    $profile = get_rawprofile();
+    $body = new Template("templates/player/player.rawprofile.tmpl.php");
+    $body->set('profile', $profile);
+    $body->set('playerid', $playerid);
+    break;
 }
 
 function player_info () {
@@ -81,9 +89,6 @@ function player_info () {
   //Load from character_
   $query = "SELECT id,account_id,timelaston,zonename,groupid,lfp,lfg FROM character_ WHERE id=$playerid";
   $player_array = $mysql->query_assoc($query);
-  $query = "SELECT profile FROM character_ WHERE id=$playerid";
-  $result = $mysql->query_assoc($query);
-  $profblob = $result['profile'];
 
   //Load account details
   $accountid = $player_array['account_id'];
@@ -94,7 +99,7 @@ function player_info () {
   $player_array['status'] = $result['status'];
 
   //Set player profile variables
-  $rawprofile = unpack(getPPFormat(), $profblob);
+  $rawprofile = get_rawprofile();
   $player_array += $rawprofile;
 
   return $player_array;
@@ -114,6 +119,17 @@ function update_player () {
     $query = "UPDATE character_ SET $fields WHERE id=$playerid";
     $mysql->query_no_result($query);
   }
+}
+
+function get_rawprofile () {
+  global $mysql, $playerid;
+
+  $query = "SELECT profile FROM character_ WHERE id=$playerid";
+  $result = $mysql->query_assoc($query);
+
+  $rawprofile = unpack(getPPFormat(), $result['profile']);
+
+  return $rawprofile;
 }
 
 ?>
