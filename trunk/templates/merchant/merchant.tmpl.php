@@ -61,30 +61,30 @@ foreach($slots as $slot=>$v):
           <td><?=$v['item_name']?></td>
           <td><a href="http://lucy.allakhazam.com/item.html?id=<?=$v['item']?>">Lucy</a></td>
           <td align="center"><?=$cost?>
-<?if ($v['price'] > 999):?>
+<?if ($v['price']*0.95 > 999):?>
             pp
 <?endif;?>
-<?if ($v['price'] < 999 && $v['price'] > 99):?>
+<?if ($v['price']*0.95 < 1000 && $v['price']*0.95 > 99):?>
             gp
 <?endif;?>
-<?if ($v['price'] < 99 && $v['price'] > 9):?>
+<?if ($v['price']*0.95 < 100 && $v['price']*0.95 > 9):?>
             sp
 <?endif;?>
-<?if ($v['price'] < 10):?>
+<?if ($v['price']*0.95 < 10):?>
             cp
 <?endif;?>
           </td>
           <td align="center"><?=$sells?>
-<?if ($v['price']*$v['sellrate'] > 999):?>
+<?if ($v['price']*$v['sellrate']*1.05 > 999.9):?>
             pp
 <?endif;?>
-<?if ($v['price']*$v['sellrate'] < 999 && $v['price']*$v['sellrate'] > 99):?>
+<?if ($v['price']*$v['sellrate']*1.05 < 999 && $v['price']*$v['sellrate']*1.05 > 99.9):?>
             gp
 <?endif;?>
-<?if ($v['price']*$v['sellrate'] < 99 && $v['price']*$v['sellrate'] > 9):?>
+<?if ($v['price']*$v['sellrate']*1.05 < 99 && $v['price']*$v['sellrate']*1.05 > 9.9):?>
             sp
 <?endif;?>
-<?if ($v['price']*$v['sellrate'] < 10):?>
+<?if ($v['price']*$v['sellrate']*1.05 < 10):?>
             cp
 <?endif;?>
           </td>
