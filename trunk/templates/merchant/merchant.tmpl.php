@@ -75,13 +75,13 @@ foreach($slots as $slot=>$v):
 <?endif;?>
           </td>
           <td align="center"><?=$sells?>
-<?if ($v['price']*$v['sellrate']*1.05 > 999.9):?>
+<?if ($v['price']*$v['sellrate']*1.05 > 999):?>
             pp
 <?endif;?>
-<?if ($v['price']*$v['sellrate']*1.05 < 999 && $v['price']*$v['sellrate']*1.05 > 99.9):?>
+<?if ($v['price']*$v['sellrate']*1.05 < 999 && $v['price']*$v['sellrate']*1.05 > 99):?>
             gp
 <?endif;?>
-<?if ($v['price']*$v['sellrate']*1.05 < 99 && $v['price']*$v['sellrate']*1.05 > 9.9):?>
+<?if ($v['price']*$v['sellrate']*1.05 < 99 && $v['price']*$v['sellrate']*1.05 > 9):?>
             sp
 <?endif;?>
 <?if ($v['price']*$v['sellrate']*1.05 < 10):?>
