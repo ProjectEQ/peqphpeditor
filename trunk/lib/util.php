@@ -1,6 +1,7 @@
 <?php
 
 $default_datetime = 60 * 60 * 24 * 365; //seconds, minutes, hours, days - Currently set to 1 year
+$default_count = 400; //Recipe activity default
 
 switch ($action) {
   case 0:
@@ -47,6 +48,20 @@ switch ($action) {
     $breadcrumbs .= " >> Cash by Account";
     $body = new Template("templates/util/util.acctcash.tmpl.php");
     break;
+  case 6: // View Recipe Activity
+    check_authorization();
+    $breadcrumbs .= " >> Recipe Activity";
+    $body = new Template("templates/util/util.recipes.tmpl.php");
+    $count = $default_count;
+    if ($_GET['count'] > 0) {
+      $count = $_GET['count'];
+    }
+    $body->set('count', $count);
+    $recipes = get_recipe_activity($count);
+    if ($recipes) {
+      $body->set('recipes', $recipes);
+    }
+    break;
 }
 
 function get_old_characters($datetime) {
@@ -81,5 +96,14 @@ function purge_accounts() {
   foreach ($accounts as $account=>$id) {
     delete_account($id);
   }
+}
+
+function get_recipe_activity($count) {
+  global $mysql;
+
+  $query = "SELECT * FROM char_recipe_list WHERE madecount >= $count ORDER BY madecount, recipe_id, char_id";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
 }
 ?>
