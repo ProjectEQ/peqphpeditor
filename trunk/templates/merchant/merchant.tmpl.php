@@ -60,21 +60,25 @@ foreach($slots as $slot=>$v):
           <td align="center"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['item']?>&action=2"><?=$v['item']?></a></td>
           <td><?=$v['item_name']?></td>
           <td><a href="http://lucy.allakhazam.com/item.html?id=<?=$v['item']?>">Lucy</a></td>
-          <td align="center"><?=$cost?>
+<?php
+$round_cost = round($cost,3);
+$round_sells = round($sells,3);
+?>
+          <td align="center"><?=$round_cost?>
 <?if ($v['price']*0.95 > 999):?>
             pp
 <?endif;?>
 <?if ($v['price']*0.95 < 1000 && $v['price']*0.95 > 99):?>
             gp
 <?endif;?>
-<?if ($v['price']*0.95 < 100 && $v['price']*0.95 > 9):?>
+<?if ($v['price']*0.95 < 100 && $v['price']*0.95 > 9.9):?>
             sp
 <?endif;?>
 <?if ($v['price']*0.95 < 10):?>
             cp
 <?endif;?>
           </td>
-          <td align="center"><?=$sells?>
+          <td align="center"><?=$round_sells?>
 <?if ($v['price']*$v['sellrate']*1.05 > 999):?>
             pp
 <?endif;?>
