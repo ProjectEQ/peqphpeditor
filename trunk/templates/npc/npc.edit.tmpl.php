@@ -269,7 +269,10 @@
                   <input type="checkbox" name="private_corpse" value="1"<?echo ($private_corpse == 1) ? "checked" : "";?>> Corpse does not Unlock<br>
                   <input type="checkbox" name="unique_spawn_by_name" value="1"<?echo ($unique_spawn_by_name == 1) ? "checked" : "";?>> Unique by Name<br>    
                 </td>
-                <td valign="top" align="left"><input type="checkbox" name="underwater" value="1"<?echo ($underwater == 1) ? "checked" : "";?>> Underwater NPC</td>
+                <td valign="top" align="left">
+                  <input type="checkbox" name="underwater" value="1"<?echo ($underwater == 1) ? "checked" : "";?>> Underwater NPC<br>
+                  <input type="checkbox" name="o" value="o" onClick="sanityCheck();"<?echo (strpos($npcspecialattks,"o") === false) ? "" : " checked"?>> Destructible Object<br>
+                </td>
               </tr>
             </table>
           </center>
