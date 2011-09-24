@@ -5,7 +5,7 @@ $default_count = 400; //Recipe activity default
 
 switch ($action) {
   case 0:
-    check_admin_authorization();
+    check_authorization();
     $body = new Template("templates/util/util.default.tmpl.php");
     break;
   case 1: // View Old Characters
@@ -101,7 +101,7 @@ function purge_accounts() {
 function get_recipe_activity($count) {
   global $mysql;
 
-  $query = "SELECT * FROM char_recipe_list WHERE madecount >= $count ORDER BY madecount, recipe_id, char_id";
+  $query = "SELECT * FROM char_recipe_list WHERE madecount >= $count ORDER BY madecount DESC, recipe_id, char_id";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
