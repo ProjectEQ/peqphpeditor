@@ -1,21 +1,67 @@
-        <div class="table_container" style="width: 650px;">
+     <div class="edit_form" id="filter_box" style="width: 700px; display: <?echo ($filter['status'] == 'on') ? 'block' : 'none'?>">
+      <div class="edit_form_header">
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td align="left">Filters</td>
+            <td align="right"><a onClick="document.getElementById('filter_box').style.display='none';"><img src="images/downgrade.gif" title="Hide filter" border="0"></a></td>
+          </tr>
+        </table>
+      </div>
+      <div class="edit_form_content">
+        <form name="filter" id="filter" method="get" action="index.php">
+          <input type="hidden" name="editor" value="server"/>
+          <input type="hidden" name="action" value="6"/>
+<?echo (($sort != '') ? '<input type="hidden" name="sort" value="' . $sort . '"/>' : '')?>
+          <input type="hidden" name="filter" id="filter_status" value="on"/>
+          <table class="table_content" width="100%">
+            <tr>
+              <td width="33%">
+                Account:<br/>
+                <input type="text" name="filter1" id="filter1" value="<?=$filter['filter1']?>"/>
+              </td>
+              <td width="33%">
+                Name:<br/>
+                <input type="text" name="filter2" id="filter2" value="<?=$filter['filter2']?>"/>
+              </td>
+              <td width="33%">
+                Zone:<br/>
+                <input type="text" name="filter3" id="filter3" value="<?=$filter['filter3']?>"/>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4" align="center"><br/><input type="submit" value="Apply Filters"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Remove Filters" onClick="document.getElementById('filter1').value='';document.getElementById('filter2').value='';document.getElementById('filter3').value='';document.getElementById('filter_status').value='';"/></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div><br/> 
+       <div class="table_container" style="width: 650px;">
           <div class="table_header">
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
-                <td>Hackers</td>
-                <td align="right">&nbsp;</td>
+                <td align="left" width="33%">Hackers</td>
+                <td align="center" width="33%">
+                  <?echo ($page > 1) ? "<a href='index.php?editor=server&action=6&page=1" . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/first.gif' border='0' width='12' height='12' title='First'/></a>" : "<img src='images/first.gif' border='0' width='12' height='12'/>";?>
+                  <?echo ($page > 1) ? "<a href='index.php?editor=server&action=6&page=" . ($page - 1) . (($sort != "")  ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/prev.gif' border='0' width='12' height='12' title='Previous'/></a>" : "<img src='images/prev.gif' border='0' width='12' height='12'/>";?>
+                  <?echo $page . " of " . $pages;?>
+                  <?echo ($page < $pages) ? "<a href='index.php?editor=server&action=6&page=" . ($page + 1) . (($sort != "") ? "&sort=" . $sort : "")  . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/next.gif' border='0' width='12' height='12' title='Next'/></a>" : "<img src='images/next.gif' border='0' width='12' height='12'/>";?>
+                  <?echo ($page < $pages) ? "<a href='index.php?editor=server&action=6&page=" . $pages . (($sort != "") ? "&sort=" . $sort : "")  . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/last.gif' border='0' width='12' height='12' title='Last'/></a>" : "<img src='images/last.gif' border='0' width='12' height='12'/>";?>
+                </td>
+                <td align="right" width="33%">
+              <a onClick="document.getElementById('filter_box').style.display='block';"><img src="images/filter.jpg" border="0" height="13" width="13" title="Show filter"></a>&nbsp;
+            </td>
               </tr>
             </table>
           </div>
           <table class="table_content2" width="100%">
 <?if (isset($hackers)) :?>
             <tr>
-              <td align="center" width="5%"><strong>ID</strong></td>
-              <td align="center" width="10%"><strong>Account</strong></td>
-              <td align="center" width="15%"><strong>Name</strong></td>
-              <td align="center" width="15%"><strong>Zone</strong></td>
-              <td align="center" width="20%"><strong>Date</strong></td>
-              <td align="center" width="30%"><strong>Hack</strong></td>
+              <td align="center"><strong><?echo ($sort == 1) ? "ID <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=server&action=6&sort=1'>ID <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by ID'/></a>";?></strong></td>
+              <td align="center"><strong><?echo ($sort == 2) ? "Account <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=server&action=6&sort=2'>Account <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Account'/></a>";?></strong></td>
+              <td align="center"><strong><?echo ($sort == 3) ? "Name <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=server&action=6&sort=3'>Name <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Name'/></a>";?></strong></td>
+              <td align="center"><strong><?echo ($sort == 4) ? "Zone <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=server&action=6&sort=4'>Zone <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Zone'/></a>";?></strong></td>
+              <td align="center"><strong><?echo ($sort == 5) ? "Date <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=server&action=6&sort=5'>Date <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Date'/></a>";?></strong></td>
+              <td align="center"><strong>Hack</strong></td>
               <td width="5%">&nbsp;</td>
             </tr>
 <?$x=0; foreach($hackers as $hackers=>$v):?>
