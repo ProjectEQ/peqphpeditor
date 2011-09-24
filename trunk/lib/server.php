@@ -489,11 +489,11 @@ function get_hackers() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['hackers'][$result['id']] = array("hid"=>$result['id'], "account"=>$result['account'], "name"=>$result['name'], "hacked"=>$result['hacked'], "date"=>$result['date'], "zone"=>$result['zone']);
-         }
-       }
-  return $array;
+      $array['hackers'][$result['id']] = array("hid"=>$result['id'], "account"=>$result['account'], "name"=>$result['name'], "hacked"=>$result['hacked'], "date"=>$result['date'], "zone"=>$result['zone']);
+    }
   }
+  return $array;
+}
 
 function get_reports() {
   global $mysql;
@@ -502,11 +502,11 @@ function get_reports() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['reports'][$result['id']] = array("rid"=>$result['id'], "name"=>$result['name'], "reported"=>$result['reported'], "reported_text"=>$result['reported_text']);
-         }
-       }
-  return $array;
+      $array['reports'][$result['id']] = array("rid"=>$result['id'], "name"=>$result['name'], "reported"=>$result['reported'], "reported_text"=>$result['reported_text']);
+    }
   }
+  return $array;
+}
 
 function get_petitions() {
   global $mysql;
@@ -515,11 +515,11 @@ function get_petitions() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['petitions'][$result['dib']] = array("dib"=>$result['dib'], "petid"=>$result['petid'], "accountname"=>$result['accountname'], "charname"=>$result['charname'], "senttime"=>$result['senttime'], "zone"=>$result['zone']);
-         }
-       }
-  return $array;
+      $array['petitions'][$result['dib']] = array("dib"=>$result['dib'], "petid"=>$result['petid'], "accountname"=>$result['accountname'], "charname"=>$result['charname'], "senttime"=>$result['senttime'], "zone"=>$result['zone']);
+    }
   }
+  return $array;
+}
 
 function get_rules() {
   global $mysql;
@@ -530,11 +530,11 @@ function get_rules() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['rules'][$result['rule_name']] = array("ruleset_id"=>$result['ruleset_id'], "rule_value"=>$result['rule_value'], "rule_name"=>$result['rule_name'], "notes"=>$result['notes']);
-         }
-       }
-  return $array;
+      $array['rules'][$result['rule_name']] = array("ruleset_id"=>$result['ruleset_id'], "rule_value"=>$result['rule_value'], "rule_name"=>$result['rule_name'], "notes"=>$result['notes']);
+    }
   }
+  return $array;
+}
 
 function get_rules_from_ruleset() {
   global $mysql;
@@ -544,11 +544,11 @@ function get_rules_from_ruleset() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['rules'][$result['rule_name']] = array("ruleset_id"=>$result['ruleset_id'], "rule_value"=>$result['rule_value'], "rule_name"=>$result['rule_name'], "notes"=>$result['notes']);
-         }
-       }
-  return $array;
+      $array['rules'][$result['rule_name']] = array("ruleset_id"=>$result['ruleset_id'], "rule_value"=>$result['rule_value'], "rule_name"=>$result['rule_name'], "notes"=>$result['notes']);
+    }
   }
+  return $array;
+}
 
 function get_zones() {
   global $mysql;
@@ -557,11 +557,11 @@ function get_zones() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['zones'][$result['zone']] = array("launcher"=>$result['launcher'], "zone"=>$result['zone'], "port"=>$result['port']);
-         }
-       }
-  return $array;
+      $array['zones'][$result['zone']] = array("launcher"=>$result['launcher'], "zone"=>$result['zone'], "port"=>$result['port']);
+    }
   }
+  return $array;
+}
 
 function get_launchers() {
   global $mysql;
@@ -570,11 +570,11 @@ function get_launchers() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['launchers'][$result['name']] = array("name"=>$result['name'], "dynamics"=>$result['dynamics']);
-         }
-       }
-  return $array;
+      $array['launchers'][$result['name']] = array("name"=>$result['name'], "dynamics"=>$result['dynamics']);
+    }
   }
+  return $array;
+}
 
 function get_variables() {
   global $mysql;
@@ -599,7 +599,7 @@ function view_bugs() {
   $result = $mysql->query_assoc($query);
   
   return $result;
-  }
+}
 
 function view_hackers() {
   global $mysql;
@@ -610,7 +610,7 @@ function view_hackers() {
   $result = $mysql->query_assoc($query);
   
   return $result;
-  }
+}
 
 function view_reports() {
   global $mysql;
@@ -621,7 +621,7 @@ function view_reports() {
   $result = $mysql->query_assoc($query);
   
   return $result;
-  }
+}
 
 function view_petition() {
   global $mysql;
@@ -632,7 +632,7 @@ function view_petition() {
   $result = $mysql->query_assoc($query);
   
   return $result;
-  }
+}
 
 function view_rule() {
   global $mysql;
@@ -644,7 +644,7 @@ function view_rule() {
   $result = $mysql->query_assoc($query);
   
   return $result;
-  }
+}
 
 function view_ruleset() {
   global $mysql;
@@ -655,7 +655,7 @@ function view_ruleset() {
   $result = $mysql->query_assoc($query);
   
   return $result;
-  }
+}
 
 function view_rulesets() {
   global $mysql;
@@ -668,7 +668,7 @@ function view_rulesets() {
          }
        }
   return $array;
-  }
+}
 
 function view_zone() {
   global $mysql;
@@ -680,7 +680,7 @@ function view_zone() {
   $result = $mysql->query_assoc($query);
   
   return $result;
-  }
+}
 
 function view_launcher() {
   global $mysql;
@@ -691,7 +691,7 @@ function view_launcher() {
   $result = $mysql->query_assoc($query);
   
   return $result;
-  }
+}
 
 function view_variable() {
   global $mysql;
