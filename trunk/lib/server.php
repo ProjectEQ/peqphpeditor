@@ -40,6 +40,14 @@ $columns = array(
   7 => 'status'
 );
 
+$columns1 = array(
+  1 => 'id',
+  2 => 'account',
+  3 => 'name',
+  4 => 'zone',
+  5 => 'date'
+);
+
 switch ($action) {
   case 0:
     check_authorization();
@@ -121,12 +129,31 @@ switch ($action) {
    case 6: // Preview Hackers
     check_admin_authorization();
     $breadcrumbs .= " >> Hackers";
+    $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
+    $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
+    $curr_sort = (isset($_GET['sort'])) ? $columns1[$_GET['sort']] : $columns1[$default_sort];
+    if ($_GET['filter'] == 'on') {
+      $filter = build_filter();
+    }
     $body = new Template("templates/server/hackers.tmpl.php");
-    $hackers = get_hackers();
+    $page_stats = getPageInfo("hackers", $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
+    if ($filter) {
+      $body->set('filter', $filter);
+    }
+    if ($page_stats['page']) {
+      $hackers = get_hackers($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
+    }
     if ($hackers) {
       foreach ($hackers as $key=>$value) {
         $body->set($key, $value);
       }
+      foreach ($page_stats as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    else {
+      $body->set('page', 0);
+      $body->set('pages', 0);
     }
     break;
    case 7: // Delete Hacker
@@ -482,10 +509,15 @@ function get_resolved_bugs($page_number, $results_per_page, $sort_by) {
   return $array;
 }
 
-function get_hackers() {
+function get_hackers($page_number, $results_per_page, $sort_by, $where = "") {
   global $mysql;
+  $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
 
-  $query = "SELECT id, account, name, hacked, zone, date FROM hackers order by id desc limit 500";
+  $query = "SELECT id, account, name, hacked, zone, date FROM hackers";
+  if ($where) {
+    $query .= " WHERE $where";
+  }
+  $query .= " ORDER BY $sort_by LIMIT $limit";
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
@@ -1004,5 +1036,33 @@ function notify_status($new_status) {
 
   $query = "INSERT INTO mail (`charid`,`timestamp`,`from`,`subject`,`body`,`to`,`status`) VALUES ($charid,UNIX_TIMESTAMP(NOW()),\"$from\",\"$subject\",\"$body\",\"$to\",1)";
   $mysql->query_no_result($query);
+}
+function build_filter() {
+  global $mysql;
+  $filter1 = $_GET['filter1'];
+  $filter2 = $_GET['filter2'];
+  $filter3 = $_GET['filter3'];
+  $filter_final = array();
+
+  if ($filter1) { // Filter by account
+    $filter_account = "account LIKE '%" . $filter1 . "%'";
+    $filter_final['sql'] = $filter_account;
+  }
+  if ($filter2) { // Filter by name
+    $filter_name = "name LIKE '%" . $filter2 . "%'";
+    $filter_final['sql'] = $filter_name;
+  }
+  if ($filter3) { // Filter by zone
+    $filter_zone = "zone LIKE '%" . $filter3 . "%'";
+    $filter_final['sql'] = $filter_zone;
+  }
+
+  $filter_final['url'] = "&filter=on&filter1=$filter1&filter2=$filter2&filter3=$filter3";
+  $filter_final['status'] = "on";
+  $filter_final['filter1'] = $filter1;
+  $filter_final['filter2'] = $filter2;
+  $filter_final['filter3'] = $filter3;
+
+  return $filter_final;
 }
 ?>
