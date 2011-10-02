@@ -14,15 +14,14 @@ function logSQL ($query) {
   if ($logging == 1) {
     $time = date("(j-M-y  G:i:s)");
     if (!is_writable($log_file)) {
-      echo "The log file ($log_file) is not writable!<br><br>Make sure the files exists and is not read-only.";
-      exit;
+      $handle = fopen($log_file, 'w') or die("Could not create $log_file! Make sure the logs directory is writeable by your webserver.");
     }
     if (!$handle = fopen($log_file, 'a')) {
-      echo "Unable to open the log file ($log_file)!";
+      echo "Unable to open the log file ($log_file)! Make sure the file is readable by your webserver.";
       exit;
     }
     if (!fwrite($handle, "$query; -- $user $time\r\n")) {
-      echo "Could not write to the log file ($log_file)!";
+      echo "Could not write to the log file ($log_file)! Make sure the file is writeable by your webserver.";
       exit;
     }
     fclose($handle);
