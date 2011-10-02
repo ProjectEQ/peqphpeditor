@@ -26,10 +26,11 @@ $db = 'database_name';
  *    15 = Secrets of Faydwer
  *    16 = Seeds of Destruction
  *    17 = Underfoot
- *    18 = House of Thule
+ *    18 = House of Thule\
+ *    19 = Veil of Alaris
  *    99 = Other
  */
-$expansion_limit = 18;
+$expansion_limit = 19;
 
 // How NPCs are listed. 1 = by NPCID (zoneidnumber*1000), 2 = By spawn2 entry
 $npc_list = 1;
@@ -43,9 +44,12 @@ $password = 'password';
 // Log SQL queries:  1 = on, 0 = off
 $logging = 1;
 
-// $log_file = path to the file your sql logs will be saved in, if you have enabled sql logging
-//    Make sure to create this directory and file before using the editor, or you will
-//    get errors
-$log_file = "logs/sql_log.sql";
+// $log_file = path to the file your sql logs will be saved in.
+// If you want a single log file, uncomment next line and comment the two monthly log options.
+//$log_file = "logs/sql_log.sql";
+
+// Automatically create new logs monthly.
+$filetime = date("m-Y");
+$log_file = "logs/sql_log_$filetime.sql";
 
 ?>
