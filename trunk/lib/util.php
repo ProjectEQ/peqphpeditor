@@ -51,6 +51,7 @@ switch ($action) {
   case 6: // View Recipe Activity
     check_authorization();
     $breadcrumbs .= " >> Recipe Activity";
+    $javascript = new Template("templates/util/js.tmpl.php");
     $body = new Template("templates/util/util.recipes.tmpl.php");
     $count = $default_count;
     if ($_GET['count'] > 0) {
