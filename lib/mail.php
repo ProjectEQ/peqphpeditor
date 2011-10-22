@@ -63,7 +63,7 @@ switch ($action) {
 function get_mail_headers() {
   global $mysql;
 
-  $query = "SELECT msgid, charid, timestamp, `from`, subject FROM mail";
+  $query = "SELECT msgid, charid, timestamp, `from`, subject FROM mail ORDER BY msgid";
   $result = $mysql->query_mult_assoc($query);
 
   return $result;
