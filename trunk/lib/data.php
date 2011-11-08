@@ -835,8 +835,8 @@ $classes = array (
  66 => 'Guild Banker',
  67 => 'Norraths Keepers Merchant',
  68 => 'Dark Reign Merchant',
- 69 => 'Unknown69',
- 70 => 'Adventure Merchant',
+ 69 => 'Fellowship Master',
+ 70 => 'Alt Currency Merchant',
  71 => 'Mercenary Liaison'
 );
 
@@ -1678,6 +1678,9 @@ $zoneids = array (
  489 => 'stonesnake',
  491 => 'convorteum',
  492 => 'brellsarena',
+ 493 => 'weddingchapel',
+ 494 => 'weddingchapeldark',
+ 495 => 'dragoncrypt',
  700 => 'feerrott2',
  701 => 'thulehouse1',
  702 => 'thulehouse2',
