@@ -43,7 +43,7 @@ class session {
     if ($result == '') {
       return false;
     }
-    
+
     extract($result);
     
     if ($password == $pw) {
@@ -112,8 +112,17 @@ if (isset($_GET['logout'])) {
 
 // Handle logins
 if (isset($_GET['login'])) {
-  if ($_GET['login'] == "guest") {
+  if ($_GET['login'] == "guest" && $enable_guest_mode == 1) {
     $_SESSION['guest'] = 1;
+  }
+  if ($_GET['login'] == "guest" && $enable_guest_mode != 1) {
+    $_SESSION['guest'] = 0;
+  }
+  if ($enable_user_login != 1) {
+  $login = $_POST['login'];
+  $password = $_POST['password'];
+   logSQL("POSSIBLE HACK ATTEMPT. Person was from IP: '" . getIP() . "'. and used Username: '$login' Password: '$password'.");
+   $_SESSION['error'] = 1;
   }
   else {
     session::login($_POST['login'], $_POST['password']);
@@ -126,6 +135,8 @@ if (isset($_GET['login'])) {
 if (session::logged_in() != TRUE) {
   $body = new Template("templates/login.tmpl.php");
   $error = isset($_SESSION['error']) ? 1 : 0;
+  $body->set('enable_guest_mode', $enable_guest_mode);
+  $body->set('enable_user_login', $enable_user_login);
   $body->set('error', $error);
   $body->set('login', $login);
   $body->set('password', $password);
