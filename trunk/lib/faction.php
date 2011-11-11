@@ -8,6 +8,12 @@ $columns = array(
   2 => 'faction_id'
 );
 
+$faction_value = array(
+  -1 => 'Aggressive',
+  0 => 'Passive',
+  1 => 'Assist'
+);
+
 switch ($action) {
   case 0:  // View faction info
     check_authorization();
@@ -133,6 +139,42 @@ switch ($action) {
     $return_address = $_SERVER['HTTP_REFERER'];
     header("Location: $return_address");
     exit;
+  case 15:
+    check_authorization(); 
+    $body = new Template("templates/faction/npcbyprimary.tmpl.php");
+    $body->set('fid', $_GET['fid']);
+    $npcpri = npcs_using_primary();
+    $body->set("npcpri", $npcpri);
+    break;
+  case 16:
+    check_authorization(); 
+    $body = new Template("templates/faction/factionsearch.tmpl.php");
+    $body->set('fid', $_GET['fid']);
+    break;
+  case 17:
+    check_authorization(); 
+    $body = new Template("templates/faction/npc_search_results.tmpl.php");
+    $body->set('fid', $_GET['fid']);
+    $body->set("faction_value", $faction_value);
+    $npcpri = npcs_using_faction(1);
+    $body->set("npcpri", $npcpri);
+    break;
+  case 18:
+    check_authorization(); 
+    $body = new Template("templates/faction/npc_search_results.tmpl.php");
+    $body->set('fid', $_GET['fid']);
+    $body->set("faction_value", $faction_value);
+    $npcpri = npcs_using_faction(2);
+    $body->set("npcpri", $npcpri);
+    break;
+  case 19:
+    check_authorization(); 
+    $body = new Template("templates/faction/npc_search_results.tmpl.php");
+    $body->set('fid', $_GET['fid']);
+    $body->set("faction_value", $faction_value);
+    $npcpri = npcs_using_faction(3);
+    $body->set("npcpri", $npcpri);
+    break;
 }
 
 function faction_info() {
@@ -432,4 +474,47 @@ function build_filter() {
 
   return $filter_final;
 }
+
+function npcs_using_primary() {
+ 	check_authorization();
+	global $mysql, $fid;
+
+	$query = "SELECT nt.id AS npcid, nt.name AS npcname, nf.name AS factionname from npc_types nt
+		   INNER JOIN npc_faction nf ON nf.id = nt.npc_faction_id
+	          WHERE nf.primaryfaction = $fid GROUP by nt.id ORDER by nt.name";
+
+	$results = $mysql->query_mult_assoc($query);
+	return $results;
+}
+
+function npcs_using_faction($value) {
+	check_authorization();
+	global $mysql, $fid;
+
+	if($value == 1){
+
+	$query = "SELECT nt.id AS npcid, nt.name AS npcname, nfe.npc_value AS factionvalue from npc_types nt
+                 INNER JOIN npc_faction_entries nfe ON nfe.npc_faction_id = nt.npc_faction_id
+                WHERE nfe.faction_id = $fid AND nfe.npc_faction_id in (SELECT npc_faction_id from npc_faction_entries where value > 0 and faction_id = $fid) GROUP by nt.id ORDER by nt.name";
+
+	}
+
+	if($value == 2){
+
+	$query = "SELECT nt.id AS npcid, nt.name AS npcname, nfe.npc_value AS factionvalue from npc_types nt
+                 INNER JOIN npc_faction_entries nfe ON nfe.npc_faction_id = nt.npc_faction_id
+                WHERE nfe.faction_id = $fid AND nfe.npc_faction_id in (SELECT npc_faction_id from npc_faction_entries where value < 0 and faction_id = $fid) GROUP by nt.id ORDER by nt.name";
+	}
+
+	if($value == 3){
+
+	$query = "SELECT nt.id AS npcid, nt.name AS npcname, nfe.npc_value AS factionvalue from npc_types nt
+                 INNER JOIN npc_faction_entries nfe ON nfe.npc_faction_id = nt.npc_faction_id
+                WHERE nfe.faction_id = $fid AND nfe.npc_faction_id in (SELECT npc_faction_id from npc_faction_entries where value = 0 and faction_id = $fid) GROUP by nt.id ORDER by nt.name";
+	}
+
+	$results = $mysql->query_mult_assoc($query);
+	return $results;
+}
+
 ?>
