@@ -1,5 +1,5 @@
        <center>
-       <table style="border: 1px solid black; background-color: #CCC; width: 22%">
+       <table style="border: 1px solid black; background-color: #CCC; width: 30%">
          <tr><td colspan=2><b>Legend:</b></td></tr>
          <tr><td align="right">Above 1100&nbsp;</td><td align="left">&nbsp;Ally</td></tr>
          <tr><td align="right">701 to 1100&nbsp;</td><td align="left">&nbsp;Warmly</td></tr>
@@ -16,6 +16,7 @@
       <div style="border: 1px solid black">
        <div class="edit_form_header" style="height: 16px; line-height: 16px;">
          <div style="float: right">
+	    <a href="index.php?editor=faction&fid=<?=$id?>&action=16"><img src="images/view_all.gif" title="Search for NPCs using this faction" border="0"></a>
            <a href="index.php?editor=faction&fid=<?=$id?>&action=1"><img src="images/c_table.gif" title="Edit this Faction" border="0"></a>
            <a href="index.php?editor=faction&fid=<?=$id?>&action=7"><img src="images/download.gif" title="Get Values" border="0"></a>
            <a onClick="return confirm('Really Delete Faction <?=$id?>?');" href="index.php?editor=faction&fid=<?=$id?>&action=6"><img src="images/remove3.gif" title="Delete this faction" border="0"></a>
