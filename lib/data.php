@@ -874,7 +874,8 @@ $specialattacks = array(
  "n" => "Does NOT buff/heal friends",
  "j" => "Tethered",
  "J" => "Leashed",
- "o" => "Destructible Object"
+ "o" => "Destructible Object",
+ "Z" => "No Harm from Players"
 );
 
 $tradeskills = array(

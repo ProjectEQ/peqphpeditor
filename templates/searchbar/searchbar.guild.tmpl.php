@@ -5,9 +5,20 @@
               <strong>1.</strong>
               <select OnChange="gotosite(this.options[this.selectedIndex].value)">
                 <option value="">Select a Guild</option>
-<?php foreach ($guilds as $guild): extract($guild);?>
+<?
+  if ($guilds) {
+    foreach ($guilds as $guild): extract($guild);
+?>
                 <option value="index.php?editor=<?=$curreditor?>&guildid=<?=$guild['id']?>"<?php if ($currguild == $guild['id']): ?> selected<?php endif;?>><?=$guild['name']?></option>
-<?php endforeach;?>
+<?
+    endforeach;
+  }
+  else {
+?>
+                <option value="index.php?editor=<?=$curreditor?>">No Guilds</option>
+<?
+  }
+?>
               </select>
             </td>
             <td> or <strong>&nbsp;2.</strong>

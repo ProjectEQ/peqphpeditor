@@ -35,7 +35,7 @@
         </form>
       </div>
     </div><br/> 
-       <div class="table_container" style="width: 650px;">
+       <div class="table_container" style="width: 700px;">
           <div class="table_header">
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
