@@ -164,6 +164,7 @@
                   <input type="checkbox" name="I" value="I"/> Unsnareable<br/>
                   <input type="checkbox" name="D" value="D"/> Unfearable<br/>
                   <input type="checkbox" name="p" value="p"/> Unpacifiable<br/>
+                  <input type="checkbox" name="Z" value="Z"/> No Harm from Players<br/>
                   <input type="checkbox" name="g" value="g"/> Resist Ranged Spells<br/>
                   <input type="checkbox" name="t" value="t"/> Tunnel Vision<br/>
                   <input type="checkbox" name="i" value="i" onClick="sanityCheck();"/> Intelligent<br/>
