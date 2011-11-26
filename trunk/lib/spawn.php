@@ -623,13 +623,24 @@ switch ($action) {
     $vars = search_spawngroups($_POST['search']);
     $body->set('results', $vars);
     break;
-  case 58: // Add spawngroup by name
+   case 58: // Add spawngroup by name
     check_authorization();
     $body = new Template("templates/spawn/spawngroup.addbysearch.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
-    $body->set('sid', $_GET['sid']);
+    if($_POST['new_sid'] > 0){
+	$body->set('sid', $_POST['new_sid']);
+    }
+    else {
+       $body->set('sid', $_GET['sid']);
+    }
+    $vars = get_spawngroup_info();
+    if ($vars) {
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
     break;
   case 59: // List spawngroups for a zone
     check_authorization();
@@ -707,12 +718,47 @@ switch ($action) {
     $grid_npcs = get_npcs_by_grid();
     $body->set('grid_npcs', $grid_npcs);
     break;
+  case 67: // Search for spawngroups
+    check_authorization();
+    $body = new Template("templates/spawn/spawngroup.showoptions.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    break;
+  case 68: // List spawngroups by NPC
+    check_authorization();
+    $body = new Template("templates/spawn/spawn.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $spawngroups = get_spawngroups($z);
+    $body->set('spawngroups', $spawngroups);
+    break;
+    
 }
 
-function get_spawngroups() {
+function get_spawngroups($search) {
   global $mysql, $npcid;
 
+  if($search != ''){
+  	$minx = $_POST['minx'];
+  	$maxx = $_POST['maxx'];
+  	$miny = $_POST['miny'];
+  	$maxy = $_POST['maxy'];
+  	$npcname = $_POST['npcname'];
+
+  	if($npcname != ''){
+  		$query = "SELECT spawngroupID FROM spawn2 LEFT JOIN spawnentry USING (spawngroupID) LEFT JOIN spawngroup ON (spawn2.spawngroupID = spawngroup.id) LEFT JOIN npc_types ON (spawnentry.npcID = npc_types.id) WHERE spawn2.zone = '$search' AND spawn2.x >= $minx AND spawn2.x <= $maxx AND spawn2.y >= $miny AND spawn2.y <= $maxy AND npc_types.name rlike \"$npcname\"";
+  	}
+ 
+  	else {
+  		$query = "SELECT spawngroupID FROM spawn2 LEFT JOIN spawnentry USING (spawngroupID) LEFT JOIN spawngroup ON (spawn2.spawngroupID = spawngroup.id) WHERE spawn2.zone = '$search' AND spawn2.x >= $minx AND spawn2.x <= $maxx AND spawn2.y >= $miny AND spawn2.y <= $maxy";
+  	}
+  }
+  
+  else {
   $query = "SELECT * FROM spawnentry WHERE npcID=$npcid ORDER BY spawngroupID";
+  }
+
   $results = $mysql->query_mult_assoc($query);
 
   if (!$results) return;
@@ -730,6 +776,10 @@ function get_spawngroups() {
     $results[$x]['max_y'] = $result['max_y'];
     $results[$x]['min_y'] = $result['min_y'];
     $results[$x]['delay'] = $result['delay'];
+
+    $query = "SELECT count(*) AS count FROM spawn2 WHERE spawngroupID=$id";
+    $result = $mysql->query_assoc($query);
+    $results[$x]['count'] = $result['count'];
 
     $query = "SELECT * FROM spawnentry WHERE spawngroupID=$id";
     $results2 = $mysql->query_mult_assoc($query);
@@ -761,6 +811,18 @@ function add_spawngroup_member() {
   $npc = $_REQUEST['npc'];
   $balance = $_REQUEST['balance'];
   $chance = ($balance == "on") ? 0 : $_REQUEST['chance'];
+
+  $query = "SELECT max(chance) AS chance, npcID AS maxnpcid FROM spawnentry where spawngroupID=$sid";
+  $result = $mysql->query_assoc($query);
+  $maxchance = $result['chance'];
+  $maxnpcid = $result['maxnpcid'];
+
+  $newchance = ($maxchance - $chance);
+
+  if($newchance > 1){
+  $query = "UPDATE spawnentry SET chance = $newchance WHERE npcID = $maxnpcid AND spawngroupID=$sid";
+  $mysql->query_no_result($query);
+  }
 
   $query = "INSERT INTO spawnentry SET spawngroupID=$sid, npcID=$npc, chance=$chance";
   $mysql->query_no_result($query);
@@ -822,8 +884,15 @@ function balance_spawns () {
 function get_spawngroup_info() {
   global $mysql;
   $sid = $_GET['sid'];
+  $new_sid = $_POST['new_sid'];
 
+  if($new_sid > 0){
+  $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay FROM spawngroup WHERE id=$new_sid";
+  }
+ 
+  else {
   $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay FROM spawngroup WHERE id=$sid";
+  }
   $result = $mysql->query_assoc($query);
 
   return $result;

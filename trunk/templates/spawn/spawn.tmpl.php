@@ -10,20 +10,29 @@
              To create a spawngroup for this NPC:<br>
              <ul style="padding-left: 25px;">
              <li>Make sure the desired zone is selected from the search bar</li>
-             <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=54">Click here to create a new spawngroup</a></li> 
+             <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=54">Click here to create a new spawngroup</a></li>
+             <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16">Click here to add this NPC an existing spawngroup</a></li>
             </ul>
            </td>
          </tr>
        </table>
 <?endif;?>
 <?if($spawngroups != ''):?>
-<center>
-  <table>
-    <tr>
-      <td style="background-color: #CCC; border: 1px solid black; padding: 5px;"><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16">Click here to add this NPC to another spawngroup</a></td>
+ <table class="edit_form">
+         <tr>
+           <td class="edit_form_header">
+             Spawngroup options
+           </td>
+         </tr>
+         <tr>
+           <td class="edit_form_content">
+             <ul style="padding-left: 25px;">
+      <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=54">Click here to create a new spawngroup</a></li>
+      <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16">Click here to add this NPC to an existing spawngroup</a></li>
+      </ul>
     </tr>
   </table>
-</center><br />
+<br />
 <?foreach($spawngroups as $sg): extract($sg);?>
       <div style="border: 1px solid black; margin-bottom: 15px;">
       <div class="table_header">
@@ -36,7 +45,7 @@
               spawn_limit: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$spawn_limit?></a>
             </td>
             <td>
-              <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=10">View Spawnpoints for this Spawngroup</a>
+              <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=10">View Spawnpoints (<?=$count?>) for this Spawngroup</a>
             </td>
             <td align="right">
               <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=8"><img src="images/add.gif" border="0" title="Add an NPC to this Spawngroup"></a>&nbsp;

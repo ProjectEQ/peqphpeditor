@@ -12,8 +12,7 @@
               <input type="hidden" name="npcid" value="<?=$npcid?>">
               <input type="hidden" name="zoneid" value="<?=$currzoneid?>">
               <input type="radio" name="action" value="55">Search for an existing spawngroup by name<br>
-              <input type="radio" name="action" value="56">Enter an existing spawngroup ID<br>
-              <input type="radio" name="action" value="54">Create a new spawngroup in <?=$currzone?><br><br>
+              <input type="radio" name="action" value="56">Enter an existing spawngroup ID<br><br>
               <center>
                 <input type="submit" value="Continue">
               </center>

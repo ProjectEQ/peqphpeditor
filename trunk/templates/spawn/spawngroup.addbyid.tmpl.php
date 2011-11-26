@@ -6,13 +6,15 @@
          </tr>
          <tr>
            <td class="edit_form_content">
-             <form name="addspawngroup" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=9">
+             <form name="addspawngroup" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&new_sid=<?=$new_sid?>&action=58">
                <input type="hidden" name="npc" value=<?=$npcid?>>
                Enter Spawngroup ID:<br>
-               <input type="text" name="sid"><br><br>
-               Enter Chance:<br/>
-               <input type="text" name="chance" value="100"><br/><br/>
-               <center><input type="submit"></center>
+               <input type="text" name="new_sid"><br><br>
+               <tr>
+           <td colspan=3 align=center class="edit_form_content">
+             <input type="submit" name="submit" value=" Submit ">
+           </td>
+           </tr>
              </form>
            </td>
          </tr>
