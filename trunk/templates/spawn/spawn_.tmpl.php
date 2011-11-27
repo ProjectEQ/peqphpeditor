@@ -1,21 +1,9 @@
 <?if($spawngroups == ''):?>
-       <table class="edit_form">
-         <tr>
-           <td class="edit_form_header">
-             No spawngroup assigned
-           </td>
-         </tr>
-         <tr>
-           <td class="edit_form_content">
-             To create a spawngroup for this NPC:<br>
-             <ul style="padding-left: 25px;">
-             <li>Make sure the desired zone is selected from the search bar</li>
-             <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=54">Click here to create a new spawngroup</a></li>
-             <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16">Click here to add this NPC an existing spawngroup</a></li>
-            </ul>
-           </td>
-         </tr>
-       </table>
+      <center>
+       <table style="border: 1px solid black; background-color: #CCC; width: 32%">
+          <td align="left" width="100" style="padding: 10px;">No spawngroups found for that search.</td>
+        </table>
+       </center>
 <?endif;?>
 <?if($spawngroups != ''):?>
  <table class="edit_form">
@@ -27,8 +15,13 @@
          <tr>
            <td class="edit_form_content">
              <ul style="padding-left: 25px;">
-      <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=54">Click here to create a new spawngroup</a></li>
-      <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16">Click here to add this NPC to an existing spawngroup</a></li>
+      <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&minx=<?=$minx?>&miny=<?=$miny?>&maxx=<?=$maxx?>&maxy=<?=$maxy?>&limit=<?=$limit?>&npcname=<?=$npcname?>&action=69">Click here to add a NPC to all listed spawngroups</a></li><br>
+	<?
+	if($spawngroup_limit == ''){
+	$spawngroup_limit = 150;
+	}
+	?>
+	<center>Spawngroup entries will be limited to <?=$spawngroup_limit?> displayed results.</center>
       </ul>
     </tr>
   </table>
@@ -39,16 +32,16 @@
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
             <td>
-              Spawngroup: <?=$name?> - "<a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$spawngroupID?></a>"
+              Spawngroup: <?=$name?> - "<a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=4"><?=$spawngroupID?></a>"
             </td>
             <td>
-              spawn_limit: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$spawn_limit?></a>
+              spawn_limit: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=4"><?=$spawn_limit?></a>
             </td>
             <td>
-              <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=10">View Spawnpoints (<?=$count?>) for this Spawngroup</a>
+              <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=10">View Spawnpoints (<?=$count?>) for this Spawngroup</a>
             </td>
             <td align="right">
-              <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=8"><img src="images/add.gif" border="0" title="Add an NPC to this Spawngroup"></a>&nbsp;
+              <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=72"><img src="images/add.gif" border="0" title="Add an NPC to this Spawngroup"></a>&nbsp;
               <a onClick="return confirm('Really delete this spawngroup?\n  THIS WILL DELETE ALL OF THIS SPAWNGROUP\'S SPAWNPOINTS, AS WELL!');" href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=6"><img src="images/remove2.gif" border="0" title="Delete this Spawngroup"></a>
             </td>
           </tr>
@@ -58,22 +51,22 @@
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
 	     <td width="17%">
-		min_x: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$min_x?></a>
+		min_x: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=4"><?=$min_x?></a>
 	     </td>
 	     <td width="17%">
-		max_x: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$max_x?></a>
+		max_x: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=4"><?=$max_x?></a>
 	     </td>
 	     <td width="17%">
-	       min_y: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$min_y?></a>
+	       min_y: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=4"><?=$min_y?></a>
 	     </td>
             <td width="17%">
-	       max_y: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$max_y?></a>
+	       max_y: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=4"><?=$max_y?></a>
 	     </td>
 	     <td width="17%">
-	       dist: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$dist?></a>
+	       dist: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=4"><?=$dist?></a>
 	     </td>
 	     <td width="15%">
-	       delay: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$delay?></a>
+	       delay: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=4"><?=$delay?></a>
 	     </td>
           </tr>
           </table>
