@@ -55,6 +55,12 @@ $logging = 1;
 $filetime = date("m-Y");
 $log_file = "logs/sql_log_$filetime.sql";
 
+// Log all MySQL queries (If disabled only write entries are logged - recommended.)
+$log_all = 0;
+
+// Log all MySQL queries that result in an error.
+$log_error = 0;
+
 // Enable or disable user logins.
 $enable_user_login = 1;
 
