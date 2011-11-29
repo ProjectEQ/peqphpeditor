@@ -45,7 +45,7 @@ switch ($action) {
       $body->set('currzone', $z);
       $body->set('currzoneid', $zoneid);
       $body->set('npcid', $npcid);
-      $spawngroups = get_spawngroups();
+      $spawngroups = get_spawngroups('');
       $body->set('spawngroups', $spawngroups);
     }
     else {
@@ -78,7 +78,7 @@ switch ($action) {
     exit;
   case 3:  // Balance spawngroup spawns
     check_authorization();
-    balance_spawns();
+    balance_spawns('');
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 4: // Edit Spawngroup name
@@ -107,7 +107,7 @@ switch ($action) {
     exit;
   case 7:  // Delete spawngroup member
     check_authorization();
-    delete_spawngroup_member();
+    delete_spawngroup_member('');
     $npcid = valid_npc();
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
@@ -927,7 +927,7 @@ function add_spawngroup_member() {
   $query = "INSERT INTO spawnentry SET spawngroupID=$sid, npcID=$npc, chance=$chance";
   $mysql->query_no_result($query);
 
-  if ($balance == "on") { balance_spawns(); }
+  if ($balance == "on") { balance_spawns(''); }
 }
 
 function add_multiple_spawngroup_member() {
@@ -1034,7 +1034,7 @@ function delete_spawngroup_member($balance) {
   $mysql->query_no_result($query);
   }
 
-  if ($balance == 1) { balance_spawns(); }
+  if ($balance == 1) { balance_spawns(''); }
 
 }
 
