@@ -9,32 +9,40 @@ class mysql {
   }
 
   function query_no_result ($query) {
+    global $log_error;
     if (mysql_query($query)) {
       logSQL($query);
       return true;
     }
     else {
+      if($log_error == 1){logSQL($query);}
       mysql::error($query . " - " .mysql_error());
       return false;
     }
   }
 
   function query_assoc ($query) {
+    global $log_all, $log_error;
     if ($result = mysql_query(quote_smart($query))) {
       $row = mysql_fetch_assoc($result);
+      if($log_all == 1){logSQL($query);}
       return (isset($row) ? $row : '');
     }
+    if($log_error == 1){logSQL($query);}
     else mysql::error($query . " - " . mysql_error());
   }
 
   // Used to return multi-dimensional arrays
   function query_mult_assoc ($query) {
+    global $log_all, $log_error;
     if ($result = mysql_query(quote_smart($query))) {
       while ($row = mysql_fetch_assoc($result)) {
         $array[] = $row;
       }
+      if($log_all == 1){logSQL($query);}
       return (isset($array) ? $array : '');
     }
+    if($log_error == 1){logSQL($query);}
     else mysql::error($query . " - " . mysql_error());
   }
 

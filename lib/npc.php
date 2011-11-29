@@ -571,8 +571,14 @@ switch ($action) {
      $body->set('pet_control', $pet_control);
      $body->set('yesno', $yesno);
      $pet = get_pet();
+     $equipment = get_pets_equipmentset_entries();
      if ($pet) {
         foreach ($pet as $key=>$value) {
+          $body->set($key, $value);
+        }
+      }
+      if ($equipment) {
+        foreach ($equipment as $key=>$value) {
           $body->set($key, $value);
         }
       }
@@ -583,6 +589,7 @@ switch ($action) {
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 58: // Edit pet data
+     check_authorization();
      $body = new Template("templates/npc/npc.edit.pet.tmpl.php");
      $body->set('currzone', $z);
      $body->set('currzoneid', $zoneid);
@@ -595,7 +602,7 @@ switch ($action) {
         foreach ($pet as $key=>$value) {
           $body->set($key, $value);
         }
-      }
+     }
      break;
   case 59: // Update Pet
     check_authorization();
@@ -603,6 +610,7 @@ switch ($action) {
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&action=56");
     exit;
   case 60: // Add equipmentset
+     check_authorization();
      $body = new Template("templates/npc/npc.add.equipmentset.tmpl.php");
      $body->set('currzone', $z);
      $body->set('currzoneid', $zoneid);
@@ -625,6 +633,7 @@ switch ($action) {
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&action=56");
     exit;
   case 64: // Edit equipmentset
+     check_authorization();
      $body = new Template("templates/npc/npc.edit.equipmentset.tmpl.php");
      $body->set('currzone', $z);
      $body->set('currzoneid', $zoneid);
@@ -641,6 +650,46 @@ switch ($action) {
     edit_equipmentset();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&action=56");
     exit;
+  case 66: // Add equipmentset entry
+     check_authorization();
+     $body = new Template("templates/npc/npc.add.equipmentset_entry.tmpl.php");
+     $javascript = new Template("templates/iframes/js.tmpl.php");
+     $body->set('currzone', $z);
+     $body->set('currzoneid', $zoneid);
+     $body->set('npcid', $npcid);
+     $body->set('suggested_id', suggest_equipmentset_slot_id());
+     $body->set('set_id', $set_id = $_GET['set_id']);
+     break;
+  case 67: // Add equipmentset entry
+    check_authorization();
+    add_equipmentset_entry();
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&action=56");
+    exit;
+  case 68: // Remove equipmentset entry
+    check_authorization();
+    delete_equipmentset_entry();
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&action=56");
+    exit;
+  case 69: // Edit equipmentset entry
+     check_authorization();
+     $body = new Template("templates/npc/npc.edit.equipmentset_entry.tmpl.php");
+     $javascript = new Template("templates/iframes/js.tmpl.php");
+     $body->set('currzone', $z);
+     $body->set('currzoneid', $zoneid);
+     $body->set('npcid', $npcid);
+     $equipmentset = get_equipmentset_entry();
+     if ($equipmentset) {
+        foreach ($equipmentset as $key=>$value) {
+          $body->set($key, $value);
+        }
+      }
+     break;
+  case 70: // Edit equipmentset entry
+    check_authorization();
+    edit_equipmentset_entry();
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&action=56");
+    exit;
+
 }
 
 function npc_info () {
@@ -700,6 +749,26 @@ function get_pet () {
   return $result;
 }
 
+function get_pets_equipmentset_entries(){
+  global $mysql, $npcid;
+  $array = array();
+
+  $query = "SELECT equipmentset FROM pets WHERE npcID=$npcid";
+  $result = $mysql->query_assoc($query);
+
+  $equipmentset = $result['equipmentset'];
+
+  $query = "SELECT * FROM pets_equipmentset_entries WHERE set_id=$equipmentset";
+  $result = $mysql->query_mult_assoc($query);
+
+  if ($result) {
+    foreach ($result as $result) {
+     $array['equipment'][$result['slot']] = array("slot"=>$result['slot'], "item_id"=>$result['item_id']);
+         }
+       }
+  return $array;
+}
+
 function get_equipmentset () {
   global $mysql, $npcid;
 
@@ -709,6 +778,18 @@ function get_equipmentset () {
   $equipmentset = $result['equipmentset'];
 
   $query = "SELECT * FROM pets_equipmentset WHERE set_id=$equipmentset";
+  $result = $mysql->query_assoc($query);
+
+  return $result;
+}
+
+function get_equipmentset_entry () {
+  global $mysql;
+
+  $set_id = $_GET['set_id'];
+  $slot = $_GET['slot'];
+
+  $query = "SELECT * FROM pets_equipmentset_entries WHERE set_id=$set_id AND slot=$slot";
   $result = $mysql->query_assoc($query);
 
   return $result;
@@ -802,6 +883,19 @@ function add_equipmentset() {
 
 }
 
+function add_equipmentset_entry() {
+  check_authorization();
+  global $mysql;
+
+  $set_id = $_POST['set_id'];
+  $slot = $_POST['slot'];
+  $item_id = $_POST['item_id'];
+
+  $query = "INSERT INTO pets_equipmentset_entries SET set_id = $set_id, slot = $slot, item_id = $item_id";
+  $mysql->query_no_result($query);
+
+}
+
 function edit_equipmentset() {
   check_authorization();
   global $mysql, $npcid;
@@ -818,10 +912,32 @@ function edit_equipmentset() {
 
 }
 
+function edit_equipmentset_entry() {
+  check_authorization();
+  global $mysql;
+
+  $set_id = $_POST['set_id'];
+  $slot = $_POST['slot'];
+  $item_id = $_POST['item_id'];
+
+  $query = "UPDATE pets_equipmentset_entries SET slot=$slot, item_id=$item_id WHERE set_id=$set_id";
+  $mysql->query_no_result($query);
+
+}
 
 function suggest_equipmentset_id() {
   global $mysql;
   $query = "SELECT MAX(set_id) as id FROM pets_equipmentset";
+  $result = $mysql->query_assoc($query);
+  return ($result['id'] + 1);
+}
+
+function suggest_equipmentset_slot_id(){
+ global $mysql;
+
+  $set_id = $_GET['set_id'];
+
+  $query = "SELECT MAX(slot) as id FROM pets_equipmentset_entries WHERE set_id=$set_id";
   $result = $mysql->query_assoc($query);
   return ($result['id'] + 1);
 }
@@ -835,7 +951,22 @@ function delete_equipmentset () {
   $query = "DELETE from pets_equipmentset WHERE set_id=$set_id";
   $mysql->query_no_result($query);
 
+  $query = "DELETE from pets_equipmentset_entries WHERE set_id=$set_id";
+  $mysql->query_no_result($query);
+
   $query = "UPDATE pets SET equipmentset = 0 WHERE npcID=$npcid";
+  $mysql->query_no_result($query);
+
+}
+
+function delete_equipmentset_entry () {
+  check_authorization();
+  global $mysql;
+
+  $set_id = $_GET['set_id'];
+  $slot = $_GET['slot'];
+
+  $query = "DELETE from pets_equipmentset_entries WHERE set_id=$set_id AND slot=$slot";
   $mysql->query_no_result($query);
 
 }
