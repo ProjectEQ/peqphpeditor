@@ -48,6 +48,20 @@ $npcstatchange = array(
   3   => "All"
 );
 
+$pet_naming = array(
+  0 => "`s pet",
+  1 => "`s familiar",
+  2 => "`s Warder",
+  3 => "Random pet name",
+  4 => "Keep DB name"
+);
+
+$pet_control = array(
+  0 => "Familiar",
+  1 => "Animation",
+  2 => "Normal"
+);
+
 switch ($action) {
   case 0:  // View Loottable
     if ($npcid) {
@@ -534,6 +548,99 @@ switch ($action) {
     update_npc_bytier();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
+  case 54: // Add a new pet
+    check_authorization();
+    $body = new Template("templates/npc/npc.add.pet.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('pet_naming', $pet_naming);
+    $body->set('pet_control', $pet_control);
+    break;
+  case 55: // Add new pet
+    check_authorization();
+    add_new_pet();
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
+  case 56: // Get pet data
+     $body = new Template("templates/npc/npc.pet.tmpl.php");
+     $body->set('currzone', $z);
+     $body->set('currzoneid', $zoneid);
+     $body->set('npcid', $npcid);
+     $body->set('pet_naming', $pet_naming);
+     $body->set('pet_control', $pet_control);
+     $body->set('yesno', $yesno);
+     $pet = get_pet();
+     if ($pet) {
+        foreach ($pet as $key=>$value) {
+          $body->set($key, $value);
+        }
+      }
+     break;
+   case 57: // Delete pet
+    check_authorization();
+    delete_pet();
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
+  case 58: // Edit pet data
+     $body = new Template("templates/npc/npc.edit.pet.tmpl.php");
+     $body->set('currzone', $z);
+     $body->set('currzoneid', $zoneid);
+     $body->set('npcid', $npcid);
+     $body->set('pet_naming', $pet_naming);
+     $body->set('pet_control', $pet_control);
+     $body->set('yesno', $yesno);
+     $pet = get_pet_entry();
+     if ($pet) {
+        foreach ($pet as $key=>$value) {
+          $body->set($key, $value);
+        }
+      }
+     break;
+  case 59: // Update Pet
+    check_authorization();
+    edit_pet();
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&action=56");
+    exit;
+  case 60: // Add equipmentset
+     $body = new Template("templates/npc/npc.add.equipmentset.tmpl.php");
+     $body->set('currzone', $z);
+     $body->set('currzoneid', $zoneid);
+     $body->set('npcid', $npcid);
+     $body->set('suggested_id', suggest_equipmentset_id());
+     break;
+  case 61: // Add equipmentset
+    check_authorization();
+    add_equipmentset();
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&action=56");
+    exit;
+  case 62: // Delete equipmentset
+    check_authorization();
+    delete_equipmentset();
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&action=56");
+    exit;
+  case 63: // Remove equipmentset
+    check_authorization();
+    remove_equipmentset();
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&action=56");
+    exit;
+  case 64: // Edit equipmentset
+     $body = new Template("templates/npc/npc.edit.equipmentset.tmpl.php");
+     $body->set('currzone', $z);
+     $body->set('currzoneid', $zoneid);
+     $body->set('npcid', $npcid);
+     $equipmentset = get_equipmentset();
+     if ($equipmentset) {
+        foreach ($equipmentset as $key=>$value) {
+          $body->set($key, $value);
+        }
+      }
+     break;
+  case 65: // Edit equipmentset
+    check_authorization();
+    edit_equipmentset();
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&action=56");
+    exit;
 }
 
 function npc_info () {
@@ -575,7 +682,49 @@ function get_ispet () {
   return $result['count(*)'];
 }
 
+function get_pet () {
+  global $mysql, $npcid;
+
+  $query = "SELECT * FROM pets WHERE npcID=$npcid";
+  $result = $mysql->query_assoc($query);
+
+  $equipmentset = $result['equipmentset'];
+
+  $query = "SELECT * FROM pets_equipmentset WHERE set_id=$equipmentset";
+  $result2 = $mysql->query_assoc($query);
+
+  $result['set_id'] = $result2['set_id'];
+  $result['setname'] = $result2['setname'];
+  $result['nested_set'] = $result2['nested_set'];
+
+  return $result;
+}
+
+function get_equipmentset () {
+  global $mysql, $npcid;
+
+  $query = "SELECT equipmentset FROM pets WHERE npcID=$npcid";
+  $result = $mysql->query_assoc($query);
+
+  $equipmentset = $result['equipmentset'];
+
+  $query = "SELECT * FROM pets_equipmentset WHERE set_id=$equipmentset";
+  $result = $mysql->query_assoc($query);
+
+  return $result;
+}
+
+function get_pet_entry () {
+  global $mysql, $npcid;
+
+  $query = "SELECT * FROM pets WHERE npcID=$npcid";
+  $result = $mysql->query_assoc($query);
+
+  return $result;
+}
+
 function update_pet () {
+  check_authorization();
   global $mysql, $npcid;
 
   $name = $_POST['name'];
@@ -585,20 +734,119 @@ function update_pet () {
 }
 
 function add_pet () {
+  check_authorization();
   global $mysql;
 
   $name = $_POST['name'];
   $npcid = $_POST['id'];
 
-  $query = "INSERT INTO pets SET npcID=$npcid, type=\"$name\"";
+  $query = "INSERT INTO pets SET npcID=$npcid, type=\"$name\", petcontrol=2, petnaming=3";
+  $mysql->query_no_result($query);
+}
+
+function add_new_pet () {
+  check_authorization();
+  global $mysql;
+
+  $type = $_POST['type'];
+  $npcid = $_POST['id'];
+  $petpower = $_POST['petpower'];
+  $petcontrol = $_POST['petcontrol'];
+  $petnaming = $_POST['petnaming'];
+  $equipmentset = $_POST['equipmentset'];
+  $monsterflag = $_POST['monsterflag'];
+  $temp = $_POST['temp'];
+
+  $query = "INSERT INTO pets SET npcID=$npcid, type=\"$type\", petcontrol=$petcontrol, petnaming=$petnaming, petpower=$petpower, equipmentset=$equipmentset, monsterflag=$monsterflag, temp=$temp";
+  $mysql->query_no_result($query);
+}
+
+function edit_pet () {
+  check_authorization();
+  global $mysql, $npcid;
+
+  $type = $_POST['type'];
+  $petpower = $_POST['petpower'];
+  $petcontrol = $_POST['petcontrol'];
+  $petnaming = $_POST['petnaming'];
+  $equipmentset = $_POST['equipmentset'];
+  $monsterflag = $_POST['monsterflag'];
+  $temp = $_POST['temp'];
+
+  $query = "UPDATE pets SET type=\"$type\", petcontrol=$petcontrol, petnaming=$petnaming, petpower=$petpower, equipmentset=$equipmentset, monsterflag=$monsterflag, temp=$temp WHERE npcID=$npcid";
   $mysql->query_no_result($query);
 }
 
 function delete_pet () {
+  check_authorization();
   global $mysql, $npcid;
 
   $query = "DELETE FROM pets WHERE npcID=$npcid";
   $mysql->query_no_result($query);
+
+}
+
+function add_equipmentset() {
+  check_authorization();
+  global $mysql, $npcid;
+
+  $set_id = $_POST['set_id'];
+  $setname = $_POST['setname'];
+  $nested_set = $_POST['nested_set'];
+
+  $query = "INSERT INTO pets_equipmentset SET set_id = $set_id, setname = \"$setname\", nested_set = $nested_set";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE pets SET equipmentset = $set_id WHERE npcID=$npcid";
+  $mysql->query_no_result($query);
+
+}
+
+function edit_equipmentset() {
+  check_authorization();
+  global $mysql, $npcid;
+
+  $set_id = $_POST['set_id'];
+  $setname = $_POST['setname'];
+  $nested_set = $_POST['nested_set'];
+
+  $query = "UPDATE pets_equipmentset SET set_id = $set_id, setname = \"$setname\", nested_set = $nested_set";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE pets SET equipmentset = $set_id WHERE npcID=$npcid";
+  $mysql->query_no_result($query);
+
+}
+
+
+function suggest_equipmentset_id() {
+  global $mysql;
+  $query = "SELECT MAX(set_id) as id FROM pets_equipmentset";
+  $result = $mysql->query_assoc($query);
+  return ($result['id'] + 1);
+}
+
+function delete_equipmentset () {
+  check_authorization();
+  global $mysql, $npcid;
+
+  $set_id = $_GET['set_id'];
+
+  $query = "DELETE from pets_equipmentset WHERE set_id=$set_id";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE pets SET equipmentset = 0 WHERE npcID=$npcid";
+  $mysql->query_no_result($query);
+
+}
+
+function remove_equipmentset () {
+  check_authorization();
+  global $mysql, $npcid;
+
+  $query = "UPDATE pets SET equipmentset = 0 WHERE npcID=$npcid";
+  $mysql->query_no_result($query);
+
 }
 
 function update_npc () {

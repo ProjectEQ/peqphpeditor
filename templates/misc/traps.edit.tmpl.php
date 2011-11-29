@@ -44,7 +44,7 @@
 <?foreach($traptype as $k => $v):?>
               <option value="<?=$k?>"<? echo ($k == $effect) ? " selected" : ""?>><?=$v?></option>
 <?endforeach;?>       
-           </td>
+           </select></td>
             <td><input type="text" size="20" name="message" value="<?=$message?>"></td>
           </tr>            
               </table><br><br>
