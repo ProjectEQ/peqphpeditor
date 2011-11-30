@@ -472,4 +472,16 @@ function get_currency_name($curr_id) {
   return $result['name'];
 }
 
+function factions_array() {
+  global $mysql;
+
+  $query = "SELECT id, name FROM faction_list ORDER BY name";
+  $results = $mysql->query_mult_assoc($query);
+
+  $arr[] = array("id"=>0, "name"=>"None");
+  $array = $arr+$results;
+
+  return $array;
+}
+
 ?>
