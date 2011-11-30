@@ -835,18 +835,36 @@
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <center>
               <tr>
-               <td align="left" width="25%">Faction Mod 1:  <br><input type="text" name="factionmod1" size="5" value="0"></td>
-               <td align="left" width="25%">Faction Amt 1:  <br><input type="text" name="factionamt1" size="5" value="0"></td>
-               <td align="left" width="25%">Faction Mod 2:  <br><input type="text" name="factionmod2" size="5" value="0"></td>
-               <td align="left" width="25%">Faction Amt 2:  <br><input type="text" name="factionamt2" size="5" value="0"></td>
-            </table>
-               </tr>
-             <table width="100%" border="0" cellpadding="3" cellspacing="0">
+                <td align="left" width="10%">Faction Mod 1:<br/>
+                <select class="left" name="factionmod1">
+		 <?foreach($factions as $faction): extract($faction);?>
+               <option value="<?=$id?>"<? echo ($id == $factionmod1) ? " selected" : ""?>><?=$name?></option>
+               <?endforeach;?>
+                </select></td>
+                <td align="left" width="10%">Amt 1:<br/><input type="text" name="factionamt1" size="5" value="0"></td>
+                <td align="left" width="10%">Faction Mod 2:<br/>
+                <select class="left" name="factionmod2">
+		 <?foreach($factions as $faction): extract($faction);?>
+               <option value="<?=$id?>"<? echo ($id == $factionmod2) ? " selected" : ""?>><?=$name?></option>
+               <?endforeach;?>
+                </select></td>
+                <td align="left" width="10%">Amt 2:<br/><input type="text" name="factionamt2" size="5" value="0"></td>
+              </tr>
               <tr>
-               <td align="left" width="25%">Faction Mod 3:  <br><input type="text" name="factionmod3" size="5" value="0"></td>
-               <td align="left" width="25%">Faction Amt 3:  <br><input type="text" name="factionamt3" size="5" value="0"></td>
-               <td align="left" width="25%">Faction Mod 4:  <br><input type="text" name="factionmod4" size="5" value="0"></td>
-               <td align="left" width="25%">Faction Amt 4:  <br><input type="text" name="factionamt4" size="5" value="0"></td>
+                <td align="left" width="10%">Faction Mod 3:<br/>
+                <select class="left" name="factionmod3">
+		 <?foreach($factions as $faction): extract($faction);?>
+               <option value="<?=$id?>"<? echo ($id == $factionmod3) ? " selected" : ""?>><?=$name?></option>
+               <?endforeach;?>
+                </select></td>
+                <td align="left" width="10%">Amt 3:<br/><input type="text" name="factionamt3" size="5" value="0"></td>
+                <td align="left" width="10%">Faction Mod 4:<br/>
+                <select class="left" name="factionmod4">
+		 <?foreach($factions as $faction): extract($faction);?>
+               <option value="<?=$id?>"<? echo ($id == $factionmod4) ? " selected" : ""?>><?=$name?></option>
+               <?endforeach;?>
+                </select></td>
+                <td align="left" width="10%">Amt 4:<br/><input type="text" name="factionamt4" size="5" value="0"></td>
             </table>
                </tr>
             </center>

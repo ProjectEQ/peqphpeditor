@@ -108,7 +108,8 @@ switch ($action) {
     $body->set("worncasttype", $worncasttype);
     $body->set("focuscasttype", $focuscasttype);
     $body->set("scrollcasttype", $scrollcasttype);
-    $body->set("equipslots", $equipslots);
+    $body->set("equipslots", $equipslots); 
+    $body->set("factions", factions_array());
     $vars = item_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -121,7 +122,6 @@ switch ($action) {
         $body->set($key, $value);
       }
      }
-     break;
     break;
   case 3: // Book Text
      check_authorization();
@@ -180,6 +180,7 @@ switch ($action) {
      $body->set("scrollcasttype", $scrollcasttype);
      $body->set("yesno", $yesno);
      $body->set('newid', get_max_id());
+     $body->set("factions", factions_array());
      $vars = getdate();
      if ($vars) {
       foreach ($vars as $key=>$value) {

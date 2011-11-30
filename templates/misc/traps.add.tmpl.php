@@ -49,7 +49,7 @@
             <td><input type="text" size="7" name="respawn_var" value="0"></td>
             <td><select class="left" name="effect">
 <?foreach($traptype as $k => $v):?>
-              <option value="<?=$k?>"<? echo ($k == $effect) ? " selected" : ""?>><?=$v?></optio
+              <option value="<?=$k?>"<? echo ($k == $effect) ? " selected" : ""?>><?=$v?></option>
 <?$x++; endforeach;?>
            </td> 
             <td><input type="text" size="14" name="message" value=""></td>  
