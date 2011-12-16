@@ -167,15 +167,23 @@ function get_merchantlist() {
   $array = array();
 
   $array['id'] = $mid;
+  $query = "SELECT merchantid,slot,item,faction_required,level_required,alt_currency_cost FROM merchantlist WHERE merchantid=$mid";
+  $results = $mysql->query_mult_assoc($query);
+  if ($results) {
+      	foreach ($results as $result) {
+  		$result['item_name'] = 'Item not in DB';
+        	$array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name'], "faction_required"=>$result['faction_required'], "level_required"=>$result['level_required'], "alt_currency_cost"=>$result['alt_currency_cost']);
+      	}
+  }
   $query = "SELECT m.merchantid,m.slot,m.item,i.price,i.sellrate,m.faction_required,m.level_required,m.alt_currency_cost 
             FROM merchantlist AS m, items AS i 
             WHERE i.id = m.item AND merchantid=$mid";
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
-    foreach ($results as $result) {
-      $result['item_name'] = get_item_name($result['item']);
-      $array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name'], "price"=>$result['price'], "sellrate"=>$result['sellrate'], "faction_required"=>$result['faction_required'], "level_required"=>$result['level_required'], "alt_currency_cost"=>$result['alt_currency_cost']);
-    }
+    	foreach ($results as $result) {
+      		$result['item_name'] = get_item_name($result['item']);
+      		$array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name'], "price"=>$result['price'], "sellrate"=>$result['sellrate'], "faction_required"=>$result['faction_required'], "level_required"=>$result['level_required'], "alt_currency_cost"=>$result['alt_currency_cost']);
+      	}
   }
 
   return $array;
@@ -186,15 +194,23 @@ function get_merchantlist_temp() {
   $array = array();
 
   $npcid = $_GET['npcid'];
+  $query = "SELECT npcid,slot,itemid,charges FROM merchantlist_temp WHERE npcid=$npcid";
+  $results = $mysql->query_mult_assoc($query);
+  if ($results) {
+      	foreach ($results as $result) {
+  		$result['item_name'] = 'Item not in DB';
+        	$array['slots'][$result['slot']] = array("itemid"=>$result['itemid'], "charges"=>$result['charges'], "item_name"=>$result['item_name']);
+      	}
+  }
   $query = "SELECT m.npcid,m.slot,m.itemid,m.charges,i.price,i.sellrate 
             FROM merchantlist_temp AS m, items AS i 
             WHERE i.id = m.itemid and npcid=$npcid";
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
-    foreach ($results as $result) {
-      $result['item_name'] = get_item_name($result['itemid']);
-      $array['slots'][$result['slot']] = array("itemid"=>$result['itemid'], "charges"=>$result['charges'], "item_name"=>$result['item_name'], "price"=>$result['price'], "sellrate"=>$result['sellrate']);
-    }
+    	foreach ($results as $result) {
+		$result['item_name'] = get_item_name($result['itemid']);
+      		$array['slots'][$result['slot']] = array("itemid"=>$result['itemid'], "charges"=>$result['charges'], "item_name"=>$result['item_name'], "price"=>$result['price'], "sellrate"=>$result['sellrate']);
+    	}
   }
   
   return $array;

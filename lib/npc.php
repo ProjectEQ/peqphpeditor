@@ -59,7 +59,10 @@ $pet_naming = array(
 $pet_control = array(
   0 => "Familiar",
   1 => "Animation",
-  2 => "Normal"
+  2 => "Normal",
+  3 => "Charmed",
+  4 => "NPC Follow",
+  5 => "Hate List"
 );
 
 switch ($action) {
