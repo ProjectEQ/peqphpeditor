@@ -159,6 +159,11 @@ switch ($action) {
     sort_merchantlist();
     header("Location: index.php?editor=merchant&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit; 
+  case 20: // Change Merchantlist to match NPCID
+    check_authorization();
+    merchantlist_npcid();
+    header("Location: index.php?editor=merchant&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit; 
 }
 
 function get_merchantlist() {
@@ -444,4 +449,21 @@ function sort_merchantlist() {
   }   
 }
  
+function merchantlist_npcid() {
+   check_authorization();
+   global $mysql, $npcid;
+   $mid = $_GET['mid'];
+
+   $query = "SELECT COUNT(*) AS npc_count FROM npc_types WHERE merchant_id=$mid AND id != $npcid";
+   $result = $mysql->query_assoc($query);  
+   $count = $result['npc_count'];
+
+   if($count == 0){
+    $query = "UPDATE npc_types set merchant_id=$npcid WHERE id=$npcid";
+    $mysql->query_no_result($query);
+
+    $query = "UPDATE merchantlist set merchantid=$npcid WHERE merchantid=$mid";
+    $mysql->query_no_result($query);
+   }	 
+}
 ?>
