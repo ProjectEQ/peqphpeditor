@@ -1,3 +1,19 @@
+<?if($errors != ''):?>
+  <?foreach($errors as $error):?>
+    <div class='error'>
+      <table width=100%>
+        <tr>
+          <td valign='middle' width="30px">
+            <img src='images/caution.gif'>
+          </td>
+          <td style='padding: 0px 5px;'>
+            <?=$error?>
+          </td>
+        </tr>
+      </table>
+    </div>
+  <?endforeach;?>
+<?endif;?>
   <form name="item_edit" method="post" action="index.php?editor=items&id=<?=$id?>&action=6">
     <div class="edit_form">
       <div class="edit_form_header">
@@ -39,7 +55,12 @@
             </table>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
-                <td align="left" width="33%">Stackable:<br/><input type="text" name="stackable" size="10" value="<?=$stackable?>"></td>
+                <td align="left" width="33%">Stackable:<br/>
+                  <select name="stackable">
+                    <option value="0"<?echo ($stackable == 0) ? " selected" : ""?>>0: No</option>
+                    <option value="1"<?echo ($stackable == 1) ? " selected" : ""?>>1: Yes</option>
+                  <select>
+                </td>
                 <td align="left" width="33%">Stacksize:<br/><input type="text" name="stacksize" size="10" value="<?=$stacksize?>"></td>
                 <td align="left" width="33%">Charges:<br/><input type="text" name="maxcharges" size="10" value="<?=$maxcharges?>"></td>
               </tr>
