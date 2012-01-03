@@ -1,50 +1,54 @@
-
-<form name="item_edit" method="post" action="index.php?editor=items&id=<?=$id?>&action=9">
-       <div class="edit_form">
-         <div class="edit_form_header">
-           Add Item
-         </div>
-         <div class="edit_form_content">
-         <center>
-         <fieldset style="text-align: left;">
-           <legend><strong><font size="4">General</font></strong></legend>
-           <input type="hidden" name="id" value="<?=$id?>">
-                <table width="100%" border="0" cellpadding="3" cellspacing="0">
-                <tr>
-                 <td align="left" width="12%">ID: <br><input type="text" name="id" size="7" value="<?=$newid?>"></td>
-                 <td align="left" width="33%">Name: <br><input type="text" name="itemname" size="45" value=""></td>
-                  <td align="left" width="33%">
-                 Type:  <br>
-          <select name="itemtype" style="width: 265px;">
-               <?foreach($itemtypes as $k => $v):?>
-              <option value="<?=$k?>"<? echo ($k == $itemtype) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
-               <?endforeach;?>       
-             </select>
-                 </td>
-                </table>
-                <table width="100%" border="0" cellpadding="3" cellspacing="0">
-                 </tr>
-                 <td align="left" width="50%">Lore Name: <br><input type="text" name="lore" size="45" value=""></td>
-                 
-                   <td align="left" width="50%">
-                 Class:  <br>
+  <form name="item_edit" method="post" action="index.php?editor=items&id=<?=$id?>&action=9">
+    <div class="edit_form">
+      <div class="edit_form_header">
+        Add Item
+      </div>
+      <div class="edit_form_content">
+        <center>
+          <fieldset style="text-align: left;">
+          <legend><strong><font size="4">General</font></strong></legend>
+          <input type="hidden" name="id" value="<?=$id?>">
+            <table width="100%" border="0" cellpadding="3" cellspacing="0">
+              <tr>
+                <td align="left" width="12%">ID:<br><input type="text" name="id" size="7" value="<?=$newid?>"></td>
+                <td align="left" width="33%">Name:<br><input type="text" name="itemname" size="45" value=""></td>
+                <td align="left" width="33%">
+                  Type:<br>
+                  <select name="itemtype" style="width: 265px;">
+<?foreach($itemtypes as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $itemtype) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>       
+                  </select>
+                </td>
+              </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0">
+              <tr>
+                <td align="left" width="50%">Lore Name:<br><input type="text" name="lore" size="45" value=""></td>
+                <td align="left" width="50%">
+                  Class:<br>
 			      <select name="itemclass">
-			      <option value="0"<?echo ($itemclass == 0) ? " selected" : ""?>>Common Item</option>
-			      <option value="1"<?echo ($itemclass == 1) ? " selected" : ""?>>Container</option>
-                           <option value="2"<?echo ($itemclass == 2) ? " selected" : ""?>>Book</option>
-			     </select>
-                 </td>
-                </tr>
-                </table>
-                 <table width="100%" border="0" cellpadding="3" cellspacing="0">
-                <tr>
-                 <td align="left" width="33%">Stackable:  <br><input type="text" name="stackable" size="10" value="0"></td>
-                 <td align="left" width="33%">Stacksize:  <br><input type="text" name="stacksize" size="10" value="1"></td>
-                 <td align="left" width="33%">Charges:  <br><input type="text" name="maxcharges" size="10" value="0"></td>
-                </tr>
-                </table>
-                <table width="100%" border="0" cellpadding="3" cellspacing="0">
-                <tr>
+			        <option value="0"<?echo ($itemclass == 0) ? " selected" : ""?>>Common Item</option>
+			        <option value="1"<?echo ($itemclass == 1) ? " selected" : ""?>>Container</option>
+                    <option value="2"<?echo ($itemclass == 2) ? " selected" : ""?>>Book</option>
+			      </select>
+                </td>
+              </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0">
+              <tr>
+                <td align="left" width="33%">Stackable:<br>
+                  <select name="stackable">
+                    <option value="0">0: No</option>
+                    <option value="1">1: Yes</option>
+                  <select>
+                </td>
+                <td align="left" width="33%">Stacksize:<br><input type="text" name="stacksize" size="10" value="1"></td>
+                <td align="left" width="33%">Charges:<br><input type="text" name="maxcharges" size="10" value="0"></td>
+              </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0">
+              <tr>
                  <?if($filename != ''):?>
                  <td align="left" width="25%"><a href="index.php?editor=items&id=<?=$id?>&name=<?=$filename?>&action=3">File Name: <br><input type="text" name="filename" size="20" value=""></td>
                  <?endif;?>
@@ -59,7 +63,6 @@
                            <option value="2"<?echo ($book == 2) ? " selected" : ""?>>Message</option>
 			     </select></td>
                 <td align="left" width="33%">Booktype: <br><input type="text" name="booktype" size="10" value="0"></td>
-                
                 </tr>
                </table>
 		 <table width="100%" border="0" cellpadding="3" cellspacing="0">

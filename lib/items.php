@@ -116,12 +116,22 @@ switch ($action) {
         $body->set($key, $value);
       }
     }
-    $vars = getdate();
-     if ($vars) {
-      foreach ($vars as $key=>$value) {
+    $date_vars = getdate();
+    if ($date_vars) {
+      foreach ($date_vars as $key=>$value) {
         $body->set($key, $value);
       }
-     }
+    }
+    $errors = array();
+    if (($vars['stackable'] == 0) && ($vars['stacksize'] > 1)) {
+      $errors[] = "Stacking error<br>Item is not stackable but stack size is " . $vars['stacksize'];
+    }
+    if (($vars['stackable'] == 1) && ($vars['stacksize'] <= 1)) {
+      $errors[] = "Stacking error<br>Item is stackable but stack size is " . $vars['stacksize'];
+    }
+    if ($errors) {
+      $body->set("errors", $errors);
+    }
     break;
   case 3: // Book Text
      check_authorization();
