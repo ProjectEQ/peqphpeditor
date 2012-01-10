@@ -133,11 +133,8 @@ switch ($editor) {
     $searchbar->set('currplayer', $playerid);
     break;
   case 'account':
-    $accounts = accounts();
-    $searchbar = new Template("templates/searchbar/searchbar.byaccountid.tmpl.php");
+    $searchbar = new Template("templates/searchbar/searchbar.bylsacct.tmpl.php");
     $searchbar->set('curreditor', $editor);
-    $searchbar->set('accounts', $accounts);
-    $searchbar->set('curraccount', $acctid);
     break;
   case 'guild':
     $guilds = guilds();
@@ -468,15 +465,6 @@ function players() {
   global $mysql;
 
   $query = "SELECT id, name FROM character_ ORDER BY name ASC";
-  $results = $mysql->query_mult_assoc($query);
-
-  return $results;
-}
-
-function accounts() {
-  global $mysql;
-
-  $query = "SELECT id, name FROM account ORDER BY name ASC";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;

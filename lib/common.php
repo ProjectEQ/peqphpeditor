@@ -264,20 +264,20 @@ function getAccountName($acctid) {
   return $result['name'];
 }
 
-function search_accounts() {
+function search_accounts_by_name() {
   global $mysql;
-  $search = $_GET['search'];
+  $search = $_POST['lsaccount_name'];
 
-  $query = "SELECT id, name FROM account WHERE name rlike \"$search\"";
+  $query = "SELECT id, name, lsaccount_id FROM account WHERE name rlike \"$search\"";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
 
 function search_accounts_by_id() {
   global $mysql;
-  $acctid = $_GET['acctid'];
+  $lsacctid = $_POST['lsaccount_id'];
 
-  $query = "SELECT id, name FROM account WHERE id=\"$acctid\"";
+  $query = "SELECT id, name, lsaccount_id FROM account WHERE lsaccount_id rlike \"$lsacctid\"";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
