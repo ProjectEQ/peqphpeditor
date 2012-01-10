@@ -1,4 +1,14 @@
 <?php
+$default_page = 1;
+$default_size = 200;
+$default_sort = 1;
+
+$columns = array(
+  1 => 'id',
+  2 => 'lsaccount_id',
+  3 => 'name',
+  4 => 'status'
+);
 
 switch ($action) {
   case 0:  // View Account Details
@@ -16,7 +26,24 @@ switch ($action) {
       }
     }
     else {
+      $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
+      $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
+      $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
       $body = new Template("templates/account/account.default.tmpl.php");
+      $page_stats = getPageInfo("account", $curr_page, $curr_size, $_GET['sort']);
+      if ($page_stats['page']) {
+        $accounts = get_accounts($page_stats['page'], $curr_size, $curr_sort);
+      }
+      if ($accounts) {
+        $body->set('accounts', $accounts);
+        foreach ($page_stats as $key=>$value) {
+          $body->set($key, $value);
+        }
+      }
+      else {
+        $body->set('page', 0);
+        $body->set('pages', 0);
+      }
     }
     break;
   case 1: // Edit Account Details
@@ -35,11 +62,11 @@ switch ($action) {
   case 2:  // Search Accounts
     check_admin_authorization();
     $body = new Template("templates/account/account.searchresults.tmpl.php");
-    if (isset($_GET['acctid']) && $_GET['acctid'] != "ID") {
+    if (isset($_POST['lsaccount_id']) && $_POST['lsaccount_id'] != "LS Acct ID") {
       $results = search_accounts_by_id();
     }
     else {
-      $results = search_accounts();
+      $results = search_accounts_by_name();
     }
     $body->set("results", $results);
     break;
@@ -66,6 +93,16 @@ switch ($action) {
     char_transfer();
     header("Location: index.php?editor=account&acctid=$acctid");
     exit;
+}
+
+function get_accounts($page_number, $results_per_page, $sort_by) {
+  global $mysql;
+  $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
+
+  $query = "SELECT id, name, lsaccount_id, status FROM account ORDER BY $sort_by LIMIT $limit";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
 }
 
 function account_info () {
