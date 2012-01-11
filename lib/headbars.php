@@ -126,11 +126,8 @@ switch ($editor) {
     $searchbar->set('curreditor', $editor);
     break;
   case 'player':
-    $players = players();
-    $searchbar = new Template("templates/searchbar/searchbar.byplayerid.tmpl.php");
+    $searchbar = new Template("templates/searchbar/searchbar.players.tmpl.php");
     $searchbar->set('curreditor', $editor);
-    $searchbar->set('players', $players);
-    $searchbar->set('currplayer', $playerid);
     break;
   case 'account':
     $searchbar = new Template("templates/searchbar/searchbar.bylsacct.tmpl.php");
@@ -456,15 +453,6 @@ function spellsets () {
   global $mysql;
 
   $query = "SELECT id, name FROM npc_spells";
-  $results = $mysql->query_mult_assoc($query);
-
-  return $results;
-}
-
-function players() {
-  global $mysql;
-
-  $query = "SELECT id, name FROM character_ ORDER BY name ASC";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;

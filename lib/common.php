@@ -203,20 +203,20 @@ function getPlayerID($playername) {
   return $result['id'];
 }
 
-function search_players() {
+function search_players_by_name() {
   global $mysql;
-  $search = $_GET['search'];
+  $playername = $_POST['playername'];
 
-  $query = "SELECT id, name FROM character_ WHERE name rlike \"$search\"";
+  $query = "SELECT id, name FROM character_ WHERE name rlike \"$playername\"";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
 
 function search_players_by_id() {
   global $mysql;
-  $playerid = $_GET['playerid'];
+  $playerid = $_POST['playerid'];
 
-  $query = "SELECT id, name FROM character_ WHERE id=\"$playerid\"";
+  $query = "SELECT id, name FROM character_ WHERE id rlike \"$playerid\"";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
