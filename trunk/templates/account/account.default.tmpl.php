@@ -43,4 +43,3 @@ else:?>
 <?endif;?>
       </table>
     </div>
-

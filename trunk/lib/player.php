@@ -2,6 +2,17 @@
 
 require ("player_profile.php");
 
+$default_page = 1;
+$default_size = 200;
+$default_sort = 1;
+
+$columns = array(
+  1 => 'id',
+  2 => 'name',
+  3 => 'level',
+  4 => 'class'
+);
+
 switch ($action) {
   case 0:  // View Player Profile
     check_admin_authorization();
@@ -25,7 +36,25 @@ switch ($action) {
       }
     }
     else {
+      $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
+      $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
+      $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
       $body = new Template("templates/player/player.default.tmpl.php");
+      $page_stats = getPageInfo("character_", $curr_page, $curr_size, $_GET['sort']);
+      if ($page_stats['page']) {
+        $players = get_players($page_stats['page'], $curr_size, $curr_sort);
+      }
+      if ($players) {
+        $body->set('players', $players);
+        $body->set('classes', $classes);
+        foreach ($page_stats as $key=>$value) {
+          $body->set($key, $value);
+        }
+      }
+      else {
+        $body->set('page', 0);
+        $body->set('pages', 0);
+      }
     }
     break;
   case 1: // Edit Player Profile
@@ -49,11 +78,11 @@ switch ($action) {
   case 2:  // Search Players
     check_admin_authorization();
     $body = new Template("templates/player/player.searchresults.tmpl.php");
-    if (isset($_GET['playerid']) && $_GET['playerid'] != "ID") {
+    if (isset($_POST['playerid']) && $_POST['playerid'] != "Player ID") {
       $results = search_players_by_id();
     }
     else {
-      $results = search_players();
+      $results = search_players_by_name();
     }
     $body->set("results", $results);
     break;
@@ -80,6 +109,16 @@ switch ($action) {
     $body->set('profile', $profile);
     $body->set('playerid', $playerid);
     break;
+}
+
+function get_players($page_number, $results_per_page, $sort_by) {
+  global $mysql;
+  $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
+
+  $query = "SELECT id, name, level, class FROM character_ ORDER BY $sort_by LIMIT $limit";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
 }
 
 function player_info () {
