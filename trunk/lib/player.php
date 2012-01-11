@@ -9,8 +9,8 @@ $default_sort = 1;
 $columns = array(
   1 => 'id',
   2 => 'name',
-  3 => 'level',
-  4 => 'class'
+  3 => 'class',
+  4 => 'level'
 );
 
 switch ($action) {
