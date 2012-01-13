@@ -31,16 +31,16 @@ switch ($action) {
     check_admin_authorization();
     $breadcrumbs .= " >> Edit Message";
     $message = view_message();
+    $javascript = new Template("templates/mail/js.tmpl.php");
     $body = new Template("templates/mail/mail.edit.tmpl.php");
-    $body->set("players", $players);
     $body->set("msg_status", $msg_status);
     $body->set("message", $message);
     break;
   case 3: // Create Message
     check_admin_authorization();
     $breadcrumbs .= " >> Create Message";
+    $javascript = new Template("templates/mail/js.tmpl.php");
     $body = new Template("templates/mail/mail.create.tmpl.php");
-    $body->set("players", $players);
     break;
   case 4: // Delete Message
     check_admin_authorization();
@@ -86,15 +86,10 @@ function update_message() {
   $msg_id = $_POST['msg_id'];
   $subject = $_POST['subject'];
   $body = $_POST['body'];
-  $charid = $_POST['to'];
+  $charid = getPlayerID($_POST['to_text']);
   $status = $_POST['status'];
-  $to = getPlayerName($_POST['to']);
-  if ($_POST['from_select'] != 0) {
-    $from = getPlayerName($_POST['from_select']);
-  }
-  else {
-    $from = $_POST['from_text'];
-  }
+  $to = $_POST['to_text'];
+  $from = $_POST['from_text'];
 
   $query = "UPDATE mail SET subject=\"$subject\",body=\"$body\",charid=$charid,`to`=\"$to\",`from`=\"$from\",status=$status WHERE msgid=\"$msg_id\"";
   $mysql->query_no_result($query);
@@ -105,14 +100,10 @@ function send_message() {
 
   $subject = $_POST['subject'];
   $body = $_POST['body'];
-  $charid = $_POST['to'];
-  $to = getPlayerName($_POST['to']);
-  if ($_POST['from_text'] != '') {
-    $from = $_POST['from_text'];
-  }
-  else {
-    $from = getPlayerName($_POST['from_select']);
-  }
+  $charid = getPlayerID($_POST['to_text']);
+  $to = $_POST['to_text'];
+  $from = $_POST['from_text'];
+
 
   $query = "INSERT INTO mail (`charid`,`timestamp`,`from`,`subject`,`body`,`to`,`status`) VALUES ($charid,UNIX_TIMESTAMP(NOW()),\"$from\",\"$subject\",\"$body\",\"$to\",1)";
   $mysql->query_no_result($query);

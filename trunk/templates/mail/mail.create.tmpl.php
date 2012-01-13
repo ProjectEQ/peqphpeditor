@@ -1,3 +1,7 @@
+  <center>
+    <iframe id="searchframe" src="templates/iframes/playersearch.php" style="display:none;"></iframe>
+    <input id="button" type="button" value="Hide Search" onclick="javascript:hideSearch();" style="display:none;" />
+  </center>
   <div class="edit_form" style="margin-bottom: 15px;">
     <div class="edit_form_header">
       <table width="100%">
@@ -14,22 +18,11 @@
           <tr>
             <td>
               From:<br/>
-              <select name="from_select" onChange="clearField(document.forms[0].from_text);">
-                <option value="">Select a Player</option>
-<?php foreach ($players as $player): extract($player);?>
-                <option value="<?=$player['id']?>"><?=$player['name']?></option>
-<?php endforeach;?>
-              </select>
-              &nbsp;or &nbsp;<input type="text" name="from_text" value="" onFocus="clearField(document.forms[0].from_select);"/>
+              <input type="text" name="from_text" value="" />
             </td>
             <td>
-              To:<br/>
-              <select name="to">
-                <option value="">Select a Player</option>
-<?php foreach ($players as $player): extract($player);?>
-                <option value="<?=$player['id']?>"><?=$player['name']?></option>
-<?php endforeach;?>
-              </select>
+              To: <a href="javascript:showSearch();">Select Player</a><br/>
+              <input type="text" id="to_text" name="to_text" value="" readonly="true" />
             </td>
           </tr>
           <tr>
