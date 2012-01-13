@@ -21,7 +21,7 @@
 			<table width="100%">
               <tr>
 			    <td align="center" width="5%"><a href="javascript:toggleContainer();" id="ContainerCollapsed" style="display:inline;" name="Show Common Containers">[+]</a><a href="javascript:toggleContainer();" id="ContainerExpanded" style="display:none;" name="Show Common Containers">[-]</a></td>
-			    <td width="30%"><strong> Common Containers</strong></td>
+			    <td width="30%"><strong>Common Containers</strong></td>
 			  </tr>
 			</table><br>
             <table id="ContainerTable" style="display:none;" width="100%">

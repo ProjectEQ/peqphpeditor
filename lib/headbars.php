@@ -141,7 +141,6 @@ switch ($editor) {
     $searchbar->set('currguild', $guildid);
     break;
   case 'mail':
-    $players = players();
     break;
   case 'aa':
     $aas = aas();
@@ -151,9 +150,6 @@ switch ($editor) {
     $searchbar->set('curraa', $aaid);
     break;
   case 'qglobal':
-    $searchbar = new Template("templates/searchbar/searchbar.qglobal.tmpl.php");
-    $searchbar->set('curreditor', $editor);
-    $searchbar->set('currqglobal', $qglobalid);
     break;
   case 'util':
     break;

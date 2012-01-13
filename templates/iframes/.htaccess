@@ -12,3 +12,8 @@
   Order allow,deny
   Allow from all
 </files>
+
+<Files playersearch.php>
+  Order allow,deny
+  Allow from all
+</files>
