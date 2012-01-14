@@ -21,7 +21,7 @@
               <form action="index.php" method="GET">
                 <input type="hidden" name="editor" value="tradeskill">
                 <input type="hidden" name="action" value="9">
-                <input type="text" name="itemid" size="5" value="Item ID" onFocus="clearField(document.forms[0].itemid);"> or <input type="text" name="search" size="12" value="Recipe Name" onFocus="clearField(document.forms[0].search);">
+                <input type="text" name="itemid" size="5" value="Item ID" onFocus="clearField(document.forms[0].itemid);document.forms[0].search.value='Recipe Name';"> or <input type="text" name="search" size="12" value="Recipe Name" onFocus="clearField(document.forms[0].search);document.forms[0].itemid.value='Item ID';">
                 <input type="submit" value=" GO ">
               </form>
             </td>
