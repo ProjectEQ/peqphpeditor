@@ -14,7 +14,7 @@
               <form action="index.php" method="GET">
                 <input type="hidden" name="editor" value="aa">
                 <input type="hidden" name="action" value="1">
-                <input type="text" name="aaid" size="5" value="ID" onFocus="clearField(document.forms[0].aaid);"> or <input type="text" name="search" size="12" value="AA Name" onFocus="clearField(document.forms[0].search);">
+                <input type="text" name="aaid" size="5" value="ID" onFocus="clearField(document.forms[0].aaid);document.forms[0].search.value='AA Name';"> or <input type="text" name="search" size="12" value="AA Name" onFocus="clearField(document.forms[0].search);document.forms[0].aaid.value='ID';">
                 <input type="submit" value=" GO ">
               </form>
             </td>

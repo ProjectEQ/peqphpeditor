@@ -25,7 +25,7 @@
               <form action="index.php" method="GET">
                 <input type="hidden" name="editor" value="guild">
                 <input type="hidden" name="action" value="2">
-                <input type="text" name="guild_id" size="5" value="Guild ID" onFocus="clearField(document.forms[0].guild_id);"> or <input type="text" name="search" size="12" value="Guild Name" onFocus="clearField(document.forms[0].search);">
+                <input type="text" name="guild_id" size="5" value="Guild ID" onFocus="clearField(document.forms[0].guild_id);document.forms[0].search.value='Guild Name';document.forms[1].charid.value='Char ID';document.forms[1].charname.value='Character Name';"> or <input type="text" name="search" size="12" value="Guild Name" onFocus="clearField(document.forms[0].search);document.forms[0].guild_id.value='Guild ID';document.forms[1].charid.value='Char ID';document.forms[1].charname.value='Character Name';">
                 <input type="submit" value=" GO ">
               </form>
             </td>
@@ -33,7 +33,7 @@
               <form action="index.php" method="GET">
                 <input type="hidden" name="editor" value="guild">
                 <input type="hidden" name="action" value="3">
-                <input type="text" name="charid" size="5" value="Char ID" onFocus="clearField(document.forms[1].charid);"> or <input type="text" name="charname" size="12" value="Character Name" onFocus="clearField(document.forms[1].charname);">
+                <input type="text" name="charid" size="5" value="Char ID" onFocus="clearField(document.forms[1].charid);document.forms[1].charname.value='Character Name';document.forms[0].guild_id.value='Guild ID';document.forms[0].search.value='Guild Name';"> or <input type="text" name="charname" size="13" value="Character Name" onFocus="clearField(document.forms[1].charname);document.forms[1].charid.value='Char ID';document.forms[0].guild_id.value='Guild ID';document.forms[0].search.value='Guild Name';">
                 <input type="submit" value=" GO ">
               </form>
             </td>
