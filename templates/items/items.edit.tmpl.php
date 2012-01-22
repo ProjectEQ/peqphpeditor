@@ -67,7 +67,7 @@
             </table>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
-                <td align="left" width="33%"><?echo ($filename != '') ? '<a href="index.php?editor=items&id=' . $id . '&name=' . $filename . '&action=3">File Name:</a>' : 'File Name:'?><br/><input type="text" name="filename" size="20" value="<?=$filename?>"/></td>
+                <td align="left" width="33%"><?echo ($filename != '') ? '<a href="index.php?editor=items&id=' . $id . '&name=' . $filename . '&action=3">File Name:</a>' : 'File Name:'?><br/><input type="text" name="filename" size="25" value="<?=$filename?>"/></td>
                 <td align="left" width="33%">Book:<br/>
                   <select name="book">
                     <option value="0"<?echo ($book == 0) ? " selected" : ""?>>No</option>
@@ -80,7 +80,7 @@
             </table>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
-                <td align="left" width="33%"><?echo ($charmfile != '') ? '<a href="index.php?editor=items&id=' . $id . '&name=' . $charmfile . '&action=3">Charmfile:</a>' : 'Charmfile:'?><br/><input type="text" name="charmfile" size="20" value="<?=$charmfile?>"/></td>
+                <td align="left" width="33%"><?echo ($charmfile != '') ? '<a href="index.php?editor=items&id=' . $id . '&name=' . $charmfile . '&action=3">Charmfile:</a>' : 'Charmfile:'?><br/><input type="text" name="charmfile" size="25" value="<?=$charmfile?>"/></td>
                 <td align="left" width="33%">Charmfile ID:<br/><input type="text" name="charmfileid" size="10" value="<?=$charmfileid?>"></td>
                 <td align="left" width="33%">Script File ID:<br/><input type="text" name="scriptfileid" size="10" value="<?=$scriptfileid?>"></td>
               </tr>
@@ -243,7 +243,7 @@
                   <input type="checkbox" name="slot_Waist" value=1048576 <?echo ($slots & 1048576) ? "checked" : ""?>> Waist<br/>
                   <input type="checkbox" name="slot_Ammo" value=2097152 <?echo ($slots & 2097152) ? "checked" : ""?>> Ammo<br/>
                   <input type="checkbox" name="slot_Powersource" value=4194304 <?echo ($slots & 4194304) ? "checked" : ""?>> Powersource<br/>
-                  <input type="checkbox" name="all_none" value="yes" onClick="Check(document.item_edit)"><b>All/None</b><br/>
+                  <input type="checkbox" name="all_none" value="yes" onClick="Check(document.item_edit)"> <b>All/None</b><br/>
                 </td>
               </tr>
             </table>
@@ -275,7 +275,7 @@
                 </td>
                 <td valign="top" align="left"><br/>
                   <input type="checkbox" name="race_Shroud" value=65536 <?echo ($races & 65536) ? "checked" : ""?>> Shroud<br/>
-                  <input type="checkbox" name="all_none2" value="yes" onClick="Check2(document.item_edit)"><b>All/None</b><br/>
+                  <input type="checkbox" name="all_none2" value="yes" onClick="Check2(document.item_edit)"> <b>All/None</b><br/>
                 </td>
               </tr>
             </table>
@@ -306,7 +306,7 @@
                   <input type="checkbox" name="class_Berserker" value=32768 <?echo ($classes & 32768) ? "checked" : ""?>> Berserker<br/>
                 </td>
                 <td valign="top" align="left"><br/>
-                  <input type="checkbox" name="all_none3" value="yes" onClick="Check3(document.item_edit)"><b>All/None</b><br/>
+                  <input type="checkbox" name="all_none3" value="yes" onClick="Check3(document.item_edit)"> <b>All/None</b><br/>
                 </td>
               </tr>
             </table>
@@ -338,7 +338,7 @@
                 </td>
                 <td valign="top" align="left"><br/>
                   <input type="checkbox" name="deity_Veeshan" value=65536 <?echo ($deity & 65536) ? "checked" : ""?>> Veeshan<br/>
-                  <input type="checkbox" name="all_none4" value="yes" onClick="Check4(document.item_edit)"><b>All/None</b><br/>
+                  <input type="checkbox" name="all_none4" value="yes" onClick="Check4(document.item_edit)"> <b>All/None</b><br/>
                 </td>
               </tr>
             </table>
@@ -750,7 +750,7 @@
                     <input type="checkbox" name="augtype_Type_12" value=2048 <?echo ($augtype & 2048) ? "checked" : ""?>> Type 12<br/>
                   </td>
                   <td valign="top" align="left"><br/>
-                    <input type="checkbox" name="all_none5" value="yes" onClick="Check5(document.item_edit)"><b>All/None</b><br/>
+                    <input type="checkbox" name="all_none5" value="yes" onClick="Check5(document.item_edit)"> <b>All/None</b><br/>
                   </td>
                 </tr>
               </table>
@@ -764,32 +764,32 @@
               <tr>
                 <td align="left" width="10%">Faction Mod 1:<br/>
                 <select class="left" name="factionmod1">
-		 <?foreach($factions as $faction): extract($faction);?>
-               <option value="<?=$id?>"<? echo ($id == $factionmod1) ? " selected" : ""?>><?=$name?></option>
-               <?endforeach;?>
+<?foreach($factions as $faction): extract($faction);?>
+                  <option value="<?=$id?>"<? echo ($id == $factionmod1) ? " selected" : ""?>><?=$name?></option>
+<?endforeach;?>
                 </select></td>
                 <td align="left" width="10%">Amt 1:<br/><input type="text" name="factionamt1" size="5" value="<?=$factionamt1?>"></td>
                 <td align="left" width="10%">Faction Mod 2:<br/>
                 <select class="left" name="factionmod2">
-		 <?foreach($factions as $faction): extract($faction);?>
+<?foreach($factions as $faction): extract($faction);?>
                <option value="<?=$id?>"<? echo ($id == $factionmod2) ? " selected" : ""?>><?=$name?></option>
-               <?endforeach;?>
+<?endforeach;?>
                 </select></td>
                 <td align="left" width="10%">Amt 2:<br/><input type="text" name="factionamt2" size="5" value="<?=$factionamt2?>"></td>
               </tr>
               <tr>
                 <td align="left" width="10%">Faction Mod 3:<br/>
                 <select class="left" name="factionmod3">
-		 <?foreach($factions as $faction): extract($faction);?>
+<?foreach($factions as $faction): extract($faction);?>
                <option value="<?=$id?>"<? echo ($id == $factionmod3) ? " selected" : ""?>><?=$name?></option>
-               <?endforeach;?>
+<?endforeach;?>
                 </select></td>
                 <td align="left" width="10%">Amt 3:<br/><input type="text" name="factionamt3" size="5" value="<?=$factionamt3?>"></td>
                 <td align="left" width="10%">Faction Mod 4:<br/>
                 <select class="left" name="factionmod4">
-		 <?foreach($factions as $faction): extract($faction);?>
+<?foreach($factions as $faction): extract($faction);?>
                <option value="<?=$id?>"<? echo ($id == $factionmod4) ? " selected" : ""?>><?=$name?></option>
-               <?endforeach;?>
+<?endforeach;?>
                 </select></td>
                 <td align="left" width="10%">Amt 4:<br/><input type="text" name="factionamt4" size="5" value="<?=$factionamt4?>"></td>
               </tr>
