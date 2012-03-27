@@ -20,6 +20,7 @@
             <input type="hidden" name="cond_value" value="<?=$cond_value?>">
             <input type="hidden" name="version" value="<?=$version?>">
             <input type="hidden" name="enabled" value="<?=$enabled?>">
+	     <input type="hidden" name="animation" value="<?=$animation?>">
         </center>
       </div>
     </div>
