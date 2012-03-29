@@ -30,7 +30,7 @@ foreach($accounts as $account):?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center"><?=$account['id']?></td>
           <td align="center"><?=$account['lsaccount_id']?></td>
-          <td align="center"><?=$account['name']?></td>
+          <td align="center"><a href="index.php?editor=account&acctid=<?=$account['id']?>"><?=$account['name']?></a></td>
           <td align="center"><?=$account['status']?></td>
           <td align="right"><a href="index.php?editor=account&acctid=<?=$account['id']?>"><img src="images/edit2.gif" width="13" height="13" border="0" title="View Account"></a></td>
         </tr>

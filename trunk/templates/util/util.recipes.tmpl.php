@@ -25,8 +25,8 @@
         </tr>
 <?$x=0; foreach($recipes as $recipe=>$v):?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
-          <td align="center" width="25%"><?=getPlayerName($v['char_id'])?></td>
-          <td align="center" width="50%"><?=getRecipeName($v['recipe_id'])?></td>
+          <td align="center" width="25%"><a href="index.php?editor=player&playerid=<?=$v['char_id']?>"><?echo getPlayerName($v['char_id'])?></a></td>
+          <td align="center" width="50%"><?echo getRecipeName($v['recipe_id'])?></td>
           <td align="center" width="20%"><?=$v['madecount']?></td>
         </tr>
 <?$x++; endforeach;?>
