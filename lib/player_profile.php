@@ -171,7 +171,7 @@ function getPPFormat() {
   $fmt .= "lmmc_losses/";
   $fmt .= "lruj_losses/";
   $fmt .= "ltak_losses/";
-  $fmt .= "c72unkown7124_/";
+  $fmt .= "c72unknown7124_/";
   $fmt .= "Ltribute_timer/";
   $fmt .= "Lshowhelm/";
   $fmt .= "Ltribute_total/";

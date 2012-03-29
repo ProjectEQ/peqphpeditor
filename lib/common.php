@@ -264,6 +264,14 @@ function getAccountName($acctid) {
   return $result['name'];
 }
 
+function getAccountID($lsname) {
+  global $mysql;
+
+  $query = "SELECT id FROM account WHERE name=\"$lsname\"";
+  $result = $mysql->query_assoc($query);
+  return $result['id'];
+}
+
 function search_accounts_by_name() {
   global $mysql;
   $search = $_POST['lsaccount_name'];

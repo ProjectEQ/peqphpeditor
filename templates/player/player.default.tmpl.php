@@ -29,7 +29,7 @@
 foreach($players as $player):?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center"><?=$player['id']?></td>
-          <td align="center"><?=$player['name']?></td>
+          <td align="center"><a href="index.php?editor=player&playerid=<?echo getPlayerID($player['name'])?>"><?=$player['name']?></a></td>
           <td align="center"><?=$classes[$player['class']]?></td>
           <td align="center"><?=$player['level']?></td>
           <td align="right"><a href="index.php?editor=player&playerid=<?=$player['id']?>"><img src="images/edit2.gif" width="13" height="13" border="0" title="View Player"></a></td>
