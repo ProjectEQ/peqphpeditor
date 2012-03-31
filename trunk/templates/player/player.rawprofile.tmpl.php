@@ -2,7 +2,7 @@
   <div class="table_header">
     Raw Profile: <?=getPlayerName($playerid)?>
     <div style="float:right">
-      <a href="http://localhost/peqedit/index.php?editor=player&playerid=<?=$playerid?>">View Formatted Profile</a>
+      <a href="index.php?editor=player&playerid=<?=$playerid?>">View Formatted Profile</a>
     </div>
   </div>
   <div class="table_content">
