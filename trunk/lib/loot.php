@@ -506,7 +506,9 @@ function update_lootdrop_item() {
   $equip = $_POST['equip_item'];
   $charges = $_POST['charges'];
   $chance = $_POST['chance'];
-  $query = "UPDATE lootdrop_entries SET equip_item=$equip, item_charges=$charges, chance=$chance WHERE lootdrop_id=$ldid AND item_id=$itemid";
+  $minlevel = $_POST['minlevel'];
+  $maxlevel = $_POST['maxlevel'];
+  $query = "UPDATE lootdrop_entries SET equip_item=$equip, item_charges=$charges, chance=$chance, minlevel=$minlevel, maxlevel=$maxlevel WHERE lootdrop_id=$ldid AND item_id=$itemid";
   $mysql->query_no_result($query);
 
 }
@@ -753,8 +755,8 @@ function copy_lootdrop() {
             SELECT loottable_id,multiplier,probability FROM loottable_entries where lootdrop_id=$ldid";
   $mysql->query_no_result($query);
 
-  $query = "INSERT INTO lootdrop_entries (item_id,item_charges,equip_item,chance) 
-            SELECT item_id,item_charges,equip_item,chance FROM lootdrop_entries where lootdrop_id=$ldid";
+  $query = "INSERT INTO lootdrop_entries (item_id,item_charges,equip_item,chance,minlevel,maxlevel) 
+            SELECT item_id,item_charges,equip_item,chance,minlevel,maxlevel FROM lootdrop_entries where lootdrop_id=$ldid";
   $mysql->query_no_result($query);
 
   $query = "UPDATE loottable_entries set lootdrop_id=$nlid where lootdrop_id=0";

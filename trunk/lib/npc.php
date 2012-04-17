@@ -65,6 +65,20 @@ $pet_control = array(
   5 => "Hate List"
 );
 
+$tmpfaction = array(
+  0 => "Permanent",
+  1 => "Temp No Msg",
+  2 => "Perm No Msg",
+  3 => "Temporary"
+);
+
+$tmpfacshort = array(
+  0 => "Perm",
+  1 => "Temp/NoMsg",
+  2 => "Perm/NoMsg",
+  3 => "Temp"
+);
+
 switch ($action) {
   case 0:  // View Loottable
     if ($npcid) {
@@ -82,6 +96,7 @@ switch ($action) {
       $body->set('npc_name', getNPCName($npcid));
       $body->set('factions', $factions);
       $body->set('faction_values', $faction_values);
+      $body->set('tmpfacshort', $tmpfacshort);
       $body->set('pet', get_ispet());
       $vars = npc_info();
       if ($vars) {
@@ -249,6 +264,7 @@ switch ($action) {
     $body->set('npcid', $npcid);
     $body->set('fid', $_GET['fid']);
     $body->set('name', get_faction_name($_GET['fid']));
+    $body->set('tmpfaction', $tmpfaction);
     break;
   case 18: // Insert faction hit
     check_authorization();
@@ -261,6 +277,7 @@ switch ($action) {
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
+    $body->set('tmpfaction', $tmpfaction);
     $vars = get_factionhit_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -1587,7 +1604,8 @@ function add_faction_hit () {
   $fid = $_GET['fid'];
   $value = $_POST['value'];
   $npc_value = $_POST['npc_value'];
-  $query = "INSERT INTO npc_faction_entries SET npc_faction_id=$npc_faction_id, faction_id=$fid, value=$value, npc_value=$npc_value";
+  $temp = $_POST['temp'];
+  $query = "INSERT INTO npc_faction_entries SET npc_faction_id=$npc_faction_id, faction_id=$fid, value=$value, npc_value=$npc_value, temp=$temp";
   $mysql->query_no_result($query);
 }
 
@@ -1610,7 +1628,8 @@ function update_factionhit () {
   $fid = $_GET['faction_id'];
   $value = $_POST['value'];
   $npc_value = $_POST['npc_value'];
-  $query = "UPDATE npc_faction_entries SET value=$value, npc_value=$npc_value WHERE npc_faction_id=$npc_faction_id AND faction_id=$fid";
+  $temp = $_POST['temp'];
+  $query = "UPDATE npc_faction_entries SET value=$value, npc_value=$npc_value, temp=$temp WHERE npc_faction_id=$npc_faction_id AND faction_id=$fid";
   $mysql->query_no_result($query);
 }
 
