@@ -87,11 +87,13 @@
 <?php if(isset($lootdrop['items']) && $lootdrop['items']): $x=0;?>
         <tr>
           <th align="center" width="8%">Item ID</th>
-          <th align="center" width="45%">Item Name</th>
-          <th align="center" width="10%">Equipped?</th>
-          <th align="center" width="10%">Charges</th>
-          <th align="center" width="10%">Drop Chance</th>
-          <th align="center" width="10%">Overall Chance</th>
+          <th align="center" width="38%">Item Name</th>
+          <th align="center" width="8%">Equipped?</th>
+          <th align="center" width="8%">Charges</th>
+	   <th align="center" width="8%">MinLevel</th>
+	   <th align="center" width="8%">MaxLevel</th>
+          <th align="center" width="8%">Drop Chance</th>
+          <th align="center" width="8%">Overall Chance</th>
           <th width="5%"></th>
         </tr>
 <?php foreach ($lootdrop['items'] as $item): extract($item);
@@ -106,6 +108,12 @@
           </td>
           <td align="center">
             <?=$item_charges?>
+          </td>
+          <td align="center">
+            <?=$minlevel?>
+          </td>
+          <td align="center">
+            <?=$maxlevel?>
           </td>
           <td align="center">
             <?=$chance?>%</td>

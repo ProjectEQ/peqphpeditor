@@ -38,6 +38,14 @@ $animations = array(
   4 => "Kneeling"
 );
 
+$despawntype = array(
+  0 => "None",
+  1 => "Repop",
+  2 => "Repop using Timer",
+  3 => "Depop",
+  4 => "Depop using Timer"
+);
+
 switch ($action) {
   case 0:  // View Spawngroups
     if ($npcid) {
@@ -47,6 +55,7 @@ switch ($action) {
       $body->set('npcid', $npcid);
       $spawngroups = get_spawngroups('');
       $body->set('spawngroups', $spawngroups);
+      $body->set('despawntype', $despawntype);
     }
     else {
       if ($z) {
@@ -88,6 +97,7 @@ switch ($action) {
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('sid', $_GET['sid']);
+    $body->set('despawntype', $despawntype);
     $vars = get_spawngroup_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -598,6 +608,7 @@ switch ($action) {
     $body->set('currzoneid', $zoneid);
     $body->set('suggestedid', suggest_spawngroup_id());
     $body->set('npcid', $npcid);
+    $body->set('despawntype', $despawntype);
     break;
   case 55: // Search spawngroup by name
     check_authorization();
@@ -857,7 +868,7 @@ function get_spawngroups($search) {
   for($x=0; $x<count($results); $x++) {
     $id = $results[$x]['spawngroupID'];
 
-    $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay FROM spawngroup WHERE id=$id";
+    $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay, despawn, despawn_timer FROM spawngroup WHERE id=$id";
     $result = $mysql->query_assoc($query);
     $results[$x]['name'] = $result['name'];
     $results[$x]['spawn_limit'] = $result['spawn_limit'];
@@ -867,6 +878,8 @@ function get_spawngroups($search) {
     $results[$x]['max_y'] = $result['max_y'];
     $results[$x]['min_y'] = $result['min_y'];
     $results[$x]['delay'] = $result['delay'];
+    $results[$x]['despawn'] = $result['despawn'];
+    $results[$x]['despawn_timer'] = $result['despawn_timer'];
 
     $query = "SELECT count(*) AS count FROM spawn2 WHERE spawngroupID=$id";
     $result = $mysql->query_assoc($query);
@@ -1094,11 +1107,11 @@ function get_spawngroup_info() {
   $new_sid = $_POST['new_sid'];
 
   if($new_sid > 0){
-  $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay FROM spawngroup WHERE id=$new_sid";
+  $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay, despawn, despawn_timer FROM spawngroup WHERE id=$new_sid";
   }
  
   else {
-  $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay FROM spawngroup WHERE id=$sid";
+  $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay, despawn, despawn_timer FROM spawngroup WHERE id=$sid";
   }
   $result = $mysql->query_assoc($query);
 
@@ -1117,8 +1130,10 @@ function update_spawngroup_name() {
   $max_y = $_POST['max_y'];
   $min_y = $_POST['min_y'];
   $delay = $_POST['delay'];
+  $despawn = $_POST['despawn'];
+  $despawn_timer = $_POST['despawn_timer'];
 
-  $query = "UPDATE spawngroup SET name=\"$name\", spawn_limit=\"$spawn_limit\", dist=\"$dist\", max_x=\"$max_x\", min_x=\"$min_x\", max_y=\"$max_y\", min_y=\"$min_y\", delay=\"$delay\" WHERE id=$sid";
+  $query = "UPDATE spawngroup SET name=\"$name\", spawn_limit=\"$spawn_limit\", dist=\"$dist\", max_x=\"$max_x\", min_x=\"$min_x\", max_y=\"$max_y\", min_y=\"$min_y\", delay=\"$delay\", despawn=\"$despawn\", despawn_timer=\"$despawn_timer\" WHERE id=$sid";
   $mysql->query_no_result($query);
 }
 
@@ -1468,7 +1483,9 @@ function add_spawngroup() {
   $max_y = $_POST['max_y'];
   $min_y = $_POST['min_y'];
   $delay = intval($_POST['delay']);
-  $query = "INSERT INTO spawngroup VALUES($id, \"$name\", \"$spawn_limit\", \"$dist\", \"$max_x\", \"$min_x\", \"$max_y\", \"$min_y\", \"$delay\")";
+  $despawn = $_POST['despawn'];
+  $despawn_timer = $_POST['despawn_timer'];
+  $query = "INSERT INTO spawngroup VALUES($id, \"$name\", \"$spawn_limit\", \"$dist\", \"$max_x\", \"$min_x\", \"$max_y\", \"$min_y\", \"$delay\", \"$despawn\, \"$despawn_timer\")";
   $mysql->query_no_result($query);
 
   $query = "INSERT INTO spawnentry SET spawngroupID=$id, npcID=$npcID, chance=$chance";

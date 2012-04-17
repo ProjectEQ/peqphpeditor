@@ -75,6 +75,18 @@
 	     <td width="15%">
 	       delay: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$delay?></a>
 	     </td>
+		          </tr>
+          </table>
+         </div>
+	   <div class="table_header">
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+	     <td width="50%">
+	       despawn: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$despawntype[$despawn]?></a>
+	     </td>
+	     <td width="50%">
+	       despawn timer: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$despawn_timer?></a>
+	     </td>
           </tr>
           </table>
          </div>

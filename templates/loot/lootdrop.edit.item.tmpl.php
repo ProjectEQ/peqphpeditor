@@ -14,6 +14,10 @@
             <input type="radio" name="equip_item" value="1"<?echo ($equip_item == 1) ? " checked" : ""?>>yes<br><br>
             <strong>Item Charges:</strong> <br>
             <input class="indented" type="text" size="5" name="charges" value="<?=$item_charges?>"><br><br>
+	     <strong>Min Level:</strong> <br>
+            <input class="indented" type="text" size="5" name="minlevel" value="<?=$minlevel?>"><br><br>
+	     <strong>Max Level:</strong> <br>
+            <input class="indented" type="text" size="5" name="maxlevel" value="<?=$maxlevel?>"><br><br>
             <strong>Chance:</strong> <br>
             <input class="indented" type="text" size="5" name="chance" value="<?=$chance?>">%<br><br>
             <center>
