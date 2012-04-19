@@ -709,7 +709,10 @@ switch ($action) {
     edit_equipmentset_entry();
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&action=56");
     exit;
-
+  case 71: // Quest redirect
+    check_authorization();
+    header("Location: index.php?editor=quest&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
 }
 
 function npc_info () {

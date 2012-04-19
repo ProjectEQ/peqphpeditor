@@ -71,6 +71,10 @@ switch ($editor) {
     break;
   case 'altcur':
     $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Alternate Currency</a>";
+    break;
+  case 'quest':
+    $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Quest Editor</a>";
+    break;
 }
 
 if ($z != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&z=" . $z . "&zoneid=" . getZoneIDByName($z) . "'>" . getZoneLongName($z) . "</a>";

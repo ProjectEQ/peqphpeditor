@@ -67,4 +67,7 @@ $enable_user_login = 1;
 // Enable or disable read only guest mode log in.
 $enable_guest_mode = 1;
 
+// Path for quests without trailing slash.
+$quest_path = "/home/eqemu/quests"
+
 ?>
