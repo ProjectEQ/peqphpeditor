@@ -155,6 +155,18 @@ switch ($editor) {
     break;
   case 'altcur':
     break;
+  case 'quest':
+    $npcs = npcs();
+    $zonelist = zones();
+    $searchbar = new Template("templates/searchbar/searchbar.bynpcid.tmpl.php");
+    $searchbar->set('curreditor', $editor);
+    $searchbar->set('currzone', $z);
+    $searchbar->set('currzoneid', $zoneid);
+    $searchbar->set('zonelist', $zonelist);
+    $searchbar->set('expansion_limit', $expansion_limit);
+    $searchbar->set('npcs', $npcs);
+    $searchbar->set('currnpc', $npcid);
+    break;
 }
 
 function build_tabs () {
@@ -290,7 +302,7 @@ function build_tabs () {
         <div class=\"$tabstatus18\"><a href=\"index.php?editor=aa\">AAs</a></div>
         <div class=\"$tabstatus19\"><a href=\"index.php?editor=qglobal\">QGlobals</a></div>
         <div class=\"$tabstatus20\"><a href=\"index.php?editor=util\">Utilities</a></div>
-        <div class=\"$tabstatus21\"><a href=\"index.php?editor=altcur\">Alt Curr</a></div><br/>
+        <div class=\"$tabstatus21\"><a href=\"index.php?editor=altcur\">Alt Curr</a></div><br><br>
       </div>
 ";
 

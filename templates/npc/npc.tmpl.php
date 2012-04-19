@@ -13,6 +13,7 @@
       <div class="table_header">
         <div style="float:right">
           <a onClick="document.getElementById('sql_block').style.display='block';"><img src="images/sql.gif" border="0" title="Show SQL"></a>
+          
           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=42"><img src="images/add.gif" border="0" title="Add an NPC"></a>
           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" border="0" title="Edit this NPC"></a>
           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=43"><img src="images/upgrade.gif" border="0" title="Change NPC's Level"></a>
@@ -31,6 +32,9 @@
                 <table style="font-size: 12px; margin-bottom: 80px;">
                   <tr>
                     <td>
+<?if($isquest == 1) {?>
+		        <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=71"><center><strong>Is Quest NPC</strong></center><br/> </a>
+<?}?>
                       <strong>Race:</strong> <?echo "<a title='Race: " . $race . "'>" . $races[$race] . "</a>";?><br/>
                       <strong>Class:</strong> <?echo "<a title='Class: " . $class . "'>" . $classes[$class] . "</a>";?><br/>
                       <strong>Level:</strong> <?=$level?><br/>
