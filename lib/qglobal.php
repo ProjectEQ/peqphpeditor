@@ -73,7 +73,8 @@ switch ($action) {
   case 5: //Update QGlobal
     check_authorization();
     update_qglobal();
-    header("Location: index.php?editor=qglobal");
+    $return_address = $_POST['referer'];
+    header("Location: $return_address");
     exit;
   case 6: //Delete QGlobal
     check_authorization();

@@ -3,11 +3,6 @@
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td>Edit Quest Global</td>
-                <td>
-                  <div style="float:right">
-                    <a onClick="return confirm('Really delete quest global <?=$id?>?');" href="index.php?editor=qglobal&qglobalid=<?=$id?>&action=6"><img src="images/remove3.gif" border="0" title="Delete Quest Global"></a>
-                  </div>
-                </td>
               </tr>
             </table>
           </div>
@@ -52,6 +47,7 @@
               </table>
               <center>
                 <input type="hidden" name="originalid" value="<?=$id?>">
+                <input type="hidden" name="referer" value="<?echo $_SERVER["HTTP_REFERER"];?>">
                 <input type="submit" value="Update Quest Global">
                 <input type="button" value="Cancel Changes" onClick="history.back()">
               </center>
