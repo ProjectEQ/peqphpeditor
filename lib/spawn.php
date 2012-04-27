@@ -1704,7 +1704,6 @@ function add_spawnevent() {
   check_authorization();
   global $mysql, $z;
 
-  $seid = $_POST['seid'];
   $cond_id = $_POST['cond_id'];
   $sename = $_POST['sename'];
   $period = $_POST['period'];
@@ -1717,7 +1716,7 @@ function add_spawnevent() {
   $action = $_POST['action'];
   $argument = $_POST['argument'];
 
-  $query = "INSERT INTO spawn_events SET id=\"$seid\", zone=\"$z\", cond_id=\"$cond_id\", name=\"$sename\", period=\"$period\", next_minute=\"$next_minute\", next_hour=\"$next_hour\", next_day=\"$next_day\", next_month=\"$next_month\", next_year=\"$next_year\", enabled=\"$enabled\", action=\"$action\", argument=\"$argument\"";
+  $query = "INSERT INTO spawn_events SET zone=\"$z\", cond_id=\"$cond_id\", name=\"$sename\", period=\"$period\", next_minute=\"$next_minute\", next_hour=\"$next_hour\", next_day=\"$next_day\", next_month=\"$next_month\", next_year=\"$next_year\", enabled=\"$enabled\", action=\"$action\", argument=\"$argument\"";
   $mysql->query_no_result($query);
 }
 

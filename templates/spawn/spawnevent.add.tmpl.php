@@ -1,6 +1,6 @@
 <div class="edit_form" style="width: 500px">
       <div class="edit_form_header">
-        Edit Spawn Event: <?=$id?>
+        Add Spawn Event
       </div>
 
       <div class="edit_form_content">
@@ -19,11 +19,10 @@
             <td><input type="text" size="7" name="cond_id" value="0"></td>
             <td><input type="text" size="7" name="period" value="0"></td>
             <td><input type="text" size="7" name="next_minute" value="0"></td>
-            <td><input type="text" size="7" name="next_hour" value="0"></td>
-            <td><input type="text" size="7" name="next_day" value="0"></td>
+            <td><input type="text" size="7" name="next_hour" value="1"></td>
+            <td><input type="text" size="7" name="next_day" value="1"></td>
           </tr>
           <tr>
-            <th>ID:</th>
             <th>Next Month:</th>
             <th>Next Year:</th>
             <th>Argument:</th>
@@ -33,9 +32,8 @@
             
           </tr>
           <tr>
-            <td><input type="text" size="15" name="seid" value="<?=$suggestedseid?>"></td>
-            <td><input type="text" size="7" name="next_month" value="0"></td>
-            <td><input type="text" size="7" name="next_year" value="0"></td>
+            <td><input type="text" size="15" name="next_month" value="1"></td>
+            <td><input type="text" size="7" name="next_year" value="3100"></td>
             <td><input type="text" size="7" name="argument" value="0"></td>
             <td>
                  <select name="action">

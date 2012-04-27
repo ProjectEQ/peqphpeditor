@@ -50,10 +50,17 @@
                       <strong>Tint:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=35" title="View/Change"><?echo "no";?></a><br>
 <?}?>
 <?if($pet == 1) {?>
-			<strong>Pet:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=56" title="View/Change"><?echo "yes";?></a>
+			<strong>Pet:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=56" title="View/Change"><?echo "yes";?></a><br>
 <?} else {?>
-			<strong>Pet:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=54" title="View/Change"><?echo "no";?></a>
+			<strong>Pet:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=54" title="View/Change"><?echo "no";?></a><br>
 <?}?>
+<?if($emoteid == 0 && $corpseemote == 1){$emoteid = $npcid;}
+if($emoteid > 0) {?>
+		       <strong>EmoteID:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&emoteid=<?=$emoteid?>&action=72"><?=$emoteid?></a>
+<?} else {?>
+		       <strong>EmoteID:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&emoteid=<?=$emoteid?>&action=78"><?=$emoteid?></a>
+<?}?>
+
                     </td>
                   </tr>
                 </table>
@@ -325,6 +332,7 @@
         <input type="hidden" name="prim_melee_type" value="<?=$prim_melee_type?>">
         <input type="hidden" name="sec_melee_type" value="<?=$sec_melee_type?>">
         <input type="hidden" name="underwater" value="<?=$underwater?>">
+	 <input type="hidden" name="emoteid" value="<?=$emoteid?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">
