@@ -775,7 +775,11 @@ switch ($action) {
   case 75: // Update emote
     check_authorization();
     $emoteid = update_emote();
-    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&emoteid=$emoteid&action=72");
+    $nnpcid = get_npcid_from_emote($emoteid);
+    if($nnpcid == 0){
+      $nnpcid = $npcid;
+    }
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$nnpcid&emoteid=$emoteid&action=72");
     exit;
   case 76: // Add emote
     check_authorization();
@@ -2096,6 +2100,7 @@ function update_emote() {
 
   $id = $_POST['id'];
   $emoteid = $_POST['emoteid']; 
+  $oldemote = $_POST['oldemote'];
   $event_ = $_POST['event_']; 
   $type = $_POST['type'];
   $text = $_POST['text'];
@@ -2110,8 +2115,18 @@ function update_emote() {
   else {
   $query = "UPDATE npc_emotes SET emoteid=$emoteid, event_=$event_, type=$type, text=\"$text\" WHERE id=$id";
   $mysql->query_no_result($query);
-  }
+  
+    if($oldemote != $npcid){
+      $query = "SELECT count(*) AS emotecount FROM npc_emotes WHERE emoteid=$oldemote";
+      $result = $mysql->query_assoc($query);
+      $count = $result['emotecount'];
 
+      if($count == 0){
+        $query = "UPDATE npc_types set emoteid = 0 WHERE emoteid=$oldemote";
+        $mysql->query_no_result($query);
+      }
+    }
+  }
   if($npcid == $emoteid){
     $query = "SELECT emoteid FROM npc_types WHERE id=$emoteid";
     $result = $mysql->query_assoc($query);
@@ -2158,7 +2173,19 @@ function suggest_emoteid() {
     $maxeid = $result['maxeid'];
   }
 
+  if($maxeid == '');
+    $maxeid = 1;
+
   return $maxeid;
 }
   
+function get_npcid_from_emote($emoteid){
+  global $mysql;
+
+  $query = "SELECT id FROM npc_types where emoteid=$emoteid limit 1";
+  $result = $mysql->query_assoc($query);
+  $npcid = $result['id'];
+  
+  return $npcid;
+}
 ?>
