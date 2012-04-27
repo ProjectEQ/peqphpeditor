@@ -2,6 +2,7 @@
          <div class="edit_form" style="width: 510px;">
         <div class="edit_form_header">
           Edit Emote <?=$id?>
+        <?$oldemote = $emoteid;?>
         </div>
          <div class="edit_form_content">
             <center>
@@ -24,6 +25,7 @@
             <input class="indented" id="id" type="text" name="text" size="75" value="<?=$text?>"><br><br>
         <center>
           <input type="hidden" name="id" value="<?=$id?>">
+          <input type="hidden" name="oldemote" value="<?=$oldemote?>">
           <input type="submit" value="Submit Changes">
         </center>
       </form>
