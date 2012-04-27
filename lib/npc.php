@@ -2108,7 +2108,7 @@ function update_emote() {
     $mysql->query_no_result($query);
   }
   else {
-  $query = "UPDATE npc_emotes SET event_=$event_, type=$type, text=\"$text\" WHERE id=$id";
+  $query = "UPDATE npc_emotes SET emoteid=$emoteid, event_=$event_, type=$type, text=\"$text\" WHERE id=$id";
   $mysql->query_no_result($query);
   }
 
