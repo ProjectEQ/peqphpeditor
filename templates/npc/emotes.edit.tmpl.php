@@ -5,6 +5,8 @@
         </div>
          <div class="edit_form_content">
             <center>
+            <strong>EmoteID</strong><br>
+            <input class="indented" id="id" type="text" name="emoteid" size="7" value="<?=$emoteid?>"><br><br>
             <strong>Event</strong><br>
             <select name="event_" style="width: 150px;">
 <?foreach($eventtype as $key=>$value):?>
@@ -22,7 +24,6 @@
             <input class="indented" id="id" type="text" name="text" size="75" value="<?=$text?>"><br><br>
         <center>
           <input type="hidden" name="id" value="<?=$id?>">
-          <input type="hidden" name="emoteid" value="<?=$emoteid?>">
           <input type="submit" value="Submit Changes">
         </center>
       </form>
