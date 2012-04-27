@@ -243,7 +243,7 @@
             <tr>
               <td align="left" width="17%">Spawn Limit: <br/><input type="text" name="spawn_limit" size="10" value="0"/></td>
               <td align="left" width="17%">Version: <br/><input type="text" name="version" size="10" value="0"/></td>
-              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">Emote: <br><input type="text" name="emoteid" size="10" value="0>"></td>
               <td align="left" width="17%">&nbsp;</td>
               <td align="left" width="16%">&nbsp;</td>
               <td align="left" width="16%">&nbsp;</td>
