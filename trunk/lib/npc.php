@@ -2173,9 +2173,6 @@ function suggest_emoteid() {
     $maxeid = $result['maxeid'];
   }
 
-  if($maxeid == '');
-    $maxeid = 1;
-
   return $maxeid;
 }
   
