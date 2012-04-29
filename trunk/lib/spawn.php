@@ -1485,7 +1485,7 @@ function add_spawngroup() {
   $delay = intval($_POST['delay']);
   $despawn = $_POST['despawn'];
   $despawn_timer = $_POST['despawn_timer'];
-  $query = "INSERT INTO spawngroup VALUES($id, \"$name\", \"$spawn_limit\", \"$dist\", \"$max_x\", \"$min_x\", \"$max_y\", \"$min_y\", \"$delay\", \"$despawn\, \"$despawn_timer\")";
+  $query = "INSERT INTO spawngroup VALUES($id, \"$name\", \"$spawn_limit\", \"$dist\", \"$max_x\", \"$min_x\", \"$max_y\", \"$min_y\", \"$delay\", \"$despawn\", \"$despawn_timer\")";
   $mysql->query_no_result($query);
 
   $query = "INSERT INTO spawnentry SET spawngroupID=$id, npcID=$npcID, chance=$chance";
