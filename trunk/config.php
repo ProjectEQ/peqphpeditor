@@ -2,9 +2,9 @@
 
 // Database Information:
 $dbhost = 'localhost';
-$dbuser = 'eqemu';
-$dbpass = 'eqemu';
-$db = 'eqemu';
+$dbuser = 'username';
+$dbpass = 'password';
+$db = 'database_name';
 
 /*  Limit zone lists to a specified expansion
  *  (i.e. setting $expansion_limit to 2 would cause only Classic and Kunark zones
@@ -26,7 +26,7 @@ $db = 'eqemu';
  *    15 = Secrets of Faydwer
  *    16 = Seeds of Destruction
  *    17 = Underfoot
- *    18 = House of Thule\
+ *    18 = House of Thule
  *    19 = Veil of Alaris
  *    99 = Other
  */
@@ -41,8 +41,8 @@ $spawngroup_limit = 150;
 // Dont want to have to type the username and password every time you start the editor?
 // Set the two variables below to the values you want to be in the form when you start it up.
 // (default login: admin  pw: password)
-//$login = 'admin';
-//$password = 'password';
+$login = '';
+$password = '';
 
 // Log SQL queries:  1 = on, 0 = off
 $logging = 1;
@@ -59,7 +59,7 @@ $log_file = "logs/sql_log_$filetime.sql";
 $log_all = 0;
 
 // Log all MySQL queries that result in an error.
-$log_error = 1;
+$log_error = 0;
 
 // Enable or disable user logins.
 $enable_user_login = 1;
@@ -68,6 +68,6 @@ $enable_user_login = 1;
 $enable_guest_mode = 1;
 
 // Path for quests without trailing slash.
-$quest_path = "/home/administrator/run/quests"
+$quest_path = "/home/eqemu/quests"
 
 ?>
