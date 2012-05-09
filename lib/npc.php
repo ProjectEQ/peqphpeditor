@@ -87,13 +87,26 @@ $eventtype = array(
   4 => "HAILED",
   5 => "KILLEDPC",
   6 => "KILLEDNPC",
-  7 => "ONSPAWN"
+  7 => "ONSPAWN",
+  8 => "ONDESPAWN"
 );
 
 $emotetype = array(
   0 => "Say",
   1 => "Emote",
-  2 => "Shout"
+  2 => "Shout",
+  3 => "Message"
+);
+
+$default_page = 1;
+$default_size = 50;
+$default_sort = 1;
+
+$columns = array(
+  1 => 'emoteid',
+  2 => 'type',
+  3 => 'event_',
+  4 => 'text'
 );
 
 switch ($action) {
@@ -806,6 +819,38 @@ switch ($action) {
     $body->set('eventtype', $eventtype);
     $body->set('emotetype', $emotetype);
     $body->set('suggestedid', suggest_emoteid());
+    break;
+  case 79: // View Emotes
+    check_authorization();
+    $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
+    $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
+    $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
+    if ($_GET['filter'] == 'on') {
+      $filter = build_filter();
+    }
+    $body = new Template("templates/npc/emotelist.tmpl.php");
+    $page_stats = getPageInfo("npc_emotes", $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
+    if ($filter) {
+      $body->set('filter', $filter);
+    }
+    if ($page_stats['page']) {
+      $emotes = list_emotes($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
+    }
+    if ($emotes) {
+      $body->set('emotes', $emotes);
+      foreach ($page_stats as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    else {
+      $body->set('page', 0);
+      $body->set('pages', 0);
+    }
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('eventtype', $eventtype);
+    $body->set('emotetype', $emotetype);
     break;
 }
 
@@ -2184,5 +2229,65 @@ function get_npcid_from_emote($emoteid){
   $npcid = $result['id'];
   
   return $npcid;
+}
+
+function list_emotes($page_number, $results_per_page, $sort_by, $where = "") {
+  global $mysql;
+  $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
+
+  $query = "SELECT * FROM npc_emotes";
+  if ($where) {
+    $query .= " WHERE $where";
+  }
+  $query .= " ORDER BY $sort_by LIMIT $limit";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
+}
+
+function build_filter() {
+  global $mysql, $npcid, $z;
+  $zid = getZoneID($z);
+  $filter1 = $_GET['filter1'];
+  $filter2 = $_GET['filter2'];
+  $filter3 = $_GET['filter3'];
+  $filter4 = $_GET['filter4'];
+  $filter_final = array();
+
+  if ($filter1) { // Filter by emoteid
+    $filter_emoteid = "emoteid = '" . $filter1 . "'";
+    $filter_final['sql'] = $filter_emoteid;
+  }
+  if ($filter2 != '') { // Filter by type
+    $filter_type = "type = '" . $filter2 . "'";
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_type;
+  }
+  if ($filter3 != '') { // Filter by event
+    $filter_event = "event_ = '" . $filter3 . "'";
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_event;
+  }
+  if ($filter4) { // Filter by text
+    $filter_text = "text LIKE '%" . $filter4 . "%'";
+
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_text;
+  }
+
+  $filter_final['url'] = "&filter=on&filter1=$filter1&filter2=$filter2&filter3=$filter3&filter4=$filter4";
+  $filter_final['status'] = "on";
+  $filter_final['filter1'] = $filter1;
+  $filter_final['filter2'] = $filter2;
+  $filter_final['filter3'] = $filter3;
+  $filter_final['filter4'] = $filter4;
+
+  return $filter_final;
 }
 ?>

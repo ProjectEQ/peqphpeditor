@@ -187,6 +187,14 @@ function get_zoneid_by_npcid($npcid) {
   return $result['id'];
 }
 
+function get_npcid_by_emoteid($emoteid) {
+  global $mysql;
+
+  $query = "SELECT id FROM npc_types WHERE emoteid=\"$emoteid\" limit 1";
+  $result = $mysql->query_assoc($query);
+  return $result['id'];
+}
+
 function getPlayerName($playerid) {
   global $mysql;
   

@@ -1050,11 +1050,19 @@ function build_filter() {
   }
   if ($filter2) { // Filter by name
     $filter_name = "name LIKE '%" . $filter2 . "%'";
-    $filter_final['sql'] = $filter_name;
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_name;
+
   }
   if ($filter3) { // Filter by zone
     $filter_zone = "zone LIKE '%" . $filter3 . "%'";
-    $filter_final['sql'] = $filter_zone;
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_zone;
+
   }
 
   $filter_final['url'] = "&filter=on&filter1=$filter1&filter2=$filter2&filter3=$filter3";
