@@ -1,10 +1,10 @@
 <?php
 
 // Database Information:
-$dbhost = 'localhost';
-$dbuser = 'username';
-$dbpass = 'password';
-$db = 'database_name';
+$dbhost = '192.168.1.55';
+$dbuser = 'eqemu';
+$dbpass = 'eqemu';
+$db = 'eqemu';
 
 /*  Limit zone lists to a specified expansion
  *  (i.e. setting $expansion_limit to 2 would cause only Classic and Kunark zones
@@ -56,7 +56,7 @@ $filetime = date("m-Y");
 $log_file = "logs/sql_log_$filetime.sql";
 
 // Log all MySQL queries (If disabled only write entries are logged - recommended.)
-$log_all = 0;
+$log_all = 1;
 
 // Log all MySQL queries that result in an error.
 $log_error = 0;
@@ -68,6 +68,6 @@ $enable_user_login = 1;
 $enable_guest_mode = 1;
 
 // Path for quests without trailing slash.
-$quest_path = "/home/eqemu/quests"
+$quest_path = "/home/administrator/run/quests"
 
 ?>
