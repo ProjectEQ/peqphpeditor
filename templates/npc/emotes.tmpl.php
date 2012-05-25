@@ -28,7 +28,7 @@
         <td align="center" width="10%"><?=$v['emoteid']?></td>
         <td align="center" width="10%"><?=$eventtype[$v['event_']]?></td>
         <td align="center" width="10%"><?=$emotetype[$v['type']]?></td>
-        <td align="center" width="65%"><?=$v['text']?></td>
+        <td align="center" width="65%"><?=html_replace($v['text'])?></td>
         <td align="right">      
           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=74"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
           <a onClick="return confirm('Really Delete Entry <?=$v['id']?>?');" href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&emoteid=<?=$v['emoteid']?>&id=<?=$v['id']?>&action=73"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>

@@ -20,7 +20,7 @@
 <?endforeach;?>
           </select><br><br>
           <strong>Emote</strong><br>
-          <input class="indented" id="id" type="text" name="text" size="75" value=""><br><br>
+          <td><textarea name="text" rows=6 cols=58><?=$text?></textarea></td><br><br>
           <input type="hidden" name="emoteid" value="<?=$emoteid?>">
           <input type="submit" value="Submit Changes">
         </center>
