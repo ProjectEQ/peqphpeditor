@@ -75,7 +75,7 @@ foreach($emotes as $emotes=>$v):?>
           <td align="center" width="10%"><?=$v['emoteid']?></td>
           <td align="center" width="10%"><?=$emotetype[$v['type']]?></td>
           <td align="center" width="10%"><?=$eventtype[$v['event_']]?></td>
-          <td align="center" width="65%"><?=$v['text']?></td>
+          <td align="center" width="65%"><?=html_replace($v['text'])?></td>
           <?
 	   if ($v['emoteid'] > 999){ $npcid = $v['emoteid']; }
           else{ $npcid = get_npcid_by_emoteid($v['emoteid']); }

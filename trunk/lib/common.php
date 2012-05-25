@@ -500,4 +500,10 @@ function factions_array() {
   return $array;
 }
 
+function html_replace($text) {
+   $rtext = str_replace("<", "&lt;", $text);
+
+   return $rtext;
+}
+     
 ?>

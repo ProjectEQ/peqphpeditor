@@ -22,7 +22,7 @@
           </select><br><br>
           <strong>Emote</strong><br>
         </center>
-        <input class="indented" id="id" type="text" name="text" size="75" value="<?=$text?>"><br><br>
+        <td><textarea name="text" rows=6 cols=58><?=$text?></textarea></td><br><br>
         <center>
           <input type="hidden" name="id" value="<?=$id?>">
           <input type="hidden" name="oldemote" value="<?=$oldemote?>">
