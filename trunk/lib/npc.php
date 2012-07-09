@@ -2108,7 +2108,7 @@ function update_emote() {
   $query = "UPDATE npc_emotes SET emoteid=$emoteid, event_=$event_, type=$type, text=\"$text\" WHERE id=$id";
   $mysql->query_no_result($query);
   
-  $query = "UPDATE npc_types SET emoteid = $emoteid";
+  $query = "UPDATE npc_types SET emoteid = $emoteid where id=$npcid";
   $mysql->query_no_result($query);
 
       $query = "SELECT count(*) AS emotecount FROM npc_emotes WHERE emoteid=$oldemote";
