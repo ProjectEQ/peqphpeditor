@@ -4,12 +4,8 @@
         <tr>
           <td>NPC Emotes</td>
           <td align="right">  
-            <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=79"><img src="images/sort.gif" border="0" title="List Emotes"></a>
-<?if($emoteid != $npcid) {?>
+            <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=78"><img src="images/sort.gif" border="0" title="List Emotes"></a>
             <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&emoteid=<?=$emoteid?>&action=76"><img src="images/add.gif" border="0" title="Add an entry to this emote set"></a>
-<?} else {?>
-            <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=78"><img src="images/add.gif" border="0" title="Add an entry to this emote set"></a>
-<?}?>
           </td>
         </tr>        
       </table>
