@@ -13,7 +13,7 @@
           <input type="hidden" name="z" value="<?=$currzone?>"/>
           <input type="hidden" name="zoneid" value="<?=$currzoneid?>"/>
           <input type="hidden" name="npcid" value="<?=$npcid?>"/>
-          <input type="hidden" name="action" value="79"/>
+          <input type="hidden" name="action" value="78"/>
 <?echo (($sort != '') ? '<input type="hidden" name="sort" value="' . $sort . '"/>' : '')?>
           <input type="hidden" name="filter" id="filter_status" value="on"/>
           <table class="table_content" width="100%">
@@ -48,11 +48,11 @@
           <tr>
             <td align="left" width="33%">NPC Emotes</td>
             <td align="center" width="33%">
-              <?echo ($page > 1) ? "<a href='index.php?editor=npc&z=$currzone&zoneid=$currzoneid&npcid=$npcid&action=79&page=1" . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/first.gif' border='0' width='12' height='12' title='First'/></a>" : "<img src='images/first.gif' border='0' width='12' height='12'/>";?>
-              <?echo ($page > 1) ? "<a href='index.php?editor=npc&z=$currzone&zoneid=$currzoneid&npcid=$npcid&action=79&page=" . ($page - 1) . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/prev.gif' border='0' width='12' height='12' title='Previous'/></a>" : "<img src='images/prev.gif' border='0' width='12' height='12'/>";?>
+              <?echo ($page > 1) ? "<a href='index.php?editor=npc&z=$currzone&zoneid=$currzoneid&npcid=$npcid&action=78&page=1" . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/first.gif' border='0' width='12' height='12' title='First'/></a>" : "<img src='images/first.gif' border='0' width='12' height='12'/>";?>
+              <?echo ($page > 1) ? "<a href='index.php?editor=npc&z=$currzone&zoneid=$currzoneid&npcid=$npcid&action=78&page=" . ($page - 1) . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/prev.gif' border='0' width='12' height='12' title='Previous'/></a>" : "<img src='images/prev.gif' border='0' width='12' height='12'/>";?>
               <?echo $page . " of " . $pages;?>
-              <?echo ($page < $pages) ? "<a href='index.php?editor=npc&z=$currzone&zoneid=$currzoneid&npcid=$npcid&action=79&page=" . ($page + 1) . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/next.gif' border='0' width='12' height='12' title='Next'/></a>" : "<img src='images/next.gif' border='0' width='12' height='12'/>";?>
-              <?echo ($page < $pages) ? "<a href='index.php?editor=npc&z=$currzone&zoneid=$currzoneid&npcid=$npcid&action=79&page=" . $pages . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/last.gif' border='0' width='12' height='12' title='Last'/></a>" : "<img src='images/last.gif' border='0' width='12' height='12'/>";?>
+              <?echo ($page < $pages) ? "<a href='index.php?editor=npc&z=$currzone&zoneid=$currzoneid&npcid=$npcid&action=78&page=" . ($page + 1) . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/next.gif' border='0' width='12' height='12' title='Next'/></a>" : "<img src='images/next.gif' border='0' width='12' height='12'/>";?>
+              <?echo ($page < $pages) ? "<a href='index.php?editor=npc&z=$currzone&zoneid=$currzoneid&npcid=$npcid&action=78&page=" . $pages . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/last.gif' border='0' width='12' height='12' title='Last'/></a>" : "<img src='images/last.gif' border='0' width='12' height='12'/>";?>
             </td>
             <td align="right" width="33%">
               <a onClick="document.getElementById('filter_box').style.display='block';"><img src="images/filter.jpg" border="0" height="13" width="13" title="Show filter"></a>&nbsp;
@@ -63,10 +63,10 @@
       <table class="table_content2" width="100%">
 <?if (isset($emotes)):?>
         <tr>
-          <td align="center"><strong><?echo ($sort == 1) ? "EmoteID <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=npc&action=79&sort=1" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>EmoteID <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by EmoteID'/></a>";?></strong></td>
-          <td align="center"><strong><?echo ($sort == 2) ? "Type <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=npc&action=79&sort=2" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Type <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Type'/></a>";?></strong></td>
-          <td align="center"><strong><?echo ($sort == 3) ? "Event <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=npc&action=79&sort=3" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Event <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Event'/></a>";?></strong></td>
-          <td align="center"><strong><?echo ($sort == 4) ? "Text <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=npc&action=79&sort=4" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Text <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Text'/></a>";?></strong></td>
+          <td align="center"><strong><?echo ($sort == 1) ? "EmoteID <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=npc&action=78&sort=1" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>EmoteID <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by EmoteID'/></a>";?></strong></td>
+          <td align="center"><strong><?echo ($sort == 2) ? "Type <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=npc&action=78&sort=2" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Type <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Type'/></a>";?></strong></td>
+          <td align="center"><strong><?echo ($sort == 3) ? "Event <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=npc&action=78&sort=3" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Event <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Event'/></a>";?></strong></td>
+          <td align="center"><strong><?echo ($sort == 4) ? "Text <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=npc&action=78&sort=4" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Text <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Text'/></a>";?></strong></td>
           <td width="5%">&nbsp;</td>
         </tr>
 <?$x=0;
