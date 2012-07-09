@@ -801,8 +801,12 @@ switch ($action) {
     $body->set('npcid', $npcid);
     $body->set('eventtype', $eventtype);
     $body->set('emotetype', $emotetype);
-    //$body->set('emoteid', $_GET['emoteid']);
-    $body->set('emoteid',suggest_emoteid());
+    if($_GET['emoteid'] != 0){
+    	$body->set('emoteid', $_GET['emoteid']);
+    }
+    else{
+    	$body->set('emoteid',suggest_emoteid());
+    }
     break;
   case 77: // Add emote
     check_authorization();
