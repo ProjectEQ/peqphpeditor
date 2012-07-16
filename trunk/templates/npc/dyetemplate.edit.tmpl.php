@@ -88,7 +88,25 @@
             <td><input type="text" size="5" name="red7f" value="<?=$red7f?>"></td>
             <td><input type="text" size="5" name="grn7f" value="<?=$grn7f?>"></td>
             <td><input type="text" size="5" name="blu7f" value="<?=$blu7f?>"></td>
-            </tr>        
+            </tr>   
+	     <th>Red Pri</th>
+            <th>Green Pri</th>
+            <th>Blue Pri</th>
+            </tr>
+            <tr>
+            <td><input type="text" size="5" name="red8x" value="<?=$red8x?>"></td>
+            <td><input type="text" size="5" name="grn8x" value="<?=$grn8x?>"></td>
+            <td><input type="text" size="5" name="blu8x" value="<?=$blu8x?>"></td>
+            </tr> 
+	     <th>Red Sec</th>
+            <th>Green Sec</th>
+            <th>Blue Sec</th>
+            </tr>
+            <tr>
+            <td><input type="text" size="5" name="red9x" value="<?=$red9x?>"></td>
+            <td><input type="text" size="5" name="grn9x" value="<?=$grn9x?>"></td>
+            <td><input type="text" size="5" name="blu9x" value="<?=$blu9x?>"></td>
+            </tr>      
               </table><br><br>
         <center>
           <input type="hidden" name="id" value="<?=$id?>">
