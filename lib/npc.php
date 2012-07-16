@@ -1872,8 +1872,14 @@ function update_tint() {
   $red7f = $_POST['red7f'];
   $grn7f = $_POST['grn7f'];
   $blu7f = $_POST['blu7f'];
+  $red8x = $_POST['red8x'];
+  $grn8x = $_POST['grn8x'];
+  $blu8x = $_POST['blu8x'];
+  $red9x = $_POST['red9x'];
+  $grn9x = $_POST['grn9x'];
+  $blu9x = $_POST['blu9x'];
 
-  $query = "UPDATE npc_types_tint SET red1h=\"$red1h\", grn1h=\"$grn1h\", blu1h=\"$blu1h\", red2c=\"$red2c\", grn2c=\"$grn2c\", blu2c=\"$blu2c\", red3a=\"$red3a\", grn3a=\"$grn3a\", blu3a=\"$blu3a\", red4b=\"$red4b\", grn4b=\"$grn4b\", blu4b=\"$blu4b\", red5g=\"$red5g\", grn5g=\"$grn5g\", blu5g=\"$blu5g\", red6l=\"$red6l\", grn6l=\"$grn6l\", blu6l=\"$blu6l\", red7f=\"$red7f\", grn7f=\"$grn7f\", blu7f=\"$blu7f\" WHERE id=\"$id\"";
+  $query = "UPDATE npc_types_tint SET red1h=\"$red1h\", grn1h=\"$grn1h\", blu1h=\"$blu1h\", red2c=\"$red2c\", grn2c=\"$grn2c\", blu2c=\"$blu2c\", red3a=\"$red3a\", grn3a=\"$grn3a\", blu3a=\"$blu3a\", red4b=\"$red4b\", grn4b=\"$grn4b\", blu4b=\"$blu4b\", red5g=\"$red5g\", grn5g=\"$grn5g\", blu5g=\"$blu5g\", red6l=\"$red6l\", grn6l=\"$grn6l\", blu6l=\"$blu6l\", red7f=\"$red7f\", grn7f=\"$grn7f\", blu7f=\"$blu7f\", red8x=\"$red8x\", grn8x=\"$grn8x\", blu8x=\"$blu8x\", red9x=\"$red9x\", grn9x=\"$grn9x\", blu9x=\"$blu9x\" WHERE id=\"$id\"";
   $mysql->query_no_result($query);
 }
 
