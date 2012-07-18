@@ -162,6 +162,7 @@
                   <input type="checkbox" name="N" value="N"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "N") ? "checked" : "";}}?>> Unstunable<br>
                   <input type="checkbox" name="I" value="I"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "I") ? "checked" : "";}}?>> Unsnareable<br>
                   <input type="checkbox" name="D" value="D"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "D") ? "checked" : "";}}?>> Unfearable<br>
+                  <input type="checkbox" name="K" value="K"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "K") ? "checked" : "";}}?>> Immune to Dispell<br>
                   <input type="checkbox" name="g" value="g"<?if ($npcspecialattks != '') {for ($x=0; $x<strlen($npcspecialattks); $x++) { echo ($npcspecialattks[$x] == "g") ? "checked" : "";}}?>> Resist ranged spells<br>
                 </td>
                 <td valign="top" align="left">
