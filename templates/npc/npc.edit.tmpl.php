@@ -170,6 +170,7 @@
                   <input type="checkbox" name="I" value="I"<?echo (strpos($npcspecialattks,"I") === false) ? "" : " checked"?>> Unsnareable<br>
                   <input type="checkbox" name="D" value="D"<?echo (strpos($npcspecialattks,"D") === false) ? "" : " checked"?>> Unfearable<br>
                   <input type="checkbox" name="p" value="p"<?echo (strpos($npcspecialattks,"p") === false) ? "" : " checked"?>> Unpacifiable<br>
+		    <input type="checkbox" name="K" value="K"<?echo (strpos($npcspecialattks,"K") === false) ? "" : " checked"?>> Immune to Dispell<br>
                   <input type="checkbox" name="Z" value="Z"<?echo (strpos($npcspecialattks,"Z") === false) ? "" : " checked"?>> No Harm from Players<br>
                   <input type="checkbox" name="g" value="g"<?echo (strpos($npcspecialattks,"g") === false) ? "" : " checked"?>> Resist Ranged Spells<br>
                   <input type="checkbox" name="t" value="t"<?echo (strpos($npcspecialattks,"t") === false) ? "" : " checked"?>> Tunnel Vision<br>

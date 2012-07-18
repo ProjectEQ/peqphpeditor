@@ -902,7 +902,8 @@ $specialattacks = array(
  "j" => "Tethered",
  "J" => "Leashed",
  "o" => "Destructible Object",
- "Z" => "No Harm from Players"
+ "Z" => "No Harm from Players",
+ "K" => "Immune to Dispell"
 );
 
 $tradeskills = array(
