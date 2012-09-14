@@ -896,8 +896,7 @@ $specialattacks = array(
  "G" => "Immune to Aggro",
  "Y" => "Ranged Attack",
  "t" => "Tunnel Vision",
- "i" => "Intelligent",
- "s" => "Stupid",
+ "i" => "Immune to Taunt",
  "n" => "Does NOT buff/heal friends",
  "j" => "Tethered",
  "J" => "Leashed",
@@ -1741,7 +1740,7 @@ $zoneids = array (
  999 => 'apprentice'
 );
 
-$eqexpansions = array (    
+$eqexpansions = array (
  0  => 'None Selected',
  1  => 'EverQuest',
  2  => 'Ruins of Kunark',
