@@ -12,10 +12,8 @@
               <input type="text" name="ldid" size="25" value="<?=$id?>"><br><br>
               Suggested Name:<br>
               <input type="text" name="name" size="25" value="<?=$name?>"><br><br>
-              Probability: <br>
-              <input type="text" name="prob" size="25"><br><br>
-              Multiplier: <br>
-              <input type="text" name="mult" size="25"><br><br>
+              Droplimit: <br>
+              <input type="text" name="droplimit" size="25" value="0"><br><br>
               <center>
                 <input type="submit" name="submit" value="Submit Changes">
               </center>

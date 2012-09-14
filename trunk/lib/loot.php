@@ -313,6 +313,15 @@ switch ($action) {
     change_loottable_byrace();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
+  case 41: // Merge LootDrop
+    check_authorization();
+    $body = new Template("templates/loot/lootdrop.merge.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('ldid', $_GET['ldid']);
+    break;
+  
 }
 
 function loottable_info () {
@@ -508,7 +517,8 @@ function update_lootdrop_item() {
   $chance = $_POST['chance'];
   $minlevel = $_POST['minlevel'];
   $maxlevel = $_POST['maxlevel'];
-  $query = "UPDATE lootdrop_entries SET equip_item=$equip, item_charges=$charges, chance=$chance, minlevel=$minlevel, maxlevel=$maxlevel WHERE lootdrop_id=$ldid AND item_id=$itemid";
+  $multiplier = $_POST['multiplier'];
+  $query = "UPDATE lootdrop_entries SET equip_item=$equip, item_charges=$charges, chance=$chance, minlevel=$minlevel, maxlevel=$maxlevel, multiplier=$multiplier WHERE lootdrop_id=$ldid AND item_id=$itemid";
   $mysql->query_no_result($query);
 
 }
@@ -548,11 +558,10 @@ function loottable_entries_info () {
 function update_loottable_entries () {
   check_authorization();
   global $mysql;
-  $prob = $_POST['prob'];
-  $mult = $_POST['mult'];
+  $droplimit = $_POST['droplimit'];
   $ltid = $_GET['ltid'];
   $ldid = $_GET['ldid'];
-  $query = "UPDATE loottable_entries SET probability=$prob, multiplier=$mult WHERE loottable_id=$ltid AND lootdrop_id=$ldid";
+  $query = "UPDATE loottable_entries SET droplimit=$droplimit WHERE loottable_id=$ltid AND lootdrop_id=$ldid";
   $mysql->query_no_result($query);
 }
 
@@ -655,10 +664,9 @@ function assign_lootdrop () {
   
   $ltid = $_POST['ltid'];
   $ldid = $_POST['ldid'];
-  $prob = $_POST['prob'];
-  $mult = $_POST['mult'];
+  $droplimit = $_POST['droplimit'];
   
-  $query = "INSERT INTO loottable_entries SET loottable_id='$ltid', lootdrop_id='$ldid', multiplier='$mult', probability='$prob'";
+  $query = "INSERT INTO loottable_entries SET loottable_id='$ltid', lootdrop_id='$ldid', droplimit='$droplimit'";
   $mysql->query_no_result($query);
 }
 
@@ -751,12 +759,12 @@ function copy_lootdrop() {
   $query = "INSERT INTO lootdrop SET id=\"$nlid\", name=\"$newname\"";
   $mysql->query_no_result($query);
 
-  $query = "INSERT INTO loottable_entries (loottable_id,multiplier,probability) 
-            SELECT loottable_id,multiplier,probability FROM loottable_entries where lootdrop_id=$ldid";
+  $query = "INSERT INTO loottable_entries (loottable_id,droplimit) 
+            SELECT loottable_id,droplimit FROM loottable_entries where lootdrop_id=$ldid";
   $mysql->query_no_result($query);
 
-  $query = "INSERT INTO lootdrop_entries (item_id,item_charges,equip_item,chance,minlevel,maxlevel) 
-            SELECT item_id,item_charges,equip_item,chance,minlevel,maxlevel FROM lootdrop_entries where lootdrop_id=$ldid";
+  $query = "INSERT INTO lootdrop_entries (item_id,item_charges,equip_item,chance,minlevel,maxlevel,multiplier) 
+            SELECT item_id,item_charges,equip_item,chance,minlevel,maxlevel,multiplier FROM lootdrop_entries where lootdrop_id=$ldid";
   $mysql->query_no_result($query);
 
   $query = "UPDATE loottable_entries set lootdrop_id=$nlid where lootdrop_id=0";

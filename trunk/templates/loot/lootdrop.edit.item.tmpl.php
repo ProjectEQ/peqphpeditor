@@ -18,6 +18,8 @@
             <input class="indented" type="text" size="5" name="minlevel" value="<?=$minlevel?>"><br><br>
 	     <strong>Max Level:</strong> <br>
             <input class="indented" type="text" size="5" name="maxlevel" value="<?=$maxlevel?>"><br><br>
+            <strong>Multiplier:</strong> <br>
+            <input class="indented" type="text" size="5" name="multiplier" value="<?=$multiplier?>"><br><br>
             <strong>Chance:</strong> <br>
             <input class="indented" type="text" size="5" name="chance" value="<?=$chance?>">%<br><br>
             <center>
