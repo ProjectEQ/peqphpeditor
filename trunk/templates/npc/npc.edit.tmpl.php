@@ -50,69 +50,67 @@
          </fieldset><br>
          </center>
 
-         <fieldset>
-           <legend><strong><font size="4">Vitals</font></strong></legend>
-           <table width="100%" border="0" cellpadding="3" cellspacing="0">
-             <tr>
-               <td align="left" width="14%">HP:         <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
-               <td align="left" width="14%">Mana:       <br><input type="text" name="mana" size="10" value="<?=$mana?>"></td>
-               <td align="left" width="14%">AC:         <br><input type="text" name="AC" size="10" value="<?=$AC?>"></td>
-               <td align="left" width="14%">Runspeed:   <br><input type="text" name="runspeed" size="10" value="<?=$runspeed?>"></td>
-               <td align="left" width="14%">ATK:        <br><input type="text" name="ATK" size="10" value="<?=$ATK?>"></td>
-               <td align="left" width="14%">Accuracy:   <br><input type="text" name="Accuracy" size="10" value="<?=$Accuracy?>"></td>
-               <td align="left" width="14%">Scalerate:  <br><input type="text" name="scalerate" size="10" value="<?=$scalerate?>"></td> 
-            </tr>
-            </table>
-
+          <fieldset>
+            <legend><strong><font size="4">Vitals</font></strong></legend>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
-               <td align="left" width="25%">
-                 See Invis:  <br>
-                 <select name="see_invis">
-                   <option value="0"<?echo ($see_invis == 0) ? " selected" : ""?>>No</option>
-                   <option value="1"<?echo ($see_invis == 1) ? " selected" : ""?>>Yes</option>
-                 </select>
-               </td>
-               <td align="left" width="25%">
-                 See ITU:  <br>
-                 <select name="see_invis_undead">
-                   <option value="0"<?echo ($see_invis_undead == 0) ? " selected" : ""?>>No</option>
-                   <option value="1"<?echo ($see_invis_undead == 1) ? " selected" : ""?>>Yes</option>
-                 </select>
-               </td>
-               <td align="left" width="25%">
-                 See Hide:  <br>
-			      <select name="see_hide">
-			      <option value="0"<?echo ($see_hide == 0) ? " selected" : ""?>>No</option>
-			      <option value="1"<?echo ($see_hide == 1) ? " selected" : ""?>>Yes</option>
-			     </select>
-			   </td>
-			   <td align="left" width="25%">
-			     See IH:  <br>
-			      <select name="see_improved_hide">
-			      <option value="0"<?echo ($see_improved_hide == 0) ? " selected" : ""?>>No</option>
-			      <option value="1"<?echo ($see_improved_hide == 1) ? " selected" : ""?>>Yes</option>
-                 </select>
-             </tr>
-           </table>
-         </fieldset><br>
-
-         <fieldset>
-           <legend><strong><font size="4">Stats</font></strong></legend>
-           <table width="100%" border="0" cellpadding="3" cellspacing="0">
-             <tr>
-               <td align="left" width="14%">STR:  <br><input type="text" name="STR" size="5" value="<?=$STR?>"></td>
-               <td align="left" width="14%">STA:  <br><input type="text" name="STA" size="5" value="<?=$STA?>"></td>
-               <td align="left" width="14%">DEX:  <br><input type="text" name="DEX" size="5" value="<?=$DEX?>"></td>
-               <td align="left" width="14%">AGI:  <br><input type="text" name="AGI" size="5" value="<?=$AGI?>"></td>
-               <td align="left" width="14%">INT:  <br><input type="text" name="_INT" size="5" value="<?=$_INT?>"></td>
-               <td align="left" width="15%">WIS:  <br><input type="text" name="WIS" size="5" value="<?=$WIS?>"></td>
-               <td align="left" width="15%">CHA:  <br><input type="text" name="CHA" size="5" value="<?=$CHA?>"></td>
-             </tr>
-           </table>
-         </fieldset><br>
-
-         <fieldset>
+                <td align="left" width="14%">HP:         <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
+                <td align="left" width="14%">Mana:       <br><input type="text" name="mana" size="10" value="<?=$mana?>"></td>
+                <td align="left" width="14%">AC:         <br><input type="text" name="AC" size="10" value="<?=$AC?>"></td>
+                <td align="left" width="14%">Runspeed:   <br><input type="text" name="runspeed" size="10" value="<?=$runspeed?>"></td>
+                <td align="left" width="14%">ATK:        <br><input type="text" name="ATK" size="10" value="<?=$ATK?>"></td>
+                <td align="left" width="14%">Accuracy:   <br><input type="text" name="Accuracy" size="10" value="<?=$Accuracy?>"></td>
+                <td align="left" width="14%">Scalerate:  <br><input type="text" name="scalerate" size="10" value="<?=$scalerate?>"></td>
+              </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0">
+              <tr>
+                <td align="left" width="25%">
+                  See Invis:<br>
+                  <select name="see_invis">
+                    <option value="0"<?echo ($see_invis == 0) ? " selected" : ""?>>No</option>
+                    <option value="1"<?echo ($see_invis == 1) ? " selected" : ""?>>Yes</option>
+                  </select>
+                </td>
+                <td align="left" width="25%">
+                  See ITU:<br>
+                  <select name="see_invis_undead">
+                    <option value="0"<?echo ($see_invis_undead == 0) ? " selected" : ""?>>No</option>
+                    <option value="1"<?echo ($see_invis_undead == 1) ? " selected" : ""?>>Yes</option>
+                  </select>
+                </td>
+                <td align="left" width="25%">
+                  See Hide:<br>
+                  <select name="see_hide">
+                    <option value="0"<?echo ($see_hide == 0) ? " selected" : ""?>>No</option>
+                    <option value="1"<?echo ($see_hide == 1) ? " selected" : ""?>>Yes</option>
+                  </select>
+                </td>
+                <td align="left" width="25%">
+                  See IH:<br>
+                  <select name="see_improved_hide">
+                    <option value="0"<?echo ($see_improved_hide == 0) ? " selected" : ""?>>No</option>
+                    <option value="1"<?echo ($see_improved_hide == 1) ? " selected" : ""?>>Yes</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+          </fieldset><br>
+          <fieldset>
+            <legend><strong><font size="4">Stats</font></strong></legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0">
+              <tr>
+                <td align="left" width="14%">STR:  <br><input type="text" name="STR" size="5" value="<?=$STR?>"></td>
+                <td align="left" width="14%">STA:  <br><input type="text" name="STA" size="5" value="<?=$STA?>"></td>
+                <td align="left" width="14%">DEX:  <br><input type="text" name="DEX" size="5" value="<?=$DEX?>"></td>
+                <td align="left" width="14%">AGI:  <br><input type="text" name="AGI" size="5" value="<?=$AGI?>"></td>
+                <td align="left" width="14%">INT:  <br><input type="text" name="_INT" size="5" value="<?=$_INT?>"></td>
+                <td align="left" width="15%">WIS:  <br><input type="text" name="WIS" size="5" value="<?=$WIS?>"></td>
+                <td align="left" width="15%">CHA:  <br><input type="text" name="CHA" size="5" value="<?=$CHA?>"></td>
+              </tr>
+            </table>
+          </fieldset><br>
+          <fieldset>
            <legend><strong><font size="4">Resists</font></strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
                 1 Resist = 0.4% 250 Resist = 100%
@@ -170,12 +168,11 @@
                   <input type="checkbox" name="I" value="I"<?echo (strpos($npcspecialattks,"I") === false) ? "" : " checked"?>> Unsnareable<br>
                   <input type="checkbox" name="D" value="D"<?echo (strpos($npcspecialattks,"D") === false) ? "" : " checked"?>> Unfearable<br>
                   <input type="checkbox" name="p" value="p"<?echo (strpos($npcspecialattks,"p") === false) ? "" : " checked"?>> Unpacifiable<br>
-		    <input type="checkbox" name="K" value="K"<?echo (strpos($npcspecialattks,"K") === false) ? "" : " checked"?>> Immune to Dispell<br>
+                  <input type="checkbox" name="K" value="K"<?echo (strpos($npcspecialattks,"K") === false) ? "" : " checked"?>> Immune to Dispell<br>
                   <input type="checkbox" name="Z" value="Z"<?echo (strpos($npcspecialattks,"Z") === false) ? "" : " checked"?>> No Harm from Players<br>
                   <input type="checkbox" name="g" value="g"<?echo (strpos($npcspecialattks,"g") === false) ? "" : " checked"?>> Resist Ranged Spells<br>
                   <input type="checkbox" name="t" value="t"<?echo (strpos($npcspecialattks,"t") === false) ? "" : " checked"?>> Tunnel Vision<br>
-                  <input type="checkbox" name="i" value="i" onClick="sanityCheck();"<?echo (strpos($npcspecialattks,"i") === false) ? "" : " checked"?>> Intelligent<br>
-                  <input type="checkbox" name="s" value="s" onClick="sanityCheck();"<?echo (strpos($npcspecialattks,"s") === false) ? "" : " checked"?>> Stupid<br>
+                  <input type="checkbox" name="i" value="i"<?echo (strpos($npcspecialattks,"i") === false) ? "" : " checked"?>> Immune to Taunt<br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="A" value="A"<?echo (strpos($npcspecialattks,"A") === false) ? "" : " checked"?>> Immune to Melee<br>
@@ -262,18 +259,18 @@
             <table cellpadding="20px">
               <tr>
                 <td valign="top" align="left">
-                  <input type="checkbox" name="qglobal" value="1"<?echo ($qglobal == 1) ? "checked" : "";?>> Enable Quest Globals<br>
-                  <input type="checkbox" name="findable" value="1"<?echo ($findable == 1) ? "checked" : "";?>> NPC is Findable<br>
-                  <input type="checkbox" name="trackable" value="1"<?echo ($trackable == 1) ? "checked" : "";?>> NPC is Trackable<br>
+                  <input type="checkbox" name="qglobal" value="1"<?echo ($qglobal == 1) ? " checked" : "";?>> Enable Quest Globals<br>
+                  <input type="checkbox" name="findable" value="1"<?echo ($findable == 1) ? " checked" : "";?>> NPC is Findable<br>
+                  <input type="checkbox" name="trackable" value="1"<?echo ($trackable == 1) ? " checked" : "";?>> NPC is Trackable<br>
                 </td>
                 <td valign="top" align="left">
-                  <input type="checkbox" name="pet" value="1"<?echo ($pet == 1) ? "checked" : "";?>> NPC is a Pet<br>
-                  <input type="checkbox" name="private_corpse" value="1"<?echo ($private_corpse == 1) ? "checked" : "";?>> Corpse does not Unlock<br>
-                  <input type="checkbox" name="unique_spawn_by_name" value="1"<?echo ($unique_spawn_by_name == 1) ? "checked" : "";?>> Unique by Name<br>    
+                  <input type="checkbox" name="pet" value="1"<?echo ($pet == 1) ? " checked" : "";?>> NPC is a Pet<br>
+                  <input type="checkbox" name="private_corpse" value="1"<?echo ($private_corpse == 1) ? " checked" : "";?>> Corpse does not Unlock<br>
+                  <input type="checkbox" name="unique_spawn_by_name" value="1"<?echo ($unique_spawn_by_name == 1) ? " checked" : "";?>> Unique by Name<br>    
                 </td>
                 <td valign="top" align="left">
-                  <input type="checkbox" name="underwater" value="1"<?echo ($underwater == 1) ? "checked" : "";?>> Underwater NPC<br>
-                  <input type="checkbox" name="o" value="o" onClick="sanityCheck();"<?echo (strpos($npcspecialattks,"o") === false) ? "" : " checked"?>> Destructible Object<br>
+                  <input type="checkbox" name="underwater" value="1"<?echo ($underwater == 1) ? " checked" : "";?>> Underwater NPC<br>
+                  <input type="checkbox" name="o" value="o"<?echo (strpos($npcspecialattks,"o") === false) ? "" : " checked"?>> Destructible Object<br>
                 </td>
               </tr>
             </table>

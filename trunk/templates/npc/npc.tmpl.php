@@ -24,7 +24,7 @@
         <?=$id?> - <?=$name?> <?echo ($lastname != '' ? "($lastname)" : '');?>
       </div>
       <div class="table_content">
-        <table cellspacing=0 border=0 width="100%">
+        <table cellspacing="0" border="0" width="100%">
           <tr>
             <td>
               <center>
@@ -33,7 +33,7 @@
                   <tr>
                     <td>
 <?if($isquest == 1) {?>
-		        <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=71"><center><strong>Is Quest NPC</strong></center><br/> </a>
+                      <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=71"><center><strong>Is Quest NPC</strong></center><br/> </a>
 <?}?>
                       <strong>Race:</strong> <?echo "<a title='Race: " . $race . "'>" . $races[$race] . "</a>";?><br/>
                       <strong>Class:</strong> <?echo "<a title='Class: " . $class . "'>" . $classes[$class] . "</a>";?><br/>
@@ -50,14 +50,14 @@
                       <strong>Tint:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=35" title="View/Change"><?echo "no";?></a><br>
 <?}?>
 <?if($pet == 1) {?>
-			<strong>Pet:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=56" title="View/Change"><?echo "yes";?></a><br>
+                      <strong>Pet:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=56" title="View/Change"><?echo "yes";?></a><br>
 <?} else {?>
-			<strong>Pet:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=54" title="View/Change"><?echo "no";?></a><br>
+                      <strong>Pet:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=54" title="View/Change"><?echo "no";?></a><br>
 <?}?>
 <?if($emoteid > 0) {?>
-		       <strong>EmoteID:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&emoteid=<?=$emoteid?>&action=72"><?=$emoteid?></a>
+                      <strong>EmoteID:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&emoteid=<?=$emoteid?>&action=72"><?=$emoteid?></a>
 <?} else {?>
-		       <strong>EmoteID:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&emoteid=<?=$emoteid?>&action=76">0</a>
+                      <strong>EmoteID:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&emoteid=<?=$emoteid?>&action=76">0</a>
 <?}?>
 
                     </td>
@@ -79,7 +79,7 @@
                       <td><?echo "<a title='Faction ID: " . $faction_id . "'>" . $factions[$faction_id] . "</a>";?></td>
                       <td><?=$value?></td>
                       <td><?=$faction_values[$npc_value]?></td>
-			 <td>(<?=$tmpfacshort[$temp]?>)</td>
+                      <td>(<?=$tmpfacshort[$temp]?>)</td>
                       <td align="right">
                         <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=19"><img src="images/edit2.gif" border="0" title="Edit this Faction Hit"></a>
                         <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=21" onClick="return confirm('Are you sure you want to remove this faction hit?');"><img src="images/remove.gif" border="0" title="Remove this Faction Hit"></a>
@@ -331,7 +331,7 @@
         <input type="hidden" name="prim_melee_type" value="<?=$prim_melee_type?>">
         <input type="hidden" name="sec_melee_type" value="<?=$sec_melee_type?>">
         <input type="hidden" name="underwater" value="<?=$underwater?>">
-	 <input type="hidden" name="emoteid" value="<?=$emoteid?>">
+        <input type="hidden" name="emoteid" value="<?=$emoteid?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">
