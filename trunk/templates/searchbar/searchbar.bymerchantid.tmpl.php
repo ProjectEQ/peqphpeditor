@@ -1,5 +1,5 @@
       <div id="searchbar">
-        <table width=100%>
+        <table width="100%">
           <tr>
             <td>
               <strong>1.</strong>
@@ -41,7 +41,7 @@
            </tr>
           </table>
            <br>
-           <table width=100%>
+           <table width="100%">
             <tr>
             <td align="right"> or  <strong>&nbsp;3.</strong> Temp Merchant
               <form action="index.php" method="GET">

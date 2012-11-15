@@ -1,6 +1,6 @@
     <div id="searchbar">
       <form action="index.php?editor=account&action=2" method="POST">
-        <table width=100%>
+        <table width="100%">
           <tr>
             <td>
               <strong>1.</strong>
