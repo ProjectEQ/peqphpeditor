@@ -1,15 +1,15 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
 
   <head>
-    <SCRIPT LANGUAGE="JavaScript">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <script type="text/javascript">
       function gotosite(site) { if (site != "") { self.location=site; } }
-    </SCRIPT>
-    <SCRIPT LANGUAGE="JavaScript">
+    </script>
+    <script type="text/javascript">
       function clearField(obj) { obj.value=""; }
-    </SCRIPT>
+    </script>
 
 <?if (isset($javascript)) echo $javascript;?>
 
@@ -21,7 +21,7 @@
   <body>
     <div id="container">
       <div id="header">
-        <a href="index.php"><img src="images/peq_editor.gif" title="Home" border="0"></a>
+        <a href="index.php"><img src="images/peq_editor.gif" title="Home" border="0" alt="PEQ Editor Banner"></a>
       </div>
 <?if (isset($headbar)) echo $headbar;?>
 <?if (isset($searchbar)) echo $searchbar;?>

@@ -1,5 +1,5 @@
       <div id="searchbar">
-        <table width=100%>
+        <table width="100%">
           <tr>
             <td align="left">
               <strong>1.</strong>

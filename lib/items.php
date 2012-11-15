@@ -496,6 +496,7 @@ function update_item () {
   if ($item['proceffect'] != $_POST['proceffect']) $fields .= "proceffect=\"" . $_POST['proceffect'] . "\", ";
   if ($item['proclevel'] != $_POST['proclevel']) $fields .= "proclevel=\"" . $_POST['proclevel'] . "\", ";
   if ($item['proclevel2'] != $_POST['proclevel2']) $fields .= "proclevel2=\"" . $_POST['proclevel2'] . "\", ";
+  if ($item['procrate'] != $_POST['procrate']) $fields .= "procrate=\"" . $_POST['procrate'] . "\", ";
   if ($item['procname'] != $_POST['procname']) $fields .= "procname=\"" . $_POST['procname'] . "\", ";
   if ($item['worntype'] != $_POST['worntype']) $fields .= "worntype=\"" . $_POST['worntype'] . "\", ";
   if ($item['worneffect'] != $_POST['worneffect']) $fields .= "worneffect=\"" . $_POST['worneffect'] . "\", ";
@@ -820,6 +821,7 @@ function add_item () {
   $fields .= "proceffect=\"" . $_POST['proceffect'] . "\", ";
   $fields .= "proclevel=\"" . $_POST['proclevel'] . "\", ";
   $fields .= "proclevel2=\"" . $_POST['proclevel2'] . "\", ";
+  $fields .= "procrate=\"" . $_POST['procrate'] . "\", ";
   $fields .= "procname=\"" . $_POST['procname'] . "\", ";
   $fields .= "worntype=\"" . $_POST['worntype'] . "\", ";
   $fields .= "worneffect=\"" . $_POST['worneffect'] . "\", ";
