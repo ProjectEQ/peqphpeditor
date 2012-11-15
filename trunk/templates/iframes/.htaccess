@@ -7,17 +7,17 @@
   Allow from all
 </files>
 
-#<Files spellsearch.php>
+<Files spellsearch.php>
   Order allow,deny
   Allow from all
 </files>
 
-#<Files spellsetsearch.php>
+<Files spellsetsearch.php>
   Order allow,deny
   Allow from all
 </files>
 
-#<Files playersearch.php>
+<Files playersearch.php>
   Order allow,deny
   Allow from all
 </files>
