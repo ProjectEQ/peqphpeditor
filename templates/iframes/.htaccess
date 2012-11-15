@@ -1,19 +1,41 @@
+#Starting in Apache 2.4, they changed methods for allow/deny. To be certain of proper function, comment/uncomment the proper lines. Defaulting to 2.2 for now.
+#See http://httpd.apache.org/docs/2.4/upgrading.html#access for more information
+
+#Apache 2.2 and earlier
 <Files itemsearch.php>
   Order allow,deny
   Allow from all
 </files>
 
-<Files spellsearch.php>
+#<Files spellsearch.php>
   Order allow,deny
   Allow from all
 </files>
 
-<Files spellsetsearch.php>
+#<Files spellsetsearch.php>
   Order allow,deny
   Allow from all
 </files>
 
-<Files playersearch.php>
+#<Files playersearch.php>
   Order allow,deny
   Allow from all
 </files>
+
+
+#Apache 2.4 and later
+#<Files itemsearch.php>
+#  Require all granted
+#</files>
+
+#<Files spellsearch.php>
+#  Require all granted
+#</files>
+
+#<Files spellsetsearch.php>
+#  Require all granted
+#</files>
+
+#<Files playersearch.php>
+#  Require all granted
+#</files>
