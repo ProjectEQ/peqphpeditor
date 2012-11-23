@@ -15,6 +15,8 @@
               <input class="indented" type="text" size="5" name="droplimit" value="<?=$droplimit?>"><br><br>
               <strong>Multiplier:</strong><br>
               <input class="indented" type="text" size="5" name="multiplier" value="<?=$multiplier?>"><br><br>
+              <strong>Probability:</strong><br>
+              <input class="indented" type="text" size="5" name="probability" value="<?=$probability?>"><br><br>
               <center>
                 <input type="submit" name="submit" value="Submit Changes">
               </center>

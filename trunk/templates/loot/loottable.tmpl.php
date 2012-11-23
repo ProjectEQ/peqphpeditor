@@ -76,6 +76,9 @@
             <td>
         Multiplier: <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ltid=<?=$loottable_id?>&ldid=<?=$lootdrop['id']?>&action=7"><?=$lootdrop['multiplier']?></a>
             </td>
+	     <td>
+	 Probability: <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ltid=<?=$loottable_id?>&ldid=<?=$lootdrop['id']?>&action=7"><?=$lootdrop['probability']?></a>
+	     </td>
             <td align="right">
               <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=20&ldid=<?=$lootdrop['id']?>"><img src="images/add.gif" border="0" title="Add an Item to this LootDrop Table"></a>
               <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=41&ldid=<?=$lootdrop['id']?>"><img src="images/resetpw.gif" border="0" title="Merge this LootDrop"></a>
