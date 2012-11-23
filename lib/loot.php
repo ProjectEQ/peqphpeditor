@@ -572,7 +572,8 @@ function update_loottable_entries () {
   $multiplier = $_POST['multiplier'];
   $ltid = $_GET['ltid'];
   $ldid = $_GET['ldid'];
-  $query = "UPDATE loottable_entries SET droplimit=$droplimit, mindrop=$mindrop, multiplier=$multiplier WHERE loottable_id=$ltid AND lootdrop_id=$ldid";
+  $probability = $_POST['probability'];
+  $query = "UPDATE loottable_entries SET droplimit=$droplimit, mindrop=$mindrop, multiplier=$multiplier, probability=$probability WHERE loottable_id=$ltid AND lootdrop_id=$ldid";
   $mysql->query_no_result($query);
 }
 
@@ -678,8 +679,9 @@ function assign_lootdrop () {
   $droplimit = $_POST['droplimit'];
   $mindrop = $_POST['mindrop'];
   $multiplier = $_POST['multiplier'];
+  $probability = $_POST['probability'];
   
-  $query = "INSERT INTO loottable_entries SET loottable_id='$ltid', lootdrop_id='$ldid', droplimit='$droplimit', mindrop='$mindrop', multiplier='$multiplier'";
+  $query = "INSERT INTO loottable_entries SET loottable_id='$ltid', lootdrop_id='$ldid', droplimit='$droplimit', mindrop='$mindrop', multiplier='$multiplier', probability='$probability'";
   $mysql->query_no_result($query);
 }
 
@@ -772,8 +774,8 @@ function copy_lootdrop() {
   $query = "INSERT INTO lootdrop SET id=\"$nlid\", name=\"$newname\"";
   $mysql->query_no_result($query);
 
-  $query = "INSERT INTO loottable_entries (loottable_id,droplimit,mindrop,multiplier) 
-            SELECT loottable_id,droplimit,mindrop,multiplier FROM loottable_entries where lootdrop_id=$ldid";
+  $query = "INSERT INTO loottable_entries (loottable_id,droplimit,mindrop,multiplier,probability) 
+            SELECT loottable_id,droplimit,mindrop,multiplier,probability FROM loottable_entries where lootdrop_id=$ldid";
   $mysql->query_no_result($query);
 
   $query = "INSERT INTO lootdrop_entries (item_id,item_charges,equip_item,chance,minlevel,maxlevel,multiplier) 
