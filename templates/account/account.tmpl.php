@@ -26,7 +26,7 @@
                   LS Name: <?=$name?><br />
                   LS ID: <?=$lsaccount_id?><br />
                   Password: <?=$password?><br />
-                  Status: <?=$status?><br />
+                  <a href="index.php?editor=account&acctid=<?=$id?>&action=7" title="Edit Account Status">Status</a>: <?=$status?><br />
                   GM Speed: <?=$yesno[$gmspeed]?><br />
                   Hide Me: <?=$yesno[$hideme]?><br />
                   Revoked: <?=$yesno[$revoked]?><br />

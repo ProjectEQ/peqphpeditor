@@ -93,6 +93,18 @@ switch ($action) {
     char_transfer();
     header("Location: index.php?editor=account&acctid=$acctid");
     exit;
+  case 7: // Edit Account Status
+    check_admin_authorization();
+    $cur_acct_status = get_account_status();
+    $body = new Template("templates/account/account.status.tmpl.php");
+    $body->set('acctid', $acctid);
+    $body->set('cur_acct_status', $cur_acct_status);
+    break;
+  case 8: // Update Account Status
+    check_admin_authorization();
+    update_account_status();
+    header("Location: index.php?editor=account&acctid=$acctid");
+    exit;
 }
 
 function get_accounts($page_number, $results_per_page, $sort_by) {
@@ -105,7 +117,7 @@ function get_accounts($page_number, $results_per_page, $sort_by) {
   return $results;
 }
 
-function account_info () {
+function account_info() {
   global $mysql, $acctid;
   $account_array = array();
   $character_array = array();
@@ -133,7 +145,7 @@ function account_info () {
   return $account_array;
 }
 
-function update_account () {
+function update_account() {
   global $mysql, $acctid;
 
   $oldstats = account_info();
@@ -155,6 +167,23 @@ function char_transfer() {
   $char_id = $_GET['playerid'];
 
   $query = "UPDATE character_ SET account_id=$target_acct WHERE id=$char_id";
+  $mysql->query_no_result($query);
+}
+
+function get_account_status() {
+  global $mysql, $acctid;
+
+  $query = "SELECT status FROM account WHERE id=$acctid";
+  $result = $mysql->query_assoc($query);
+
+  return $result['status'];
+}
+
+function update_account_status() {
+  global $mysql, $acctid;
+  $new_status = $_POST['new_acct_status'];
+
+  $query = "UPDATE account SET status=$new_status WHERE id=$acctid";
   $mysql->query_no_result($query);
 }
 ?>
