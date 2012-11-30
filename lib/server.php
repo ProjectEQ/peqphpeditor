@@ -45,7 +45,8 @@ $columns1 = array(
   2 => 'account',
   3 => 'name',
   4 => 'zone',
-  5 => 'date'
+  5 => 'date',
+  6 => 'hacked'
 );
 
 switch ($action) {
@@ -159,7 +160,8 @@ switch ($action) {
    case 7: // Delete Hacker
     check_admin_authorization();
     delete_hacker();
-    header("Location: index.php?editor=server&action=6");
+    $return_address = $_SERVER['HTTP_REFERER'];
+    header("Location: $return_address");
     exit;
    case 8: // View Hacker
     check_admin_authorization();
@@ -1042,6 +1044,7 @@ function build_filter() {
   $filter1 = $_GET['filter1'];
   $filter2 = $_GET['filter2'];
   $filter3 = $_GET['filter3'];
+  $filter4 = $_GET['filter4'];
   $filter_final = array();
 
   if ($filter1) { // Filter by account
@@ -1054,7 +1057,6 @@ function build_filter() {
       $filter_final['sql'] .= " AND ";
     }
     $filter_final['sql'] .= $filter_name;
-
   }
   if ($filter3) { // Filter by zone
     $filter_zone = "zone LIKE '%" . $filter3 . "%'";
@@ -1062,14 +1064,21 @@ function build_filter() {
       $filter_final['sql'] .= " AND ";
     }
     $filter_final['sql'] .= $filter_zone;
-
+  }
+  if ($filter4) { // Filter by hack
+    $filter_hack = "hacked LIKE '%" . $filter4 . "%'";
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_hack;
   }
 
-  $filter_final['url'] = "&filter=on&filter1=$filter1&filter2=$filter2&filter3=$filter3";
+  $filter_final['url'] = "&filter=on&filter1=$filter1&filter2=$filter2&filter3=$filter3&filter4=$filter4";
   $filter_final['status'] = "on";
   $filter_final['filter1'] = $filter1;
   $filter_final['filter2'] = $filter2;
   $filter_final['filter3'] = $filter3;
+  $filter_final['filter4'] = $filter4;
 
   return $filter_final;
 }

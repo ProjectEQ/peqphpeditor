@@ -15,17 +15,21 @@
           <input type="hidden" name="filter" id="filter_status" value="on"/>
           <table class="table_content" width="100%">
             <tr>
-              <td width="33%">
+              <td width="25%">
                 Account:<br/>
                 <input type="text" name="filter1" id="filter1" value="<?=$filter['filter1']?>"/>
               </td>
-              <td width="33%">
+              <td width="25%">
                 Name:<br/>
                 <input type="text" name="filter2" id="filter2" value="<?=$filter['filter2']?>"/>
               </td>
-              <td width="33%">
+              <td width="25%">
                 Zone:<br/>
                 <input type="text" name="filter3" id="filter3" value="<?=$filter['filter3']?>"/>
+              </td>
+              <td width="25%">
+                Hack:<br/>
+                <input type="text" name="filter4" id="filter4" value="<?=$filter['filter4']?>"/>
               </td>
             </tr>
             <tr>
@@ -61,7 +65,7 @@
               <td align="center"><strong><?echo ($sort == 3) ? "Name <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=server&action=6&sort=3'>Name <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Name'/></a>";?></strong></td>
               <td align="center"><strong><?echo ($sort == 4) ? "Zone <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=server&action=6&sort=4'>Zone <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Zone'/></a>";?></strong></td>
               <td align="center"><strong><?echo ($sort == 5) ? "Date <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=server&action=6&sort=5'>Date <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Date'/></a>";?></strong></td>
-              <td align="center"><strong>Hack</strong></td>
+              <td align="center"><strong><?echo ($sort == 6) ? "Hack <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=server&action=6&sort=6'>Hack <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Hack'/></a>";?></strong></td>
               <td width="5%">&nbsp;</td>
             </tr>
 <?$x=0; foreach($hackers as $hackers=>$v):?>
