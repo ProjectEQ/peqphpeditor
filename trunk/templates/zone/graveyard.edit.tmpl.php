@@ -1,10 +1,7 @@
-<div class="edit_form" style="width: 450px">
-      <div class="edit_form_header">
-        Edit Graveyard: <?=$id?>
-      </div>
-
-      <div class="edit_form_content">
-        <form name="graveyard" method="post" action=index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&graveyard_id=<?=$id?>&action=6">
+  <div class="edit_form" style="width: 450px">
+    <div class="edit_form_header">Edit Graveyard: <?=$id?></div>
+    <div class="edit_form_content">
+      <form name="graveyard" method="post" action="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&graveyard_id=<?=$id?>&action=6">
         <table width="100%">
           <tr>
             <th>Zone</th>
@@ -20,11 +17,11 @@
             <td><input type="text" size="7" name="z_coord" value="<?=$z?>"></td>
             <td><input type="text" size="7" name="heading" value="<?=$heading?>"></td>
           </tr>
-         </table><br><br>
+        </table><br><br>
         <center>
           <input type="hidden" name="graveyard_id" value="<?=$id?>">
           <input type="submit" value="Submit Changes">
         </center>
       </form>
-      </div>
-      </div>
+    </div>
+  </div>
