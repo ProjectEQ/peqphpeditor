@@ -21,17 +21,15 @@ while($row = mysql_fetch_assoc($res))
 
 fclose($fh);
 ?>
- <table class="edit_form">
-         <tr>
-           <td class="edit_form_header">
-             Generate Spell File
-           </td>
-         </tr>
-         <tr>
-           <td class="edit_form_content">
-             <center>
-<?echo $cnt; ?> spells written.<br><?echo $lastid; ?> is the highest ID<br><b><a href=spells_us.txt>Right click and choose 'Save Link As' or 'Save Target As' to download spell file</a><b>
-     </center>
-           </td>
-         </tr>
-       </table>
+  <table class="edit_form">
+    <tr>
+      <td class="edit_form_header">Generate Spell File</td>
+    </tr>
+    <tr>
+      <td class="edit_form_content">
+        <center>
+<?echo $cnt; ?> spells written.<br><?echo $lastid; ?> is the highest ID<br><b><a href="spells_us.txt">Right click and choose 'Save Link As' or 'Save Target As' to download spell file</a></b>
+        </center>
+      </td>
+    </tr>
+  </table>
