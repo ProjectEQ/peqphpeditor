@@ -78,7 +78,7 @@ switch ($editor) {
 }
 
 if ($z != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&z=" . $z . "&zoneid=" . getZoneIDByName($z) . "'>" . getZoneLongName($z) . "</a>";
-if ($npcid != '' && $editor != 'altcur') $breadcrumbs .= " >> " . getNPCName($npcid) . " ($npcid)";
+if ($npcid != '' && $editor != 'altcur' && $editor != 'qglobal') $breadcrumbs .= " >> " . getNPCName($npcid) . " ($npcid)";
 if ($fid != '') $breadcrumbs .= " >> " . getFactionName($fid);
 if ($tskid != '') $breadcrumbs .= " >> " . getTaskTitle($tskid);
 if ($ts != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&ts=" . $ts . "'>" . $tradeskills[$ts] . "</a>";
