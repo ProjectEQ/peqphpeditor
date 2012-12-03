@@ -4,11 +4,10 @@ $default_size = 50;
 $default_sort = 1;
 
 $columns = array(
-  1 => 'id',
-  2 => 'name',
-  3 => 'charid',
-  4 => 'npcid',
-  5 => 'zoneid'
+  1 => 'name',
+  2 => 'charid',
+  3 => 'npcid',
+  4 => 'zoneid'
 );
 
 switch ($action) {
@@ -47,8 +46,6 @@ switch ($action) {
     check_authorization();
     $breadcrumbs .= " >> Create Quest Global";
     $body = new Template("templates/qglobal/qglobal.add.tmpl.php");
-    $nextid = get_next_qglobalid();
-    $body->set('nextid', $nextid);
     break;
   case 3: //Insert QGlobal
     check_authorization();
@@ -57,7 +54,7 @@ switch ($action) {
     exit;
   case 4: //Edit QGlobal
     check_authorization();
-    $qglobal = view_qglobal($_GET['qglobalid']);
+    $qglobal = view_qglobal($_GET['name'], $_GET['charid'], $_GET['npcid'], $_GET['zoneid']);
     if ($qglobal) {
       $breadcrumbs .= " >> Edit Quest Global";
       $body = new Template("templates/qglobal/qglobal.edit.tmpl.php");
@@ -98,10 +95,10 @@ function get_qglobals($page_number, $results_per_page, $sort_by, $where = "") {
   return $results;
 }
 
-function view_qglobal($qglobalid) {
+function view_qglobal($name, $charid, $npcid, $zoneid) {
   global $mysql;
 
-  $query = "SELECT * FROM quest_globals WHERE id = \"$qglobalid\"";
+  $query = "SELECT * FROM quest_globals WHERE name = \"$name\" AND charid = \"$charid\" AND npcid = \"$npcid\" AND zoneid = \"$zoneid\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -111,7 +108,6 @@ function insert_qglobal() {
   global $mysql;
   $fields = '';
 
-  $fields = "id=\"" . $_POST['id'] . "\", ";
   $fields .= "name=\"" . $_POST['name'] . "\", ";
   $fields .= "value=\"" . $_POST['value'] . "\", ";
   $fields .= "charid=\"" . $_POST['charid'] . "\", ";
@@ -125,40 +121,43 @@ function insert_qglobal() {
 
 function update_qglobal() {
   global $mysql;
-  $qglobal = view_qglobal($_POST['originalid']);
+  $old_name = $_POST['old_name'];
+  $old_charid = $_POST['old_charid'];
+  $old_npcid = $_POST['old_npcid'];
+  $old_zoneid = $_POST['old_zoneid'];
+  $new_name = $_POST['name'];
+  $new_charid = $_POST['charid'];
+  $new_npcid = $_POST['npcid'];
+  $new_zoneid = $_POST['zoneid'];
+  $new_value = $_POST['value'];
+  $new_expdate = $_POST['expdate'];
+  $qglobal = view_qglobal($old_name, $old_charid, $old_npcid, $old_zoneid);
   $fields = '';
   extract($qglobal);
 
-  if ($id != $_POST['id']) $fields .= "id=\"" . $_POST['id'] . "\", ";
-  if ($name != $_POST['name']) $fields .= "name=\"" . $_POST['name'] . "\", ";
-  if ($value != $_POST['value']) $fields .= "value=\"" . $_POST['value'] . "\", ";
-  if ($charid != $_POST['charid']) $fields .= "charid=\"" . $_POST['charid'] . "\", ";
-  if ($npcid != $_POST['npcid']) $fields .= "npcid=\"" . $_POST['npcid'] . "\", ";
-  if ($zoneid != $_POST['zoneid']) $fields .= "zoneid=\"" . $_POST['zoneid'] . "\", ";
-  if ($expdate != $_POST['expdate']) $fields .= ($_POST['expdate'] == "") ? "expdate=NULL" : "expdate=\"" . $_POST['expdate'] . "\"";
+  if ($name != $new_name) $fields .= "name=\"" . $new_name . "\", ";
+  if ($value != $new_value) $fields .= "value=\"" . $new_value . "\", ";
+  if ($charid != $new_charid) $fields .= "charid=\"" . $new_charid . "\", ";
+  if ($npcid != $new_npcid) $fields .= "npcid=\"" . $new_npcid . "\", ";
+  if ($zoneid != $new_zoneid) $fields .= "zoneid=\"" . $new_zoneid . "\", ";
+  if ($expdate != $new_expdate) $fields .= ($new_expdate == "") ? "expdate=NULL" : "expdate=\"" . $new_expdate . "\"";
 
   $fields =  rtrim($fields, ", ");
   if ($fields != '') {
-    $query = "UPDATE quest_globals SET $fields WHERE id=\"$id\"";
+    $query = "UPDATE quest_globals SET $fields WHERE name = \"$old_name\" AND charid = \"$old_charid\" AND npcid = \"$old_npcid\" AND zoneid = \"$old_zoneid\"";
     $mysql->query_no_result($query);
   }
 }
 
 function delete_qglobal() {
   global $mysql;
-  $qglobalid = $_GET['qglobalid'];
+  $name = $_GET['name'];
+  $charid = $_GET['charid'];
+  $npcid = $_GET['npcid'];
+  $zoneid = $_GET['zoneid'];
 
-  $query = "DELETE FROM quest_globals WHERE id = \"$qglobalid\"";
+  $query = "DELETE FROM quest_globals WHERE name = \"$name\" AND charid = \"$charid\" AND npcid = \"$npcid\" AND zoneid = \"$zoneid\"";
   $mysql->query_no_result($query);
-}
-
-function get_next_qglobalid() {
-  global $mysql;
-
-  $query = "SELECT MAX(id) AS lastid FROM quest_globals";
-  $result = $mysql->query_assoc($query);
-
-  return ($result['lastid'] + 1);
 }
 
 function build_filter() {
