@@ -135,7 +135,7 @@
                 <td align="left" width="16%">Attack Count:<br><input type="text" name="attack_count" size="5" value="<?=$attack_count?>"></td>
                 <td align="left" width="16%">Spells ID:   <br><input type="text" name="npc_spells_id" size="5" value="<?=$npc_spells_id?>"></td>
                 <td align="left" width="16%">Loot ID:     <br><input type="text" name="loottable_id" size="5" value="<?=$loottable_id?>"></td>
-                <td align="left" width="16%">Spell Scale: <br><input type="text" name="spellcale" size="5" value="<?=$spellscale?>">%</td>
+                <td align="left" width="16%">Spell Scale: <br><input type="text" name="spellscale" size="5" value="<?=$spellscale?>">%</td>
               </tr>
               </tr>
                 <td align="left" width="16%">HP Regen:    <br><input type="text" name="hp_regen_rate" size="5" value="<?=$hp_regen_rate?>"></td>
