@@ -1349,8 +1349,8 @@ function add_npc () {
   $fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
   $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
   $fields .= "underwater=\"" . $_POST['underwater'] . "\", ";
-  $fields .= "emoteid=\"" . $_POST['emoteid'] . "\"";
-  $fields .= "spellscale=\"" . $_POST['spellscale'] . "\"";
+  $fields .= "emoteid=\"" . $_POST['emoteid'] . "\", ";
+  $fields .= "spellscale=\"" . $_POST['spellscale'] . "\", ";
   $fields .= "healscale=\"" . $_POST['healscale'] . "\"";
 
   if ($fields != '') {
