@@ -130,18 +130,20 @@
            <legend><strong><font size="4">Combat</font></strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
                <tr>
-                <td align="left" width="20%">Min Dmg:     <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>"></td>
-                <td align="left" width="20%">Max Dmg:     <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>"></td>
-                <td align="left" width="20%">Attack Count:<br><input type="text" name="attack_count" size="5" value="<?=$attack_count?>"></td>
-                <td align="left" width="20%">Spells ID:   <br><input type="text" name="npc_spells_id" size="5" value="<?=$npc_spells_id?>"></td>
-                <td align="left" width="20%">Loot ID:     <br><input type="text" name="loottable_id" size="5" value="<?=$loottable_id?>"></td>
+                <td align="left" width="16%">Min Dmg:     <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>"></td>
+                <td align="left" width="16%">Max Dmg:     <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>"></td>
+                <td align="left" width="16%">Attack Count:<br><input type="text" name="attack_count" size="5" value="<?=$attack_count?>"></td>
+                <td align="left" width="16%">Spells ID:   <br><input type="text" name="npc_spells_id" size="5" value="<?=$npc_spells_id?>"></td>
+                <td align="left" width="16%">Loot ID:     <br><input type="text" name="loottable_id" size="5" value="<?=$loottable_id?>"></td>
+                <td align="left" width="16%">Spell Scale: <br><input type="text" name="spellcale" size="5" value="<?=$spellscale?>">%</td>
               </tr>
               </tr>
-                <td align="left" width="20%">HP Regen:  <br><input type="text" name="hp_regen_rate" size="5" value="<?=$hp_regen_rate?>"></td>
-                <td align="left" width="20%">MP Regen:  <br><input type="text" name="mana_regen_rate" size="5" value="<?=$mana_regen_rate?>"></td>
-                <td align="left" width="20%">Aggroradius:  <br><input type="text" name="aggroradius" size="5" value="<?=$aggroradius?>"></td>
-                <td align="left" width="20%">Atk Speed: <br><input type="text" name="attack_speed" size="5" value="<?=$attack_speed?>">%</td>
-                <td align="left" width="20%">Slow Mit: <br><input type="text" name="slow_mitigation" size="5" value="<?=$slow_mitigation?>"></td>
+                <td align="left" width="16%">HP Regen:    <br><input type="text" name="hp_regen_rate" size="5" value="<?=$hp_regen_rate?>"></td>
+                <td align="left" width="16%">MP Regen:    <br><input type="text" name="mana_regen_rate" size="5" value="<?=$mana_regen_rate?>"></td>
+                <td align="left" width="16%">Aggroradius: <br><input type="text" name="aggroradius" size="5" value="<?=$aggroradius?>"></td>
+                <td align="left" width="16%">Atk Speed:   <br><input type="text" name="attack_speed" size="5" value="<?=$attack_speed?>">%</td>
+                <td align="left" width="16%">Slow Mit:    <br><input type="text" name="slow_mitigation" size="5" value="<?=$slow_mitigation?>"></td>
+                <td align="left" width="16%">Heal Scale:  <br><input type="text" name="healscale" size="5" value="<?=$healscale?>">%</td>
               </tr>
             </table>
             <center>

@@ -1245,6 +1245,8 @@ function update_npc () {
   if ($sec_melee_type != $_POST['sec_melee_type']) $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
   if ($underwater != $_POST['underwater']) $fields .= "underwater=\"" . $_POST['underwater'] . "\", ";
   if ($emoteid != $_POST['emoteid']) $fields .= "emoteid=\"" . $_POST['emoteid'] . "\", ";
+  if ($spellscale != $_POST['spellscale']) $fields .= "spellscale=\"" . $_POST['spellscale'] . "\", ";
+  if ($healscale != $_POST['healscale']) $fields .= "healscale=\"" . $_POST['healscale'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -1348,6 +1350,8 @@ function add_npc () {
   $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
   $fields .= "underwater=\"" . $_POST['underwater'] . "\", ";
   $fields .= "emoteid=\"" . $_POST['emoteid'] . "\"";
+  $fields .= "spellscale=\"" . $_POST['spellscale'] . "\"";
+  $fields .= "healscale=\"" . $_POST['healscale'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1440,6 +1444,8 @@ $fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
 $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
 $fields .= "underwater=\"" . $_POST['underwater'] . "\", ";
 $fields .= "emoteid=\"" . $_POST['emoteid'] . "\", ";
+$fields .= "spellscale=\"" . $_POST['spellscale'] . "\", ";
+$fields .= "healscale=\"" . $_POST['healscale'] . "\", ";
 $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {

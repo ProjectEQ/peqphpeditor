@@ -184,6 +184,11 @@
                     <td align="left" width="33%">NPC Aggro: <?=$npc_aggro?></td>
                     <td align="left" width="34%">NPC Spells ID: <?=$npc_spells_id?></td>
                   </tr>
+                  <tr>
+                    <td align="left" width="33%">Spell Scale: <?=$spellscale?>%</td>
+                    <td align="left" width="33%">Heal Scale: <?=$healscale?>%</td>
+                    <td align="left" width="34%">&nbsp;</td>
+                  </tr>
                 </table>
               </fieldset>
               <fieldset>
