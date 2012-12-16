@@ -107,6 +107,12 @@
 <?php foreach ($lootdrop['items'] as $item): extract($item);
       $total = (($chance/100) * ($lootdrop['probability']/100)) * 100;
       $chance_total += $chance;
+      if($lootdrop['probability'] == 0)
+      $chance = 0;
+      if($lootdrop['probability'] > 0 && $lootdrop['probability'] < 100)
+      $chance = $total;
+      if($lootdrop['probability'] >= 100)
+      $chance = $chance;
 ?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$item_id?>&action=2"><?=$item_id?></td>
@@ -127,7 +133,7 @@
             <?=$multiplier?>
            </td>
           <td align="center">
-            <?=$chance?>%
+	     <?=$chance?>%
 	   </td>
           <td align="right">
             <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=5"><img src="images/edit2.gif" border="0" title="Edit Lootdrop Item"></a>
