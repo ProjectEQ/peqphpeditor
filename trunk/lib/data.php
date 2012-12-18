@@ -884,7 +884,7 @@ $classes = array (
  68 => 'Dark Reign Merchant',
  69 => 'Fellowship Master',
  70 => 'Alt Currency Merchant',
- 71 => 'Mercenary Liaison'
+ 71 => 'Mercenary Liaison',
  72 => 'Unknown72',
  73 => 'Loyalists of Everquest'
 );
