@@ -28,6 +28,7 @@ $db = 'database_name';
  *    17 = Underfoot
  *    18 = House of Thule 
  *    19 = Veil of Alaris
+ *    20 = Rain of Fear
  *    99 = Other
  */
 $expansion_limit = 20;
