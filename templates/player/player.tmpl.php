@@ -344,6 +344,14 @@
           </table>
         </td>
       </tr>
+      <tr>
+        <td colspan="3">
+          <fieldset>
+            <legend><strong>Inspect Message</strong></legend>
+            <?echo ($inspectmessage) ? $inspectmessage : "None";?>
+          </fieldset>
+        </td>
+      </tr>
     </table>
   </div>
 </div>
