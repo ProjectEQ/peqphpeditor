@@ -142,10 +142,10 @@ switch ($action) {
     $body->set('atype', $_GET['atype']);
     $vars = get_goallist();
     if ($vars) {
-        foreach ($vars as $key=>$value) {
-          $body->set($key, $value);
-        }
-      }	
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
     break;
   case 12: // Get goallist ID
     check_authorization();
@@ -188,10 +188,10 @@ switch ($action) {
     $body->set('aid', $_GET['aid']);
     $vars = get_proximity();
     if ($vars) {
-        foreach ($vars as $key=>$value) {
-          $body->set($key, $value);
-        }
-      }	
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
     break;
   case 18:  // Edit proximity info
     check_authorization();
@@ -266,10 +266,10 @@ switch ($action) {
     $body->set('atype', $_GET['atype']);
     $vars = get_goallist();
     if ($vars) {
-        foreach ($vars as $key=>$value) {
-          $body->set($key, $value);
-        }
-      }	
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
     break;
   case 27: // Add goallist ID
     check_authorization();
@@ -295,10 +295,10 @@ switch ($action) {
     $body->set('tsksetsid', tasksets_id());
     $vars = get_taskset();
     if ($vars) {
-        foreach ($vars as $key=>$value) {
-          $body->set($key, $value);
-        }
-      }	
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
     break;
   case 30: // Add Task Set
     check_authorization();
@@ -309,7 +309,7 @@ switch ($action) {
     $tsksetid = $_GET['tsksetid'];
     if (isset($_GET['tsksetid']) && $_GET['tsksetid'] != ""){
       $vars = taskset_info();
-    if ($vars) {
+      if ($vars) {
         foreach ($vars as $key=>$value) {
           $body->set($key, $value);
         }
@@ -460,11 +460,11 @@ function get_activities() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['activity'][$result['activityid']] = array("taskid"=>$result['taskid'], "activityid"=>$result['activityid'], "step"=>$result['step'], "activitytype"=>$result['activitytype'], "text1"=>$result['text1'], "text2"=>$result['text2'], "text3"=>$result['text3'], "goalid"=>$result['goalid'], "goalmethod"=>$result['goalmethod'], "goalcount"=>$result['goalcount'], "delivertonpc"=>$result['delivertonpc'], "zoneid"=>$result['zoneid'], "optional"=>$result['optional']);
-         }
-       }
-  return $array;
+      $array['activity'][$result['activityid']] = array("taskid"=>$result['taskid'], "activityid"=>$result['activityid'], "step"=>$result['step'], "activitytype"=>$result['activitytype'], "text1"=>$result['text1'], "text2"=>$result['text2'], "text3"=>$result['text3'], "goalid"=>$result['goalid'], "goalmethod"=>$result['goalmethod'], "goalcount"=>$result['goalcount'], "delivertonpc"=>$result['delivertonpc'], "zoneid"=>$result['zoneid'], "optional"=>$result['optional']);
+    }
   }
+  return $array;
+}
 
 function get_goallist() {
   global $mysql;
@@ -476,11 +476,11 @@ function get_goallist() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['goallist'][$result['entry']] = array("listid"=>$result['listid'], "entry"=>$result['entry']);
-         }
-       }
-  return $array;
+      $array['goallist'][$result['entry']] = array("listid"=>$result['listid'], "entry"=>$result['entry']);
+    }
   }
+  return $array;
+}
 
 function proximity_info() {
   global $mysql;
@@ -503,11 +503,11 @@ function get_proximity() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['proximity'][$result['maxx']] = array("exploreid"=>$result['exploreid'], "zoneid"=>$result['zoneid'], "minx"=>$result['minx'], "miny"=>$result['miny'], "minz"=>$result['minz'], "maxx"=>$result['maxx'], "maxy"=>$result['maxy'], "maxz"=>$result['maxz']);
-         }
-       }
-  return $array;
+      $array['proximity'][$result['maxx']] = array("exploreid"=>$result['exploreid'], "zoneid"=>$result['zoneid'], "minx"=>$result['minx'], "miny"=>$result['miny'], "minz"=>$result['minz'], "maxx"=>$result['maxx'], "maxy"=>$result['maxy'], "maxz"=>$result['maxz']);
+    }
   }
+  return $array;
+}
 
 function get_taskset() {
   global $mysql;
@@ -519,11 +519,11 @@ function get_taskset() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['tasksets'][$result['taskid']] = array("id"=>$result['id'], "taskid"=>$result['taskid']);
-         }
-       }
-  return $array;
+      $array['tasksets'][$result['taskid']] = array("id"=>$result['id'], "taskid"=>$result['taskid']);
+    }
   }
+  return $array;
+}
 
 function update_tasks() {
   global $mysql;
@@ -772,7 +772,7 @@ function add_activity() {
   $zoneid = $_POST['zoneid'];
   $optional = $_POST['optional'];
 
-  $query = "INSERT activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$activityid\", activitytype=\"$activitytype\", text1=\"$text1\", text2=\"$text2\", text3=\"$text3\", goalid=\"$goalid\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", zoneid=\"$zoneid\", optional=\"$optional\"";
+  $query = "INSERT INTO activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$activityid\", activitytype=\"$activitytype\", text1=\"$text1\", text2=\"$text2\", text3=\"$text3\", goalid=\"$goalid\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", zoneid=\"$zoneid\", optional=\"$optional\"";
   $mysql->query_no_result($query);
 }
 
@@ -783,7 +783,7 @@ function add_goallist() {
   $listid = $_POST['listid'];
   $entry = $_POST['entry'];
 
-  $query = "INSERT goallists SET listid=\"$listid\", entry=\"$entry\"";
+  $query = "INSERT INTO goallists SET listid=\"$listid\", entry=\"$entry\"";
   $mysql->query_no_result($query);
   
   $query = "UPDATE tasks SET rewardid=\"$listid\" WHERE id=\"$taskid\"";
@@ -798,7 +798,7 @@ function add_goallist_act() {
   $entry = $_POST['entry'];
   $aid = $_POST['aid'];
 
-  $query = "INSERT goallists SET listid=\"$listid\", entry=\"$entry\"";
+  $query = "INSERT INTO goallists SET listid=\"$listid\", entry=\"$entry\"";
   $mysql->query_no_result($query);
   
   $query = "UPDATE activities SET goalid=\"$listid\" WHERE taskid=\"$taskid\" AND activityid=\"$aid\"";
