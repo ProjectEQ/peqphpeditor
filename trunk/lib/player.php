@@ -126,7 +126,7 @@ function player_info () {
   $player_array = array();
 
   //Load from character_
-  $query = "SELECT id,account_id,timelaston,zonename,groupid,lfp,lfg FROM character_ WHERE id=$playerid";
+  $query = "SELECT id,account_id,timelaston,zonename,groupid,lfp,lfg,inspectmessage FROM character_ WHERE id=$playerid";
   $player_array = $mysql->query_assoc($query);
 
   //Load account details
