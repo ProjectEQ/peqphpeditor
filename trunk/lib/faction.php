@@ -28,6 +28,7 @@ switch ($action) {
       }
       if ($faction_data['faction_mods']) {
         $body->set('faction_mods', $faction_data['faction_mods']);
+	 $body->set("fac_mods", $fac_mods);
       }
     }
     break;
