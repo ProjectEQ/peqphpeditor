@@ -57,7 +57,7 @@
 ?>
           <tr>
             <td width="10%" align="center"><?=$mod['id']?></td>
-            <td width="40%" align="center"><?=$mod['mod_name']?></td>
+            <td width="40%" align="center"><?=$fac_mods[$mod['mod_name']]?></td>
             <td width="15%" align="center"><?=$mod['mod']?></td>
             <td width="25%" align="center"><?echo $faction_info['base'] + $mod['mod'];?></td>
             <td width="10%" align="right"><a href="index.php?editor=faction&fid=<?=$faction_info['id']?>&fmid=<?=$mod['id']?>&action=22"><img src="images/c_table.gif" title="Edit this Faction Mod" border="0"></a>&nbsp;<a onClick="return confirm('Really delete faction mod <?=$mod['id']?>?');" href="index.php?editor=faction&fid=<?=$faction_info['id']?>&fmid=<?=$mod['id']?>&action=24"><img src="images/remove3.gif" title="Delete this Faction Mod" border="0"></a></td>
