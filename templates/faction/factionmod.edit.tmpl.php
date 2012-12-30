@@ -13,23 +13,26 @@
     </table><br/><br/>
   </center>
   <div style="width: 500px; margin: auto;">
-    <form name="faction" method="post" action="index.php?editor=faction&action=5">
+    <form name="faction" method="post" action="index.php?editor=faction&fid=<?=$mod['faction_id']?>&fmid=<?=$mod['id']?>&action=23">
       <div style="border: 1px solid black;">
         <div class="edit_form_header">
-          Add Faction:
+          Edit Faction Mod:
         </div>
         <div class="edit_form_content">
           <fieldset>
-            <legend><strong>Faction Info</strong></legend>
+            <legend><strong>Faction Mod Info</strong></legend>
             <table width="100%">
               <tr>
-                <td width="25%">ID:<br/><input size="8" type="text" name="id" value="<?=$suggested_id?>"></td>
-                <td width="50%">Name:<br/><input size="30" type="text" name="name" value=""></td>
-                <td width="25%">Base:<br/><input size="8" type="text" name="base" value="0"></td>
+                <td width="25%">ID:<br/><input size="8" type="text" name="new_id" value="<?=$mod['id']?>"></td>
+                <td width="50%">Name:<br/><input size="30" type="text" name="new_mod_name" value="<?=$mod['mod_name']?>"></td>
+                <td width="25%">Mod:<br/><input size="8" type="text" name="new_mod" value="<?=$mod['mod']?>"></td>
               </tr>
             </table>
           </fieldset><br/>
           <center>
+            <input type="hidden" name="old_id" value="<?=$mod['id']?>">
+            <input type="hidden" name="old_mod_name" value="<?=$mod['mod_name']?>">
+            <input type="hidden" name="old_mod" value="<?=$mod['mod']?>">
             <input type="submit" value="Submit">&nbsp;<input type="button" value="Cancel" onclick="history.back()">
           </center>
         </div>
