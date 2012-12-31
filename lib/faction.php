@@ -179,8 +179,12 @@ switch ($action) {
   case 20: // Add faction mod
     check_authorization();
     $body = new Template("templates/faction/factionmod.add.tmpl.php");
+    $javascript = new Template("templates/faction/js.tmpl.php");
     $body->set('suggested_id', suggest_faction_mod_id());
     $body->set('faction_id', $fid);
+    $body->set('races', $races);
+    $body->set('classes', $classes);
+    $body->set('deities', $deities);
     $breadcrumbs .= " >> Add Faction Mod";
     break;
   case 21: // Insert faction mod
@@ -192,10 +196,16 @@ switch ($action) {
   case 22: // Edit faction mod
     check_authorization();
     $body = new Template("templates/faction/factionmod.edit.tmpl.php");
+    $javascript = new Template("templates/faction/js.tmpl.php");
     $mod_data = get_faction_mod($_GET['fmid']);
     if ($mod_data) {
       $body->set('mod', $mod_data);
+      $body->set('category', substr($mod_data['mod_name'],0,1));
+      $body->set('cat_index', substr($mod_data['mod_name'],1));
     }
+    $body->set('races', $races);
+    $body->set('classes', $classes);
+    $body->set('deities', $deities);
     $breadcrumbs .= " >> Edit Faction Mod";
     break;
   case 23: // Update faction mod
@@ -490,6 +500,30 @@ function npcs_using_faction($value) {
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
+}
+
+function deconstruct_mod($mod_name) {
+  global $races, $classes, $deities;
+  $category = substr($mod_name, 0, 1);
+  $cat_index = substr($mod_name, 1);
+  $mod_type = array();
+
+  switch ($category) {
+    case 'r':
+      $mod_type['category'] = 'Race';
+      $mod_type['name'] = $races[$cat_index];
+      break;
+    case 'c':
+      $mod_type['category'] = 'Class';
+      $mod_type['name'] = $classes[$cat_index];
+      break;
+    case 'd':
+      $mod_type['category'] = 'Deity';
+      $mod_type['name'] = $deities[$cat_index];
+      break;
+  }
+
+  return $mod_type;
 }
 
 ?>
