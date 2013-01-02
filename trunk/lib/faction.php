@@ -70,16 +70,14 @@ switch ($action) {
     delete_faction();
     header("Location: index.php?editor=faction");
     exit;
-  case 7:  // Get faction values
+  case 7: // ToDo: Copy faction
     check_authorization();
-    $body = new Template("templates/faction/faction.getvalues.tmpl.php");
-    $body->set('id', $fid);
+    $body = new Template("templates/faction/faction.default.tmpl.php");
     break;
-  case 8:  // Update faction values
+  case 8: // ToDo: Create faction copy
     check_authorization();
-    update_faction_values();
-    header("Location: index.php?editor=faction&fid=$fid");
-    exit;
+    $body = new Template("templates/faction/faction.default.tmpl.php");
+    break;
   case 9: // View Player Factions
     check_authorization();
     $breadcrumbs .= " >> Player Factions";

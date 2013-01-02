@@ -16,7 +16,6 @@
     <div class="edit_form_header" style="height: 16px; line-height: 16px;">
       <div style="float: right;">
 	    <a href="index.php?editor=faction&fid=<?=$faction_info['id']?>&action=16"><img src="images/view_all.gif" title="Search for NPCs using this faction" border="0" /></a>
-        <a href="index.php?editor=faction&fid=<?=$faction_info['id']?>&action=7"><img src="images/download.gif" title="Get Values" border="0" /></a>
       </div>
       Faction Data for <?=$faction_info['name']?> (<?=$faction_info['id']?>)
     </div>
