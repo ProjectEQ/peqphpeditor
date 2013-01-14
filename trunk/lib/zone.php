@@ -18,6 +18,15 @@ $blockedtype = array(
   2   => "Coords"
 );
 
+$zonetype = array(
+  0   => "Unknown",
+  1   => "Regular",
+  2   => "Instanced",
+  3   => "Hybrid",
+  4   => "Raid",
+  5   => "City"
+);
+
 switch ($action) {
   case 0:
     if (!$z) {
@@ -38,6 +47,7 @@ switch ($action) {
     $body->set("eqexpansions", $eqexpansions);
     $body->set("bindallowed", $bindallowed);
     $body->set("weathertype", $weathertype);
+    $body->set("zonetype", $zonetype);
     $body->set('global', get_isglobal());
     $zone = get_zone();
     if ($zone) {
@@ -56,6 +66,7 @@ switch ($action) {
     $body->set("eqexpansions", $eqexpansions);
     $body->set("bindallowed", $bindallowed);
     $body->set("weathertype", $weathertype);
+    $body->set("zonetype", $zonetype);
     $body->set('global', get_isglobal());
     $zone = get_zone();
     if ($zone) {
@@ -370,6 +381,7 @@ function update_zone () {
   if ($fog_density != $_POST['fog_density']) $fields .= "fog_density=\"" . $_POST['fog_density'] . "\", ";
   if ($expansion != $_POST['expansion']) $fields .= "expansion=\"" . $_POST['expansion'] . "\", ";  
   if ($suspendbuffs!= $_POST['suspendbuffs']) $fields .= "suspendbuffs=\"" . $_POST['suspendbuffs'] . "\", ";  
+  if ($type != $_POST['type']) $fields .= "type=\"" . $_POST['type'] . "\", ";  
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -629,8 +641,8 @@ function copy_zone() {
   $query = "DELETE FROM zone WHERE id=0";
   $mysql->query_no_result($query);
 
-  $query = "INSERT INTO zone (`short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `weather`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`) 
-            SELECT `short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `weather`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs` FROM zone where id=$zoneid";
+  $query = "INSERT INTO zone (`short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `weather`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `type`) 
+            SELECT `short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `weather`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `type` FROM zone where id=$zoneid";
   $mysql->query_no_result($query);
 
   $query = "SELECT MAX(id) as zid FROM zone";
