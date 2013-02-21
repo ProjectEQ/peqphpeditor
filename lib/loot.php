@@ -331,6 +331,16 @@ switch ($action) {
     move_multiplier();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
+  case 44:
+    check_authorization();
+    disable_lootdrop_item();
+    header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
+  case 45:
+    check_authorization();
+    enable_lootdrop_item();
+    header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
 }
 
 function loottable_info () {
@@ -610,6 +620,29 @@ function delete_lootdrop_item() {
 
 }
 
+function disable_lootdrop_item() {
+  check_authorization();
+  global $mysql;
+  $ldid = $_GET['ldid'];
+  $itemid = $_GET['itemid'];
+  $chance = $_GET['chance'];
+  
+  $query = "UPDATE lootdrop_entries SET disabled_chance = $chance, chance = 0 WHERE lootdrop_id='$ldid' AND item_id='$itemid'";
+  $mysql->query_no_result($query);
+
+}
+
+function enable_lootdrop_item() {
+  check_authorization();
+  global $mysql;
+  $ldid = $_GET['ldid'];
+  $itemid = $_GET['itemid'];
+  $dchance = $_GET['dchance'];
+  
+  $query = "UPDATE lootdrop_entries SET disabled_chance = 0, chance = $dchance WHERE lootdrop_id='$ldid' AND item_id='$itemid'";
+  $mysql->query_no_result($query);
+
+}
 function balance_drops () {
   check_authorization();
   global $mysql;
@@ -653,6 +686,9 @@ function add_lootdrop_item ($itemid) {
   check_authorization();
   global $mysql;
   $ldid = $_GET['ldid'];
+  $item_charges = $_POST['item_charges'];
+  $multiplier = $_POST['multiplier'];
+  $chance= $_POST['chance'];
   $eitem = 0;
 
   $query = "SELECT slots, augtype FROM items WHERE id=$itemid";
@@ -665,7 +701,7 @@ function add_lootdrop_item ($itemid) {
     $eitem = 1;
   }
 
-  $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$ldid, item_id=$itemid, equip_item=$eitem";
+  $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$ldid, item_id=$itemid, equip_item=$eitem, item_charges=$item_charges, multiplier=$multiplier, chance=$chance";
   $mysql->query_no_result($query);
   
 }

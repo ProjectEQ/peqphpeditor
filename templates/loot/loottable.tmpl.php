@@ -22,14 +22,18 @@
                <img src="images/minus2.gif" border=0 title="Drop this loottable">
           <a onClick="return confirm('Really Delete LootTable <?=$loottable_id?>?');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16&ltid=<?=$loottable_id?>"><img src="images/remove3.gif" border="0" title="Delete LootTable"></a>
         </div>
-        LootTable <?=$loottable_id?>: "<a href="index.php?editor=loot&action=1&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>"><?=$loottable_name?></a>"
+	<?php 
+	$new_loottable_name = substr($loottable_name, 0, 20); 
+	if ($new_loottable_name != $loottable_name) 
+		$new_loottable_name = "$new_loottable_name...";
+?>
+        LootTable <?=$loottable_id?>: "<a href="index.php?editor=loot&action=1&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>"><?=$new_loottable_name?></a>"
       </div>
       <div class="table_content">
         Cash loot [<a href="index.php?editor=loot&action=1&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">edit</a>]:<br>
       <div style="padding: 5px 0px 0px 20px;">
         Min Cash: <?=$mincash?><br>
         Max Cash: <?=$maxcash?><br>
-        Avg Coin: <?=$avgcoin?><br>
       </div>
 
       <div style="padding: 10px 0px 0px 0px;">
@@ -64,8 +68,13 @@
         </div>
 
             </td>
+<?php 
+	$newname = substr($lootdrop['name'], 0, 22); 
+	if ($newname != $lootdrop['name']) 
+		$newname = "$newname...";
+?>
             <td>
-              "<a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=3"><?=$lootdrop['name']?></a>"
+              "<a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=3"><?=$newname?></a>"
             </td>
             <td>
         Mindrop: <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ltid=<?=$loottable_id?>&ldid=<?=$lootdrop['id']?>&action=7"><?=$lootdrop['mindrop']?></a>
@@ -95,14 +104,14 @@
 <?php if(isset($lootdrop['items']) && $lootdrop['items']): $x=0;?>
         <tr>
           <th align="center" width="8%">Item ID</th>
-          <th align="center" width="38%">Item Name</th>
+          <th align="center" width="35%">Item Name</th>
           <th align="center" width="8%">Equipped?</th>
           <th align="center" width="8%">Charges</th>
 	   <th align="center" width="8%">MinLevel</th>
 	   <th align="center" width="8%">MaxLevel</th>
 	   <th align="center" width="8%">Multiplier</th>
           <th align="center" width="8%">Chance</th>
-          <th width="5%"></th>
+          <th width="13%"></th>
         </tr>
 <?php foreach ($lootdrop['items'] as $item): extract($item);
       $total = (($chance/100) * ($lootdrop['probability']/100)) * 100;
@@ -137,8 +146,14 @@
 	   </td>
           <td align="right">
             <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=5"><img src="images/edit2.gif" border="0" title="Edit Lootdrop Item"></a>
-            <a onClick="return confirm('Really remove item <?=$item_id?> from LootDrop <?=$lootdrop['id']?>?');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=17"><img src="images/remove3.gif" border="0" title="Remove Item"></a>
-          </td>
+	   <?php if($disabled_chance == 0 && $chance > 0):?>  
+	     <a <?=$lootdrop['id']?>?');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&chance=<?=$chance?>&action=44"><img src="images/downgrade.gif" border="0" title="Disable Item"></a>
+	   <?php endif;?>
+	     <?php if($disabled_chance > 0):?>  
+	     <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&dchance=<?=$disabled_chance?>&action=45"><img src="images/upgrade.gif" border="0" title="Enable Item"></a>
+	   <?php endif;?>
+            <a onClick="return confirm('Really remove item <?=$item_id?> from LootDrop <?=$lootdrop['id']?>?');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=17"><img src="images/remove3.gif" border="0" title="Remove Item"></a>         
+	 </td>
           <td>&nbsp;</td>
         </tr>
 <?php $x++; endforeach;?>
