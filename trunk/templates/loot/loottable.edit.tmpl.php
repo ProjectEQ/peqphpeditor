@@ -13,10 +13,9 @@
             <input class="indented" type="text" name="mincash" size="5" value="<?=$mincash?>"><br><br>
             <strong>Max. Cash:</strong><br>
             <input class="indented" type="text" name="maxcash" size="5" value="<?=$maxcash?>"><br><br>
-            <strong>Avg. Coin:</strong><br>
-            <input class="indented" type="text" name="avgcoin" size="5" value="<?=$avgcoin?>"><br><br>
             <center>
               <input type="hidden" name="loottable_id" value="<?=$loottable_id?>">
+		<input type="hidden" name="avgcoin" value="0">
               <input type="submit" name="submit" value="Submit Changes">
             </center>
           </form>

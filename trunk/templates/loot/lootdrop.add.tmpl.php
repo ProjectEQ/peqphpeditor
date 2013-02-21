@@ -17,7 +17,9 @@
               Droplimit: <br>
               <input type="text" name="droplimit" size="25" value="0"><br><br>
               Multiplier: <br>
-              <input type="text" name="multiplier" size="25" value="0"><br><br>
+              <input type="text" name="multiplier" size="25" value="1"><br><br>
+		Probability: <br>
+              <input type="text" name="probability" size="25" value="100"><br><br>
               <center>
                 <input type="submit" name="submit" value="Submit Changes">
               </center>

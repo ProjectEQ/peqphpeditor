@@ -15,9 +15,8 @@
               <input type="text" name="mincash" size="25" value="0"><br><br>
               Max. Cash: <br>
               <input type="text" name="maxcash" size="25" value="0"><br><br>
-              Avg. Coin: <br>
-              <input type="text" name="avgcoin" size="25" value="0"><br><br>
               <center>
+		  <input type="hidden" name="avgcoin" value="0">
                 <input type="submit" name="submit" value="Submit Changes">
               </center>
             </form>

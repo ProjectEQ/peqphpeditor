@@ -1,4 +1,4 @@
-      <div class="table_container" style="width: 200px">
+      <div class="table_container" style="width: 400px">
       <div class="table_header">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
@@ -13,13 +13,13 @@
 <?if ($ldrop != ''):?>
              <tr>
           <td align="center" width="5%"><strong>ID</strong></td>
-          <td align="center" width="5%"><strong>Name</strong></td>
+          <td align="center" width="50%"><strong>Name</strong></td>
           <th width="5%"></th>
          </tr>
   <?foreach($ldrop as $ldrop):?>
             <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
             <td align="center" width="5%"> <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$ldrop['npcid']?>"> <?=$ldrop['loottid']?></td>
-            <td align="center" width="5%"><?=$ldrop['loottname']?></td>
+            <td align="center" width="50%"><?=$ldrop['loottname']?></td>
            </tr>
  <?endforeach;?>
        </table>
