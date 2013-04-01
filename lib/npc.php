@@ -1152,6 +1152,7 @@ function update_npc () {
   if (!isset($_POST['private_corpse'])) $_POST['private_corpse'] = 0;
   if (!isset($_POST['unique_spawn_by_name'])) $_POST['unique_spawn_by_name'] = 0;
   if (!isset($_POST['underwater'])) $_POST['underwater'] = 0;
+  if (!isset($_POST['isquest'])) $_POST['isquest'] = 0;
 
   // Check for special attacks change
   $new_specialattks = '';
@@ -1247,6 +1248,7 @@ function update_npc () {
   if ($emoteid != $_POST['emoteid']) $fields .= "emoteid=\"" . $_POST['emoteid'] . "\", ";
   if ($spellscale != $_POST['spellscale']) $fields .= "spellscale=\"" . $_POST['spellscale'] . "\", ";
   if ($healscale != $_POST['healscale']) $fields .= "healscale=\"" . $_POST['healscale'] . "\", ";
+  if ($isquest != $_POST['isquest']) $fields .= "isquest=\"" . $_POST['isquest'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -1267,6 +1269,7 @@ function add_npc () {
   if ($_POST['private_corpse'] != 1) $_POST['private_corpse'] = 0;
   if ($_POST['unique_spawn_by_name'] != 1) $_POST['unique_spawn_by_name'] = 0;
   if ($_POST['underwater'] != 1) $_POST['underwater'] = 0;
+  if ($_POST['isquest'] != 1) $_POST['isquest'] = 0;
 
   foreach ($specialattacks as $k => $v) {
     if (isset($_POST["$k"])) $npcspecialattks .= $_POST["$k"];
@@ -1351,7 +1354,8 @@ function add_npc () {
   $fields .= "underwater=\"" . $_POST['underwater'] . "\", ";
   $fields .= "emoteid=\"" . $_POST['emoteid'] . "\", ";
   $fields .= "spellscale=\"" . $_POST['spellscale'] . "\", ";
-  $fields .= "healscale=\"" . $_POST['healscale'] . "\"";
+  $fields .= "healscale=\"" . $_POST['healscale'] . "\", ";
+  $fields .= "isquest=\"" . $_POST['isquest'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1446,6 +1450,7 @@ $fields .= "underwater=\"" . $_POST['underwater'] . "\", ";
 $fields .= "emoteid=\"" . $_POST['emoteid'] . "\", ";
 $fields .= "spellscale=\"" . $_POST['spellscale'] . "\", ";
 $fields .= "healscale=\"" . $_POST['healscale'] . "\", ";
+$fields .= "isquest=\"" . $_POST['isquest'] . "\", ";
 $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
