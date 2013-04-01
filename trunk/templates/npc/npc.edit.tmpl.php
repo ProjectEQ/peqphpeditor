@@ -273,6 +273,7 @@
                 <td valign="top" align="left">
                   <input type="checkbox" name="underwater" value="1"<?echo ($underwater == 1) ? " checked" : "";?>> Underwater NPC<br>
                   <input type="checkbox" name="o" value="o"<?echo (strpos($npcspecialattks,"o") === false) ? "" : " checked"?>> Destructible Object<br>
+                  <input type="checkbox" name="isquest" value="1"<?echo ($isquest == 1) ? " checked" : "";?>> Has Quest File<br/>
                 </td>
               </tr>
             </table>

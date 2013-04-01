@@ -267,6 +267,7 @@
                 <td valign="top" align="left">
                   <input type="checkbox" name="underwater" value="1"/> Underwater NPC<br>
                   <input type="checkbox" name="o" value="o"/> Destructible Object<br/>
+                  <input type="checkbox" name="isquest" value="1"> Has Quest File<br/>
                 </td>
               </tr>
             </table>
