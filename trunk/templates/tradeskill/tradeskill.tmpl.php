@@ -103,11 +103,14 @@
               <td width="15%">
                 [<a href="http://lucy.allakhazam.com/item.html?id=<?=$item_id?>">Lucy</a>]
               </td>
-              <td align="center" width="15%">
+              <td align="center" width="10%">
                 Qty: <?=$componentcount?>
               </td>
-              <td align="center" width="15%">
+              <td align="center" width="10%">
                 Returned: <?=$failcount?>
+              </td>
+              <td align="center" width="10%">
+               Salvage: <?=$salvagecount?>
               </td>
               <td align="right" width="15%">
                 <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&id=<?=$id?>&action=5"><img src="images/edit2.gif" border="0" title="Edit this component"></a>&nbsp;
