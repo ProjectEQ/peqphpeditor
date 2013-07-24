@@ -13,7 +13,7 @@
       <div class="table_header">
         <div style="float:right">
           <a onClick="document.getElementById('sql_block').style.display='block';"><img src="images/sql.gif" border="0" title="Show SQL"></a>
-          
+
           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=42"><img src="images/add.gif" border="0" title="Add an NPC"></a>
           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" border="0" title="Edit this NPC"></a>
           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=43"><img src="images/upgrade.gif" border="0" title="Change NPC's Level"></a>
@@ -177,7 +177,18 @@
                   <tr>
                     <td align="left" width="33%">Aggro: <?=$aggroradius?></td>
                     <td align="left" width="33%">Atk Speed: <?=$attack_speed?>%</td>
-                    <td align="left" width="34%">Special Atks: <?echo ($npcspecialattks) ? $npcspecialattks : "None";?></td>
+		      <?
+			$new_special_abilities = '';
+		    for ($i = 1; $i <= 35; $i++){
+			if (preg_match("/^$i,/", $special_abilities, $match) == 1 || preg_match("/\^$i,/", $special_abilities, $match) == 1){
+				$match[0] = ltrim($match[0], "^");
+				$new_special_abilities .= $match[0];
+			}
+		    }
+		    $new_special_abilities = rtrim($new_special_abilities, ",");
+		    ?>
+
+                    <td align="left" width="34%">Special Atks: <?echo ($new_special_abilities) ? $new_special_abilities : "None";?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Slow Mit: <?=$slow_mitigation?> (<?=$slotmit?>%)</td>
@@ -197,7 +208,7 @@
                   <tr>
                     <td align="left" width="33%">Gender: <?echo "<a title='Gender: " . $gender . "'>" . $genders[$gender] . "</a>";?></td>
                     <td align="left" width="33%">Size: <?=$size?></td>
-                    <td align="left" width="34%">Texture: <?=$texture?></td> 
+                    <td align="left" width="34%">Texture: <?=$texture?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Face: <?=$face?></td>
@@ -327,7 +338,7 @@
         <input type="hidden" name="adventure_template_id" value="<?=$adventure_template_id?>">
         <input type="hidden" name="trap_template" value="<?=$trap_template?>">
         <input type="hidden" name="armortint_id" value="<?=$armortint_id?>">
-        <input type="hidden" name="npcspecialattks" value="<?=$npcspecialattks?>">
+        <input type="hidden" name="special_abilities" value="<?=$special_abilities?>">
         <input type="hidden" name="slow_mitigation" value="<?=$slow_mitigation?>">
         <input type="hidden" name="maxlevel" value="<?=$maxlevel?>">
         <input type="hidden" name="scalerate" value="<?=$scalerate?>">

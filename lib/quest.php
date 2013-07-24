@@ -31,6 +31,13 @@ function find_perl_script() {
   $zonepath = "$quest_path/$zone";
   $temppath = "$quest_path/templates";
 
+  $LuafullpathID = "$zonepath/$npcid.lua";
+  $LuafullpathName = "$zonepath/$npcname.lua";
+  $LuafulltempID = "$temppath/$npcid.lua";
+  $LuafulltempName = "$temppath/$npcname.lua";
+  $Luafullzonedefault = "$zonepath/default.lua";
+  $Luafulldefault = "$quest_path/default.lua";
+
   $fullpathID = "$zonepath/$npcid.pl";
   $fullpathName = "$zonepath/$npcname.pl";
   $fulltempID = "$temppath/$npcid.pl";
@@ -38,7 +45,19 @@ function find_perl_script() {
   $fullzonedefault = "$zonepath/default.pl";
   $fulldefault = "$quest_path/default.pl";
 
-  if(file_exists($fullpathID))
+  if(file_exists($LuafullpathID))
+  	$path = $LuafullpathID;
+  else if(file_exists($LuafullpathName))
+	$path = $LuafullpathName;
+  else if(file_exists($LuafulltempID))
+	$path = $LuafulltempID;
+  else if(file_exists($LuafulltempName))
+	$path = $LuafulltempName;
+  else if(file_exists(fullzonedefault))
+	$path = fullzonedefault;
+  else if(file_exists($Luafulldefault))
+	$path = $Luafulldefault;
+  else if(file_exists($fullpathID))
   	$path = $fullpathID;
   else if(file_exists($fullpathName))
 	$path = $fullpathName;
@@ -52,10 +71,16 @@ function find_perl_script() {
 	$path = $fulldefault;
   else{
 	if($zone == '')
-		$path = $fulltempName;
+		$path = $LuafulltempName;
 	else
-		$path = $fullpathName;
+		$path = $LuafullpathName;
   }
+  // else{
+  //	if($zone == '')
+  //		$path = $fulltempName;
+  //	else
+  //		$path = $fullpathName;
+  //}
 
   return $path;
 }
@@ -78,12 +103,17 @@ function MarkQuestNPC() {
   	$zonepath = "$quest_path/$zone";
   	$temppath = "$quest_path/templates";
 
+	$LuafullpathID = "$zonepath/$npcid.lua";
+  	$LuafullpathName = "$zonepath/$npcname.lua";
+  	$LuafulltempID = "$temppath/$npcid.lua";
+  	$LuafulltempName = "$temppath/$npcname.lua";
+
   	$fullpathID = "$zonepath/$npcid.pl";
   	$fullpathName = "$zonepath/$npcname.pl";
   	$fulltempID = "$temppath/$npcid.pl";
   	$fulltempName = "$temppath/$npcname.pl";
 
-  	if(file_exists($fullpathID) || file_exists($fullpathName) || file_exists($fulltempID) || file_exists($fulltempName)){
+  	if(file_exists($LuafullpathID) || file_exists($LuafullpathName) || file_exists($LuafulltempID) || file_exists($LuafulltempName) || file_exists($fullpathID) || file_exists($fullpathName) || file_exists($fulltempID) || file_exists($fulltempName)){
 
 		$query = "UPDATE npc_types SET isquest = 1 WHERE id=$npcid";
   		$mysql->query_no_result($query);
