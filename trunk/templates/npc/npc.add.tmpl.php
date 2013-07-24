@@ -146,45 +146,45 @@
             <table cellpadding="20px">
               <tr>
                 <td valign="top" align="left">
-                  <input type="checkbox" name="S" value="S"/> Summon<br/>
-                  <input type="checkbox" name="E" value="E"/> Enrage<br/>
-                  <input type="checkbox" name="R" value="R"/> Rampage<br/>
-                  <input type="checkbox" name="r" value="r"/> AE Rampage<br/>
-                  <input type="checkbox" name="F" value="F"/> Flurry<br/>
-                  <input type="checkbox" name="T" value="T"/> Triple Attack<br/>
-                  <input type="checkbox" name="Q" value="Q"/> Quad Attack<br/>
-                  <input type="checkbox" name="m" value="m"/> Magic Attack<br/>
-                  <input type="checkbox" name="b" value="b"/> Bane Attack<br/>
-                  <input type="checkbox" name="L" value="L"/> Dual Wield<br/>
-                  <input type="checkbox" name="Y" value="Y"/> Ranged Attack<br/>
+		    Summon (1): <br><input type="text" name="1" size="10"><br>
+		    Enrage (2):  <br><input type="text" name="2" size="10"><br>
+		    Rampage (3):  <br><input type="text" name="3" size="10"><br>
+		    AE Rampage (4):  <br><input type="text" name="4" size="10"><br>
+		    Flurry (5):  <br><input type="text" name="5" size="10"><br>
+		    Tunnel Vision (29): <br><input type="text" name="29" size="10"><br>
+		    Leashed (32): <br><input type="text" name="32" size="10"><br>
+		    Tethered (33): <br><input type="text" name="33" size="10"><br>
+		   </td>
+		    <td valign="top" align="left">
+                  <input type="checkbox" name="6" value="6,1^"/>  Triple Attack<br>
+                  <input type="checkbox" name="7" value="7,1^"/>  Quad Attack<br>
+                  <input type="checkbox" name="10" value="10,1^"/>  Magic Attack<br>
+                  <input type="checkbox" name="9" value="9,1^"/>  Bane Attack<br>
+                  <input type="checkbox" name="8" value="8,1^"/>  Dual Wield<br>
+                  <input type="checkbox" name="11" value="11,1^"/>  Ranged Attack<br>
+                  <input type="checkbox" name="12" value="12,1^"/>  Unslowable<br>
+                  <input type="checkbox" name="13" value="13,1^"/>  Unmezable<br>
+                  <input type="checkbox" name="14" value="14,1^"/>  Uncharmable<br>
+                  <input type="checkbox" name="15" value="15,1^"/>  Unstunable<br>
+                  <input type="checkbox" name="16" value="16,1^"/>  Unsnareable<br>
+                  <input type="checkbox" name="17" value="17,1^"/>  Unfearable<br>
+                  <input type="checkbox" name="31" value="31,1^"/>  Unpacifiable<br>
+                  <input type="checkbox" name="18" value="18,1^"/>  Immune to Dispell<br>
+                  <input type="checkbox" name="35" value="35,1^"/>  No Harm from Players<br>
                 </td>
                 <td valign="top" align="left">
-                  <input type="checkbox" name="U" value="U"/> Unslowable<br/>
-                  <input type="checkbox" name="M" value="M"/> Unmezable<br/>
-                  <input type="checkbox" name="C" value="C"/> Uncharmable<br/>
-                  <input type="checkbox" name="N" value="N"/> Unstunable<br/>
-                  <input type="checkbox" name="I" value="I"/> Unsnareable<br/>
-                  <input type="checkbox" name="D" value="D"/> Unfearable<br/>
-                  <input type="checkbox" name="p" value="p"/> Unpacifiable<br/>
-                  <input type="checkbox" name="K" value="K"/> Immune to Dispell<br/>
-                  <input type="checkbox" name="Z" value="Z"/> No Harm from Players<br/>
-                  <input type="checkbox" name="g" value="g"/> Resist Ranged Spells<br/>
-                  <input type="checkbox" name="t" value="t"/> Tunnel Vision<br/>
-                  <input type="checkbox" name="i" value="i"/> Immune to Taunt<br/>
-                </td>
-                <td valign="top" align="left">
-                  <input type="checkbox" name="A" value="A"/> Immune to Melee<br/>
-                  <input type="checkbox" name="B" value="B"/> Immune to Magic<br/>
-                  <input type="checkbox" name="f" value="f"/> Immune to Fleeing<br/>
-                  <input type="checkbox" name="W" value="W"/> Immune to non-Magical Melee<br/>
-                  <input type="checkbox" name="O" value="O"/> Immune to non-Bane Melee<br/>
-                  <input type="checkbox" name="H" value="H"/> Will Not Aggro<br/>
-                  <input type="checkbox" name="G" value="G"/> Immune to Aggro<br/>
-                  <input type="checkbox" name="d" value="d"/> See through Feign Death<br/>
-                  <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>/> Can Aggro NPCs<br/>
-                  <input type="checkbox" name="n" value="n"> Does NOT buff/heal friends<br/>
-                  <input type="checkbox" name="j" value="j" onClick="sanityCheck();"/> Tethered<br/>
-                  <input type="checkbox" name="J" value="J" onClick="sanityCheck();"/> Leashed<br/>
+		    <input type="checkbox" name="26" value="26,1^"/>  Resist Ranged Spells<br>
+                  <input type="checkbox" name="28" value="28,1^"/>  Immune to Taunt<br>
+                  <input type="checkbox" name="19" value="19,1^"/>  Immune to Melee<br>
+                  <input type="checkbox" name="20" value="20,1^"/>  Immune to Magic<br>
+                  <input type="checkbox" name="21" value="21,1^"/>  Immune to Fleeing<br>
+                  <input type="checkbox" name="23" value="23,1^"/>  Immune to non-Magical Melee<br>
+                  <input type="checkbox" name="22" value="22,1^"/>  Immune to non-Bane Melee<br>
+                  <input type="checkbox" name="24" value="24,1^"/>  Will Not Aggro<br>
+                  <input type="checkbox" name="25" value="25,1^"/>  Immune to Aggro<br>
+                  <input type="checkbox" name="27" value="27,1^"/>  See through Feign Death<br>
+                  <input type="checkbox" name="npc_aggro" value="1"/> Can Aggro NPCs<br>
+                  <input type="checkbox" name="30" value="30,1^"/>  Does NOT buff/heal friends<br>
                 </td>
               </tr>
             </table>
@@ -266,7 +266,7 @@
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="underwater" value="1"/> Underwater NPC<br>
-                  <input type="checkbox" name="o" value="o"/> Destructible Object<br/>
+                  <input type="checkbox" name="34" value="34,1"/> Destructible Object<br/>
                   <input type="checkbox" name="isquest" value="1"> Has Quest File<br/>
                 </td>
               </tr>

@@ -1159,10 +1159,11 @@ function update_npc () {
   $flag = 0;
   foreach ($specialattacks as $k=>$v) {
     if (isset($_POST["$k"])) {
+      if(SUBSTR($_POST["$k"], -1) != '^' && $_POST["$k"] != ''){$_POST["$k"].= '^';}
       $new_specialattks .= $_POST["$k"];
     }
   }
-  if ($npcspecialattks != $new_specialattks) {
+  if ($special_abilities != $new_specialattks) {
     $flag = 1;
   }
 
@@ -1189,7 +1190,7 @@ function update_npc () {
   if ($mindmg != $_POST['mindmg']) $fields .= "mindmg=\"" . $_POST['mindmg'] . "\", ";
   if ($maxdmg != $_POST['maxdmg']) $fields .= "maxdmg=\"" . $_POST['maxdmg'] . "\", ";
   if ($attack_count != $_POST['attack_count']) $fields .= "attack_count=\"" . $_POST['attack_count'] . "\", ";
-  if ($flag == 1) $fields .= "npcspecialattks=\"$new_specialattks\", ";
+  if ($flag == 1) $fields .= "special_abilities=\"$new_specialattks\", ";
   if ($aggroradius != $_POST['aggroradius']) $fields .= "aggroradius=\"" . $_POST['aggroradius'] . "\", ";
   if ($face != $_POST['face']) $fields .= "face=\"" . $_POST['face'] . "\", ";
   if ($luclin_hairstyle != $_POST['luclin_hairstyle']) $fields .= "luclin_hairstyle=\"" . $_POST['luclin_hairstyle'] . "\", ";
@@ -1253,7 +1254,9 @@ function update_npc () {
 
   if ($fields != '') {
     $query = "UPDATE npc_types SET $fields WHERE id=$npcid";
-    $mysql->query_no_result($query);
+    $query2 = "UPDATE npc_types SET special_abilities = TRIM(TRAILING '^' FROM special_abilities)";
+     $mysql->query_no_result($query);
+     $mysql->query_no_result($query2);
   }
 }
 
@@ -1272,7 +1275,10 @@ function add_npc () {
   if ($_POST['isquest'] != 1) $_POST['isquest'] = 0;
 
   foreach ($specialattacks as $k => $v) {
-    if (isset($_POST["$k"])) $npcspecialattks .= $_POST["$k"];
+    if (isset($_POST["$k"])) {
+	if(SUBSTR($_POST["$k"], -1) != '^' && $_POST["$k"] != ''){$_POST["$k"].= '^';}
+	$special_abilities .= $_POST["$k"];
+    }
   }
 
   $fields = "id=\"" . $_POST['id']. "\", ";
@@ -1296,7 +1302,7 @@ function add_npc () {
   $fields .= "mindmg=\"" . $_POST['mindmg'] . "\", ";
   $fields .= "maxdmg=\"" . $_POST['maxdmg'] . "\", ";
   $fields .= "attack_count=\"" . $_POST['attack_count'] . "\", ";
-  $fields .= "npcspecialattks=\"$npcspecialattks\", ";
+  $fields .= "special_abilities=\"$special_abilities\", ";
   $fields .= "aggroradius=\"" . $_POST['aggroradius'] . "\", ";
   $fields .= "face=\"" . $_POST['face'] . "\", ";
   $fields .= "luclin_hairstyle=\"" . $_POST['luclin_hairstyle'] . "\", ";
@@ -1359,7 +1365,9 @@ function add_npc () {
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
-    $mysql->query_no_result($query);
+    $query2 = "UPDATE npc_types SET special_abilities = TRIM(TRAILING '^' FROM special_abilities)";
+     $mysql->query_no_result($query);
+     $mysql->query_no_result($query2);
   }
 }
 
@@ -1390,7 +1398,7 @@ $fields .= "npc_faction_id=\"" . $_POST['npc_faction_id'] . "\", ";
 $fields .= "mindmg=\"" . $_POST['mindmg'] . "\", ";
 $fields .= "maxdmg=\"" . $_POST['maxdmg'] . "\", ";
 $fields .= "attack_count=\"" . $_POST['attack_count'] . "\", ";
-$fields .= "npcspecialattks=\"" . $_POST['npcspecialattks'] . "\", ";
+$fields .= "special_abilities=\"" . $_POST['special_abilities'] . "\", ";
 $fields .= "aggroradius=\"" . $_POST['aggroradius'] . "\", ";
 $fields .= "face=\"" . $_POST['face'] . "\", ";
 $fields .= "luclin_hairstyle=\"" . $_POST['luclin_hairstyle'] . "\", ";
@@ -1455,7 +1463,9 @@ $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
-    $mysql->query_no_result($query);
+    $query2 = "UPDATE npc_types SET special_abilities = TRIM(TRAILING '^' FROM special_abilities)";
+     $mysql->query_no_result($query);
+     $mysql->query_no_result($query2);
   }
 }
 
