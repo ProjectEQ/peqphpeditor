@@ -802,7 +802,8 @@ $sp_effects = array(
     379 => "Shadow Step Directional",
     380 => "Knockdown",
     382 => "Block Damage Shield",
-    383 => "Leap"
+    383 => "Decrease Hitpoints",
+    384 => "Leap"
 );
 
 $sp_fields = array(
