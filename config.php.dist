@@ -5,6 +5,7 @@ $dbhost = 'localhost';
 $dbuser = 'username';
 $dbpass = 'password';
 $db = 'database_name';
+$mysql_class = 'mysql'; // Use mysql or mysqli
 
 /*  Limit zone lists to a specified expansion
  *  (i.e. setting $expansion_limit to 2 would cause only Classic and Kunark zones
