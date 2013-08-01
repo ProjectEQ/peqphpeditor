@@ -341,6 +341,30 @@ switch ($action) {
     enable_lootdrop_item();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
+  case 46:  // Magelo import
+    check_authorization();
+    magelo_import();
+    header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
+  case 47:  //Move Lootdrop Item page
+    check_authorization();
+    $body = new Template("templates/loot/lootdrop.move.item.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('ldid', $_GET['ldid']);
+    $body->set('itemid', $_GET['itemid']);
+    $body->set('ldname', getLootdropName($_GET['ldid']));
+    $vars = lootdrop_info();
+    foreach ($vars as $key=>$value) {
+      $body->set($key, $value);
+    }
+    break;
+  case 48:  // Move lootdrop item
+    check_authorization();
+    move_copy_lootdrop_item();
+    header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
 }
 
 function loottable_info () {
@@ -858,6 +882,41 @@ function move_multiplier() {
 
   $query = "UPDATE loottable_entries set multiplier = 1 WHERE lootdrop_id = $ldid";
   $mysql->query_no_result($query);
+}
+
+function magelo_import() {
+  check_authorization();
+  global $mysql, $npcid, $perl_path;
+
+   $output = array();
+   $output = exec("perl $perl_path/Loot.pl $npcid 2>&1");
+   logPerl($output);
+  
+}
+function move_copy_lootdrop_item() {
+  check_authorization();
+  global $mysql;
+  $ldid = $_GET['ldid'];
+  $itemid = $_GET['itemid'];
+  $equip = $_POST['equip_item'];
+  $charges = $_POST['charges'];
+  $chance = $_POST['chance'];
+  $minlevel = $_POST['minlevel'];
+  $maxlevel = $_POST['maxlevel'];
+  $multiplier = $_POST['multiplier'];
+  $new_ldid = $_POST['movetolootdrop'];
+  $move_copy_item = $_POST['move_copy_item'];
+  if ($move_copy_item == 0) {
+    $query1 = "DELETE FROM lootdrop_entries WHERE lootdrop_id='$ldid' AND item_id='$itemid'";
+    $mysql->query_no_result($query1);
+    
+    $query2 = "INSERT INTO lootdrop_entries SET lootdrop_id=$new_ldid, item_id=$itemid, equip_item=$equip, item_charges=$charges, chance=$chance, minlevel=$minlevel, maxlevel=$maxlevel, multiplier=$multiplier";
+    $mysql->query_no_result($query2);
+  }
+  if ($move_copy_item == 1) {
+    $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$new_ldid, item_id=$itemid, equip_item=$equip, item_charges=$charges, chance=$chance, minlevel=$minlevel, maxlevel=$maxlevel, multiplier=$multiplier";
+    $mysql->query_no_result($query);
+  }
 }
 
 ?>
