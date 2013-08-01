@@ -9,7 +9,8 @@
       <div class="table_content">
         <center>
           No Valid Loottable currently assigned.<br><br>
-          <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=11">Click here to change</a>
+          <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=11">Click here to change</a><br>
+          <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=46">Click here to import loot from Magelo</a>
         </center>
       </div>
 <?} else {?>
@@ -23,7 +24,7 @@
           <a onClick="return confirm('Really Delete LootTable <?=$loottable_id?>?');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16&ltid=<?=$loottable_id?>"><img src="images/remove3.gif" border="0" title="Delete LootTable"></a>
         </div>
 	<?php 
-	$new_loottable_name = substr($loottable_name, 0, 20); 
+	$new_loottable_name = substr($loottable_name, 0, 18); 
 	if ($new_loottable_name != $loottable_name) 
 		$new_loottable_name = "$new_loottable_name...";
 ?>
@@ -51,6 +52,9 @@
         <div style="padding: 5px 0px 0px 0px;">
             LootDrops associated with this LootTable: <?=$lootdrop_count?> <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=22&ltid=<?=$loottable_id?>"><img src="images/add.gif" border="0" title="Add a LootDrop to this LootTable"></a>
         </div>
+	 <div style="padding: 10px 0px 0px 0px;">
+      <center><a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=46">Click here to import loot from Magelo</a></center>
+	 </div>
         </div>
       </div>
 
@@ -104,11 +108,11 @@
 <?php if(isset($lootdrop['items']) && $lootdrop['items']): $x=0;?>
         <tr>
           <th align="center" width="8%">Item ID</th>
-          <th align="center" width="35%">Item Name</th>
-          <th align="center" width="8%">Equipped?</th>
-          <th align="center" width="8%">Charges</th>
-	   <th align="center" width="8%">MinLevel</th>
-	   <th align="center" width="8%">MaxLevel</th>
+          <th align="center" width="36%">Item Name</th>
+          <th align="center" width="7%">Equipped?</th>
+          <th align="center" width="7%">Charges</th>
+	   <th align="center" width="7%">MinLevel</th>
+	   <th align="center" width="7%">MaxLevel</th>
 	   <th align="center" width="8%">Multiplier</th>
           <th align="center" width="8%">Chance</th>
           <th width="13%"></th>
@@ -145,6 +149,7 @@
 	     <?=$chance?>%
 	   </td>
           <td align="right">
+	     <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=47"><img src="images/minus.gif" border="0" title="Move Lootdrop Item"></a>
             <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=5"><img src="images/edit2.gif" border="0" title="Edit Lootdrop Item"></a>
 	   <?php if($disabled_chance == 0 && $chance > 0):?>  
 	     <a <?=$lootdrop['id']?>?');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&chance=<?=$chance?>&action=44"><img src="images/downgrade.gif" border="0" title="Disable Item"></a>
