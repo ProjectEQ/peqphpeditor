@@ -1,4 +1,4 @@
- 	 <center>
+    <center>
         <br><br><br>
         <h1>Project Everquest Database Editing Interface</h1>
         <br><br>
@@ -26,17 +26,17 @@
               <input type="password" name="password" value="<?=$password?>">
             </td>
           </tr>
-		<tr>
+    <tr>
             <td colspan="2" align="center">
               <br><br><input type="submit" value="Login" style="width:60px;"><br><br><br>
 <?endif;?>
 
 <?if($enable_user_login != 1):?>
-     		User logins are disabled.<br><br>
-		<tr>
-            	<td colspan="2" align="center">
+         User logins are disabled.<br><br>
+    <tr>
+              <td colspan="2" align="center">
 <?endif;?>
-		
+    
 <?if($enable_guest_mode == 1):?>
               <a href="index.php?login=guest">Click here to login as a guest.</a>
 <?endif;?>

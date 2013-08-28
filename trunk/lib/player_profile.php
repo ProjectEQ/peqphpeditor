@@ -1,4 +1,31 @@
 <?php
+
+/*
+Player profile pack/unpack format specifiers:
+ a - NUL-padded string
+ A - SPACE-padded string
+ h - Hex string, low nibble first
+ H - Hex string, high nibble first
+ c - signed char
+ C - unsigned char
+ s - signed short (always 16 bit, machine byte order)
+ S - unsigned short (always 16 bit, machine byte order)
+ n - unsigned short (always 16 bit, big endian byte order)
+ v - unsigned short (always 16 bit, little endian byte order)
+ i - signed integer (machine dependent size and byte order)
+ I - unsigned integer (machine dependent size and byte order)
+ l - signed long (always 32 bit, machine byte order)
+ L - unsigned long (always 32 bit, machine byte order)
+ N - unsigned long (always 32 bit, big endian byte order)
+ V - unsigned long (always 32 bit, little endian byte order)
+ f - float (machine dependent size and representation)
+ d - double (machine dependent size and representation)
+ x - NUL byte
+ X - Back up one byte
+ Z - NUL-padded string
+ @ - NUL-fill to absolute position 
+*/
+
 function getPPFormat() {
   $fmt =  "Lchecksum/";
   $fmt .= "a64name/";
