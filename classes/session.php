@@ -2,7 +2,7 @@
 
 class session {
 
-  function start() {
+  public static function start() {
     session_start();
   }
   
@@ -28,7 +28,7 @@ class session {
     }
   }
   
-  function logged_in() {
+  public static function logged_in() {
     global $mysql;
 
     if (isset($_SESSION['guest']) && $_SESSION['guest'] == 1) return true;
@@ -52,7 +52,7 @@ class session {
     else return false;
   }
 
-  function check_authorization() {
+  public static function check_authorization() {
     global $mysql;
     
     if (isset($_SESSION['guest']) && $_SESSION['guest'] == 1) return false;
@@ -76,7 +76,7 @@ class session {
     else return false;
   }
 
-  function is_admin() {
+  public static function is_admin() {
     global $mysql;
     
     if (isset($_SESSION['guest']) && $_SESSION['guest'] == 1) return false;

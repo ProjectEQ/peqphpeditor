@@ -1,8 +1,8 @@
 body, html {
-	margin: 0;
-	padding: 0;
-	font-family: Verdana,Arial,Helvetica,sans-serif;
-	background: #BACCE1;
+  margin: 0;
+  padding: 0;
+  font-family: Verdana,Arial,Helvetica,sans-serif;
+  background: #BACCE1;
 }
 
 a:link, a:visited, a:active {
@@ -45,88 +45,89 @@ table {
   padding-bottom: 20px;
   min-height: 100%;
   margin: auto;
-	width: 757px;
+  width: 767px;
 }
 
 #header {
-	width: 757px;
+  width: 767px;
+  text-align: center;
 }
 
 #menubar {
   position: relative;
-	margin-top: 5px;
-	display: block;
-	float: left;
-	padding: 3px 0 0 10px;
-	text-align: left;
-	font-size: 12px;
-	color: #000;
-	z-index: 2;
+  margin-top: 5px;
+  display: block;
+  float: left;
+  padding: 3px 0 0 10px;
+  text-align: left;
+  font-size: 12px;
+  color: #000;
+  z-index: 2;
 }
 
 #menubar a:link, #menubar a:active, #menubar a:hover, #menubar a:visited {
   color: darkblue;
-	text-decoration: none;
+  text-decoration: none;
 }
 
 #menubar div {
   height: 17px;
   float: left;
-	padding: 3px 5px 0 5px;
-	margin-right: 5px;
-	z-index: 5
+  padding: 3px 5px 0 5px;
+  margin-right: 5px;
+  z-index: 5
 }
 
 #menubar .off {
-	font-weight: bold;
-	line-height: 12px;
-	font-size: 12px;
-	border: 1px solid black;
-	height: 17px;
-	background: #AAA;
-	z-index: inherit;
+  font-weight: bold;
+  line-height: 12px;
+  font-size: 12px;
+  border: 1px solid black;
+  height: 17px;
+  background: #AAA;
+  z-index: inherit;
 }
 
 #menubar .on {
-	font-weight: bold;
-	line-height: 12px;
-	font-size: 12px;
-	border: 1px solid black;
+  font-weight: bold;
+  line-height: 12px;
+  font-size: 12px;
+  border: 1px solid black;
   height: 18px;
-	background: #CCC;
-	z-index: inherit;
-	border-bottom: none;
+  background: #CCC;
+  z-index: inherit;
+  border-bottom: none;
 }
 
 #menubar .on2 {
-	font-weight: bold;
-	line-height: 12px;
-	font-size: 12px;
-	border: 1px solid black;
+  font-weight: bold;
+  line-height: 12px;
+  font-size: 12px;
+  border: 1px solid black;
   height: 17px;
-	background: #CCC;
-	z-index: inherit;
+  background: #CCC;
+  z-index: inherit;
 }
 
 #menubar .log {
-	font-weight: bold;
-	line-height: 12px;
-	font-size: 10px;
-	height: 17px;
-	z-index: inherit;
+  font-weight: bold;
+  line-height: 12px;
+  font-size: 10px;
+  height: 17px;
+  z-index: inherit;
 }
 
 #searchbar {
   position: relative;
-	top: -1px;
-	left: 0px;
-	clear: both;
-	width: 755px;
-	padding: 5px 0 5px 0;
+  top: -1px;
+  left: 0px;
+  clear: both;
+  width: 765px;
+  padding: 5px 0 5px 0;
   font-size: 12px;
-	background-color: #CCC;
-	border: 1px solid black;
-	z-index: 1;
+  background-color: #CCC;
+  border: 1px solid black;
+  z-index: 1;
 }
 
 #searchbar select {
@@ -149,31 +150,31 @@ table {
 
 #content {
   clear: both;
-  width: 757px;
-	text-align: left;
-	font-size: 10px;
+  width: 767px;
+  text-align: left;
+  font-size: 10px;
 }
 
 .page_title {
   padding-top: 30px;
-	padding-bottom: 20px;
-	margin-top: 5px;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-	color: #000;
-	font-size: 14px;
-	font-weight: bold;
+  padding-bottom: 20px;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color: #000;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .error {
   border: 1px solid black;
   padding: 3px;
-	width: 350px;
-	margin: auto;
-	margin-bottom: 20px;
-	background-color: #CCC;
-	text-align: center;
+  width: 350px;
+  margin: auto;
+  margin-bottom: 20px;
+  background-color: #CCC;
+  text-align: center;
 }
 
 .edit_form {
