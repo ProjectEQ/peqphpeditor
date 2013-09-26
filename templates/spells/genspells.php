@@ -20,6 +20,7 @@ while($row = mysql_fetch_assoc($res))
 }
 
 fclose($fh);
+
 ?>
   <table class="edit_form">
     <tr>

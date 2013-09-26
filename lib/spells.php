@@ -120,7 +120,7 @@ function update_spell () {
   $cbs = array(
     "dot_stacking_exempt",
     "deleteable",
-    "uninterruptible",
+    "uninterruptable",
     "nodispell",
     "can_mgb",
     "short_buff_box",

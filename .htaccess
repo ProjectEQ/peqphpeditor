@@ -14,6 +14,10 @@ Options -Indexes
   Allow from all
 </files>
 
+<Files aasearch.php>
+  Order allow,deny
+  Allow from all
+</files>
 
 #Apache 2.4 and later
 #<Files ~ "\.(php|sql)$">
@@ -22,5 +26,10 @@ Options -Indexes
 
 #Apache 2.4 and later
 #<Files index.php>
+#  Require all granted
+#</Files>
+
+#Apache 2.4 and later
+#<Files aasearch.php>
 #  Require all granted
 #</Files>
