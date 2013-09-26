@@ -148,6 +148,7 @@ switch ($editor) {
     $searchbar->set('curreditor', $editor);
     $searchbar->set('aas', $aas);
     $searchbar->set('curraa', $aaid);
+    $searchbar->set('eqexpansions', $eqexpansions);
     break;
   case 'qglobal':
     break;

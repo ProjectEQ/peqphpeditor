@@ -101,7 +101,10 @@ function getSpellName($id) {
   global $mysql;
   $query = "SELECT name FROM spells_new WHERE id=$id";
   $result = $mysql->query_assoc($query);
-  return $result['name'];
+  if($result)
+    return $result['name'];
+  else
+    return "Not Found";
 }
 
 function getSpellsetName($id) {
@@ -375,7 +378,10 @@ function getAAName($aaid) {
 
   $query = "SELECT name FROM altadv_vars WHERE skill_id=\"$aaid\"";
   $result = $mysql->query_assoc($query);
-  return $result['name'];
+  if ($result)
+    return $result['name'];
+  else
+    return "Not Found";
 }
 
 function getPageInfo($table, $page, $size, $sort, $where = "") {
