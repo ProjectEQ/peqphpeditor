@@ -1300,7 +1300,7 @@ function findByID($id) {
 function findByName($search) {
   global $mysql;
   
-  $query = "SELECT skill_id, name, prereq_skill, aa_expansion, classes, berserker FROM altadv_vars WHERE name rlike '$search' ORDER BY skill_id";
+  $query = "SELECT skill_id, name, prereq_skill, aa_expansion, classes, berserker FROM altadv_vars WHERE name rlike \"$search\" ORDER BY skill_id";
   return $mysql->query_mult_assoc($query);
 }
 
