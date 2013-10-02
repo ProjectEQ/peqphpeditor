@@ -72,16 +72,16 @@ function getClasses($classes, $berserker) {
                 <fieldset>
                   <legend><b>AA Variables</b></legend>
 <? if($aaref) {?>
-	<div style="text-align:right;">
-Reference: <a href="index.php?editor=aa&aaid=<?=$aaref?>" target="_blank"><? echo "$aaref - $aarefname";?></a>
-<img src="images/minus2.gif" onclick="document.aa_list_insert.aa_add.value=<?=$aaref?>" title="Set as what to be inserted"><br />
-</div>
+  <div style="text-align:right;">
+    Reference: <a href="index.php?editor=aa&aaid=<?=$aaref?>" target="_blank"><? echo "$aaref - $aarefname";?></a>
+    <img src="images/minus2.gif" onclick="document.aa_list_insert.aa_add.value=<?=$aaref?>" title="Set as what to be inserted"><br />
+  </div>
 <? } ?>
-	          <div class="table_container">
-	            <div class="table_header">
-	              <table width="100%" cellpadding="0" cellspacing="0">
-	                <tr>
-                          <td>SoF AA Group<td>
+            <div class="table_container">
+              <div class="table_header">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                          <td>SoF AA Group</td>
                           <td align="right">
                             <form name="aa_list_insert" method="post" action="index.php?editor=aa&aaid=<?=$aaid?>&action=24">
                               <a href="index.php?editor=aa&aaid=<?=$aaid?>&action=27" onclick="return confirm('Fix the offset and max fields for all AAs in this SoF AA Group?');" title="Fixes the Offset and Max entries. Only works if there are no group problems.">Fix Offset/Max</a>&nbsp;
@@ -454,8 +454,8 @@ Reference: <a href="index.php?editor=aa&aaid=<?=$aaref?>" target="_blank"><? ech
     </td>
   </tr>
 </table>
-                </fieldset>
-                
+</fieldset>
+
 <?
 $aa_ranks = $aa_vars['max_level'];
 for ($i = 0; $i < $aa_ranks; $i++) {
@@ -491,10 +491,8 @@ for ($i = 0; $i < $aa_ranks; $i++) {
 </div>
 <div style="float:left;width:270px;height:40px;padding-top:10px;">
 <?
-  //echo "<a href=\"index.php?editor=aa&aaid=$aaid&rank=$aarank&action=19\">Click here to edit the specific</a><br />";
   echo "<a href=\"index.php?editor=aa&aaid=$aaid&rank=$aarank&action=19\"><button type=\"button\">Edit Specific</button></a>";
   if ($found) {
-    //echo "<a href=\"index.php?editor=aa&aaid=$aaid&rank=$aarank&action=21\">Click here to remove the specific</a>";
     echo "<a href=\"index.php?editor=aa&aaid=$aaid&rank=$aarank&action=21\"><button type=\"button\">Delete Specific</button></a>";
   }
   echo "<br />";
@@ -508,11 +506,11 @@ for ($i = 0; $i < $aa_ranks; $i++) {
     foreach ($aa_actions as $aa_action) {
       if ($aa_action['rank'] == $i) {
 ?>
-	<br />
-	<div class="table_container">
-	<div class="table_header">
-	  <table width="100%" cellpadding="0" cellspacing="0">
-	    <tr>
+  <br />
+  <div class="table_container">
+  <div class="table_header">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
               <td>AA Action<td>
               <td align="right">
                 <a href="index.php?editor=aa&aaid=<?=$aaid?>&rank=<?=$aarank?>&action=4"><img src="images/edit2.gif" border="0" title="Edit AA Action"></a>
@@ -521,29 +519,29 @@ for ($i = 0; $i < $aa_ranks; $i++) {
             </tr>
           </table>
         </div>
-	<table class="table_content2" width="100%">
-	  <tr>
-	    <td>
+  <table class="table_content2" width="100%">
+    <tr>
+      <td>
               Spell ID: <a href="index.php?editor=spells&id=<?=$aa_action['spell_id']?>&action=2" target="_blank"><?=$aa_action['spell_id']?> - <?=getSpellName($aa_action['spell_id'])?></a> [<a href='http://lucy.allakhazam.com/spell.html?id=<?=$aa_action['spell_id']?>' target='_blank'>Lucy</a>]<br />
               Target Override: <? echo (isset($aa_action_target[$aa_action['target']]) ? "{$aa_action_target[$aa_action['target']]} - " : "");?>(raw:<?=$aa_action['target']?>)<br />
               Reuse Time: <?=$aa_action['reuse_time']?><br />
               <br />
-	    </td>
-	    <td>
+      </td>
+      <td>
               Non-Spell Action: <?=$aa_action['nonspell_action']?><br />
               Non-Spell Mana: <?=$aa_action['nonspell_mana']?><br />
               Non-Spell Duration: <?=$aa_action['nonspell_duration']?><br />
               <br />
-	    </td>
-	    <td>
+      </td>
+      <td>
               Redux AA 1: <?=$aa_action['redux_aa']?><br />
               Redux Rate 1: <?=$aa_action['redux_rate']?><br />
               Redux AA 2: <?=$aa_action['redux_aa2']?><br />
               Redux Rate 2: <?=$aa_action['redux_rate2']?><br />
-	    </td>
-	  </tr>
-	</table>
-	</div>
+      </td>
+    </tr>
+  </table>
+  </div>
 <?
         $found = 1;
         break;
@@ -567,11 +565,11 @@ for ($i = 0; $i < $aa_ranks; $i++) {
         if ($found == 0) {
           // Only show the table head if we actually have data
 ?>
-	<br />
-	<div class="table_container">
-	<div class="table_header">
-	  <table width="100%" cellpadding="0" cellspacing="0">
-	    <tr>
+  <br />
+  <div class="table_container">
+  <div class="table_header">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
               <td>AA Effects<td>
               <td align="right">
                 <a href="index.php?editor=aa&aaid=<?=$aaid?>&rank=<?=$aarank?>&action=7"><img src="images/add.gif" border="0" title="Add AA Effect Slot"></a>
@@ -581,18 +579,18 @@ for ($i = 0; $i < $aa_ranks; $i++) {
           </table>
         </div>
         
-	<table class="table_content2" width="100%">
-	  <tr>
-	    <th align="center" width="8%">Slot</th>
-	    <th align="center" width="54%">Effect</th>
-	    <th align="center" width="15%">Base1</th>
-	    <th align="center" width="15%">Base2</th>
-	    <th width="8%"></th>
-	  </tr>
+  <table class="table_content2" width="100%">
+    <tr>
+      <th align="center" width="8%">Slot</th>
+      <th align="center" width="54%">Effect</th>
+      <th align="center" width="15%">Base1</th>
+      <th align="center" width="15%">Base2</th>
+      <th width="8%"></th>
+    </tr>
 <?
         }
 ?>
-	  <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
+    <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
 <?
         echo "<td align=\"center\">" . $aa_effect['slot'] . "</td>";
         echo "<td>" . $aa_effect['effectid'] . " - ";
