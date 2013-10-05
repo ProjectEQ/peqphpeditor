@@ -112,5 +112,13 @@ form.augtype_Type_9.checked = form.all_none5.checked ;
 form.augtype_Type_10.checked = form.all_none5.checked ;
 form.augtype_Type_11.checked = form.all_none5.checked ;
 form.augtype_Type_12.checked = form.all_none5.checked ;
+form.augtype_Type_13.checked = form.all_none5.checked ;
+form.augtype_Type_14.checked = form.all_none5.checked ;
+form.augtype_Type_15.checked = form.all_none5.checked ;
+form.augtype_Type_16.checked = form.all_none5.checked ;
+form.augtype_Type_17.checked = form.all_none5.checked ;
+form.augtype_Type_18.checked = form.all_none5.checked ;
+form.augtype_Type_19.checked = form.all_none5.checked ;
+form.augtype_Type_20.checked = form.all_none5.checked ;
 }
 </script>
