@@ -790,30 +790,38 @@
               </table>
               <table cellpadding="20px">
                 <tr>
-                  <td valign="top" align="left">
-                    Type:<br>
-                    <input type="checkbox" name="augtype_Type_1" value=1 <?echo ($augtype & 1) ? "checked" : ""?>> Type 1<br>
-                    <input type="checkbox" name="augtype_Type_2" value=2 <?echo ($augtype & 2) ? "checked" : ""?>> Type 2<br>
-                    <input type="checkbox" name="augtype_Type_3" value=4 <?echo ($augtype & 4) ? "checked" : ""?>> Type 3<br>
-                    <input type="checkbox" name="augtype_Type_4" value=8 <?echo ($augtype & 8) ? "checked" : ""?>> Type 4<br>
+                  <td valign="top" align="left">Type:<br/>
+                    <input type="checkbox" name="augtype_Type_1" value=1 <?echo ($augtype & 1) ? "checked" : ""?>> Type 1<br/>
+                    <input type="checkbox" name="augtype_Type_2" value=2 <?echo ($augtype & 2) ? "checked" : ""?>> Type 2<br/>
+                    <input type="checkbox" name="augtype_Type_3" value=4 <?echo ($augtype & 4) ? "checked" : ""?>> Type 3<br/>
+                    <input type="checkbox" name="augtype_Type_4" value=8 <?echo ($augtype & 8) ? "checked" : ""?>> Type 4<br/>
                   </td>
-                  <td valign="top" align="left">
-                    <br>
-                    <input type="checkbox" name="augtype_Type_5" value=16 <?echo ($augtype & 16) ? "checked" : ""?>> Type 5<br>
-                    <input type="checkbox" name="augtype_Type_6" value=32 <?echo ($augtype & 32) ? "checked" : ""?>> Type 6<br>
-                    <input type="checkbox" name="augtype_Type_7" value=64 <?echo ($augtype & 64) ? "checked" : ""?>> Type 7<br>
-                    <input type="checkbox" name="augtype_Type_8" value=128 <?echo ($augtype & 128) ? "checked" : ""?>> Type 8<br>
+                  <td valign="top" align="left"><br/>
+                    <input type="checkbox" name="augtype_Type_5" value=16 <?echo ($augtype & 16) ? "checked" : ""?>> Type 5<br/>
+                    <input type="checkbox" name="augtype_Type_6" value=32 <?echo ($augtype & 32) ? "checked" : ""?>> Type 6<br/>
+                    <input type="checkbox" name="augtype_Type_7" value=64 <?echo ($augtype & 64) ? "checked" : ""?>> Type 7<br/>
+                    <input type="checkbox" name="augtype_Type_8" value=128 <?echo ($augtype & 128) ? "checked" : ""?>> Type 8<br/>
                   </td>
-                  <td valign="top" align="left">
-                    <br>
-                    <input type="checkbox" name="augtype_Type_9" value=256 <?echo ($augtype & 256) ? "checked" : ""?>> Type 9<br>
-                    <input type="checkbox" name="augtype_Type_10" value=512 <?echo ($augtype & 512) ? "checked" : ""?>> Type 10<br>
-                    <input type="checkbox" name="augtype_Type_11" value=1024 <?echo ($augtype & 1024) ? "checked" : ""?>> Type 11<br>
-                    <input type="checkbox" name="augtype_Type_12" value=2048 <?echo ($augtype & 2048) ? "checked" : ""?>> Type 12<br>
+                  <td valign="top" align="left"><br/>
+                    <input type="checkbox" name="augtype_Type_9" value=256 <?echo ($augtype & 256) ? "checked" : ""?>> Type 9<br/>
+                    <input type="checkbox" name="augtype_Type_10" value=512 <?echo ($augtype & 512) ? "checked" : ""?>> Type 10<br/>
+                    <input type="checkbox" name="augtype_Type_11" value=1024 <?echo ($augtype & 1024) ? "checked" : ""?>> Type 11<br/>
+                    <input type="checkbox" name="augtype_Type_12" value=2048 <?echo ($augtype & 2048) ? "checked" : ""?>> Type 12<br/>
                   </td>
-                  <td valign="top" align="left">
-                    <br>
-                    <input type="checkbox" name="all_none5" value="yes" onClick="Check5(document.item_edit)"> <b>All/None</b><br>
+                  <td valign="top" align="left"><br/>
+                    <input type="checkbox" name="augtype_Type_13" value=4096 <?echo ($augtype & 4096) ? "checked" : ""?>> Type 13<br/>
+                    <input type="checkbox" name="augtype_Type_14" value=8192 <?echo ($augtype & 8192) ? "checked" : ""?>> Type 14<br/>
+                    <input type="checkbox" name="augtype_Type_15" value=16384 <?echo ($augtype & 16384) ? "checked" : ""?>> Type 15<br/>
+                    <input type="checkbox" name="augtype_Type_16" value=32768 <?echo ($augtype & 32768) ? "checked" : ""?>> Type 16<br/>
+                  </td>
+                  <td valign="top" align="left"><br/>
+                    <input type="checkbox" name="augtype_Type_17" value=65536 <?echo ($augtype & 65536) ? "checked" : ""?>> Type 17<br/>
+                    <input type="checkbox" name="augtype_Type_18" value=131072 <?echo ($augtype & 131072) ? "checked" : ""?>> Type 18<br/>
+                    <input type="checkbox" name="augtype_Type_19" value=262144 <?echo ($augtype & 262144) ? "checked" : ""?>> Type 19<br/>
+                    <input type="checkbox" name="augtype_Type_20" value=524288 <?echo ($augtype & 524288) ? "checked" : ""?>> Type 20<br/>
+                  </td>
+                  <td valign="top" align="left"><br/>
+                    <input type="checkbox" name="all_none5" value="yes" onClick="Check5(document.item_edit)"> <b>All/None</b>
                   </td>
                 </tr>
               </table>

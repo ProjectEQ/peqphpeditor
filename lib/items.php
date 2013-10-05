@@ -358,6 +358,14 @@ function update_item () {
   if (isset($_POST['augtype_Type_10'])) $augtype = $augtype+512;
   if (isset($_POST['augtype_Type_11'])) $augtype = $augtype+1024;
   if (isset($_POST['augtype_Type_12'])) $augtype = $augtype+2048;
+  if (isset($_POST['augtype_Type_13'])) $augtype = $augtype+4096;
+  if (isset($_POST['augtype_Type_14'])) $augtype = $augtype+8192;
+  if (isset($_POST['augtype_Type_15'])) $augtype = $augtype+16384;
+  if (isset($_POST['augtype_Type_16'])) $augtype = $augtype+32768;
+  if (isset($_POST['augtype_Type_17'])) $augtype = $augtype+65536;
+  if (isset($_POST['augtype_Type_18'])) $augtype = $augtype+131072;
+  if (isset($_POST['augtype_Type_19'])) $augtype = $augtype+262144;
+  if (isset($_POST['augtype_Type_20'])) $augtype = $augtype+524288;
   
   $fields = '';
   if ($item['slots'] != $slots) $fields .= "slots=\"$slots\", ";
@@ -682,6 +690,14 @@ function add_item () {
   if (isset($_POST['augtype_Type_10'])) $augtype = $augtype+512;
   if (isset($_POST['augtype_Type_11'])) $augtype = $augtype+1024;
   if (isset($_POST['augtype_Type_12'])) $augtype = $augtype+2048;
+  if (isset($_POST['augtype_Type_13'])) $augtype = $augtype+4096;
+  if (isset($_POST['augtype_Type_14'])) $augtype = $augtype+8192;
+  if (isset($_POST['augtype_Type_15'])) $augtype = $augtype+16384;
+  if (isset($_POST['augtype_Type_16'])) $augtype = $augtype+32768;
+  if (isset($_POST['augtype_Type_17'])) $augtype = $augtype+65536;
+  if (isset($_POST['augtype_Type_18'])) $augtype = $augtype+131072;
+  if (isset($_POST['augtype_Type_19'])) $augtype = $augtype+262144;
+  if (isset($_POST['augtype_Type_20'])) $augtype = $augtype+524288;
   
   $fields = '';
   $fields .= "slots=\"$slots\", ";
