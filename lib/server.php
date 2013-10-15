@@ -1093,7 +1093,7 @@ function build_filter() {
 
 function delete_multiple_hacks() {
   global $mysql;
-  $hacks = json_decode($_POST['ids']);
+  $hacks = $_POST['cb_delete'];
 
   foreach ($hacks as $hack) {
     $query = "DELETE FROM hackers WHERE id=$hack";
