@@ -18,7 +18,7 @@
         dElements[x].style.display = "none";
       }
       //Show checkboxes
-      var cbElements = document.getElementsByName("cb_delete");
+      var cbElements = document.getElementsByName("cb_delete[]");
       for (var x = 0; x < cbElements.length; x++) {
         cbElements[x].style.display = "inline";
       }
@@ -30,7 +30,7 @@
     function toggleSelectAll() {
       if (document.getElementById("select_all").innerHTML == "Select All") {
         //Select all checkboxes
-        var cbElements = document.getElementsByName("cb_delete");
+        var cbElements = document.getElementsByName("cb_delete[]");
         for (var x = 0; x < cbElements.length; x++) {
           cbElements[x].checked = true;
         }
@@ -39,23 +39,12 @@
       }
       else {
         //Deselect all checkboxes
-        var cbElements = document.getElementsByName("cb_delete");
+        var cbElements = document.getElementsByName("cb_delete[]");
         for (var x = 0; x < cbElements.length; x++) {
           cbElements[x].checked = false;
         }
         //Change hyperlink
         document.getElementById("select_all").innerHTML = "Select All";
       }
-    }
-    function pushIdArray() {
-      var id_array = new Array();
-      var cbElements = document.getElementsByName("cb_delete");
-      for (var x = 0; x < cbElements.length; x++) {
-        if (cbElements[x].checked) {
-          id_array.push(cbElements[x].value);
-        }
-      }
-      document.getElementById("ids").value = JSON.stringify(id_array);
-      document.getElementById("deleteHacks").submit();
     }
   </script>
