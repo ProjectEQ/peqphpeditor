@@ -130,6 +130,7 @@ switch ($action) {
    case 6: // Preview Hackers
     check_admin_authorization();
     $breadcrumbs .= " >> Hackers";
+    $javascript = new Template("templates/server/js.tmpl.php");
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns1[$_GET['sort']] : $columns1[$default_sort];
@@ -480,6 +481,12 @@ switch ($action) {
     delete_variable();
     $varname = $_GET['varname'];
     header("Location: index.php?editor=server&action=43");
+    exit;
+  case 49: // Delete Multiple Hacks
+    check_admin_authorization();
+    delete_multiple_hacks();
+    $return_address = $_SERVER['HTTP_REFERER'];
+    header("Location: $return_address");
     exit;
 }
 
@@ -1039,6 +1046,7 @@ function notify_status($new_status) {
   $query = "INSERT INTO mail (`charid`,`timestamp`,`from`,`subject`,`body`,`to`,`status`) VALUES ($charid,UNIX_TIMESTAMP(NOW()),\"$from\",\"$subject\",\"$body\",\"$to\",1)";
   $mysql->query_no_result($query);
 }
+
 function build_filter() {
   global $mysql;
   $filter1 = $_GET['filter1'];
@@ -1081,5 +1089,15 @@ function build_filter() {
   $filter_final['filter4'] = $filter4;
 
   return $filter_final;
+}
+
+function delete_multiple_hacks() {
+  global $mysql;
+  $hacks = json_decode($_POST['ids']);
+
+  foreach ($hacks as $hack) {
+    $query = "DELETE FROM hackers WHERE id=$hack";
+    $mysql->query_no_result($query);
+  }
 }
 ?>
