@@ -41,7 +41,7 @@
     </div><br/>
     <form name="deleteHacks" id="deleteHacks" method="post" action="index.php?editor=server&action=49">
       <div id="action_buttons_top" style="display:none;">
-        <center><input type="submit" value="Delete Marked">&nbsp;<input type="button" value="Cancel" onClick="location.reload();"></center><br/>
+        <center><input onClick="return confirm('Really delete these entries?');" type="submit" value="Delete Marked">&nbsp;<input type="button" value="Cancel" onClick="location.reload();"></center><br/>
       </div>
       <div class="table_container" style="width: 750px;">
         <div class="table_header">
@@ -92,6 +92,6 @@
         </table>
       </div>
       <div id="action_buttons_bottom" style="display:none;">
-        <br/><center><input type="submit" value="Delete Marked">&nbsp;<input type="button" value="Cancel" onClick="location.reload();"></center>
+        <br/><center><input onClick="return confirm('Really delete these entries?');" type="submit" value="Delete Marked">&nbsp;<input type="button" value="Cancel" onClick="location.reload();"></center>
       </div>
     </form>
