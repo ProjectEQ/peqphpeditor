@@ -743,8 +743,9 @@ switch ($action) {
     check_authorization();
     header("Location: index.php?editor=quest&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 72: // View emotes
-    $body = new Template("templates/npc/emotes.tmpl.php");
+  case 72: // View emote set
+    $breadcrumbs .= " >> Emote Set (" . $_GET['emoteid'] . ")";
+    $body = new Template("templates/npc/emotes.set.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
@@ -762,27 +763,29 @@ switch ($action) {
     check_authorization();
     $count = delete_emote();
     $emoteid = $_GET['emoteid']; 
-    if($count > 0){
-    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&emoteid=$count&action=72");
+    if($count > 0) {
+      header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&emoteid=$count&action=72");
     }
     else {
-    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
+      header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&action=78");
     } 
     exit;
   case 74: // Edit emote
     check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=npc&action=78'>Emotes</a>" . " >> Edit Emote (" . $_GET['id'] . ")";
     $body = new Template("templates/npc/emotes.edit.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('eventtype', $eventtype);
     $body->set('emotetype', $emotetype);
-    $emotes = emote_info();
-    if ($emotes) {
-      foreach ($emotes as $key=>$value) {
+    $emote_info = emote_info();
+    if ($emote_info) {
+      foreach ($emote_info as $key=>$value) {
         $body->set($key, $value);
       }
     }
+    $body->set('existing', getExistingEmoteEvents($_GET['emoteid']));
     break;
   case 75: // Update emote
     check_authorization();
@@ -795,34 +798,43 @@ switch ($action) {
     exit;
   case 76: // Add emote
     check_authorization();
-    $body = new Template("templates/npc/emotes.add.tmpl.php");
+    $breadcrumbs .= " >> <a href='index.php?editor=npc&action=78'>Emotes</a>" . " >> Add Emote";
+    if ($npcid) {
+      $body = new Template("templates/npc/emotes.add.tmpl.php");
+    }
+    else {
+      $body = new Template("templates/npc/emotes.addentry.tmpl.php");
+    }
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('eventtype', $eventtype);
     $body->set('emotetype', $emotetype);
-    if($_GET['emoteid'] != 0){
-    	$body->set('emoteid', $_GET['emoteid']);
+    $emoteid = 0;
+    if($_GET['emoteid'] != 0) {
+      $emoteid = $_GET['emoteid'];
     }
-    else{
-    	$body->set('emoteid',suggest_emoteid());
+    else {
+      $emoteid = suggest_emoteid();
     }
+    $body->set('emoteid', $emoteid);
+    $body->set('existing', getExistingEmoteEvents($emoteid));
     break;
-  case 77: // Add emote
+  case 77: // Insert emote
     check_authorization();
     add_emote();
     $emoteid = $_POST['emoteid']; 
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&emoteid=$emoteid&action=72");
     exit;
-  case 78: // View Emotes
-    check_authorization();
+  case 78: // View emote list
+    $breadcrumbs .= " >> <a href='index.php?editor=npc&action=78'>Emotes</a>";
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     if ($_GET['filter'] == 'on') {
       $filter = build_filter();
     }
-    $body = new Template("templates/npc/emotelist.tmpl.php");
+    $body = new Template("templates/npc/emotes.list.tmpl.php");
     $page_stats = getPageInfo("npc_emotes", $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
     if ($filter) {
       $body->set('filter', $filter);
@@ -846,6 +858,50 @@ switch ($action) {
     $body->set('eventtype', $eventtype);
     $body->set('emotetype', $emotetype);
     break;
+  case 79: //View NPCs using emote set
+    $breadcrumbs .= " >> <a href='index.php?editor=npc&action=78'>Emotes</a>" . " >> NPC List";
+    $body = new Template("templates/npc/emotes.npcsbyemote.tmpl.php");
+    $body->set('emoteid', $_GET['emoteid']);
+    $npclist = getNPCsByEmote();
+    if ($npclist) {
+      $body->set('npclist', $npclist);
+    }
+    break;
+  case 80: // Add emote method
+    check_authorization();
+    if ($_POST['method'] == 1) {
+      header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&emoteid=0&action=81");
+    }
+    if ($_POST['method'] == 2) {
+      $emoteid = $_POST['emoteid'];
+      setExistingEmote($npcid, $emoteid);
+      header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid&emoteid=$emoteid&action=72");
+    }
+    exit;
+  case 81: // Create new emote
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=npc&action=78'>Emotes</a>" . " >> Add Emote";
+    $body = new Template("templates/npc/emotes.addentry.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    $body->set('eventtype', $eventtype);
+    $body->set('emotetype', $emotetype);
+    $emoteid = 0;
+    if($_GET['emoteid'] != 0) {
+      $emoteid = $_GET['emoteid'];
+    }
+    else {
+      $emoteid = suggest_emoteid();
+    }
+    $body->set('emoteid', $emoteid);
+    $body->set('existing', getExistingEmoteEvents($emoteid));
+    break;
+  case 82: // Drop emote set from NPC
+    check_authorization();
+    setExistingEmote($npcid, 0);
+    header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
 }
 
 function npc_info () {
@@ -1020,7 +1076,6 @@ function delete_pet () {
 
   $query = "DELETE FROM pets WHERE npcID=$npcid";
   $mysql->query_no_result($query);
-
 }
 
 function add_equipmentset() {
@@ -1036,7 +1091,6 @@ function add_equipmentset() {
 
   $query = "UPDATE pets SET equipmentset = $set_id WHERE npcID=$npcid";
   $mysql->query_no_result($query);
-
 }
 
 function add_equipmentset_entry() {
@@ -1049,7 +1103,6 @@ function add_equipmentset_entry() {
 
   $query = "INSERT INTO pets_equipmentset_entries SET set_id = $set_id, slot = $slot, item_id = $item_id";
   $mysql->query_no_result($query);
-
 }
 
 function edit_equipmentset() {
@@ -1065,7 +1118,6 @@ function edit_equipmentset() {
 
   $query = "UPDATE pets SET equipmentset = $set_id WHERE npcID=$npcid";
   $mysql->query_no_result($query);
-
 }
 
 function edit_equipmentset_entry() {
@@ -1078,7 +1130,6 @@ function edit_equipmentset_entry() {
 
   $query = "UPDATE pets_equipmentset_entries SET slot=$slot, item_id=$item_id WHERE set_id=$set_id";
   $mysql->query_no_result($query);
-
 }
 
 function suggest_equipmentset_id() {
@@ -1112,7 +1163,6 @@ function delete_equipmentset () {
 
   $query = "UPDATE pets SET equipmentset = 0 WHERE npcID=$npcid";
   $mysql->query_no_result($query);
-
 }
 
 function delete_equipmentset_entry () {
@@ -1124,7 +1174,6 @@ function delete_equipmentset_entry () {
 
   $query = "DELETE from pets_equipmentset_entries WHERE set_id=$set_id AND slot=$slot";
   $mysql->query_no_result($query);
-
 }
 
 function remove_equipmentset () {
@@ -1133,7 +1182,6 @@ function remove_equipmentset () {
 
   $query = "UPDATE pets SET equipmentset = 0 WHERE npcID=$npcid";
   $mysql->query_no_result($query);
-
 }
 
 function update_npc () {
@@ -1276,8 +1324,8 @@ function add_npc () {
 
   foreach ($specialattacks as $k => $v) {
     if (isset($_POST["$k"])) {
-	if(SUBSTR($_POST["$k"], -1) != '^' && $_POST["$k"] != ''){$_POST["$k"].= '^';}
-	$special_abilities .= $_POST["$k"];
+    if(SUBSTR($_POST["$k"], -1) != '^' && $_POST["$k"] != ''){$_POST["$k"].= '^';}
+      $special_abilities .= $_POST["$k"];
     }
   }
 
@@ -1653,12 +1701,12 @@ function change_faction_byname () {
   $updateall = $_POST['updateall'];
  
   if($updateall == 0){
-  $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE name like \"%$npcname%\" AND id > $min_id AND id < $max_id AND npc_faction_id = 0";
+  $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE name LIKE \"%$npcname%\" AND id > $min_id AND id < $max_id AND npc_faction_id = 0";
   $mysql->query_no_result($query);
   }
 
   if($updateall == 1){
-  $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE name like \"%$npcname%\" AND id > $min_id AND id < $max_id";
+  $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE name LIKE \"%$npcname%\" AND id > $min_id AND id < $max_id";
   $mysql->query_no_result($query);
   }
 }
@@ -1803,18 +1851,17 @@ function delete_factionhit () {
 
 function suggest_merchant_id() {
   global $mysql;
-  $query = "SELECT MAX(merchantid) as id FROM merchantlist";
+  $query = "SELECT MAX(merchantid) AS id FROM merchantlist";
   $result = $mysql->query_assoc($query);
   
-  $query2 = "SELECT MAX(merchant_id) as npc_mid FROM npc_types";
+  $query2 = "SELECT MAX(merchant_id) AS npc_mid FROM npc_types";
   $result2 = $mysql->query_assoc($query2);
 
   if($result['id'] > $result2['npc_mid']){
-  $result = $result['id'] + 1;
+    $result = $result['id'] + 1;
   }
-
   else {
-  $result = $result2['npc_mid'] + 1;
+    $result = $result2['npc_mid'] + 1;
   }
 
   return $result;
@@ -2023,13 +2070,13 @@ function change_npc_level_ver() {
   $finaldiff = "(level)$leveldiff";
   $finalmaxdiff = "(maxlevel)$leveldiff";
  
-  $query = "UPDATE npc_types SET level=$finaldiff WHERE version=$npc_version AND id>$minlevel AND id<$maxlevel AND level > 1";
+  $query = "UPDATE npc_types SET level=$finaldiff WHERE version=$npc_version AND id>$minlevel AND id<$maxlevel AND level>1";
   $mysql->query_no_result($query);
 
-  $query = "UPDATE npc_types SET maxlevel=$finalmaxdiff WHERE maxlevel > 0 AND version=$npc_version AND id>$minlevel AND id<$maxlevel";
+  $query = "UPDATE npc_types SET maxlevel=$finalmaxdiff WHERE maxlevel>0 AND version=$npc_version AND id>$minlevel AND id<$maxlevel";
   $mysql->query_no_result($query);
 
-  $query = "UPDATE npc_types SET level=1 WHERE version=$npc_version AND level in (0,255) AND id>$minlevel AND id<$maxlevel";
+  $query = "UPDATE npc_types SET level=1 WHERE version=$npc_version AND level IN (0,255) AND id>$minlevel AND id<$maxlevel";
   $mysql->query_no_result($query);
 
   $query = "UPDATE npc_types SET maxlevel=1 WHERE version=$npc_version AND maxlevel=255 AND id>$minlevel AND id<$maxlevel";
@@ -2075,7 +2122,7 @@ function get_emotes() {
   global $mysql, $npcid;
   $emoteid = $_GET['emoteid'];
 
-  $query = "SELECT id, emoteid, event_, type, text FROM npc_emotes WHERE emoteid=$emoteid";
+  $query = "SELECT id, emoteid, event_, type, text FROM npc_emotes WHERE emoteid=$emoteid ORDER BY emoteid, event_";
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
@@ -2094,22 +2141,21 @@ function delete_emote() {
   $query = "DELETE FROM npc_emotes WHERE id=$id";
   $mysql->query_no_result($query);
 
-     $query = "SELECT count(*) AS emotecount FROM npc_emotes WHERE emoteid=$emoteid";
-     $result = $mysql->query_assoc($query);
-     $count = $result['emotecount'];
+  $query = "SELECT count(*) AS emotecount FROM npc_emotes WHERE emoteid=$emoteid";
+  $result = $mysql->query_assoc($query);
+  $count = $result['emotecount'];
 
-     if($count == 0){
-       $query = "UPDATE npc_types set emoteid = 0 WHERE emoteid=$emoteid";
-       $mysql->query_no_result($query);
-     }
+  if($count == 0) {
+    $query = "UPDATE npc_types SET emoteid=0 WHERE emoteid=$emoteid";
+    $mysql->query_no_result($query);
+  }
     
-     if($count != 0){
-       return $emoteid;
-     }
-
-     else {
-       return 0;
-     }
+  if($count != 0) {
+    return $emoteid;
+  }
+  else {
+    return 0;
+  }
 }
 
 function emote_info() {
@@ -2127,7 +2173,7 @@ function update_emote() {
   global $mysql, $npcid;
 
   $id = $_POST['id'];
-  $emoteid = $_POST['emoteid']; 
+  $emoteid = $_POST['emoteid'];
   $oldemote = $_POST['oldemote'];
   $event_ = $_POST['event_']; 
   $type = $_POST['type'];
@@ -2135,55 +2181,91 @@ function update_emote() {
 
   $query = "UPDATE npc_emotes SET emoteid=$emoteid, event_=$event_, type=$type, text=\"$text\" WHERE id=$id";
   $mysql->query_no_result($query);
-  
-  $query = "UPDATE npc_types SET emoteid = $emoteid where id=$npcid";
-  $mysql->query_no_result($query);
 
-      $query = "SELECT count(*) AS emotecount FROM npc_emotes WHERE emoteid=$oldemote";
-      $result = $mysql->query_assoc($query);
-      $count = $result['emotecount'];
+  if ($npcid) {
+    $query = "UPDATE npc_types SET emoteid=$emoteid WHERE id=$npcid";
+    $mysql->query_no_result($query);
+  }
 
-      if($count == 0){
-        $query = "UPDATE npc_types set emoteid = 0 WHERE emoteid=$oldemote";
-        $mysql->query_no_result($query);
-      }
+  $query = "SELECT COUNT(*) AS emotecount FROM npc_emotes WHERE emoteid=$oldemote";
+  $result = $mysql->query_assoc($query);
+  $count = $result['emotecount'];
 
-    return $emoteid;
+  if($count == 0) {
+    $query = "UPDATE npc_types SET emoteid=0 WHERE emoteid=$oldemote";
+    $mysql->query_no_result($query);
+  }
+
+  return $emoteid;
 }
 
 function add_emote() {
   global $mysql, $npcid;
 
-  $emoteid = $_POST['emoteid']; 
+  $emoteid = $_POST['emoteid'];
   $event_ = $_POST['event_']; 
   $type = $_POST['type'];
   $text = $_POST['text'];
 
-    $query = "INSERT INTO npc_emotes SET emoteid=$emoteid, event_=$event_, type=$type, text=\"$text\"";
-    $mysql->query_no_result($query);
+  $query = "INSERT INTO npc_emotes SET emoteid=$emoteid, event_=$event_, type=$type, text=\"$text\"";
+  $mysql->query_no_result($query);
 
-    $query = "UPDATE npc_types set emoteid=$emoteid where id=$npcid";
+  if ($npcid) {
+    $query = "UPDATE npc_types SET emoteid=$emoteid WHERE id=$npcid";
     $mysql->query_no_result($query);
+  }
 }
 
 function suggest_emoteid() {
   global $mysql, $npcid;
 
-  $query = "SELECT max(emoteid)+1 AS maxeid FROM npc_emotes";
+  $query = "SELECT MAX(emoteid)+1 AS maxeid FROM npc_emotes";
   $result = $mysql->query_assoc($query);
   $maxeid = $result['maxeid'];
 
   return $maxeid;
 }
-  
-function get_npcid_from_emote($emoteid){
+
+function get_npcid_from_emote($emoteid) {
   global $mysql;
 
-  $query = "SELECT id FROM npc_types where emoteid=$emoteid limit 1";
+  $query = "SELECT id FROM npc_types WHERE emoteid=$emoteid LIMIT 1";
   $result = $mysql->query_assoc($query);
   $npcid = $result['id'];
   
   return $npcid;
+}
+
+function getNPCsByEmote() {
+  global $mysql;
+  $emoteid = $_GET['emoteid'];
+
+  $query = "SELECT id, name FROM npc_types WHERE emoteid=$emoteid ORDER BY id";
+  $result = $mysql->query_mult_assoc($query);
+
+  if ($result)
+    return $result;
+}
+
+function getExistingEmoteEvents($emoteid) {
+  global $mysql;
+  $events = array();
+
+  $query = "SELECT event_ FROM npc_emotes WHERE emoteid=$emoteid";
+  $result = $mysql->query_mult_assoc($query);
+
+  foreach ($result as $result) {
+    array_push($events, $result['event_']);
+  }
+
+  return $events;
+}
+
+function setExistingEmote($npcid, $emoteid) {
+  global $mysql;
+
+  $query = "UPDATE npc_types SET emoteid=$emoteid WHERE id=$npcid";
+  $mysql->query_no_result($query);
 }
 
 function list_emotes($page_number, $results_per_page, $sort_by, $where = "") {

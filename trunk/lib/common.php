@@ -511,5 +511,5 @@ function html_replace($text) {
 
    return $rtext;
 }
-     
+
 ?>

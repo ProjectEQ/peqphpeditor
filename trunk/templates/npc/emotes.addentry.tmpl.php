@@ -1,7 +1,7 @@
-  <form name="emotes" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=75">
+  <form method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=77">
     <div class="edit_form" style="width: 550px;">
       <div class="edit_form_header">
-        Edit Emote <?=$id?>
+        Add emote to set <?=$emoteid?>
       </div>
       <div class="edit_form_content">
         <table cellpadding="5" cellspacing="0" width="100%">
@@ -12,9 +12,9 @@
             </td>
             <td>
               Event:<br/>
-              <select name="event_">
+              <select name="event_"<?echo (count($eventtype) == count($existing)) ? " disabled" : "";?>>
 <?foreach($eventtype as $key=>$value):?>
-                <option value="<?=$key?>"<?echo ($key == $event_) ? " selected" : ((in_array($key, $existing)) ? " disabled" : "");?>><?=$key?>: <?=$value?></option>
+                <option value="<?=$key?>"<?echo (in_array($key, $existing)) ? " disabled" : "";?>><?=$key?>: <?=$value?></option>
 <?endforeach;?>
               </select>
             </td>
@@ -22,7 +22,7 @@
               Type:<br/>
               <select name="type">
 <?foreach($emotetype as $key=>$value):?>
-                <option value="<?=$key?>"<?echo ($key == $type)? " selected" : "";?>><?=$key?>: <?=$value?></option>
+                <option value="<?=$key?>"><?=$key?>: <?=$value?></option>
 <?endforeach;?>
               </select>
             </td>
@@ -30,15 +30,13 @@
           <tr>
             <td colspan="3">
               Emote:<br/>
-              <textarea name="text" rows="6" cols="62"><?=$text?></textarea>
+              <textarea name="text" rows="6" cols="62"></textarea>
             </td>
           </tr>
           <tr>
-            <td colspan="3" align="center"><input type="submit" value="Submit Changes">&nbsp;<input type="button" value="Cancel" onClick="history.back();"</td>
+            <td colspan="3" align="center"><input type="submit" value="Add Emote"<?echo (count($eventtype) == count($existing)) ? " disabled" : "";?>>&nbsp;<input type="button" value="Cancel" onClick="history.back();"</td>
           </tr>
         </table>
       </div>
     </div>
-    <input type="hidden" name="id" value="<?=$id?>">
-    <input type="hidden" name="oldemote" value="<?=$emoteid?>">
   </form>

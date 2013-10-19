@@ -55,7 +55,7 @@
               <?echo ($page < $pages) ? "<a href='index.php?editor=npc&z=$currzone&zoneid=$currzoneid&npcid=$npcid&action=78&page=" . $pages . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/last.gif' border='0' width='12' height='12' title='Last'/></a>" : "<img src='images/last.gif' border='0' width='12' height='12'/>";?>
             </td>
             <td align="right" width="33%">
-              <a onClick="document.getElementById('filter_box').style.display='block';"><img src="images/filter.jpg" border="0" height="13" width="13" title="Show filter"></a>&nbsp;
+              <a onClick="document.getElementById('filter_box').style.display='block';"><img src="images/filter.jpg" border="0" height="13" width="13" title="Show filter"></a>&nbsp;<a href="index.php?editor=npc&action=76"><img src="images/add.gif" border="0" title="Add new emote set"></a>
             </td>
           </tr>
         </table>
@@ -76,13 +76,13 @@ foreach($emotes as $emotes=>$v):?>
           <td align="center" width="10%"><?=$emotetype[$v['type']]?></td>
           <td align="center" width="10%"><?=$eventtype[$v['event_']]?></td>
           <td align="center" width="65%"><?=html_replace($v['text'])?></td>
-          <?
-	   if ($v['emoteid'] > 999){ $npcid = $v['emoteid']; }
-          else{ $npcid = get_npcid_by_emoteid($v['emoteid']); }
-          $currzone = get_zone_by_npcid($npcid);
-	   $currzoneid = get_zoneid_by_npcid($npcid); 
-	   ?>
-          <td align="right"><a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&emoteid=<?=$v['emoteid']?>&action=72"><img src="images/edit2.gif" width="13" height="13" border="0" title="View NPC Emote List"></a></td>
+<?
+  if ($v['emoteid'] > 999){ $npcid = $v['emoteid']; }
+  else { $npcid = get_npcid_by_emoteid($v['emoteid']); }
+  $currzone = get_zone_by_npcid($npcid);
+  $currzoneid = get_zoneid_by_npcid($npcid); 
+?>
+          <td align="right"><a href="index.php?editor=npc&emoteid=<?=$v['emoteid']?>&action=72"><img src="images/edit2.gif" width="13" height="13" border="0" title="View Emote Set"></a></td>
         </tr>
 <?$x++;
 endforeach;

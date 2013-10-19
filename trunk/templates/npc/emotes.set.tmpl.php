@@ -4,8 +4,10 @@
         <tr>
           <td>NPC Emotes</td>
           <td align="right">  
-            <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=78"><img src="images/sort.gif" border="0" title="List Emotes"></a>
-            <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&emoteid=<?=$emoteid?>&action=76"><img src="images/add.gif" border="0" title="Add an entry to this emote set"></a>
+            <a href="index.php?editor=npc&action=78"><img src="images/c_table.gif" border="0" title="View all emotes"></a>
+            <a href="index.php?editor=npc&emoteid=<?=$emoteid?>&action=79"><img src="images/view_all.gif" border="0" width="15" title="View NPCs using this emote set"></a>
+            <a href="index.php?editor=npc&emoteid=<?=$emoteid?>&action=76"><img src="images/add.gif" border="0" title="Add an entry to this emote set"></a>
+            <?echo ($npcid > 0) ? "<a href='index.php?editor=npc&emoteid=" . $emoteid . "&npcid=" . $npcid . "&action=82'><img src='images/minus2.gif' border='0' title='Drop emote set from this NPC'></a>" : "";?>
           </td>
         </tr>        
       </table>
@@ -26,8 +28,8 @@
         <td align="center" width="10%"><?=$emotetype[$v['type']]?></td>
         <td align="center" width="65%"><?=html_replace($v['text'])?></td>
         <td align="right">      
-          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=74"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-          <a onClick="return confirm('Really Delete Entry <?=$v['id']?>?');" href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&emoteid=<?=$v['emoteid']?>&id=<?=$v['id']?>&action=73"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+          <a href="index.php?editor=npc&id=<?=$v['id']?>&emoteid=<?=$v['emoteid']?>&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=74"><img src="images/edit2.gif" border="0" title="Edit this entry"></a>          
+          <a onClick="return confirm('Really Delete Entry <?=$v['id']?>?');" href="index.php?editor=npc&emoteid=<?=$v['emoteid']?>&id=<?=$v['id']?>&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=73"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
         </td>
       </tr>
 <?$x++; endforeach;?>

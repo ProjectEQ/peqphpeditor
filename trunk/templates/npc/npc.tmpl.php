@@ -57,7 +57,7 @@
 <?if($emoteid > 0) {?>
                       <strong>EmoteID:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&emoteid=<?=$emoteid?>&action=72"><?=$emoteid?></a>
 <?} else {?>
-                      <strong>EmoteID:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&emoteid=<?=$emoteid?>&action=76">0</a>
+                      <strong>EmoteID:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&emoteid=<?=$emoteid?>&action=76">none</a>
 <?}?>
 
                     </td>
