@@ -229,13 +229,15 @@ function update_merchantlist() {
   $count = $_POST['count'];
   $oldstats = get_merchantlist();
 
-  foreach ($oldstats['slots'] as $slot=>$values) {
-    if (($slot != $_POST["newslot{$slot}"]) || ($values['item'] != $_POST["item{$slot}"]) || ($values['faction_required'] != $_POST["faction_required{$slot}"]) || 
-        ($values['level_required'] != $_POST["level_required{$slot}"]) || ($values['alt_currency_cost'] != $_POST["alt_currency_cost{$slot}"])) {
-      $query = "UPDATE merchantlist SET item=\"" . $_POST["item{$slot}"] . "\", slot=\"" . $_POST["newslot{$slot}"] . "\", faction_required=\"" . $_POST["faction_required{$slot}"] . "\", level_required=\"" . $_POST["level_required{$slot}"] . "\", alt_currency_cost=\"" . $_POST["alt_currency_cost{$slot}"] . "\" WHERE merchantid=$mid AND slot=$slot";
-      $mysql->query_no_result($query);
-    }
-  }
+	foreach ($oldstats['slots'] as $slot=>$values) {
+		if (($slot != $_POST["newslot{$slot}"]) || ($values['item'] != $_POST["item{$slot}"]) || ($values['faction_required'] != $_POST["faction_required{$slot}"]) || 
+        	($values['level_required'] != $_POST["level_required{$slot}"]) || ($values['alt_currency_cost'] != $_POST["alt_currency_cost{$slot}"])) {
+			if($_POST["newslot{$slot}"] > -1){
+				$query = "UPDATE merchantlist SET item=\"" . $_POST["item{$slot}"] . "\", slot=\"" . $_POST["newslot{$slot}"] . "\", faction_required=\"" . $_POST["faction_required{$slot}"] . "\", level_required=\"" . $_POST["level_required{$slot}"] . "\", alt_currency_cost=\"" . $_POST["alt_currency_cost{$slot}"] . "\" WHERE merchantid=$mid AND slot=$slot";
+				$mysql->query_no_result($query);
+			}
+		}	
+	}
 }
 
 function update_merchantlist_temp() {
