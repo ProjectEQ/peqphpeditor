@@ -232,6 +232,7 @@ function update_recipe () {
   $notes = $_POST['notes'];
   $must_learn = $_POST['must_learn'];
   $quest = $_POST['quest'];
+  $enabled = $_POST['enabled'];
   $old = recipe_info();
   $fields = '';
 
@@ -245,6 +246,7 @@ function update_recipe () {
   if($old['notes'] != $notes) $fields .= "notes=\"$notes\", ";
   if($old['must_learn'] != $must_learn) $fields .= "must_learn=\"$must_learn\", ";
   if($old['quest'] != $quest) $fields .= "quest=\"$quest\", ";
+  if($old['enabled'] != $enabled) $fields .= "enabled=\"$enabled\", ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -384,6 +386,7 @@ function add_recipe() {
   if(isset($_POST['notes'])) $fields .= "notes=\"{$_POST['notes']}\", ";
   if(isset($_POST['must_learn'])) $fields .= "must_learn=\"{$_POST['must_learn']}\", ";
   if(isset($_POST['quest'])) $fields .= "quest=\"{$_POST['quest']}\", ";
+  if(isset($_POST['enabled'])) $fields .= "enabled=\"{$_POST['enabled']}\", ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -404,8 +407,8 @@ function copy_tradeskill() {
   $query = "DELETE FROM tradeskill_recipe_entries WHERE recipe_id=0";
   $mysql->query_no_result($query);
 
-  $query = "INSERT INTO tradeskill_recipe (name,tradeskill,skillneeded,trivial,nofail,replace_container,notes,must_learn,quest) 
-            SELECT CONCAT(name,' - Copy'),tradeskill,skillneeded,trivial,nofail,replace_container,notes,must_learn,quest FROM tradeskill_recipe where id=$rec";
+  $query = "INSERT INTO tradeskill_recipe (name,tradeskill,skillneeded,trivial,nofail,replace_container,notes,must_learn,quest,enabled) 
+            SELECT CONCAT(name,' - Copy'),tradeskill,skillneeded,trivial,nofail,replace_container,notes,must_learn,quest,enabled FROM tradeskill_recipe where id=$rec";
   $mysql->query_no_result($query);
 
   $query = "INSERT INTO tradeskill_recipe_entries (item_id,successcount,failcount,componentcount,iscontainer,salvagecount) 

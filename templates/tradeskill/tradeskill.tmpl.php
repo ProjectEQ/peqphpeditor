@@ -17,7 +17,7 @@
   <?$export_sql = export_recipe_sql();?>
   <div id="sql_block" style="display:none">
     <center>
-      <textarea id="sql_text" rows="3" cols="90"><?=$export_sql?></textarea><br><br>
+      <textarea id="sql_text" rows="3" cols="90"><?=$export_sql?></textarea><br/><br/>
       <button type="button" id="copy_sql" onClick="clipboardData.setData('Text', sql_text.value);">Copy SQL to Clipboard</button>&nbsp;
       <button type="button" id="hide_sql" onClick="document.getElementById('sql_block').style.display='none';">Hide SQL</button>
     </center>
@@ -34,17 +34,18 @@
           Recipe <?=$id?>: "<?=$name?>"
         </div>
         <div class="table_content">
-          <strong>Tradeskill:</strong> <?=$tradeskills[$tradeskill]?><br>
-          <strong>Min Skill:</strong> <?=$skillneeded?><br>
-          <strong>Trivial</strong>: <?=$trivial?><br>
-          <strong>No Fail:</strong> <?=$yesno[$nofail]?><br>
-          <strong>Replace Container:</strong> <?=$yesno[$replace_container]?><br>
-          <strong>Quest Controlled:</strong> <?=$yesno[$quest]?><br>
-          <strong>Learn Flag:</strong> <?echo ($must_learn) ? "Yes" : "No";?><br>
+          <strong>Tradeskill:</strong> <?=$tradeskills[$tradeskill]?><br/>
+          <strong>Min Skill:</strong> <?=$skillneeded?><br/>
+          <strong>Trivial</strong>: <?=$trivial?><br/>
+          <strong>No Fail:</strong> <?=$yesno[$nofail]?><br/>
+          <strong>Replace Container:</strong> <?=$yesno[$replace_container]?><br/>
+          <strong>Quest Controlled:</strong> <?=$yesno[$quest]?><br/>
+          <strong>Learn Flag:</strong> <?echo ($must_learn) ? "Yes" : "No";?><br/>
+          <strong>Enabled:</strong> <?=$yesno[$enabled]?><br/>
           <strong>Notes:</strong> <?=$notes?>
         </div>
       </div>
-      <br>
+      <br/>
       <div class="table_container">
         <div class="table_header">
           <div style="float:right;">
@@ -87,7 +88,7 @@
 <?endforeach;?>
           </table>
 <?endif;?>
-          </fieldset><br><br>
+          </fieldset><br/><br/>
         <fieldset>
           <legend><strong>Components</strong></legend>
 <?php if (!isset($components) || $components == ''):?>
@@ -120,7 +121,7 @@
 <?endforeach;?>
           </table>
 <?endif;?>
-          </fieldset><br><br>
+          </fieldset><br/><br/>
         <fieldset>
           <legend><strong>Products</strong></legend>
 <?php if (!isset($products) || $products == ''):?>

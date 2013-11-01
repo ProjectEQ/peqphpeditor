@@ -1,36 +1,36 @@
-      <div class="edit_form" style="width: 200px;">
+      <div class="edit_form" style="width: 250px;">
         <div class="edit_form_header">
           Edit Recipe <?=$id?>
         </div>
         <div class="edit_form_content">
           <form method="post" action="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&action=2">
-            Recipe Name: <br>
-            <input type="text" name="name" size="26" value="<?=$name?>"><br><br>
-            Tradeskill Used: <br>
+            Recipe Name: <br/>
+            <input type="text" name="name" size="30" value="<?=$name?>"><br/><br/>
+            Tradeskill Used: <br/>
             <select name='tradeskill'>
 <?foreach($tradeskills as $k=>$v):?>
               <option value="<?=$k?>"<?echo($k == $tradeskill) ? " selected" : ""?>><?=$v?></option>
 <?endforeach;?>
-            </select><br><br>
-            Min Skill Needed: <br>
-            <input type="text" name="skillneeded" size="5" value="<?=$skillneeded?>"><br><br>
-            Trivial:<br>
-            <input type="text" name="trivial"  size="5" value="<?=$trivial?>"><br><br>
-            Is Recipe No-fail? <br>
+            </select><br/><br/>
+            Min Skill Needed: <br/>
+            <input type="text" name="skillneeded" size="5" value="<?=$skillneeded?>"><br/><br/>
+            Trivial:<br/>
+            <input type="text" name="trivial"  size="5" value="<?=$trivial?>"><br/><br/>
+            Is Recipe No-fail? <br/>
             <select name='nofail'>
               <option value="0"<?echo($nofail == 0) ? " selected" : ""?>>no</option>
               <option value="1"<?echo($nofail == 1) ? " selected" : ""?>>yes</option>
-            </select><br><br>
-            Replace Combine Container?<br>
+            </select><br/><br/>
+            Replace Combine Container?<br/>
             <select name="replace_container">
               <option value="0"<?echo($replace_container == 0) ? " selected" : ""?>>no</option>
               <option value="1"<?echo($replace_container == 1) ? " selected" : ""?>>yes</option>
-            </select><br><br>
-            Quest Controlled? <br>
+            </select><br/><br/>
+            Quest Controlled? <br/>
             <select name='quest'>
               <option value="0"<?echo($quest == 0) ? " selected" : ""?>>no</option>
               <option value="1"<?echo($quest == 1) ? " selected" : ""?>>yes</option>
-            </select><br><br>
+            </select><br/><br/>
             <fieldset>
               <legend>Learn Flag</legend>
               Learned:
@@ -50,8 +50,13 @@
                 <option value="32"<?echo ($l_search == 32) ? " selected" : "";?>>No</option>
               </select>
             </fieldset><br/>
-            Notes:<br>
-            <input type="text" name="notes" size="26" value="<?=$notes?>"><br><br>
+            Enabled:<br/>
+            <select name="enabled">
+              <option value="0"<?echo ($enabled == 0) ? " selected" : ""?>>no</option>
+              <option value="1"<?echo ($enabled == 1) ? " selected" : ""?>>yes</option>
+            </select><br/><br/>
+            Notes:<br/>
+            <input type="text" name="notes" size="30" value="<?=$notes?>"><br/><br/>
             <center>
               <input type="hidden" name="id" value="<?=$id?>">
               <input type="hidden" name="must_learn" value="<?=$must_learn?>">
