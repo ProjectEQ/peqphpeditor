@@ -4,7 +4,7 @@ switch ($action) {
   case 0: //Default -- Spell menu
     $body = new Template("templates/spells/spells.default.tmpl.php");
     break;
-  case 1:   // Search spells
+  case 1: // Search spells
     check_authorization();
     $body = new Template("templates/spells/spells.searchresults.tmpl.php");
     if (isset($_GET['id']) && $_GET['id'] != "ID") {
@@ -184,6 +184,9 @@ function copy_spell () {
   
   $query2 = "INSERT INTO spells_new ($fields, id) SELECT $fields, $newid AS id FROM spells_new WHERE id = '$id'";
   $mysql->query_no_result($query2);
+
+  $query3 = "UPDATE spells_new SET name = concat(name, ' - Copy') WHERE id = $newid";
+  $mysql->query_no_result($query3);
 
   return $newid;
 }

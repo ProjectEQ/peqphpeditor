@@ -1,12 +1,12 @@
 <?if($errors != ''):?>
   <?foreach($errors as $error):?>
     <div class='error'>
-      <table width=100%>
+      <table width="100%">
         <tr>
           <td valign='middle' width="30px">
             <img src='images/caution.gif'>
           </td>
-          <td style='padding: 0px 5px;'>
+          <td style="padding:0px 5px;">
             <?=$error?>
           </td>
         </tr>
@@ -32,7 +32,7 @@
             <tr>
               <td align="left" width="50%">Name:<br/><input type="text" name="itemname" size="45" value="<?=$itemname?>"></td>
               <td align="left" width="50%">Type:<br/>
-                <select name="itemtype" style="width: 265px;">
+                <select name="itemtype" style="width:265px;">
 <?foreach($itemtypes as $k => $v):?>
                   <option value="<?=$k?>"<? echo ($k == $itemtype) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
 <?endforeach;?>       
@@ -209,39 +209,39 @@
           <table cellpadding="20px">
             <tr>
               <td valign="top" align="left">Slots:<br/>
-                <input type="checkbox" name="slot_Charm" value=1 <?echo ($slots & 1) ? "checked" : ""?>> Charm<br/>
-                <input type="checkbox" name="slot_Ear01" value=2 <?echo ($slots & 2) ? "checked" : ""?>> Ear01<br/>
-                <input type="checkbox" name="slot_Head" value=4 <?echo ($slots & 4) ? "checked" : ""?>> Head<br/>
-                <input type="checkbox" name="slot_Face" value=8 <?echo ($slots & 8) ? "checked" : ""?>> Face<br/>
+                <input type="checkbox" name="slot_Charm" value="1" <?echo ($slots & 1) ? "checked" : ""?>> Charm<br/>
+                <input type="checkbox" name="slot_Ear01" value="2" <?echo ($slots & 2) ? "checked" : ""?>> Ear01<br/>
+                <input type="checkbox" name="slot_Head" value="4" <?echo ($slots & 4) ? "checked" : ""?>> Head<br/>
+                <input type="checkbox" name="slot_Face" value="8" <?echo ($slots & 8) ? "checked" : ""?>> Face<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="slot_Ear02" value=16 <?echo ($slots & 16) ? "checked" : ""?>> Ear02<br/>
-                <input type="checkbox" name="slot_Neck" value=32 <?echo ($slots & 32) ? "checked" : ""?>> Neck<br/>
-                <input type="checkbox" name="slot_Shoulder" value=64 <?echo ($slots & 64) ? "checked" : ""?>> Shoulder<br/>
-                <input type="checkbox" name="slot_Arms" value=128 <?echo ($slots & 128) ? "checked" : ""?>> Arms<br/>
+                <input type="checkbox" name="slot_Ear02" value="16" <?echo ($slots & 16) ? "checked" : ""?>> Ear02<br/>
+                <input type="checkbox" name="slot_Neck" value="32" <?echo ($slots & 32) ? "checked" : ""?>> Neck<br/>
+                <input type="checkbox" name="slot_Shoulder" value="64" <?echo ($slots & 64) ? "checked" : ""?>> Shoulders<br/>
+                <input type="checkbox" name="slot_Arms" value="128" <?echo ($slots & 128) ? "checked" : ""?>> Arms<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="slot_Back" value=256 <?echo ($slots & 256) ? "checked" : ""?>> Back<br/>
-                <input type="checkbox" name="slot_Bracer01" value=512 <?echo ($slots & 512) ? "checked" : ""?>> Bracer01<br/>
-                <input type="checkbox" name="slot_Bracer02" value=1024 <?echo ($slots & 1024) ? "checked" : ""?>> Bracer02<br/>
-                <input type="checkbox" name="slot_Range" value=2048 <?echo ($slots & 2048) ? "checked" : ""?>> Range<br/>
+                <input type="checkbox" name="slot_Back" value="256" <?echo ($slots & 256) ? "checked" : ""?>> Back<br/>
+                <input type="checkbox" name="slot_Bracer01" value="512" <?echo ($slots & 512) ? "checked" : ""?>> Bracer01<br/>
+                <input type="checkbox" name="slot_Bracer02" value="1024" <?echo ($slots & 1024) ? "checked" : ""?>> Bracer02<br/>
+                <input type="checkbox" name="slot_Range" value="2048" <?echo ($slots & 2048) ? "checked" : ""?>> Range<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="slot_Hands" value=4096 <?echo ($slots & 4096) ? "checked" : ""?>> Hands<br/>
-                <input type="checkbox" name="slot_Primary" value=8192 <?echo ($slots & 8192) ? "checked" : ""?>> Primary<br/>
-                <input type="checkbox" name="slot_Secondary" value=16384 <?echo ($slots & 16384) ? "checked" : ""?>> Secondary<br/>
-                <input type="checkbox" name="slot_Ring01" value=32768 <?echo ($slots & 32768) ? "checked" : ""?>> Ring01<br/>
+                <input type="checkbox" name="slot_Hands" value="4096" <?echo ($slots & 4096) ? "checked" : ""?>> Hands<br/>
+                <input type="checkbox" name="slot_Primary" value="8192" <?echo ($slots & 8192) ? "checked" : ""?>> Primary<br/>
+                <input type="checkbox" name="slot_Secondary" value="16384" <?echo ($slots & 16384) ? "checked" : ""?>> Secondary<br/>
+                <input type="checkbox" name="slot_Ring01" value="32768" <?echo ($slots & 32768) ? "checked" : ""?>> Ring01<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="slot_Ring02" value=65536 <?echo ($slots & 65536) ? "checked" : ""?>> Ring02<br/>
-                <input type="checkbox" name="slot_Chest" value=131072 <?echo ($slots & 131072) ? "checked" : ""?>> Chest<br/>
-                <input type="checkbox" name="slot_Legs" value=262144 <?echo ($slots & 262144) ? "checked" : ""?>> Legs<br/>
-                <input type="checkbox" name="slot_Feet" value=524288 <?echo ($slots & 524288) ? "checked" : ""?>> Feet<br/>
+                <input type="checkbox" name="slot_Ring02" value="65536" <?echo ($slots & 65536) ? "checked" : ""?>> Ring02<br/>
+                <input type="checkbox" name="slot_Chest" value="131072" <?echo ($slots & 131072) ? "checked" : ""?>> Chest<br/>
+                <input type="checkbox" name="slot_Legs" value="262144" <?echo ($slots & 262144) ? "checked" : ""?>> Legs<br/>
+                <input type="checkbox" name="slot_Feet" value="524288" <?echo ($slots & 524288) ? "checked" : ""?>> Feet<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="slot_Waist" value=1048576 <?echo ($slots & 1048576) ? "checked" : ""?>> Waist<br/>
-                <input type="checkbox" name="slot_Ammo" value=2097152 <?echo ($slots & 2097152) ? "checked" : ""?>> Ammo<br/>
-                <input type="checkbox" name="slot_Powersource" value=4194304 <?echo ($slots & 4194304) ? "checked" : ""?>> Powersource<br/>
+                <input type="checkbox" name="slot_Waist" value="1048576" <?echo ($slots & 1048576) ? "checked" : ""?>> Waist<br/>
+                <input type="checkbox" name="slot_Ammo" value="2097152" <?echo ($slots & 2097152) ? "checked" : ""?>> Ammo<br/>
+                <input type="checkbox" name="slot_Powersource" value="4194304" <?echo ($slots & 4194304) ? "checked" : ""?>> Powersource<br/>
                 <input type="checkbox" name="all_none" value="yes" onClick="Check(document.item_edit)"> <b>All/None</b><br/>
               </td>
             </tr>
@@ -249,31 +249,31 @@
           <table cellpadding="20px">
             <tr>
               <td valign="top" align="left">Races:<br/>
-                <input type="checkbox" name="race_Human" value=1 <?echo ($races & 1) ? "checked" : ""?>> Human<br/>
-                <input type="checkbox" name="race_Barbarian" value=2 <?echo ($races & 2) ? "checked" : ""?>> Barbarian<br/>
-                <input type="checkbox" name="race_Erudite" value=4 <?echo ($races & 4) ? "checked" : ""?>> Erudite<br/>
-                <input type="checkbox" name="race_Wood_Elf" value=8 <?echo ($races & 8) ? "checked" : ""?>> Wood Elf<br/>
+                <input type="checkbox" name="race_Human" value="1" <?echo ($races & 1) ? "checked" : ""?>> Human<br/>
+                <input type="checkbox" name="race_Barbarian" value="2" <?echo ($races & 2) ? "checked" : ""?>> Barbarian<br/>
+                <input type="checkbox" name="race_Erudite" value="4" <?echo ($races & 4) ? "checked" : ""?>> Erudite<br/>
+                <input type="checkbox" name="race_Wood_Elf" value="8" <?echo ($races & 8) ? "checked" : ""?>> Wood Elf<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="race_High_Elf" value=16 <?echo ($races & 16) ? "checked" : ""?>> High Elf<br/>
-                <input type="checkbox" name="race_Dark_Elf" value=32 <?echo ($races & 32) ? "checked" : ""?>> Dark Elf<br/>
-                <input type="checkbox" name="race_Half_Elf" value=64 <?echo ($races & 64) ? "checked" : ""?>> Half Elf<br/>
-                <input type="checkbox" name="race_Dwarf" value=128 <?echo ($races & 128) ? "checked" : ""?>> Dwarf<br/>
+                <input type="checkbox" name="race_High_Elf" value="16" <?echo ($races & 16) ? "checked" : ""?>> High Elf<br/>
+                <input type="checkbox" name="race_Dark_Elf" value="32" <?echo ($races & 32) ? "checked" : ""?>> Dark Elf<br/>
+                <input type="checkbox" name="race_Half_Elf" value="64" <?echo ($races & 64) ? "checked" : ""?>> Half Elf<br/>
+                <input type="checkbox" name="race_Dwarf" value="128" <?echo ($races & 128) ? "checked" : ""?>> Dwarf<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="race_Troll" value=256 <?echo ($races & 256) ? "checked" : ""?>> Troll<br/>
-                <input type="checkbox" name="race_Ogre" value=512 <?echo ($races & 512) ? "checked" : ""?>> Ogre<br/>
-                <input type="checkbox" name="race_Halfling" value=1024 <?echo ($races & 1024) ? "checked" : ""?>> Halfling<br/>
-                <input type="checkbox" name="race_Gnome" value=2048 <?echo ($races & 2048) ? "checked" : ""?>> Gnome<br/>
+                <input type="checkbox" name="race_Troll" value="256" <?echo ($races & 256) ? "checked" : ""?>> Troll<br/>
+                <input type="checkbox" name="race_Ogre" value="512" <?echo ($races & 512) ? "checked" : ""?>> Ogre<br/>
+                <input type="checkbox" name="race_Halfling" value="1024" <?echo ($races & 1024) ? "checked" : ""?>> Halfling<br/>
+                <input type="checkbox" name="race_Gnome" value="2048" <?echo ($races & 2048) ? "checked" : ""?>> Gnome<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="race_Iksar" value=4096 <?echo ($races & 4096) ? "checked" : ""?>> Iksar<br/>
-                <input type="checkbox" name="race_Vah_Shir" value=8192 <?echo ($races & 8192) ? "checked" : ""?>> Vah Shir<br/>
-                <input type="checkbox" name="race_Froglok" value=16384 <?echo ($races & 16384) ? "checked" : ""?>> Froglok<br/>
-                <input type="checkbox" name="race_Drakkin" value=32768 <?echo ($races & 32768) ? "checked" : ""?>> Drakkin<br/>
+                <input type="checkbox" name="race_Iksar" value="4096" <?echo ($races & 4096) ? "checked" : ""?>> Iksar<br/>
+                <input type="checkbox" name="race_Vah_Shir" value="8192" <?echo ($races & 8192) ? "checked" : ""?>> Vah Shir<br/>
+                <input type="checkbox" name="race_Froglok" value="16384" <?echo ($races & 16384) ? "checked" : ""?>> Froglok<br/>
+                <input type="checkbox" name="race_Drakkin" value="32768" <?echo ($races & 32768) ? "checked" : ""?>> Drakkin<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="race_Shroud" value=65536 <?echo ($races & 65536) ? "checked" : ""?>> Shroud<br/>
+                <input type="checkbox" name="race_Shroud" value="65536" <?echo ($races & 65536) ? "checked" : ""?>> Shroud<br/>
                 <input type="checkbox" name="all_none2" value="yes" onClick="Check2(document.item_edit)"> <b>All/None</b><br/>
               </td>
             </tr>
@@ -281,28 +281,28 @@
           <table cellpadding="20px">
             <tr>
               <td valign="top" align="left">Classes:<br/>
-                <input type="checkbox" name="class_Warrior" value=1 <?echo ($classes & 1) ? "checked" : ""?>> Warrior<br/>
-                <input type="checkbox" name="class_Cleric" value=2 <?echo ($classes & 2) ? "checked" : ""?>> Cleric<br/>
-                <input type="checkbox" name="class_Paladin" value=4 <?echo ($classes & 4) ? "checked" : ""?>> Paladin<br/>
-                <input type="checkbox" name="class_Ranger" value=8 <?echo ($classes & 8) ? "checked" : ""?>> Ranger<br/>
+                <input type="checkbox" name="class_Warrior" value="1" <?echo ($classes & 1) ? "checked" : ""?>> Warrior<br/>
+                <input type="checkbox" name="class_Cleric" value="2" <?echo ($classes & 2) ? "checked" : ""?>> Cleric<br/>
+                <input type="checkbox" name="class_Paladin" value="4" <?echo ($classes & 4) ? "checked" : ""?>> Paladin<br/>
+                <input type="checkbox" name="class_Ranger" value="8" <?echo ($classes & 8) ? "checked" : ""?>> Ranger<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="class_Shadowknight" value=16 <?echo ($classes & 16) ? "checked" : ""?>> Shadowknight<br/>
-                <input type="checkbox" name="class_Druid" value=32 <?echo ($classes & 32) ? "checked" : ""?>> Druid<br/>
-                <input type="checkbox" name="class_Monk" value=64 <?echo ($classes & 64) ? "checked" : ""?>> Monk<br/>
-                <input type="checkbox" name="class_Bard" value=128 <?echo ($classes & 128) ? "checked" : ""?>> Bard<br/>
+                <input type="checkbox" name="class_Shadowknight" value="16" <?echo ($classes & 16) ? "checked" : ""?>> Shadowknight<br/>
+                <input type="checkbox" name="class_Druid" value="32" <?echo ($classes & 32) ? "checked" : ""?>> Druid<br/>
+                <input type="checkbox" name="class_Monk" value="64" <?echo ($classes & 64) ? "checked" : ""?>> Monk<br/>
+                <input type="checkbox" name="class_Bard" value="128" <?echo ($classes & 128) ? "checked" : ""?>> Bard<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="class_Rogue" value=256 <?echo ($classes & 256) ? "checked" : ""?>> Rogue<br/>
-                <input type="checkbox" name="class_Shaman" value=512 <?echo ($classes & 512) ? "checked" : ""?>> Shaman<br/>
-                <input type="checkbox" name="class_Necromancer" value=1024 <?echo ($classes & 1024) ? "checked" : ""?>> Necromancer<br/>
-                <input type="checkbox" name="class_Wizard" value=2048 <?echo ($classes & 2048) ? "checked" : ""?>> Wizard<br/>
+                <input type="checkbox" name="class_Rogue" value="256" <?echo ($classes & 256) ? "checked" : ""?>> Rogue<br/>
+                <input type="checkbox" name="class_Shaman" value="512" <?echo ($classes & 512) ? "checked" : ""?>> Shaman<br/>
+                <input type="checkbox" name="class_Necromancer" value="1024" <?echo ($classes & 1024) ? "checked" : ""?>> Necromancer<br/>
+                <input type="checkbox" name="class_Wizard" value="2048" <?echo ($classes & 2048) ? "checked" : ""?>> Wizard<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="class_Magician" value=4096 <?echo ($classes & 4096) ? "checked" : ""?>> Magician<br/>
-                <input type="checkbox" name="class_Enchanter" value=8192 <?echo ($classes & 8192) ? "checked" : ""?>> Enchanter<br/>
-                <input type="checkbox" name="class_Beastlord" value=16384 <?echo ($classes & 16384) ? "checked" : ""?>> Beastlord<br/>
-                <input type="checkbox" name="class_Berserker" value=32768 <?echo ($classes & 32768) ? "checked" : ""?>> Berserker<br/>
+                <input type="checkbox" name="class_Magician" value="4096" <?echo ($classes & 4096) ? "checked" : ""?>> Magician<br/>
+                <input type="checkbox" name="class_Enchanter" value="8192" <?echo ($classes & 8192) ? "checked" : ""?>> Enchanter<br/>
+                <input type="checkbox" name="class_Beastlord" value="16384" <?echo ($classes & 16384) ? "checked" : ""?>> Beastlord<br/>
+                <input type="checkbox" name="class_Berserker" value="32768" <?echo ($classes & 32768) ? "checked" : ""?>> Berserker<br/>
               </td>
               <td valign="top" align="left"><br/>
                 <input type="checkbox" name="all_none3" value="yes" onClick="Check3(document.item_edit)"> <b>All/None</b><br/>
@@ -312,31 +312,31 @@
           <table cellpadding="20px">
             <tr>
               <td valign="top" align="left">Deities:<br/>
-                <input type="checkbox" name="deity_Agnostic" value=1 <?echo ($deity & 1) ? "checked" : ""?>> Agnostic<br/>
-                <input type="checkbox" name="deity_Bertox" value=2 <?echo ($deity & 2) ? "checked" : ""?>> Bertoxxulous<br/>
-                <input type="checkbox" name="deity_Brell" value=4 <?echo ($deity & 4) ? "checked" : ""?>> Brell Serilis<br/>
-                <input type="checkbox" name="deity_Cazic" value=8 <?echo ($deity & 8) ? "checked" : ""?>> Cazic-Thule<br/>
+                <input type="checkbox" name="deity_Agnostic" value="1" <?echo ($deity & 1) ? "checked" : ""?>> Agnostic<br/>
+                <input type="checkbox" name="deity_Bertox" value="2" <?echo ($deity & 2) ? "checked" : ""?>> Bertoxxulous<br/>
+                <input type="checkbox" name="deity_Brell" value="4" <?echo ($deity & 4) ? "checked" : ""?>> Brell Serilis<br/>
+                <input type="checkbox" name="deity_Cazic" value="8" <?echo ($deity & 8) ? "checked" : ""?>> Cazic-Thule<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="deity_Erollsi" value=16 <?echo ($deity & 16) ? "checked" : ""?>> Erollsi Marr<br/>
-                <input type="checkbox" name="deity_Bristlebane" value=32 <?echo ($deity & 32) ? "checked" : ""?>> Bristlebane<br/>
-                <input type="checkbox" name="deity_Innoruuk" value=64 <?echo ($deity & 64) ? "checked" : ""?>> Innoruuk<br/>
-                <input type="checkbox" name="deity_Karana" value=128 <?echo ($deity & 128) ? "checked" : ""?>> Karana<br/>
+                <input type="checkbox" name="deity_Erollsi" value="16" <?echo ($deity & 16) ? "checked" : ""?>> Erollisi Marr<br/>
+                <input type="checkbox" name="deity_Bristlebane" value="32" <?echo ($deity & 32) ? "checked" : ""?>> Bristlebane<br/>
+                <input type="checkbox" name="deity_Innoruuk" value="64" <?echo ($deity & 64) ? "checked" : ""?>> Innoruuk<br/>
+                <input type="checkbox" name="deity_Karana" value="128" <?echo ($deity & 128) ? "checked" : ""?>> Karana<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="deity_Mithaniel_Marr" value=256 <?echo ($deity & 256) ? "checked" : ""?>> Mithaniel Marr<br/>
-                <input type="checkbox" name="deity_Prexus" value=512 <?echo ($deity & 512) ? "checked" : ""?>> Prexus<br/>
-                <input type="checkbox" name="deity_Quellious" value=1024 <?echo ($deity & 1024) ? "checked" : ""?>> Quellious<br/>
-                <input type="checkbox" name="deity_Rallos_Zek" value=2048 <?echo ($deity & 2048) ? "checked" : ""?>> Rallos Zek<br/>
+                <input type="checkbox" name="deity_Mithaniel_Marr" value="256" <?echo ($deity & 256) ? "checked" : ""?>> Mithaniel Marr<br/>
+                <input type="checkbox" name="deity_Prexus" value="512" <?echo ($deity & 512) ? "checked" : ""?>> Prexus<br/>
+                <input type="checkbox" name="deity_Quellious" value="1024" <?echo ($deity & 1024) ? "checked" : ""?>> Quellious<br/>
+                <input type="checkbox" name="deity_Rallos_Zek" value="2048" <?echo ($deity & 2048) ? "checked" : ""?>> Rallos Zek<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="deity_Rodcet_Nife" value=4096 <?echo ($deity & 4096) ? "checked" : ""?>> Rodcet Nife<br/>
-                <input type="checkbox" name="deity_Solusek_Ro" value=8192 <?echo ($deity & 8192) ? "checked" : ""?>> Solusek Ro<br/>
-                <input type="checkbox" name="deity_The_Tribunal" value=16384 <?echo ($deity & 16384) ? "checked" : ""?>> The Tribunal<br/>
-                <input type="checkbox" name="deity_Tunare" value=32768 <?echo ($deity & 32768) ? "checked" : ""?>> Tunare<br/>
+                <input type="checkbox" name="deity_Rodcet_Nife" value="4096" <?echo ($deity & 4096) ? "checked" : ""?>> Rodcet Nife<br/>
+                <input type="checkbox" name="deity_Solusek_Ro" value="8192" <?echo ($deity & 8192) ? "checked" : ""?>> Solusek Ro<br/>
+                <input type="checkbox" name="deity_The_Tribunal" value="16384" <?echo ($deity & 16384) ? "checked" : ""?>> The Tribunal<br/>
+                <input type="checkbox" name="deity_Tunare" value="32768" <?echo ($deity & 32768) ? "checked" : ""?>> Tunare<br/>
               </td>
               <td valign="top" align="left"><br/>
-                <input type="checkbox" name="deity_Veeshan" value=65536 <?echo ($deity & 65536) ? "checked" : ""?>> Veeshan<br/>
+                <input type="checkbox" name="deity_Veeshan" value="65536" <?echo ($deity & 65536) ? "checked" : ""?>> Veeshan<br/>
                 <input type="checkbox" name="all_none4" value="yes" onClick="Check4(document.item_edit)"> <b>All/None</b><br/>
               </td>
             </tr>
@@ -734,34 +734,44 @@
               <table cellpadding="20px">
                 <tr>
                   <td valign="top" align="left">Type:<br/>
-                    <input type="checkbox" name="augtype_Type_1" value=1 <?echo ($augtype & 1) ? "checked" : ""?>> Type 1<br/>
-                    <input type="checkbox" name="augtype_Type_2" value=2 <?echo ($augtype & 2) ? "checked" : ""?>> Type 2<br/>
-                    <input type="checkbox" name="augtype_Type_3" value=4 <?echo ($augtype & 4) ? "checked" : ""?>> Type 3<br/>
-                    <input type="checkbox" name="augtype_Type_4" value=8 <?echo ($augtype & 8) ? "checked" : ""?>> Type 4<br/>
+                    <input type="checkbox" name="augtype_Type_1" value="1" <?echo ($augtype & 1) ? "checked" : ""?>> Type 1<br/>
+                    <input type="checkbox" name="augtype_Type_2" value="2" <?echo ($augtype & 2) ? "checked" : ""?>> Type 2<br/>
+                    <input type="checkbox" name="augtype_Type_3" value="4" <?echo ($augtype & 4) ? "checked" : ""?>> Type 3<br/>
+                    <input type="checkbox" name="augtype_Type_4" value="8" <?echo ($augtype & 8) ? "checked" : ""?>> Type 4<br/>
+                    <input type="checkbox" name="augtype_Type_5" value="16" <?echo ($augtype & 16) ? "checked" : ""?>> Type 5<br/>
+                    <input type="checkbox" name="augtype_Type_6" value="32" <?echo ($augtype & 32) ? "checked" : ""?>> Type 6<br/>
                   </td>
                   <td valign="top" align="left"><br/>
-                    <input type="checkbox" name="augtype_Type_5" value=16 <?echo ($augtype & 16) ? "checked" : ""?>> Type 5<br/>
-                    <input type="checkbox" name="augtype_Type_6" value=32 <?echo ($augtype & 32) ? "checked" : ""?>> Type 6<br/>
-                    <input type="checkbox" name="augtype_Type_7" value=64 <?echo ($augtype & 64) ? "checked" : ""?>> Type 7<br/>
-                    <input type="checkbox" name="augtype_Type_8" value=128 <?echo ($augtype & 128) ? "checked" : ""?>> Type 8<br/>
+                    <input type="checkbox" name="augtype_Type_7" value="64" <?echo ($augtype & 64) ? "checked" : ""?>> Type 7<br/>
+                    <input type="checkbox" name="augtype_Type_8" value="128" <?echo ($augtype & 128) ? "checked" : ""?>> Type 8<br/>
+                    <input type="checkbox" name="augtype_Type_9" value="256" <?echo ($augtype & 256) ? "checked" : ""?>> Type 9<br/>
+                    <input type="checkbox" name="augtype_Type_10" value="512" <?echo ($augtype & 512) ? "checked" : ""?>> Type 10<br/>
+                    <input type="checkbox" name="augtype_Type_11" value="1024" <?echo ($augtype & 1024) ? "checked" : ""?>> Type 11<br/>
+                    <input type="checkbox" name="augtype_Type_12" value="2048" <?echo ($augtype & 2048) ? "checked" : ""?>> Type 12<br/>
                   </td>
                   <td valign="top" align="left"><br/>
-                    <input type="checkbox" name="augtype_Type_9" value=256 <?echo ($augtype & 256) ? "checked" : ""?>> Type 9<br/>
-                    <input type="checkbox" name="augtype_Type_10" value=512 <?echo ($augtype & 512) ? "checked" : ""?>> Type 10<br/>
-                    <input type="checkbox" name="augtype_Type_11" value=1024 <?echo ($augtype & 1024) ? "checked" : ""?>> Type 11<br/>
-                    <input type="checkbox" name="augtype_Type_12" value=2048 <?echo ($augtype & 2048) ? "checked" : ""?>> Type 12<br/>
+                    <input type="checkbox" name="augtype_Type_13" value="4096" <?echo ($augtype & 4096) ? "checked" : ""?>> Type 13<br/>
+                    <input type="checkbox" name="augtype_Type_14" value="8192" <?echo ($augtype & 8192) ? "checked" : ""?>> Type 14<br/>
+                    <input type="checkbox" name="augtype_Type_15" value="16384" <?echo ($augtype & 16384) ? "checked" : ""?>> Type 15<br/>
+                    <input type="checkbox" name="augtype_Type_16" value="32768" <?echo ($augtype & 32768) ? "checked" : ""?>> Type 16<br/>
+                    <input type="checkbox" name="augtype_Type_17" value="65536" <?echo ($augtype & 65536) ? "checked" : ""?>> Type 17<br/>
+                    <input type="checkbox" name="augtype_Type_18" value="131072" <?echo ($augtype & 131072) ? "checked" : ""?>> Type 18<br/>
                   </td>
                   <td valign="top" align="left"><br/>
-                    <input type="checkbox" name="augtype_Type_13" value=4096 <?echo ($augtype & 4096) ? "checked" : ""?>> Type 13<br/>
-                    <input type="checkbox" name="augtype_Type_14" value=8192 <?echo ($augtype & 8192) ? "checked" : ""?>> Type 14<br/>
-                    <input type="checkbox" name="augtype_Type_15" value=16384 <?echo ($augtype & 16384) ? "checked" : ""?>> Type 15<br/>
-                    <input type="checkbox" name="augtype_Type_16" value=32768 <?echo ($augtype & 32768) ? "checked" : ""?>> Type 16<br/>
+                    <input type="checkbox" name="augtype_Type_19" value="262144" <?echo ($augtype & 262144) ? "checked" : ""?>> Type 19<br/>
+                    <input type="checkbox" name="augtype_Type_20" value="524288" <?echo ($augtype & 524288) ? "checked" : ""?>> Type 20<br/>
+                    <input type="checkbox" name="augtype_Type_21" value="1048576" <?echo ($augtype & 1048576) ? "checked" : ""?>> Type 21<br/>
+                    <input type="checkbox" name="augtype_Type_22" value="2097152" <?echo ($augtype & 2097152) ? "checked" : ""?>> Type 22<br/>
+                    <input type="checkbox" name="augtype_Type_23" value="4194304" <?echo ($augtype & 4194304) ? "checked" : ""?>> Type 23<br/>
+                    <input type="checkbox" name="augtype_Type_24" value="8388608" <?echo ($augtype & 8388608) ? "checked" : ""?>> Type 24<br/>
                   </td>
                   <td valign="top" align="left"><br/>
-                    <input type="checkbox" name="augtype_Type_17" value=65536 <?echo ($augtype & 65536) ? "checked" : ""?>> Type 17<br/>
-                    <input type="checkbox" name="augtype_Type_18" value=131072 <?echo ($augtype & 131072) ? "checked" : ""?>> Type 18<br/>
-                    <input type="checkbox" name="augtype_Type_19" value=262144 <?echo ($augtype & 262144) ? "checked" : ""?>> Type 19<br/>
-                    <input type="checkbox" name="augtype_Type_20" value=524288 <?echo ($augtype & 524288) ? "checked" : ""?>> Type 20<br/>
+                    <input type="checkbox" name="augtype_Type_25" value="16777216" <?echo ($augtype & 16777216) ? "checked" : ""?>> Type 25<br/>
+                    <input type="checkbox" name="augtype_Type_26" value="33554432" <?echo ($augtype & 33554432) ? "checked" : ""?>> Type 26<br/>
+                    <input type="checkbox" name="augtype_Type_27" value="67108864" <?echo ($augtype & 67108864) ? "checked" : ""?>> Type 27<br/>
+                    <input type="checkbox" name="augtype_Type_28" value="134217728" <?echo ($augtype & 134217728) ? "checked" : ""?>> Type 28<br/>
+                    <input type="checkbox" name="augtype_Type_29" value="268435456" <?echo ($augtype & 268435456) ? "checked" : ""?>> Type 29<br/>
+                    <input type="checkbox" name="augtype_Type_30" value="536870912" <?echo ($augtype & 536870912) ? "checked" : ""?>> Type 30<br/>
                   </td>
                   <td valign="top" align="left"><br/>
                     <input type="checkbox" name="all_none5" value="yes" onClick="Check5(document.item_edit)"> <b>All/None</b>

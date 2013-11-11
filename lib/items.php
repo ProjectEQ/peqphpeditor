@@ -262,7 +262,7 @@ function update_item () {
   $query = "SELECT * FROM items WHERE id=$id";
   $item = $mysql->query_assoc($query);
 
-   // Define checkbox fields:
+  // Define checkbox fields:
   $slots = 0;
   if (isset($_POST['slot_Charm'])) $slots = $slots+1;
   if (isset($_POST['slot_Ear01'])) $slots = $slots+2;
@@ -306,7 +306,7 @@ function update_item () {
   if (isset($_POST['race_Froglok'])) $races = $races+16384;
   if (isset($_POST['race_Drakkin'])) $races = $races+32768;
   if (isset($_POST['race_Shroud'])) $races = $races+65536;
-  
+
   $classes = 0;
   if (isset($_POST['class_Warrior'])) $classes = $classes+1;
   if (isset($_POST['class_Cleric'])) $classes = $classes+2;
@@ -324,7 +324,7 @@ function update_item () {
   if (isset($_POST['class_Enchanter'])) $classes = $classes+8192;
   if (isset($_POST['class_Beastlord'])) $classes = $classes+16384;
   if (isset($_POST['class_Berserker'])) $classes = $classes+32768;
-  
+
   $deity = 0;
   if (isset($_POST['deity_Agnostic'])) $deity = $deity+1;
   if (isset($_POST['deity_Bertox'])) $deity = $deity+2;
@@ -343,8 +343,7 @@ function update_item () {
   if (isset($_POST['deity_The_Tribunal'])) $deity = $deity+16384;
   if (isset($_POST['deity_Tunare'])) $deity = $deity+32768;
   if (isset($_POST['deity_Veeshan'])) $deity = $deity+65536;
-  
-  
+
   $augtype = 0;
   if (isset($_POST['augtype_Type_1'])) $augtype = $augtype+1;
   if (isset($_POST['augtype_Type_2'])) $augtype = $augtype+2;
@@ -366,7 +365,17 @@ function update_item () {
   if (isset($_POST['augtype_Type_18'])) $augtype = $augtype+131072;
   if (isset($_POST['augtype_Type_19'])) $augtype = $augtype+262144;
   if (isset($_POST['augtype_Type_20'])) $augtype = $augtype+524288;
-  
+  if (isset($_POST['augtype_Type_21'])) $augtype = $augtype+1048576;
+  if (isset($_POST['augtype_Type_22'])) $augtype = $augtype+2097152;
+  if (isset($_POST['augtype_Type_23'])) $augtype = $augtype+4194304;
+  if (isset($_POST['augtype_Type_24'])) $augtype = $augtype+8388608;
+  if (isset($_POST['augtype_Type_25'])) $augtype = $augtype+16777216;
+  if (isset($_POST['augtype_Type_26'])) $augtype = $augtype+33554432;
+  if (isset($_POST['augtype_Type_27'])) $augtype = $augtype+67108864;
+  if (isset($_POST['augtype_Type_28'])) $augtype = $augtype+134217728;
+  if (isset($_POST['augtype_Type_29'])) $augtype = $augtype+268435456;
+  if (isset($_POST['augtype_Type_30'])) $augtype = $augtype+536870912;
+
   $fields = '';
   if ($item['slots'] != $slots) $fields .= "slots=\"$slots\", ";
   if ($item['races'] != $races) $fields .= "races=\"$races\", ";
@@ -552,7 +561,7 @@ function update_item () {
   if ($item['comment'] != $_POST['comment']) $fields .= "comment=\"" . $_POST['comment'] . "\", ";
   if ($fields != '') $fields .= "updated=\"" . $_POST['updated'] . "\", ";
   $fields =  rtrim($fields, ", ");
-  
+
   if ($fields != '') {
     $query = "UPDATE items SET $fields WHERE id=$id";
     $mysql->query_no_result($query);
@@ -566,11 +575,11 @@ function copy_item () {
    
    $query = "DELETE FROM items where id=0";
    $mysql->query_no_result($query);
- 
+
    $query2 = "INSERT INTO items (minstatus, Name, aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK038, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evolvinglevel, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4,bardunk5, bardname, bardunk7, UNK214)
-	      SELECT minstatus, Name, aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK038, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evolvinglevel, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4, bardunk5, bardname, bardunk7, UNK214 FROM items where id=$id";
+              SELECT minstatus, concat(Name, ' - Copy'), aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK038, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evolvinglevel, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4, bardunk5, bardname, bardunk7, UNK214 FROM items where id=$id";
    $mysql->query_no_result($query2);
-   
+
    $query3 = "SELECT max(id) AS iid FROM items"; 
    $result = $mysql->query_assoc($query3);
    $newid = $result['iid'] + 1;
@@ -593,7 +602,7 @@ function get_max_id () {
 
 function add_item () {
   global $mysql;
-   
+
   // Define checkbox fields:
   $slots = 0;
   if (isset($_POST['slot_Charm'])) $slots = $slots+1;
@@ -675,8 +684,7 @@ function add_item () {
   if (isset($_POST['deity_The_Tribunal'])) $deity = $deity+16384;
   if (isset($_POST['deity_Tunare'])) $deity = $deity+32768;
   if (isset($_POST['deity_Veeshan'])) $deity = $deity+65536;
-  
-  
+
   $augtype = 0;
   if (isset($_POST['augtype_Type_1'])) $augtype = $augtype+1;
   if (isset($_POST['augtype_Type_2'])) $augtype = $augtype+2;
@@ -698,7 +706,17 @@ function add_item () {
   if (isset($_POST['augtype_Type_18'])) $augtype = $augtype+131072;
   if (isset($_POST['augtype_Type_19'])) $augtype = $augtype+262144;
   if (isset($_POST['augtype_Type_20'])) $augtype = $augtype+524288;
-  
+  if (isset($_POST['augtype_Type_21'])) $augtype = $augtype+1048576;
+  if (isset($_POST['augtype_Type_22'])) $augtype = $augtype+2097152;
+  if (isset($_POST['augtype_Type_23'])) $augtype = $augtype+4194304;
+  if (isset($_POST['augtype_Type_24'])) $augtype = $augtype+8388608;
+  if (isset($_POST['augtype_Type_25'])) $augtype = $augtype+16777216;
+  if (isset($_POST['augtype_Type_26'])) $augtype = $augtype+33554432;
+  if (isset($_POST['augtype_Type_27'])) $augtype = $augtype+67108864;
+  if (isset($_POST['augtype_Type_28'])) $augtype = $augtype+134217728;
+  if (isset($_POST['augtype_Type_29'])) $augtype = $augtype+268435456;
+  if (isset($_POST['augtype_Type_30'])) $augtype = $augtype+536870912;
+
   $fields = '';
   $fields .= "slots=\"$slots\", ";
   $fields .= "races=\"$races\", ";
@@ -884,7 +902,7 @@ function add_item () {
   $fields .= "updated=\"" . $_POST['updated'] . "\", ";
   $fields .= "source=\"" . $_POST['source'] . "\", ";
   $fields .= "comment=\"" . $_POST['comment'] . "\"";
-  
+
   $query = "INSERT INTO items SET $fields";
   $mysql->query_no_result($query);
 }
