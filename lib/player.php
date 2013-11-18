@@ -8,9 +8,10 @@ $default_sort = 1;
 
 $columns = array(
   1 => 'id',
-  2 => 'name',
-  3 => 'class',
-  4 => 'level'
+  2 => 'account_id',
+  3 => 'name',
+  4 => 'class',
+  5 => 'level'
 );
 
 switch ($action) {
@@ -115,7 +116,7 @@ function get_players($page_number, $results_per_page, $sort_by) {
   global $mysql;
   $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
 
-  $query = "SELECT id, name, level, class FROM character_ ORDER BY $sort_by LIMIT $limit";
+  $query = "SELECT id, account_id, name, level, class FROM character_ ORDER BY $sort_by LIMIT $limit";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
