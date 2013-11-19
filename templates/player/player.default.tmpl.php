@@ -20,8 +20,8 @@
 <?if (isset($players)):?>
         <tr>
           <td align="center"><strong><?echo ($sort == 1) ? "ID <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=player&sort=1" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>ID <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by ID'/></a>";?></strong></td>
-          <td align="center"><strong><?echo ($sort == 2) ? "Account <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=player&sort=2" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Account <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Account'/></a>";?></strong></td>
-          <td align="center"><strong><?echo ($sort == 3) ? "Name <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=player&sort=3" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Name <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Name'/></a>";?></strong></td>
+          <td align="center"><strong><?echo ($sort == 2) ? "Name <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=player&sort=2" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Name <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Name'/></a>";?></strong></td>
+          <td align="center"><strong><?echo ($sort == 3) ? "Account <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=player&sort=3" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Account <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Account'/></a>";?></strong></td>
           <td align="center"><strong><?echo ($sort == 4) ? "Class <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=player&sort=4" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Class <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Class'/></a>";?></strong></td>
           <td align="center"><strong><?echo ($sort == 5) ? "Level <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=player&sort=5" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Level <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Level'/></a>";?></strong></td>
           <td width="5%">&nbsp;</td>
@@ -30,8 +30,8 @@
 foreach($players as $player):?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center"><?=$player['id']?></td>
-          <td align="center"><a href="index.php?editor=account&acctid=<?=$player['account_id']?>"><?echo getAccountName($player['account_id'])?></a></td>
           <td align="center"><a href="index.php?editor=player&playerid=<?echo getPlayerID($player['name'])?>"><?=$player['name']?></a></td>
+          <td align="center"><a href="index.php?editor=account&acctid=<?=$player['account_id']?>"><?echo getAccountName($player['account_id'])?></a></td>
           <td align="center"><?=$classes[$player['class']]?></td>
           <td align="center"><?=$player['level']?></td>
           <td align="right"><a href="index.php?editor=player&playerid=<?=$player['id']?>"><img src="images/edit2.gif" width="13" height="13" border="0" title="View Player"></a></td>

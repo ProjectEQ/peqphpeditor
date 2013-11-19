@@ -8,8 +8,8 @@ $default_sort = 1;
 
 $columns = array(
   1 => 'id',
-  2 => 'account_id',
-  3 => 'name',
+  2 => 'name',
+  3 => 'account_id',
   4 => 'class',
   5 => 'level'
 );
