@@ -1240,6 +1240,7 @@ function update_npc () {
   if ($attack_count != $_POST['attack_count']) $fields .= "attack_count=\"" . $_POST['attack_count'] . "\", ";
   if ($flag == 1) $fields .= "special_abilities=\"$new_specialattks\", ";
   if ($aggroradius != $_POST['aggroradius']) $fields .= "aggroradius=\"" . $_POST['aggroradius'] . "\", ";
+  if ($assistradius != $_POST['assistradius']) $fields .= "assistradius=\"" . $_POST['assistradius'] . "\", ";
   if ($face != $_POST['face']) $fields .= "face=\"" . $_POST['face'] . "\", ";
   if ($luclin_hairstyle != $_POST['luclin_hairstyle']) $fields .= "luclin_hairstyle=\"" . $_POST['luclin_hairstyle'] . "\", ";
   if ($luclin_haircolor != $_POST['luclin_haircolor']) $fields .= "luclin_haircolor=\"" . $_POST['luclin_haircolor'] . "\", ";
@@ -1352,6 +1353,7 @@ function add_npc () {
   $fields .= "attack_count=\"" . $_POST['attack_count'] . "\", ";
   $fields .= "special_abilities=\"$special_abilities\", ";
   $fields .= "aggroradius=\"" . $_POST['aggroradius'] . "\", ";
+  $fields .= "assistradius=\"" . $_POST['assistradius'] . "\", ";
   $fields .= "face=\"" . $_POST['face'] . "\", ";
   $fields .= "luclin_hairstyle=\"" . $_POST['luclin_hairstyle'] . "\", ";
   $fields .= "luclin_haircolor=\"" . $_POST['luclin_haircolor'] . "\", ";
@@ -1448,6 +1450,7 @@ $fields .= "maxdmg=\"" . $_POST['maxdmg'] . "\", ";
 $fields .= "attack_count=\"" . $_POST['attack_count'] . "\", ";
 $fields .= "special_abilities=\"" . $_POST['special_abilities'] . "\", ";
 $fields .= "aggroradius=\"" . $_POST['aggroradius'] . "\", ";
+$fields .= "assistradius=\"" . $_POST['assistradius'] . "\", ";
 $fields .= "face=\"" . $_POST['face'] . "\", ";
 $fields .= "luclin_hairstyle=\"" . $_POST['luclin_hairstyle'] . "\", ";
 $fields .= "luclin_haircolor=\"" . $_POST['luclin_haircolor'] . "\", ";

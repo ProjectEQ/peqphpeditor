@@ -191,14 +191,14 @@
                     <td align="left" width="34%">Special Atks: <?echo ($new_special_abilities) ? $new_special_abilities : "None";?></td>
                   </tr>
                   <tr>
-                    <td align="left" width="33%">Slow Mit: <?=$slow_mitigation?> (<?=$slotmit?>%)</td>
-                    <td align="left" width="33%">NPC Aggro: <?=$npc_aggro?></td>
+                    <td align="left" width="33%">Assist: <?=$assistradius?></td>
+                    <td align="left" width="33%">Spell Scale: <?=$spellscale?>%</td>
                     <td align="left" width="34%">NPC Spells ID: <?=$npc_spells_id?></td>
                   </tr>
                   <tr>
-                    <td align="left" width="33%">Spell Scale: <?=$spellscale?>%</td>
+                    <td align="left" width="33%">Slow Mit: <?=$slow_mitigation?> (<?=$slotmit?>%)</td>
                     <td align="left" width="33%">Heal Scale: <?=$healscale?>%</td>
-                    <td align="left" width="34%">&nbsp;</td>
+                    <td align="left" width="34%">NPC Aggro: <?=$npc_aggro?></td>
                   </tr>
                 </table>
               </fieldset>
@@ -292,6 +292,7 @@
         <input type="hidden" name="maxdmg" value="<?=$maxdmg?>">
         <input type="hidden" name="attack_count" value="<?=$attack_count?>">
         <input type="hidden" name="aggroradius" value="<?=$aggroradius?>">
+        <input type="hidden" name="assistradius" value="<?=$assistradius?>">
         <input type="hidden" name="face" value="<?=$face?>">
         <input type="hidden" name="luclin_hairstyle" value="<?=$luclin_hairstyle?>">
         <input type="hidden" name="luclin_haircolor" value="<?=$luclin_haircolor?>">
