@@ -349,6 +349,7 @@
         <input type="hidden" name="sec_melee_type" value="<?=$sec_melee_type?>">
         <input type="hidden" name="underwater" value="<?=$underwater?>">
         <input type="hidden" name="emoteid" value="<?=$emoteid?>">
+        <input type="hidden" name="isquest" value="<?=$isquest?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">
