@@ -110,8 +110,8 @@ $columns = array(
 );
 
 switch ($action) {
-  case 0:  // View Loottable
-    if ($npcid) {
+  case 0:
+    if ($npcid) {  // View NPC
       $body = new Template("templates/npc/npc.tmpl.php");
       $body->set('currzone', $z);
       $body->set('currzoneid', $zoneid);
@@ -122,7 +122,7 @@ switch ($action) {
       $body->set('races', $races);
       $body->set('yesno', $yesno);
       $body->set('skilltypes', $skilltypes);
-      $body->set('suggestedid', suggest_npcid());
+      $body->set('suggestedid', ($_POST['selected_id'] > 0) ? $_POST['selected_id'] : suggest_npcid());
       $body->set('npc_name', getNPCName($npcid));
       $body->set('factions', $factions);
       $body->set('faction_values', $faction_values);
