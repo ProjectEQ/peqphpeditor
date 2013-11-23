@@ -1,18 +1,18 @@
 <?$export_sql_array = export_sql();?>
-  <div id="sql_block" style="display:none">
+  <div id="sql_block" style="display:none;">
     <center>
       <textarea id="insert_sql" rows="3" cols="90"><?=$export_sql_array['insert']?></textarea><br/><br/>
       <textarea id="update_sql" rows="3" cols="90"><?=$export_sql_array['update']?></textarea><br/><br/>
       <button type="button" id="copy_insert" onClick="clipboardData.setData('Text', insert_sql.value);">Copy INSERT to Clipboard</button>&nbsp;
       <button type="button" id="copy_update" onClick="clipboardData.setData('Text', update_sql.value);">Copy UPDATE to Clipboard</button>&nbsp;
-      <button type="button" id="hide_sql" onClick="document.getElementById('sql_block').style.display='none';">Hide SQL</button>
-    </center>
+      <button type="button" id="hide_sql" onClick="document.getElementById('sql_block').style.display='none';document.getElementById('sql_image').style.display='inline';">Hide SQL</button>
+    </center><br/>
   </div>
   <form name="npc" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=28">
     <div class="table_container">
       <div class="table_header">
         <div style="float:right">
-          <a onClick="document.getElementById('sql_block').style.display='block';"><img src="images/sql.gif" border="0" title="Show SQL"></a>
+          <a onClick="document.getElementById('sql_block').style.display='block';document.getElementById('sql_image').style.display='none';"><img id="sql_image" src="images/sql.gif" border="0" title="Show SQL"></a>
 
           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=42"><img src="images/add.gif" border="0" title="Add an NPC"></a>
           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" border="0" title="Edit this NPC"></a>

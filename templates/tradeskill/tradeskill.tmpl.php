@@ -1,32 +1,27 @@
 <?if($errors != ''):?>
 <?foreach($errors as $error):?>
-      <div class='error'>
-        <table width=100%>
+      <div class="error">
+        <table width="100%">
           <tr>
-            <td valign='middle' width="30px">
-              <img src='images/caution.gif'>
-            </td>
-            <td style='padding: 0px 5px;'>
-              <?=$error?>
-            </td>
+            <td valign="middle" width="30px"><img src="images/caution.gif"></td>
+            <td style="padding:0px 5px;"><?=$error?></td>
           </tr>
         </table>
       </div>
 <?endforeach;?>
 <?endif;?>
   <?$export_sql = export_recipe_sql();?>
-  <div id="sql_block" style="display:none">
+  <div id="sql_block" style="display:none;">
     <center>
       <textarea id="sql_text" rows="3" cols="90"><?=$export_sql?></textarea><br/><br/>
       <button type="button" id="copy_sql" onClick="clipboardData.setData('Text', sql_text.value);">Copy SQL to Clipboard</button>&nbsp;
-      <button type="button" id="hide_sql" onClick="document.getElementById('sql_block').style.display='none';">Hide SQL</button>
-    </center>
-    <br/>
+      <button type="button" id="hide_sql" onClick="document.getElementById('sql_block').style.display='none';document.getElementById('sql_image').style.display='inline';">Hide SQL</button>
+    </center><br/>
   </div>
-      <div class="table_container" style="width: 350px;">
+      <div class="table_container" style="width:350px;">
         <div class="table_header">
           <div style="float: right">
-            <a onClick="document.getElementById('sql_block').style.display='block';"><img src="images/sql.gif" border="0" title="Show SQL"></a>
+            <a onClick="document.getElementById('sql_block').style.display='block';document.getElementById('sql_image').style.display='none';"><img id="sql_image" src="images/sql.gif" border="0" title="Show SQL"></a>
             <a href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&action=1"><img src="images/c_table.gif" border="0" title="Edit Recipe"></a>
             <a onClick="return confirm('Really Copy Recipe <?=$id?>?');" href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&action=12"><img src="images/last.gif" border="0" title="Copy Recipe"></a>
             <a onClick="return confirm('Really Delete Recipe <?=$id?>?');" href="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&action=3"><img src="images/remove3.gif" border="0" title="Delete Recipe"></a>
