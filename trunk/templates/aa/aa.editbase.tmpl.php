@@ -78,7 +78,7 @@
   </center>
   <div class="edit_form" style="width:500px;">
     <div class="edit_form_header">
-<?if ($editmode == 2) echo "Create a new AA"; else echo "Edit {$aa_vars['name']} ($aaid)";?>
+<?if ($editmode == 2) echo "Create a new AA"; else echo "Edit AA: {$aa_vars['name']} ($aaid)";?>
     </div>
     <div class="edit_form_content">
       <form name="aa_edit" method="post" action="index.php?editor=aa<?if($editmode == 1) echo "&aaid=$aaid";?>&action=<? if($editmode == 1) echo "15"; else echo "16";?>">
@@ -214,11 +214,11 @@
                   <tr>
                     <td width="50%">
                       AA: (<a href="javascript:showSearch();" title="Show the AA search frame">Search</a>)<br/>
-                      <input id="searchtarget" type="text" name="prereq_skill" size="6" value="<?echo "{$aa_vars['prereq_skill']}";?>"><br/>
+                      <input id="searchtarget" type="text" name="prereq_skill" size="10" value="<?echo "{$aa_vars['prereq_skill']}";?>">
                     </td>
                     <td width="50%">
                       Points:<br/>
-                      <input type="text" name="prereq_minpoints" size="6" value="<?echo "{$aa_vars['prereq_minpoints']}";?>"><br/>
+                      <input type="text" name="prereq_minpoints" size="6" value="<?echo "{$aa_vars['prereq_minpoints']}";?>">
                     </td>
                   </tr>
                 </table>

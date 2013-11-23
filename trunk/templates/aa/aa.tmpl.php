@@ -130,7 +130,7 @@
                           <td>&nbsp;</td>
                           <td align="center"><a href="index.php?editor=aa&aaid=<?=$prev_sub['skill_id']?>"><?=$prev_sub['skill_id']?></a></td>
                           <td>&nbsp;</td>
-                          <td><a href="index.php?editor=aa&aaid=<?=$prev_sub['skill_id']?>"><?=$prev_sub['name']?></a></td>
+                          <td align="center"><a href="index.php?editor=aa&aaid=<?=$prev_sub['skill_id']?>"><?=$prev_sub['name']?></a></td>
                           <td align="center"><?=$prev_sub['class_type']?></td>
                           <td align="center"><?=$prev_sub['max_level']?></td>
                           <td align="center"><?=$prev_sub['sof_current_level']?></td>
@@ -148,7 +148,7 @@
   } // end if
 ?>
                         <tr bgcolor="#FFFFFF">
-                          <td>&gt;</td>
+                          <td align="right">&gt;</td>
                           <td align="center"><?=$aa_vars['skill_id']?></td>
                           <td>&nbsp;</td>
                           <td align="center"><?=$aa_vars['name']?></td>
@@ -171,7 +171,7 @@
                           <td>&nbsp;</td>
                           <td align="center"><a href="index.php?editor=aa&aaid=<?=$next_row['skill_id']?>"><?=$next_row['skill_id']?></a></td>
                           <td>&nbsp;</td>
-                          <td><a href="index.php?editor=aa&aaid=<?=$next_row['skill_id']?>"><?=$next_row['name']?></a></td>
+                          <td align="center"><a href="index.php?editor=aa&aaid=<?=$next_row['skill_id']?>"><?=$next_row['name']?></a></td>
                           <td align="center"><?=$next_row['class_type']?></td>
                           <td align="center"><?=$next_row['max_level']?></td>
                           <td align="center"><?=$next_row['sof_current_level']?></td>
