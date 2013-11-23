@@ -52,9 +52,9 @@
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "CCCCCC" : "AAAAAA"; $x++;?>">
         <td align="center"><?=$skill_id?></td>
         <td align="center"></td>
-        <td><a href="index.php?editor=aa&aaid=<?=$skill_id?>"><?=$name?></a></td>
+        <td align="center"><a href="index.php?editor=aa&aaid=<?=$skill_id?>"><?=$name?></a></td>
         <td align="center"><?=$prereq_skill?></td>
-        <td><?=getClasses($classes, $berserker);?></td>
+        <td align="center"><?=getClasses($classes, $berserker);?></td>
         <td align="center"><?=getExpansionName($aa_expansion);?></td>
       </tr>
 <?endforeach;?>
