@@ -82,8 +82,8 @@ switch ($action) {
     exit;
   case 5: // Character Transfer Selection
     check_admin_authorization();
-    $target_accounts = accounts();
     $body = new Template("templates/account/account.chartransfer.tmpl.php");
+    $javascript = new Template("templates/account/js.tmpl.php");
     $body->set('acctid', $acctid);
     $body->set('acctname', getAccountName($acctid));
     $body->set('target_accounts', $target_accounts);
@@ -163,7 +163,7 @@ function update_account() {
 
 function char_transfer() {
   global $mysql, $acctid;
-  $target_acct = $_GET['tacct'];
+  $target_acct = getAccountID($_POST['tacct']);
   $char_id = $_GET['playerid'];
 
   $query = "UPDATE character_ SET account_id=$target_acct WHERE id=$char_id";

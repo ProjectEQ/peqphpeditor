@@ -22,6 +22,11 @@
   Allow from all
 </files>
 
+<Files accountsearch.php>
+  Order allow,deny
+  Allow from all
+</files>
+
 
 #Apache 2.4 and later
 #<Files itemsearch.php>
@@ -37,5 +42,9 @@
 #</files>
 
 #<Files playersearch.php>
+#  Require all granted
+#</files>
+
+#<Files accountsearch.php>
 #  Require all granted
 #</files>
