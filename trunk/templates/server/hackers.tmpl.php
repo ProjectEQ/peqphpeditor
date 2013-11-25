@@ -56,7 +56,7 @@
                 <?echo ($page < $pages) ? "<a href='index.php?editor=server&action=6&page=" . $pages . (($sort != "") ? "&sort=" . $sort : "")  . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/last.gif' border='0' width='12' height='12' title='Last'/></a>" : "<img src='images/last.gif' border='0' width='12' height='12'/>";?>
               </td>
               <td align="right" width="33%">
-                <a onClick="document.getElementById('filter_box').style.display='block';document.getElementById('filter_image').style.display='none';"><img id="filter_image" src="images/filter.jpg" border="0" height="13" width="13" title="Show filter"></a>&nbsp;<a onClick="toggleMultiDelete();"><img id="multiD" src="images/remove3.gif" border="0" height="13" width="13" title="Delete multiple"></a><a id="select_all" onClick="toggleSelectAll();" style="display:none;">Select All</a>
+                <a onClick="document.getElementById('filter_box').style.display='block';document.getElementById('filter_image').style.display='none';"><img id="filter_image" src="images/filter.jpg" border="0" height="13" width="13" title="Show filter"<?echo ($filter['status'] == 'on') ? ' style="display:none;"' : '';?>></a>&nbsp;<a onClick="toggleMultiDelete();"><img id="multiD" src="images/remove3.gif" border="0" height="13" width="13" title="Delete multiple"></a><a id="select_all" onClick="toggleSelectAll();" style="display:none;">Select All</a>
               </td>
             </tr>
           </table>
