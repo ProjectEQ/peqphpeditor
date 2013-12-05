@@ -4,7 +4,7 @@ Step 1:
 Install Apache and PHP. You can get from www.apache.org and www.php.net or get an all-in-one package such as XAMPP from www.apachefriends.org.
 
 Step 2:
-Configure Apache and PHP as needed, but make sure you allow short tags (short_open_tag = On). Also recommend you suppress NOTICE and STRICT messages under error_reporting.
+Configure Apache and PHP as needed, but make sure you allow short tags (short_open_tag = On). Also recommend you suppress NOTICE and WARNING messages under error_reporting.
 
 Step 3:
 Unzip or checkout the files into your public html directory (such as /htdocs/peqedit) or set up an alias outside that directory if you desire.

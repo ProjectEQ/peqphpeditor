@@ -6,7 +6,7 @@ class session {
     session_start();
   }
   
-  function login ($login, $pw) {
+  public static function login($login, $pw) {
     global $mysql;
     
     $query = "SELECT password FROM peq_admin WHERE login=\"$login\"";
@@ -95,7 +95,7 @@ class session {
     else return false;
   }
 
-  function stop() {
+  public static function stop() {
     session_unset();
     session_destroy();
   }
