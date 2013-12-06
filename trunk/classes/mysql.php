@@ -96,14 +96,14 @@ function quote_smart($value) {
 
   // Deter UNION SQL Injection
   if (function_exists("stripos")) { //PHP5+ installed
-    if (stripos($value, 'union')) {
+    if (stripos($value, 'union all') || stripos($value, 'union select')) {
       logSQL("SQL injection monitored by user at IP: '" . getIP() . "' using the query: '" . $value . "'.");
       header("Location: index.php");
       exit;
     }
   }
   else { //PHP<5 installed
-    if (strpos(strtolower($value), 'union')) {
+    if (strpos(strtolower($value), 'union all') || strpos(strtolower($value), 'union select')) {
       logSQL("SQL injection monitored by user at IP: '" . getIP() . "' using the query: '" . $value . "'.");
       header("Location: index.php");
       exit;
