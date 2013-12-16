@@ -20,7 +20,7 @@
               <td align="center" width="5%"><?=$v['rid']?></td>
               <td align="center" width="15%"><?=$v['name']?></td>
               <td align="center" width="70%"><?=$v['reported']?></td>  
-              <td align="right"><a href="index.php?editor=server&rid=<?=$v['rid']?>&action=11"><img src="images/edit2.gif" border="0" title="View Hacker"></a>&nbsp;<a onClick="return confirm('Really Delete Entry <?=$v['rid']?>?');" href="index.php?editor=server&rid=<?=$v['rid']?>&action=10"><img src="images/remove3.gif" border="0" title="Delete this entry"></a></td>
+              <td align="right"><a href="index.php?editor=server&rid=<?=$v['rid']?>&action=11"><img src="images/edit2.gif" border="0" title="View Report"></a>&nbsp;<a onClick="return confirm('Really Delete Entry <?=$v['rid']?>?');" href="index.php?editor=server&rid=<?=$v['rid']?>&action=10"><img src="images/remove3.gif" border="0" title="Delete this entry"></a></td>
             </tr>
 <?$x++; endforeach;?>
 <?endif;?>
