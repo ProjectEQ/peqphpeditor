@@ -1,10 +1,12 @@
-  <div class="table_container" style="width: 600px;">
+  <div class="table_container" style="width: 500px;">
     <div class="table_header">
       <div style="float:right;">
         <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">Standard List</a>&nbsp;
-        <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=12"><img src="images/add.gif" border=0 title="Add an Item"></a>&nbsp;
-        <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=9"><img src="images/c_table.gif" border=0 title="Edit this Merchant"></a>&nbsp;
-        <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=14" onClick="return confirm('Really delete this merchantlist?');"><img src="images/table.gif" border=0 title="Delete this Merchantlist"></a>
+        <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=12"><img src="images/add.gif" border="0" title="Add an Item"></a>&nbsp;
+        <div style="display:<?echo (isset($slots)) ? "inline" : "none";?>">
+          <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=9"><img src="images/c_table.gif" border="0" title="Edit this Merchant"></a>&nbsp;
+        </div>
+        <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=14" onClick="return confirm('Really delete this merchantlist?');"><img src="images/table.gif" border="0" title="Delete this Merchantlist"></a>
       </div>
       Temp Merchant list for NPC <?=$npcid?>
     </div>
@@ -19,9 +21,6 @@
           <th>Charges</th>
           <th>Buy Price</th>
           <th>Sell Price</th>
-          <th>Fact<br/>Req</th>
-          <th>Lvl<br/>Req</th>
-          <th>Alt<br/>Curr</th>
           <th>&nbsp;</th>
         </tr>
 <?
@@ -86,9 +85,6 @@ foreach($slots as $slot=>$v):
             cp
 <?endif;?>
           </td>
-          <td align="center"><?=$v['faction_required']?></td>
-          <td align="center"><?=$v['level_required']?></td>
-          <td align="center"><?=$v['alt_currency_cost']?></td>
           <td align="right" style="padding-right: 10px;">
             <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&slot=<?=$slot?>&itemid=<?=$v['itemid']?>&action=11" onClick="return confirm('Really remove this item from the merchant?');"><img src="images/remove.gif" border="0" title="Delete item from Merchantlist"></a>
           </td>
