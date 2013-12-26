@@ -172,22 +172,22 @@ function get_merchantlist() {
   $array = array();
 
   $array['id'] = $mid;
-  $query = "SELECT merchantid,slot,item,faction_required,level_required,alt_currency_cost FROM merchantlist WHERE merchantid=$mid";
+  $query = "SELECT merchantid,slot,item,faction_required,level_required,alt_currency_cost,classes_required FROM merchantlist WHERE merchantid=$mid";
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
       	foreach ($results as $result) {
   		$result['item_name'] = 'Item not in DB';
-        	$array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name'], "faction_required"=>$result['faction_required'], "level_required"=>$result['level_required'], "alt_currency_cost"=>$result['alt_currency_cost']);
+        	$array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name'], "faction_required"=>$result['faction_required'], "level_required"=>$result['level_required'], "alt_currency_cost"=>$result['alt_currency_cost'], "classes_required"=>$result['classes_required']);
       	}
   }
-  $query = "SELECT m.merchantid,m.slot,m.item,i.price,i.sellrate,m.faction_required,m.level_required,m.alt_currency_cost 
+  $query = "SELECT m.merchantid,m.slot,m.item,i.price,i.sellrate,m.faction_required,m.level_required,m.alt_currency_cost,classes_required 
             FROM merchantlist AS m, items AS i 
             WHERE i.id = m.item AND merchantid=$mid";
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
     	foreach ($results as $result) {
       		$result['item_name'] = get_item_name($result['item']);
-      		$array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name'], "price"=>$result['price'], "sellrate"=>$result['sellrate'], "faction_required"=>$result['faction_required'], "level_required"=>$result['level_required'], "alt_currency_cost"=>$result['alt_currency_cost']);
+      		$array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name'], "price"=>$result['price'], "sellrate"=>$result['sellrate'], "faction_required"=>$result['faction_required'], "level_required"=>$result['level_required'], "alt_currency_cost"=>$result['alt_currency_cost'], "classes_required"=>$result['classes_required']);
       	}
   }
 
@@ -232,9 +232,9 @@ function update_merchantlist() {
 	for ($i=1; $i<=$count; $i++){
 		$slot = $_POST["slot{$i}"];
 		if (($slot != $_POST["newslot{$i}"]) || ($values['item'] != $_POST["item{$i}"]) || ($values['faction_required'] != $_POST["faction_required{$i}"]) || 
-        	($values['level_required'] != $_POST["level_required{$i}"]) || ($values['alt_currency_cost'] != $_POST["alt_currency_cost{$i}"])) {
+        	($values['level_required'] != $_POST["level_required{$i}"]) || ($values['alt_currency_cost'] != $_POST["alt_currency_cost{$i}"]) || ($values['classes_required'] != $_POST["classes_required{$i}"])) {
 			if($_POST["newslot{$i}"] > -1){
-				$query = "UPDATE merchantlist SET item=\"" . $_POST["item{$i}"] . "\", slot=\"" . $_POST["newslot{$i}"] . "\", faction_required=\"" . $_POST["faction_required{$i}"] . "\", level_required=\"" . $_POST["level_required{$i}"] . "\", alt_currency_cost=\"" . $_POST["alt_currency_cost{$i}"] . "\" WHERE merchantid=$mid AND slot=$slot";
+				$query = "UPDATE merchantlist SET item=\"" . $_POST["item{$i}"] . "\", slot=\"" . $_POST["newslot{$i}"] . "\", faction_required=\"" . $_POST["faction_required{$i}"] . "\", level_required=\"" . $_POST["level_required{$i}"] . "\", alt_currency_cost=\"" . $_POST["alt_currency_cost{$i}"] . "\", classes_required=\"" . $_POST["classes_required{$i}"] . "\" WHERE merchantid=$mid AND slot=$slot";
 				$mysql->query_no_result($query);
 			}
 		}
@@ -287,12 +287,13 @@ function add_merchant_item() {
   $faction_required = $_POST['faction_required'];
   $level_required = $_POST['level_required'];
   $alt_currency_cost = $_POST['alt_currency_cost'];
+  $classes_required = $_POST['classes_required'];
   
   $query = "SELECT MAX(slot) AS slot FROM merchantlist WHERE merchantid=$mid";
   $result = $mysql->query_assoc($query);
   $slot = $result['slot'] + 1;
   
-  $query = "INSERT INTO merchantlist SET merchantid=$mid, slot=$slot, item=$item, faction_required=$faction_required, level_required=$level_required, alt_currency_cost=$alt_currency_cost";
+  $query = "INSERT INTO merchantlist SET merchantid=$mid, slot=$slot, item=$item, faction_required=$faction_required, level_required=$level_required, alt_currency_cost=$alt_currency_cost, classes_required=$classes_required";
   $mysql->query_no_result($query);
 }
 
@@ -301,9 +302,6 @@ function add_merchant_item_temp() {
   global $mysql, $npcid;
   $charges = $_POST['charges'];
   $itemid = $_POST['itemid'];
-  $faction_required = $_POST['faction_required'];
-  $level_required = $_POST['level_required'];
-  $alt_currency_cost = $_POST['alt_currency_cost'];
   
   $query = "SELECT merchant_id AS mid FROM npc_types where id=$npcid";
   $result = $mysql->query_assoc($query);
@@ -318,13 +316,13 @@ function add_merchant_item_temp() {
   $tslot = $result['tslot'] + 1;
   
   if ($tslot < $mslot) {
-  $query = "INSERT INTO merchantlist_temp SET npcid=$npcid, slot=$mslot, itemid=$itemid, charges=$charges";
-  $mysql->query_no_result($query);
+    $query = "INSERT INTO merchantlist_temp SET npcid=$npcid, slot=$mslot, itemid=$itemid, charges=$charges";
+    $mysql->query_no_result($query);
   }
   if ($tslot > $mslot) {
-  $query = "INSERT INTO merchantlist_temp SET npcid=$npcid, slot=$tslot, itemid=$itemid, charges=$charges";
-  $mysql->query_no_result($query);
- }
+    $query = "INSERT INTO merchantlist_temp SET npcid=$npcid, slot=$tslot, itemid=$itemid, charges=$charges";
+    $mysql->query_no_result($query);
+  }
 }
 
 function delete_merchantlist() {
@@ -359,7 +357,6 @@ function search_merchant_by_item() {
   global $mysql;
   $search = $_GET['search'];
 
-
   $query = "SELECT npc_types.id,npc_types.name FROM merchantlist
             INNER JOIN npc_types ON npc_types.merchant_id = merchantlist.merchantid
             WHERE merchantlist.item = \"$search\"";
@@ -370,7 +367,6 @@ function search_merchant_by_item() {
 function search_temp_merchant() {
   global $mysql;
   $search = $_GET['search1'];
-
 
   $query = "SELECT npc_types.id,npc_types.name FROM merchantlist_temp
             INNER JOIN npc_types ON npc_types.id = merchantlist_temp.npcid
@@ -409,8 +405,8 @@ function copy_merchantlist() {
   $query = "DELETE FROM merchantlist WHERE merchantid = 0";
   $mysql->query_no_result($query);
 
-  $query = "INSERT INTO merchantlist (slot,item,faction_required,level_required,alt_currency_cost) 
-            SELECT slot,item,faction_required,level_required,alt_currency_cost FROM merchantlist where merchantid=$mid";
+  $query = "INSERT INTO merchantlist (slot,item,faction_required,level_required,alt_currency_cost,classes_required) 
+            SELECT slot,item,faction_required,level_required,alt_currency_cost,classes_required FROM merchantlist where merchantid=$mid";
   $mysql->query_no_result($query);
 
   $query = "UPDATE merchantlist set merchantid=$nmid where merchantid=0";

@@ -12,12 +12,6 @@
         <input class="indented" id="id" type="text" name="itemid"/><br/><br/>
         <strong>Charges:</strong>
         <input class="indented" id="charges" type="text" name="charges" value="1"/><br/><br/>
-        <strong>Faction Required:</strong>
-        <input class="indented" id="faction_required" type="text" name="faction_required" value="-100"/><br/><br/>
-        <strong>Level Required:</strong>
-        <input class="indented" id="level_required" type="text" name="level_required" value="0"/><br/><br/>
-        <strong>Alt Currency Cost:</strong>
-        <input class="indented" id="alt_currency_cost" type="text" name="alt_currency_cost" value="0"/><br/><br/>
         <center><input type="submit" name="submit" value=" Submit "/></center>
       </div>
     </div>
