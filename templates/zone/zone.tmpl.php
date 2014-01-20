@@ -60,9 +60,9 @@
                 <td align="left" width="34%">Walkspeed: <?=$walkspeed?></td>
               </tr>
                 <tr>
-                <td align="left" width="33%">Weather: <?=$weathertype[$weather]?></td>
                 <td align="left" width="33%">Version: <?=$version?></td>
-                <td align="left" width="34%">Ruleset: <a href="index.php?editor=server&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&ruleset_id=<?=$ruleset?>&action=28"> <?=$ruleset?></td>
+                <td align="left" width="33%">Ruleset: <a href="index.php?editor=server&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&ruleset_id=<?=$ruleset?>&action=28"> <?=$ruleset?></td>
+		  <td align="left" width="34%"></td>
               </tr>
                 <tr>
                 <td align="left" width="33%">Note: <?=$note?></td>
@@ -158,7 +158,35 @@
              </table>
            </fieldset>
 
-
+	    <fieldset>
+             <legend><strong>Weather</strong></legend>
+             <table width="100%" border="0" cellpadding="3" cellspacing="0">
+	       <tr>
+                <td align="left" width="25%">Rain C1: <?=$rain_chance1?></td>
+                <td align="left" width="25%">Rain C2: <?=$rain_chance2?></td>
+                <td align="left" width="25%">Rain C3: <?=$rain_chance3?></td>
+                <td align="left" width="25%">Rain C4: <?=$rain_chance4?></td>
+              </tr>
+              <tr>
+                <td align="left" width="25%">Rain D1: <?=$rain_duration1?></td>
+                <td align="left" width="25%">Rain D2: <?=$rain_duration2?></td>
+                <td align="left" width="25%">Rain D3: <?=$rain_duration3?></td>
+	         <td align="left" width="25%">Rain D4: <?=$rain_duration4?></td>
+              </tr>
+              <tr>
+                <td align="left" width="25%">Snow C1: <?=$snow_chance1?></td>
+                <td align="left" width="25%">Snow C2: <?=$snow_chance2?></td>
+                <td align="left" width="25%">Snow C3: <?=$snow_chance3?></td>
+                <td align="left" width="25%">Snow C4: <?=$snow_chance4?></td>
+              </tr>
+              <tr>
+                <td align="left" width="25%">Snow D1: <?=$snow_duration1?></td>
+                <td align="left" width="25%">Snow D2: <?=$snow_duration2?></td>
+                <td align="left" width="25%">Snow D3: <?=$snow_duration3?></td>
+	         <td align="left" width="25%">Snow D4: <?=$snow_duration4?></td>
+              </tr>
+             </table>
+           </fieldset>
        </table>
      </div>
      </div>
