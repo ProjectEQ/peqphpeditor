@@ -79,7 +79,7 @@
                     <td align="left" width="34%">Clients: <?=$maxclients?></td>
                   </tr>
                   <tr>
-                    <td align="left" width="33%">Flag: <?=$flag_needed?></td>
+                    <td align="left" width="33%">Flag: <?echo ($flag_needed != "") ? $flag_needed : "No";?></td>
                     <td align="left" width="33%">Bind: <?=$bindallowed[$canbind]?></td>
                     <td align="left" width="34%">Levitate: <?=$yesno[$canlevitate]?></td>
                   </tr>
