@@ -6,12 +6,6 @@ $bindallowed = array(
   2   => "Others"
 );
 
-$weathertype = array(
-  0   => "None",
-  1   => "Rain",
-  2   => "Snow"
-);
-
 $blockedtype = array(
   0   => "Not Blocked",
   1   => "Zone Wide",
@@ -46,7 +40,6 @@ switch ($action) {
     $body->set("yesno", $yesno);
     $body->set("eqexpansions", $eqexpansions);
     $body->set("bindallowed", $bindallowed);
-    $body->set("weathertype", $weathertype);
     $body->set("zonetype", $zonetype);
     $body->set('global', get_isglobal());
     $zone = get_zone();
@@ -65,7 +58,6 @@ switch ($action) {
     $body->set("yesno", $yesno);
     $body->set("eqexpansions", $eqexpansions);
     $body->set("bindallowed", $bindallowed);
-    $body->set("weathertype", $weathertype);
     $body->set("zonetype", $zonetype);
     $body->set('global', get_isglobal());
     $zone = get_zone();
@@ -378,9 +370,10 @@ function update_zone () {
   if ($version != $_POST['version']) $fields .= "version=\"" . $_POST['version'] . "\", ";
   if ($map_file_name != $_POST['map_file_name']) $fields .= "map_file_name=\"" . $_POST['map_file_name'] . "\", ";
   if ($fog_density != $_POST['fog_density']) $fields .= "fog_density=\"" . $_POST['fog_density'] . "\", ";
-  if ($expansion != $_POST['expansion']) $fields .= "expansion=\"" . $_POST['expansion'] . "\", ";  
-  if ($suspendbuffs!= $_POST['suspendbuffs']) $fields .= "suspendbuffs=\"" . $_POST['suspendbuffs'] . "\", ";  
-  if ($type != $_POST['type']) $fields .= "type=\"" . $_POST['type'] . "\", ";  
+  if ($expansion != $_POST['expansion']) $fields .= "expansion=\"" . $_POST['expansion'] . "\", ";
+  if ($suspendbuffs!= $_POST['suspendbuffs']) $fields .= "suspendbuffs=\"" . $_POST['suspendbuffs'] . "\", ";
+  if ($type != $_POST['type']) $fields .= "type=\"" . $_POST['type'] . "\", ";
+  if ($weather_rate != $_POST['weather_rate']) $fields .= "weather_rate=\"" . $_POST['weather_rate'] . "\", ";
   if ($rain_chance1 != $_POST['rain_chance1']) $fields .= "rain_chance1=\"" . $_POST['rain_chance1'] . "\", ";
   if ($rain_chance2 != $_POST['rain_chance2']) $fields .= "rain_chance2=\"" . $_POST['rain_chance2'] . "\", ";
   if ($rain_chance3 != $_POST['rain_chance3']) $fields .= "rain_chance3=\"" . $_POST['rain_chance3'] . "\", ";
@@ -656,8 +649,8 @@ function copy_zone() {
   $query = "DELETE FROM zone WHERE id=0";
   $mysql->query_no_result($query);
 
-  $query = "INSERT INTO zone (`short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `weather`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `type`) 
-            SELECT `short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `weather`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `type` FROM zone where id=$zoneid";
+  $query = "INSERT INTO zone (`short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `type`, `weather_rate`, `rain_chance1`, `rain_chance2`, `rain_chance3`, `rain_chance4`, `rain_duration1`, `rain_duration2`, `rain_duration3`, `rain_duration4`, `snow_chance1`, `snow_chance2`, `snow_chance3`, `snow_chance4`, `snow_duration1`, `snow_duration2`, `snow_duration3`, `snow_duration4`)
+            SELECT `short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `type`, `weather_rate`, `rain_chance1`, `rain_chance2`, `rain_chance3`, `rain_chance4`, `rain_duration1`, `rain_duration2`, `rain_duration3`, `rain_duration4`, `snow_chance1`, `snow_chance2`, `snow_chance3`, `snow_chance4`, `snow_duration1`, `snow_duration2`, `snow_duration3`, `snow_duration4` FROM zone where id=$zoneid";
   $mysql->query_no_result($query);
 
   $query = "SELECT MAX(id) as zid FROM zone";
