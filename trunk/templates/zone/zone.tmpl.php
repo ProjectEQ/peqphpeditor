@@ -22,8 +22,10 @@
                 <table style="font-size: 12px; margin-bottom: 80px;">
                   <tr>
                     <td>
-                      <strong><?=$eqexpansions[$expansion]?></strong><br>
-                      <strong><?=$zonetype[$type]?></strong><br><br>
+                      <center>
+                        <strong><?=$eqexpansions[$expansion]?></strong><br>
+                        <strong><?=$zonetype[$type]?></strong><br><br>
+                      </center>
                       <strong>Map:</strong> <?=$map_file_name?><br>
                       <strong>File:</strong> <?=$file_name?><br>
                       <strong>Safe X:</strong> <?=$safe_x?><br>
