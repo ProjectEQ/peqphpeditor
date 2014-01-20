@@ -13,7 +13,6 @@
                <td align="left" width="23%">Safe X: <br><input type="text" name="safe_x" size="7" value="<?=$safe_x?>"></td>
                <td align="left" width="23%">Safe Y:  <br><input type="text" name="safe_y" size="7" value="<?=$safe_y?>"></td>
                <td align="left" width="24%">Safe Z: <br><input type="text" name="safe_z" size="7" value="<?=$safe_z?>"></td>
-               
               </tr>
               <tr>
                <td align="left" width="30%">File Name: <br><input type="text" name="file_name" size="20" value="<?=$file_name?>"></td>
@@ -37,14 +36,6 @@
              <tr>
               
                <td align="left" width="25%">Walkspeed:  <br><input type="text" name="walkspeed" size="7" value="<?=$walkspeed?>"></td>
-               <td align="left" width="25%">
-	          Weather:  <br>
-			      <select name="weather">
-			      <option value="0"<?echo ($weather == 0) ? " selected" : ""?>>None</option>
-			      <option value="1"<?echo ($weather == 1) ? " selected" : ""?>>Rain</option>
-                           <option value="2"<?echo ($weather == 2) ? " selected" : ""?>>Snow</option>
-                 </select>
-                 </td>
                  <td align="left" width="25%">
                   Hotzone:  <br>
                  <select name="hotzone">
@@ -139,7 +130,7 @@
          </fieldset><br>
 
          <fieldset>
-           <legend><strong><font size="4">Sky</font></strong></legend>
+           <legend><strong><font size="3">Sky</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
                <td align="left" width="14%">Sky:  <br><input type="text" name="sky" size="5" value="<?=$sky?>"></td>
@@ -179,7 +170,34 @@
                <td align="left" width="15%">Fog Red4:  <br><input type="text" name="fog_red4" size="5" value="<?=$fog_red4?>"></td>
                <td align="left" width="15%">Fog Green4:  <br><input type="text" name="fog_green4" size="5" value="<?=$fog_green4?>"></td>
              </tr>
+             <tr>
 		 <td align="left" width="14%">Fog Density: <br><input type="text" name="fog_density" size="5" value="<?=$fog_density?>"></td>
+             </tr>
+           </table>
+           </fieldset><br>
+           <fieldset>
+           	<legend><strong><font size="3">Weather</font></strong></legend>
+           	<table width="100%" border="0" cellpadding="3" cellspacing="0">
+             <tr>
+               <td align="left" width="12%">Rain C1:  <br><input type="text" name="rain_chance1" size="4" value="<?=$rain_chance1?>"></td>
+               <td align="left" width="12%">Rain C2:  <br><input type="text" name="rain_chance2" size="4" value="<?=$rain_chance2?>"></td>
+               <td align="left" width="12%">Rain C3:  <br><input type="text" name="rain_chance3" size="4" value="<?=$rain_chance3?>"></td>
+               <td align="left" width="12%">Rain C4:  <br><input type="text" name="rain_chance4" size="4" value="<?=$rain_chance4?>"></td>
+               <td align="left" width="13%">Rain D1:  <br><input type="text" name="rain_duration1" size="4" value="<?=$rain_duration1?>"></td>
+               <td align="left" width="13%">Rain D2:  <br><input type="text" name="rain_duration2" size="4" value="<?=$rain_duration2?>"></td>
+               <td align="left" width="13%">Rain D3:  <br><input type="text" name="rain_duration3" size="4" value="<?=$rain_duration3?>"></td>
+	        <td align="left" width="13%">Rain D4:  <br><input type="text" name="rain_duration4" size="4" value="<?=$rain_duration4?>"></td>
+             </tr>
+             <tr>
+               <td align="left" width="12%">Snow C1:  <br><input type="text" name="snow_chance1" size="4" value="<?=$snow_chance1?>"></td>
+               <td align="left" width="12%">Snow C2:  <br><input type="text" name="snow_chance2" size="4" value="<?=$snow_chance2?>"></td>
+               <td align="left" width="12%">Snow C3:  <br><input type="text" name="snow_chance3" size="4" value="<?=$snow_chance3?>"></td>
+               <td align="left" width="12%">Snow C4:  <br><input type="text" name="snow_chance4" size="4" value="<?=$snow_chance4?>"></td>
+               <td align="left" width="13%">Snow D1:  <br><input type="text" name="snow_duration1" size="4" value="<?=$snow_duration1?>"></td>
+               <td align="left" width="13%">Snow D2:  <br><input type="text" name="snow_duration2" size="4" value="<?=$snow_duration2?>"></td>
+               <td align="left" width="13%">Snow D3:  <br><input type="text" name="snow_duration3" size="4" value="<?=$snow_duration3?>"></td>
+	        <td align="left" width="13%">Snow D4:  <br><input type="text" name="snow_duration4" size="4" value="<?=$snow_duration4?>"></td>
+             </tr>
            </table>
            </fieldset><br>
            <center>

@@ -337,7 +337,6 @@ function update_zone () {
   if ($ztype != $_POST['ztype']) $fields .= "ztype=\"" . $_POST['ztype'] . "\", ";
   if ($zone_exp_multiplier != $_POST['zone_exp_multiplier']) $fields .= "zone_exp_multiplier=\"" . $_POST['zone_exp_multiplier'] . "\", ";
   if ($walkspeed != $_POST['walkspeed']) $fields .= "walkspeed=\"" . $_POST['walkspeed'] . "\", ";
-  if ($weather != $_POST['weather']) $fields .= "weather=\"" . $_POST['weather'] . "\", ";
   if ($min_level != $_POST['min_level']) $fields .= "min_level=\"" . $_POST['min_level'] . "\", ";
   if ($min_status != $_POST['min_status']) $fields .= "min_status=\"" . $_POST['min_status'] . "\", ";
   if ($maxclients != $_POST['maxclients']) $fields .= "maxclients=\"" . $_POST['maxclients'] . "\", ";
@@ -382,6 +381,22 @@ function update_zone () {
   if ($expansion != $_POST['expansion']) $fields .= "expansion=\"" . $_POST['expansion'] . "\", ";  
   if ($suspendbuffs!= $_POST['suspendbuffs']) $fields .= "suspendbuffs=\"" . $_POST['suspendbuffs'] . "\", ";  
   if ($type != $_POST['type']) $fields .= "type=\"" . $_POST['type'] . "\", ";  
+  if ($rain_chance1 != $_POST['rain_chance1']) $fields .= "rain_chance1=\"" . $_POST['rain_chance1'] . "\", ";
+  if ($rain_chance2 != $_POST['rain_chance2']) $fields .= "rain_chance2=\"" . $_POST['rain_chance2'] . "\", ";
+  if ($rain_chance3 != $_POST['rain_chance3']) $fields .= "rain_chance3=\"" . $_POST['rain_chance3'] . "\", ";
+  if ($rain_chance4 != $_POST['rain_chance4']) $fields .= "rain_chance4=\"" . $_POST['rain_chance4'] . "\", ";     
+  if ($rain_duration1 != $_POST['rain_duration1']) $fields .= "rain_duration1=\"" . $_POST['rain_duration1'] . "\", ";
+  if ($rain_duration2 != $_POST['rain_duration2']) $fields .= "rain_duration2=\"" . $_POST['rain_duration2'] . "\", ";
+  if ($rain_duration3 != $_POST['rain_duration3']) $fields .= "rain_duration3=\"" . $_POST['rain_duration3'] . "\", ";
+  if ($rain_duration4 != $_POST['rain_duration4']) $fields .= "rain_duration4=\"" . $_POST['rain_duration4'] . "\", ";
+  if ($snow_chance1 != $_POST['snow_chance1']) $fields .= "snow_chance1=\"" . $_POST['snow_chance1'] . "\", ";
+  if ($snow_chance2 != $_POST['snow_chance2']) $fields .= "snow_chance2=\"" . $_POST['snow_chance2'] . "\", ";
+  if ($snow_chance3 != $_POST['snow_chance3']) $fields .= "snow_chance3=\"" . $_POST['snow_chance3'] . "\", ";
+  if ($snow_chance4 != $_POST['snow_chance4']) $fields .= "snow_chance4=\"" . $_POST['snow_chance4'] . "\", ";
+  if ($snow_duration1 != $_POST['snow_duration1']) $fields .= "snow_duration1=\"" . $_POST['snow_duration1'] . "\", ";
+  if ($snow_duration2 != $_POST['snow_duration2']) $fields .= "snow_duration2=\"" . $_POST['snow_duration2'] . "\", ";
+  if ($snow_duration3 != $_POST['snow_duration3']) $fields .= "snow_duration3=\"" . $_POST['snow_duration3'] . "\", ";
+  if ($snow_duration4 != $_POST['snow_duration4']) $fields .= "snow_duration4=\"" . $_POST['snow_duration4'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
