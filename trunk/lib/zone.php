@@ -373,7 +373,6 @@ function update_zone () {
   if ($expansion != $_POST['expansion']) $fields .= "expansion=\"" . $_POST['expansion'] . "\", ";
   if ($suspendbuffs!= $_POST['suspendbuffs']) $fields .= "suspendbuffs=\"" . $_POST['suspendbuffs'] . "\", ";
   if ($type != $_POST['type']) $fields .= "type=\"" . $_POST['type'] . "\", ";
-  if ($weather_rate != $_POST['weather_rate']) $fields .= "weather_rate=\"" . $_POST['weather_rate'] . "\", ";
   if ($rain_chance1 != $_POST['rain_chance1']) $fields .= "rain_chance1=\"" . $_POST['rain_chance1'] . "\", ";
   if ($rain_chance2 != $_POST['rain_chance2']) $fields .= "rain_chance2=\"" . $_POST['rain_chance2'] . "\", ";
   if ($rain_chance3 != $_POST['rain_chance3']) $fields .= "rain_chance3=\"" . $_POST['rain_chance3'] . "\", ";

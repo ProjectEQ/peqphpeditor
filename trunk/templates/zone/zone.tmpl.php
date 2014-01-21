@@ -174,12 +174,6 @@
                     <td align="left" width="25%">Snow D3: <?=$snow_duration3?></td>
                     <td align="left" width="25%">Snow D4: <?=$snow_duration4?></td>
                   </tr>
-                  <tr>
-                    <td align="left" width="25%">Weather Rate: <?=$weather_rate?></td>
-                    <td align="left" width="25%">&nbsp;</td>
-                    <td align="left" width="25%">&nbsp;</td>
-                    <td align="left" width="25%">&nbsp;</td>
-                  </tr>
                 </table>
               </fieldset>
             </td>
