@@ -198,16 +198,6 @@
                   <td align="left" width="13%">Snow D3:<br><input type="text" name="snow_duration3" size="4" value="<?=$snow_duration3?>"></td>
                   <td align="left" width="13%">Snow D4:<br><input type="text" name="snow_duration4" size="4" value="<?=$snow_duration4?>"></td>
                 </tr>
-                <tr>
-                  <td align="left" width="12%">Weather Rate:<br><input type="text" name="weather_rate" size="4" value="<?=$weather_rate?>"></td>
-                  <td align="left" width="12%">&nbsp;</td>
-                  <td align="left" width="12%">&nbsp;</td>
-                  <td align="left" width="12%">&nbsp;</td>
-                  <td align="left" width="13%">&nbsp;</td>
-                  <td align="left" width="13%">&nbsp;</td>
-                  <td align="left" width="13%">&nbsp;</td>
-                  <td align="left" width="13%">&nbsp;</td>
-                </tr>
               </table>
             </fieldset><br>
             <input type="hidden" name="zoneidnumber" value="<?=$zoneidnumber?>">
