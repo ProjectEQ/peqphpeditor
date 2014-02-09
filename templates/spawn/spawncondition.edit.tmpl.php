@@ -19,6 +19,7 @@
                    <option value="0"<?echo ($onchange == 0) ? " selected" : ""?>>Nothing</option>
                    <option value="1"<?echo ($onchange == 1) ? " selected" : ""?>>Depop</option>
                    <option value="2"<?echo ($onchange == 2) ? " selected" : ""?>>Repop</option>
+		     <option value="3"<?echo ($onchange == 3) ? " selected" : ""?>>RepopIfReady</option>
                  </select>
                </td>
           </tr>
