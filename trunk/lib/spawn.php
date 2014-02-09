@@ -19,7 +19,8 @@ $pausetype = array(
 $ochangetype = array(
   0 => "Nothing",
   1 => "Depop",
-  2 => "Repop"
+  2 => "Repop",
+  3 => "RepopIfReady"
 );
 
 $actiontype = array(
@@ -827,6 +828,18 @@ switch ($action) {
       exit;
     }
     break;
+  case 80: // Magelo import
+    check_authorization();
+    $body = new Template("templates/spawn/magelo.new.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $npcid);
+    break;
+ case 81:  // Magelo import
+    check_authorization();
+    magelo_import();
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
 }
 
 function get_spawngroups($search) {
@@ -1919,4 +1932,24 @@ function get_npcs_by_grid() {
 
   return $results;
 }
+
+function magelo_import() {
+  check_authorization();
+  global $mysql, $npcid, $perl_path;
+
+    $insert = $_POST['spawngroupinsert'];
+    $limit = $_POST['limit'];
+    $heading = $_POST['heading'];
+    $respawntime = $_POST['respawntime'];
+    $spawnlimit = $_POST['spawnlimit'];
+    $mincoord = $_POST['mincoord'];
+    $maxcoord = $_POST['maxcoord'];
+    $forcedz = $_POST['forcedz'];
+
+   $output = array();
+   $output = exec("perl $perl_path/Coords.pl $npcid $insert $limit $spawnlimit $heading $respawntime $mincoord $maxcoord $forcedz 2>&1");
+   logPerl($output);
+  
+}
+
 ?>
