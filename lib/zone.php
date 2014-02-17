@@ -683,7 +683,7 @@ function get_isglobal () {
   $result1 = $mysql->query_assoc($query1);
   $zversion = $result1['zversion'];
 
-  $query = "SELECT count(*) FROM instance_lockout WHERE zone=$zid AND version=$zversion";
+  $query = "SELECT count(*) FROM instance_list WHERE zone=$zid AND version=$zversion";
   $result = $mysql->query_assoc($query);
 
   return $result['count(*)'];
@@ -698,11 +698,11 @@ function update_global () {
   $result1 = $mysql->query_assoc($query1);
   $zversion = $result1['zversion'];
 
-  $query2 = "SELECT id AS currid from instance_lockout WHERE zone=$zid AND version=$zversion AND id < 30";
+  $query2 = "SELECT id AS currid from instance_list WHERE zone=$zid AND version=$zversion AND id < 30";
   $result2 = $mysql->query_assoc($query2);
   $currid = $result2['currid'];
 
-  $query = "REPLACE INTO instance_lockout SET id=$currid, zone=$zid, version=$zversion, is_global=1, never_expires=1";
+  $query = "REPLACE INTO instance_list SET id=$currid, zone=$zid, version=$zversion, is_global=1, never_expires=1";
   $mysql->query_no_result($query);
   }
 
@@ -715,7 +715,7 @@ function delete_global () {
   $result1 = $mysql->query_assoc($query1);
   $zversion = $result1['zversion'];
 
-  $query = "DELETE FROM instance_lockout WHERE zone=$zid AND version=$zversion AND id < 30";
+  $query = "DELETE FROM instance_list WHERE zone=$zid AND version=$zversion AND id < 30";
   $mysql->query_no_result($query);
 }
 ?>
