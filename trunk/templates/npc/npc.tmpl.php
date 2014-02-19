@@ -142,12 +142,12 @@
               <fieldset>
                 <legend><strong>Resists</strong></legend>
                 <table width="100%" border="0" cellpadding="3" cellspacing="0">
-<?($mrper = $MR*0.4);?>
-<?($crper = $CR*0.4);?>
-<?($frper = $FR*0.4);?>
-<?($prper = $PR*0.4);?>
-<?($drper = $DR*0.4);?>
-<?($corper = $Corrup*0.4);?>
+<?($mrper = $MR*0.5);?>
+<?($crper = $CR*0.5);?>
+<?($frper = $FR*0.5);?>
+<?($prper = $PR*0.5);?>
+<?($drper = $DR*0.5);?>
+<?($corper = $Corrup*0.5);?>
                   <tr>
                     <td align="left" width="33%">MR: <?=$MR?> (<?=$mrper?>%)</td>
                     <td align="left" width="33%">CR: <?=$CR?> (<?=$crper?>%)</td>

@@ -113,7 +113,7 @@
           <fieldset>
            <legend><strong><font size="4">Resists</font></strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
-                1 Resist = 0.4% 250 Resist = 100%
+                1 Resist = 0.5% 200 Resist = 100%
                <tr>
                 <td align="left" width="14%">MR:  <br><input type="text" name="MR" size="5" value="<?=$MR?>"></td>
                 <td align="left" width="14%">CR:  <br><input type="text" name="CR" size="5" value="<?=$CR?>"></td>
