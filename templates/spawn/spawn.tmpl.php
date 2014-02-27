@@ -12,6 +12,7 @@
              <li>Make sure the desired zone is selected from the search bar</li>
              <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=54">Click here to create a new spawngroup</a></li>
              <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16">Click here to add this NPC an existing spawngroup</a></li>
+	      <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=80">Click here to import spawnpoints from Magelo</a></li>
             </ul>
            </td>
          </tr>
@@ -29,6 +30,7 @@
              <ul style="padding-left: 25px;">
       <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=54">Click here to create a new spawngroup</a></li>
       <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16">Click here to add this NPC to an existing spawngroup</a></li>
+      <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=80">Click here to import spawnpoints from Magelo</a></li>
       </ul>
     </tr>
   </table>
@@ -57,23 +59,20 @@
         <div class="table_header">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
-	     <td width="17%">
+	     <td width="20%">
 		min_x: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$min_x?></a>
 	     </td>
-	     <td width="17%">
+	     <td width="20%">
 		max_x: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$max_x?></a>
 	     </td>
-	     <td width="17%">
+	     <td width="20%">
 	       min_y: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$min_y?></a>
 	     </td>
-            <td width="17%">
+            <td width="20%">
 	       max_y: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$max_y?></a>
 	     </td>
-	     <td width="17%">
+	     <td width="20%">
 	       dist: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$dist?></a>
-	     </td>
-	     <td width="15%">
-	       delay: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$delay?></a>
 	     </td>
 		          </tr>
           </table>
@@ -81,10 +80,16 @@
 	   <div class="table_header">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
-	     <td width="50%">
+	      <td width="25%">
+	       mindelay: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$mindelay?></a>
+	     </td>
+	     <td width="25%">
+	       delay: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$delay?></a>
+	     </td>
+	     <td width="25%">
 	       despawn: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$despawntype[$despawn]?></a>
 	     </td>
-	     <td width="50%">
+	     <td width="25%">
 	       despawn timer: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$despawn_timer?></a>
 	     </td>
           </tr>
