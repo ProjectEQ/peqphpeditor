@@ -179,7 +179,7 @@
                     <td align="left" width="33%">Atk Speed: <?=$attack_speed?>%</td>
 		      <?
 			$new_special_abilities = '';
-		    for ($i = 1; $i <= 35; $i++){
+		    for ($i = 1; $i <= 37; $i++){
 			if (preg_match("/^$i,/", $special_abilities, $match) == 1 || preg_match("/\^$i,/", $special_abilities, $match) == 1){
 				$match[0] = ltrim($match[0], "^");
 				$new_special_abilities .= $match[0];

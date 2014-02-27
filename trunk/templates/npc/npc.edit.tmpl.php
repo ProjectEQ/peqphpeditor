@@ -153,7 +153,7 @@
               <tr>
 		    <? $specabil = array();
 			$specabilcont = array();
-		    for ($i = 1; $i <= 35; $i++){
+		    for ($i = 1; $i <= 37; $i++){
 			if (preg_match("/^$i,/", $special_abilities) == 1){
 				$specabil[$i] = 1;
 				// Leading special ability
@@ -194,6 +194,7 @@
 		    Tunnel Vision (29): <br><input type="text" name="29" size="10" value="<?=$specabilcont[29]?>"><br>
 		    Leashed (32): <br><input type="text" name="32" size="10" value="<?=$specabilcont[32]?>"><br>
 		    Tethered (33): <br><input type="text" name="33" size="10" value="<?=$specabilcont[33]?>"><br>
+		    Flee Percent (37): <br><input type="text" name="37" size="10" value="<?=$specabilcont[37]?>"><br>		
 		   </td>
 		    <td valign="top" align="left">
                   <input type="checkbox" name="6" value="6,1^"<?echo ($specabil[6] == 1) ? "checked" : "";?>>  Triple Attack<br>
@@ -225,6 +226,7 @@
                   <input type="checkbox" name="27" value="27,1^"<?echo ($specabil[27] == 1) ? "checked" : "";?>>  See through Feign Death<br>
                   <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>> Can Aggro NPCs<br>
                   <input type="checkbox" name="30" value="30,1^"<?echo ($specabil[30] == 1) ? "checked" : "";?>>  Does NOT buff/heal friends<br>
+		    <input type="checkbox" name="36" value="36,1^"<?echo ($specabil[36] == 1) ? "checked" : "";?>>  Always Flee<br>
                 </td>
               </tr>
             </table>
