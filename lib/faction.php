@@ -49,8 +49,16 @@ switch ($action) {
   case 3:  // Search factions
     check_authorization();
     $body = new Template("templates/faction/faction.searchresults.tmpl.php");
-    $results = search_factions();
-    $body->set("results", $results);
+    $results = "";
+    if (isset($_POST['faction_id']) && $_POST['faction_id'] != "ID") {
+      $results = search_factions_by_id();
+    }
+    else {
+      $results = search_factions_by_name();
+    }
+    if ($results) {
+      $body->set("results", $results);
+    }
     break;
   case 4: // Add faction
     check_authorization();
@@ -236,11 +244,20 @@ function faction_info() {
   return $faction_array;
 }
 
-function search_factions() {
+function search_factions_by_name() {
   global $mysql;
-  $search = $_GET['search'];
+  $search = $_POST['faction_name'];
 
   $query = "SELECT id, `name` FROM faction_list WHERE `name` rlike \"$search\"";
+  $results = $mysql->query_mult_assoc($query);
+  return $results;
+}
+
+function search_factions_by_id() {
+  global $mysql;
+  $search = $_POST['faction_id'];
+
+  $query = "SELECT id, `name` FROM faction_list WHERE id = \"$search\"";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
