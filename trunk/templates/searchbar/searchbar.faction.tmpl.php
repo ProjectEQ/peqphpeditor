@@ -11,10 +11,9 @@
               </select>
             </td>
             <td align="right"> or <strong>&nbsp;2.</strong> Search by 
-              <form action="index.php" method="GET">
-                <input type="hidden" name="editor" value="faction">
-                <input type="hidden" name="action" value="3">
-                <input type="text" name="search" size="20" value="Faction Name" onFocus="clearField(document.forms[0].search);">
+              <form action="index.php?editor=faction&action=3" method="POST">
+                <input type="text" name="faction_name" size="20" value="Faction Name" onFocus="clearField(document.forms[0].faction_name); document.forms[0].faction_id.value = 'ID';"> or by
+                <input type="text" name="faction_id" size="3" value="ID" onFocus="clearField(document.forms[0].faction_id); document.forms[0].faction_name.value = 'Faction Name';">
                 <input type="submit" value=" GO ">
               </form>
             </td>
