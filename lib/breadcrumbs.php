@@ -75,6 +75,9 @@ switch ($editor) {
   case 'quest':
     $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Quest Editor</a>";
     break;
+  case 'inv':
+    $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Player Inventory</a>";
+    break;
 }
 
 if ($z != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&z=" . $z . "&zoneid=" . getZoneIDByName($z) . "'>" . getZoneLongName($z) . "</a>";
@@ -84,7 +87,7 @@ if ($tskid != '') $breadcrumbs .= " >> " . getTaskTitle($tskid);
 if ($ts != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&ts=" . $ts . "'>" . $tradeskills[$ts] . "</a>";
 if ($rec != '0') $breadcrumbs .= " >> " . getRecipeName($rec);
 if ($spellset != '') $breadcrumbs .= " >> " . getSpellsetName($spellset);
-if ($playerid != '') $breadcrumbs .= " >> <a href='index.php?editor=" . $editor . "&playerid=" . $playerid . "'>" . getPlayerName($playerid) . " ($playerid)</a>";
+if (($playerid != '') && ($playerid != 'Player ID')) $breadcrumbs .= " >> <a href='index.php?editor=" . $editor . "&playerid=" . $playerid . "'>" . getPlayerName($playerid) . " ($playerid)</a>";
 if ($acctid != '') $breadcrumbs .= " >> " . getAccountName($acctid) . " ($acctid)";
 if ($guildid != '') $breadcrumbs .= " >> " . getGuildName($guildid) . " ($guildid)";
 if ($aaid != '') $breadcrumbs .= " >> " . getAAName($aaid) . " ($aaid)";

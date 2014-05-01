@@ -168,6 +168,9 @@ switch ($editor) {
     $searchbar->set('npcs', $npcs);
     $searchbar->set('currnpc', $npcid);
     break;
+  case 'inv':
+    $searchbar = new Template("templates/searchbar/searchbar.inventory.tmpl.php");
+    break;
 }
 
 function build_tabs () {
@@ -194,6 +197,7 @@ function build_tabs () {
   $tabstatus19 = "off";
   $tabstatus20 = "off";
   $tabstatus21 = "off";
+  $tabstatus22 = "off";
 
   $zoneurl = "";
   $npcurl = "";
@@ -272,6 +276,9 @@ function build_tabs () {
     case 'altcur':
       $tabstatus21 = "on";
       break;
+    case 'inv':
+      $tabstatus22 = "on";
+      break;
   }
 
   $admin = '';
@@ -292,8 +299,7 @@ function build_tabs () {
         <div class=\"$tabstatus8\"><a href=\"index.php?editor=zone$zoneurl\">Zones</a></div>
         <div class=\"$tabstatus9\"><a href=\"index.php?editor=misc$zoneurl\">Misc</a></div>
         <div class=\"$tabstatus10\"><a href=\"index.php?editor=server\">Server</a></div>
-        <div class=\"$tabstatus11\"><a href=\"index.php?editor=adventures$zoneurl$npcurl\">Adventures</a></div><br>
-        <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br>
+        <div class=\"$tabstatus11\"><a href=\"index.php?editor=adventures$zoneurl$npcurl\">Adventures</a></div><br/><br/>
         <div class=\"$tabstatus12\"><a href=\"index.php?editor=tasks\">Tasks</a></div>
         <div class=\"$tabstatus13\"><a href=\"index.php?editor=items\">Items</a></div>
         <div class=\"$tabstatus14\"><a href=\"index.php?editor=player\">Players</a></div>
@@ -303,7 +309,9 @@ function build_tabs () {
         <div class=\"$tabstatus18\"><a href=\"index.php?editor=aa\">AAs</a></div>
         <div class=\"$tabstatus19\"><a href=\"index.php?editor=qglobal\">QGlobals</a></div>
         <div class=\"$tabstatus20\"><a href=\"index.php?editor=util\">Utilities</a></div>
-        <div class=\"$tabstatus21\"><a href=\"index.php?editor=altcur\">Alt Curr</a></div><br><br>
+        <div class=\"$tabstatus21\"><a href=\"index.php?editor=altcur\">Alt Curr</a></div>
+        <div class=\"$tabstatus22\"><a href=\"index.php?editor=inv\">Inventory</a></div><br/>
+        <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br/><br/>
       </div>
 ";
 
@@ -311,7 +319,6 @@ function build_tabs () {
   ob_end_clean();
 
   return $headbar;
-  
 }
 
 function zones () {
