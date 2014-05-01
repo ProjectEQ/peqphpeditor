@@ -15,8 +15,9 @@
         </tr>
 <?
 $x = 0;
-foreach ($inventory as $inv):
-  extract($inv);
+if ($inventory):
+  foreach ($inventory as $inv):
+    extract($inv);
 ?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td>&nbsp;&nbsp;&nbsp;<?=$inv['slotid']?> - <?=$slots[$inv['slotid']]?></td>
@@ -24,8 +25,9 @@ foreach ($inventory as $inv):
           <td align="right"><a href="index.php?editor=inv&playerid=<?=$inv['charid']?>&slotid=<?=$inv['slotid']?>&action=6"><img src="images/edit2.gif" width="13" height="13" border="0" title="View/Edit Entry"></a>&nbsp;<a onClick="return confirm('Really delete this entry?');" href="index.php?editor=inv&playerid=<?=$inv['charid']?>&slotid=<?=$inv['slotid']?>&action=8"><img src="images/remove3.gif" border="0" title="Delete Entry"></a></td>
         </tr>
 <?
-  $x++;
-endforeach;
+    $x++;
+  endforeach;
+endif;
 if ($x == 0):
 ?>
         <tr>
