@@ -201,9 +201,14 @@ function get_npcid_by_emoteid($emoteid) {
 function getPlayerName($playerid) {
   global $mysql;
   
-  $query = "SELECT name FROM character_ WHERE id=$playerid";
-  $result = $mysql->query_assoc($query);
-  return $result['name'];
+  if ($playerid > 0) {
+    $query = "SELECT name FROM character_ WHERE id=$playerid";
+    $result = $mysql->query_assoc($query);
+    return $result['name'];
+  }
+  else {
+    return "";
+  }
 }
 
 function getPlayerID($playername) {
