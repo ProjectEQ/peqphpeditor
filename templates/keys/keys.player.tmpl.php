@@ -8,13 +8,15 @@
         </table>
       </div>
       <table class="table_content2" width="100%">
+<?
+$x = 0;
+if ($keys):
+?>
         <tr>
           <td align="center"><strong>Item</strong></td>
           <td width="10%">&nbsp;</td>
         </tr>
 <?
-$x = 0;
-if ($keys):
   foreach ($keys as $key):
     extract($key);
 ?>
