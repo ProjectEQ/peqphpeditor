@@ -8,14 +8,16 @@
         </table>
       </div>
       <table class="table_content2" width="100%">
+<?
+$x = 0;
+if ($inventory):
+?>
         <tr>
           <td align="center"><strong>Slot</strong></td>
           <td align="center"><strong>Item</strong></td>
           <td width="10%">&nbsp;</td>
         </tr>
 <?
-$x = 0;
-if ($inventory):
   foreach ($inventory as $inv):
     extract($inv);
 ?>
