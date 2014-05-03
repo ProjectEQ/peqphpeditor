@@ -465,7 +465,7 @@ function inv_slot_details($player_id, $slot_id) {
 function search_by_playerid($player_id) {
   global $mysql;
 
-  $query = "SELECT DISTINCT(charid) AS charid FROM INVENTORY WHERE charid=$player_id";
+  $query = "SELECT DISTINCT(charid) AS charid FROM inventory WHERE charid=$player_id";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;

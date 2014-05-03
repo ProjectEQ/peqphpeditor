@@ -171,6 +171,9 @@ switch ($editor) {
   case 'inv':
     $searchbar = new Template("templates/searchbar/searchbar.inventory.tmpl.php");
     break;
+  case 'keys':
+    $searchbar = new Template("templates/searchbar/searchbar.keys.tmpl.php");
+    break;
 }
 
 function build_tabs () {
@@ -198,6 +201,7 @@ function build_tabs () {
   $tabstatus20 = "off";
   $tabstatus21 = "off";
   $tabstatus22 = "off";
+  $tabstatus23 = "off";
 
   $zoneurl = "";
   $npcurl = "";
@@ -279,6 +283,9 @@ function build_tabs () {
     case 'inv':
       $tabstatus22 = "on";
       break;
+    case 'keys':
+      $tabstatus23 = "on";
+      break;
   }
 
   $admin = '';
@@ -310,7 +317,8 @@ function build_tabs () {
         <div class=\"$tabstatus19\"><a href=\"index.php?editor=qglobal\">QGlobals</a></div>
         <div class=\"$tabstatus20\"><a href=\"index.php?editor=util\">Utilities</a></div>
         <div class=\"$tabstatus21\"><a href=\"index.php?editor=altcur\">Alt Curr</a></div>
-        <div class=\"$tabstatus22\"><a href=\"index.php?editor=inv\">Inventory</a></div><br/>
+        <div class=\"$tabstatus22\"><a href=\"index.php?editor=inv\">Inventory</a></div>
+        <div class=\"$tabstatus23\"><a href=\"index.php?editor=keys\">Keys</a></div><br/>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br/><br/>
       </div>
 ";

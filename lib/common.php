@@ -512,9 +512,22 @@ function factions_array() {
 }
 
 function html_replace($text) {
-   $rtext = str_replace("<", "&lt;", $text);
+  $rtext = str_replace("<", "&lt;", $text);
 
-   return $rtext;
+  return $rtext;
 }
 
+function item_isNoRent($item_id) {
+  global $mysql;
+
+  $query = "SELECT norent FROM items WHERE id=$item_id";
+  $result = $mysql->query_assoc($query);
+
+  if ($result['norent'] == 0) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
 ?>
