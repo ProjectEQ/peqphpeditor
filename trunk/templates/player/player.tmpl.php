@@ -1,11 +1,13 @@
 <div class="table_container">
   <div class="table_header">
     <div style="float:right">
-      <a href="index.php?editor=player&playerid=<?=$playerid?>&action=5">View Raw Profile Data</a>&nbsp;
-      <a onClick="javascript:alert('Not yet!');"><img src="images/c_table.gif" border="0" title="Edit this Player" /></a>
+      <a href="index.php?editor=player&playerid=<?=$playerid?>&action=5"><img src="images/view_tbl.png" border="0" title="View Raw Profile Data"></a>&nbsp;
+      <a href="index.php?editor=inv&playerid=<?=$playerid?>&action=1"><img src="images/contents.png" border="0" title="View Inventory"></a>&nbsp;
+      <a href="index.php?editor=keys&playerid=<?=$playerid?>&action=1"><img src="images/key.png" border="0" title="View Keyring"></a>&nbsp;
+      <a onClick="javascript:alert('Not yet!');"><img src="images/c_table.gif" border="0" title="Edit this Player" /></a>&nbsp;
       <a onClick="return confirm('Really delete player <?=trim($name)?> (<?=$playerid?>)?');" href="index.php?editor=player&playerid=<?=$playerid?>&action=4"><img src="images/table.gif" border="0" title="Delete this Player" /></a>
     </div>
-    <?=$id?> - <?echo trim($title) . " " . trim($name) . " " . trim($last_name) . " " . trim($suffix);?>&nbsp;(<a href="index.php?editor=inv&playerid=<?=$playerid?>&action=1">View Inventory</a>)
+    <?=$id?> - <?echo trim($title) . " " . trim($name) . " " . trim($last_name) . " " . trim($suffix);?>
   </div>
   <div class="table_content">
     <?if ($online) echo "<h2><center><font color='red'>WARNING! THIS PLAYER IS ONLINE... (" . $entityid . ")</font></center></h2>";?>

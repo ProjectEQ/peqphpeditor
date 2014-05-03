@@ -1,6 +1,6 @@
 <?php
 
-$current_revision = "r426";
+$current_revision = "r427";
 
 require_once("config.php");
 require_once("lib/logging.php");
@@ -124,6 +124,9 @@ switch ($editor) {
     break;
   case 'inv':
     require_once('lib/inventory.php');
+    break;
+  case 'keys':
+    require_once('lib/keys.php');
     break;
 }
 

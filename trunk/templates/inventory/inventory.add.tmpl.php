@@ -14,12 +14,12 @@
                     <input type="text" size="5" name="charid" value="<?=$playerid?>" readonly="true">
                   </td>
                   <td>
-                    Slot ID:<br/>
-                    <input type="text" size="3" name="slotid" value="0">
+                    <a title="22-29: Main Inventory Slots">Slot ID:</a><br/>
+                    <input type="text" size="3" name="slotid" value="">
                   </td>
                   <td>
                     Item ID:<br/>
-                    <input type="text" size="5" name="itemid" value="0">
+                    <input type="text" size="5" name="itemid" value="">
                   </td>
                 </tr>
                 <tr>
