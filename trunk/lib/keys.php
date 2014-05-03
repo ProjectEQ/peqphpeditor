@@ -20,9 +20,9 @@ switch ($action) {
       $keys = player_keys($_GET['playerid']);
     }
     $body = new Template("templates/keys/keys.player.tmpl.php");
+    $body->set("playerid", $_GET['playerid']);
     if ($keys) {
       $body->set("keys", $keys);
-      $body->set("playerid", $_GET['playerid']);
     }
     break;
   case 2: //Search by Player ID or Player Name

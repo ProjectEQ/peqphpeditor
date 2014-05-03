@@ -381,9 +381,9 @@ switch ($action) {
       $inventory = player_inventory($_GET['playerid']);
     }
     $body = new Template("templates/inventory/inventory.player.tmpl.php");
+    $body->set("playerid", $_GET['playerid']);
     if ($inventory) {
       $body->set("inventory", $inventory);
-      $body->set("playerid", $_GET['playerid']);
       $body->set("slots", $slots);
     }
     break;
