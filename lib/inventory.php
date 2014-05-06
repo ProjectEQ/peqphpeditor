@@ -447,7 +447,7 @@ switch ($action) {
 function player_inventory($player_id) {
   global $mysql;
 
-  $query = "SELECT charid, slotid, itemid FROM inventory WHERE charid=$player_id";
+  $query = "SELECT charid, slotid, itemid FROM inventory WHERE charid=$player_id ORDER BY slotid";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
