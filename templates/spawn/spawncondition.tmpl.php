@@ -71,6 +71,7 @@
           <td align="center" width="5%"><strong>enabled</strong></td>
           <td align="center" width="5%"><strong>action</strong></td>
           <td align="center" width="5%"><strong>argument</strong></td>
+	   <td align="center" width="5%"><strong>strict</strong></td>
           <th width="5%"></th>
          </tr>
 <?$x=0; foreach($spawne as $spawne=>$v):?>
@@ -87,6 +88,7 @@
           <td align="center" width="5%"><?=$yesno[$v['enabled']]?></td>
           <td align="center" width="5%"><?=$actiontype[$v['action']]?></td>
           <td align="center" width="5%"><?=$v['argument']?></td>
+	   <td align="center" width="5%"><?=$yesno[$v['strict']]?></td>
           <td align="right">      
             <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&seid=<?=$v['seid']?>&action=37"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
             <a onClick="return confirm('Really Delete Condition <?=$v['seid']?>?');" href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&seid=<?=$v['seid']?>&action=39"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
