@@ -28,7 +28,7 @@
             <th>Argument:</th>
             <th>Action:</th>
             <th>Enabled:</th>
-            
+            <th>Strict:</th>
             
           </tr>
           <tr>
@@ -49,8 +49,14 @@
                    <option value="0"<?echo ($enabled == 0) ? " selected" : ""?>>No</option>
                    <option value="1"<?echo ($enabled == 1) ? " selected" : ""?>>Yes</option>
                  </select>
-           </td>
-          </tr>
+               </td>
+	     <td>
+            	   <select name="strict">
+                   <option value="0"<?echo ($strict == 0) ? " selected" : ""?>>No</option>
+                   <option value="1"<?echo ($strict == 1) ? " selected" : ""?>>Yes</option>
+                 </select>
+               </td>
+           </tr>
         </table><br><br>
 
         <center>
