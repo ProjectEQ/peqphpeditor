@@ -1659,7 +1659,7 @@ function get_spawn_event () {
   global $mysql, $z;
   $array = array();
   
-  $query = "SELECT id AS seid,zone AS sezone,cond_id,name AS sename,period,next_minute,next_hour,next_day,next_month,next_year,enabled,action,argument FROM spawn_events WHERE zone=\"$z\""; 
+  $query = "SELECT id AS seid,zone AS sezone,cond_id,name AS sename,period,next_minute,next_hour,next_day,next_month,next_year,enabled,action,argument FROM spawn_events WHERE zone=\"$z\" order by id"; 
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
     foreach ($results as $result) {
