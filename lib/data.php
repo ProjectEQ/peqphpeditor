@@ -1004,6 +1004,7 @@ $trade_containers = array(
  0x20 => "TEIRDALFORGE",
  0x21 => "OGGOKFORGE",
  0x22 => "STORMGUARDF",
+ 0x26 => "CABILISFORGE",
  0x2E => "TACKLEBOX",
  0x30 => "FIERDALF",
  0x35 => "AUGMENT"
