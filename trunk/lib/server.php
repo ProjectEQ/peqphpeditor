@@ -488,6 +488,48 @@ switch ($action) {
     $return_address = $_SERVER['HTTP_REFERER'];
     header("Location: $return_address");
     exit;
+   case 50: // View Banned_IPs
+    check_admin_authorization();
+    $breadcrumbs .= " >> BannedIPs";
+    $body = new Template("templates/server/bannedips.tmpl.php");
+    $banned = get_bannedips();
+    if ($banned) {
+      foreach ($banned as $key=>$value) {
+        $body->set($key, $value);
+       }
+     }
+    break;
+   case 51: // Add Banned IPs
+    check_admin_authorization();
+    $breadcrumbs .= " >> BannedIPs";
+    $body = new Template("templates/server/bannedips.add.tmpl.php");
+    break;
+   case 52: // Add Banned IP
+    check_admin_authorization();
+    add_bannedip();
+    header("Location: index.php?editor=server&action=50");
+    exit;
+   case 53: // Edit Banned IP note
+    check_admin_authorization();
+    $breadcrumbs .= " >> BannedIPs";
+    $body = new Template("templates/server/bannedips.edit.tmpl.php");
+    $banned = view_bannedips();
+    if ($banned) {
+      foreach ($banned as $key=>$value) {
+        $body->set($key, $value);
+       }
+     }
+    break;
+   case 54: //Delete Banned IP
+    check_admin_authorization();
+    delete_bannedip();
+    header("Location: index.php?editor=server&action=50");
+    exit;
+   case 55: // Update Banned IP
+    check_admin_authorization();
+    update_bannedip();
+    header("Location: index.php?editor=server&action=50");
+    exit;
 }
 
 function get_open_bugs($page_number, $results_per_page, $sort_by) {
@@ -1100,4 +1142,58 @@ function delete_multiple_hacks() {
     $mysql->query_no_result($query);
   }
 }
+
+function get_bannedips() {
+  global $mysql;
+
+  $query = "SELECT ip_address, notes FROM Banned_IPs";
+  $result = $mysql->query_mult_assoc($query);
+  if ($result) {
+    foreach ($result as $result) {
+      $array['banned'][$result['ip_address']] = array("ip_address"=>$result['ip_address'], "notes"=>$result['notes']);
+    }
+  }
+  return $array;
+}
+
+function add_bannedip() {
+  global $mysql;
+
+  $ip_address = $_POST['ip_address'];
+  $notes = $_POST['notes']; 
+
+  $query = "INSERT INTO Banned_IPs SET ip_address=\"$ip_address\", notes=\"$notes\"";
+  $mysql->query_no_result($query);
+}
+
+function view_bannedips() {
+  global $mysql;
+
+  $ip_address = $_GET['ip'];
+
+  $query = "SELECT ip_address,notes FROM Banned_IPs where ip_address = \"$ip_address\"";
+  $result = $mysql->query_assoc($query);
+  
+  return $result;
+}
+
+function delete_bannedip() {
+  global $mysql;
+
+  $ip_address = $_GET['ip'];
+
+  $query = "DELETE FROM Banned_IPs where ip_address = \"$ip_address\"";
+  $mysql->query_no_result($query);
+}
+
+function update_bannedip() {
+  global $mysql;
+
+  $ip_address = $_POST['ip_address'];
+  $notes = $_POST['notes']; 
+
+  $query = "UPDATE Banned_IPs SET notes=\"$notes\" WHERE ip_address = \"$ip_address\"";
+  $mysql->query_no_result($query);
+}
+
 ?>

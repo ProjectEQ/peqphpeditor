@@ -11,6 +11,7 @@
               <center><a href="index.php?editor=server&action=16">View Rules</a><br></center>
               <center><a href="index.php?editor=server&action=32">View Zones</a><br></center>
               <center><a href="index.php?editor=server&action=43">View Variables</a><br></center>
+		<center><a href="index.php?editor=server&action=50">View BannedIPs</a><br></center>
             </td>
           </tr>
         </table>
