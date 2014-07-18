@@ -103,19 +103,19 @@
                     <td align="left" width="34%">Mana: <?=$mana?></td>
                   </tr>
                   <tr>
-                    <td align="left" width="33%">Run: <?=$runspeed?></td>
-                    <td align="left" width="33%">Acy: <?=$Accuracy?></td>
+		      <td align="left" width="33%">Run: <?=$runspeed?></td>
+		      <td align="left" width="33%">Walk: <?=$walkspeed?></td>
+                    <td align="left" width="34%">Acy: <?=$Accuracy?></td>
+                  </tr>
+                  <tr>
                     <td align="left" width="34%">ATK: <?=$ATK?></td>
+                    <td align="left" width="33%">See Invis: <?=$see_invis?></td>
+                    <td align="left" width="34%">See ITU: <?=$see_invis_undead?></td>
                   </tr>
                   <tr>
-                    <td align="left" width="33%">See Invis: <?=$yesno[$see_invis]?></td>
-                    <td align="left" width="33%">See ITU: <?=$yesno[$see_invis_undead]?></td>
-                    <td align="left" width="34%">See Hide: <?=$yesno[$see_hide]?></td>
-                  </tr>
-                  <tr>
-                    <td align="left" width="33%">See Imp Hide: <?=$yesno[$see_improved_hide]?></td>
-                    <td align="left" width="33%">Scalerate: <?=$scalerate?></td>
-                    <td align="left" width="34%">&nbsp;</td>
+		      <td align="left" width="33%">See Hide: <?=$see_hide?></td>
+                    <td align="left" width="33%">See Imp Hide: <?=$see_improved_hide?></td>
+                    <td align="left" width="34%">Scalerate: <?=$scalerate?></td>
                   </tr>
                 </table>
               </fieldset>
@@ -309,6 +309,7 @@
         <input type="hidden" name="d_meele_texture1" value="<?=$d_meele_texture1?>">
         <input type="hidden" name="d_meele_texture2" value="<?=$d_meele_texture2?>">
         <input type="hidden" name="runspeed" value="<?=$runspeed?>">
+        <input type="hidden" name="walkspeed" value="<?=$walkspeed?>">
         <input type="hidden" name="MR" value="<?=$MR?>">
         <input type="hidden" name="CR" value="<?=$CR?>">
         <input type="hidden" name="DR" value="<?=$DR?>">

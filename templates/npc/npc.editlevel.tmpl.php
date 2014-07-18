@@ -53,47 +53,28 @@
          <fieldset>
            <legend><strong><font size="4">Vitals</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
-             <tr>
-               <td align="left" width="17%">HP:         <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
-               <td align="left" width="17%">AC:         <br><input type="text" name="AC" size="10" value="<?=$ac?>"></td>
-               <td align="left" width="17%">Runspeed:   <br><input type="text" name="runspeed" size="10" value="<?=$runspeed?>"></td>
-               <td align="left" width="17%">ATK:        <br><input type="text" name="ATK" size="10" value="<?=$ATK?>"></td>
-               <td align="left" width="17%">Accuracy:   <br><input type="text" name="Accuracy" size="10" value="<?=$Accuracy?>"></td>
-               <td align="left" width="15%">Scalerate:  <br><input type="text" name="scalerate" size="10" value="<?=$scalerate?>"></td>
-            </tr>
+              <tr>
+                <td align="left" width="13%">HP:         <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
+                <td align="left" width="13%">Mana:       <br><input type="text" name="mana" size="10" value="<?=$mana?>"></td>
+                <td align="left" width="13%">AC:         <br><input type="text" name="AC" size="10" value="<?=$AC?>"></td>
+                <td align="left" width="13%">Runspeed:   <br><input type="text" name="runspeed" size="10" value="<?=$runspeed?>"></td>
+		  <td align="left" width="12%">Walkspeed:   <br><input type="text" name="walkspeed" size="10" value="<?=$walkspeed?>"></td>
+                <td align="left" width="12%">ATK:        <br><input type="text" name="ATK" size="10" value="<?=$ATK?>"></td>
+                <td align="left" width="12%">Accuracy:   <br><input type="text" name="Accuracy" size="10" value="<?=$Accuracy?>"></td>
+                <td align="left" width="12%">Scalerate:  <br><input type="text" name="scalerate" size="10" value="<?=$scalerate?>"></td>
+              </tr>
             </table>
 
+            </table>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
-               <td align="left" width="25%">
-                 See Invis:  <br>
-                 <select name="see_invis">
-                   <option value="0"<?echo ($see_invis == 0) ? " selected" : ""?>>No</option>
-                   <option value="1"<?echo ($see_invis == 1) ? " selected" : ""?>>Yes</option>
-                 </select>
-               </td>
-               <td align="left" width="25%">
-                 See ITU:  <br>
-                 <select name="see_invis_undead">
-                   <option value="0"<?echo ($see_invis_undead == 0) ? " selected" : ""?>>No</option>
-                   <option value="1"<?echo ($see_invis_undead == 1) ? " selected" : ""?>>Yes</option>
-                 </select>
-               </td>
-               <td align="left" width="25%">
-                 See Hide:  <br>
-			      <select name="see_hide">
-			      <option value="0"<?echo ($see_hide == 0) ? " selected" : ""?>>No</option>
-			      <option value="1"<?echo ($see_hide == 1) ? " selected" : ""?>>Yes</option>
-			     </select>
-			   </td>
-			   <td align="left" width="25%">
-			     See IH:  <br>
-			      <select name="see_improved_hide">
-			      <option value="0"<?echo ($see_improved_hide == 0) ? " selected" : ""?>>No</option>
-			      <option value="1"<?echo ($see_improved_hide == 1) ? " selected" : ""?>>Yes</option>
-                 </select>
-             </tr>
-           </table>
+		  <td align="left" width="25%">See Invis:  <br><input type="text" name="see_invis" size="10" value="<?=$see_invis?>"></td>
+                <td align="left" width="25%">See ITU:  <br><input type="text" name="see_invis_undead" size="10" value="<?=$see_invis_undead?>"></td>
+                <td align="left" width="25%">See Hide:  <br><input type="text" name="see_hide" size="10" value="<?=$see_hide?>"></td>
+                <td align="left" width="25%">See IH:  <br><input type="text" name="see_improved_hide" size="10" value="<?=$see_improved_hide?>"></td>
+              </tr>
+            </table>
+
          </fieldset><br>
 
          <fieldset>
