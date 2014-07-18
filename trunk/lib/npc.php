@@ -1022,8 +1022,16 @@ function update_pet () {
 
   $name = $_POST['name'];
 
-  $query = "REPLACE INTO pets SET npcID=$npcid, type=\"$name\"";
-  $mysql->query_no_result($query);
+  $query = "SELECT count(*) FROM pets WHERE npcID=$npcid";
+  $result = $mysql->query_assoc($query);
+
+  $count = $result['count(*)'];
+
+  if($count == 0)
+  {
+  	$query = "REPLACE INTO pets SET npcID=$npcid, type=\"$name\"";
+  	$mysql->query_no_result($query);
+  }
 }
 
 function add_pet () {
@@ -1257,6 +1265,7 @@ function update_npc () {
   if ($d_meele_texture1 != $_POST['d_meele_texture1']) $fields .= "d_meele_texture1=\"" . $_POST['d_meele_texture1'] . "\", ";
   if ($d_meele_texture2 != $_POST['d_meele_texture2']) $fields .= "d_meele_texture2=\"" . $_POST['d_meele_texture2'] . "\", ";
   if ($runspeed != $_POST['runspeed']) $fields .= "runspeed=\"" . $_POST['runspeed'] . "\", ";
+  if ($walkspeed != $_POST['walkspeed']) $fields .= "walkspeed=\"" . $_POST['walkspeed'] . "\", ";
   if ($MR != $_POST['MR']) $fields .= "MR=\"" . $_POST['MR'] . "\", ";
   if ($CR != $_POST['CR']) $fields .= "CR=\"" . $_POST['CR'] . "\", ";
   if ($DR != $_POST['DR']) $fields .= "DR=\"" . $_POST['DR'] . "\", ";
@@ -1370,6 +1379,7 @@ function add_npc () {
   $fields .= "d_meele_texture1=\"" . $_POST['d_meele_texture1'] . "\", ";
   $fields .= "d_meele_texture2=\"" . $_POST['d_meele_texture2'] . "\", ";
   $fields .= "runspeed=\"" . $_POST['runspeed'] . "\", ";
+  $fields .= "walkspeed=\"" . $_POST['walkspeed'] . "\", ";
   $fields .= "MR=\"" . $_POST['MR'] . "\", ";
   $fields .= "CR=\"" . $_POST['CR'] . "\", ";
   $fields .= "DR=\"" . $_POST['DR'] . "\", ";
@@ -1467,6 +1477,7 @@ $fields .= "armortint_blue=\"" . $_POST['armortint_blue'] . "\", ";
 $fields .= "d_meele_texture1=\"" . $_POST['d_meele_texture1'] . "\", ";
 $fields .= "d_meele_texture2=\"" . $_POST['d_meele_texture2'] . "\", ";
 $fields .= "runspeed=\"" . $_POST['runspeed'] . "\", ";
+$fields .= "walkspeed=\"" . $_POST['walkspeed'] . "\", ";
 $fields .= "MR=\"" . $_POST['MR'] . "\", ";
 $fields .= "CR=\"" . $_POST['CR'] . "\", ";
 $fields .= "DR=\"" . $_POST['DR'] . "\", ";
