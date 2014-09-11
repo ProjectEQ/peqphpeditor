@@ -103,18 +103,18 @@
                     <td align="left" width="34%">Mana: <?=$mana?></td>
                   </tr>
                   <tr>
-		      <td align="left" width="33%">Run: <?=$runspeed?></td>
-		      <td align="left" width="33%">Walk: <?=$walkspeed?></td>
+                    <td align="left" width="33%">Run: <?=$runspeed?></td>
+                    <td align="left" width="33%">&nbsp;</td>
                     <td align="left" width="34%">Acy: <?=$Accuracy?></td>
                   </tr>
                   <tr>
                     <td align="left" width="34%">ATK: <?=$ATK?></td>
-                    <td align="left" width="33%">See Invis: <?=$see_invis?></td>
-                    <td align="left" width="34%">See ITU: <?=$see_invis_undead?></td>
+                    <td align="left" width="33%">See Invis: <?=$yesno[$see_invis]?></td>
+                    <td align="left" width="34%">See ITU: <?=$yesno[$see_invis_undead]?></td>
                   </tr>
                   <tr>
-		      <td align="left" width="33%">See Hide: <?=$see_hide?></td>
-                    <td align="left" width="33%">See Imp Hide: <?=$see_improved_hide?></td>
+                    <td align="left" width="33%">See Hide: <?=$yesno[$see_hide]?></td>
+                    <td align="left" width="33%">See Imp Hide: <?=$yesno[$see_improved_hide]?></td>
                     <td align="left" width="34%">Scalerate: <?=$scalerate?></td>
                   </tr>
                 </table>
@@ -156,7 +156,12 @@
                   <tr>
                     <td align="left" width="33%">PR: <?=$PR?> (<?=$prper?>%)</td>
                     <td align="left" width="33%">DR: <?=$DR?> (<?=$drper?>%)</td>
-                    <td align="left" width="33%">Corrup: <?=$Corrup?> (<?=$corper?>%)</td>
+                    <td align="left" width="34%">Corrup: <?=$Corrup?> (<?=$corper?>%)</td>
+                  </tr>
+                  <tr>
+                    <td align="left" width="33%">Physical: <?=$PhR?></td>
+                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="34%">&nbsp;</td>
                   </tr>
                 </table>
               </fieldset>
@@ -177,18 +182,18 @@
                   <tr>
                     <td align="left" width="33%">Aggro: <?=$aggroradius?></td>
                     <td align="left" width="33%">Atk Speed: <?=$attack_speed?>%</td>
-		      <?
-			$new_special_abilities = '';
-		    for ($i = 1; $i <= 37; $i++){
-			if (preg_match("/^$i,/", $special_abilities, $match) == 1 || preg_match("/\^$i,/", $special_abilities, $match) == 1){
-				$match[0] = ltrim($match[0], "^");
-				$new_special_abilities .= $match[0];
-			}
-		    }
-		    $new_special_abilities = rtrim($new_special_abilities, ",");
-		    ?>
+<?
+  $new_special_abilities = '';
+    for ($i = 1; $i <= 37; $i++){
+      if (preg_match("/^$i,/", $special_abilities, $match) == 1 || preg_match("/\^$i,/", $special_abilities, $match) == 1){
+        $match[0] = ltrim($match[0], "^");
+        $new_special_abilities .= $match[0];
+      }
+    }
+    $new_special_abilities = rtrim($new_special_abilities, ",");
+?>
 
-                    <td align="left" width="34%">Special Atks: <?echo ($new_special_abilities) ? $new_special_abilities : "None";?></td>
+                    <td align="left" width="34%">Atk Delay: <?=$attack_delay?>%</td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Assist: <?=$assistradius?></td>
@@ -199,6 +204,9 @@
                     <td align="left" width="33%">Slow Mit: <?=$slow_mitigation?> (<?=$slotmit?>%)</td>
                     <td align="left" width="33%">Heal Scale: <?=$healscale?>%</td>
                     <td align="left" width="34%">NPC Aggro: <?=$npc_aggro?></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">Special Atks: <?echo ($new_special_abilities) ? $new_special_abilities : "None";?></td>
                   </tr>
                 </table>
               </fieldset>
@@ -265,6 +273,11 @@
                     <td align="left" width="33%">Private Corpse: <?=$yesno[$private_corpse]?></td>
                     <td align="left" width="34%">Version: <?=$version?></td>
                   </tr>
+                  <tr>
+                    <td align="left" width="33%">No Target Hotkey: <?=$yesno[$no_target_hotkey]?></td>
+                    <td align="left" width="33%">Raid Target: <?=$yesno[$raid_target]?></td>
+                    <td align="left" width="34%">&nbsp;</td>
+                  </tr>
                 </table>
               </fieldset>
             </td>
@@ -309,13 +322,13 @@
         <input type="hidden" name="d_meele_texture1" value="<?=$d_meele_texture1?>">
         <input type="hidden" name="d_meele_texture2" value="<?=$d_meele_texture2?>">
         <input type="hidden" name="runspeed" value="<?=$runspeed?>">
-        <input type="hidden" name="walkspeed" value="<?=$walkspeed?>">
         <input type="hidden" name="MR" value="<?=$MR?>">
         <input type="hidden" name="CR" value="<?=$CR?>">
         <input type="hidden" name="DR" value="<?=$DR?>">
         <input type="hidden" name="FR" value="<?=$FR?>">
         <input type="hidden" name="PR" value="<?=$PR?>">
         <input type="hidden" name="Corrup" value="<?=$Corrup?>">
+        <input type="hidden" name="PhR" value="<?=$PhR?>">
         <input type="hidden" name="see_invis" value="<?=$see_invis?>">
         <input type="hidden" name="see_invis_undead" value="<?=$see_invis_undead?>">
         <input type="hidden" name="see_hide" value="<?=$see_hide?>">
@@ -325,6 +338,7 @@
         <input type="hidden" name="npc_aggro" value="<?=$npc_aggro?>">
         <input type="hidden" name="spawn_limit" value="<?=$spawn_limit?>">
         <input type="hidden" name="attack_speed" value="<?=$attack_speed?>">
+        <input type="hidden" name="attack_delay" value="<?=$attack_delay?>">
         <input type="hidden" name="findable" value="<?=$findable?>">
         <input type="hidden" name="trackable" value="<?=$trackable?>">
         <input type="hidden" name="ATK" value="<?=$ATK?>">
@@ -351,6 +365,8 @@
         <input type="hidden" name="underwater" value="<?=$underwater?>">
         <input type="hidden" name="emoteid" value="<?=$emoteid?>">
         <input type="hidden" name="isquest" value="<?=$isquest?>">
+        <input type="hidden" name="no_target_hotkey" value="<?=$no_target_hotkey?>">
+        <input type="hidden" name="raid_target" value="<?=$raid_target?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">

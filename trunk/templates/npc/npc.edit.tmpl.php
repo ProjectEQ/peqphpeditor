@@ -54,22 +54,20 @@
             <legend><strong><font size="4">Vitals</font></strong></legend>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
-                <td align="left" width="13%">HP:         <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
-                <td align="left" width="13%">Mana:       <br><input type="text" name="mana" size="10" value="<?=$mana?>"></td>
-                <td align="left" width="13%">AC:         <br><input type="text" name="AC" size="10" value="<?=$AC?>"></td>
-                <td align="left" width="13%">Runspeed:   <br><input type="text" name="runspeed" size="10" value="<?=$runspeed?>"></td>
-		  <td align="left" width="12%">Walkspeed:   <br><input type="text" name="walkspeed" size="10" value="<?=$walkspeed?>"></td>
-                <td align="left" width="12%">ATK:        <br><input type="text" name="ATK" size="10" value="<?=$ATK?>"></td>
-                <td align="left" width="12%">Accuracy:   <br><input type="text" name="Accuracy" size="10" value="<?=$Accuracy?>"></td>
-                <td align="left" width="12%">Scalerate:  <br><input type="text" name="scalerate" size="10" value="<?=$scalerate?>"></td>
+                <td align="left" width="17%">HP:       <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
+                <td align="left" width="17%">Mana:     <br><input type="text" name="mana" size="10" value="<?=$mana?>"></td>
+                <td align="left" width="17%">AC:       <br><input type="text" name="AC" size="10" value="<?=$AC?>"></td>
+                <td align="left" width="17%">Runspeed: <br><input type="text" name="runspeed" size="10" value="<?=$runspeed?>"></td>
+                <td align="left" width="16%">ATK:      <br><input type="text" name="ATK" size="10" value="<?=$ATK?>"></td>
+                <td align="left" width="16%">Accuracy: <br><input type="text" name="Accuracy" size="10" value="<?=$Accuracy?>"></td>
               </tr>
-            </table>
-            <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
-		  <td align="left" width="25%">See Invis:  <br><input type="text" name="see_invis" size="10" value="<?=$see_invis?>"></td>
-                <td align="left" width="25%">See ITU:  <br><input type="text" name="see_invis_undead" size="10" value="<?=$see_invis_undead?>"></td>
-                <td align="left" width="25%">See Hide:  <br><input type="text" name="see_hide" size="10" value="<?=$see_hide?>"></td>
-                <td align="left" width="25%">See IH:  <br><input type="text" name="see_improved_hide" size="10" value="<?=$see_improved_hide?>"></td>
+                <td align="left">See Invis:<br><input type="text" name="see_invis" size="10" value="<?=$see_invis?>"></td>
+                <td align="left">See ITU:  <br><input type="text" name="see_invis_undead" size="10" value="<?=$see_invis_undead?>"></td>
+                <td align="left">See Hide: <br><input type="text" name="see_hide" size="10" value="<?=$see_hide?>"></td>
+                <td align="left">See IH:   <br><input type="text" name="see_improved_hide" size="10" value="<?=$see_improved_hide?>"></td>
+                <td>&nbsp;</td>
+                <td align="left">Scalerate:<br><input type="text" name="scalerate" size="10" value="<?=$scalerate?>"></td>
               </tr>
             </table>
           </fieldset><br>
@@ -90,15 +88,17 @@
           <fieldset>
            <legend><strong><font size="4">Resists</font></strong></legend>
              <table width="100%" border="0" cellpadding="3" cellspacing="0">
-                1 Resist = 0.5% 200 Resist = 100%
                <tr>
-                <td align="left" width="14%">MR:  <br><input type="text" name="MR" size="5" value="<?=$MR?>"></td>
-                <td align="left" width="14%">CR:  <br><input type="text" name="CR" size="5" value="<?=$CR?>"></td>
-                <td align="left" width="14%">FR:  <br><input type="text" name="FR" size="5" value="<?=$FR?>"></td>
-                <td align="left" width="14%">PR:  <br><input type="text" name="PR" size="5" value="<?=$PR?>"></td>
-                <td align="left" width="14%">DR:  <br><input type="text" name="DR" size="5" value="<?=$DR?>"></td>
+                 <td colspan="7">1 Resist = 0.5%<br/>200 Resist = 100%</td>
+               </tr>
+               <tr>
+                <td align="left" width="14%">MR:      <br><input type="text" name="MR" size="5" value="<?=$MR?>"></td>
+                <td align="left" width="14%">CR:      <br><input type="text" name="CR" size="5" value="<?=$CR?>"></td>
+                <td align="left" width="14%">FR:      <br><input type="text" name="FR" size="5" value="<?=$FR?>"></td>
+                <td align="left" width="14%">PR:      <br><input type="text" name="PR" size="5" value="<?=$PR?>"></td>
+                <td align="left" width="14%">DR:      <br><input type="text" name="DR" size="5" value="<?=$DR?>"></td>
                 <td align="left" width="15%">Corrup:  <br><input type="text" name="Corrup" size="5" value="<?=$Corrup?>"></td>
-                <td align="left" width="15%">&nbsp;</td>
+                <td align="left" width="15%">Physical:<br><input type="text" name="PhR" size="5" value="<?=$PhR?>"></td>
               </tr>
             </table>
          </fieldset><br>
@@ -112,68 +112,68 @@
                 <td align="left" width="14%">Aggroradius: <br><input type="text" name="aggroradius" size="5" value="<?=$aggroradius?>"></td>
                 <td align="left" width="14%">Attack Count:<br><input type="text" name="attack_count" size="5" value="<?=$attack_count?>"></td>
                 <td align="left" width="14%">Loot ID:     <br><input type="text" name="loottable_id" size="5" value="<?=$loottable_id?>"></td>
-                <td align="left" width="15%">Spell Scale: <br><input type="text" name="spellscale" size="5" value="<?=$spellscale?>">%</td>
                 <td align="left" width="15%">Slow Mit:    <br><input type="text" name="slow_mitigation" size="5" value="<?=$slow_mitigation?>"></td>
+                <td align="left" width="15%">Spell Scale: <br><input type="text" name="spellscale" size="5" value="<?=$spellscale?>">%</td>
               </tr>
               </tr>
                 <td align="left" width="14%">Max Dmg:     <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>"></td>
                 <td align="left" width="14%">MP Regen:    <br><input type="text" name="mana_regen_rate" size="5" value="<?=$mana_regen_rate?>"></td>
                 <td align="left" width="14%">Assistradius:<br><input type="text" name="assistradius" size="5" value="<?=$assistradius?>"></td>
                 <td align="left" width="14%">Atk Speed:   <br><input type="text" name="attack_speed" size="5" value="<?=$attack_speed?>">%</td>
+                <td align="left" width="14%">Atk Delay:   <br><input type="text" name="attack_delay" size="5" value="<?=$attack_delay?>">%</td>
                 <td align="left" width="14%">Spells ID:   <br><input type="text" name="npc_spells_id" size="5" value="<?=$npc_spells_id?>"></td>
                 <td align="left" width="15%">Heal Scale:  <br><input type="text" name="healscale" size="5" value="<?=$healscale?>">%</td>
-                <td align="left" width="15%">&nbsp;</td>
               </tr>
             </table>
             <center>
             <table cellpadding="20px">
               <tr>
-		    <? $specabil = array();
-			$specabilcont = array();
-		    for ($i = 1; $i <= 37; $i++){
-			if (preg_match("/^$i,/", $special_abilities) == 1){
-				$specabil[$i] = 1;
-				// Leading special ability
-				if (preg_match("/^$i,.+?\^/", $special_abilities, $match) == 1){
-					$specabilcont[$i] = $match[0];
-					$specabilcont[$i] = rtrim($specabilcont[$i], "^");
-				}
-				// Only special ability
-				else {
-					preg_match("/^$i,.+?\$/", $special_abilities, $match);
-					$specabilcont[$i] = $match[0];
-				}	
-			}
-			elseif (preg_match("/\^$i,/", $special_abilities) == 1){
-				$specabil[$i] = 1;
-				// Middle special ability
-				if (preg_match("/\^$i,.+?\^/", $special_abilities, $match) == 1){
-					$specabilcont[$i] = $match[0];
-					$specabilcont[$i] = trim($specabilcont[$i], "^");
-				}
-				// Trailing special ability
-				else {
-					preg_match("/\^$i,.+?\$/", $special_abilities, $match);
-					$specabilcont[$i] = $match[0];	
-					$specabilcont[$i] = ltrim($specabilcont[$i], "^");
-				}
-			}
-			else {
-				$specabil[$i] = 0;
-			}
-		    }?>
-		   <td valign="top" align="left">
-		    Summon (1): <br><input type="text" name="1" size="10" value="<?=$specabilcont[1]?>"><br>
-		    Enrage (2):  <br><input type="text" name="2" size="10" value="<?=$specabilcont[2]?>"><br>
-		    Rampage (3):  <br><input type="text" name="3" size="10" value="<?=$specabilcont[3]?>"><br>
-		    AE Rampage (4):  <br><input type="text" name="4" size="10" value="<?=$specabilcont[4]?>"><br>
-		    Flurry (5):  <br><input type="text" name="5" size="10" value="<?=$specabilcont[5]?>"><br>
-		    Tunnel Vision (29): <br><input type="text" name="29" size="10" value="<?=$specabilcont[29]?>"><br>
-		    Leashed (32): <br><input type="text" name="32" size="10" value="<?=$specabilcont[32]?>"><br>
-		    Tethered (33): <br><input type="text" name="33" size="10" value="<?=$specabilcont[33]?>"><br>
-		    Flee Percent (37): <br><input type="text" name="37" size="10" value="<?=$specabilcont[37]?>"><br>		
-		   </td>
-		    <td valign="top" align="left">
+        <? $specabil = array();
+      $specabilcont = array();
+        for ($i = 1; $i <= 37; $i++){
+      if (preg_match("/^$i,/", $special_abilities) == 1){
+        $specabil[$i] = 1;
+        // Leading special ability
+        if (preg_match("/^$i,.+?\^/", $special_abilities, $match) == 1){
+          $specabilcont[$i] = $match[0];
+          $specabilcont[$i] = rtrim($specabilcont[$i], "^");
+        }
+        // Only special ability
+        else {
+          preg_match("/^$i,.+?\$/", $special_abilities, $match);
+          $specabilcont[$i] = $match[0];
+        }  
+      }
+      elseif (preg_match("/\^$i,/", $special_abilities) == 1){
+        $specabil[$i] = 1;
+        // Middle special ability
+        if (preg_match("/\^$i,.+?\^/", $special_abilities, $match) == 1){
+          $specabilcont[$i] = $match[0];
+          $specabilcont[$i] = trim($specabilcont[$i], "^");
+        }
+        // Trailing special ability
+        else {
+          preg_match("/\^$i,.+?\$/", $special_abilities, $match);
+          $specabilcont[$i] = $match[0];  
+          $specabilcont[$i] = ltrim($specabilcont[$i], "^");
+        }
+      }
+      else {
+        $specabil[$i] = 0;
+      }
+        }?>
+       <td valign="top" align="left">
+        Summon (1): <br><input type="text" name="1" size="10" value="<?=$specabilcont[1]?>"><br>
+        Enrage (2):  <br><input type="text" name="2" size="10" value="<?=$specabilcont[2]?>"><br>
+        Rampage (3):  <br><input type="text" name="3" size="10" value="<?=$specabilcont[3]?>"><br>
+        AE Rampage (4):  <br><input type="text" name="4" size="10" value="<?=$specabilcont[4]?>"><br>
+        Flurry (5):  <br><input type="text" name="5" size="10" value="<?=$specabilcont[5]?>"><br>
+        Tunnel Vision (29): <br><input type="text" name="29" size="10" value="<?=$specabilcont[29]?>"><br>
+        Leashed (32): <br><input type="text" name="32" size="10" value="<?=$specabilcont[32]?>"><br>
+        Tethered (33): <br><input type="text" name="33" size="10" value="<?=$specabilcont[33]?>"><br>
+        Flee Percent (37): <br><input type="text" name="37" size="10" value="<?=$specabilcont[37]?>"><br>    
+       </td>
+        <td valign="top" align="left">
                   <input type="checkbox" name="6" value="6,1^"<?echo ($specabil[6] == 1) ? "checked" : "";?>>  Triple Attack<br>
                   <input type="checkbox" name="7" value="7,1^"<?echo ($specabil[7] == 1) ? "checked" : "";?>>  Quad Attack<br>
                   <input type="checkbox" name="10" value="10,1^"<?echo ($specabil[10] == 1) ? "checked" : "";?>>  Magic Attack<br>
@@ -191,7 +191,7 @@
                   <input type="checkbox" name="35" value="35,1^"<?echo ($specabil[35] == 1) ? "checked" : "";?>>  No Harm from Players<br>
                 </td>
                 <td valign="top" align="left">
-		    <input type="checkbox" name="26" value="26,1^"<?echo ($specabil[26] == 1) ? "checked" : "";?>>  Resist Ranged Spells<br>
+        <input type="checkbox" name="26" value="26,1^"<?echo ($specabil[26] == 1) ? "checked" : "";?>>  Resist Ranged Spells<br>
                   <input type="checkbox" name="28" value="28,1^"<?echo ($specabil[28] == 1) ? "checked" : "";?>>  Immune to Taunt<br>
                   <input type="checkbox" name="19" value="19,1^"<?echo ($specabil[19] == 1) ? "checked" : "";?>>  Immune to Melee<br>
                   <input type="checkbox" name="20" value="20,1^"<?echo ($specabil[20] == 1) ? "checked" : "";?>>  Immune to Magic<br>
@@ -203,7 +203,7 @@
                   <input type="checkbox" name="27" value="27,1^"<?echo ($specabil[27] == 1) ? "checked" : "";?>>  See through Feign Death<br>
                   <input type="checkbox" name="npc_aggro" value="1"<?echo ($npc_aggro == 1) ? "checked" : "";?>> Can Aggro NPCs<br>
                   <input type="checkbox" name="30" value="30,1^"<?echo ($specabil[30] == 1) ? "checked" : "";?>>  Does NOT buff/heal friends<br>
-		    <input type="checkbox" name="36" value="36,1^"<?echo ($specabil[36] == 1) ? "checked" : "";?>>  Always Flee<br>
+        <input type="checkbox" name="36" value="36,1^"<?echo ($specabil[36] == 1) ? "checked" : "";?>>  Always Flee<br>
                 </td>
               </tr>
             </table>
@@ -264,11 +264,11 @@
           <legend><strong><font size="4">Misc</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="17%">Spawn Limit: <br><input type="text" name="spawn_limit" size="10" value="<?=$spawn_limit?>"></td>
-              <td align="left" width="17%">Version: <br><input type="text" name="version" size="10" value="<?=$version?>"></td>
-              <td align="left" width="17%">Emote: <br><input type="text" name="emoteid" size="10" value="<?=$emoteid?>"></td>
-              <td align="left" width="17%">&nbsp;</td>
-              <td align="left" width="16%">&nbsp;</td>
+              <td align="left" width="17%">Spawn Limit:     <br><input type="text" name="spawn_limit" size="10" value="<?=$spawn_limit?>"></td>
+              <td align="left" width="17%">Version:         <br><input type="text" name="version" size="10" value="<?=$version?>"></td>
+              <td align="left" width="17%">Emote:           <br><input type="text" name="emoteid" size="10" value="<?=$emoteid?>"></td>
+              <td align="left" width="17%">No Target Hotkey:<br><input type="text" name="no_target_hotkey" size="10" value="<?=$no_target_hotkey?>"></td>
+              <td align="left" width="16%">Raid Target:     <br><input type="text" name="raid_target" size="5" value="<?=$raid_target?>"></td>
               <td align="left" width="16%">&nbsp;</td>
             </tr>
           </table><br>

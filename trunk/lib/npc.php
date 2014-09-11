@@ -1265,13 +1265,13 @@ function update_npc () {
   if ($d_meele_texture1 != $_POST['d_meele_texture1']) $fields .= "d_meele_texture1=\"" . $_POST['d_meele_texture1'] . "\", ";
   if ($d_meele_texture2 != $_POST['d_meele_texture2']) $fields .= "d_meele_texture2=\"" . $_POST['d_meele_texture2'] . "\", ";
   if ($runspeed != $_POST['runspeed']) $fields .= "runspeed=\"" . $_POST['runspeed'] . "\", ";
-  if ($walkspeed != $_POST['walkspeed']) $fields .= "walkspeed=\"" . $_POST['walkspeed'] . "\", ";
   if ($MR != $_POST['MR']) $fields .= "MR=\"" . $_POST['MR'] . "\", ";
   if ($CR != $_POST['CR']) $fields .= "CR=\"" . $_POST['CR'] . "\", ";
   if ($DR != $_POST['DR']) $fields .= "DR=\"" . $_POST['DR'] . "\", ";
   if ($FR != $_POST['FR']) $fields .= "FR=\"" . $_POST['FR'] . "\", ";
   if ($PR != $_POST['PR']) $fields .= "PR=\"" . $_POST['PR'] . "\", ";
   if ($Corrup != $_POST['Corrup']) $fields .= "Corrup=\"" . $_POST['Corrup'] . "\", ";
+  if ($PhR != $_POST['PhR']) $fields .= "PhR=\"" . $_POST['PhR'] . "\", ";
   if ($see_invis != $_POST['see_invis']) $fields .= "see_invis=\"" . $_POST['see_invis'] . "\", ";
   if ($see_invis_undead != $_POST['see_invis_undead']) $fields .= "see_invis_undead=\"" . $_POST['see_invis_undead'] . "\", ";
   if ($see_hide != $_POST['see_hide']) $fields .= "see_hide=\"" . $_POST['see_hide'] . "\", ";
@@ -1281,6 +1281,7 @@ function update_npc () {
   if ($npc_aggro != $_POST['npc_aggro']) $fields .= "npc_aggro=\"" . $_POST['npc_aggro'] . "\", ";
   if ($spawn_limit != $_POST['spawn_limit']) $fields .= "spawn_limit=\"" . $_POST['spawn_limit'] . "\", ";
   if ($attack_speed != $_POST['attack_speed']) $fields .= "attack_speed=\"" . $_POST['attack_speed'] . "\", ";
+  if ($attack_delay != $_POST['attack_delay']) $fields .= "attack_delay=\"" . $_POST['attack_delay'] . "\", ";
   if ($findable != $_POST['findable']) $fields .= "findable=\"" . $_POST['findable'] . "\", ";
   if ($trackable != $_POST['trackable']) $fields .= "trackable=\"" . $_POST['trackable'] . "\", ";
   if ($ATK != $_POST['ATK']) $fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
@@ -1308,6 +1309,8 @@ function update_npc () {
   if ($spellscale != $_POST['spellscale']) $fields .= "spellscale=\"" . $_POST['spellscale'] . "\", ";
   if ($healscale != $_POST['healscale']) $fields .= "healscale=\"" . $_POST['healscale'] . "\", ";
   if ($isquest != $_POST['isquest']) $fields .= "isquest=\"" . $_POST['isquest'] . "\", ";
+  if ($no_target_hotkey != $_POST['no_target_hotkey']) $fields .= "no_target_hotkey=\"" . $_POST['no_target_hotkey'] . "\", ";
+  if ($raid_target != $_POST['raid_target']) $fields .= "raid_target=\"" . $_POST['raid_target'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -1379,13 +1382,13 @@ function add_npc () {
   $fields .= "d_meele_texture1=\"" . $_POST['d_meele_texture1'] . "\", ";
   $fields .= "d_meele_texture2=\"" . $_POST['d_meele_texture2'] . "\", ";
   $fields .= "runspeed=\"" . $_POST['runspeed'] . "\", ";
-  $fields .= "walkspeed=\"" . $_POST['walkspeed'] . "\", ";
   $fields .= "MR=\"" . $_POST['MR'] . "\", ";
   $fields .= "CR=\"" . $_POST['CR'] . "\", ";
   $fields .= "DR=\"" . $_POST['DR'] . "\", ";
   $fields .= "FR=\"" . $_POST['FR'] . "\", ";
   $fields .= "PR=\"" . $_POST['PR'] . "\", ";
   $fields .= "Corrup=\"" . $_POST['Corrup'] . "\", ";
+  $fields .= "PhR=\"" . $_POST['PhR'] . "\", ";
   $fields .= "see_invis=\"" . $_POST['see_invis'] . "\", ";
   $fields .= "see_invis_undead=\"" . $_POST['see_invis_undead'] . "\", ";
   $fields .= "see_hide=\"" . $_POST['see_hide'] . "\", ";
@@ -1395,6 +1398,7 @@ function add_npc () {
   $fields .= "npc_aggro=\"" . $_POST['npc_aggro'] . "\", ";
   $fields .= "spawn_limit=\"" . $_POST['spawn_limit'] . "\", ";
   $fields .= "attack_speed=\"" . $_POST['attack_speed'] . "\", ";
+  $fields .= "attack_delay=\"" . $_POST['attack_delay'] . "\", ";
   $fields .= "findable=\"" . $_POST['findable'] . "\", ";
   $fields .= "trackable=\"" . $_POST['trackable'] . "\", ";
   $fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
@@ -1421,7 +1425,9 @@ function add_npc () {
   $fields .= "emoteid=\"" . $_POST['emoteid'] . "\", ";
   $fields .= "spellscale=\"" . $_POST['spellscale'] . "\", ";
   $fields .= "healscale=\"" . $_POST['healscale'] . "\", ";
-  $fields .= "isquest=\"" . $_POST['isquest'] . "\"";
+  $fields .= "isquest=\"" . $_POST['isquest'] . "\", ";
+  $fields .= "no_target_hotkey=\"" . $_POST['no_target_hotkey'] . "\", ";
+  $fields .= "raid_target=\"" . $_POST['raid_target'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1477,13 +1483,13 @@ $fields .= "armortint_blue=\"" . $_POST['armortint_blue'] . "\", ";
 $fields .= "d_meele_texture1=\"" . $_POST['d_meele_texture1'] . "\", ";
 $fields .= "d_meele_texture2=\"" . $_POST['d_meele_texture2'] . "\", ";
 $fields .= "runspeed=\"" . $_POST['runspeed'] . "\", ";
-$fields .= "walkspeed=\"" . $_POST['walkspeed'] . "\", ";
 $fields .= "MR=\"" . $_POST['MR'] . "\", ";
 $fields .= "CR=\"" . $_POST['CR'] . "\", ";
 $fields .= "DR=\"" . $_POST['DR'] . "\", ";
 $fields .= "FR=\"" . $_POST['FR'] . "\", ";
 $fields .= "PR=\"" . $_POST['PR'] . "\", ";
 $fields .= "Corrup=\"" . $_POST['Corrup'] . "\", ";
+$fields .= "PhR=\"" . $_POST['PhR'] . "\", ";
 $fields .= "see_invis=\"" . $_POST['see_invis'] . "\", ";
 $fields .= "see_invis_undead=\"" . $_POST['see_invis_undead'] . "\", ";
 $fields .= "see_hide=\"" . $_POST['see_hide'] . "\", ";
@@ -1493,6 +1499,7 @@ $fields .= "AC=\"" . $_POST['AC'] . "\", ";
 $fields .= "npc_aggro=\"" . $_POST['npc_aggro'] . "\", ";
 $fields .= "spawn_limit=\"" . $_POST['spawn_limit'] . "\", ";
 $fields .= "attack_speed=\"" . $_POST['attack_speed'] . "\", ";
+$fields .= "attack_delay=\"" . $_POST['attack_delay'] . "\", ";
 $fields .= "findable=\"" . $_POST['findable'] . "\", ";
 $fields .= "trackable=\"" . $_POST['trackable'] . "\", ";
 $fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
@@ -1521,6 +1528,8 @@ $fields .= "emoteid=\"" . $_POST['emoteid'] . "\", ";
 $fields .= "spellscale=\"" . $_POST['spellscale'] . "\", ";
 $fields .= "healscale=\"" . $_POST['healscale'] . "\", ";
 $fields .= "isquest=\"" . $_POST['isquest'] . "\", ";
+$fields .= "no_target_hotkey=\"" . $_POST['no_target_hotkey'] . "\", ";
+$fields .= "raid_target=\"" . $_POST['raid_target'] . "\", ";
 $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -2036,32 +2045,32 @@ function get_stats() {
  $npc_level = $_POST['npc_level'];
  
  if($npc_level < 11) {
- $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 1000 and race != 240 and str < 300 and id < 200000 group by level";
+ $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(PhR) as PhR, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed, avg(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 1000 and race != 240 and str < 300 and id < 200000 group by level";
  $results = $mysql->query_assoc($query);
  return $results;
  }
  if($npc_level > 10 && $npc_level < 31) {
-  $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 2500 and race != 240 and str < 300 and id < 200000 group by level";
+  $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(PhR) as PhR, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed, avg(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 2500 and race != 240 and str < 300 and id < 200000 group by level";
  $results = $mysql->query_assoc($query);
  return $results;
  }
   if($npc_level > 30 && $npc_level < 51) {
-  $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 5000 and race != 240 and str < 300 and id < 200000 group by level";
+  $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(PhR) as PhR, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed, avg(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 5000 and race != 240 and str < 300 and id < 200000 group by level";
  $results = $mysql->query_assoc($query);
  return $results;
  }
  if($npc_level > 50 && $npc_level < 61) {
-  $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 7000 and race != 240 and str < 300 group by level";
+  $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(PhR) as PhR, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed, avg(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 7000 and race != 240 and str < 300 group by level";
  $results = $mysql->query_assoc($query);
  return $results;
  }
  if($npc_level > 60 && $npc_level < 66) {
- $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 7500 and race != 240 group by level";
+ $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(PhR) as PhR, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed, avg(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 7500 and race != 240 group by level";
  $results = $mysql->query_assoc($query);
  return $results;
  }
  else {
- $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 50000 and race != 240 group by level";
+ $query = "SELECT level, avg(hp) AS hp, avg(mana) AS mana, avg(ac) AS ac, avg(str) AS stats, avg(mr) AS resists, avg(PhR) as PhR, avg(mindmg) AS mindmg, avg(maxdmg) AS maxdmg, avg(attack_speed) AS attack_speed, avg(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" and name not like '#%' and bodytype < 35 and bodytype not in (10,11,17,18,33) and hp < 50000 and race != 240 group by level";
  $results = $mysql->query_assoc($query);
  return $results;
  }
