@@ -299,11 +299,15 @@
         <input type="hidden" name="mana_regen_rate" value="<?=$mana_regen_rate?>">
         <input type="hidden" name="loottable_id" value="<?=$loottable_id?>">
         <input type="hidden" name="merchant_id" value="<?=$merchant_id?>">
+        <input type="hidden" name="alt_currency_id" value="<?=$alt_currency_id?>">
         <input type="hidden" name="npc_spells_id" value="<?=$npc_spells_id?>">
         <input type="hidden" name="npc_faction_id" value="<?=$npc_faction_id?>">
+        <input type="hidden" name="adventure_template_id" value="<?=$adventure_template_id?>">
+        <input type="hidden" name="trap_template" value="<?=$trap_template?>">
         <input type="hidden" name="mindmg" value="<?=$mindmg?>">
         <input type="hidden" name="maxdmg" value="<?=$maxdmg?>">
         <input type="hidden" name="attack_count" value="<?=$attack_count?>">
+        <input type="hidden" name="special_abilities" value="<?=$special_abilities?>">
         <input type="hidden" name="aggroradius" value="<?=$aggroradius?>">
         <input type="hidden" name="assistradius" value="<?=$assistradius?>">
         <input type="hidden" name="face" value="<?=$face?>">
@@ -316,11 +320,14 @@
         <input type="hidden" name="drakkin_heritage" value="<?=$drakkin_heritage?>">
         <input type="hidden" name="drakkin_tattoo" value="<?=$drakkin_tattoo?>">
         <input type="hidden" name="drakkin_details" value="<?=$drakkin_details?>">
+        <input type="hidden" name="armortint_id" value="<?=$armortint_id?>">
         <input type="hidden" name="armortint_red" value="<?=$armortint_red?>">
         <input type="hidden" name="armortint_green" value="<?=$armortint_green?>">
         <input type="hidden" name="armortint_blue" value="<?=$armortint_blue?>">
         <input type="hidden" name="d_meele_texture1" value="<?=$d_meele_texture1?>">
         <input type="hidden" name="d_meele_texture2" value="<?=$d_meele_texture2?>">
+        <input type="hidden" name="prim_melee_type" value="<?=$prim_melee_type?>">
+        <input type="hidden" name="sec_melee_type" value="<?=$sec_melee_type?>">
         <input type="hidden" name="runspeed" value="<?=$runspeed?>">
         <input type="hidden" name="MR" value="<?=$MR?>">
         <input type="hidden" name="CR" value="<?=$CR?>">
@@ -331,8 +338,6 @@
         <input type="hidden" name="PhR" value="<?=$PhR?>">
         <input type="hidden" name="see_invis" value="<?=$see_invis?>">
         <input type="hidden" name="see_invis_undead" value="<?=$see_invis_undead?>">
-        <input type="hidden" name="see_hide" value="<?=$see_hide?>">
-        <input type="hidden" name="see_improved_hide" value="<?=$see_improved_hide?>">
         <input type="hidden" name="qglobal" value="<?=$qglobal?>">
         <input type="hidden" name="AC" value="<?=$AC?>">
         <input type="hidden" name="npc_aggro" value="<?=$npc_aggro?>">
@@ -340,9 +345,6 @@
         <input type="hidden" name="attack_speed" value="<?=$attack_speed?>">
         <input type="hidden" name="attack_delay" value="<?=$attack_delay?>">
         <input type="hidden" name="findable" value="<?=$findable?>">
-        <input type="hidden" name="trackable" value="<?=$trackable?>">
-        <input type="hidden" name="ATK" value="<?=$ATK?>">
-        <input type="hidden" name="Accuracy" value="<?=$Accuracy?>">
         <input type="hidden" name="STR" value="<?=$STR?>">
         <input type="hidden" name="STA" value="<?=$STA?>">
         <input type="hidden" name="DEX" value="<?=$DEX?>">
@@ -350,21 +352,22 @@
         <input type="hidden" name="_INT" value="<?=$_INT?>">
         <input type="hidden" name="WIS" value="<?=$WIS?>">
         <input type="hidden" name="CHA" value="<?=$CHA?>">
-        <input type="hidden" name="version" value="<?=$version?>">
-        <input type="hidden" name="adventure_template_id" value="<?=$adventure_template_id?>">
-        <input type="hidden" name="trap_template" value="<?=$trap_template?>">
-        <input type="hidden" name="armortint_id" value="<?=$armortint_id?>">
-        <input type="hidden" name="special_abilities" value="<?=$special_abilities?>">
+        <input type="hidden" name="see_hide" value="<?=$see_hide?>">
+        <input type="hidden" name="see_improved_hide" value="<?=$see_improved_hide?>">
+        <input type="hidden" name="trackable" value="<?=$trackable?>">
+        <input type="hidden" name="ATK" value="<?=$ATK?>">
+        <input type="hidden" name="Accuracy" value="<?=$Accuracy?>">
         <input type="hidden" name="slow_mitigation" value="<?=$slow_mitigation?>">
+        <input type="hidden" name="version" value="<?=$version?>">
         <input type="hidden" name="maxlevel" value="<?=$maxlevel?>">
         <input type="hidden" name="scalerate" value="<?=$scalerate?>">
         <input type="hidden" name="private_corpse" value="<?=$private_corpse?>">
         <input type="hidden" name="unique_spawn_by_name" value="<?=$unique_spawn_by_name?>">
-        <input type="hidden" name="prim_melee_type" value="<?=$prim_melee_type?>">
-        <input type="hidden" name="sec_melee_type" value="<?=$sec_melee_type?>">
         <input type="hidden" name="underwater" value="<?=$underwater?>">
-        <input type="hidden" name="emoteid" value="<?=$emoteid?>">
         <input type="hidden" name="isquest" value="<?=$isquest?>">
+        <input type="hidden" name="emoteid" value="<?=$emoteid?>">
+        <input type="hidden" name="spellscale" value="<?=$spellscale?>">
+        <input type="hidden" name="healscale" value="<?=$healscale?>">
         <input type="hidden" name="no_target_hotkey" value="<?=$no_target_hotkey?>">
         <input type="hidden" name="raid_target" value="<?=$raid_target?>">
         <center>
