@@ -402,10 +402,7 @@ function loottable_info () {
     foreach ($result2 as $row2) {
       $count++;
       $lootdrop = $row2['lootdrop_id'];
-      $query3 = "SELECT lootdrop_entries.*, items.name AS name
-                 FROM lootdrop_entries, items
-                 WHERE lootdrop_entries.lootdrop_id='$lootdrop'
-                 AND lootdrop_entries.item_id=items.id";
+      $query3 = "SELECT * FROM lootdrop_entries WHERE lootdrop_id='$lootdrop'";
       $result3 = $mysql->query_mult_assoc($query3);
       if ($result3) {
         foreach ($result3 as $row3) {
