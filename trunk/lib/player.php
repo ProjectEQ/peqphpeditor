@@ -1,6 +1,6 @@
 <?php
 
-require ("player_profile.php");
+//require ("player_profile.php");
 
 $default_page = 1;
 $default_size = 200;
@@ -116,7 +116,7 @@ function get_players($page_number, $results_per_page, $sort_by) {
   global $mysql;
   $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
 
-  $query = "SELECT id, account_id, name, level, class FROM character_ ORDER BY $sort_by LIMIT $limit";
+  $query = "SELECT id, account_id, name, level, class FROM character_data ORDER BY $sort_by LIMIT $limit";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
@@ -127,7 +127,7 @@ function player_info () {
   $player_array = array();
 
   //Load from character_
-  $query = "SELECT id,account_id,timelaston,zonename,groupid,lfp,lfg,inspectmessage FROM character_ WHERE id=$playerid";
+  $query = "SELECT id, account_id, timelaston, zonename, groupid, lfp, lfg, inspectmessage FROM character_data WHERE id=$playerid";
   $player_array = $mysql->query_assoc($query);
 
   //Load account details
@@ -139,8 +139,8 @@ function player_info () {
   $player_array['status'] = $result['status'];
 
   //Set player profile variables
-  $rawprofile = get_rawprofile();
-  $player_array += $rawprofile;
+  //$rawprofile = get_rawprofile();
+  //$player_array += $rawprofile;
 
   return $player_array;
 }
@@ -156,11 +156,11 @@ function update_player () {
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
-    $query = "UPDATE character_ SET $fields WHERE id=$playerid";
+    $query = "UPDATE character_data SET $fields WHERE id=$playerid";
     $mysql->query_no_result($query);
   }
 }
-
+/*
 function get_rawprofile () {
   global $mysql, $playerid;
 
@@ -171,5 +171,5 @@ function get_rawprofile () {
 
   return $rawprofile;
 }
-
+*/
 ?>

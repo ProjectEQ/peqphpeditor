@@ -450,7 +450,7 @@ function build_filter() {
   $filter_final = array();
 
   if ($filter1) { // Filter by character
-    $query = "SELECT c.id FROM character_ c, faction_values f WHERE c.id = f.char_id AND c.name LIKE \"%$filter1%\" GROUP BY id";
+    $query = "SELECT c.id FROM character_data c, faction_values f WHERE c.id = f.char_id AND c.name LIKE \"%$filter1%\" GROUP BY id";
     $results = $mysql->query_mult_assoc($query);
     $filter_charid = "char_id IN (";
     if ($results) {

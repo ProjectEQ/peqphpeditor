@@ -129,7 +129,7 @@ function account_info() {
   $account_array = $mysql->query_assoc($query);
 
   //Load character names
-  $query = "SELECT id, name FROM character_ WHERE account_id = $acctid";
+  $query = "SELECT id, name FROM character_data WHERE account_id = $acctid";
   $character_array = $mysql->query_mult_assoc($query);
   if ($character_array) {
     $account_array['characters'] = $character_array;
@@ -166,7 +166,7 @@ function char_transfer() {
   $target_acct = getAccountID($_POST['tacct']);
   $char_id = $_GET['playerid'];
 
-  $query = "UPDATE character_ SET account_id=$target_acct WHERE id=$char_id";
+  $query = "UPDATE character_data SET account_id=$target_acct WHERE id=$char_id";
   $mysql->query_no_result($query);
 }
 
