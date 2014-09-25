@@ -1,9 +1,9 @@
 <?php
 
 $rewardmethods = array(
-  0   => "Single ID",
-  1   => "Goallist",
-  2   => "Perl"
+  0 => "Single ID",
+  1 => "Goallist",
+  2 => "Perl"
 );
 
 $activitytypes = array(
@@ -16,10 +16,10 @@ $activitytypes = array(
   7   => "Fish",
   8   => "Forage",
   9   => "Use",
-  10   => "Use",
-  11   => "Touch",
-  100   => "GiveCash",
-  999   => "Custom"
+  10  => "Use",
+  11  => "Touch",
+  100 => "GiveCash",
+  999 => "Custom"
 );
 
 $default_page = 1;

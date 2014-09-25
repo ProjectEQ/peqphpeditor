@@ -68,7 +68,7 @@ switch ($action) {
 function get_old_characters($datetime) {
   global $mysql;
 
-  $query = "SELECT id, account_id, timelaston FROM character_ WHERE timelaston < (UNIX_TIMESTAMP() - $datetime) ORDER BY timelaston, id LIMIT 500";
+  $query = "SELECT id, account_id, timelaston FROM character_data WHERE timelaston < (UNIX_TIMESTAMP() - $datetime) ORDER BY timelaston, id LIMIT 500";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
@@ -85,7 +85,7 @@ function purge_characters() {
 function get_empty_accounts() {
   global $mysql;
 
-  $query = "SELECT id FROM account WHERE id NOT IN (SELECT account_id FROM character_ GROUP BY account_id) ORDER BY id LIMIT 500";
+  $query = "SELECT id FROM account WHERE id NOT IN (SELECT account_id FROM character_data GROUP BY account_id) ORDER BY id LIMIT 500";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;

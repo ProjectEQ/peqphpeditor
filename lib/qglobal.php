@@ -173,7 +173,7 @@ function build_filter() {
     $filter_final['sql'] = $filter_name;
   }
   if ($filter2) { // Filter by character
-    $query = "SELECT c.id FROM character_ c, quest_globals q WHERE c.id = q.charid AND c.name LIKE \"%$filter2%\" GROUP BY id";
+    $query = "SELECT c.id FROM character_data c, quest_globals q WHERE c.id = q.charid AND c.name LIKE \"%$filter2%\" GROUP BY id";
     $results = $mysql->query_mult_assoc($query);
     $filter_charid = "charid IN (";
     if ($results) {

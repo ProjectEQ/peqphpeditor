@@ -111,7 +111,7 @@ function search_by_playerid($player_id) {
 function search_by_playername($player_name, $list_limit) {
   global $mysql;
 
-  $query = "SELECT id AS char_id FROM character_ WHERE `name` RLIKE \"$player_name\" LIMIT $list_limit";
+  $query = "SELECT id AS char_id FROM character_data WHERE `name` RLIKE \"$player_name\" LIMIT $list_limit";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;

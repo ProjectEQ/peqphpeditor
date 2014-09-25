@@ -202,7 +202,7 @@ function getPlayerName($playerid) {
   global $mysql;
   
   if ($playerid > 0) {
-    $query = "SELECT name FROM character_ WHERE id=$playerid";
+    $query = "SELECT name FROM character_data WHERE id=$playerid";
     $result = $mysql->query_assoc($query);
     return $result['name'];
   }
@@ -214,7 +214,7 @@ function getPlayerName($playerid) {
 function getPlayerID($playername) {
   global $mysql;
   
-  $query = "SELECT id FROM character_ WHERE name=\"$playername\"";
+  $query = "SELECT id FROM character_data WHERE name=\"$playername\"";
   $result = $mysql->query_assoc($query);
   return $result['id'];
 }
@@ -223,7 +223,7 @@ function search_players_by_name() {
   global $mysql;
   $playername = $_POST['playername'];
 
-  $query = "SELECT id, name FROM character_ WHERE name rlike \"$playername\"";
+  $query = "SELECT id, name FROM character_data WHERE name rlike \"$playername\"";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
@@ -232,7 +232,7 @@ function search_players_by_id() {
   global $mysql;
   $playerid = $_POST['playerid'];
 
-  $query = "SELECT id, name FROM character_ WHERE id rlike \"$playerid\"";
+  $query = "SELECT id, name FROM character_data WHERE id rlike \"$playerid\"";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
@@ -355,7 +355,7 @@ function search_guilds_by_charname() {
   global $mysql;
   $charname = $_GET['charname'];
 
-  $query = "SELECT char_id, guild_id FROM guild_members WHERE char_id IN (SELECT id FROM character_ WHERE name RLIKE \"$charname\")";
+  $query = "SELECT char_id, guild_id FROM guild_members WHERE char_id IN (SELECT id FROM character_data WHERE name RLIKE \"$charname\")";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
@@ -410,7 +410,7 @@ function getPageInfo($table, $page, $size, $sort, $where = "") {
   return $stats;
 }
 
-function delete_player ($playerid) {
+function delete_player ($playerid) {//add more here
   global $mysql;
 
   $query = "DELETE FROM adventure_members WHERE charid=$playerid";
@@ -419,7 +419,7 @@ function delete_player ($playerid) {
   $mysql->query_no_result($query);
   $query = "DELETE FROM buyer WHERE charid=$playerid";
   $mysql->query_no_result($query);
-  $query = "DELETE FROM character_ WHERE id=$playerid";
+  $query = "DELETE FROM character_data WHERE id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_activities WHERE charid=$playerid";
   $mysql->query_no_result($query);
