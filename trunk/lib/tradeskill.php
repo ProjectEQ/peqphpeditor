@@ -57,6 +57,10 @@ switch ($action) {
     }
     else {
       $body = new Template("templates/tradeskill/tradeskill.default.tmpl.php");
+      if ($_GET['ts'] > 0) {
+        $body->set("ts", $_GET['ts']);
+        $body->set("tradeskills", $tradeskills);
+      }
     }
     break;
   case 1:  //Edit recipe
@@ -140,6 +144,8 @@ switch ($action) {
     $javascript = new Template("templates/tradeskill/js.tmpl.php");
     $body = new Template("templates/tradeskill/recipe.add.tmpl.php");
     $body->set("tradeskills", $tradeskills);
+    if ($_GET['ts'] > 0)
+      $body->set('ts', $_GET['ts']);
     break;
   case 11:  // Add component
     check_authorization();
