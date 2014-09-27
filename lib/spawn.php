@@ -260,7 +260,7 @@ switch ($action) {
     $body->set('npcid', $npcid);
     $body->set('pathgrid', $_GET['pathgrid']);
     $body->set('spid', $_GET['spid']);
-    $vars = gridentry_info(); 
+    $vars = gridentry_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
         $body->set($key, $value);
@@ -273,7 +273,7 @@ switch ($action) {
       }
     }
     break;
-   case 21: // Edit grid
+  case 21: // Edit grid
     check_authorization();
     $body = new Template("templates/spawn/grid.edit.tmpl.php");
     $body->set('currzone', $z);
@@ -290,23 +290,23 @@ switch ($action) {
       }
     }
     break;
-   case 22: // Update grid
+  case 22: // Update grid
     check_authorization();
     update_grid();
     $npcid = $_GET['npcid'];
-    $spid = $_GET['spid'];    
+    $spid = $_GET['spid'];
     $pathgrid = $_POST['pathgrid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20");
     exit;
-   case 23:  // Delete Grid Entry
+  case 23:  // Delete Grid Entry
     check_authorization();
     delete_gridentry();
     $npcid = $_GET['npcid'];
     $pathgrid = $_GET['pathgrid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20"); 
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20");
     exit;
-   case 24: // Edit Grid Entry
+  case 24: // Edit Grid Entry
     check_authorization();
     $body = new Template("templates/spawn/gridentry.edit.tmpl.php");
     $body->set('currzone', $z);
@@ -314,14 +314,14 @@ switch ($action) {
     $body->set('npcid', $npcid);
     $body->set('pathgrid', $_GET['pathgrid']);
     $body->set('spid', $_GET['spid']);
-    $vars = gridpoint_info(); 
+    $vars = gridpoint_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
         $body->set($key, $value);
       }
     }
     break;
-   case 25: // Update Grid Entry
+  case 25: // Update Grid Entry
     check_authorization();
     update_gridentry();
     $npcid = $_GET['npcid'];
@@ -329,15 +329,15 @@ switch ($action) {
     $spid = $_GET['spid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20");
     exit;
-   case 26:  // Delete Grid Entries
+  case 26:  // Delete Grid Entries
     check_authorization();
     delete_gridentries();
     $npcid = $_GET['npcid'];
     $pathgrid = $_GET['pathgrid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20"); 
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20");
     exit;
-   case 27: // Add Grid Entry
+  case 27: // Add Grid Entry
     check_authorization();
     $body = new Template("templates/spawn/gridentry.add.tmpl.php");
     $body->set('currzone', $z);
@@ -348,29 +348,29 @@ switch ($action) {
     $body->set('spid', $_GET['spid']);
     $body->set('suggestednum', suggest_grid_number());
     break;
-   case 28:  // Add Grid Entry
+  case 28:  // Add Grid Entry
     check_authorization();
     add_gridentry();
     $npcid = $_GET['npcid'];
     $pathgrid = $_POST['pathgrid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20"); 
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&pathgrid=$pathgrid&action=20");
     exit;
-   case 29:  // Delete Grid
+  case 29:  // Delete Grid
     check_authorization();
     delete_grid();
     $sid = spawnpoint_fromgrid();
     $npcid = $_GET['npcid'];
     $pathgrid = $_GET['pathgrid'];
-    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10"); 
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
     exit;
-   case 30: // Reset respawn timer
+  case 30: // Reset respawn timer
     check_authorization();
     force_spawn();
-    $sid = $_GET['sid'];  
+    $sid = $_GET['sid'];
     $npcid = $_GET['npcid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
-   case 31: // View zone grids
+  case 31: // View zone grids
     check_authorization();
     $body = new Template("templates/spawn/grid.zone.tmpl.php");
     $body->set('currzone', $z);
@@ -385,13 +385,13 @@ switch ($action) {
       }
     }
     break;
-   case 32:  // Delete Grid without a spawnpoint
+  case 32:  // Delete Grid without a spawnpoint
     check_authorization();
     delete_grid_ns();
     $pathgrid = $_GET['pathgrid'];
-    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&action=31"); 
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&action=31");
     exit;
-   case 33: // Add Grid from zone page
+  case 33: // Add Grid from zone page
     check_authorization();
     $body = new Template("templates/spawn/grid.zone.add.tmpl.php");
     $body->set('currzone', $z);
@@ -401,13 +401,13 @@ switch ($action) {
     $body->set('pausetype', $pausetype);
     $body->set('suggestedid', suggest_grid_id());
     break;
-   case 34:  // Add grid from zone page
+  case 34:  // Add grid from zone page
     check_authorization();
     add_grid();
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&action=31");
     exit;
-   case 35: // View spawn time
-    check_authorization(); 
+  case 35: // View spawn time
+    check_authorization();
     $body = new Template("templates/spawn/spawntimer.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -419,9 +419,9 @@ switch ($action) {
       foreach ($spawned as $key=>$value) {
         $body->set($key, $value);
       }
-   }
+    }
     break;
-   case 36: // View spawn_conditions and events
+  case 36: // View spawn_conditions and events
     check_authorization();
     $body = new Template("templates/spawn/spawncondition.tmpl.php");
     $body->set('currzone', $z);
@@ -444,35 +444,35 @@ switch ($action) {
       }
     }
     break;
-   case 37: // Edit spawnevent
+  case 37: // Edit spawnevent
     check_authorization();
     $body = new Template("templates/spawn/spawnevent.edit.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('spid', $_GET['spid']);
-    $vars = spawnevent_info(); 
+    $vars = spawnevent_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
         $body->set($key, $value);
       }
     }
     break;
-   case 38: // Update spawnevent
+  case 38: // Update spawnevent
     check_authorization();
     update_spawnevent();
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&action=36");
     exit;
-   case 39:  // Delete spawnevent
+  case 39:  // Delete spawnevent
     check_authorization();
     delete_spawnevent();
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&action=36"); 
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&action=36");
     exit;
-   case 40: // Add spawnevent
+  case 40: // Add spawnevent
     check_authorization();
     $body = new Template("templates/spawn/spawnevent.add.tmpl.php");
     $body->set('currzone', $z);
@@ -481,42 +481,42 @@ switch ($action) {
     $body->set('spid', $_GET['spid']);
     $body->set('suggestedseid', suggest_spawnevent_id());
     break;
-   case 41:  // Add spawnevent
+  case 41:  // Add spawnevent
     check_authorization();
     add_spawnevent();
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&action=36");
     exit;
-   case 42: // Edit spawncondition
+  case 42: // Edit spawncondition
     check_authorization();
     $body = new Template("templates/spawn/spawncondition.edit.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     $body->set('spid', $_GET['spid']);
-    $vars = spawncondition_info(); 
+    $vars = spawncondition_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
         $body->set($key, $value);
       }
     }
     break;
-   case 43: // Update spawncondition
+  case 43: // Update spawncondition
     check_authorization();
     update_spawncondition();
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&action=36");
     exit;
-   case 44:  // Delete spawncondition
+  case 44:  // Delete spawncondition
     check_authorization();
     delete_spawncondition();
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
-    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&action=36"); 
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&action=36");
     exit;
-   case 45: // Add spawncondition
+  case 45: // Add spawncondition
     check_authorization();
     $body = new Template("templates/spawn/spawncondition.add.tmpl.php");
     $body->set('currzone', $z);
@@ -526,15 +526,15 @@ switch ($action) {
     $body->set('suggestedscid', suggest_spawncondition_id());
     $body->set('suggestedval', suggest_spawncondition_value());
     break;
-   case 46:  // Add spawncondition
+  case 46:  // Add spawncondition
     check_authorization();
     add_spawncondition();
     $npcid = $_GET['npcid'];
     $spid = $_GET['spid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&action=36");
     exit;
-   case 47: // // View respawn time
-    check_authorization(); 
+  case 47: // // View respawn time
+    check_authorization();
     $body = new Template("templates/spawn/spawntimer.edit.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -546,9 +546,9 @@ switch ($action) {
       foreach ($spawned as $key=>$value) {
         $body->set($key, $value);
       }
-   }
+    }
     break;
-   case 48: // Update respawn time
+  case 48: // Update respawn time
     check_authorization();
     update_spawntimer();
     $npcid = $_GET['npcid'];
@@ -556,15 +556,17 @@ switch ($action) {
     $sid = $_GET['sid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
     exit;
-   case 49:  // Search npcs
+  case 49:  // Search npcs
     $body = new Template("templates/spawn/spawn.searchresults.tmpl.php");
     if (isset($_GET['npcid']) && $_GET['npcid'] != "ID") {
       $results = search_npc_by_id();
     }
-   else $results = search_npcs();
+    else {
+      $results = search_npcs();
+    }
     $body->set("results", $results);
     break;
-   case 50:  // Copy Spawnpoint
+  case 50:  // Copy Spawnpoint
     check_authorization();
     $body = new Template("templates/spawn/spawnpoint.copy.tmpl.php");
     $body->set('currzone', $z);
@@ -577,13 +579,13 @@ switch ($action) {
       }
     }
     break;
-   case 51: // Copy spawnpoint
+  case 51: // Copy spawnpoint
     check_authorization();
     copy_spawnpoint();
     $sid = $_POST['sgid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
     exit;
-   case 52:  // Copy Spawnpoint
+  case 52:  // Copy Spawnpoint
     check_authorization();
     $body = new Template("templates/spawn/spawnpoint.move.tmpl.php");
     $body->set('currzone', $z);
@@ -596,7 +598,7 @@ switch ($action) {
       }
     }
     break;
-   case 53: // Move spawnpoint
+  case 53: // Move spawnpoint
     check_authorization();
     move_spawnpoint();
     $sid = $_POST['sgid'];
@@ -636,17 +638,17 @@ switch ($action) {
     $vars = search_spawngroups($_POST['search']);
     $body->set('results', $vars);
     break;
-   case 58: // Add spawngroup by name
+  case 58: // Add spawngroup by name
     check_authorization();
     $body = new Template("templates/spawn/spawngroup.addbysearch.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     if($_POST['new_sid'] > 0){
-	$body->set('sid', $_POST['new_sid']);
+      $body->set('sid', $_POST['new_sid']);
     }
     else {
-       $body->set('sid', $_GET['sid']);
+      $body->set('sid', $_GET['sid']);
     }
     $vars = get_spawngroup_info();
     if ($vars) {
@@ -670,7 +672,7 @@ switch ($action) {
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $_GET['npcid']);
     $body->set('spid', $_GET['spid']);
-    $body->set('scid', $_GET['scid']); 
+    $body->set('scid', $_GET['scid']);
     $spawncv = get_spawn_condition_value();
     if ($spawncv) {
       foreach ($spawncv as $key=>$value) {
@@ -678,7 +680,7 @@ switch ($action) {
       }
     }
     break;
-   case 61:  // Add spawncondition value
+  case 61:  // Add spawncondition value
     check_authorization();
     add_spawnconditionvalue();
     $npcid = $_GET['npcid'];
@@ -686,7 +688,7 @@ switch ($action) {
     $scid = $_GET['scid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&spid=$spid&scid=$scid&action=60");
     exit;
-   case 62:  // Delete spawncondition value
+  case 62:  // Delete spawncondition value
     check_authorization();
     delete_spawnconditionvalue();
     $npcid = $_GET['npcid'];
@@ -753,7 +755,7 @@ switch ($action) {
     $body->set('limit', $_POST['limit']);
     $body->set('npcname', $_POST['npcname']);
     break;
-  case 69:   
+  case 69:
     check_authorization();
     $body = new Template("templates/spawn/spawngroups.member.add.tmpl.php");
     $body->set('currzone', $z);
@@ -768,7 +770,7 @@ switch ($action) {
     break;
   case 70: // Process add npc form
     check_authorization();
-      if (isset($_POST['search']) && ($_POST['search'] != '')) {
+    if (isset($_POST['search']) && ($_POST['search'] != '')) {
       $body = new Template("templates/spawn/spawngroups.member.searchresults.tmpl.php");
       $body->set('currzone', $z);
       $body->set('currzoneid', $zoneid);
@@ -835,7 +837,7 @@ switch ($action) {
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     break;
- case 81:  // Magelo import
+  case 81:  // Magelo import
     check_authorization();
     magelo_import();
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid");
@@ -845,40 +847,39 @@ switch ($action) {
 function get_spawngroups($search) {
   global $mysql, $npcid, $spawngroup_limit;
 
-  if($search != ''){
-  	$minx = $_POST['minx'];
-  	$maxx = $_POST['maxx'];
-  	$miny = $_POST['miny'];
-  	$maxy = $_POST['maxy'];
-	$limit = $_POST['limit'];
-  	$npcname = $_POST['npcname'];
+  if ($search != '') {
+    $minx = $_POST['minx'];
+    $maxx = $_POST['maxx'];
+    $miny = $_POST['miny'];
+    $maxy = $_POST['maxy'];
+    $limit = $_POST['limit'];
+    $npcname = $_POST['npcname'];
 
-	if ($spawngroup_limit != '' && ($limit < 1 || $limit > $spawngroup_limit)){
-	$limit = $spawngroup_limit;
-	}
+    if ($spawngroup_limit != '' && ($limit < 1 || $limit > $spawngroup_limit)) {
+      $limit = $spawngroup_limit;
+    }
 
-       if ($spawngroup_limit == '' && ($limit < 1 || $limit > 150)){
-	$limit = 150;
-	}
+    if ($spawngroup_limit == '' && ($limit < 1 || $limit > 150)) {
+      $limit = 150;
+    }
 
-  	if($npcname != ''){
-  		$query = "SELECT spawngroupID FROM spawn2 LEFT JOIN spawnentry USING (spawngroupID) LEFT JOIN spawngroup ON (spawn2.spawngroupID = spawngroup.id) LEFT JOIN npc_types ON (spawnentry.npcID = npc_types.id) WHERE spawn2.zone = '$search' AND spawn2.x >= $minx AND spawn2.x <= $maxx AND spawn2.y >= $miny AND spawn2.y <= $maxy AND npc_types.name rlike \"$npcname\" group by spawngroupID limit $limit";
-  	}
- 
-  	else {
-  		$query = "SELECT spawngroupID FROM spawn2 LEFT JOIN spawnentry USING (spawngroupID) LEFT JOIN spawngroup ON (spawn2.spawngroupID = spawngroup.id) WHERE spawn2.zone = '$search' AND spawn2.x >= $minx AND spawn2.x <= $maxx AND spawn2.y >= $miny AND spawn2.y <= $maxy group by spawngroupID limit $limit";
-  	}
+    if ($npcname != '') {
+      $query = "SELECT spawngroupID FROM spawn2 LEFT JOIN spawnentry USING (spawngroupID) LEFT JOIN spawngroup ON (spawn2.spawngroupID = spawngroup.id) LEFT JOIN npc_types ON (spawnentry.npcID = npc_types.id) WHERE spawn2.zone = '$search' AND spawn2.x >= $minx AND spawn2.x <= $maxx AND spawn2.y >= $miny AND spawn2.y <= $maxy AND npc_types.name rlike \"$npcname\" group by spawngroupID limit $limit";
+    }
+    else {
+      $query = "SELECT spawngroupID FROM spawn2 LEFT JOIN spawnentry USING (spawngroupID) LEFT JOIN spawngroup ON (spawn2.spawngroupID = spawngroup.id) WHERE spawn2.zone = '$search' AND spawn2.x >= $minx AND spawn2.x <= $maxx AND spawn2.y >= $miny AND spawn2.y <= $maxy group by spawngroupID limit $limit";
+    }
   }
-  
   else {
-  $query = "SELECT * FROM spawnentry WHERE npcID=$npcid ORDER BY spawngroupID";
+    $query = "SELECT * FROM spawnentry WHERE npcID=$npcid ORDER BY spawngroupID";
   }
 
   $results = $mysql->query_mult_assoc($query);
 
-  if (!$results) return;
+  if (!$results)
+    return;
 
-  for($x=0; $x<count($results); $x++) {
+  for ($x=0; $x<count($results); $x++) {
     $id = $results[$x]['spawngroupID'];
 
     $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay, mindelay, despawn, despawn_timer FROM spawngroup WHERE id=$id";
@@ -901,15 +902,16 @@ function get_spawngroups($search) {
 
     $query = "SELECT * FROM spawnentry WHERE spawngroupID=$id";
     $results2 = $mysql->query_mult_assoc($query);
+
     foreach ($results2 as $r2) {
       $r2['name'] = getNPCName($r2['npcID']);
       $results[$x]['npcs'][] = $r2;
     }
-  
-    if($search != ''){
-    $query = "SELECT npcID FROM spawnentry WHERE spawngroupID=$id limit 1";
-    $result = $mysql->query_assoc($query);
-    $results[$x]['npcid'] = $result['npcID'];
+
+    if ($search != '') {
+      $query = "SELECT npcID FROM spawnentry WHERE spawngroupID=$id limit 1";
+      $result = $mysql->query_assoc($query);
+      $results[$x]['npcid'] = $result['npcID'];
     }
   }
   return $results;
@@ -939,78 +941,81 @@ function add_spawngroup_member() {
   $query = "SELECT max(chance) AS chance FROM spawnentry where spawngroupID=$sid limit 1";
   $result = $mysql->query_assoc($query);
   $maxchance = $result['chance'];
- 
+
   $query = "SELECT npcID AS maxnpcid FROM spawnentry where spawngroupID=$sid AND chance=$maxchance";
   $result = $mysql->query_assoc($query);
   $maxnpcid = $result['maxnpcid'];
 
   $newchance = ($maxchance - $chance);
 
-  if($newchance > 1){
-  $query = "UPDATE spawnentry SET chance = $newchance WHERE npcID = $maxnpcid AND spawngroupID=$sid";
-  $mysql->query_no_result($query);
+  if ($newchance > 1) {
+    $query = "UPDATE spawnentry SET chance = $newchance WHERE npcID = $maxnpcid AND spawngroupID=$sid";
+    $mysql->query_no_result($query);
   }
 
   $query = "INSERT INTO spawnentry SET spawngroupID=$sid, npcID=$npc, chance=$chance";
   $mysql->query_no_result($query);
 
-  if ($balance == "on") { balance_spawns(''); }
+  if ($balance == "on") {
+    balance_spawns('');
+  }
 }
 
 function add_multiple_spawngroup_member() {
-	check_authorization();
-	global $mysql, $z, $spawngroup_limit;
+  check_authorization();
+  global $mysql, $z, $spawngroup_limit;
 
-  	$minx = $_GET['minx'];
-  	$maxx = $_GET['maxx'];
-  	$miny = $_GET['miny'];
-  	$maxy = $_GET['maxy'];
-	$limit = $_GET['limit'];
-  	$npcname = $_GET['npcname'];
-	$npc = $_REQUEST['npc'];
-	$balance = $_REQUEST['balance'];
-  	$chance = ($balance == "on") ? 0 : $_REQUEST['chance'];
+  $minx = $_GET['minx'];
+  $maxx = $_GET['maxx'];
+  $miny = $_GET['miny'];
+  $maxy = $_GET['maxy'];
+  $limit = $_GET['limit'];
+  $npcname = $_GET['npcname'];
+  $npc = $_REQUEST['npc'];
+  $balance = $_REQUEST['balance'];
+  $chance = ($balance == "on") ? 0 : $_REQUEST['chance'];
 
-	if ($spawngroup_limit != '' && ($limit < 1 || $limit > $spawngroup_limit)){
-	$limit = $spawngroup_limit;
-	}
+  if ($spawngroup_limit != '' && ($limit < 1 || $limit > $spawngroup_limit)) {
+    $limit = $spawngroup_limit;
+  }
 
-       if ($spawngroup_limit == '' && ($limit < 1 || $limit > 150)){
-	$limit = 150;
-	}
+  if ($spawngroup_limit == '' && ($limit < 1 || $limit > 150)) {
+    $limit = 150;
+  }
 
-  	if($npcname != ''){
-  		$query = "SELECT spawngroupID FROM spawn2 LEFT JOIN spawnentry USING (spawngroupID) LEFT JOIN spawngroup ON (spawn2.spawngroupID = spawngroup.id) LEFT JOIN npc_types ON (spawnentry.npcID = npc_types.id) WHERE spawn2.zone = '$z' AND spawn2.x >= $minx AND spawn2.x <= $maxx AND spawn2.y >= $miny AND spawn2.y <= $maxy AND npc_types.name rlike \"$npcname\" group by spawngroupID limit $limit";
-  	}
- 
-  	else {
-  		$query = "SELECT spawngroupID FROM spawn2 LEFT JOIN spawnentry USING (spawngroupID) LEFT JOIN spawngroup ON (spawn2.spawngroupID = spawngroup.id) WHERE spawn2.zone = '$z' AND spawn2.x >= $minx AND spawn2.x <= $maxx AND spawn2.y >= $miny AND spawn2.y <= $maxy group by spawngroupID limit $limit";
-  	}
+  if($npcname != ''){
+    $query = "SELECT spawngroupID FROM spawn2 LEFT JOIN spawnentry USING (spawngroupID) LEFT JOIN spawngroup ON (spawn2.spawngroupID = spawngroup.id) LEFT JOIN npc_types ON (spawnentry.npcID = npc_types.id) WHERE spawn2.zone = '$z' AND spawn2.x >= $minx AND spawn2.x <= $maxx AND spawn2.y >= $miny AND spawn2.y <= $maxy AND npc_types.name rlike \"$npcname\" group by spawngroupID limit $limit";
+  }
+  else {
+    $query = "SELECT spawngroupID FROM spawn2 LEFT JOIN spawnentry USING (spawngroupID) LEFT JOIN spawngroup ON (spawn2.spawngroupID = spawngroup.id) WHERE spawn2.zone = '$z' AND spawn2.x >= $minx AND spawn2.x <= $maxx AND spawn2.y >= $miny AND spawn2.y <= $maxy group by spawngroupID limit $limit";
+  }
 
-	$results = $mysql->query_mult_assoc($query);
+  $results = $mysql->query_mult_assoc($query);
 
-       for($x=0; $x<count($results); $x++) {
-	$sid = $results[$x]['spawngroupID'];
+  for($x=0; $x<count($results); $x++) {
+    $sid = $results[$x]['spawngroupID'];
 
-	$query = "SELECT max(chance) AS chance, npcID AS maxnpcid FROM spawnentry where spawngroupID=$sid";
-  	$result = $mysql->query_assoc($query);
-  	$maxchance = $result['chance'];
-  	$maxnpcid = $result['maxnpcid'];
+    $query = "SELECT max(chance) AS chance, npcID AS maxnpcid FROM spawnentry where spawngroupID=$sid";
+    $result = $mysql->query_assoc($query);
+    $maxchance = $result['chance'];
+    $maxnpcid = $result['maxnpcid'];
 
-  	$newchance = ($maxchance - $chance);
+    $newchance = ($maxchance - $chance);
 
-  	if($newchance > 1){
-  	$query = "UPDATE spawnentry SET chance = $newchance WHERE npcID = $maxnpcid AND spawngroupID=$sid";
-  	$mysql->query_no_result($query);
-  	}
+    if ($newchance > 1) {
+      $query = "UPDATE spawnentry SET chance = $newchance WHERE npcID = $maxnpcid AND spawngroupID=$sid";
+      $mysql->query_no_result($query);
+    }
 
-  	$query = "REPLACE INTO spawnentry SET spawngroupID=$sid, npcID=$npc, chance=$chance";
-  	$mysql->query_no_result($query);
+    $query = "REPLACE INTO spawnentry SET spawngroupID=$sid, npcID=$npc, chance=$chance";
+    $mysql->query_no_result($query);
 
-  	if ($balance == "on") { balance_spawns($sid); }
-	}
+    if ($balance == "on") {
+      balance_spawns($sid);
+    }
+  }
 }
-  
+
 function update_spawngroup_member() {
   check_authorization();
   global $mysql;
@@ -1031,7 +1036,7 @@ function delete_spawngroup_member($balance) {
 
   $query = "SELECT chance FROM spawnentry WHERE spawngroupID=$sid AND npcID=$npc";
   $result = $mysql->query_assoc($query);
-  
+
   $del_chance = $result['chance'];
 
   $query = "DELETE FROM spawnentry WHERE spawngroupID=$sid AND npcID=$npc";
@@ -1039,30 +1044,31 @@ function delete_spawngroup_member($balance) {
 
   $query = "SELECT max(chance) AS chance_ FROM spawnentry WHERE spawngroupID=$sid";
   $result = $mysql->query_assoc($query);
-  
+
   $chance = $result['chance_'];
 
-  if($chance != ''){
-  $query = "SELECT npcID FROM spawnentry WHERE spawngroupID=$sid AND chance=$chance limit 1";
-  $result = $mysql->query_assoc($query);
-  $npcid_ = $result['npcID'];
+  if ($chance != '') {
+    $query = "SELECT npcID FROM spawnentry WHERE spawngroupID=$sid AND chance=$chance limit 1";
+    $result = $mysql->query_assoc($query);
+    $npcid_ = $result['npcID'];
   }
 
-  if($chance == ''){
-	$query = "DELETE FROM spawngroup WHERE id=$sid";
-  	$mysql->query_no_result($query);
+  if ($chance == '') {
+    $query = "DELETE FROM spawngroup WHERE id=$sid";
+    $mysql->query_no_result($query);
 
-       $query = "DELETE FROM spawn2 WHERE spawngroupID=$sid";
-  	$mysql->query_no_result($query);
+    $query = "DELETE FROM spawn2 WHERE spawngroupID=$sid";
+    $mysql->query_no_result($query);
   }
 
-  if($npcid_ != ''){
-  $query = "UPDATE spawnentry SET chance = $chance+$del_chance WHERE spawngroupID=$sid AND npcID=$npcid_";
-  $mysql->query_no_result($query);
+  if ($npcid_ != '') {
+    $query = "UPDATE spawnentry SET chance = $chance+$del_chance WHERE spawngroupID=$sid AND npcID=$npcid_";
+    $mysql->query_no_result($query);
   }
 
-  if ($balance == 1) { balance_spawns(''); }
-
+  if ($balance == 1) {
+    balance_spawns('');
+  }
 }
 
 function valid_npc() {
@@ -1071,24 +1077,23 @@ function valid_npc() {
   $sid = $_GET['sid'];
   $npc = $_GET['sgnpcid'];
 
-   if($npcid == '' || $npcid == $npc){
-  	$query = "SELECT npcID FROM spawnentry WHERE spawngroupID=$sid limit 1";
-  	$result = $mysql->query_assoc($query);
- 	return $result['npcID'];
-   }
+  if ($npcid == '' || $npcid == $npc) {
+    $query = "SELECT npcID FROM spawnentry WHERE spawngroupID=$sid limit 1";
+    $result = $mysql->query_assoc($query);
+    return $result['npcID'];
+  }
 
-   if($npcid != '' && $npcid != $npc){ 
-  	return $npcid;
-   }
-  
+  if ($npcid != '' && $npcid != $npc) {
+    return $npcid;
+  }
 }
 
 function balance_spawns ($sid) {
   check_authorization();
   global $mysql;
-  
-  if($_GET['sid'] != ''){
-	$sid = $_GET['sid'];
+
+  if ($_GET['sid'] != '') {
+    $sid = $_GET['sid'];
   }
 
   $query = "SELECT count(npcID) AS count FROM spawnentry WHERE spawngroupID=$sid";
@@ -1109,7 +1114,9 @@ function balance_spawns ($sid) {
       $chance = $base;
       $x--;
     }
-    else $chance = $base + 1;
+    else
+      $chance = $base + 1;
+
     $query = "UPDATE spawnentry SET chance=$chance WHERE spawngroupID=$sid AND npcID=$npc";
     $mysql->query_no_result($query);
   }
@@ -1120,12 +1127,11 @@ function get_spawngroup_info() {
   $sid = $_GET['sid'];
   $new_sid = $_POST['new_sid'];
 
-  if($new_sid > 0){
-  $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay, mindelay, despawn, despawn_timer FROM spawngroup WHERE id=$new_sid";
+  if ($new_sid > 0) {
+    $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay, mindelay, despawn, despawn_timer FROM spawngroup WHERE id=$new_sid";
   }
- 
   else {
-  $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay, mindelay, despawn, despawn_timer FROM spawngroup WHERE id=$sid";
+    $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay, mindelay, despawn, despawn_timer FROM spawngroup WHERE id=$sid";
   }
   $result = $mysql->query_assoc($query);
 
@@ -1180,11 +1186,10 @@ function get_spawnpoints () {
   global $mysql;
   $sid = $_GET['sid'];
 
-  $query = "SELECT * FROM spawn2 WHERE spawngroupID=$sid ORDER BY id";  
+  $query = "SELECT * FROM spawn2 WHERE spawngroupID=$sid ORDER BY id";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
-
 }
 
 function grid_info () {
@@ -1194,7 +1199,7 @@ function grid_info () {
 
   $query = "SELECT * FROM grid WHERE id=\"$pathgrid\" AND zoneid=$zid";
   $result = $mysql->query_assoc($query);
-  
+
   return $result;
 }
 
@@ -1205,7 +1210,7 @@ function spawnpoint_fromgrid () {
 
   $query = "SELECT spawngroupid AS sid FROM spawn2 WHERE id=\"$spid\" limit 1";
   $result = $mysql->query_assoc($query);
-  
+
   return ($result['sid']);
 }
 
@@ -1214,7 +1219,7 @@ function gridentry_info () {
   $zid = getZoneID($z);
   $pathgrid = intval($_GET['pathgrid']);
   $array = array();
-  
+
   $array['id'] = $pathgrid;
   $query = "SELECT number, x, y, z, heading, pause FROM grid_entries WHERE gridid=\"$pathgrid\" AND zoneid=$zid";
   $results = $mysql->query_mult_assoc($query);
@@ -1235,10 +1240,10 @@ function gridpoint_info () {
 
   $query = "SELECT number, x, y, z, heading, pause FROM grid_entries WHERE number=$number AND zoneid=$zid AND gridid=$pathgrid";
   $result = $mysql->query_assoc($query);
-  
+
   return $result;
 }
-  
+
 function spawnevent_info () {
   global $mysql, $z;
 
@@ -1246,7 +1251,7 @@ function spawnevent_info () {
 
   $query = "SELECT * FROM spawn_events WHERE id=\"$seid\"";
   $result = $mysql->query_assoc($query);
-  
+
   return $result;
 }
 
@@ -1257,7 +1262,7 @@ function spawncondition_info () {
 
   $query = "SELECT * FROM spawn_conditions WHERE id=\"$scid\" AND zone=\"$z\"";
   $result = $mysql->query_assoc($query);
-  
+
   return $result;
 }
 
@@ -1285,10 +1290,10 @@ function delete_grid () {
   $zid = getZoneID($z);
   $pathgrid = intval($_GET['pathgrid']);
   $spid = intval($_GET['spid']);
-  
+
   $query = "DELETE FROM grid WHERE zoneid=$zid AND id=$pathgrid";
   $mysql->query_no_result($query);
-  
+
   $query = "DELETE FROM grid_entries WHERE zoneid=$zid AND gridid=$pathgrid";
   $mysql->query_no_result($query);
 
@@ -1300,10 +1305,10 @@ function delete_grid_ns () {
   global $mysql, $z;
   $zid = getZoneID($z);
   $pathgrid = intval($_GET['pathgrid']);
-  
+
   $query = "DELETE FROM grid WHERE zoneid=$zid AND id=$pathgrid";
   $mysql->query_no_result($query);
-  
+
   $query = "DELETE FROM grid_entries WHERE zoneid=$zid AND gridid=$pathgrid";
   $mysql->query_no_result($query);
 }
@@ -1412,7 +1417,7 @@ function suggest_spawnpoint_id() {
 
 function suggest_grid_id() {
   global $mysql, $z;
-  
+
   $zid = getZoneID($z);
 
   $query = "SELECT MAX(id) AS id FROM grid where zoneid=$zid";
@@ -1423,40 +1428,40 @@ function suggest_grid_id() {
 
 function suggest_grid_number() {
   global $mysql, $z;
-  
+
   $zid = getZoneID($z);
   $pathgrid = intval($_GET['pathgrid']);
 
   $query = "SELECT MAX(number) AS num FROM grid_entries where zoneid=$zid and gridid=$pathgrid";
   $result = $mysql->query_assoc($query);
-  
+
   return ($result['num'] + 1);
 }
 
 function suggest_spawnevent_id() {
   global $mysql;
-  
+
   $query = "SELECT MAX(id) AS seid FROM spawn_events";
   $result = $mysql->query_assoc($query);
-  
+
   return ($result['seid'] + 1);
 }
 
 function suggest_spawncondition_id() {
   global $mysql, $z;
-  
+
   $query = "SELECT MAX(id) AS scid FROM spawn_conditions WHERE zone=\"$z\"";
   $result = $mysql->query_assoc($query);
-  
+
   return ($result['scid'] + 1);
 }
 
 function suggest_spawncondition_value() {
   global $mysql, $z;
-  
+
   $query = "SELECT MAX(value) AS scval FROM spawn_conditions WHERE zone=\"$z\"";
   $result = $mysql->query_assoc($query);
-  
+
   return ($result['scval'] + 1);
 }
 
@@ -1573,7 +1578,7 @@ function update_gridentry() {
 
 function is_spawned() {
   global $mysql;
-  $spid = intval($_GET['spid']);  
+  $spid = intval($_GET['spid']);
 
   $array['id'] = $spid;
   $query = "SELECT * FROM respawn_times where id=$spid and instance_id = 0";
@@ -1589,17 +1594,17 @@ function is_spawned() {
 
 function view_respawn() {
   global $mysql;
-  $spid = intval($_GET['spid']); 
-  
+  $spid = intval($_GET['spid']);
+
   $query = "SELECT * FROM respawn_times where id=$spid and instance_id = 0";
   $result = $mysql->query_assoc($query);
- 
+
   return $result;
 }
 
 function force_spawn() {
   global $mysql;
-  $spid = intval($_GET['spid']);  
+  $spid = intval($_GET['spid']);
   $instance_id = intval($_GET['instance_id']);
 
   $query = "DELETE FROM respawn_times where id=$spid and instance_id=$instance_id";
@@ -1610,7 +1615,7 @@ function grid_info_zone () {
   global $mysql, $z;
   $zid = getZoneID($z);
   $array = array();
-  
+
   $array['id'] = $zid;
   $query = "SELECT id,type,type2 FROM grid WHERE zoneid=$zid";
   $results = $mysql->query_mult_assoc($query);
@@ -1626,7 +1631,7 @@ function grid_info_zone () {
 function get_spawn_condition () {
   global $mysql, $z;
   $array = array();
-  
+
   $query = "SELECT id AS scid, zone, value, onchange, name FROM spawn_conditions WHERE zone=\"$z\"";
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
@@ -1641,7 +1646,7 @@ function get_spawn_condition () {
 function get_spawn_condition_value() {
   global $mysql, $z;
   $array = array();
-  
+
   $scid = $_GET['scid'];
 
   $query = "SELECT id AS scvid, zone, value, instance_id FROM spawn_condition_values WHERE zone=\"$z\" AND id=$scid";
@@ -1658,8 +1663,8 @@ function get_spawn_condition_value() {
 function get_spawn_event () {
   global $mysql, $z;
   $array = array();
-  
-  $query = "SELECT id AS seid,zone AS sezone,cond_id,name AS sename,period,next_minute,next_hour,next_day,next_month,next_year,enabled,action,argument,strict FROM spawn_events WHERE zone=\"$z\" order by id"; 
+
+  $query = "SELECT id AS seid,zone AS sezone,cond_id,name AS sename,period,next_minute,next_hour,next_day,next_month,next_year,enabled,action,argument,strict FROM spawn_events WHERE zone=\"$z\" order by id";
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
     foreach ($results as $result) {
@@ -1758,10 +1763,10 @@ function add_spawnconditionvalue() {
   global $mysql, $z;
 
   $scid = $_GET['scid'];
-  
+
   $query = "SELECT MAX(instance_id) AS scvinst FROM spawn_condition_values WHERE zone=\"$z\" AND id=$scid";
   $result = $mysql->query_assoc($query);
-  
+
   $instance_id = ($result['scvinst'] + 1);
 
   $query = "INSERT INTO spawn_condition_values SET id=\"$scid\", zone=\"$z\", value=0, instance_id=\"$instance_id\"";
@@ -1771,20 +1776,20 @@ function add_spawnconditionvalue() {
 function copy_spawnpoint() {
   check_authorization();
   global $mysql;
-    $zone = $_POST['zone'];
-    $x = $_POST['x'];
-    $y = $_POST['y'];
-    $z = $_POST['z'];
-    $heading = $_POST['heading'];
-    $respawntime = $_POST['respawntime'];
-    $variance = $_POST['variance'];
-    $pathgrid = $_POST['pathgrid'];
-    $condition = $_POST['condition'];
-    $cond_value = $_POST['cond_value'];
-    $version = $_POST['version'];
-    $enabled = $_POST['enabled'];
-    $animation = $_POST['animation'];
-    $sgid = $_POST['sgid'];
+  $zone = $_POST['zone'];
+  $x = $_POST['x'];
+  $y = $_POST['y'];
+  $z = $_POST['z'];
+  $heading = $_POST['heading'];
+  $respawntime = $_POST['respawntime'];
+  $variance = $_POST['variance'];
+  $pathgrid = $_POST['pathgrid'];
+  $condition = $_POST['condition'];
+  $cond_value = $_POST['cond_value'];
+  $version = $_POST['version'];
+  $enabled = $_POST['enabled'];
+  $animation = $_POST['animation'];
+  $sgid = $_POST['sgid'];
 
   $query = "INSERT INTO spawn2 SET spawngroupID=\"$sgid\", zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation";
   $mysql->query_no_result($query);
@@ -1793,8 +1798,8 @@ function copy_spawnpoint() {
 function move_spawnpoint() {
   check_authorization();
   global $mysql;
-    $id = $_POST['id'];
-    $sgid = $_POST['sgid'];
+  $id = $_POST['id'];
+  $sgid = $_POST['sgid'];
 
   $query = "UPDATE spawn2 set spawngroupID=\"$sgid\" where id=$id";
   $mysql->query_no_result($query);
@@ -1804,6 +1809,7 @@ function search_spawngroups($search) {
   global $mysql;
   $query = "SELECT * FROM spawngroup WHERE name rlike \"$search\"";
   $results = $mysql->query_mult_assoc($query);
+
   return $results;
 }
 
@@ -1811,6 +1817,7 @@ function get_spawngroups_by_zone($search) {
   global $mysql;
   $query = "SELECT spawn2.spawngroupID, spawngroup.name, spawnentry.npcID FROM spawn2 LEFT JOIN spawnentry USING (spawngroupID) LEFT JOIN spawngroup ON (spawn2.spawngroupID = spawngroup.id) WHERE spawn2.zone = '$search'";
   $results = $mysql->query_mult_assoc($query);
+
   return $results;
 }
 
@@ -1828,7 +1835,7 @@ function export_grid_sql() {
   $query = "SELECT * FROM grid WHERE id = $gridid AND zoneid = $zoneid";
   $results = $mysql->query_assoc($query);
   foreach ($results as $key=>$value) {
-    if($table_string) {
+    if ($table_string) {
       $table_string .= ", " . $key;
       $value_string .= ", '" . $value . "'";
     }
@@ -1849,7 +1856,7 @@ function export_grid_sql() {
   if ($results) {
     foreach ($results as $result) {
       foreach ($result as $key=>$value) {
-        if($table_string) {
+        if ($table_string) {
           $table_string .= ", " . $key;
           $value_string .= ", '" . $value . "'";
         }
@@ -1941,19 +1948,17 @@ function magelo_import() {
   check_authorization();
   global $mysql, $npcid, $perl_path;
 
-    $insert = $_POST['spawngroupinsert'];
-    $limit = $_POST['limit'];
-    $heading = $_POST['heading'];
-    $respawntime = $_POST['respawntime'];
-    $spawnlimit = $_POST['spawnlimit'];
-    $mincoord = $_POST['mincoord'];
-    $maxcoord = $_POST['maxcoord'];
-    $forcedz = $_POST['forcedz'];
+  $insert = $_POST['spawngroupinsert'];
+  $limit = $_POST['limit'];
+  $heading = $_POST['heading'];
+  $respawntime = $_POST['respawntime'];
+  $spawnlimit = $_POST['spawnlimit'];
+  $mincoord = $_POST['mincoord'];
+  $maxcoord = $_POST['maxcoord'];
+  $forcedz = $_POST['forcedz'];
 
-   $output = array();
-   $output = exec("perl $perl_path/Coords.pl $npcid $insert $limit $spawnlimit $heading $respawntime $mincoord $maxcoord $forcedz 2>&1");
-   logPerl($output);
-  
+  $output = array();
+  $output = exec("perl $perl_path/Coords.pl $npcid $insert $limit $spawnlimit $heading $respawntime $mincoord $maxcoord $forcedz 2>&1");
+  logPerl($output);
 }
-
 ?>
