@@ -155,7 +155,7 @@
 <? endif;?>
         </table>
       </div>
-    </div>
 <? endforeach; ?>
+    </div>
 <? endif;?>
 <? } /*endelse*/?>
