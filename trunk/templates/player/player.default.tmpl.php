@@ -34,7 +34,7 @@ foreach($players as $player):?>
           <td align="center"><a href="index.php?editor=account&acctid=<?=$player['account_id']?>"><?echo getAccountName($player['account_id'])?></a></td>
           <td align="center"><?=$classes[$player['class']]?></td>
           <td align="center"><?=$player['level']?></td>
-          <td align="right"><a href="index.php?editor=player&playerid=<?=$player['id']?>"><img src="images/edit2.gif" width="13" height="13" border="0" title="View Player"></a></td>
+          <td align="right"><a href="index.php?editor=player&playerid=<?=$player['id']?>"><img src="images/view_all.gif" width="13" height="13" border="0" title="View Player"></a></td>
         </tr>
 <?$x++;
 endforeach;

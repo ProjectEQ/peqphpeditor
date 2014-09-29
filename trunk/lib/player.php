@@ -1,7 +1,5 @@
 <?php
 
-//require ("player_profile.php");
-
 $default_page = 1;
 $default_size = 200;
 $default_sort = 1;
@@ -41,7 +39,7 @@ switch ($action) {
       $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
       $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
       $body = new Template("templates/player/player.default.tmpl.php");
-      $page_stats = getPageInfo("character_", $curr_page, $curr_size, $_GET['sort']);
+      $page_stats = getPageInfo("character_data", $curr_page, $curr_size, $_GET['sort']);
       if ($page_stats['page']) {
         $players = get_players($page_stats['page'], $curr_size, $curr_sort);
       }
@@ -87,7 +85,7 @@ switch ($action) {
     }
     $body->set("results", $results);
     break;
-  case 3: // Update Player Profile
+  case 3: // Update Player
     check_admin_authorization();
     update_player();
     header("Location: index.php?editor=player&playerid=$playerid");
@@ -102,14 +100,6 @@ switch ($action) {
       header("Location: index.php?editor=player");
     }
     exit;
-  case 5: // View Raw Profile
-    check_admin_authorization();
-    $breadcrumbs .= " >> Raw Profile";
-    $profile = get_rawprofile();
-    $body = new Template("templates/player/player.rawprofile.tmpl.php");
-    $body->set('profile', $profile);
-    $body->set('playerid', $playerid);
-    break;
 }
 
 function get_players($page_number, $results_per_page, $sort_by) {
@@ -122,13 +112,78 @@ function get_players($page_number, $results_per_page, $sort_by) {
   return $results;
 }
 
-function player_info () {
+function player_info() {
   global $mysql, $playerid;
   $player_array = array();
 
-  //Load from character_
-  $query = "SELECT id, account_id, timelaston, zonename, groupid, lfp, lfg, inspectmessage FROM character_data WHERE id=$playerid";
+  //Load from character_data
+  $query = "SELECT * FROM character_data WHERE id=$playerid";
   $player_array = $mysql->query_assoc($query);
+
+  //Load from character_skills
+  $query = "SELECT * FROM character_skills WHERE id = $playerid";
+  $result = $mysql->query_assoc($query);
+  $player_array['skills'] = $result;
+
+  //Load from character_languages
+  $query = "SELECT * FROM character_languages WHERE id = $playerid";
+  $result = $mysql->query_assoc($query);
+  $player_array['languages'] = $result;
+
+  //Load from character_bind
+  $query = "SELECT * FROM character_bind WHERE id = $playerid";
+  $result = $mysql->query_assoc($query);
+  $player_array['bind'] = $result;
+
+  //Load from character_alternate_abilities
+  $query = "SELECT * FROM character_alternate_abilities WHERE id = $playerid";
+  $result = $mysql->query_assoc($query);
+  $player_array['alternate_abilities'] = $result;
+
+  //Load from character_currency
+  $query = "SELECT * FROM character_currency WHERE id = $playerid";
+  $result = $mysql->query_assoc($query);
+  $player_array['currency'] = $result;
+
+  //Load from character_spells
+  $query = "SELECT * FROM character_spells WHERE id = $playerid";
+  $result = $mysql->query_assoc($query);
+  $player_array['spells'] = $result;
+
+  //Load from character_memmed_spells
+  $query = "SELECT * FROM character_memmed_spells WHERE id = $playerid";
+  $result = $mysql->query_assoc($query);
+  $player_array['memmed_spells'] = $result;
+
+  //Load from character_disciplines
+  $query = "SELECT * FROM character_disciplines WHERE id = $playerid";
+  $result = $mysql->query_assoc($query);
+  $player_array['disciplines'] = $result;
+
+  //Load from character_material
+  $query = "SELECT * FROM character_material WHERE id = $playerid";
+  $result = $mysql->query_assoc($query);
+  $player_array['material'] = $result;
+
+  //Load from character_tribute
+  $query = "SELECT * FROM character_tribute WHERE id = $playerid";
+  $result = $mysql->query_assoc($query);
+  $player_array['tribute'] = $result;
+
+  //Load from character_bandolier
+  $query = "SELECT * FROM character_bandolier WHERE id = $playerid";
+  $result = $mysql->query_assoc($query);
+  $player_array['bandolier'] = $result;
+
+  //Load from character_inspect_messages
+  $query = "SELECT * FROM character_inspect_messages WHERE id = $playerid";
+  $result = $mysql->query_assoc($query);
+  $player_array['inspect_message'] = $result['inspect_message'];
+
+  //Load from character_leadership_abilities
+  $query = "SELECT * FROM character_leadership_abilities WHERE id = $playerid";
+  $result = $mysql->query_assoc($query);
+  $player_array['leadership_abilities'] = $result;
 
   //Load account details
   $accountid = $player_array['account_id'];
@@ -138,21 +193,24 @@ function player_info () {
   $player_array['lsaccount'] = $result['lsaccount_id'];
   $player_array['status'] = $result['status'];
 
-  //Set player profile variables
-  //$rawprofile = get_rawprofile();
-  //$player_array += $rawprofile;
+  //Load guild details
+  $query = "SELECT guild_id, rank, banker FROM guild_members WHERE char_id = $playerid";
+  $result = $mysql->query_assoc($query);
+  $player_array['guild_id'] = $result['guild_id'];
+  $player_array['guild_rank'] = $result['rank'];
+  $player_array['guild_banker'] = $result['banker'];
 
   return $player_array;
 }
 
-function update_player () {
+function update_player() {
   global $mysql, $playerid;
 
   $oldstats = player_info();
   extract($oldstats);
 
   $fields = '';
-//Set fields here
+  //Set fields here
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -160,16 +218,5 @@ function update_player () {
     $mysql->query_no_result($query);
   }
 }
-/*
-function get_rawprofile () {
-  global $mysql, $playerid;
 
-  $query = "SELECT profile FROM character_ WHERE id=$playerid";
-  $result = $mysql->query_assoc($query);
-
-  $rawprofile = unpack(getPPFormat(), $result['profile']);
-
-  return $rawprofile;
-}
-*/
 ?>

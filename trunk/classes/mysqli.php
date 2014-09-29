@@ -9,45 +9,57 @@ class mysql extends mysqli {
     }
   }
 
-  function query_no_result ($query) {
+  function query_no_result($query) {
     global $log_error;
     if (mysqli_query($this, $query)) {
       logSQL($query);
       return true;
     }
     else {
-      if($log_error == 1){logSQL($query);}
+      if ($log_error == 1) {
+        logSQL($query . " - Error: " . mysqli_error($this));
+      }
       die ($query . " - " . mysqli_error($this));
       return false;
     }
   }
 
-  function query_assoc ($query) {
+  function query_assoc($query) {
     global $log_all, $log_error;
     if ($result = mysqli_query($this, quote_smart($query))) {
       $row = $result->fetch_assoc();
-      if($log_all == 1){logSQL($query);}
-        return (isset($row) ? $row : '');
+      if ($log_all == 1) {
+        logSQL($query);
+      }
+      return (isset($row) ? $row : '');
     }
-    if($log_error == 1){logSQL($query);}
-    else die ($query . " - " . mysqli_error($this));
+    if ($log_error == 1) {
+      logSQL($query . " - Error: " . mysqli_error($this));
+    }
+    else
+      die ($query . " - " . mysqli_error($this));
   }
 
   // Used to return multi-dimensional arrays
-  function query_mult_assoc ($query) {
+  function query_mult_assoc($query) {
     global $log_all, $log_error;
     if ($result = mysqli_query($this, quote_smart($query))) {
       while ($row = $result->fetch_assoc()) {
         $array[] = $row;
       }
-      if($log_all == 1){logSQL($query);}
+      if ($log_all == 1) {
+        logSQL($query);
+      }
       return (isset($array) ? $array : '');
     }
-    if($log_error == 1){logSQL($query);}
-    else die ($query . " - " . mysqli_error($this));
+    if ($log_error == 1) {
+      logSQL($query . " - Error: " . mysqli_error($this));
+    }
+    else
+      die ($query . " - " . mysqli_error($this));
   }
 
-  function generate_insert_query ($query) {
+  function generate_insert_query($query) {
     preg_match("/FROM (.*?) /i", $query, $matches);
     $table = $matches[1];
 
