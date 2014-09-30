@@ -24,6 +24,7 @@ switch ($action) {
       $body->set('races', $races);
       $body->set('yesno', $yesno);
       $body->set('skilltypes', $skilltypes);
+      $body->set('langtypes', $langtypes);
       $body->set('player_name', getPlayerName($playerid));
       $body->set('deities', $deities);
       $body->set('anonymity', $anonymity);
@@ -115,6 +116,8 @@ function get_players($page_number, $results_per_page, $sort_by) {
 function player_info() {
   global $mysql, $playerid;
   $player_array = array();
+  $skills = array();
+  $languages = array();
 
   //Load from character_data
   $query = "SELECT * FROM character_data WHERE id=$playerid";
@@ -122,22 +125,36 @@ function player_info() {
 
   //Load from character_skills
   $query = "SELECT * FROM character_skills WHERE id = $playerid";
-  $result = $mysql->query_assoc($query);
-  $player_array['skills'] = $result;
+  $results = $mysql->query_mult_assoc($query);
+  if ($results) {
+    foreach ($results as $result) {
+      $skill_id = $result['skill_id'];
+      $value = $result['value'];
+      $skills[$skill_id] = $value;
+    }
+  }
+  $player_array['skills'] = $skills;
 
   //Load from character_languages
   $query = "SELECT * FROM character_languages WHERE id = $playerid";
-  $result = $mysql->query_assoc($query);
-  $player_array['languages'] = $result;
+  $results = $mysql->query_mult_assoc($query);
+  if ($results) {
+    foreach ($results as $result) {
+      $lang_id = $result['lang_id'];
+      $value = $result['value'];
+      $languages[$lang_id] = $value;
+    }
+  }
+  $player_array['languages'] = $languages;
 
   //Load from character_bind
   $query = "SELECT * FROM character_bind WHERE id = $playerid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql->query_mult_assoc($query);
   $player_array['bind'] = $result;
 
   //Load from character_alternate_abilities
   $query = "SELECT * FROM character_alternate_abilities WHERE id = $playerid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql->query_mult_assoc($query);
   $player_array['alternate_abilities'] = $result;
 
   //Load from character_currency
@@ -147,32 +164,32 @@ function player_info() {
 
   //Load from character_spells
   $query = "SELECT * FROM character_spells WHERE id = $playerid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql->query_mult_assoc($query);
   $player_array['spells'] = $result;
 
   //Load from character_memmed_spells
   $query = "SELECT * FROM character_memmed_spells WHERE id = $playerid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql->query_mult_assoc($query);
   $player_array['memmed_spells'] = $result;
 
   //Load from character_disciplines
   $query = "SELECT * FROM character_disciplines WHERE id = $playerid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql->query_mult_assoc($query);
   $player_array['disciplines'] = $result;
 
   //Load from character_material
   $query = "SELECT * FROM character_material WHERE id = $playerid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql->query_mult_assoc($query);
   $player_array['material'] = $result;
 
   //Load from character_tribute
   $query = "SELECT * FROM character_tribute WHERE id = $playerid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql->query_mult_assoc($query);
   $player_array['tribute'] = $result;
 
   //Load from character_bandolier
   $query = "SELECT * FROM character_bandolier WHERE id = $playerid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql->query_mult_assoc($query);
   $player_array['bandolier'] = $result;
 
   //Load from character_inspect_messages
@@ -182,16 +199,17 @@ function player_info() {
 
   //Load from character_leadership_abilities
   $query = "SELECT * FROM character_leadership_abilities WHERE id = $playerid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql->query_mult_assoc($query);
   $player_array['leadership_abilities'] = $result;
 
   //Load account details
   $accountid = $player_array['account_id'];
-  $query = "SELECT name, lsaccount_id, status FROM account WHERE id = $accountid";
+  $query = "SELECT name, lsaccount_id, status, sharedplat FROM account WHERE id = $accountid";
   $result = $mysql->query_assoc($query);
   $player_array['lsname'] = $result['name'];
   $player_array['lsaccount'] = $result['lsaccount_id'];
   $player_array['status'] = $result['status'];
+  $player_array['sharedplat'] = $result['sharedplat'];
 
   //Load guild details
   $query = "SELECT guild_id, rank, banker FROM guild_members WHERE char_id = $playerid";
