@@ -410,30 +410,70 @@ function getPageInfo($table, $page, $size, $sort, $where = "") {
   return $stats;
 }
 
-function delete_player ($playerid) {//add more here
+function delete_player($playerid) {
   global $mysql;
 
+  $query = "DELETE FROM aa_timers WHERE charid=$playerid";
+  $mysql->query_no_result($query);
   $query = "DELETE FROM adventure_members WHERE charid=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM adventure_stats WHERE player_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM buyer WHERE charid=$playerid";
   $mysql->query_no_result($query);
-  $query = "DELETE FROM character_data WHERE id=$playerid";
-  $mysql->query_no_result($query);
   $query = "DELETE FROM character_activities WHERE charid=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_alternate_abilities WHERE id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_alt_currency WHERE char_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_backup WHERE charid=$playerid";
   $mysql->query_no_result($query);
+  $query = "DELETE FROM character_bandolier WHERE id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_bind WHERE id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_buffs WHERE character_id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_currency WHERE id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_data WHERE id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_disciplines WHERE id=$playerid";
+  $mysql->query_no_result($query);
   $query = "DELETE FROM character_enabledtasks WHERE charid=$playerid";
   $mysql->query_no_result($query);
+  $query = "DELETE FROM character_inspect_messages WHERE id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_languages WHERE id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_leadership_abilities WHERE id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_lookup WHERE id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_memmed_spells WHERE id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_pet_buffs WHERE char_id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_pet_info WHERE char_id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_pet_inventory WHERE char_id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_potionbelt WHERE id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_skills WHERE id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_spells WHERE id=$playerid";
+  $mysql->query_no_result($query);
   $query = "DELETE FROM character_tasks WHERE charid=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_tribute WHERE id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM char_recipe_list WHERE char_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM completed_tasks WHERE charid=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM discovered_items WHERE char_name=(SELECT name FROM character_data WHERE id=$playerid)";
   $mysql->query_no_result($query);
   $query = "DELETE FROM faction_values WHERE char_id=$playerid";
   $mysql->query_no_result($query);
@@ -443,7 +483,8 @@ function delete_player ($playerid) {//add more here
   $mysql->query_no_result($query);
   $query = "DELETE FROM guild_members WHERE char_id=$playerid";
   $mysql->query_no_result($query);
-  $query = "DELETE FROM instance_list_player WHERE charid=$playerid";
+  //hackers?
+  $query = "DELETE FROM instance_lockout_player WHERE charid=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM inventory WHERE charid=$playerid";
   $mysql->query_no_result($query);
@@ -451,6 +492,7 @@ function delete_player ($playerid) {//add more here
   $mysql->query_no_result($query);
   $query = "DELETE FROM mail WHERE charid=$playerid";
   $mysql->query_no_result($query);
+  //mercs?
   //petitions?
   $query = "DELETE FROM player_corpses WHERE charid=$playerid";
   $mysql->query_no_result($query);
@@ -467,7 +509,8 @@ function delete_player ($playerid) {//add more here
   $mysql->query_no_result($query);
   $query = "DELETE FROM trader WHERE char_id=$playerid";
   $mysql->query_no_result($query);
-  $query = "DELETE FROM zone_flags WHERE charid=$playerid";
+  //trader_audit?
+  $query = "DELETE FROM zone_flags WHERE charID=$playerid";
   $mysql->query_no_result($query);
 }
 

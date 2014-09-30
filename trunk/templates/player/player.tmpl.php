@@ -70,9 +70,9 @@
                   Anonymous: <?=$anonymity[$anon]?><br/>
                   LFG: <?=$yesno[$lfg]?><br/>
                   LFP: <?=$yesno[$lfp]?><br/>
-                  Group ID: <?=$groupid?><br/>
                   Drunkness: <?=$intoxication?><br/>
                   Toxicity: <?=$toxicity?><br/>
+                  Autosplit: <?=$yesno[$autosplit_enabled]?>
                 </fieldset>
               </td>
             </tr>
@@ -166,7 +166,7 @@
                       <td>Platinum: <?=$currency['platinum']?></td>
                       <td>Platinum: <?=$currency['platinum_cursor']?></td>
                       <td>Platinum: <?=$currency['platinum_bank']?></td>
-                      <td>Platinum: <?=$platinum_shared?></td>
+                      <td>Platinum: <?=$sharedplat?></td>
                     </tr>
                     <tr>
                       <td>Gold: <?=$currency['gold']?></td>
@@ -348,6 +348,118 @@
           <fieldset>
             <legend><strong>Inspect Message</strong></legend>
             <?echo ($inspect_message) ? $inspect_message : "None";?>
+          </fieldset>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <fieldset>
+            <legend><strong>Skills</strong></legend>
+            <table width="100%">
+              <tr>
+                <td width="60%">
+                  <fieldset>
+                    <legend><strong>Abilities</strong></legend>
+                    <table width="100%">
+                      <tr>
+                        <td width="50%">
+<?
+  for ($x = 0; $x <= 3; $x++) {
+    echo $x . " - " . $skilltypes[$x] . ": " . $skills[$x] . "<br/>";
+  }
+  for ($x = 6; $x <= 11; $x++) {
+    echo $x . " - " . $skilltypes[$x] . ": " . $skills[$x] . "<br/>";
+  }
+  for ($x = 15; $x <= 17; $x++) {
+    echo $x . " - " . $skilltypes[$x] . ": " . $skills[$x] . "<br/>";
+  }
+  for ($x = 19; $x <= 23; $x++) {
+    echo $x . " - " . $skilltypes[$x] . ": " . $skills[$x] . "<br/>";
+  }
+  for ($x = 25; $x <= 30; $x++) {
+    echo $x . " - " . $skilltypes[$x] . ": " . $skills[$x] . "<br/>";
+  }
+?>
+                        </td>
+                        <td width="50%" valign="top">
+<?
+  for ($x = 32; $x <= 40; $x++) {
+    echo $x . " - " . $skilltypes[$x] . ": " . $skills[$x] . "<br/>";
+  }
+  echo "48 - " . $skilltypes[48] . ": " . $skills[48] . "<br/>";
+  for ($x = 50; $x <= 53; $x++) {
+    echo $x . " - " . $skilltypes[$x] . ": " . $skills[$x] . "<br/>";
+  }
+  echo "55 - " . $skilltypes[55] . ": " . $skills[55] . "<br/>";
+  echo "62 - " . $skilltypes[62] . ": " . $skills[62] . "<br/>";
+  for ($x = 66; $x <= 67; $x++) {
+    echo $x . " - " . $skilltypes[$x] . ": " . $skills[$x] . "<br/>";
+  }
+  for ($x = 71; $x <= 74; $x++) {
+    echo $x . " - " . $skilltypes[$x] . ": " . $skills[$x] . "<br/>";
+  }
+?>
+                        </td>
+                      </tr>
+                    </table>
+                  </fieldset><br/>
+                  <fieldset>
+                    <legend><strong>Magic/Music</strong></legend>
+                    <table width="100%">
+                      <tr>
+                        <td width="50%">
+<?
+  echo "4 - " . $skilltypes[4] . ": " . $skills[4] . "<br/>";
+  echo "5 - " . $skilltypes[5] . ": " . $skills[5] . "<br/>";
+  echo "13 - " . $skilltypes[13] . ": " . $skills[13] . "<br/>";
+  echo "14 - " . $skilltypes[14] . ": " . $skills[14] . "<br/>";
+  echo "18 - " . $skilltypes[18] . ": " . $skills[18] . "<br/>";
+  echo "24 - " . $skilltypes[24] . ": " . $skills[24] . "<br/>";
+  echo "31 - " . $skilltypes[31] . ": " . $skills[31] . "<br/>";
+  for ($x = 43; $x <= 47; $x++) {
+    echo $x . " - " . $skilltypes[$x] . ": " . $skills[$x] . "<br/>";
+  }
+?>
+                        </td>
+                        <td width="50%" valign="top">
+<?
+  echo "12 - " . $skilltypes[12] . ": " . $skills[12] . "<br/>";
+  echo "41 - " . $skilltypes[41] . ": " . $skills[41] . "<br/>";
+  echo "49 - " . $skilltypes[49] . ": " . $skills[49] . "<br/>";
+  echo "54 - " . $skilltypes[54] . ": " . $skills[54] . "<br/>";
+  echo "70 - " . $skilltypes[70] . ": " . $skills[70] . "<br/>";
+?>
+                        </td>
+                      </tr>
+                    </table>
+                  </fieldset>
+                </td>
+                <td width="40%">
+                  <fieldset>
+                    <legend><strong>Languages</strong></legend>
+<?
+  for ($x = 0; $x <= 27; $x++) {
+    echo $x . " - " . $langtypes[$x] . ": " . $languages[$x] . "<br/>";
+  }
+?>
+                  </fieldset><br/>
+                  <fieldset>
+                    <legend><strong>Tradeskills</strong></legend>
+<?
+  for ($x = 56; $x <= 61; $x++) {
+    echo $x . " - " . $skilltypes[$x] . ": " . $skills[$x] . "<br/>";
+  }
+  for ($x = 63; $x <= 65; $x++) {
+    echo $x . " - " . $skilltypes[$x] . ": " . $skills[$x] . "<br/>";
+  }
+  for ($x = 68; $x <= 69; $x++) {
+    echo $x . " - " . $skilltypes[$x] . ": " . $skills[$x] . "<br/>";
+  }
+?>
+                  </fieldset>
+                </td>
+              </tr>
+            </table>
           </fieldset>
         </td>
       </tr>
