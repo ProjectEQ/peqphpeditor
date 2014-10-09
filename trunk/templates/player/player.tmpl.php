@@ -46,8 +46,8 @@
                 <fieldset>
                   <legend><strong>Guild Info</strong></legend>
                   Guild: <?echo ($guild_id > 0) ? '<a href="index.php?editor=guild&guildid=' . $guild_id . '">' . getGuildName($guild_id) . '</a>' : "None";?><br/>
-                  Guild Rank: <?=$guild_rank?><br/>
-                  Guild Banker: <?=$yesno[$guild_banker]?><br/>
+                  Guild Rank: <?echo ($guild_id > 0) ? $guild_rank : "N/A";?><br/>
+                  Guild Banker: <?echo ($guild_id > 0) ? $yesno[$guild_banker] : "N/A";?><br/>
                 </fieldset>
                 <fieldset>
                   <legend><strong>Vitals</strong></legend>
