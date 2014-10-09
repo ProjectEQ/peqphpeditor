@@ -215,8 +215,8 @@ function player_info() {
   $query = "SELECT guild_id, rank, banker FROM guild_members WHERE char_id = $playerid";
   $result = $mysql->query_assoc($query);
   $player_array['guild_id'] = $result['guild_id'];
-  $player_array['guild_rank'] = $result['rank'];
-  $player_array['guild_banker'] = $result['banker'];
+  $player_array['guild_rank'] = $result['guild_rank'];
+  $player_array['guild_banker'] = $result['guild_banker'];
 
   return $player_array;
 }
