@@ -10,7 +10,7 @@
       <table class="table_content2" width="100%">
 <?
 $x = 0;
-if ($inventory):
+if ($inventory || $shared_inventory):
 ?>
         <tr>
           <td align="center"><strong>Slot</strong></td>
@@ -18,6 +18,8 @@ if ($inventory):
           <td width="10%">&nbsp;</td>
         </tr>
 <?
+endif;
+if ($inventory):
   foreach ($inventory as $inv):
     extract($inv);
 ?>
@@ -25,6 +27,19 @@ if ($inventory):
           <td>&nbsp;&nbsp;&nbsp;<?=$inv['slotid']?> - <?=$slots[$inv['slotid']]?></td>
           <td align="center"><?=get_item_name($inv['itemid'])?> (<?=$inv['itemid']?>) - [<a href="http://lucy.allakhazam.com/item.html?id=<?=$inv['itemid']?>" target="_blank">Lucy</a>]</td>
           <td align="right"><a href="index.php?editor=inv&playerid=<?=$inv['charid']?>&slotid=<?=$inv['slotid']?>&action=6"><img src="images/edit2.gif" width="13" height="13" border="0" title="View/Edit Entry"></a>&nbsp;<a onClick="return confirm('Really delete this entry?');" href="index.php?editor=inv&playerid=<?=$inv['charid']?>&slotid=<?=$inv['slotid']?>&action=8"><img src="images/remove3.gif" border="0" title="Delete Entry"></a></td>
+        </tr>
+<?
+    $x++;
+  endforeach;
+endif;
+if ($shared_inventory):
+  foreach ($shared_inventory as $s_inv):
+    extract($s_inv);
+?>
+        <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
+          <td>&nbsp;&nbsp;&nbsp;<?=$s_inv['slotid']?> - <?=$slots[$s_inv['slotid']]?></td>
+          <td align="center"><?=get_item_name($s_inv['itemid'])?> (<?=$s_inv['itemid']?>) - [<a href="http://lucy.allakhazam.com/item.html?id=<?=$s_inv['itemid']?>" target="_blank">Lucy</a>]</td>
+          <td align="right">&nbsp;</td>
         </tr>
 <?
     $x++;

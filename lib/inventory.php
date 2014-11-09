@@ -467,13 +467,15 @@ switch ($action) {
     check_admin_authorization();
     if (isset($_GET['playerid']) && ($_GET['playerid'] > 0)) {
       $inventory = player_inventory($_GET['playerid']);
+      $shared_inventory = shared_inventory($_GET['playerid']);
     }
     $body = new Template("templates/inventory/inventory.player.tmpl.php");
     $body->set("playerid", $_GET['playerid']);
-    if ($inventory) {
+    $body->set("slots", $slots);
+    if ($inventory)
       $body->set("inventory", $inventory);
-      $body->set("slots", $slots);
-    }
+    if ($shared_inventory)
+      $body->set("shared_inventory", $shared_inventory);
     break;
   case 2: //Search by Player ID or Player Name
     check_admin_authorization();
@@ -536,6 +538,19 @@ function player_inventory($player_id) {
   global $mysql;
 
   $query = "SELECT charid, slotid, itemid FROM inventory WHERE charid=$player_id ORDER BY slotid";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
+}
+
+function shared_inventory($player_id) {
+  global $mysql;
+
+  $query = "SELECT account_id FROM character_data WHERE id=$player_id";
+  $result = $mysql->query_assoc($query);
+  $acctid = $result['account_id'];
+
+  $query = "SELECT acctid, slotid, itemid FROM sharedbank WHERE acctid=$acctid ORDER BY slotid";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
