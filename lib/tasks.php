@@ -19,7 +19,7 @@ $activitytypes = array(
   10  => "Use",
   11  => "Touch",
   100 => "GiveCash",
-  999 => "Custom"
+  255 => "Custom"
 );
 
 $default_page = 1;
