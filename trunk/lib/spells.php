@@ -124,6 +124,7 @@ function update_spell () {
     "nodispell",
     "can_mgb",
     "short_buff_box",
+    "deities0",
     "deities1", 
     "deities2",
     "deities3",
