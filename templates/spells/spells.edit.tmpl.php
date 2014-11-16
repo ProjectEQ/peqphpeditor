@@ -1,7 +1,7 @@
   <form name="spell_edit" method="post" action="index.php?editor=spells&id=<?=$id?>&action=6">
     <div class="edit_form">
       <div class="edit_form_header">
-        Edit Spell <?=$id?>
+        Edit Spell <?=$id?> - <?=$spellname?> (<a href="http://lucy.allakhazam.com/spell.html?id=<?=$id?>" target="_blank">Lucy</a>)
         <div style="float:right;">
           <a href="index.php?editor=spells&id=<?=$id?>&action=7" onClick="return confirm('Really Copy Spell <?=$id?>?');"><img src="images/last.gif" border="0" title="Copy this Spell"></a>
           <a href="index.php?editor=spells&id=<?=$id?>&action=5" onClick="return confirm('Really Delete Spell <?=$id?>?');"><img src="images/table.gif" border="0" title="Delete this Spell"></a>
@@ -22,8 +22,8 @@
                 <td>Other Casts Message:<br/><input type="text" name="other_casts" size="40" value="<?=$other_casts?>"></td>
               </tr>
               <tr>
-                <td width="50%">Cast On You Message:<br/><input type="text" name="cast_on_you" size="40" value="<?=$cast_on_you?>"></td>
-                <td>Cast On Other Message:<br/><input type="text" name="cast_on_other" size="40" value="<?=$cast_on_other?>"></td>
+                <td width="50%">Cast on You Message:<br/><input type="text" name="cast_on_you" size="40" value="<?=$cast_on_you?>"></td>
+                <td>Cast on Other Message:<br/><input type="text" name="cast_on_other" size="40" value="<?=$cast_on_other?>"></td>
               </tr>
               <tr>
                 <td width="50%">Spell Fades Message:<br/><input type="text" name="spell_fades" size="40" value="<?=$spell_fades?>"></td>
@@ -100,7 +100,7 @@
                 </td>
               </tr>
               <tr>
-                <td>Time Of Day:<br/>
+                <td>Time of Day:<br/>
                   <select name="TimeOfDay" style="width:100px;">
 <?foreach($daytimes as $k => $v):?>
                     <option value="<?=$k?>"<? echo ($k == $TimeOfDay) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
@@ -161,8 +161,16 @@
                       <td width="17%">Desc Num:<br/><input type="text" name="descnum" value="<?=$descnum?>" size="6"></td>
                       <td width="17%">Type Desc Num:<br/><input type="text" name="typedescnum" value="<?=$typedescnum?>" size="6"></td>
                       <td width="16%">Effect Desc Num:<br/><input type="text" name="effectdescnum" value="<?=$effectdescnum?>" size="6"></td>
+                      <td width="17%">Effect Desc Num2:<br/><input type="text" name="effectdescnum2" value="<?=$effectdescnum2?>" size="6"></td>
                       <td width="17%">Spell Affect Index:<br/><input type="text" name="SpellAffectIndex" value="<?=$SpellAffectIndex?>" size="6"></td>
-                      <td width="17%">Nimbus Effect:<br/><input type="text" name="nimbuseffect" value="<?=$nimbuseffect?>" size="6"></td>
+                    </tr>
+                    <tr>
+                      <td width="16%">Nimbus Effect:<br/><input type="text" name="nimbuseffect" value="<?=$nimbuseffect?>" size="6"></td>
+                      <td width="17%">Disallow Sitting:<br/><input type="text" name="disallow_sit" value="<?=$disallow_sit?>" size="6"></td>
+                      <td width="17%">Sneaking:<br/><input type="text" name="sneaking" value="<?=$sneaking?>" size="6"></td>
+                      <td width="16%">LDoN Trap:<br/><input type="text" name="ldon_trap" value="<?=$ldon_trap?>" size="6"></td>
+                      <td width="17%">No Block:<br/><input type="text" name="no_block" value="<?=$no_block?>" size="6"></td>
+                      <td width="17%">&nbsp;</td>
                     </tr>
                   </table>
                 </td>
@@ -631,6 +639,9 @@
                   <input type="checkbox" name="deities15" <? echo $deities15 ? "checked" : "" ?>> Tunare<br/>
                   <input type="checkbox" name="deities16" <? echo $deities16 ? "checked" : "" ?>> Veeshan<br/>
                 </td>
+              </tr>
+              <tr>
+                <td colspan="4" align="center"><input type="checkbox" name="deities0" <? echo $deities0 ? "checked" : "" ?>> Deities0</td>
               </tr>
             </table>
           </fieldset><br/>
