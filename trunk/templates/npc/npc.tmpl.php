@@ -184,7 +184,7 @@
                     <td align="left" width="33%">Atk Speed: <?=$attack_speed?>%</td>
 <?
   $new_special_abilities = '';
-    for ($i = 1; $i <= 37; $i++){
+    for ($i = 1; $i <= $special_abilities_max; $i++){
       if (preg_match("/^$i,/", $special_abilities, $match) == 1 || preg_match("/\^$i,/", $special_abilities, $match) == 1){
         $match[0] = ltrim($match[0], "^");
         $new_special_abilities .= $match[0];
@@ -206,7 +206,7 @@
                     <td align="left" width="34%">NPC Aggro: <?=$npc_aggro?></td>
                   </tr>
                   <tr>
-                    <td colspan="3">Special Atks: <?echo ($new_special_abilities) ? $new_special_abilities : "None";?></td>
+                    <td colspan="3">Special Abilities: <?echo ($new_special_abilities) ? $new_special_abilities : "None";?></td>
                   </tr>
                 </table>
               </fieldset>

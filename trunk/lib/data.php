@@ -927,6 +927,12 @@ $specialattacks = array(
  "35" => "No Harm from Players",
  "36" => "Always Flee",
  "37" => "Flee Percent",
+ "38" => "Allow Beneficial",
+ "39" => "Disable Melee",
+ "40" => "Chase Distance",
+ "41" => "Allow Tank",
+ "42" => "Ignore Root Aggro",
+ "43" => "Max Special Attack"
 );
 
 $tradeskills = array(
