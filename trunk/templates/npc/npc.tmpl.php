@@ -221,7 +221,7 @@
                   <tr>
                     <td align="left" width="33%">Face: <?=$face?></td>
                     <td align="left" width="33%">Helm: <?=$helmtexture?></td>
-                    <td align="left" width="34%">&nbsp;</td>
+                    <td align="left" width="34%">Hero's Forge Model: <?=$herosforgemodel?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Hair Style: <?=$luclin_hairstyle?></td>
@@ -244,8 +244,8 @@
                     <td align="left" width="34%">Armor Blue: <?=$armortint_blue?></td>
                   </tr>
                   <tr>
-                    <td align="left" width="33%">Melee1: <?=$d_meele_texture1?></td>
-                    <td align="left" width="33%">Melee2: <?=$d_meele_texture2?></td>
+                    <td align="left" width="33%">Melee1: <?=$d_melee_texture1?></td>
+                    <td align="left" width="33%">Melee2: <?=$d_melee_texture2?></td>
                     <td align="left" width="34%">&nbsp;</td>
                   </tr>
                   <tr>

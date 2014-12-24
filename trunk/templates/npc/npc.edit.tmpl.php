@@ -227,8 +227,8 @@
               <td align="left" width="17%">Eyecolor2: <br/><input type="text" name="luclin_eyecolor2" size="10" value="<?=$luclin_eyecolor2?>"></td>
               <td align="left" width="17%">Beard:     <br/><input type="text" name="luclin_beard" size="10" value="<?=$luclin_beard?>"></td>
               <td align="left" width="17%">Beardcolor:<br/><input type="text" name="luclin_beardcolor" size="10" value="<?=$luclin_beardcolor?>"></td>
-              <td align="left" width="16%">Melee1:    <br/><input type="text" name="d_meele_texture1" size="10" value="<?=$d_meele_texture1?>"></td>
-              <td align="left" width="16%">Melee2:    <br/><input type="text" name="d_meele_texture2" size="10" value="<?=$d_meele_texture2?>"></td>
+              <td align="left" width="16%">Melee1:    <br/><input type="text" name="d_melee_texture1" size="10" value="<?=$d_melee_texture1?>"></td>
+              <td align="left" width="16%">Melee2:    <br/><input type="text" name="d_melee_texture2" size="10" value="<?=$d_melee_texture2?>"></td>
             </tr>
             <tr>
               <td align="left" width="17%">Heritage:   <br/><input type="text" name="drakkin_heritage" size="10" value="<?=$drakkin_heritage?>"></td>
@@ -237,6 +237,14 @@
               <td align="left" width="17%">Armor Red:  <br/><input type="text" name="armortint_red" size="10" value="<?=$armortint_red?>"></td>
               <td align="left" width="16%">Armor Green:<br/><input type="text" name="armortint_green" size="10" value="<?=$armortint_green?>"></td>
               <td align="left" width="16%">Armor Blue: <br/><input type="text" name="armortint_blue" size="10" value="<?=$armortint_blue?>"></td>
+            </tr>
+            <tr>
+              <td align="left" width="17%">Hero's Forge Model:<br/><input type="text" name="herosforgemodel" size="10" value="<?=$herosforgemodel?>"></td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="16%">&nbsp;</td>
+              <td align="left" width="16%">&nbsp;</td>
             </tr>
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
