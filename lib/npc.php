@@ -1241,6 +1241,7 @@ function update_npc() {
   if ($gender != $_POST['gender']) $fields .= "gender=\"" . $_POST['gender'] . "\", ";
   if ($texture != $_POST['texture']) $fields .= "texture=\"" . $_POST['texture'] . "\", ";
   if ($helmtexture != $_POST['helmtexture']) $fields .= "helmtexture=\"" . $_POST['helmtexture'] . "\", ";
+  if ($herosforgemodel != $_POST['herosforgemodel']) $fields .= "herosforgemodel=\"" . $_POST['herosforgemodel'] . "\", ";
   if ($size != $_POST['size']) $fields .= "size=\"" . $_POST['size'] . "\", ";
   if ($hp_regen_rate != $_POST['hp_regen_rate']) $fields .= "hp_regen_rate=\"" . $_POST['hp_regen_rate'] . "\", ";
   if ($mana_regen_rate != $_POST['mana_regen_rate']) $fields .= "mana_regen_rate=\"" . $_POST['mana_regen_rate'] . "\", ";
@@ -1271,8 +1272,8 @@ function update_npc() {
   if ($armortint_red != $_POST['armortint_red']) $fields .= "armortint_red=\"" . $_POST['armortint_red'] . "\", ";
   if ($armortint_green != $_POST['armortint_green']) $fields .= "armortint_green=\"" . $_POST['armortint_green'] . "\", ";
   if ($armortint_blue != $_POST['armortint_blue']) $fields .= "armortint_blue=\"" . $_POST['armortint_blue'] . "\", ";
-  if ($d_meele_texture1 != $_POST['d_meele_texture1']) $fields .= "d_meele_texture1=\"" . $_POST['d_meele_texture1'] . "\", ";
-  if ($d_meele_texture2 != $_POST['d_meele_texture2']) $fields .= "d_meele_texture2=\"" . $_POST['d_meele_texture2'] . "\", ";
+  if ($d_melee_texture1 != $_POST['d_melee_texture1']) $fields .= "d_melee_texture1=\"" . $_POST['d_melee_texture1'] . "\", ";
+  if ($d_melee_texture2 != $_POST['d_melee_texture2']) $fields .= "d_melee_texture2=\"" . $_POST['d_melee_texture2'] . "\", ";
   if ($prim_melee_type != $_POST['prim_melee_type']) $fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
   if ($sec_melee_type != $_POST['sec_melee_type']) $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
   if ($runspeed != $_POST['runspeed']) $fields .= "runspeed=\"" . $_POST['runspeed'] . "\", ";
@@ -1362,6 +1363,7 @@ function add_npc() {
   $fields .= "gender=\"" . $_POST['gender'] . "\", ";
   $fields .= "texture=\"" . $_POST['texture'] . "\", ";
   $fields .= "helmtexture=\"" . $_POST['helmtexture'] . "\", ";
+  $fields .= "herosforgemodel=\"" . $_POST['herosforgemodel'] . "\", ";
   $fields .= "size=\"" . $_POST['size'] . "\", ";
   $fields .= "hp_regen_rate=\"" . $_POST['hp_regen_rate'] . "\", ";
   $fields .= "mana_regen_rate=\"" . $_POST['mana_regen_rate'] . "\", ";
@@ -1392,8 +1394,8 @@ function add_npc() {
   $fields .= "armortint_red=\"" . $_POST['armortint_red'] . "\", ";
   $fields .= "armortint_green=\"" . $_POST['armortint_green'] . "\", ";
   $fields .= "armortint_blue=\"" . $_POST['armortint_blue'] . "\", ";
-  $fields .= "d_meele_texture1=\"" . $_POST['d_meele_texture1'] . "\", ";
-  $fields .= "d_meele_texture2=\"" . $_POST['d_meele_texture2'] . "\", ";
+  $fields .= "d_melee_texture1=\"" . $_POST['d_melee_texture1'] . "\", ";
+  $fields .= "d_melee_texture2=\"" . $_POST['d_melee_texture2'] . "\", ";
   $fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
   $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
   $fields .= "runspeed=\"" . $_POST['runspeed'] . "\", ";
@@ -1466,6 +1468,7 @@ function copy_npc() {
   $fields .= "gender=\"" . $_POST['gender'] . "\", ";
   $fields .= "texture=\"" . $_POST['texture'] . "\", ";
   $fields .= "helmtexture=\"" . $_POST['helmtexture'] . "\", ";
+  $fields .= "herosforgemodel=\"" . $_POST['herosforgemodel'] . "\", ";
   $fields .= "size=\"" . $_POST['size'] . "\", ";
   $fields .= "hp_regen_rate=\"" . $_POST['hp_regen_rate'] . "\", ";
   $fields .= "mana_regen_rate=\"" . $_POST['mana_regen_rate'] . "\", ";
@@ -1496,8 +1499,8 @@ function copy_npc() {
   $fields .= "armortint_red=\"" . $_POST['armortint_red'] . "\", ";
   $fields .= "armortint_green=\"" . $_POST['armortint_green'] . "\", ";
   $fields .= "armortint_blue=\"" . $_POST['armortint_blue'] . "\", ";
-  $fields .= "d_meele_texture1=\"" . $_POST['d_meele_texture1'] . "\", ";
-  $fields .= "d_meele_texture2=\"" . $_POST['d_meele_texture2'] . "\", ";
+  $fields .= "d_melee_texture1=\"" . $_POST['d_melee_texture1'] . "\", ";
+  $fields .= "d_melee_texture2=\"" . $_POST['d_melee_texture2'] . "\", ";
   $fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
   $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
   $fields .= "runspeed=\"" . $_POST['runspeed'] . "\", ";
