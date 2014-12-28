@@ -159,6 +159,7 @@
                   Tethered (33): <br><input type="text" name="33" size="10"><br>
                   Flee Percent (37): <br><input type="text" name="37" size="10"><br>
                   Chase Distance (40): <br><input type="text" name="40" size="10"><br>
+                  Casting Resist Diff (43): <br><input type="text" name="43" size="10"><br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="6" value="6,1^"/>  Triple Attack (6)<br>
@@ -195,7 +196,7 @@
                   <input type="checkbox" name="36" value="36,1^"/>  Always Flee (36)<br>
                   <input type="checkbox" name="38" value="38,1^"/>  Allow Beneficial (38)<br>
                   <input type="checkbox" name="41" value="41,1^"/>  Allow Tank (41)<br>
-                  <input type="checkbox" name="43" value="43,1^"/>  Max Special Attack (43)<br>
+                  <input type="checkbox" name="44" value="44,1^"/>  Max Special Attack (44)<br>
                 </td>
               </tr>
             </table>

@@ -109,7 +109,7 @@ $columns = array(
   4 => 'text'
 );
 
-$special_abilities_max = 43;
+$special_abilities_max = count($specialattacks);
 
 switch ($action) {
   case 0:
