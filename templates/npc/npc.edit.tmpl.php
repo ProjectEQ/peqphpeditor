@@ -169,6 +169,7 @@
                   Tethered (33):<br/><input type="text" name="33" size="10" value="<?=$specabilcont[33]?>"><br/>
                   Flee Percent (37):<br/><input type="text" name="37" size="10" value="<?=$specabilcont[37]?>"><br/>
                   Chase Distance (40):<br/><input type="text" name="40" size="10" value="<?=$specabilcont[40]?>"><br/>
+                  Casting Resist Diff (43):<br/><input type="text" name="43" size="10" value="<?=$specabilcont[43]?>"><br/>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="6" value="6,1^"<?echo ($specabil[6] == 1) ? "checked" : "";?>>  Triple Attack (6)<br/>
@@ -205,7 +206,7 @@
                   <input type="checkbox" name="36" value="36,1^"<?echo ($specabil[36] == 1) ? "checked" : "";?>>  Always Flee (36)<br/>
                   <input type="checkbox" name="38" value="38,1^"<?echo ($specabil[38] == 1) ? "checked" : "";?>>  Allow Beneficial (38)<br/>
                   <input type="checkbox" name="41" value="41,1^"<?echo ($specabil[41] == 1) ? "checked" : "";?>>  Allow Tank (41)<br/>
-                  <input type="checkbox" name="43" value="43,1^"<?echo ($specabil[43] == 1) ? "checked" : "";?>>  Max Special Attack (43)<br/>
+                  <input type="checkbox" name="44" value="44,1^"<?echo ($specabil[44] == 1) ? "checked" : "";?>>  Max Special Attack (44)<br/>
                 </td>
               </tr>
             </table>

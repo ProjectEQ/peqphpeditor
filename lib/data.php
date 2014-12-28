@@ -932,7 +932,8 @@ $specialattacks = array(
  "40" => "Chase Distance",
  "41" => "Allow Tank",
  "42" => "Ignore Root Aggro",
- "43" => "Max Special Attack"
+ "43" => "Casting Resist Diff",
+ "44" => "Max Special Attack"
 );
 
 $tradeskills = array(
