@@ -21,7 +21,7 @@
           <td align="center" width="5%"><?=$v['id']?></td>
           <td align="center" width="15%"><a href="index.php?editor=player&playerid=<?=$v['id']?>"><?echo getPlayerName($v['id'])?></a></td>
           <td align="center" width="15%"><a href="index.php?editor=account&acctid=<?=$v['account_id']?>"><?echo getAccountName($v['account_id'])?></a></td>
-          <td align="center" width="15%"><?echo ($v['timelaston'] > 0) ? get_real_time($v['timelaston']) : "Never";?></td>
+          <td align="center" width="15%"><?echo ($v['last_login'] > 0) ? get_real_time($v['last_login']) : "Never";?></td>
           <td align="right"><input type="checkbox" name="id[]" value="<?=$v['id']?>" /></td>
         </tr>
 <?$x++; endforeach;?>
