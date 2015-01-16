@@ -488,7 +488,7 @@ switch ($action) {
     $return_address = $_SERVER['HTTP_REFERER'];
     header("Location: $return_address");
     exit;
-   case 50: // View Banned_IPs
+  case 50: // View Banned_IPs
     check_admin_authorization();
     $breadcrumbs .= " >> BannedIPs";
     $body = new Template("templates/server/bannedips.tmpl.php");
@@ -496,20 +496,20 @@ switch ($action) {
     if ($banned) {
       foreach ($banned as $key=>$value) {
         $body->set($key, $value);
-       }
-     }
+      }
+    }
     break;
-   case 51: // Add Banned IPs
+  case 51: // Add Banned IPs
     check_admin_authorization();
     $breadcrumbs .= " >> BannedIPs";
     $body = new Template("templates/server/bannedips.add.tmpl.php");
     break;
-   case 52: // Add Banned IP
+  case 52: // Add Banned IP
     check_admin_authorization();
     add_bannedip();
     header("Location: index.php?editor=server&action=50");
     exit;
-   case 53: // Edit Banned IP note
+  case 53: // Edit Banned IP note
     check_admin_authorization();
     $breadcrumbs .= " >> BannedIPs";
     $body = new Template("templates/server/bannedips.edit.tmpl.php");
@@ -520,16 +520,30 @@ switch ($action) {
        }
      }
     break;
-   case 54: //Delete Banned IP
+  case 54: //Delete Banned IP
     check_admin_authorization();
     delete_bannedip();
     header("Location: index.php?editor=server&action=50");
     exit;
-   case 55: // Update Banned IP
+  case 55: // Update Banned IP
     check_admin_authorization();
     update_bannedip();
     header("Location: index.php?editor=server&action=50");
     exit;
+  case 56: // View Character Creation Combos
+    check_admin_authorization();
+    $breadcrumbs .= " >> Character Creation Combos";
+    $body = new Template("templates/server/charcreatecombos.tmpl.php");
+    $charcreatecombolist = getCharCreateComboList();
+    if ($charcreatecombolist) {
+      $body->set('charcreatecombolist', $charcreatecombolist);
+      $body->set('races', $races);
+      $body->set('classes', $classes);
+      $body->set('deities', $deities);
+      $body->set('zoneids', $zoneids);
+      $body->set('expansions', $expansions);
+    }
+    break;
 }
 
 function get_open_bugs($page_number, $results_per_page, $sort_by) {
@@ -1196,4 +1210,12 @@ function update_bannedip() {
   $mysql->query_no_result($query);
 }
 
+function getCharCreateComboList() {
+  global $mysql;
+
+  $query = "SELECT * FROM char_create_combinations ORDER BY race, class, deity, start_zone";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
+}
 ?>
