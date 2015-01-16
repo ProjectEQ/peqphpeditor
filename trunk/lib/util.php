@@ -68,7 +68,7 @@ switch ($action) {
 function get_old_characters($datetime) {
   global $mysql;
 
-  $query = "SELECT id, account_id, timelaston FROM character_data WHERE timelaston < (UNIX_TIMESTAMP() - $datetime) ORDER BY timelaston, id LIMIT 500";
+  $query = "SELECT id, account_id, last_login FROM character_data WHERE last_login < (UNIX_TIMESTAMP() - $datetime) ORDER BY last_login, id LIMIT 500";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
