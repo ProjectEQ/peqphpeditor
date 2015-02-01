@@ -126,7 +126,6 @@ switch ($editor) {
     $searchbar->set('curreditor', $editor);
     break;
   case 'player':
-    $zonelist = zones();
     $searchbar = new Template("templates/searchbar/searchbar.players.tmpl.php");
     $searchbar->set('curreditor', $editor);
     break;
