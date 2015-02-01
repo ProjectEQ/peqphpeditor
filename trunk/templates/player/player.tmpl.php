@@ -42,6 +42,7 @@
                   Y: <?=$y?><br/>
                   Z: <?=$z?><br/>
                   Heading: <?=$heading?><br/>
+                  <center>[<a href="index.php?editor=player&playerid=<?=$id?>&action=5">Move Player</a>]</center>
                 </fieldset>
                 <fieldset>
                   <legend><strong>Guild Info</strong></legend>

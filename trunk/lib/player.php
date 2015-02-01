@@ -101,6 +101,21 @@ switch ($action) {
       header("Location: index.php?editor=player");
     }
     exit;
+  case 5: // Edit Player Location
+    check_admin_authorization();
+    $cur_loc = get_player_location();
+    $zonelist = get_zones();
+    $body = new Template("templates/player/player.move.tmpl.php");
+    $javascript = new Template("templates/player/js.tmpl.php");
+    $body->set('playerid', $playerid);
+    $body->set('cur_loc', $cur_loc);
+    $body->set('zonelist', $zonelist);
+    break;
+  case 6: // Update Player Location
+    check_admin_authorization();
+    update_player_location();
+    header("Location: index.php?editor=player&playerid=$playerid");
+    exit;
 }
 
 function get_players($page_number, $results_per_page, $sort_by) {
@@ -237,4 +252,45 @@ function update_player() {
   }
 }
 
+function get_player_location($playerid) {
+  global $mysql, $playerid;
+
+  $query = "SELECT zone_id, zone_instance, x, y, z FROM character_data WHERE id=$playerid";
+  $result = $mysql->query_assoc($query);
+
+  return $result;
+}
+
+function update_player_location() {
+  global $mysql;
+  $playerid = $_POST['playerid'];
+  $zoneid_token = strtok($_POST['zoneid'], ".");
+  $zoneid = $zoneid_token;
+  $zoneversion_token = strtok(".");
+  $version = $zoneversion_token;
+  $safe = $_POST['safe'];
+  $new_x = $_POST['x'];
+  $new_y = $_POST['y'];
+  $new_z = $_POST['z'];
+
+  if ($safe) {
+    $query = "SELECT safe_x, safe_y, safe_z FROM zone WHERE zoneidnumber=$zoneid AND version=$version";
+    $result = $mysql->query_assoc($query);
+    $new_x = $result['safe_x'];
+    $new_y = $result['safe_y'];
+    $new_z = $result['safe_z'];
+  }
+
+  $query = "UPDATE character_data SET zone_id=$zoneid, zone_instance=$version, x=$new_x, y=$new_y, z=$new_z WHERE id=$playerid";
+  $mysql->query_no_result($query);
+}
+
+function get_zones() {
+  global $mysql;
+
+  $query = "SELECT zoneidnumber, short_name, version FROM zone ORDER BY short_name ASC";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
+}
 ?>
