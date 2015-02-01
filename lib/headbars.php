@@ -126,6 +126,7 @@ switch ($editor) {
     $searchbar->set('curreditor', $editor);
     break;
   case 'player':
+    $zonelist = zones();
     $searchbar = new Template("templates/searchbar/searchbar.players.tmpl.php");
     $searchbar->set('curreditor', $editor);
     break;
@@ -329,7 +330,7 @@ function build_tabs () {
   return $headbar;
 }
 
-function zones () {
+function zones() {
   global $mysql;
 
   $query = "SELECT id, short_name, version, expansion FROM zone ORDER BY short_name ASC";
@@ -338,7 +339,7 @@ function zones () {
   return $results;
 }
 
-function zones2 () {
+function zones2() {
   global $mysql;
 
   $query = "SELECT id, short_name, long_name, version, expansion FROM zone ORDER BY long_name ASC";
@@ -472,7 +473,7 @@ function npcs_by_spellid() {
   return $results;
 }
 
-function spellsets () {
+function spellsets() {
   global $mysql;
 
   $query = "SELECT id, name FROM npc_spells";

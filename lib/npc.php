@@ -1249,12 +1249,14 @@ function update_npc() {
   //merchant_id
   //alt_currency_id
   if ($npc_spells_id != $_POST['npc_spells_id']) $fields .= "npc_spells_id=\"" . $_POST['npc_spells_id'] . "\", ";
+  //npc_spells_effects_id
   //npc_faction_id
   //adventure_template_id
   //trap_template
   if ($mindmg != $_POST['mindmg']) $fields .= "mindmg=\"" . $_POST['mindmg'] . "\", ";
   if ($maxdmg != $_POST['maxdmg']) $fields .= "maxdmg=\"" . $_POST['maxdmg'] . "\", ";
   if ($attack_count != $_POST['attack_count']) $fields .= "attack_count=\"" . $_POST['attack_count'] . "\", ";
+  //npcspecialattks
   if ($flag == 1) $fields .= "special_abilities=\"$new_specialattks\", ";
   if ($aggroradius != $_POST['aggroradius']) $fields .= "aggroradius=\"" . $_POST['aggroradius'] . "\", ";
   if ($assistradius != $_POST['assistradius']) $fields .= "assistradius=\"" . $_POST['assistradius'] . "\", ";
@@ -1274,8 +1276,10 @@ function update_npc() {
   if ($armortint_blue != $_POST['armortint_blue']) $fields .= "armortint_blue=\"" . $_POST['armortint_blue'] . "\", ";
   if ($d_melee_texture1 != $_POST['d_melee_texture1']) $fields .= "d_melee_texture1=\"" . $_POST['d_melee_texture1'] . "\", ";
   if ($d_melee_texture2 != $_POST['d_melee_texture2']) $fields .= "d_melee_texture2=\"" . $_POST['d_melee_texture2'] . "\", ";
+  //ammo_idfile
   if ($prim_melee_type != $_POST['prim_melee_type']) $fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
   if ($sec_melee_type != $_POST['sec_melee_type']) $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
+  //ranged_type
   if ($runspeed != $_POST['runspeed']) $fields .= "runspeed=\"" . $_POST['runspeed'] . "\", ";
   if ($MR != $_POST['MR']) $fields .= "MR=\"" . $_POST['MR'] . "\", ";
   if ($CR != $_POST['CR']) $fields .= "CR=\"" . $_POST['CR'] . "\", ";
@@ -1307,6 +1311,7 @@ function update_npc() {
   //exclude
   if ($ATK != $_POST['ATK']) $fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
   if ($Accuracy != $_POST['Accuracy']) $fields .= "Accuracy=\"" . $_POST['Accuracy'] . "\", ";
+  //Avoidance
   if ($slow_mitigation != $_POST['slow_mitigation']) $fields .= "slow_mitigation=\"" . $_POST['slow_mitigation'] . "\", ";
   if ($version != $_POST['version']) $fields .= "version=\"" . $_POST['version'] . "\", ";
   if ($maxlevel != $_POST['maxlevel']) $fields .= "maxlevel=\"" . $_POST['maxlevel'] . "\", ";
@@ -1320,6 +1325,16 @@ function update_npc() {
   if ($healscale != $_POST['healscale']) $fields .= "healscale=\"" . $_POST['healscale'] . "\", ";
   if ($no_target_hotkey != $_POST['no_target_hotkey']) $fields .= "no_target_hotkey=\"" . $_POST['no_target_hotkey'] . "\", ";
   if ($raid_target != $_POST['raid_target']) $fields .= "raid_target=\"" . $_POST['raid_target'] . "\", ";
+  //armtexture
+  //bracertexture
+  //handtexture
+  //legtexture
+  //feettexture
+  if ($light != $_POST['light']) $fields .= "light=\"" . $_POST['light'] . "\", ";
+  //walkspeed
+  //peqid
+  //unique_
+  //fixed
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -1371,12 +1386,14 @@ function add_npc() {
   //merchant_id
   //alt_currency_id
   $fields .= "npc_spells_id=\"" . $_POST['npc_spells_id'] . "\", ";
+  //npc_spells_effects_id
   //npc_faction_id
   //adventure_template_id
   //trap_template
   $fields .= "mindmg=\"" . $_POST['mindmg'] . "\", ";
   $fields .= "maxdmg=\"" . $_POST['maxdmg'] . "\", ";
   $fields .= "attack_count=\"" . $_POST['attack_count'] . "\", ";
+  //npcspecialattks
   $fields .= "special_abilities=\"$special_abilities\", ";
   $fields .= "aggroradius=\"" . $_POST['aggroradius'] . "\", ";
   $fields .= "assistradius=\"" . $_POST['assistradius'] . "\", ";
@@ -1396,8 +1413,10 @@ function add_npc() {
   $fields .= "armortint_blue=\"" . $_POST['armortint_blue'] . "\", ";
   $fields .= "d_melee_texture1=\"" . $_POST['d_melee_texture1'] . "\", ";
   $fields .= "d_melee_texture2=\"" . $_POST['d_melee_texture2'] . "\", ";
+  //ammo_idfile
   $fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
   $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
+  //ranged_type
   $fields .= "runspeed=\"" . $_POST['runspeed'] . "\", ";
   $fields .= "MR=\"" . $_POST['MR'] . "\", ";
   $fields .= "CR=\"" . $_POST['CR'] . "\", ";
@@ -1429,6 +1448,7 @@ function add_npc() {
   //exclude
   $fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
   $fields .= "Accuracy=\"" . $_POST['Accuracy'] . "\", ";
+  //Avoidance
   $fields .= "slow_mitigation=\"" . $_POST['slow_mitigation'] . "\", ";
   $fields .= "version=\"" . $_POST['version'] . "\", ";
   $fields .= "maxlevel=\"" . $_POST['maxlevel'] . "\", ";
@@ -1442,6 +1462,16 @@ function add_npc() {
   $fields .= "healscale=\"" . $_POST['healscale'] . "\", ";
   $fields .= "no_target_hotkey=\"" . $_POST['no_target_hotkey'] . "\", ";
   $fields .= "raid_target=\"" . $_POST['raid_target'] . "\"";
+  //armtexture
+  //bracertexture
+  //handtexture
+  //legtexture
+  //feettexture
+  $fields .= "light=\"" . $_POST['light'] . "\", ";
+  //walkspeed
+  //peqid
+  //unique_
+  //fixed
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1476,12 +1506,14 @@ function copy_npc() {
   $fields .= "merchant_id=\"" . $_POST['merchant_id'] . "\", ";
   $fields .= "alt_currency_id=\"" . $_POST['alt_currency_id'] . "\", ";
   $fields .= "npc_spells_id=\"" . $_POST['npc_spells_id'] . "\", ";
+  //npc_spells_effects_id
   $fields .= "npc_faction_id=\"" . $_POST['npc_faction_id'] . "\", ";
   $fields .= "adventure_template_id=\"" . $_POST['adventure_template_id'] . "\", ";
   $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
   $fields .= "mindmg=\"" . $_POST['mindmg'] . "\", ";
   $fields .= "maxdmg=\"" . $_POST['maxdmg'] . "\", ";
   $fields .= "attack_count=\"" . $_POST['attack_count'] . "\", ";
+  //npcspecialattks
   $fields .= "special_abilities=\"" . $_POST['special_abilities'] . "\", ";
   $fields .= "aggroradius=\"" . $_POST['aggroradius'] . "\", ";
   $fields .= "assistradius=\"" . $_POST['assistradius'] . "\", ";
@@ -1501,8 +1533,10 @@ function copy_npc() {
   $fields .= "armortint_blue=\"" . $_POST['armortint_blue'] . "\", ";
   $fields .= "d_melee_texture1=\"" . $_POST['d_melee_texture1'] . "\", ";
   $fields .= "d_melee_texture2=\"" . $_POST['d_melee_texture2'] . "\", ";
+  //ammo_idfile
   $fields .= "prim_melee_type=\"" . $_POST['prim_melee_type'] . "\", ";
   $fields .= "sec_melee_type=\"" . $_POST['sec_melee_type'] . "\", ";
+  //ranged_type
   $fields .= "runspeed=\"" . $_POST['runspeed'] . "\", ";
   $fields .= "MR=\"" . $_POST['MR'] . "\", ";
   $fields .= "CR=\"" . $_POST['CR'] . "\", ";
@@ -1534,6 +1568,7 @@ function copy_npc() {
   //exclude
   $fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
   $fields .= "Accuracy=\"" . $_POST['Accuracy'] . "\", ";
+  //Avoidance
   $fields .= "slow_mitigation=\"" . $_POST['slow_mitigation'] . "\", ";
   $fields .= "version=\"" . $_POST['version'] . "\", ";
   $fields .= "maxlevel=\"" . $_POST['maxlevel'] . "\", ";
@@ -1547,6 +1582,16 @@ function copy_npc() {
   $fields .= "healscale=\"" . $_POST['healscale'] . "\", ";
   $fields .= "no_target_hotkey=\"" . $_POST['no_target_hotkey'] . "\", ";
   $fields .= "raid_target=\"" . $_POST['raid_target'] . "\", ";
+  //armtexture
+  //bracertexture
+  //handtexture
+  //legtexture
+  //feettexture
+  $fields .= "light=\"" . $_POST['light'] . "\", ";
+  //walkspeed
+  //peqid
+  //unique_
+  //fixed
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {

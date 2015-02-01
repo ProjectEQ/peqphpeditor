@@ -241,7 +241,7 @@
             </tr>
             <tr>
               <td align="left" width="17%">Hero's Forge Model:<br/><input type="text" name="herosforgemodel" size="10" value="<?=$herosforgemodel?>"></td>
-              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">Light Source:<br/><input type="text" name="light" size="10" value="<?=$light?>"></td>
               <td align="left" width="17%">&nbsp;</td>
               <td align="left" width="17%">&nbsp;</td>
               <td align="left" width="16%">&nbsp;</td>
