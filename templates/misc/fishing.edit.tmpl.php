@@ -16,11 +16,11 @@
             <strong>Skill Level</strong><br>
             <input class="indented" id="id" type="text" name="skill_level" size="7" value="<?=$skill_level?>"><br><br>
             <strong>Chance</strong><br>
-            <input class="indented" id="id" type="text" name="chance" size="7" value="<?=$chance?>"%><br><br>
+            <input class="indented" id="id" type="text" name="chance" size="7" value="<?=$chance?>">%<br><br>
             <strong>NPC</strong><br>
             <input class="indented" id="id" type="text" name="npc_id" size="7" value="<?=$npc_id?>"><br><br>
             <strong>NPC Chance</strong><br>
-            <input class="indented" id="id" type="text" name="npc_chance" size="7" value="<?=$npc_chance?>"%><br><br>
+            <input class="indented" id="id" type="text" name="npc_chance" size="7" value="<?=$npc_chance?>">%<br><br>
 
         <center>
           <input type="hidden" name="fsid" value="<?=$fsid?>">

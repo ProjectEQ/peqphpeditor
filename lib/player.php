@@ -252,7 +252,7 @@ function update_player() {
   }
 }
 
-function get_player_location($playerid) {
+function get_player_location() {
   global $mysql, $playerid;
 
   $query = "SELECT zone_id, zone_instance, x, y, z FROM character_data WHERE id=$playerid";

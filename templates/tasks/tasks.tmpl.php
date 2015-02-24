@@ -43,10 +43,10 @@
           <?=$rewardid?></td>
               <?endif;?> 
                <?if($rewardmethod == 1 && $rewardid > 0 && $rewardid < 1001):?>
-          <a href="index.php?editor=tasks&tskid=<?=$id?>&lid=<?=$rewardid?>&action=11"><?=$rewardid?></td>
+          <a href="index.php?editor=tasks&tskid=<?=$id?>&lid=<?=$rewardid?>&action=11"><?=$rewardid?></a></td>
               <?endif;?> 
                <?if($rewardmethod == 1 && $rewardid == 0):?>
-          <a href="index.php?editor=tasks&tskid=<?=$id?>&action=12"><?=$rewardid?></td>
+          <a href="index.php?editor=tasks&tskid=<?=$id?>&action=12"><?=$rewardid?></a></td>
               <?endif;?> 
                <td align="left" width="25%">&nbsp;</td>
                <td align="left" width="20%">&nbsp;</td>

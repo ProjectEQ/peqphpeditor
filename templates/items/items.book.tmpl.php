@@ -9,8 +9,10 @@
     <div class="edit_form_content">
       <form name="booktext" method="post" action="index.php?editor=items&id=<?=$id?>&name=<?=$name?>&action=4">
         <table width="100%">
-          <td><textarea name="txtfile" rows="20" cols="88"><?=$txtfile?></textarea></td>
-          <td align="right">&nbsp;</td>
+            <tr>
+                <td><textarea name="txtfile" rows="20" cols="88"><?=$txtfile?></textarea></td>
+                <td align="right">&nbsp;</td>
+            </tr>
         </table><br/>
         <center>
           <input type="hidden" name="name" value="<?=$name?>">

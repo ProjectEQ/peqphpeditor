@@ -1,7 +1,7 @@
   <script language="javascript">
     function toggle_all() {
       var boxes = document.getElementsByName("id[]");
-      for (i = 0; i < boxes.length; i++) {
+      for (var i = 0; i < boxes.length; i++) {
         boxes[i].checked = document.getElementById("all").checked;
       }
     }
@@ -14,7 +14,7 @@
     function box_checked() {
       var box_checked = false;
       var boxes = document.getElementsByName("id[]");
-      for (i = 0; i < boxes.length; i++) {
+      for (var i = 0; i < boxes.length; i++) {
         if (boxes[i].checked == true) {
           box_checked = true;
           break;
@@ -45,7 +45,7 @@
     }
 
     function verifyCount() {
-      newCount = document.getElementById("new_count").value;
+      var newCount = document.getElementById("new_count").value;
       if (parseInt(newCount) >= 0) {
         window.location = "index.php?editor=util&action=6&count=" + newCount;
       }

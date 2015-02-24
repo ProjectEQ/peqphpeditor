@@ -3,7 +3,7 @@
       Add a Grid Entry <?=$pathgrid?>       
     </div>
     <div class="edit_form_content">
-      <form name="gridentry" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?$pathgrid?>&action=28">
+      <form name="gridentry" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$spid?>&pathgrid=<?=$pathgrid?>&action=28">
         <table width="100%">
           <tr>
             <th>Number:</th>

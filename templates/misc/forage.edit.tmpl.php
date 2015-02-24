@@ -16,7 +16,7 @@
             <strong>Level</strong><br>
             <input class="indented" id="id" type="text" name="level" size="7" value="<?=$level?>"><br><br>
             <strong>Chance</strong><br>
-            <input class="indented" id="id" type="text" name="chance" size="7" value="<?=$chance?>"%><br><br>
+            <input class="indented" id="id" type="text" name="chance" size="7" value="<?=$chance?>">%<br><br>
 
         <center>
           <input type="hidden" name="fgid" value="<?=$fgid?>">
