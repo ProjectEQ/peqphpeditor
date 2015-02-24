@@ -28,7 +28,7 @@
           <td align="right">
             <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&pathgrid=<?=$v['pathgrid']?>&action=66"><img src="images/view_all.gif" height="15" width="15" border="0" title="View npcs on this grid"></a>&nbsp;
             <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&pathgrid=<?=$v['pathgrid']?>&action=20"><img src="images/edit2.gif" border="0" title="View Grid Entry"></a>&nbsp;
-            <a onClick="return confirm('Really delete Grid <?=$v['pathgrid']?>?');" a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&pathgrid=<?=$v['pathgrid']?>&action=32"> <img src="images/remove3.gif" border="0" title="Permanently delete this Grid Entry set"></a>&nbsp;
+            <a onClick="return confirm('Really delete Grid <?=$v['pathgrid']?>?');" href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&pathgrid=<?=$v['pathgrid']?>&action=32"> <img src="images/remove3.gif" border="0" title="Permanently delete this Grid Entry set"></a>&nbsp;
           </td>
         </tr>
         <?$x++; endforeach;?>

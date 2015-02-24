@@ -85,7 +85,7 @@
               <td>
                 <fieldset>
                   <legend><strong>Basic Info</strong></legend>
-                  <table width="100%" border="0" cellpadding="3" cellsapcing="0">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="0">
                     <tr>
                       <td align="left">Level: <?=$level?></td>
                       <td align="left">Class: <?=$classes[$class]?></td>

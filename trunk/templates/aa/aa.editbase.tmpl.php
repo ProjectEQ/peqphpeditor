@@ -1,4 +1,4 @@
-  <script text="text/javascript">
+  <script type="text/javascript">
     function Toggle() {
       document.aa_edit.class_ber.checked = document.aa_edit.all_none.checked;
       document.aa_edit.class_brd.checked = document.aa_edit.all_none.checked;

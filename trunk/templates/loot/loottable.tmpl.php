@@ -119,7 +119,7 @@
     if($lootdrop['probability'] > 0 && $lootdrop['probability'] < 100)
       $chance = $total;
     if($lootdrop['probability'] >= 100)
-      $chance = $chance;
+      $chance = $chance; // <- TRUE...
 ?>
           <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
             <td align="center"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$item_id?>&action=2"><?=$item_id?></td>

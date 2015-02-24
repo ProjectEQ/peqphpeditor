@@ -4,7 +4,7 @@
     document.getElementById("button").style.display = "block";
   }
 
-  function hideSearch(name) {
+  function hideSearch() {
     document.getElementById("searchframe").style.display = "none";
     document.getElementById("button").style.display = "none";
   }

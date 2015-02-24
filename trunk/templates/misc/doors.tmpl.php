@@ -1,4 +1,4 @@
-      <div class="table_container" style="width: 750px;">
+    <div class="table_container" style="width: 750px;">
       <div class="table_header">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
@@ -11,10 +11,9 @@
            </tr>        
          </table>
       </div>
-
-       <table class="table_content2" width="100%">
-<? if (isset($doors)):?>
-         <tr>
+      <table class="table_content2" width="100%">
+<?if (isset($doors)):?>
+        <tr>
           <td align="center" width="7%"><strong>ID</strong></td>
           <td align="center" width="5%"><strong>Door ID</strong></td>
           <td align="center" width="5%"><strong>Ver</strong></td>
@@ -29,8 +28,8 @@
           <td align="center" width="7%"><strong>Dest X</strong></td>
           <td align="center" width="7%"><strong>Dest Y</strong></td>
           <td align="center" width="7%"><strong>Dest Z</strong></td>
-         </tr>
-<?$x=0; foreach($doors as $doors=>$v):?>
+        </tr>
+<?$x=0; foreach($doors as $door=>$v):?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="7%"><?=$v['drid']?></td>
           <td align="center" width="5%"><?=$v['doorid']?></td>
@@ -56,12 +55,12 @@
             <a onClick="return confirm('Really Delete Door <?=$v['drid']?>?');" href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&drid=<?=$v['drid']?>&action=38"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
-        <?$x++; endforeach;?>
-        </table>
-        <?endif;?>
-<? if (!isset($doors)):?>
+<?$x++; endforeach;?>
+<?endif;?>
+<?if (!isset($doors)):?>
         <tr>
           <td align="left" width="100" style="padding: 10px;">No doors</td>
         </tr>
-	</table>
 <?endif;?>
+      </table>
+    </div>

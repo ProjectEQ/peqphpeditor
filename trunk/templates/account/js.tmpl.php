@@ -10,8 +10,8 @@
     document.getElementById("submitblock").style.display = "block";
   }
   function validateTransfer() {
-    from_acct = document.getElementById("from_acct").value;
-    to_acct = document.getElementById("to_text").value;
+    var from_acct = document.getElementById("from_acct").value;
+    var to_acct = document.getElementById("to_text").value;
     if (from_acct == to_acct) {
       alert("You cannot transfer to the same account!");
     }

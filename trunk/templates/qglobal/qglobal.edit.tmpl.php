@@ -6,9 +6,9 @@
               </tr>
             </table>
           </div>
-          <div class="table_content" cellpadding="0" cellspacing="0">
+          <div class="table_content">
             <form name="qglobal" method="post" action="index.php?editor=qglobal&action=5">
-              <table width="100%">
+              <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td width="33%">
                     Name:<br>

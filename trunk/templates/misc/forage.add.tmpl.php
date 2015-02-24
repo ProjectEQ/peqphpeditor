@@ -18,7 +18,7 @@
             <strong>Level</strong><br>
             <input class="indented" id="id" type="text" name="level" size="7" value="0"><br><br>
             <strong>Chance</strong><br>
-            <input class="indented" id="id" type="text" name="chance" size="7" value="0"%><br><br>
+            <input class="indented" id="id" type="text" name="chance" size="7" value="0">%<br><br>
 
         <center>
           <input type="submit" value="Submit Changes">
