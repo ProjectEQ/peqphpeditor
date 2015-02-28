@@ -113,13 +113,18 @@
                 <td colspan="7">1 Resist = 0.5%<br/>250 Resist = 100%</td>
               </tr>
               <tr>
-                <td align="left" width="14%">MR:      <br/><input type="text" name="MR" size="5" value="<?=$resists?>"/></td>
-                <td align="left" width="14%">CR:      <br/><input type="text" name="CR" size="5" value="<?=$resists?>"/></td>
-                <td align="left" width="14%">FR:      <br/><input type="text" name="FR" size="5" value="<?=$resists?>"/></td>
-                <td align="left" width="14%">PR:      <br/><input type="text" name="PR" size="5" value="<?=$resists?>"/></td>
-                <td align="left" width="14%">DR:      <br/><input type="text" name="DR" size="5" value="<?=$resists?>"/></td>
+                <td align="left" width="13%">MR:      <br/><input type="text" name="MR" size="5" value="<?=$resists?>"/></td>
+                <td align="left" width="13%">CR:      <br/><input type="text" name="CR" size="5" value="<?=$resists?>"/></td>
+                <td align="left" width="13%">FR:      <br/><input type="text" name="FR" size="5" value="<?=$resists?>"/></td>
+                <td align="left" width="13%">PR:      <br/><input type="text" name="PR" size="5" value="<?=$resists?>"/></td>
+                <td align="left" width="13%">DR:      <br/><input type="text" name="DR" size="5" value="<?=$resists?>"/></td>
                 <td align="left" width="14%">Corrup:  <br/><input type="text" name="Corrup" size="5" value="<?=$resists?>"/></td>
-                <td align="left" width="15%">Physical:<br/><input type="text" name="PhR" size="5" value="<?=$PhR?>"/></td>
+<?
+  $PhR_Default = 15 + ($level / 3);
+  if ($level > 50)
+    $PhR_Default += (3 * ($level - 50));
+?>
+                <td align="left" width="20%">Physical: <a title="Set to Calculated Default" onClick="document.getElementById('PhR').value='<?echo round($PhR_Default, 4);?>';"><img src="images/refresh.gif" width="10"></a><br/><input type="text" id="PhR" name="PhR" size="8" value="<?echo round($PhR_Default, 4);?>"/></td>
               </tr>
             </table>
         </fieldset><br/>
