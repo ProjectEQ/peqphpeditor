@@ -489,7 +489,7 @@ function delete_player($playerid) {
   $query = "DELETE FROM guild_members WHERE char_id=$playerid";
   $mysql->query_no_result($query);
   //hackers?
-  $query = "DELETE FROM instance_lockout_player WHERE charid=$playerid";
+  $query = "DELETE FROM instance_list_player WHERE charid=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM inventory WHERE charid=$playerid";
   $mysql->query_no_result($query);
