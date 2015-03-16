@@ -8,5 +8,7 @@ printf "\n"
 echo "Fixing permissions..."
 find . -type d -exec chmod 0755 {} +
 find . -type f -exec chmod 0644 {} +
+chmod a+x AutoUpdate
+
 echo "Done."
 printf "\n"
