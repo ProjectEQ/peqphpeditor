@@ -48,16 +48,19 @@ $spawngroup_limit = 150;
 $login = '';
 $password = '';
 
+// Logs directory location
+$logs_dir = "logs";
+
 // Log SQL queries:  1 = on, 0 = off
 $logging = 1;
 
 // $log_file = path to the file your sql logs will be saved in.
 // If you want a single log file, uncomment next line and comment the two monthly log options.
-//$log_file = "logs/sql_log.sql";
+//$log_file = $logs_dir . "sql_log.sql";
 
 // Automatically create new logs monthly.
 $filetime = date("m-Y");
-$log_file = "logs/sql_log_$filetime.sql";
+$log_file = $logs_dir . "sql_log_$filetime.sql";
 
 // Log all MySQL queries (If disabled only write entries are logged - recommended.)
 $log_all = 0;

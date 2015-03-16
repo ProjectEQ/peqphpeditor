@@ -12,6 +12,7 @@ function logSQL ($query) {
   }
 
   if ($logging == 1) {
+    checkLogDir();
     $time = date("(j-M-y  G:i:s)");
     if (!is_writable($log_file)) {
       $handle = fopen($log_file, 'w') or die("Could not create $log_file! Make sure the logs directory is writeable by your webserver.");
@@ -40,6 +41,7 @@ function logPerl ($query) {
   }
 
   if ($logging == 1) {
+    checkLogDir();
     $time = date("j-M-y  G:i:s");
     if (!is_writable($perl_log_file)) {
       $handle = fopen($perl_log_file, 'w') or die("Could not create $perl_log_file! Make sure the logs directory is writeable by your webserver.");
@@ -55,4 +57,11 @@ function logPerl ($query) {
     fclose($handle);
   }
 }
+
+function checkLogDir () {
+  if (!file_exists($logs_dir)) {
+    mkdir($logs_dir, 0755, true);
+  }
+}
+
 ?>
