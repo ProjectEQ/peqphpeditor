@@ -24,12 +24,10 @@ Options -Indexes
 #  Require all denied
 #</Files>
 
-#Apache 2.4 and later
 #<Files index.php>
 #  Require all granted
 #</Files>
 
-#Apache 2.4 and later
 #<Files aasearch.php>
 #  Require all granted
 #</Files>
