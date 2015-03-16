@@ -1,7 +1,7 @@
 <?php
 
 function logSQL ($query) {
-  global $log_file, $logging;
+  global $log_file, $logging, $logs_dir;
   $user = $_SESSION['login'];
 
   if (isset($_SESSION['guest']) && ($_SESSION['guest'] == 1)) {
@@ -30,7 +30,7 @@ function logSQL ($query) {
 }
 
 function logPerl ($query) {
-  global $perl_log_file, $logging;
+  global $perl_log_file, $logging, $logs_dir;
   $user = $_SESSION['login'];
 
   if (isset($_SESSION['guest']) && ($_SESSION['guest'] == 1)) {
@@ -59,6 +59,8 @@ function logPerl ($query) {
 }
 
 function checkLogDir () {
+  global $logs_dir;
+
   if (!file_exists($logs_dir)) {
     mkdir($logs_dir, 0755, true);
   }
