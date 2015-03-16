@@ -9,13 +9,13 @@ if(isset($_GET['name']) && ($_GET['name'] != '')) {
   else
     require("../../classes/mysql.php");
   $name = $_GET['name'];
-  $query = "SELECT name FROM character_ WHERE name rlike \"$name\" LIMIT 50";
+  $query = "SELECT name FROM character_data WHERE name rlike \"$name\" LIMIT 50";
   $results = $mysql->query_mult_assoc($query);
   if($results == '') {
     echo "No players found!<br />";
   }
   else {
-    echo (count($results) == 50) ? "<i>Results limited to 50. Narrow your search.</i>" : "";
+    echo (count($results) == 50) ? "<i>Results limited to 50. Narrow your search to improve search results.</i>" : "";
     echo "<ul>";
     foreach($results as $result) {
       extract($result);
