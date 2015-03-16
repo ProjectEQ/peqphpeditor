@@ -73,7 +73,12 @@ function get_item_name($id) {
   global $mysql;
   $query = "SELECT name FROM items WHERE id=$id";
   $result = $mysql->query_assoc($query);
-  return $result['name'];
+  if ($result) {
+    return $result['name'];
+  }
+  else {
+    return "Item not in DB";
+  }
 }
 
 function getFactionName($fid) {

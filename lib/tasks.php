@@ -449,7 +449,12 @@ function tasksets_id() {
   $query = "SELECT id AS tsksetid FROM tasksets WHERE taskid=$tskid";
   $result = $mysql->query_assoc($query);
   
-  return ($result['tsksetid']);
+  if ($result) {
+    return ($result['tsksetid']);
+  }
+  else {
+    return null;
+  }
 }
 
 function get_activities() {
