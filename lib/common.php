@@ -499,7 +499,7 @@ function delete_player($playerid) {
   $mysql->query_no_result($query);
   //mercs?
   //petitions?
-  $query = "DELETE FROM player_corpses WHERE charid=$playerid";
+  $query = "DELETE FROM character_corpses WHERE charid=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM player_corpses_backup WHERE charid=$playerid";
   $mysql->query_no_result($query);
