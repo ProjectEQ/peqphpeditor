@@ -5,46 +5,46 @@
 <Files itemsearch.php>
   Order allow,deny
   Allow from all
-</files>
+</Files>
 
 <Files spellsearch.php>
   Order allow,deny
   Allow from all
-</files>
+</Files>
 
 <Files spellsetsearch.php>
   Order allow,deny
   Allow from all
-</files>
+</Files>
 
 <Files playersearch.php>
   Order allow,deny
   Allow from all
-</files>
+</Files>
 
 <Files accountsearch.php>
   Order allow,deny
   Allow from all
-</files>
+</Files>
 
 
 #Apache 2.4 and later
 #<Files itemsearch.php>
 #  Require all granted
-#</files>
+#</Files>
 
 #<Files spellsearch.php>
 #  Require all granted
-#</files>
+#</Files>
 
 #<Files spellsetsearch.php>
 #  Require all granted
-#</files>
+#</Files>
 
 #<Files playersearch.php>
 #  Require all granted
-#</files>
+#</Files>
 
 #<Files accountsearch.php>
 #  Require all granted
-#</files>
+#</Files>

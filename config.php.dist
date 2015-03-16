@@ -72,6 +72,6 @@ $enable_user_login = 1;
 $enable_guest_mode = 1;
 
 // Path for quests without trailing slash.
-$quest_path = "/home/eqemu/quests"
+$quest_path = "/path/to/quests"
 
 ?>

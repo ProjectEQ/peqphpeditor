@@ -1,7 +1,5 @@
 <?php
 
-$current_revision = "r468";
-
 require_once("config.php");
 require_once("lib/logging.php");
 if ($mysql_class == "mysqli")

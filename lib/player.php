@@ -210,7 +210,9 @@ function player_info() {
   //Load from character_inspect_messages
   $query = "SELECT * FROM character_inspect_messages WHERE id = $playerid";
   $result = $mysql->query_assoc($query);
-  $player_array['inspect_message'] = $result['inspect_message'];
+  if ($result) {
+    $player_array['inspect_message'] = $result['inspect_message'];
+  }
 
   //Load from character_leadership_abilities
   $query = "SELECT * FROM character_leadership_abilities WHERE id = $playerid";
@@ -229,9 +231,11 @@ function player_info() {
   //Load guild details
   $query = "SELECT guild_id, rank, banker FROM guild_members WHERE char_id = $playerid";
   $result = $mysql->query_assoc($query);
-  $player_array['guild_id'] = $result['guild_id'];
-  $player_array['guild_rank'] = $result['guild_rank'];
-  $player_array['guild_banker'] = $result['guild_banker'];
+  if ($result) {
+    $player_array['guild_id'] = $result['guild_id'];
+    $player_array['guild_rank'] = $result['guild_rank'];
+    $player_array['guild_banker'] = $result['guild_banker'];
+  }
 
   return $player_array;
 }

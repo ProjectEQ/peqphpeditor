@@ -12,12 +12,12 @@ Options -Indexes
 <Files index.php>
   Order allow,deny
   Allow from all
-</files>
+</Files>
 
 <Files aasearch.php>
   Order allow,deny
   Allow from all
-</files>
+</Files>
 
 #Apache 2.4 and later
 #<Files ~ "\.(php|sql)$">
