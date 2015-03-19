@@ -85,7 +85,7 @@ switch ($editor) {
     $searchbar->set('currnpc', $npcid);
     break;
   case 'spells':
-    $zones = $zones();
+    $zones = zones();
     $searchbar = new Template("templates/searchbar/searchbar.spellsed.tmpl.php");
     $searchbar->set('curreditor', $editor);
     break;

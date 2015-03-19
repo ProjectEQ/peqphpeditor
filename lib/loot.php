@@ -212,7 +212,7 @@ switch ($action) {
     exit;
   case 27:
     check_authorization();
-    search_lootdrops();
+    //search_lootdrops(); <- Incorrect function call?
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 28:

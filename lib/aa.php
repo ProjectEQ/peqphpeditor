@@ -1167,10 +1167,10 @@ function update_aabase($aa_vars, $aaid) {
 // would overlap with anything already existing.
 // $exclude is an aaid that we will ignore for this purpose. (We can
 // exclude the one we're trying to see if we can move with this.)
-function do_aa_range_check($aaid, $ranks, $exlude=0) {
+function do_aa_range_check($aaid, $ranks, $exclude=0) {
   global $mysql;
   $errors = array();
-  $errror_idx = 0;
+  $error_idx = 0;
   
   // Check for preceeding AA that has enough ranks to overlap the start.
   $query = "SELECT skill_id, name, max_level FROM altadv_vars WHERE skill_id <= $aaid ORDER BY skill_id DESC LIMIT 1";
