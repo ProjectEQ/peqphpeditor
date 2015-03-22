@@ -1461,7 +1461,7 @@ function add_npc() {
   $fields .= "spellscale=\"" . $_POST['spellscale'] . "\", ";
   $fields .= "healscale=\"" . $_POST['healscale'] . "\", ";
   $fields .= "no_target_hotkey=\"" . $_POST['no_target_hotkey'] . "\", ";
-  $fields .= "raid_target=\"" . $_POST['raid_target'] . "\"";
+  $fields .= "raid_target=\"" . $_POST['raid_target'] . "\", ";
   //armtexture
   //bracertexture
   //handtexture

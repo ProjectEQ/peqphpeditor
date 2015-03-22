@@ -1,6 +1,6 @@
 <?php
 
-$current_revision = "18 March 2015";
+$current_revision = "21 March 2015";
 
 require_once("config.php");
 require_once("lib/logging.php");
