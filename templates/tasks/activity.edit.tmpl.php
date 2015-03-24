@@ -43,9 +43,9 @@
            <legend><strong><font size="4">Text</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
-               <td align="left" width="33%">Text 1:  <br><input type="text" name="text1" size="30" value="<?=$text1?>"></td>
-               <td align="left" width="33%">Text 2:  <br><input type="text" name="text2" size="30" value="<?=$text2?>"></td>
-               <td align="left" width="34%">Text 3:  <br><input type="text" name="text3" size="30" value="<?=$text3?>"></td>           
+               <td align="left" width="33%">Text 1:<br><input type="text" name="text1" size="30" value="<?echo htmlentities($text1);?>"></td>
+               <td align="left" width="33%">Text 2:<br><input type="text" name="text2" size="30" value="<?echo htmlentities($text2);?>"></td>
+               <td align="left" width="34%">Text 3:<br><input type="text" name="text3" size="30" value="<?echo htmlentities($text3);?>"></td>
                 </td>
              </tr>
            </table>
@@ -75,5 +75,6 @@
             <input type="hidden" name="taskid" value="<?=$taskid?>">
             <input type="hidden" name="activityid" value="<?=$activityid?>">
             <input type="submit" value="Submit Changes">
-         </center>
-           </div>
+            <input type="button" value="Cancel" onClick="history.back()">
+           </center>
+         </div>

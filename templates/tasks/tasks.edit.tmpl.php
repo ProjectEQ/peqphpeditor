@@ -10,7 +10,7 @@
            <legend><strong><font size="4">Title</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
-               <td align="left" width="100%"><input type="text" name="title" size="50" value="<?=$title?>"></td>
+               <td align="left" width="100%"><input type="text" name="title" size="50" value="<?echo htmlentities($title);?>"></td>
                  </select>
                </td>
               </tr> 
@@ -54,7 +54,7 @@
                  </select></td>
              </tr>
               <tr>
-               <td align="left" width="33%">Reward Text:  <br><input type="text" name="reward" size="30" value="<?=$reward?>"></td> 
+               <td align="left" width="33%">Reward Text:  <br><input type="text" name="reward" size="30" value="<?echo htmlentities($reward);?>"></td> 
                <td align="left" width="33%">&nbsp;</td>
                <td align="left" width="34%">&nbsp;</td>             
                 </td>
@@ -65,7 +65,7 @@
            <legend><strong><font size="4">Description</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
-             <td><textarea name="description" rows=7 cols=86><?=$description?></textarea></td>
+             <td><textarea name="description" rows=7 cols=86><?echo htmlentities($description);?></textarea></td>
                    <td align="right">             
           </td>
            </tr>
@@ -73,7 +73,7 @@
            </fieldset><br>
            <center>
             <input type="hidden" name="id" value="<?=$id?>">
-     
-            <input type="submit" value="Submit Changes">
-         </center>
-           </div>
+            <input type="submit" value="Submit Changes">&nbsp;
+            <input type="button" value="Cancel" onClick="history.back()">
+           </center>
+          </div>

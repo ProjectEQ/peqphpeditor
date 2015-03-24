@@ -16,7 +16,7 @@
            <legend><strong>General</font></strong></legend>
            <table width="100%" border="0" cellpadding="3" cellspacing="0">
              <tr>
-               <td align="left" width="20%">Zone: <?=getZoneName($startzone)?></td>
+               <td align="left" width="20%">Zone: <?echo ($startzone > 0) ? getZoneName($startzone) : "NONE";?></td>
                <td align="left" width="20%">Min Level: <?=$minlevel?></td>
                <td align="left" width="20%">Max Level:  <?=$maxlevel?></td>              
                <td align="left" width="20%">Duration: <?=$duration?></td>
@@ -94,7 +94,7 @@
           <td align="center" width="5%"><strong>Goal Method</strong></td>
           <td align="center" width="5%"><strong>Goal Count</strong></td>
           <td align="center" width="5%"><strong>Deliver NPC</strong></td>
-          <td align="center" width="5%"><strong>Zoneid</strong></td>
+          <td align="center" width="5%"><strong>Zone</strong></td>
           <td align="center" width="5%"><strong>Optional</strong></td>
           <th width="5%"></th>
          </tr>
@@ -141,7 +141,7 @@
           <?if($v['delivertonpc'] > 0):?>
           <td align="center" width="5%"><a href="index.php?editor=npc&z=<?=get_zone_by_npcid($v['delivertonpc'])?>&zoneid=<?=get_zoneid_by_npcid($v['delivertonpc'])?>&npcid=<?=$v['delivertonpc']?>"><?=$v['delivertonpc']?></td>
           <?endif;?>
-          <td align="center" width="5%"><?=getZoneName($v['zoneid'])?></td>
+          <td align="center" width="5%"><?echo ($v['zoneid'] > 0) ? getZoneName($v['zoneid']): "NONE";?></td>
           <td align="center" width="5%"><?=$yesno[$v['optional']]?></td>
           <td align="right">      
             <a href="index.php?editor=tasks&tskid=<?=$id?>&activityid=<?=$v['activityid']?>&action=6"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
