@@ -531,14 +531,14 @@ function get_taskset() {
 }
 
 function update_tasks() {
-  global $mysql;
+  global $mysql, $mysql_class;
 
   $id = $_POST['id'];
   $duration = $_POST['duration'];
   if ($mysql_class == "mysqli") {
-    $title = mysqli_real_escape_string($_POST['title']);
-    $description = mysqli_real_escape_string($_POST['description']); 
-    $reward = mysqli_real_escape_string($_POST['reward']);
+    $title = mysqli_real_escape_string($mysql, $_POST['title']);
+    $description = mysqli_real_escape_string($mysql, $_POST['description']); 
+    $reward = mysqli_real_escape_string($mysql, $_POST['reward']);
   }
   else {
     $title = mysql_real_escape_string($_POST['title']);
@@ -559,7 +559,7 @@ function update_tasks() {
 }
 
 function update_activity() {
-  global $mysql;
+  global $mysql, $mysql_class;
 
   $taskid = $_POST['taskid'];
   $activityid = $_POST['activityid'];
@@ -567,9 +567,9 @@ function update_activity() {
   $step = $_POST['step'];
   $activitytype = $_POST['activitytype']; 
   if ($mysql_class == "mysqli") {
-    $text1 = mysqli_real_escape_string($_POST['text1']);
-    $text2 = mysqli_real_escape_string($_POST['text2']);
-    $text3 = mysqli_real_escape_string($_POST['text3']);
+    $text1 = mysqli_real_escape_string($mysql, $_POST['text1']);
+    $text2 = mysqli_real_escape_string($mysql, $_POST['text2']);
+    $text3 = mysqli_real_escape_string($mysql, $_POST['text3']);
   }
   else {
     $text1 = mysql_real_escape_string($_POST['text1']);
@@ -754,14 +754,14 @@ function suggest_step() {
 }
 
 function add_tasks() {
-  global $mysql;
+  global $mysql, $mysql_class;
 
   $id = $_POST['id'];
   $duration = $_POST['duration'];
   if ($mysql_class == "mysqli") {
-    $title = mysqli_real_escape_string($_POST['title']);
-    $description = mysqli_real_escape_string($_POST['description']); 
-    $reward = mysqli_real_escape_string($_POST['reward']);
+    $title = mysqli_real_escape_string($mysql, $_POST['title']);
+    $description = mysqli_real_escape_string($mysql, $_POST['description']); 
+    $reward = mysqli_real_escape_string($mysql, $_POST['reward']);
   }
   else {
     $title = mysql_real_escape_string($_POST['title']);
@@ -782,16 +782,16 @@ function add_tasks() {
 }
 
 function add_activity() {
-  global $mysql;
+  global $mysql, $mysql_class;
 
   $taskid = $_POST['taskid'];
   $activityid = $_POST['activityid'];
   $step = $_POST['step'];
   $activitytype = $_POST['activitytype']; 
   if ($mysql_class == "mysqli") {
-    $text1 = mysqli_real_escape_string($_POST['text1']);
-    $text2 = mysqli_real_escape_string($_POST['text2']);
-    $text3 = mysqli_real_escape_string($_POST['text3']);
+    $text1 = mysqli_real_escape_string($mysql, $_POST['text1']);
+    $text2 = mysqli_real_escape_string($mysql, $_POST['text2']);
+    $text3 = mysqli_real_escape_string($mysql, $_POST['text3']);
   }
   else {
     $text1 = mysql_real_escape_string($_POST['text1']);
