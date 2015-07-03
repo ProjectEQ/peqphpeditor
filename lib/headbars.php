@@ -493,7 +493,7 @@ function guilds() {
 function aas() {
   global $mysql;
 
-  $query = "SELECT skill_id, name FROM altadv_vars ORDER BY name, skill_id";
+  $query = "SELECT id, name FROM aa_ability ORDER BY name, id";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
