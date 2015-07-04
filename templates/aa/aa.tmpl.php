@@ -18,16 +18,20 @@
                     <legend><b>Base AA Info:</b></legend>
 <?
 if ($base) {
-  foreach ($base as $k=>$v) {
-    echo "<b>Key:</b> $k<br/><b>Value:</b> $v<br/><br/>";
-  }
 ?>
-                    <br/>
-                    <b>Category:</b> (Still need to find this)<br/>
+                    <b>ID</b> <?=$base['id']?><br/>
+                    <b>Name</b> <?=$base['name']?><br/>
+                    <b>Category:</b> <?=$aa_category[$base['category']]?><br/>
                     <b>Classes:</b> <?=getClasses($base['classes'])?><br/>
                     <b>Races:</b> <?=getRaces($base['races'])?><br/>
                     <b>Deities:</b> <?=getDeities($base['deities'])?><br/>
-                    <b>Type:</b> <?=$aa_type[$base['type']]?>
+                    <b>Type:</b> <?=$aa_type[$base['type']]?><br/>
+                    <b>Charges:</b> <?=$base['charges']?><br/>
+                    <b>Enabled:</b> <?=$yesno[$base['enabled']]?><br/>
+                    <b>Grant Only:</b> <?=$yesno[$base['grant_only']]?><br/>
+                    <b>First Rank:</b> <?=$base['first_rank_id']?><br/>
+                    <b>Status</b> <?=$base['status']?><br/>
+                    <b>Drakkin Heritage:</b> <?=$base['drakkin_heritage']?>
 <?
 }
 else {
@@ -60,27 +64,24 @@ if ($ranks) {
 ?>
                     <fieldset>
                       <legend><b>Rank <?=$count?></b></legend>
-<?
-    foreach ($rank as $k=>$v) {
-      echo "<b>Key:</b> $k<br/><b>Value:</b> $v<br/><br/>";
-    }
-    $count++;
-?>
-                      <br/>
+                      <b>Rank ID:</b> <?=$rank['id']?><br/>
+                      <b>Upper Hotkey SID:</b> <?=$rank['upper_hotkey_sid']?><br/>
+                      <b>Lower Hotkey SID:</b> <?=$rank['lower_hotkey_sid']?><br/>
+                      <b>Title SID:</b> <?=$rank['title_sid']?><br/>
+                      <b>Desc SID:</b> <?=$rank['desc_sid']?><br/>
+                      <b>Cost:</b> <?=$rank['cost']?><br/>
+                      <b>Level Required:</b> <?=$rank['level_req']?><br/>
                       <b>Spell:</b> <?echo ($rank['spell'] > 0) ? getSpellName($rank['spell']) : "None";?><br/>
-                      <b>Spell Type:</b> <?echo ($rank['spell_type'] > 0) ? $sp_spelltypes[$rank['spell_type']] : " ";?>(Still need to find this)<br/>
+                      <b>Spell Type:</b> <?=$rank['spell_type']?><br/>
+                      <b>Recast Time:</b> <?=$rank['recast_time']?><br/>
                       <b>Expansion:</b> <?=$eqexpansions[$rank['expansion'] + 1]?><br/>
+                      <b>Previous ID:</b> <?echo ($rank['prev_id'] == -1) ? "None" : $rank['prev_id'];?><br/>
+                      <b>Next ID:</b> <?echo ($rank['next_id'] == -1) ? "None" : $rank['next_id'];?>
                     </fieldset>
 <?
+    $count++;
   }
 ?>
-                  </fieldset>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
 <?
 }
 else {
@@ -89,6 +90,13 @@ else {
 <?
 }
 ?>
+                  </fieldset>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
     </div>
     <div class="table_content">
       <table cellspacing="0" border="0" width="100%">
@@ -111,28 +119,21 @@ if ($effects) {
 ?>
                       <fieldset>
                         <legend><b>Slot <?=$effect_detail['slot']?></b></legend>
-<?
-      foreach ($effect_detail as $k=>$v) {
-        echo "<b>Key:</b> $k<br/><b>Value:</b> $v<br/><br/>";
-      }
-?>
-                      </br>
-                      <b>Effect:</b> <?=$sp_effects[$effect_detail['effect_id']]?><br/>
-                    </fieldset>
+                        <b>Rank ID:</b> <?=$effect_detail['rank_id']?><br/>
+                        <b>Slot:</b> <?=$effect_detail['slot']?><br/>
+                        <b>Effect ID:</b> <?=$effect_detail['effect_id']?><br/>
+                        <b>Effect:</b> <?=$sp_effects[$effect_detail['effect_id']]?><br/>
+                        <b>Base 1:</b> <?=$effect_detail['base1']?><br/>
+                        <b>Base 2:</b> <?=$effect_detail['base2']?>
+                      </fieldset>
 <?
     }
     $count++;
 ?>
-                  </fieldset>
+                    </fieldset>
 <?
   }
 ?>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
 <?
 }
 else {
@@ -141,6 +142,13 @@ else {
 <?
 }
 ?>
+                  </fieldset>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
     </div>
     <div class="table_content">
       <table cellspacing="0" border="0" width="100%">
@@ -158,16 +166,12 @@ if ($prereqs) {
 ?>
                     <fieldset>
                       <legend><b>Rank <?=$count?> Prerequisite</b></legend>
-<?
-    foreach ($prereq as $k=>$v) {
-      echo "<b>Key:</b> $k<br/><b>Value:</b> $v<br/><br/>";
-    }
-    $count++;
-?>
-                      <br/>
-                      <b>Prerequisite AA:</b> <?=getAAName($prereq['aa_id']);?>
+                      <b>Rank ID:</b> <?=$prereq['rank_id']?><br/>
+                      <b>Prerequisite AA:</b> <?=getAAName($prereq['aa_id'])?><br/>
+                      <b>Points:</b> <?=$prereq['points']?>
                     </fieldset>
 <?
+    $count++;
   }
 ?>
                   </fieldset>

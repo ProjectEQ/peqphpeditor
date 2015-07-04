@@ -1,4 +1,17 @@
 <?
+$aa_category = array (
+ -1 => "None",
+  1 => "UNK",
+  2 => "Progression",
+  3 => "Shroud Passive",
+  4 => "Shroud Active",
+  5 => "Veteran Reward",
+  6 => "Tradeskill",
+  7 => "Expendable",
+  8 => "Racial Innate",
+  9 => "UNK"
+);
+
 $aa_type = array (
   0  =>  "Not Applicable",
   1  =>  "General",
@@ -16,7 +29,7 @@ $aa_type = array (
 switch ($action) {
   case 0: //View AA
     check_authorization();
-    if ($aaid) {
+    if (isset($aaid) && $aaid >= 0) {
       $body = new Template("templates/aa/aa.tmpl.php");
       $aa_info = aa_info();
       $body->set('yesno', $yesno);
@@ -24,6 +37,7 @@ switch ($action) {
       $body->set('sp_effects', $sp_effects);
       $body->set('sp_spelltypes', $sp_spelltypes); //This is still wrong
       $body->set('aa_type', $aa_type);
+      $body->set('aa_category', $aa_category);
       if ($aa_info) {
         foreach ($aa_info as $key => $value) {
           $body->set($key, $value);
