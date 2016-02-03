@@ -1,13 +1,13 @@
-      <div id="searchbar">
-        <table width="100%">
-          <tr>
-            <td>
-              <strong>1.</strong>
-              <select OnChange="gotosite(this.options[this.selectedIndex].value)">
-                <option value="">Select an AA</option>
-<?php foreach ($aas as $aa): extract($aa);?>
-                <option value="index.php?editor=<?=$curreditor?>&aaid=<?=$aa['skill_id']?>"<?php if ($curraa == $aa['skill_id']): ?> selected<?php endif;?>><?=$aa['name']?></option>
-<?php endforeach;?>
+  <div id="searchbar">
+    <table width="100%">
+      <tr>
+        <td>
+          <strong>1.</strong>
+          <select OnChange="gotosite(this.options[this.selectedIndex].value)">
+            <option value="">Select an AA</option>
+<? foreach ($aas as $aa): extract($aa);?>
+            <option value="index.php?editor=<?=$curreditor?>&aaid=<?=$aa['id']?>"<?echo ($curraa == $aa['id']) ? " selected" : "";?>><?=$aa['name']?> (<?=$aa['id']?>)</option>
+<? endforeach;?>
               </select>
             </td>
             <td align="right"> or <strong>&nbsp;2.</strong>

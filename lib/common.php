@@ -369,7 +369,7 @@ function search_aas_by_name() {
   global $mysql;
   $search = $_GET['search'];
 
-  $query = "SELECT skill_id, name FROM altadv_vars WHERE name rlike \"$search\" ORDER BY name, skill_id";
+  $query = "SELECT id, name FROM aa_ability WHERE name rlike \"$search\" ORDER BY name, id";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
@@ -378,7 +378,7 @@ function search_aas_by_id() {
   global $mysql;
   $aaid = $_GET['aaid'];
 
-  $query = "SELECT skill_id, name FROM altadv_vars WHERE skill_id=\"$aaid\"";
+  $query = "SELECT id, name FROM aa_ability WHERE id=\"$aaid\"";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
@@ -386,7 +386,7 @@ function search_aas_by_id() {
 function getAAName($aaid) {
   global $mysql;
 
-  $query = "SELECT name FROM altadv_vars WHERE skill_id=\"$aaid\"";
+  $query = "SELECT name FROM aa_ability WHERE id=\"$aaid\"";
   $result = $mysql->query_assoc($query);
   if ($result)
     return $result['name'];
