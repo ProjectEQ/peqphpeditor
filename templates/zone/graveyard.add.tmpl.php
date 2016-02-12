@@ -1,4 +1,4 @@
-  <div class="edit_form" style="width: 450px">
+  <div class="edit_form" style="width: 500px">
     <div class="edit_form_header">Add Graveyard</div>
     <div class="edit_form_content">
       <form name="graveyard" method="post" action="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&graveyard_id=<?=$id?>&action=9">
