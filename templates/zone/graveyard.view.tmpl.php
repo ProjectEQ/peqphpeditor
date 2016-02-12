@@ -7,7 +7,7 @@
       </table>
     </div>
     <table class="table_content2" width="100%">
-<?if isset($graveyard):?>
+<?if (isset($graveyard)):?>
       <tr>
         <td align="center" width="10%"><strong>ID</strong></td>
         <td align="center" width="25%"><strong>Zone</strong></td>
@@ -25,7 +25,7 @@
         <td align="center" width="15%"><?=$v['y']?></td> 
         <td align="center" width="15%"><?=$v['z_coord']?></td>
         <td align="center" width="10%"><?=$v['heading']?></td>
-        <td width="10%">    
+        <td align="right" width="10%">    
           <a href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&graveyard_id=<?=$v['graveyard_id']?>&action=5"><img src="images/edit2.gif" border="0" title="Edit Graveyard"></a>          
           <a onClick="return confirm('Really Delete Graveyard <?=$v['graveyard_id']?>?');" href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&graveyard_id=<?=$v['graveyard_id']?>&action=11"><img src="images/remove3.gif" border="0" title="Delete this Graveyard"></a>
         </td>
