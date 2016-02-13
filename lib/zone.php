@@ -448,7 +448,7 @@ function update_blockedspell() {
   $x_diff = $_POST['x_diff'];
   $y_diff = $_POST['y_diff']; 
   $z_diff = $_POST['z_diff'];
-  $message = $_POST['message']; 
+  $message = $mysql->real_escape_string($_POST['message']); 
   $description = $_POST['description'];
 
   $query = "UPDATE blocked_spells SET spellid=\"$spellid\", type=\"$type\", x=\"$x_coord\", y=\"$y_coord\", z=\"$z_coord\", x_diff=\"$x_diff\", y_diff=\"$y_diff\", z_diff=\"$z_diff\", message=\"$message\", description=\"$description\" WHERE id=\"$bsid\"";
@@ -576,7 +576,7 @@ function add_blockedspell() {
   $x_diff = $_POST['x_diff'];
   $y_diff = $_POST['y_diff']; 
   $z_diff = $_POST['z_diff'];
-  $message = $_POST['message']; 
+  $message = $mysql->real_escape_string($_POST['message']); 
   $description = $_POST['description'];
 
   $query = "INSERT INTO blocked_spells SET id=\"$bsid\", zoneid=\"$zoneid\", spellid=\"$spellid\", type=\"$type\", x=\"$x_coord\", y=\"$y_coord\", z=\"$z_coord\", x_diff=\"$x_diff\", y_diff=\"$y_diff\", z_diff=\"$z_diff\", message=\"$message\", description=\"$description\"";

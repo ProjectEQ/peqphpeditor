@@ -876,7 +876,7 @@ function update_variable() {
   global $mysql;
 
   $varname = $_POST['varname'];
-  $value = $_POST['value']; 
+  $value = $mysql->real_escape_string($_POST['value']); 
   $information = $_POST['information'];
   $ts = $_POST['ts'];
 
@@ -1026,7 +1026,7 @@ function add_variable() {
   global $mysql;
 
   $varname = $_POST['varname'];
-  $value = $_POST['value']; 
+  $value = $mysql->real_escape_string($_POST['value']); 
   $information = $_POST['information'];
   $ts = $_POST['ts'];
 
