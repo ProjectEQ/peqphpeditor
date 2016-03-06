@@ -12,6 +12,14 @@ $columns = array(
   5 => 'level'
 );
 
+$bind_slots = array(
+  0 => 'Current',
+  1 => '',
+  2 => '',
+  3 => '',
+  4 => 'Home'
+);
+
 switch ($action) {
   case 0:  // View Player Profile
     check_admin_authorization();
@@ -28,6 +36,7 @@ switch ($action) {
       $body->set('player_name', getPlayerName($playerid));
       $body->set('deities', $deities);
       $body->set('anonymity', $anonymity);
+      $body->set('bind_slots', $bind_slots);
       $vars = player_info();
       if ($vars) {
         foreach ($vars as $key=>$value) {
@@ -165,7 +174,7 @@ function player_info() {
   //Load from character_bind
   $query = "SELECT * FROM character_bind WHERE id = $playerid";
   $result = $mysql->query_mult_assoc($query);
-  $player_array['bind'] = $result;
+  $player_array['binds'] = $result;
 
   //Load from character_alternate_abilities
   $query = "SELECT * FROM character_alternate_abilities WHERE id = $playerid";

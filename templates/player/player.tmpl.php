@@ -345,6 +345,50 @@
         </td>
       </tr>
       <tr>
+        <td>&nbsp;</td>
+        <td>
+          <fieldset>
+            <legend><strong>Bind Points</strong></legend>
+<?
+  if (isset($binds)):
+?>
+            <table width="100%" cellpadding="3" cellspacing="0">
+              <tr>
+                <td align="center"><u>Slot</u></td>
+                <td align="center"><u>Zone</u></td>
+                <td align="center"><u>Instance</u></td>
+                <td align="center"><u>X</u></td>
+                <td align="center"><u>Y</u></td>
+                <td align="center"><u>Z</u></td>
+                <td align="center"><u>Heading</td>
+              </tr>
+<?
+    foreach ($binds as $bind):
+?>
+              <tr>
+                <td align="center"><?=$bind_slots[$bind['slot']]?> (<?=$bind['slot']?>)</td>
+                <td align="center"><?=getZoneName($bind['zone_id'])?> (<?=$bind['zone_id']?>)</td>
+                <td align="center"><?=$bind['instance_id']?></td>
+                <td align="center"><?=$bind['x']?></td>
+                <td align="center"><?=$bind['y']?></td>
+                <td align="center"><?=$bind['z']?></td>
+                <td align="center"><?=$bind['heading']?></td>
+              </tr>
+<?
+    endforeach;
+?>
+            </table>
+<?
+  else:
+?>
+            No Bind Points
+<?
+  endif;
+?>
+          </fieldset>
+        </td>
+      </tr>
+      <tr>
         <td colspan="3">
           <fieldset>
             <legend><strong>Inspect Message</strong></legend>
