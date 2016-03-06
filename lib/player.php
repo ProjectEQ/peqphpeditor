@@ -14,9 +14,9 @@ $columns = array(
 
 $bind_slots = array(
   0 => 'Current',
-  1 => '',
-  2 => '',
-  3 => '',
+  1 => 'Secondary',
+  2 => 'Tertiary',
+  3 => 'Quaternary',
   4 => 'Home'
 );
 
