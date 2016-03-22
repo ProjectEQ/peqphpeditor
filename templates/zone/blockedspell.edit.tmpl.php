@@ -24,31 +24,31 @@
           <tr>
             <td align="left">
               <strong>X</strong><br/>
-              <input id="id" type="text" name="x_coord" size="7" value="<?=$x_coord?>"><br/><br/>
+              <input type="text" name="x_coord" size="7" value="<?=$x_coord?>"><br/><br/>
               <strong>Y</strong><br/>
-              <input id="id" type="text" name="y_coord" size="7" value="<?=$y_coord?>"><br/><br/>
+              <input type="text" name="y_coord" size="7" value="<?=$y_coord?>"><br/><br/>
               <strong>Z</strong><br/>
-              <input id="id" type="text" name="z_coord" size="7" value="<?=$z_coord?>"><br/><br/>
+              <input type="text" name="z_coord" size="7" value="<?=$z_coord?>"><br/><br/>
             </td>
             <td align="left">
               <strong>X Diff</strong><br/>
-              <input id="id" type="text" name="x_diff" size="7" value="<?=$x_diff?>"><br/><br/>
+              <input type="text" name="x_diff" size="7" value="<?=$x_diff?>"><br/><br/>
               <strong>Y Diff</strong><br/>
-              <input id="id" type="text" name="y_diff" size="7" value="<?=$y_diff?>"><br/><br/>
+              <input type="text" name="y_diff" size="7" value="<?=$y_diff?>"><br/><br/>
               <strong>Z Diff</strong><br/>
-              <input id="id" type="text" name="z_diff" size="7" value="<?=$z_diff?>"><br/><br/>
+              <input type="text" name="z_diff" size="7" value="<?=$z_diff?>"><br/><br/>
             </td>
           </tr>
           <tr>
             <td align="left" colspan="2">
               <strong>Message</strong><br/>
-              <textarea id="id" name="message" cols="38" rows="3"><?=$message?></textarea><br/><br/>
+              <textarea name="message" cols="38" rows="3"><?=$message?></textarea><br/><br/>
             </td>
           </tr>
           <tr>
             <td align="left" colspan="2">
               <strong>Description</strong><br/>
-              <textarea id="id" name="description" cols="38" rows="2"><?=$description?></textarea><br/><br/>
+              <textarea name="description" cols="38" rows="2"><?=$description?></textarea><br/><br/>
             </td>
           </tr>
         </table>
