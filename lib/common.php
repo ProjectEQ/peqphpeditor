@@ -221,7 +221,13 @@ function getPlayerID($playername) {
   
   $query = "SELECT id FROM character_data WHERE name=\"$playername\"";
   $result = $mysql->query_assoc($query);
-  return $result['id'];
+
+  if ($result) {
+    return $result['id'];
+  }
+  else {
+    return null;
+  }
 }
 
 function search_players_by_name() {
@@ -290,7 +296,13 @@ function getAccountID($lsname) {
 
   $query = "SELECT id FROM account WHERE name=\"$lsname\"";
   $result = $mysql->query_assoc($query);
-  return $result['id'];
+
+  if ($result) {
+    return $result['id'];
+  }
+  else {
+    return null;
+  }
 }
 
 function search_accounts_by_name() {
