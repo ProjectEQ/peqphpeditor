@@ -1153,7 +1153,10 @@ $skilltypes = array (
  71 => 'Intimidation',
  72 => 'Berserking',
  73 => 'Taunt',
- 74 => 'Frenzy'
+ 74 => 'Frenzy',
+ 75 => 'Remove Traps',
+ 76 => 'Triple Attack',
+ 77 => '2H Piercing'
 );
 
 $itemmaterial= array(
