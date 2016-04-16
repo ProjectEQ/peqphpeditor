@@ -521,7 +521,7 @@
             <legend><font size="4">Skill Stats</font></legend>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
-                <td align="left" width="50%">
+                <td align="left" width="40%">
                   Skill Mod:<br/>
                   <select class="left" name="skillmodtype">
 <?foreach($skilltypes as $k => $v):?>
@@ -529,7 +529,9 @@
 <?endforeach;?>       
                   </select>
                 </td>
-                <td align="left" width="50%">Skill Mod Value:<br/><input type="text" name="skillmodvalue" size="5" value="0"></td> 
+                <td align="left" width="20%">Skill Mod Value:<br/><input type="text" name="skillmodvalue" size="5" value="0"></td>
+                <td align="left" width="20%">Skill Mod Max:<br/><input type="text" name="skillmodmax" size="5" value="0"></td>
+                <td width="20%">&nbsp;</td>
               </tr>
             </table>
           </fieldset><br/>
