@@ -90,6 +90,11 @@ class mysql {
     echo "Query failed:<br> $error<br><br>";
   }
 
+  function real_escape_string($query) {
+    $result = mysql_real_escape_string($query);
+    return $result;
+  }
+
 }
 
 $mysql = new mysql($dbuser, $dbpass, $db, $dbhost);
