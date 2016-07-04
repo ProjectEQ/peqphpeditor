@@ -964,7 +964,20 @@ $sp_effects = array(
     455 => "Add Hate Percent",
     456 => "Add Hate Over Time Percent",
     457 => "Resource Tap",
-    458 => "Faction Mod Percent"
+    458 => "Faction Mod Percent",
+    459 => "Damage Modifier 2",
+    460 => "FF Override",
+    461 => "Improved Damage 2",
+    462 => "FC Damage Amount 2",
+    463 => "Shield Target",
+    464 => "Player Pet Rampage",
+    465 => "Player Pet AE Rampage",
+    466 => "Player Pet Flurry Chance",
+    467 => "DS Mitigation Amount",
+    468 => "DS Mitigation Percent",
+    469 => "Chance Best in Spell Group",
+    470 => "Trigger Best in Spell Group",
+    471 => "Double Melee Round"
 );
 
 $sp_fields = array(
