@@ -2,6 +2,8 @@
 
 $default_datetime = 60 * 60 * 24 * 365; //seconds, minutes, hours, days - Currently set to 1 year
 $default_count = 400; //Recipe activity default
+$default_player_count = 20; //Economy player count default
+$default_account_count = 20; //Economy account count default
 
 switch ($action) {
   case 0:
@@ -43,10 +45,33 @@ switch ($action) {
     purge_accounts();
     header("Location: index.php?editor=util&action=3");
     exit;
-  case 5: // View Cash on Accounts
+  case 5: // View Server Economy
     check_admin_authorization();
-    $breadcrumbs .= " >> Cash by Account";
-    $body = new Template("templates/util/util.acctcash.tmpl.php");
+    $breadcrumbs .= " >> Server Economy";
+    $body = new Template("templates/util/util.economy.tmpl.php");
+
+    $cash = get_cash_totals();
+    if ($cash) {
+      $body->set('cash', $cash);
+    }
+
+    $player_count = $default_player_count;
+    if ($_GET['player_count'] > 0) {
+      $player_count = $_GET['player_count'];
+    }
+    $body->set('player_count', $player_count);
+
+    $account_count = $default_account_count;
+    if ($_GET['account_count'] > 0) {
+      $account_count = $_GET['account_count'];
+    }
+    $body->set('account_count', $account_count);
+
+    $richest = get_richest_players($player_count, $account_count);
+    if ($richest) {
+      $body->set('richest', $richest);
+    }
+
     break;
   case 6: // View Recipe Activity
     check_authorization();
@@ -107,4 +132,47 @@ function get_recipe_activity($count) {
 
   return $results;
 }
+
+function get_cash_totals() {
+  global $mysql;
+
+  $query = "SELECT SUM(copper + copper_bank +copper_cursor) AS copper FROM character_currency";
+  $result = $mysql->query_assoc($query);
+  $copper = $result['copper'];
+
+  $query = "SELECT SUM(silver + silver_bank + silver_cursor) AS silver FROM character_currency";
+  $result = $mysql->query_assoc($query);
+  $silver = $result['silver'];
+
+  $query = "SELECT SUM(gold + gold_bank + gold_cursor) AS gold FROM character_currency";
+  $result = $mysql->query_assoc($query);
+  $gold = $result['gold'];
+
+  $query = "SELECT SUM(platinum + platinum_bank + platinum_cursor) AS platinum FROM character_currency";
+  $result = $mysql->query_assoc($query);
+  $platinum = $result['platinum'];
+
+  $query = "SELECT SUM(sharedplat) AS sharedplat FROM account";
+  $result = $mysql->query_assoc($query);
+  $sharedplat = $result['sharedplat'];
+
+  $cash = array("copper" => $copper, "silver" => $silver, "gold" => $gold, "platinum" => $platinum, "sharedplat" => $sharedplat);
+
+  return $cash;
+}
+
+function get_richest_players($player_count, $account_count) {
+  global $mysql;
+
+  $query = "SELECT d.id AS id, SUM(platinum + platinum_bank + platinum_cursor) AS platinum, d.account_id as account_id, sharedplat FROM character_currency AS c JOIN character_data AS d ON c.id = d.id JOIN account AS a ON d.account_id = a.id GROUP BY d.id ORDER BY platinum DESC LIMIT $player_count";
+  $players = $mysql->query_mult_assoc($query);
+
+  $query = "SELECT a.id AS id, sharedplat, SUM(platinum + platinum_bank + platinum_cursor) AS platinum FROM character_currency AS c JOIN character_data AS d ON c.id = d.id JOIN account AS a ON d.account_id = a.id GROUP BY a.id ORDER BY sharedplat DESC LIMIT $account_count";
+  $accounts = $mysql->query_mult_assoc($query);
+
+  $richest = array("players" => $players, "accounts" => $accounts);
+
+  return $richest;
+}
+
 ?>

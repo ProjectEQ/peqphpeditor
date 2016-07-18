@@ -615,33 +615,31 @@
             <legend><strong><font size="4">Deities</font></strong></legend>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
-                <td width="25%">
+                <td width="20%">
+                  <input type="checkbox" name="deities0" <? echo $deities0 ? "checked" : "" ?>> Agnostic<br/>
                   <input type="checkbox" name="deities1" <? echo $deities1 ? "checked" : "" ?>> Bertoxxulous<br/>
                   <input type="checkbox" name="deities2" <? echo $deities2 ? "checked" : "" ?>> Brell Serilis<br/>
+                  <input type="checkbox" name="deities5" <? echo $deities5 ? "checked" : "" ?>> Bristlebane<br/>
+                </td>
+                <td width="20%">
                   <input type="checkbox" name="deities3" <? echo $deities3 ? "checked" : "" ?>> Cazic Thule<br/>
                   <input type="checkbox" name="deities4" <? echo $deities4 ? "checked" : "" ?>> Erollisi Marr<br/>
-                </td>
-                <td width="25%">
-                  <input type="checkbox" name="deities5" <? echo $deities5 ? "checked" : "" ?>> Bristlebane<br/>
                   <input type="checkbox" name="deities6" <? echo $deities6 ? "checked" : "" ?>> Innoruuk<br/>
                   <input type="checkbox" name="deities7" <? echo $deities7 ? "checked" : "" ?>> Karana<br/>
-                  <input type="checkbox" name="deities8" <? echo $deities8 ? "checked" : "" ?>> Mithaniel Marr<br/>
                 </td>
-                <td width="25%">
+                <td width="20%">
+                  <input type="checkbox" name="deities8" <? echo $deities8 ? "checked" : "" ?>> Mithaniel Marr<br/>
                   <input type="checkbox" name="deities9" <? echo $deities9 ? "checked" : "" ?>> Prexus<br/>
                   <input type="checkbox" name="deities10" <? echo $deities10 ? "checked" : "" ?>> Quellious<br/>
                   <input type="checkbox" name="deities11" <? echo $deities11 ? "checked" : "" ?>> Rallos Zek<br/>
-                  <input type="checkbox" name="deities12" <? echo $deities12 ? "checked" : "" ?>> Rodcet Nife<br/>
                 </td>
-                <td width="25%">
+                <td width="20%">
+                  <input type="checkbox" name="deities12" <? echo $deities12 ? "checked" : "" ?>> Rodcet Nife<br/>
                   <input type="checkbox" name="deities13" <? echo $deities13 ? "checked" : "" ?>> Solusek Ro<br/>
                   <input type="checkbox" name="deities14" <? echo $deities14 ? "checked" : "" ?>> The Tribunal<br/>
                   <input type="checkbox" name="deities15" <? echo $deities15 ? "checked" : "" ?>> Tunare<br/>
-                  <input type="checkbox" name="deities16" <? echo $deities16 ? "checked" : "" ?>> Veeshan<br/>
                 </td>
-              </tr>
-              <tr>
-                <td colspan="4" align="center"><input type="checkbox" name="deities0" <? echo $deities0 ? "checked" : "" ?>> Deities0</td>
+                <td width="20%"><input type="checkbox" name="deities16" <? echo $deities16 ? "checked" : "" ?>> Veeshan</td>
               </tr>
             </table>
           </fieldset><br/>

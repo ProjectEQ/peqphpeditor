@@ -981,241 +981,241 @@ $sp_effects = array(
 );
 
 $sp_fields = array(
-    "name",
-    "player_1",
-    "teleport_zone",
-    "you_cast",
-    "other_casts",
-    "cast_on_you",
-    "cast_on_other",
-    "spell_fades",
-    "`range`",
-    "aoerange",
-    "pushback",
-    "pushup",
-    "cast_time",
-    "recovery_time",
-    "recast_time",
-    "buffdurationformula",
-    "buffduration",
-    "AEDuration",
-    "mana",
-    "effect_base_value1",
-    "effect_base_value2",
-    "effect_base_value3",
-    "effect_base_value4",
-    "effect_base_value5",
-    "effect_base_value6",
-    "effect_base_value7",
-    "effect_base_value8",
-    "effect_base_value9",
-    "effect_base_value10",
-    "effect_base_value11",
-    "effect_base_value12",
-    "effect_limit_value1",
-    "effect_limit_value2",
-    "effect_limit_value3",
-    "effect_limit_value4",
-    "effect_limit_value5",
-    "effect_limit_value6",
-    "effect_limit_value7",
-    "effect_limit_value8",
-    "effect_limit_value9",
-    "effect_limit_value10",
-    "effect_limit_value11",
-    "effect_limit_value12",
-    "max1",
-    "max2",
-    "max3",
-    "max4",
-    "max5",
-    "max6",
-    "max7",
-    "max8",
-    "max9",
-    "max10",
-    "max11",
-    "max12",
-    "icon",
-    "memicon",
-    "components1",
-    "components2",
-    "components3",
-    "components4",
-    "component_counts1",
-    "component_counts2",
-    "component_counts3",
-    "component_counts4",
-    "NoexpendReagent1",
-    "NoexpendReagent2",
-    "NoexpendReagent3",
-    "NoexpendReagent4",
-    "formula1",
-    "formula2",
-    "formula3",
-    "formula4",
-    "formula5",
-    "formula6",
-    "formula7",
-    "formula8",
-    "formula9",
-    "formula10",
-    "formula11",
-    "formula12",
-    "LightType",
-    "goodEffect",
-    "Activated",
-    "resisttype",
-    "effectid1",
-    "effectid2",
-    "effectid3",
-    "effectid4",
-    "effectid5",
-    "effectid6",
-    "effectid7",
-    "effectid8",
-    "effectid9",
-    "effectid10",
-    "effectid11",
-    "effectid12",
-    "targettype",
-    "basediff",
-    "skill",
-    "zonetype",
-    "EnvironmentType",
-    "TimeOfDay",
-    "classes1",
-    "classes2",
-    "classes3",
-    "classes4",
-    "classes5",
-    "classes6",
-    "classes7",
-    "classes8",
-    "classes9",
-    "classes10",
-    "classes11",
-    "classes12",
-    "classes13",
-    "classes14",
-    "classes15",
-    "classes16",
-    "CastingAnim",
-    "TargetAnim",
-    "TravelType",
-    "SpellAffectIndex",
-    "disallow_sit",
-    "deities0",
-    "deities1",
-    "deities2",
-    "deities3",
-    "deities4",
-    "deities5",
-    "deities6",
-    "deities7",
-    "deities8",
-    "deities9",
-    "deities10",
-    "deities11",
-    "deities12",
-    "deities13",
-    "deities14",
-    "deities15",
-    "deities16",
-    "field142",
-    "field143",
-    "new_icon",
-    "spellanim",
-    "uninterruptable",
-    "ResistDiff",
-    "dot_stacking_exempt",
-    "deleteable",
-    "RecourseLink",
-    "no_partial_resist",
-    "field152",
-    "field153",
-    "short_buff_box",
-    "descnum",
-    "typedescnum",
-    "effectdescnum",
-    "effectdescnum2",
-    "npc_no_los",
-    "field160",
-    "reflectable",
-    "bonushate",
-    "field163",
-    "field164",
-    "ldon_trap",
-    "EndurCost",
-    "EndurTimerIndex",
-    "IsDiscipline",
-    "field169",
-    "field170",
-    "field171",
-    "field172",
-    "HateAdded",
-    "EndurUpkeep",
-    "numhitstype",
-    "numhits",
-    "pvpresistbase",
-    "pvpresistcalc",
-    "pvpresistcap",
-    "spell_category",
-    "field181",
-    "field182",
-    "field183",
-    "field184",
-    "can_mgb",
-    "nodispell",
-    "npc_category",
-    "npc_usefulness",
-    "MinResist",
-    "MaxResist",
-    "viral_targets",
-    "viral_timer",
-    "nimbuseffect",
-    "ConeStartAngle",
-    "ConeStopAngle",
-    "sneaking",
-    "not_extendable",
-    "field198",
-    "field199",
-    "suspendable",
-    "viral_range",
-    "songcap",
-    "field203",
-    "field204",
-    "no_block",
-    "field206",
-    "spellgroup",
-    "rank",
-    "field209",
-    "field210",
-    "CastRestriction",
-    "allowrest",
-    "InCombat",
-    "OutofCombat",
-    "field215",
-    "field216",
-    "field217",
-    "aemaxtargets",
-    "maxtargets",
-    "field220",
-    "field221",
-    "field222",
-    "field223",
-    "persistdeath",
-    "field225",
-    "field226",
-    "min_dist",
-    "min_dist_mod",
-    "max_dist",
-    "max_dist_mod",
-    "min_range",
-    "field232",
-    "field233",
-    "field234",
-    "field235",
-    "field236"
+    "name",                 //SPELLNAME
+    "player_1",             //ACTORTAG
+    "teleport_zone",        //NPC_FILENAME
+    "you_cast",             //CASTERMETXT
+    "other_casts",          //CASTEROTHERTXT
+    "cast_on_you",          //CASTEDMETXT
+    "cast_on_other",        //CASTEDOTHERTXT
+    "spell_fades",          //SPELLGONE
+    "`range`",              //RANGE
+    "aoerange",             //IMPACTRANGE
+    "pushback",             //OUTFORCE
+    "pushup",               //UPFORCE
+    "cast_time",            //CASTINGTIME
+    "recovery_time",        //RECOVERYDELAY
+    "recast_time",          //SPELLDELAY
+    "buffdurationformula",  //DURATIONBASE
+    "buffduration",         //DURATIONCAP
+    "AEDuration",           //IMPACTDURATION
+    "mana",                 //MANACOST
+    "effect_base_value1",   //BASEAFFECT1
+    "effect_base_value2",   //BASEAFFECT2
+    "effect_base_value3",   //BASEAFFECT3
+    "effect_base_value4",   //BASEAFFECT4
+    "effect_base_value5",   //BASEAFFECT5
+    "effect_base_value6",   //BASEAFFECT6
+    "effect_base_value7",   //BASEAFFECT7
+    "effect_base_value8",   //BASEAFFECT8
+    "effect_base_value9",   //BASEAFFECT9
+    "effect_base_value10",  //BASEAFFECT10
+    "effect_base_value11",  //BASEAFFECT11
+    "effect_base_value12",  //BASEAFFECT12
+    "effect_limit_value1",  //BASE_EFFECT2_1
+    "effect_limit_value2",  //BASE_EFFECT2_2
+    "effect_limit_value3",  //BASE_EFFECT2_3
+    "effect_limit_value4",  //BASE_EFFECT2_4
+    "effect_limit_value5",  //BASE_EFFECT2_5
+    "effect_limit_value6",  //BASE_EFFECT2_6
+    "effect_limit_value7",  //BASE_EFFECT2_7
+    "effect_limit_value8",  //BASE_EFFECT2_8
+    "effect_limit_value9",  //BASE_EFFECT2_9
+    "effect_limit_value10", //BASE_EFFECT2_10
+    "effect_limit_value11", //BASE_EFFECT2_11
+    "effect_limit_value12", //BASE_EFFECT2_12
+    "max1",                 //AFFECT1CAP
+    "max2",                 //AFFECT2CAP
+    "max3",                 //AFFECT3CAP
+    "max4",                 //AFFECT4CAP
+    "max5",                 //AFFECT5CAP
+    "max6",                 //AFFECT6CAP
+    "max7",                 //AFFECT7CAP
+    "max8",                 //AFFECT8CAP
+    "max9",                 //AFFECT9CAP
+    "max10",                //AFFECT10CAP
+    "max11",                //AFFECT11CAP
+    "max12",                //AFFECT12CAP
+    "icon",                 //IMAGENUMBER
+    "memicon",              //MEMIMAGENUMBER
+    "components1",          //EXPENDREAGENT1
+    "components2",          //EXPENDREAGENT2
+    "components3",          //EXPENDREAGENT3
+    "components4",          //EXPENDREAGENT4
+    "component_counts1",    //EXPENDQTY1
+    "component_counts2",    //EXPENDQTY2
+    "component_counts3",    //EXPENDQTY3
+    "component_counts4",    //EXPENDQTY4
+    "NoexpendReagent1",     //NOEXPENDREAGENT1
+    "NoexpendReagent2",     //NOEXPENDREAGENT2
+    "NoexpendReagent3",     //NOEXPENDREAGENT3
+    "NoexpendReagent4",     //NOEXPENDREAGENT4
+    "formula1",             //LEVELAFFECT1MOD
+    "formula2",             //LEVELAFFECT2MOD
+    "formula3",             //LEVELAFFECT3MOD
+    "formula4",             //LEVELAFFECT4MOD
+    "formula5",             //LEVELAFFECT5MOD
+    "formula6",             //LEVELAFFECT6MOD
+    "formula7",             //LEVELAFFECT7MOD
+    "formula8",             //LEVELAFFECT8MOD
+    "formula9",             //LEVELAFFECT9MOD
+    "formula10",            //LEVELAFFECT10MOD
+    "formula11",            //LEVELAFFECT11MOD
+    "formula12",            //LEVELAFFECT12MOD
+    "LightType",            //LIGHTTYPE
+    "goodEffect",           //BENEFICIAL
+    "Activated",            //ACTIVATED
+    "resisttype",           //RESISTTYPE
+    "effectid1",            //SPELLAFFECT1
+    "effectid2",            //SPELLAFFECT2
+    "effectid3",            //SPELLAFFECT3
+    "effectid4",            //SPELLAFFECT4
+    "effectid5",            //SPELLAFFECT5
+    "effectid6",            //SPELLAFFECT6
+    "effectid7",            //SPELLAFFECT7
+    "effectid8",            //SPELLAFFECT8
+    "effectid9",            //SPELLAFFECT9
+    "effectid10",           //SPELLAFFECT10
+    "effectid11",           //SPELLAFFECT11
+    "effectid12",           //SPELLAFFECT12
+    "targettype",           //TYPENUMBER
+    "basediff",             //BASEDIFFICULTY
+    "skill",                //CASTINGSKILL
+    "zonetype",             //ZONETYPE
+    "EnvironmentType",      //ENVIRONMENTTYPE
+    "TimeOfDay",            //TIMEOFDAY
+    "classes1",             //WARRIORMIN
+    "classes2",             //CLERICMIN
+    "classes3",             //PALADINMIN
+    "classes4",             //RANGERMIN
+    "classes5",             //SHADOWKNIGHTMIN
+    "classes6",             //DRUIDMIN
+    "classes7",             //MONKMIN
+    "classes8",             //BARDMIN
+    "classes9",             //ROGUEMIN
+    "classes10",            //SHAMANMIN
+    "classes11",            //NECROMANCERMIN
+    "classes12",            //WIZARDMIN
+    "classes13",            //MAGICIANMIN
+    "classes14",            //ENCHANTERMIN
+    "classes15",            //BEASTLORDMIN
+    "classes16",            //BERSERKERMIN
+    "CastingAnim",          //CASTINGANIM
+    "TargetAnim",           //TARGETANIM
+    "TravelType",           //TRAVELTYPE
+    "SpellAffectIndex",     //SPELLAFFECTINDEX
+    "disallow_sit",         //CANCELONSIT
+    "deities0",             //DIETY_AGNOSTIC
+    "deities1",             //DIETY_BERTOXXULOUS
+    "deities2",             //DIETY_BRELLSIRILIS
+    "deities3",             //DIETY_CAZICTHULE
+    "deities4",             //DIETY_EROLLISIMARR
+    "deities5",             //DIETY_BRISTLEBANE
+    "deities6",             //DIETY_INNORUUK
+    "deities7",             //DIETY_KARANA
+    "deities8",             //DIETY_MITHANIELMARR
+    "deities9",             //DIETY_PREXUS
+    "deities10",            //DIETY_QUELLIOUS
+    "deities11",            //DIETY_RALLOSZEK
+    "deities12",            //DIETY_RODCETNIFE
+    "deities13",            //DIETY_SOLUSEKRO
+    "deities14",            //DIETY_THETRIBUNAL
+    "deities15",            //DIETY_TUNARE
+    "deities16",            //DIETY_VEESHAN
+    "field142",             //NPC_NO_CAST
+    "field143",             //AI_PT_BONUS
+    "new_icon",             //NEW_ICON
+    "spellanim",            //SPELL_EFFECT_INDEX
+    "uninterruptable",      //NO_INTERRUPT
+    "ResistDiff",           //RESIST_MOD
+    "dot_stacking_exempt",  //NOT_STACKABLE_DOT
+    "deleteable",           //DELETE_OK
+    "RecourseLink",         //REFLECT_SPELLINDEX
+    "no_partial_resist",    //NO_PARTIAL_SAVE
+    "field152",             //SMALL_TARGETS_ONLY
+    "field153",             //USES_PERSISTENT_PARTICLES
+    "short_buff_box",       //BARD_BUFF_BOX
+    "descnum",              //DESCRIPTION_INDEX
+    "typedescnum",          //PRIMARY_CATEGORY
+    "effectdescnum",        //SECONDARY_CATEGORY_1
+    "effectdescnum2",       //SECONDARY_CATEGORY_2
+    "npc_no_los",           //NO_NPC_LOS
+    "field160",             //FEEDBACKABLE
+    "reflectable",          //REFLECTABLE
+    "bonushate",            //HATE_MOD
+    "field163",             //RESIST_PER_LEVEL
+    "field164",             //RESIST_CAP
+    "ldon_trap",            //AFFECT_INANIMATE
+    "EndurCost",            //STAMINA_COST
+    "EndurTimerIndex",      //TIMER_INDEX
+    "IsDiscipline",         //IS_SKILL
+    "field169",             //ATTACK_OPENING
+    "field170",             //DEFENSE_OPENING
+    "field171",             //SKILL_OPENING
+    "field172",             //NPC_ERROR_OPENING
+    "HateAdded",            //SPELL_HATE_GIVEN
+    "EndurUpkeep",          //ENDUR_UPKEEP
+    "numhitstype",          //LIMITED_USE_TYPE
+    "numhits",              //LIMITED_USE_COUNT
+    "pvpresistbase",        //PVP_RESIST_MOD
+    "pvpresistcalc",        //PVP_RESIST_PER_LEVEL
+    "pvpresistcap",         //PVP_RESIST_CAP
+    "spell_category",       //GLOBAL_GROUP
+    "field181",             //PVP_DURATION
+    "field182",             //PVP_DURATION_CAP
+    "field183",             //PCNPC_ONLY_FLAG
+    "field184",             //CAST_NOT_STANDING
+    "can_mgb",              //CAN_MGB
+    "nodispell",            //NO_DISPELL
+    "npc_category",         //NPC_MEM_CATEGORY
+    "npc_usefulness",       //NPC_USEFULNESS
+    "MinResist",            //MIN_RESIST
+    "MaxResist",            //MAX_RESIST
+    "viral_targets",        //MIN_SPREAD_TIME
+    "viral_timer",          //MAX_SPREAD_TIME
+    "nimbuseffect",         //DURATION_PARTICLE_EFFECT
+    "ConeStartAngle",       //CONE_START_ANGLE
+    "ConeStopAngle",        //CONE_END_ANGLE
+    "sneaking",             //SNEAK_ATTACK
+    "not_extendable",       //NOT_FOCUSABLE
+    "field198",             //NO_DETRIMENTAL_SPELL_AGGRO
+    "field199",             //SHOW_WEAR_OFF_MESSAGE
+    "suspendable",          //IS_COUNTDOWN_HELD
+    "viral_range",          //SPREAD_RADIUS
+    "songcap",              //BASE_EFFECTS_FOCUS_CAP
+    "field203",             //STACKS_WITH_SELF
+    "field204",             //NOT_SHOWN_TO_PLAYER
+    "no_block",             //NO_BUFF_BLOCK
+    "field206",             //ANIM_VARIATION
+    "spellgroup",           //SPELL_GROUP
+    "rank",                 //SPELL_GROUP_RANK
+    "field209",             //NO_RESIST
+    "field210",             //ALLOW_SPELLSCRIBE
+    "CastRestriction",      //SPELL_REQ_ASSOCIATION_ID
+    "allowrest",            //BYPASS_REGEN_CHECK
+    "InCombat",             //CAN_CAST_IN_COMBAT
+    "OutofCombat",          //CAN_CAST_OUT_OF_COMBAT
+    "field215",             //SHOW_DOT_MESSAGE
+    "field216",             //INVALID
+    "field217",             //OVERRIDE_CRIT_CHANCE
+    "aemaxtargets",         //MAX_TARGETS
+    "maxtargets",           //NO_HEAL_DAMAGE_ITEM_MOD
+    "field220",             //CASTER_REQUIREMENT_ID
+    "field221",             //SPELL_CLASS
+    "field222",             //SPELL_SUBCLASS
+    "field223",             //AI_VALID_TARGETS
+    "persistdeath",         //NO_STRIP_ON_DEATH
+    "field225",             //BASE_EFFECTS_FOCUS_SLOPE
+    "field226",             //BASE_EFFECTS_FOCUS_OFFSET
+    "min_dist",             //DISTANCE_MOD_CLOSE_DIST
+    "min_dist_mod",         //DISTANCE_MOD_CLOSE_MULT
+    "max_dist",             //DISTANCE_MOD_FAR_DIST
+    "max_dist_mod",         //DISTANCE_MOD_FAR_MULT
+    "min_range",            //MIN_RANGE
+    "field232",             //NO_REMOVE
+    "field233",             //SPELL_RECOURSE_TYPE
+    "field234",             //ONLY_DURING_FAST_REGEN
+    "field235",             //IS_BETA_ONLY
+    "field236"              //SPELL_SUBGROUP
 );
 ?>
