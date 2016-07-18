@@ -11,7 +11,7 @@
         <tr>
           <td class="edit_form_content">
             <fieldset>
-              <legend><strong>Cash Totals</strong></legend>
+              <legend><strong>Total Cash</strong></legend>
               <table class="edit_form_content" width="100%">
                 <tr>
                   <th>Copper</th>
@@ -32,13 +32,11 @@
           </td>
         </tr>
       </table>
-    </div>
-    <div class="table_content">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <td class="edit_form_content">
             <fieldset>
-              <legend><strong>Top <?=$player_count;?> Richest Players by Platinum</strong></legend>
+              <legend><strong>Top <span id="player_count_span"><a id="player_count" onClick="editPlayerCount(<?=$player_count;?>);" title="Click to change"><?=$player_count;?></a></span> Richest Players by Platinum</strong></legend>
               <table class="edit_form_content" width="100%">
                 <tr>
                   <th>Player ID</th>
@@ -65,13 +63,11 @@
           </td>
         </tr>
       </table>
-    </div>
-    <div class="table_content">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <td class="edit_form_content">
             <fieldset>
-              <legend><strong>Top <?=$account_count;?> Richest Accounts by Shared Platinum</strong></legend>
+              <legend><strong>Top <span id="account_count_span"><a id="account_count" onClick="editAccountCount(<?=$account_count;?>);" title="Click to change"><?=$account_count;?></a></span> Richest Accounts by Shared Platinum</strong></legend>
               <table class="edit_form_content" width="100%">
                 <tr>
                   <th>Account ID</th>

@@ -46,11 +46,37 @@
 
     function verifyCount() {
       var newCount = document.getElementById("new_count").value;
-      if (parseInt(newCount) >= 0) {
+      if (parseInt(newCount) >= 1) {
         window.location = "index.php?editor=util&action=6&count=" + newCount;
       }
       else {
-        alert("That is not a valid number!");
+        alert("That is not a valid entry!");
+      }
+    }
+
+    function editPlayerCount(oldCount) {
+      document.getElementById("player_count_span").innerHTML = "<input id='newCount' type='number' size='3' value='" + oldCount + "'> <input type='button' value='Update' onClick='updatePlayerCount(document.getElementById(\"newCount\").value);'> <input type='button' value='Cancel' onClick='window.location.reload();'>";
+    }
+
+    function updatePlayerCount(newCount) {
+      if (parseInt(newCount) >= 1) {
+        window.location = "index.php?editor=util&action=5&account_count=" + document.getElementById("account_count").innerHTML + "&player_count=" + newCount;
+      }
+      else {
+        alert("That is not a valid entry!");
+      }
+    }
+
+    function editAccountCount(oldCount) {
+      document.getElementById("account_count_span").innerHTML = "<input id='newCount' type='number' size='3' value='" + oldCount + "'> <input type='button' value='Update' onClick='updateAccountCount(document.getElementById(\"newCount\").value);'> <input type='button' value='Cancel' onClick='window.location.reload();'>";
+    }
+
+    function updateAccountCount(newCount) {
+      if (parseInt(newCount) >= 1) {
+        window.location = "index.php?editor=util&action=5&player_count=" + document.getElementById("player_count").innerHTML + "&account_count=" + newCount;
+      }
+      else {
+        alert("That is not a valid entry!");
       }
     }
 

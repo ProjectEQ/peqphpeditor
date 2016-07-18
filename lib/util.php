@@ -48,6 +48,7 @@ switch ($action) {
   case 5: // View Server Economy
     check_admin_authorization();
     $breadcrumbs .= " >> Server Economy";
+    $javascript = new Template("templates/util/js.tmpl.php");
     $body = new Template("templates/util/util.economy.tmpl.php");
 
     $cash = get_cash_totals();
