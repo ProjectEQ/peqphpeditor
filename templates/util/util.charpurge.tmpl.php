@@ -3,7 +3,8 @@
       <div class="table_header">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
-            <td align="left" width="100%">Character Purge - Not logged in since <?=get_real_time(time() - $datetime)?></td>
+            <td align="left">Character Purge - Not logged in since <?=get_real_time(time() - $datetime)?></td>
+            <td align="right">Limited to <?=$purge_count;?></td>
           </tr>
         </table>
       </div>

@@ -3,7 +3,8 @@
       <div class="table_header">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
-            <td align="left" width="100%">Account Purge - Empty Accounts</td>
+            <td align="left">Account Purge - Empty Accounts</td>
+            <td align="right">Limited to <?=$purge_count;?>
           </tr>
         </table>
       </div>

@@ -4,6 +4,7 @@ $default_datetime = 60 * 60 * 24 * 365; //seconds, minutes, hours, days - Curren
 $default_count = 400; //Recipe activity default
 $default_player_count = 20; //Economy player count default
 $default_account_count = 20; //Economy account count default
+$default_purge_count = 100; //Purge count default
 
 switch ($action) {
   case 0:
@@ -20,7 +21,9 @@ switch ($action) {
       $datetime = $_GET['datetime'];
     }
     $body->set('datetime', $datetime);
-    $characters = get_old_characters($datetime);
+    $purge_count = $default_purge_count;
+    $body->set('purge_count', $purge_count);
+    $characters = get_old_characters($datetime, $purge_count);
     if ($characters) {
       $body->set('characters', $characters);
     }
@@ -35,7 +38,9 @@ switch ($action) {
     $breadcrumbs .= " >> Account Purge";
     $javascript = new Template("templates/util/js.tmpl.php");
     $body = new Template("templates/util/util.acctpurge.tmpl.php");
-    $accounts = get_empty_accounts();
+    $purge_count = $default_purge_count;
+    $body->set('purge_count', $purge_count);
+    $accounts = get_empty_accounts($purge_count);
     if ($accounts) {
       $body->set('accounts', $accounts);
     }
@@ -91,10 +96,10 @@ switch ($action) {
     break;
 }
 
-function get_old_characters($datetime) {
+function get_old_characters($datetime, $purge_count) {
   global $mysql;
 
-  $query = "SELECT id, account_id, last_login FROM character_data WHERE last_login < (UNIX_TIMESTAMP() - $datetime) ORDER BY last_login, id LIMIT 500";
+  $query = "SELECT id, account_id, last_login FROM character_data WHERE last_login < (UNIX_TIMESTAMP() - $datetime) ORDER BY last_login, id LIMIT $purge_count";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
@@ -108,10 +113,10 @@ function purge_characters() {
   }
 }
 
-function get_empty_accounts() {
+function get_empty_accounts($purge_count) {
   global $mysql;
 
-  $query = "SELECT id FROM account WHERE id NOT IN (SELECT account_id FROM character_data GROUP BY account_id) ORDER BY id LIMIT 500";
+  $query = "SELECT id FROM account WHERE id NOT IN (SELECT account_id FROM character_data GROUP BY account_id) ORDER BY id LIMIT $purge_count";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
