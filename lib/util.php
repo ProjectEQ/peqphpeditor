@@ -10,6 +10,8 @@ switch ($action) {
   case 0:
     check_authorization();
     $body = new Template("templates/util/util.default.tmpl.php");
+    $accounts = get_total_accounts();
+    $body->set('accounts', $accounts);
     break;
   case 1: // View Old Characters
     check_admin_authorization();
@@ -179,6 +181,15 @@ function get_richest_players($player_count, $account_count) {
   $richest = array("players" => $players, "accounts" => $accounts);
 
   return $richest;
+}
+
+function get_total_accounts() {
+  global $mysql;
+
+  $query = "SELECT COUNT(id) AS total FROM account";
+  $result = $mysql->query_assoc($query);
+
+  return $result['total'];
 }
 
 ?>
