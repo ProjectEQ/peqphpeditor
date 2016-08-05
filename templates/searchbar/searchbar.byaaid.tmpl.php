@@ -10,11 +10,11 @@
 <? endforeach;?>
               </select>
             </td>
-            <td align="right"> or <strong>&nbsp;2.</strong>
+            <td align="right"> or enter the <strong>&nbsp;2.</strong>
               <form action="index.php" method="GET">
                 <input type="hidden" name="editor" value="aa">
                 <input type="hidden" name="action" value="1">
-                <input type="text" name="aaid" size="5" value="ID" onFocus="clearField(document.forms[0].aaid);document.forms[0].search.value='AA Name';"> or <input type="text" name="search" size="12" value="AA Name" onFocus="clearField(document.forms[0].search);document.forms[0].aaid.value='ID';">
+                <input type="text" name="aaid" size="5" value="AA ID" onFocus="clearField(document.forms[0].aaid);document.forms[0].search.value='AA Name';"> or <input type="text" name="search" size="12" value="AA Name" onFocus="clearField(document.forms[0].search);document.forms[0].aaid.value='AA ID';">
                 <input type="submit" value=" GO ">
               </form>
             </td>
@@ -22,10 +22,18 @@
         </table>
         <table width="100%">
           <tr>
-          <td align="right"> or <strong>&nbsp;3.</strong> Limit by
+          <td align="left">&nbsp;or <strong>&nbsp;3.</strong> Search by
             <form action="index.php" method="GET">
               <input type="hidden" name="editor" value="aa">
-              <input type="hidden" name="action" value="28">
+              <input type="hidden" name="action" value="2">
+              <input type="text" name="spa" size="5" value="SPA ID" onfocus="clearField(document.forms[1].spa);">&nbsp;
+              <input type="submit" value=" GO ">
+            </form>
+          </td>
+          <td align="right"> or <strong>&nbsp;4.</strong> Limit by
+            <form action="index.php" method="GET">
+              <input type="hidden" name="editor" value="aa">
+              <input type="hidden" name="action" value="3">
               <select name="exp">
                 <option value="-1">All Expansions</option>
               <? for ($i=0; isset($eqexpansions[$i+1]); $i++) {?>

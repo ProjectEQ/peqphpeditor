@@ -36,26 +36,18 @@
     }
   }
 ?>
-  <div class="table_container" style="width:650px;">
-    <div class="table_header">AA Search Results</div>
+  <div class="table_container" style="width:350px;">
+    <div class="table_header">AA Search Results for Spell Effect: <?=$spa_name?> (<?=$spa_id?>)</div>
 <?if($results):?>
     <table class="table_content2" width="100%">
       <tr>
-        <th width="7%" align="center">ID</th>
-        <th width="7%" align="center">Seq</th>
-        <th width="25%" align="center">Name</th>
-        <th width="7%" align="center">Prereq</th>
-        <th width="25%" align="center">Classes</th>
-        <th width="20%" align="center">Expansion</th>
+        <th align="center">ID</th>
+        <th align="center">Name</th>
       </tr>
-<? $x=0; foreach($results as $result): extract($result);?>
+<? $x=0; foreach($results as $k=>$v):?>
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "CCCCCC" : "AAAAAA"; $x++;?>">
-        <td align="center"><?=$skill_id?></td>
-        <td align="center"></td>
-        <td align="center"><a href="index.php?editor=aa&aaid=<?=$skill_id?>"><?=$name?></a></td>
-        <td align="center"><?=$prereq_skill?></td>
-        <td align="center"><?=getClasses($classes, $berserker);?></td>
-        <td align="center"><?=getExpansionName($aa_expansion);?></td>
+        <td align="center"><a href="index.php?editor=aa&aaid=<?=$v?>"><?=$v?></a></td>
+        <td align="center"><a href="index.php?editor=aa&aaid=<?=$v?>"><?echo getAAName($v);?></a></td>
       </tr>
 <?endforeach;?>
     </table>

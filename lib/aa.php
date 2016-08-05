@@ -28,7 +28,6 @@ $aa_type = array (
 
 switch ($action) {
   case 0: //View AA
-    check_authorization();
     if (isset($aaid) && $aaid >= 0) {
       $body = new Template("templates/aa/aa.tmpl.php");
       $javascript = new Template("templates/aa/js.tmpl.php");
@@ -49,27 +48,43 @@ switch ($action) {
       $body = new Template("templates/aa/aa.default.tmpl.php");
     }
     break;
-  case 1: //Search AAs
-  case 2: //Add AA
-  case 3: //Insert AA
-  case 4: //Add AA Rank
-  case 5: //Insert AA Rank
-  case 6: //Add AA Effect
-  case 7: //Insert AA Effect
-  case 8: //Add Prerequisite AA
-  case 9: //Insert Prerequisite AA
-  case 10: //Edit AA
-  case 11: //Update AA
-  case 12: //Edit AA Rank
-  case 13: //Update AA Rank
-  case 14: //Edit AA Effect
-  case 15: //Update AA Effect
-  case 16: //Edit Prerequisite AA
-  case 17: //Update Prerequisite AA
-  case 18: //Delete AA
-  case 19: //Delete AA Rank
-  case 20: //Delete AA Effect
-  case 21: //Delete Prerequiste AA
+  case 1: //Search AAs by ID or Name
+  case 2: //Search AAs by SPA
+    if (isset($_GET['spa']) && ($_GET['spa'] > 0)) {
+      $body = new Template("templates/aa/aa.searchresults.tmpl.php");
+      $results = getAAsBySPA($_GET['spa']);
+      if ($results) {
+        $body->set('results', $results);
+        $body->set('spa_id', $_GET['spa']);
+        $body->set('spa_name', $sp_effects[$_GET['spa']]);
+      }
+    }
+    else {
+      header("Location: index.php?editor=aa");
+      exit;
+    }
+    break;
+  case 3: //Search AAs by Expansion and Class
+  case 4: //Add AA
+  case 5: //Insert AA
+  case 6: //Add AA Rank
+  case 7: //Insert AA Rank
+  case 8: //Add AA Effect
+  case 9: //Insert AA Effect
+  case 10: //Add Prerequisite AA
+  case 11: //Insert Prerequisite AA
+  case 12: //Edit AA
+  case 13: //Update AA
+  case 14: //Edit AA Rank
+  case 15: //Update AA Rank
+  case 16: //Edit AA Effect
+  case 17: //Update AA Effect
+  case 18: //Edit Prerequisite AA
+  case 19: //Update Prerequisite AA
+  case 20: //Delete AA
+  case 21: //Delete AA Rank
+  case 22: //Delete AA Effect
+  case 23: //Delete Prerequiste AA
     header("Location: index.php?editor=aa");
     exit;
 }
@@ -153,6 +168,41 @@ function aa_info() {
   else {
     return null;
   }
+}
+
+function getAAsBySPA($spa) {
+  global $mysql;
+  $results = array();
+
+  $query = "SELECT id FROM spells_new WHERE $spa IN (effectid1, effectid2, effectid3, effectid4, effectid5, effectid6, effectid7, effectid8, effectid9, effectid10, effectid11, effectid12)";
+  $spells = $mysql->query_mult_assoc($query);
+
+  if ($spells) {
+    foreach ($spells as $spell) {
+      $spell_id = $spell['id'];
+
+      $query = "SELECT id FROM aa_ranks WHERE spell=$spell_id";
+      $ranks = $mysql->query_mult_assoc($query);
+
+      if ($ranks) {
+        foreach ($ranks as $rank) {
+          $rank_id = $rank['id'];
+
+          $query = "SELECT id FROM aa_ability WHERE first_rank_id = $rank_id";
+          $abilities = $mysql->query_mult_assoc($query);
+
+          if ($abilities) {
+            foreach ($abilities as $ability) {
+              array_push($results, $ability['id']);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  asort($results);
+  return $results;    
 }
 
 ?>
