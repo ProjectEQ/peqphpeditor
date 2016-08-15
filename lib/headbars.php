@@ -202,6 +202,7 @@ function build_tabs () {
   $tabstatus21 = "off";
   $tabstatus22 = "off";
   $tabstatus23 = "off";
+  $tabstatus24 = "off";
 
   $zoneurl = "";
   $npcurl = "";
@@ -286,6 +287,9 @@ function build_tabs () {
     case 'keys':
       $tabstatus23 = "on";
       break;
+    case 'quest':
+      $tabstatus24 = "on";
+      break;
   }
 
   $admin = '';
@@ -318,7 +322,8 @@ function build_tabs () {
         <div class=\"$tabstatus20\"><a href=\"index.php?editor=util\">Utilities</a></div>
         <div class=\"$tabstatus21\"><a href=\"index.php?editor=altcur\">Alt Curr</a></div>
         <div class=\"$tabstatus22\"><a href=\"index.php?editor=inv\">Inventory</a></div>
-        <div class=\"$tabstatus23\"><a href=\"index.php?editor=keys\">Keys</a></div><br/>
+        <div class=\"$tabstatus23\"><a href=\"index.php?editor=keys\">Keys</a></div><br/><br/>
+        <div class=\"$tabstatus24\"><a href=\"index.php?editor=quest\">Quests</a></div>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br/><br/>
       </div>
 ";

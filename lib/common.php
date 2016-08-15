@@ -183,6 +183,7 @@ function get_zone_by_npcid($npcid) {
 
   $query = "SELECT short_name FROM zone WHERE zoneidnumber=\"$npczone\"";
   $result = $mysql->query_assoc($query);
+
   return $result['short_name'];
 }
 

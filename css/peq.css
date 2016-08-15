@@ -93,10 +93,9 @@ table {
   line-height: 12px;
   font-size: 12px;
   border: 1px solid black;
-  height: 18px;
+  height: 17px;
   background: #CCC;
   z-index: inherit;
-  border-bottom: none;
 }
 
 #menubar .on2 {
