@@ -38,6 +38,7 @@ switch ($action) {
       $body->set('sp_spelltypes', $sp_spelltypes); //This is still wrong
       $body->set('aa_type', $aa_type);
       $body->set('aa_category', $aa_category);
+      $body->set('aas', $aas);
       if ($aa_info) {
         foreach ($aa_info as $key => $value) {
           $body->set($key, $value);

@@ -14,9 +14,15 @@
               &nbsp; and &nbsp;
               <select OnChange="gotosite(this.options[this.selectedIndex].value)">
                 <option value="">Select an NPC</option>
-<?php foreach ($npcs as $npc): ?>
+<?
+  if ($npcs) {
+    foreach ($npcs as $npc) {
+?>
                 <option value="index.php?editor=<?=$curreditor?>&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npc['id']?>"<?php if ($currnpc == $npc['id']): ?> selected<?php endif;?>><?=$npc['name']?></option>
-<?php endforeach;?>
+<?
+    }
+  }
+?>
               </select>
             </td>
             <td align="right"> or <strong>&nbsp;2.</strong>

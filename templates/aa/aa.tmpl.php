@@ -309,12 +309,12 @@ if ($ranks) {
                           </td>
                         </tr>
                       </table>
-                    <center>
-                      <br/>
-                      <input type="button" value="Update Rank" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">&nbsp;&nbsp;
-                      <input type="button" value="Delete Rank" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">&nbsp;&nbsp;
-                      <input type="button" value="Reset Values" style="width: 150px;" onClick="window.location.reload();">
-                    </center>
+                      <center>
+                        <br/>
+                        <input type="button" value="Update Rank" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">&nbsp;&nbsp;
+                        <input type="button" value="Delete Rank" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">&nbsp;&nbsp;
+                        <input type="button" value="Reset Values" style="width: 150px;" onClick="window.location.reload();">
+                      </center>
                     </fieldset><br/>
 <?
     $count++;
@@ -329,7 +329,7 @@ else {
 }
 ?>
                     <center>
-                      <input type="button" value="New Rank" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">&nbsp;&nbsp;
+                      <input type="button" value="New Rank" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">
                     </center>
                   </fieldset>
                 </td>
@@ -350,32 +350,46 @@ else {
                     <legend><strong><font size="4">AA Effects Info</font></strong></legend>
 <?
 if ($effects) {
-  $count = 1;
   foreach ($effects as $effect) {
-?>
-                    <fieldset>
-                      <legend><b>Effect <?=$count?></b></legend>
-<?
     foreach ($effect as $effect_detail) {
 ?>
-                      <fieldset>
-                        <legend><b>Slot <?=$effect_detail['slot']?></b></legend>
-                        <b>Rank ID:</b> <?=$effect_detail['rank_id']?><br/>
-                        <b>Slot:</b> <?=$effect_detail['slot']?><br/>
-                        <b>Effect ID:</b> <?=$effect_detail['effect_id']?><br/>
-                        <b>Effect:</b> <?=$sp_effects[$effect_detail['effect_id']]?><br/>
-                        <b>Base 1:</b> <?=$effect_detail['base1']?><br/>
-                        <b>Base 2:</b> <?=$effect_detail['base2']?>
-                      </fieldset>
+                    <fieldset>
+                      <legend><strong><font size="2">Rank <?=$effect_detail['rank_id']?> - Slot <?=$effect_detail['slot']?></font></strong></legend>
+                      <table cellspacing="0" cellpadding="0" width="100%">
+                        <tr>
+                          <td>
+                            <b>Effect:</b><br/>
+                            <select name="effect_<?=$count?>_slot_<?=$effect_detail['slot']?>">
 <?
-    }
-    $count++;
+      foreach ($sp_effects as $k => $v) {
 ?>
+                              <option value="<?=$k?>"<?echo ($k == $effect_detail['effect_id']) ? " selected" : "";?>><?=$k?> - <?=$v?></option>
+<?
+      }
+?>
+                            </select>
+                          </td>
+                          <td>
+                            <b>Base 1:</b><br/>
+                            <input name="effect_<?=$count?>_slot_<?=$effect_detail['slot']?>_base1" type="text" value="<?=$effect_detail['base1']?>">
+                          </td>
+                          <td>
+                            <b>Base 2:</b><br/>
+                            <input name="effect_<?=$count?>_slot_<?=$effect_detail['slot']?>_base2" type="text" value="<?=$effect_detail['base2']?>">
+                          </td>
+                        </tr>
+                      </table>
+                      <center>
+                        <br/>
+                        <input type="button" value="Update Effect" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">&nbsp;&nbsp;
+                        <input type="button" value="Delete Effect" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">&nbsp;&nbsp;
+                        <input type="button" value="Reset Values" style="width: 150px;" onClick="window.location.reload();"><br/><br/>
+                        <input type="button" value="New Effect" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">
+                      </center>
                     </fieldset>
 <?
+    }
   }
-?>
-<?
 }
 else {
 ?>
@@ -402,19 +416,43 @@ else {
                     <legend><strong><font size="4">AA Prerequisite Info</font></strong></legend>
 <?
 if ($prereqs) {
-  $count = 1;
   foreach ($prereqs as $prereq) {
 ?>
                     <fieldset>
-                      <legend><b>Rank <?=$count?> Prerequisite</b></legend>
-                      <b>Rank ID:</b> <?=$prereq['rank_id']?><br/>
-                      <b>Prerequisite AA:</b> <?=getAAName($prereq['aa_id'])?><br/>
-                      <b>Points:</b> <?=$prereq['points']?>
+                      <legend><strong><font size="2">Rank <?=$prereq['rank_id']?> Prerequisite</font></strong></legend>
+                      <table cellspacing="0" cellpadding="0" width="100%">
+                        <tr>
+                          <td>
+                            <b>Prerequisite AA:</b><br/>
+                            <select name="prereq_<?=$prereq['rank_id']?>">
+<?
+    foreach ($aas as $aa) {
+?>
+                              <option value="<?=$aa['id']?>"<?echo ($aa['id'] == $prereq['aa_id']) ? " selected" : "";?>><?=$aa['name']?> (<?=$aa['id']?>)</option>
+<?
+    }
+?>
+                          </td>
+                          <td>
+                            <b>Points:</b><br/>
+                            <input name="" type="text" value="<?=$prereq['points']?>">
+                          </td>
+                        </tr>
+                      </table>
+                      <center>
+                        <br/>
+                        <input type="button" value="Update Prerequisite" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">&nbsp;&nbsp;
+                        <input type="button" value="Delete Prerequisite" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">&nbsp;&nbsp;
+                        <input type="button" value="Reset Values" style="width: 150px;" onClick="window.location.reload();">
+                      </center>
                     </fieldset>
 <?
-    $count++;
   }
 ?>
+                    <center>
+                      <br/>
+                        <input type="button" value="New Prerequisite" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">
+                    </center>
                   </fieldset>
                 </td>
               </tr>
