@@ -1,5 +1,7 @@
 <?php
 
+$normalize_amount = 10;
+
 switch ($action) {
   case 0:  // View Loottable
     if ($npcid) {
@@ -8,17 +10,18 @@ switch ($action) {
       $body->set('currzoneid', $zoneid);
       $body->set('npcid', $npcid);
       $body->set('npc_name', getNPCName($npcid));
+      $body->set('normalize_amount', $normalize_amount);
       $vars = loottable_info();
-      $usage = mobs_using_loottable();
       if ($vars) {
         foreach ($vars as $key=>$value) {
           $body->set($key, $value);
         }
       }
+      $usage = mobs_using_loottable();
       $body->set('usage', $usage);
     }
     break;
-  case 1:  //Edit loottable
+  case 1:  // Edit loottable
     check_authorization();
     $body = new Template("templates/loot/loottable.edit.tmpl.php");
     $body->set('currzone', $z);
@@ -30,12 +33,12 @@ switch ($action) {
       $body->set($key, $value);
     }
     break;
-  case 2:  //Update loottable info
+  case 2:  // Update loottable info
     check_authorization();
     update_loottable();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 3:  //Edit Lootdrop name
+  case 3:  // Edit Lootdrop name
     check_authorization();
     $body = new Template("templates/loot/lootdrop.edit.name.tmpl.php");
     $body->set('currzone', $z);
@@ -48,12 +51,12 @@ switch ($action) {
       $body->set($key, $value);
     }
     break;
-  case 4:  //Update Lootdrop Name
+  case 4:  // Update Lootdrop Name
     check_authorization();
     update_lootdrop_name();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 5:  //Edit Lootdrop Item page
+  case 5:  // Edit Lootdrop Item page
     check_authorization();
     $body = new Template("templates/loot/lootdrop.edit.item.tmpl.php");
     $body->set('currzone', $z);
@@ -114,7 +117,7 @@ switch ($action) {
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     break;
-  case 12:
+  case 12: // Change by ID
     check_authorization();
     $body = new Template("templates/loot/loottable.changebyid.tmpl.php");
     $body->set('currzone', $z);
@@ -126,14 +129,14 @@ switch ($action) {
     change_npc_loottable();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 14:
+  case 14: // Search Loottables
     check_authorization();
     $body = new Template("templates/loot/loottable.search.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     break;
-  case 15:
+  case 15: // Display Search Results
     check_authorization();
     $body = new Template("templates/loot/loottable.searchresults.tmpl.php");
     $body->set('currzone', $z);
@@ -142,22 +145,22 @@ switch ($action) {
     $vars = search_loottable_names($_POST['search']);
     $body->set('results', $vars);
     break;
-  case 16:
+  case 16: // Delete Loottable
     check_authorization();
     delete_loottable($_GET['ltid']);
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 17:
+  case 17: // Delete Lootdrop Item
     check_authorization();
     delete_lootdrop_item();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 18:
+  case 18: // Normalize Drops
     check_authorization();
-    balance_drops();
+    normalize_drops();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 19:
+  case 19: // Remove Lootdrop
     check_authorization();
     remove_lootdrop_from_loottable();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
@@ -192,12 +195,12 @@ switch ($action) {
     $body->set('npcid', $npcid);
     $body->set('ltid', $_GET['ltid']);
     break;
-  case 24:
+  case 24: // Assign Lootdrop
     check_authorization();
     assign_lootdrop();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 25:
+  case 25: // Search Loot Item
     check_authorization();
     $body = new Template("templates/loot/lootdrop.search.tmpl.php");
     $body->set('currzone', $z);
@@ -205,7 +208,7 @@ switch ($action) {
     $body->set('npcid', $npcid);
     $body->set('ltid', $_GET['ltid']);
     break;
-  case 26:
+  case 26: // Delete Lootdrop
     check_authorization();
     delete_lootdrop();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
@@ -215,7 +218,7 @@ switch ($action) {
     //search_lootdrops(); <- Incorrect function call?
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 28:
+  case 28: // Display Search Results
     check_authorization();
     $body = new Template("templates/loot/lootdrop.searchresults.tmpl.php");
     $body->set('currzone', $z);
@@ -246,7 +249,7 @@ switch ($action) {
       $body->set($key, $value);
     }
     break;
-  case 31:
+  case 31: 
     check_authorization();
     create_lootdrop();
     assign_lootdrop();
@@ -268,17 +271,17 @@ switch ($action) {
     $ldrop = loottables_using_lootdrop();
     $body->set("ldrop", $ldrop);
     break;
-  case 34: // Drop loottable
+  case 34:  // Drop loottable
     check_authorization();
     drop_loottable();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 35: // Copy lootdrop
+  case 35:  // Copy lootdrop
     check_authorization();
     copy_lootdrop();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 36: // Mass change loottable 
+  case 36:  // Mass change loottable 
     check_authorization();
     $body = new Template("templates/loot/loottable.masschange.tmpl.php");
     $body->set('currzone', $z);
@@ -286,7 +289,7 @@ switch ($action) {
     $body->set('npcid', $npcid);
     $body->set('ltid', $_GET['ltid']);
     break;
-  case 37:
+  case 37:  // Change Loottable by Name
     check_authorization();
     $body = new Template("templates/loot/loottable.changebyname.tmpl.php");
     $body->set('currzone', $z);
@@ -294,7 +297,7 @@ switch ($action) {
     $body->set('npcid', $npcid);
     $body->set('ltid', $_GET['ltid']);
     break;
-  case 38:
+  case 38:  // Change Loottable by Race
     check_authorization();
     $body = new Template("templates/loot/loottable.changebyrace.tmpl.php");
     $body->set('currzone', $z);
@@ -303,17 +306,17 @@ switch ($action) {
     $body->set('races', $races);
     $body->set('ltid', $_GET['ltid']);
     break;
-  case 39: // Change loottable by NPC Name
+  case 39:  // Change loottable by NPC Name
     check_authorization();
     change_loottable_byname();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 40: // Change loottable by NPC Race
+  case 40:  // Change loottable by NPC Race
     check_authorization();
     change_loottable_byrace();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 41: // Merge LootDrop
+  case 41:  // Merge LootDrop
     check_authorization();
     $body = new Template("templates/loot/lootdrop.merge.tmpl.php");
     $body->set('currzone', $z);
@@ -321,22 +324,22 @@ switch ($action) {
     $body->set('npcid', $npcid);
     $body->set('ldid', $_GET['ldid']);
     break;
-  case 42: // Merge
+  case 42:  // Merge
     check_authorization();
     merge_lootdrop();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 43: // Move multiplier to items
+  case 43:  // Move multiplier to items
     check_authorization();
     move_multiplier();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 44:
+  case 44:  // Disable Lootdrop Item
     check_authorization();
     disable_lootdrop_item();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 45:
+  case 45:  // Enable Lootdrop Item
     check_authorization();
     enable_lootdrop_item();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
@@ -664,33 +667,14 @@ function enable_lootdrop_item() {
   $mysql->query_no_result($query);
 
 }
-function balance_drops () {
+function normalize_drops () {
   check_authorization();
-  global $mysql;
+  global $mysql, $normalize_amount;
   $ldid = $_GET['ldid'];
   
-  $query = "SELECT count(item_id) AS count FROM lootdrop_entries WHERE lootdrop_id=$ldid";
-  $result = $mysql->query_assoc($query);
-  
-  $count = $result['count'];
-  
-  $remainder = 100 % $count;
-  $base = floor(100 / $count);
-  $x = $count - $remainder;
-  
-  $query = "SELECT * FROM lootdrop_entries WHERE lootdrop_id=$ldid";
-  $results = $mysql->query_mult_assoc($query);
-  
-  foreach ($results as $result) {
-    $itemid = $result['item_id'];
-    if ($x > 0) {
-      $chance = $base;
-      $x--;
-    }
-    else $chance = $base + 1;
-    $query = "UPDATE lootdrop_entries SET chance=$chance WHERE lootdrop_id=$ldid AND item_id=$itemid";
-    $mysql->query_no_result($query);
-  }
+  $query = "UPDATE lootdrop_entries SET chance=$normalize_amount WHERE lootdrop_id=$ldid";
+  $mysql->query_no_result($query);
+
 }
 
 function remove_lootdrop_from_loottable() {

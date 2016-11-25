@@ -129,7 +129,7 @@
             <td align="center"><?=$minlevel?></td>
             <td align="center"><?=$maxlevel?></td>
             <td align="center"><?=$multiplier?></td>
-            <td align="center"><?=$chance?>%</td>
+            <td align="center"><?=$chance?></td>
             <td align="right">
               <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=47"><img src="images/minus.gif" border="0" title="Move Lootdrop Item"></a>
               <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=5"><img src="images/edit2.gif" border="0" title="Edit Lootdrop Item"></a>
@@ -146,6 +146,13 @@
 <?
       $x++;
     endforeach;
+?>
+          <tr bgcolor="#AAAAAA">
+            <td colspan="10" align="right">
+              <a title="Set chance for all items on this table to <?=$normalize_amount?>" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=18">Normalize Drops</a>
+            </td>
+          </tr>
+<?
   endif;
 ?>
 <? if(!isset($lootdrop['items'])):?>
