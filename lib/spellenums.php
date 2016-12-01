@@ -1163,7 +1163,7 @@ $sp_fields = array(
     "spell_category",       //GLOBAL_GROUP
     "field181",             //PVP_DURATION
     "field182",             //PVP_DURATION_CAP
-    "field183",             //PCNPC_ONLY_FLAG
+    "pcnpc_only_flag",      //PCNPC_ONLY_FLAG
     "field184",             //CAST_NOT_STANDING
     "can_mgb",              //CAN_MGB
     "nodispell",            //NO_DISPELL

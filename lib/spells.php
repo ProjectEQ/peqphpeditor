@@ -1,7 +1,7 @@
 <?php
 
 switch ($action) {
-  case 0: //Default -- Spell menu
+  case 0: // Default -- Spell menu
     $body = new Template("templates/spells/spells.default.tmpl.php");
     break;
   case 1: // Search spells

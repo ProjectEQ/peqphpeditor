@@ -269,6 +269,21 @@
                   </select>
                 </td>
               </tr>
+              <tr>
+                <td colspan="2">
+                  PC/NPC Only Flag:<br/>
+                  <select name="pcnpc_only_flag" style="width:195px;">
+                    <option value="0"<?echo ($pcnpc_only_flag == 0) ? " selected" : "";?>>0: N/A</option>
+                    <option value="1"<?echo ($pcnpc_only_flag == 1) ? " selected" : "";?>>1: PCs and Mercs</option>
+                    <option value="2"<?echo ($pcnpc_only_flag == 2) ? " selected" : "";?>>2: NPCs</option>
+                  </select>
+                </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
             </table>
           </fieldset><br/>
           <fieldset style="text-align:left;">
