@@ -279,6 +279,7 @@
                   </select>
                 </td>
                 <td>
+                  Cast Not Standing:<br/>
                   <select name="cast_not_standing" style="width:80px;">
                     <option value="-1"<?echo ($cast_not_standing == -1) ? " selected" : "";?>>-1</option>
                     <option value="0"<?echo ($cast_not_standing == 0) ? " selected" : "";?>>0</option>
