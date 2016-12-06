@@ -278,7 +278,13 @@
                     <option value="2"<?echo ($pcnpc_only_flag == 2) ? " selected" : "";?>>2: NPCs</option>
                   </select>
                 </td>
-                <td>&nbsp;</td>
+                <td>
+                  <select name="cast_not_standing" style="width:80px;">
+                    <option value="-1"<?echo ($cast_not_standing == -1) ? " selected" : "";?>>-1</option>
+                    <option value="0"<?echo ($cast_not_standing == 0) ? " selected" : "";?>>0</option>
+                    <option value="1"<?echo ($cast_not_standing == 1) ? " selected" : "";?>>1</option>
+                  </select>
+                </td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>

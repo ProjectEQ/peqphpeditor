@@ -1164,7 +1164,7 @@ $sp_fields = array(
     "field181",             //PVP_DURATION
     "field182",             //PVP_DURATION_CAP
     "pcnpc_only_flag",      //PCNPC_ONLY_FLAG
-    "field184",             //CAST_NOT_STANDING
+    "cast_not_standing",    //CAST_NOT_STANDING
     "can_mgb",              //CAN_MGB
     "nodispell",            //NO_DISPELL
     "npc_category",         //NPC_MEM_CATEGORY
