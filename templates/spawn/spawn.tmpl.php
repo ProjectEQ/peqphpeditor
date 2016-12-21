@@ -5,7 +5,7 @@
       </tr>
       <tr>
         <td class="edit_form_content">
-          To create a spawngroup for this NPC:<br/>
+          To create a spawngroup for this NPC:<br>
           <ul style="padding-left: 25px;">
             <li>Make sure the desired zone is selected from the search bar</li>
             <li><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=54">Click here to create a new spawngroup</a></li>
@@ -30,7 +30,7 @@
           </ul>
         </td>
       </tr>
-    </table><br/>
+    </table><br>
 <?foreach($spawngroups as $sg): extract($sg);?>
     <div style="border: 1px solid black; margin-bottom: 15px;">
       <div class="table_header">
@@ -119,9 +119,9 @@
     $x++;
   endforeach;
 ?>
-          <tr bgcolor="#CCCCCC">
+          <tr bgcolor="#000000">
             <td colspan="3" align="right">
-              <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=3">Balance Spawn Rates</a> (<?echo ($chance_total != 100) ? "<strong><font color='red'>" : "<font color='green'>";?>Currently: <?=$chance_total?>%</font><?echo ($chance_total != 100) ? "</strong>" : "";?>)<?$chance_total=0;?>
+              <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=3" style="color:yellow;" title="Current: <?=$chance_total?>%">Balance Spawn Rates</a>
             </td>
           </tr>
         </table>

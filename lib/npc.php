@@ -1311,7 +1311,7 @@ function update_npc() {
   //exclude
   if ($ATK != $_POST['ATK']) $fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
   if ($Accuracy != $_POST['Accuracy']) $fields .= "Accuracy=\"" . $_POST['Accuracy'] . "\", ";
-  //Avoidance
+  if ($Avoidance != $_POST['Avoidance']) $fields .= "Avoidance=\"" . $_POST['Avoidance'] . "\", ";
   if ($slow_mitigation != $_POST['slow_mitigation']) $fields .= "slow_mitigation=\"" . $_POST['slow_mitigation'] . "\", ";
   if ($version != $_POST['version']) $fields .= "version=\"" . $_POST['version'] . "\", ";
   if ($maxlevel != $_POST['maxlevel']) $fields .= "maxlevel=\"" . $_POST['maxlevel'] . "\", ";
@@ -1448,7 +1448,7 @@ function add_npc() {
   //exclude
   $fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
   $fields .= "Accuracy=\"" . $_POST['Accuracy'] . "\", ";
-  //Avoidance
+  $fields .= "Avoidance=\"" . $_POST['Avoidance'] . "\", ";
   $fields .= "slow_mitigation=\"" . $_POST['slow_mitigation'] . "\", ";
   $fields .= "version=\"" . $_POST['version'] . "\", ";
   $fields .= "maxlevel=\"" . $_POST['maxlevel'] . "\", ";
@@ -1568,7 +1568,7 @@ function copy_npc() {
   //exclude
   $fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
   $fields .= "Accuracy=\"" . $_POST['Accuracy'] . "\", ";
-  //Avoidance
+  $fields .= "Avoidance=\"" . $_POST['Avoidance'] . "\", ";
   $fields .= "slow_mitigation=\"" . $_POST['slow_mitigation'] . "\", ";
   $fields .= "version=\"" . $_POST['version'] . "\", ";
   $fields .= "maxlevel=\"" . $_POST['maxlevel'] . "\", ";

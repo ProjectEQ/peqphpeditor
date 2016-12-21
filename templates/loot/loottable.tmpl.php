@@ -147,9 +147,9 @@
       $x++;
     endforeach;
 ?>
-          <tr bgcolor="#AAAAAA">
+          <tr bgcolor="#000000">
             <td colspan="10" align="right">
-              <a title="Set chance for all items on this table to <?=$normalize_amount?>" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=18">Normalize Drops</a>
+              <a title="Set chance for all items on this table to <?=$normalize_amount?>" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=18" style="color:yellow;">Normalize Drops</a>
             </td>
           </tr>
 <?

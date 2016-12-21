@@ -104,8 +104,8 @@
                   </tr>
                   <tr>
                     <td align="left" width="33%">Run: <?=$runspeed?></td>
-                    <td align="left" width="33%">&nbsp;</td>
-                    <td align="left" width="34%">Acy: <?=$Accuracy?></td>
+                    <td align="left" width="33%">Avoidance: <?=$Avoidance?></td>
+                    <td align="left" width="34%">Accuracy: <?=$Accuracy?></td>
                   </tr>
                   <tr>
                     <td align="left" width="34%">ATK: <?=$ATK?></td>
