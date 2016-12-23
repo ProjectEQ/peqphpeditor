@@ -1294,7 +1294,7 @@ function update_npc() {
   if ($AC != $_POST['AC']) $fields .= "AC=\"" . $_POST['AC'] . "\", ";
   if ($npc_aggro != $_POST['npc_aggro']) $fields .= "npc_aggro=\"" . $_POST['npc_aggro'] . "\", ";
   if ($spawn_limit != $_POST['spawn_limit']) $fields .= "spawn_limit=\"" . $_POST['spawn_limit'] . "\", ";
-  if ($attack_speed != $_POST['attack_speed']) $fields .= "attack_speed=\"" . $_POST['attack_speed'] . "\", ";
+  //attack_speed
   if ($attack_delay != $_POST['attack_delay']) $fields .= "attack_delay=\"" . $_POST['attack_delay'] . "\", ";
   if ($findable != $_POST['findable']) $fields .= "findable=\"" . $_POST['findable'] . "\", ";
   if ($STR != $_POST['STR']) $fields .= "STR=\"" . $_POST['STR'] . "\", ";
@@ -1431,7 +1431,7 @@ function add_npc() {
   $fields .= "AC=\"" . $_POST['AC'] . "\", ";
   $fields .= "npc_aggro=\"" . $_POST['npc_aggro'] . "\", ";
   $fields .= "spawn_limit=\"" . $_POST['spawn_limit'] . "\", ";
-  $fields .= "attack_speed=\"" . $_POST['attack_speed'] . "\", ";
+  //attack_speed
   $fields .= "attack_delay=\"" . $_POST['attack_delay'] . "\", ";
   $fields .= "findable=\"" . $_POST['findable'] . "\", ";
   $fields .= "STR=\"" . $_POST['STR'] . "\", ";
@@ -1551,7 +1551,7 @@ function copy_npc() {
   $fields .= "AC=\"" . $_POST['AC'] . "\", ";
   $fields .= "npc_aggro=\"" . $_POST['npc_aggro'] . "\", ";
   $fields .= "spawn_limit=\"" . $_POST['spawn_limit'] . "\", ";
-  $fields .= "attack_speed=\"" . $_POST['attack_speed'] . "\", ";
+  //attack_speed
   $fields .= "attack_delay=\"" . $_POST['attack_delay'] . "\", ";
   $fields .= "findable=\"" . $_POST['findable'] . "\", ";
   $fields .= "STR=\"" . $_POST['STR'] . "\", ";

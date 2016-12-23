@@ -181,7 +181,7 @@
                   </tr>
                   <tr>
                     <td align="left" width="33%">Aggro: <?=$aggroradius?></td>
-                    <td align="left" width="33%">Atk Speed: <?=$attack_speed?>%</td>
+                    <td align="left" width="33%">&nbsp;</td>
 <?
   $new_special_abilities = '';
     for ($i = 1; $i <= $special_abilities_max; $i++){
