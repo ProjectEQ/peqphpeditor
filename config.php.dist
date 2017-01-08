@@ -75,6 +75,10 @@ $enable_user_login = 1;
 $enable_guest_mode = 1;
 
 // Path for quests without trailing slash.
-$quest_path = "/path/to/quests"
+$quest_path = "/path/to/quests";
+
+// Perl scripts
+$perl_path = "perl";
+$perl_log_file = $logs_dir . "/perl_log_$filetime.log";
 
 ?>

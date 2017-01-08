@@ -370,7 +370,7 @@ switch ($action) {
     exit;
 }
 
-function loottable_info () {
+function loottable_info() {
   global $mysql, $npcid;
   
   $count = 0;
@@ -422,7 +422,7 @@ function loottable_info () {
   }
 }
 
-function mobs_using_loottable () {
+function mobs_using_loottable() {
   global $mysql, $npcid;
 
   $query = "SELECT loottable_id
@@ -439,7 +439,7 @@ function mobs_using_loottable () {
   }
 }
 
-function loottables_using_lootdrop () {
+function loottables_using_lootdrop() {
   global $mysql;
   $array = array();
   $ldid = $_GET['ldid'];
@@ -481,7 +481,7 @@ function add_loottable() {
   change_npc_loottable();
 }
 
-function change_npc_loottable () {
+function change_npc_loottable() {
   check_authorization();
   global $mysql, $npcid;
   $id = $_REQUEST['id'];
@@ -489,7 +489,7 @@ function change_npc_loottable () {
   $mysql->query_no_result($query);
 }
 
-function change_loottable_byname () {
+function change_loottable_byname() {
   check_authorization();
   global $mysql, $npcid, $z;
   $zid = getZoneID($z);
@@ -510,7 +510,7 @@ function change_loottable_byname () {
   }
 }
 
-function change_loottable_byrace () {
+function change_loottable_byrace() {
   check_authorization();
   global $mysql, $npcid, $z;
   $zid = getZoneID($z);
@@ -531,7 +531,7 @@ function change_loottable_byrace () {
   }
 }
 
-function suggest_new_loottable () {
+function suggest_new_loottable() {
   global $mysql, $npcid;
   $query = "SELECT MAX(id) AS id FROM loottable";
   $result = $mysql->query_assoc($query);
@@ -580,7 +580,7 @@ function getLoottableName($id) {
   return $result['name'];
 }
 
-function update_lootdrop_name () {
+function update_lootdrop_name() {
   check_authorization();
   global $mysql;
   $ldname = $_POST['ldname'];
@@ -589,7 +589,7 @@ function update_lootdrop_name () {
   $mysql->query_no_result($query);
 }
 
-function loottable_entries_info () {
+function loottable_entries_info() {
   global $mysql;
   $ltid = $_GET['ltid'];
   $ldid = $_GET['ldid'];
@@ -598,7 +598,7 @@ function loottable_entries_info () {
   return $result;
 }
 
-function update_loottable_entries () {
+function update_loottable_entries() {
   check_authorization();
   global $mysql;
   $droplimit = $_POST['droplimit'];
@@ -667,7 +667,7 @@ function enable_lootdrop_item() {
   $mysql->query_no_result($query);
 
 }
-function normalize_drops () {
+function normalize_drops() {
   check_authorization();
   global $mysql, $normalize_amount;
   $ldid = $_GET['ldid'];
@@ -687,7 +687,7 @@ function remove_lootdrop_from_loottable() {
   $mysql->query_no_result($query);
 }
 
-function add_lootdrop_item ($itemid) {
+function add_lootdrop_item($itemid) {
   check_authorization();
   global $mysql;
   $ldid = $_GET['ldid'];
@@ -711,7 +711,7 @@ function add_lootdrop_item ($itemid) {
   
 }
 
-function assign_lootdrop () {
+function assign_lootdrop() {
   check_authorization();
   global $mysql;
   
@@ -726,7 +726,7 @@ function assign_lootdrop () {
   $mysql->query_no_result($query);
 }
 
-function delete_lootdrop () {
+function delete_lootdrop() {
   check_authorization();
   global $mysql;
   $ldid = $_GET['ldid'];
@@ -748,7 +748,7 @@ function search_lootdrops($search) {
   return $results;
 }
 
-function suggest_new_lootdrop () {
+function suggest_new_lootdrop() {
   global $mysql, $npcid;
   $ltid = $_GET['ltid'];
 
@@ -869,11 +869,24 @@ function magelo_import() {
   check_authorization();
   global $mysql, $npcid, $perl_path;
 
-   $output = array();
-   $output = exec("perl $perl_path/Loot.pl $npcid 2>&1");
-   logPerl($output);
-  
+  $output = array();
+  $output = exec("perl $perl_path/Loot.pl $npcid 2>&1");
+  if (preg_match("(BEGIN failed)", $output)) {
+    $error_msg = "Script failed to run.";
+    if (preg_match("(line 6)", $output)) {
+      $error_msg .= " HINT: Is DBI installed?";
+    }
+    if (preg_match("(line 7)", $output)) {
+      $error_msg .= " HINT: Is DBD-mysql installed?";
+    }
+    logPerl($error_msg);
+    logPerl("Error: " . $output);
+  }
+  else {
+    logPerl($output);
+  }
 }
+
 function move_copy_lootdrop_item() {
   check_authorization();
   global $mysql;
