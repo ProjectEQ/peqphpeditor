@@ -871,7 +871,12 @@ function magelo_import() {
 
   $output = array();
   $output = exec("perl $perl_path/Loot.pl $npcid 2>&1");
-  if (preg_match("(BEGIN failed)", $output)) {
+
+  if (preg_match("(line 37)", $output)) {
+    logPerl("Script failed to run. HINT: Did you add your username, password, and database to Loot.pl?");
+    logPerl("Error: " . $output);
+  }
+  elseif (preg_match("(BEGIN failed)", $output)) {
     $error_msg = "Script failed to run.";
     if (preg_match("(line 6)", $output)) {
       $error_msg .= " HINT: Is DBI installed?";
@@ -881,6 +886,14 @@ function magelo_import() {
     }
     logPerl($error_msg);
     logPerl("Error: " . $output);
+  }
+  elseif (preg_match("(0 item drops added)", $output)) {
+    $query = "SHOW TABLES LIKE '%magelo_npc_loot_parse%'";
+    $table_test = $mysql->query_assoc($query);
+    if (!$table_test) {
+      logPerl("Error: Database is missing magelo_npc_loot_parse table.");
+    }
+    logPerl($output);
   }
   else {
     logPerl($output);
