@@ -23,7 +23,6 @@ $ldontraptype = array(
 
 switch ($action) {
   case 0:         
-    check_authorization();
     if (!$npcid) {
       $body = new Template("templates/adventures/adventures.searchresults.tmpl.php");
       $results = search_adventure_npc();
@@ -37,7 +36,6 @@ switch ($action) {
     }
     break;
   case 1: // Assassinate Adventures
-    check_authorization();
     $body = new Template("templates/adventures/assassinate.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -53,7 +51,6 @@ switch ($action) {
     }
     break;
   case 2: // Kill Count Adventures
-    check_authorization();
     $body = new Template("templates/adventures/kill.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -69,7 +66,6 @@ switch ($action) {
     }
     break;
   case 3: // Loot Count Adventures
-    check_authorization();
     $body = new Template("templates/adventures/loot.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -85,7 +81,6 @@ switch ($action) {
     }
     break;
   case 4: // Rescue Adventures
-    check_authorization();
     $body = new Template("templates/adventures/rescue.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -101,7 +96,6 @@ switch ($action) {
     }
     break;
   case 5: // Flavor Text
-    check_authorization();
     $body = new Template("templates/adventures/flavor.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -161,7 +155,6 @@ switch ($action) {
     header("Location: index.php?editor=adventures&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 12: // Trap Templates
-    check_authorization();
     $body = new Template("templates/adventures/traptemplate.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);

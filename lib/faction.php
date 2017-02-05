@@ -16,7 +16,6 @@ $faction_value = array(
 
 switch ($action) {
   case 0:  // View faction info
-    check_authorization();
     if (!$fid) {
       $body = new Template("templates/faction/faction.default.tmpl.php");
     }
@@ -47,7 +46,6 @@ switch ($action) {
     header("Location: index.php?editor=faction&fid=$fid");
     exit;
   case 3:  // Search factions
-    check_authorization();
     $body = new Template("templates/faction/faction.searchresults.tmpl.php");
     $results = "";
     if (isset($_POST['faction_id']) && $_POST['faction_id'] != "ID") {
@@ -147,19 +145,16 @@ switch ($action) {
     header("Location: $return_address");
     exit;
   case 15:
-    check_authorization(); 
     $body = new Template("templates/faction/npcbyprimary.tmpl.php");
     $body->set('fid', $_GET['fid']);
     $npcpri = npcs_using_primary();
     $body->set("npcpri", $npcpri);
     break;
   case 16:
-    check_authorization(); 
     $body = new Template("templates/faction/factionsearch.tmpl.php");
     $body->set('fid', $_GET['fid']);
     break;
   case 17:
-    check_authorization(); 
     $body = new Template("templates/faction/npc_search_results.tmpl.php");
     $body->set('fid', $_GET['fid']);
     $body->set("faction_value", $faction_value);
@@ -167,7 +162,6 @@ switch ($action) {
     $body->set("npcpri", $npcpri);
     break;
   case 18:
-    check_authorization(); 
     $body = new Template("templates/faction/npc_search_results.tmpl.php");
     $body->set('fid', $_GET['fid']);
     $body->set("faction_value", $faction_value);
@@ -175,7 +169,6 @@ switch ($action) {
     $body->set("npcpri", $npcpri);
     break;
   case 19:
-    check_authorization(); 
     $body = new Template("templates/faction/npc_search_results.tmpl.php");
     $body->set('fid', $_GET['fid']);
     $body->set("faction_value", $faction_value);
@@ -246,19 +239,23 @@ function faction_info() {
 
 function search_factions_by_name() {
   global $mysql;
+
   $search = $_POST['faction_name'];
 
   $query = "SELECT id, `name` FROM faction_list WHERE `name` rlike \"$search\"";
   $results = $mysql->query_mult_assoc($query);
+
   return $results;
 }
 
 function search_factions_by_id() {
   global $mysql;
+
   $search = $_POST['faction_id'];
 
   $query = "SELECT id, `name` FROM faction_list WHERE id = \"$search\"";
   $results = $mysql->query_mult_assoc($query);
+
   return $results;
 }
 
@@ -281,7 +278,6 @@ function suggest_faction_mod_id() {
 }
 
 function add_faction() {
-  check_authorization();
   global $mysql;
   
   $id = $_POST['id'];
@@ -293,7 +289,6 @@ function add_faction() {
 }
 
 function update_faction() {
-  check_authorization();
   global $mysql, $fid;
 
   $old_id = $fid;
@@ -340,7 +335,6 @@ function get_faction_mod($fmid) {
 }
 
 function add_faction_mod() {
-  check_authorization();
   global $mysql, $fid;
   
   $id = $_POST['id'];
@@ -354,7 +348,6 @@ function add_faction_mod() {
 }
 
 function update_faction_mod() {
-  check_authorization();
   global $mysql, $fid;
 
   $old_id = $_POST['old_id'];
@@ -378,6 +371,7 @@ function update_faction_mod() {
 
 function delete_faction_mod() {
   global $mysql, $fid;
+
   $fmid = $_GET['fmid'];
 
   $query = "DELETE FROM faction_list_mod WHERE id=$fmid AND faction_id=$fid";
@@ -386,6 +380,7 @@ function delete_faction_mod() {
 
 function get_player_factions($page_number, $results_per_page, $sort_by, $where = "") {
   global $mysql;
+
   $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
 
   $query = "SELECT * FROM faction_values";
@@ -400,6 +395,7 @@ function get_player_factions($page_number, $results_per_page, $sort_by, $where =
 
 function get_player_faction() {
   global $mysql;
+
   $char_id = $_GET['char_id'];
   $faction_id = $_GET['faction_id'];
   
@@ -482,7 +478,6 @@ function build_filter() {
 }
 
 function npcs_using_primary() {
-  check_authorization();
   global $mysql, $fid;
 
   $query = "SELECT nt.id AS npcid, nt.name AS npcname, nf.name AS factionname from npc_types nt
@@ -494,7 +489,6 @@ function npcs_using_primary() {
 }
 
 function npcs_using_faction($value) {
-  check_authorization();
   global $mysql, $fid;
 
   if ($value == 1) {

@@ -55,7 +55,7 @@ switch ($action) {
     delete_fishing();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=1");
     exit;
-  case 5: // Get fishing ID
+  case 5: // Add fishing
     check_authorization();
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/fishing.add.tmpl.php");
@@ -64,7 +64,7 @@ switch ($action) {
     $body->set('zid', getZoneID($z));
     $body->set('suggestfsid', suggest_fishing_id());
     break;
-  case 6: // Add fishing
+  case 6: // Insert fishing
     check_authorization();
     add_fishing();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=1");
@@ -103,7 +103,7 @@ switch ($action) {
     delete_forage();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=7");
     exit;
-   case 11: // Get forage ID
+   case 11: // Add forage
     check_authorization();
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/forage.add.tmpl.php");
@@ -112,13 +112,12 @@ switch ($action) {
     $body->set('zid', getZoneID($z));
     $body->set('suggestfgid', suggest_forage_id());
     break;
-   case 12: // Add forage
+   case 12: // Insert forage
     check_authorization();
     add_forage();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=7");
     exit;
    case 13: // View ground spawns
-    check_authorization();
     $body = new Template("templates/misc/groundspawn.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -152,7 +151,7 @@ switch ($action) {
     delete_gspawn();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=13");
     exit;
-   case 17: // Get ground spawn ID
+   case 17: // Add ground spawn
     check_authorization();
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/groundspawn.add.tmpl.php");
@@ -162,13 +161,12 @@ switch ($action) {
     $body->set('suggestgsid', suggest_gspawn_id());
     $body->set('suggestver', suggest_version());
     break;
-   case 18: // Add ground spawn
+   case 18: // Insert ground spawn
     check_authorization();
     add_gspawn();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=13");
     exit;
    case 19: // View traps
-    check_authorization();
     $body = new Template("templates/misc/traps.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -204,7 +202,7 @@ switch ($action) {
     delete_traps();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=19");
     exit;
-   case 23: // Get traps ID
+   case 23: // Add traps
     check_authorization();
     $body = new Template("templates/misc/traps.add.tmpl.php");
     $body->set('currzone', $z);
@@ -214,7 +212,7 @@ switch ($action) {
     $body->set('suggesttid', suggest_traps_id());
     $body->set('suggestver', suggest_version());
     break;
-   case 24: // Add traps
+   case 24: // Insert traps
     check_authorization();
     add_traps();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=19");
@@ -253,7 +251,6 @@ switch ($action) {
     }
     break;
    case 28: // View ground spawns
-    check_authorization();
     $body = new Template("templates/misc/groundspawn.view.tmpl.php");
     $gspawn = gspawn_info();
     if ($gspawn) {
@@ -301,7 +298,7 @@ switch ($action) {
     $body->set("races", $races);
     $body->set("genders", $genders);
     break;
-   case 34: // Add horses
+   case 34: // Insert horses
     check_authorization();
     add_horses();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=29");
@@ -339,7 +336,7 @@ switch ($action) {
     delete_doors();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=35");
     exit;
-  case 39: // Get doors ID
+  case 39: // Add doors
     check_authorization();
     $body = new Template("templates/misc/doors.add.tmpl.php");
     $body->set('currzone', $z);
@@ -349,7 +346,7 @@ switch ($action) {
     $body->set('suggestdoorid', suggest_doorid());
     $body->set('suggestver', suggest_version());
     break;
-  case 40: // Add doors
+  case 40: // Insert doors
     check_authorization();
     add_doors();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=35");
@@ -389,7 +386,7 @@ switch ($action) {
     delete_object();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=41");
     exit;
-  case 45: // Get objects ID
+  case 45: // Add objects
     check_authorization();
     $body = new Template("templates/misc/objects.add.tmpl.php");
     $body->set('currzone', $z);
@@ -399,7 +396,7 @@ switch ($action) {
     $body->set('suggestobjid', suggest_object_id());
     $body->set('suggestver', suggest_version());
     break;
-  case 46: // Add objects
+  case 46: // Insert objects
     check_authorization();
     add_objects();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=41");

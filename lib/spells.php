@@ -5,7 +5,6 @@ switch ($action) {
     $body = new Template("templates/spells/spells.default.tmpl.php");
     break;
   case 1: // Search spells
-    check_authorization();
     $body = new Template("templates/spells/spells.searchresults.tmpl.php");
     if (isset($_GET['id']) && $_GET['id'] != "ID") {
       $results = search_spell_by_id();
@@ -14,7 +13,6 @@ switch ($action) {
     $body->set("results", $results);
     break;
   case 2: // Edit spell
-    check_authorization();
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/spells/spells.edit.tmpl.php");
     $body->set("formulas", $sp_formulas);
@@ -46,28 +44,28 @@ switch ($action) {
 
     $vars = getdate();
     if ($vars) {
-     foreach ($vars as $key=>$value) {
-       $body->set($key, $value);
-     }
+      foreach ($vars as $key=>$value) {
+        $body->set($key, $value);
+      }
     }
 
     break;
   case 5: // Delete spell
-     check_authorization();
-     delete_spell();
-     header("Location: index.php?editor=spells");
-     exit;
+      check_authorization();
+      delete_spell();
+      header("Location: index.php?editor=spells");
+      exit;
   case 6: // Update spell
-     check_authorization();
-     $id = $_GET['id'];
-     update_spell();
-     header("Location: index.php?editor=spells&id=$id&action=2");
-     exit;
+      check_authorization();
+      $id = $_GET['id'];
+      update_spell();
+      header("Location: index.php?editor=spells&id=$id&action=2");
+      exit;
   case 7: // Copy spell
-     check_authorization();
-     $id = copy_spell();
-     header("Location: index.php?editor=spells&id=$id&action=2");
-     exit;
+      check_authorization();
+      $id = copy_spell();
+      header("Location: index.php?editor=spells&id=$id&action=2");
+      exit;
 //Spells are complicated enough that one is probably wise to copy from a template anyway, at least for now.
 //  case 8: // Add spell
 //     check_authorization();
@@ -80,13 +78,104 @@ switch ($action) {
 //     $id = $_POST['id'];
 //     header("Location: index.php?editor=spells&id=$id&action=2");
 //     exit;
-   case 10: // Dump spells
-     check_authorization();
-     $body = new Template("templates/spells/genspells.php");
-     break;
+  case 10: // Dump spells
+    check_authorization();
+    $body = new Template("templates/spells/genspells.php");
+    break;
+  case 11: // NPC Spells Effects List
+    $body = new Template("templates/spells/npc.spells.effects.default.tmpl.php");
+    $effects = npc_spells_effects();
+    if ($effects)
+      $body->set('effects', $effects);
+    break;
+  case 12: // View NPC Spells Effect
+    $body = new Template("templates/spells/npc.spells.effects.view.tmpl.php");
+    $effect = npc_spells_effect($_GET['nseid']);
+    if ($effect)
+      $body->set('effect', $effect);
+    $entries = npc_spells_effects_entries($_GET['nseid']);
+    if ($entries)
+      $body->set('entries', $entries);
+    $body->set('sp_effects', $sp_effects);
+    break;
+  case 13: // Add NPC Spells Effects
+    check_authorization();
+    $body = new Template("templates/spells/npc.spells.effect.add.tmpl.php");
+    $id = npc_spells_effects_next_id();
+    $body->set('id', $id);
+    break;
+  case 14: // Insert NPC Spells Effects
+    check_authorization();
+    insert_npc_spells_effect();
+    $previous = $_POST['id'];
+    header("Location: index.php?editor=spells&action=12&nseid=$previous");
+    exit;
+  case 15: // Edit NPC Spells Effects
+    check_authorization();
+    $body = new Template("templates/spells/npc.spells.effect.edit.tmpl.php");
+    $effect = npc_spells_effect($_GET['nseid']);
+    if ($effect) {
+      $body->set('effect', $effect);
+    }
+    break;
+  case 16: // Update NPC Spells Effects
+    check_authorization();
+    update_npc_spells_effect();
+    $previous = $_POST['id'];
+    header("Location: index.php?editor=spells&action=12&nseid=$previous");
+    exit;
+  case 17: // Delete NPC Spells Effects
+    check_authorization();
+    delete_npc_spells_effect();
+    header("Location: index.php?editor=spells&action=11");
+    exit;
+  case 18: // Add NPC Spells Effects Entry
+    check_authorization();
+    $body = new Template("templates/spells/npc.spells.effects.entry.add.tmpl.php");
+    $id = npc_spells_effects_entry_next_id();
+    $nseid = $_GET['nseid'];
+    $current = current_npc_spells_effects($nseid);
+    $body->set('id', $id);
+    $body->set('npc_spells_effects_id', $nseid);
+    if ($current)
+      $body->set('current', $current);
+    $body->set('sp_effects', $sp_effects);
+    break;
+  case 19: // Insert NPC Spells Effects Entry
+    check_authorization();
+    insert_npc_spells_effects_entry();
+    $previous = $_POST['npc_spells_effects_id'];
+    header("Location: index.php?editor=spells&action=12&nseid=$previous");
+    exit;
+  case 20: // Edit NPC Spells Effects Entry
+    check_authorization();
+    $body = new Template("templates/spells/npc.spells.effects.entry.edit.tmpl.php");
+    $entry = npc_spells_effects_entry($_GET['nseeid']);
+    $current = current_npc_spells_effects($nseid);
+    if ($entry) {
+      foreach ($entry as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    if ($current)
+      $body->set('current', $current);
+    $body->set('sp_effects', $sp_effects);
+    break;
+  case 21: // Update NPC Spells Effects Entry
+    check_authorization();
+    update_npc_spells_effects_entry();
+    $previous = $_GET['nseid'];
+    header("Location: index.php?editor=spells&action=12&nseid=$previous");
+    exit;
+  case 22: // Delete NPC Spells Effects Entry
+    check_authorization();
+    delete_npc_spells_effects_entry();
+    $previous = $_GET['nseid'];
+    header("Location: index.php?editor=spells&action=12&nseid=$previous");
+    exit;
 }
 
-function spell_info () {
+function spell_info() {
   global $mysql;
 
   $id = $_GET['id'];
@@ -97,11 +186,11 @@ function spell_info () {
   $query = "SELECT * FROM spells_new WHERE id=$id";
   $result2 = $mysql->query_assoc($query);
 
-  $result = $result+$result2;
+  $result = $result + $result2;
   return $result;
 }
 
-function delete_spell () {
+function delete_spell() {
   global $mysql;
 
   $id = $_GET['id'];
@@ -110,7 +199,7 @@ function delete_spell () {
   $mysql->query_no_result($query);
 }
 
-function update_spell () {
+function update_spell() {
   global $mysql;
 
   $id = $_POST['id'];
@@ -141,29 +230,34 @@ function update_spell () {
     "deities14",
     "deities15",
     "deities16"
-    );
+  );
 
   //Sanitize checkboxes
-  foreach($cbs as $cb)
-  {
-   if($_POST[$cb] == 'on') { $_POST[$cb] = 1; }
-   else { $_POST[$cb] = 0; }
+  foreach ($cbs as $cb) {
+    if ($_POST[$cb] == 'on') {
+      $_POST[$cb] = 1;
+    }
+    else {
+      $_POST[$cb] = 0;
+    }
   }
 
   //Fix the 'use text field' elements
-  if($_POST[spell_category] == -100) { $_POST[spell_category] = $_POST[spcat]; }
-  for($x = 1; $x <= 12; $x++)
-  {
-   if($_POST['formula'.$x] == 1) { $_POST['formula'.$x] = $_POST['fmm'.$x]; }
+  if ($_POST[spell_category] == -100) {
+    $_POST[spell_category] = $_POST[spcat];
+  }
+
+  for ($x = 1; $x <= 12; $x++) {
+    if($_POST['formula'.$x] == 1) {
+      $_POST['formula'.$x] = $_POST['fmm'.$x];
+    }
   }
 
   $fields = '';
-  foreach(array_keys($vars) as $f)
-  {
-   //Put field name in backticks to avoid conflicts with columns named for sql functions (like range)
-   if($vars[$f] != stripslashes($_POST[$f]) and isset($_POST[$f])) { $fields .= "`$f` = \"$_POST[$f]\", "; }
+  foreach(array_keys($vars) as $f) {
+    //Put field name in backticks to avoid conflicts with columns named for sql functions (like range)
+    if($vars[$f] != stripslashes($_POST[$f]) and isset($_POST[$f])) { $fields .= "`$f` = \"$_POST[$f]\", "; }
   }
-
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -172,7 +266,7 @@ function update_spell () {
   }
 }
 
-function copy_spell () {
+function copy_spell() {
   global $mysql, $sp_fields;
 
   $id = $_GET['id'];
@@ -192,7 +286,7 @@ function copy_spell () {
   return $newid;
 }
 
-function get_max_id () {
+function get_max_id() {
   global $mysql;
 
   $query = "SELECT max(id) AS iid FROM spells_new";
@@ -202,8 +296,171 @@ function get_max_id () {
   return $newid;
 }
 
-function add_spell () {
+function npc_spells_effects() {
   global $mysql;
+
+  $query = "SELECT * FROM npc_spells_effects ORDER BY id";
+  $result = $mysql->query_mult_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
 }
 
+function npc_spells_effect($nseid) {
+  global $mysql;
+
+  $query = "SELECT * FROM npc_spells_effects WHERE id=$nseid";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+function npc_spells_effects_entries($nseid) {
+  global $mysql;
+
+  $query = "SELECT * FROM npc_spells_effects_entries WHERE npc_spells_effects_id=$nseid ORDER BY spell_effect_id";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function npc_spells_effects_entry($nseeid) {
+  global $mysql;
+
+  $query = "SELECT * FROM npc_spells_effects_entries WHERE id=$nseeid";
+  $results = $mysql->query_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function npc_spells_effects_next_id() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS last FROM npc_spells_effects";
+  $result = $mysql->query_assoc($query);
+
+  return $result['last'] + 1;
+}
+
+function npc_spells_effects_entry_next_id() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS last FROM npc_spells_effects_entries";
+  $result = $mysql->query_assoc($query);
+
+  return $result['last'] + 1;
+}
+
+function insert_npc_spells_effect() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $name = $_POST['name'];
+  $parent_list = $_POST['parent_list'];
+
+  $query = "INSERT INTO npc_spells_effects (id, name, parent_list) VALUES ($id, '$name', $parent_list)";
+  $mysql->query_no_result($query);
+}
+
+function update_npc_spells_effect() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $name = $_POST['name'];
+  $parent_list = $_POST['parent_list'];
+
+  $query = "UPDATE npc_spells_effects SET name='$name', parent_list=$parent_list WHERE id=$id";
+  $mysql->query_no_result($query);
+}
+
+function delete_npc_spells_effect() {
+  global $mysql;
+
+  $nseid = $_GET['nseid'];
+
+  $query1 = "DELETE FROM npc_spells_effects_entries WHERE npc_spells_effects_id=$nseid";
+  $mysql->query_no_result($query1);
+
+  $query2 = "DELETE FROM npc_spells_effects WHERE id=$nseid";
+  $mysql->query_no_result($query2);
+}
+
+function insert_npc_spells_effects_entry() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $npc_spells_effects_id = $_POST['npc_spells_effects_id'];
+  $spell_effect_id = $_POST['spell_effect_id'];
+  $minlevel = $_POST['minlevel'];
+  $maxlevel = $_POST['maxlevel'];
+  $se_base = $_POST['se_base'];
+  $se_limit = $_POST['se_limit'];
+  $se_max = $_POST['se_max'];
+
+  $query = "INSERT INTO npc_spells_effects_entries (id, npc_spells_effects_id, spell_effect_id, minlevel, maxlevel, se_base, se_limit, se_max) VALUES ($id, $npc_spells_effects_id, $spell_effect_id, $minlevel, $maxlevel, $se_base, $se_limit, $se_max)";
+  $mysql->query_no_result($query);
+}
+
+function update_npc_spells_effects_entry() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $npc_spells_effects_id = $_POST['npc_spells_effects_id'];
+  $spell_effect_id = $_POST['spell_effect_id'];
+  $minlevel = $_POST['minlevel'];
+  $maxlevel = $_POST['maxlevel'];
+  $se_base = $_POST['se_base'];
+  $se_limit = $_POST['se_limit'];
+  $se_max = $_POST['se_max'];
+
+  $query = "UPDATE npc_spells_effects_entries SET spell_effect_id=$spell_effect_id, minlevel=$minlevel, maxlevel=$maxlevel, se_base=$se_base, se_limit=$se_limit, se_max=$se_max WHERE id=$id AND npc_spells_effects_id=$npc_spells_effects_id";
+  $mysql->query_no_result($query);
+}
+
+function delete_npc_spells_effects_entry() {
+  global $mysql;
+
+  $nseeid = $_GET['nseeid'];
+  $nseid = $_GET['nseid'];
+
+  $query = "DELETE FROM npc_spells_effects_entries WHERE id=$nseeid AND npc_spells_effects_id=$nseid";
+  $mysql->query_no_result($query);
+}
+
+function current_npc_spells_effects($nseid) {
+  global $mysql;
+  $effects = array();
+
+  $query = "SELECT spell_effect_id FROM npc_spells_effects_entries WHERE npc_spells_effects_id=$nseid";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    foreach ($results as $result) {
+      array_push($effects, $result['spell_effect_id']);
+    }
+    return $effects;
+  }
+  else {
+    return null;
+  }
+}
 ?>

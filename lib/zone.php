@@ -32,7 +32,6 @@ switch ($action) {
     }
     break;
   case 1: // View zone data
-    check_authorization();
     $breadcrumbs .= " >> Zone Data";
     $body = new Template("templates/zone/zone.tmpl.php");
     $body->set('currzone', $z);
@@ -146,7 +145,6 @@ switch ($action) {
     header("Location: index.php?editor=zone&z=$z&action=10");
     exit;
    case 12: // View zone points
-    check_authorization();
     $breadcrumbs .= " >> Zone Points";
     $body = new Template("templates/zone/zonepoints.tmpl.php");
     $body->set('currzone', $z);
@@ -181,7 +179,7 @@ switch ($action) {
     delete_zonepoints();
     header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=12");
     exit;
-   case 16: // Get zonepoint ID
+   case 16: // Add zonepoint
     check_authorization();
     $breadcrumbs .= " >> Add Zonepoint";
     $body = new Template("templates/zone/zonepoints.add.tmpl.php");
@@ -192,13 +190,12 @@ switch ($action) {
     $body->set('suggestnum', suggest_zonepoint_number());
     $body->set('suggestver', suggest_version());
     break;
-   case 17: // Add zonepoint
+   case 17: // Insert zonepoint
     check_authorization();
     add_zonepoints();
     header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=12");
     exit;
    case 18: // View blocked spells
-    check_authorization();
     $breadcrumbs .= " >> Blocked Spells";
     $body = new Template("templates/zone/blockedspell.tmpl.php");
     $body->set('currzone', $z);
@@ -236,7 +233,7 @@ switch ($action) {
     delete_blockedspell();
     header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=18");
     exit;
-   case 22: // Get blocked spell ID
+   case 22: // Add blockspell
     check_authorization();
     $breadcrumbs .= " >> Add Blocked Spell";
     $javascript = new Template("templates/iframes/js.tmpl.php");
@@ -246,7 +243,7 @@ switch ($action) {
     $body->set('zid', getZoneID($z));
     $body->set('suggestbsid', suggest_blockedspell_id());
     break;
-   case 23: // Add blockspell
+   case 23: // Insert blockspell
     check_authorization();
     add_blockedspell();
     header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&action=18");

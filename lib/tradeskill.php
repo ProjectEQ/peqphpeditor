@@ -281,15 +281,23 @@ function getItemBagtype($item) {
   
   $query = "SELECT bagtype FROM items WHERE id=$item";
   $result = $mysql->query_assoc($query);
-  return $result['bagtype'];
+
+  if ($result) {
+    return $result['bagtype'];
+  }
+  else {
+    return null;
+  }
 }
 
 function component_info() {
   global $mysql, $rec;
+
   $id = $_GET['id'];
 
   $query = "SELECT * FROM tradeskill_recipe_entries WHERE id=$id";
   $result = $mysql->query_assoc($query);
+
   return $result;
 }
 

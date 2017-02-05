@@ -2,11 +2,9 @@
 
 switch ($action) {
   case 0:
-    check_authorization();
     $body = new Template("templates/altcur/altcur.default.tmpl.php");
     break;
   case 1: // View Items
-    check_authorization();
     $breadcrumbs .= " >> Items";
     $body = new Template("templates/altcur/altcur.items.tmpl.php");
     $altcur_items = get_altcur_items();
@@ -44,7 +42,6 @@ switch ($action) {
     header("Location: index.php?editor=altcur&action=1");
     exit;
   case 7: // View NPCs
-    check_authorization();
     $breadcrumbs .= " >> NPCs";
     $body = new Template("templates/altcur/altcur.npcs.tmpl.php");
     $altcur_npcs = get_altcur_npcs();

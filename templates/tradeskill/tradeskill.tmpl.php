@@ -31,7 +31,7 @@
         <div class="table_content">
           <strong>Tradeskill:</strong> <?=$tradeskills[$tradeskill]?><br/>
           <strong>Min Skill:</strong> <?=$skillneeded?><br/>
-          <strong>Trivial</strong>: <?=$trivial?><br/>
+          <strong>Trivial:</strong> <?=$trivial?><br/>
           <strong>No Fail:</strong> <?=$yesno[$nofail]?><br/>
           <strong>Replace Container:</strong> <?=$yesno[$replace_container]?><br/>
           <strong>Quest Controlled:</strong> <?=$yesno[$quest]?><br/>

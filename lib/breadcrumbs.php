@@ -94,5 +94,6 @@ if (($playerid != '') && ($playerid != 'Player ID')) $breadcrumbs .= " >> <a hre
 if ($acctid != '') $breadcrumbs .= " >> " . getAccountName($acctid) . " ($acctid)";
 if ($guildid != '') $breadcrumbs .= " >> " . getGuildName($guildid) . " ($guildid)";
 if ($aaid != '') $breadcrumbs .= " >> " . getAAName($aaid) . " ($aaid)";
+if ($nseid != '') $breadcrumbs .= " >> <a href='index.php?editor=" . $editor . "&action=11'>NPC Spells Effects</a>";
 
 ?>
