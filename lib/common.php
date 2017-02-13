@@ -210,7 +210,12 @@ function getPlayerName($playerid) {
   if ($playerid > 0) {
     $query = "SELECT name FROM character_data WHERE id=$playerid";
     $result = $mysql->query_assoc($query);
-    return $result['name'];
+    if ($result) {
+      return $result['name'];
+    }
+    else {
+      return "";
+    }
   }
   else {
     return "";
