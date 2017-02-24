@@ -247,12 +247,6 @@ function update_spell() {
     $_POST[spell_category] = $_POST[spcat];
   }
 
-  for ($x = 1; $x <= 12; $x++) {
-    if($_POST['formula'.$x] == 1) {
-      $_POST['formula'.$x] = $_POST['fmm'.$x];
-    }
-  }
-
   $fields = '';
   foreach(array_keys($vars) as $f) {
     //Put field name in backticks to avoid conflicts with columns named for sql functions (like range)

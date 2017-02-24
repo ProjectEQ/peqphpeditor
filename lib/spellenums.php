@@ -77,7 +77,7 @@ $sp_formulas = array(
 );
 
 $sp_zonetypes = array(
-   -1  => "None",
+   -1   => "None",
     0   => "Indoor",
     1   => "Outdoor",
     2   => "Dungeon",
