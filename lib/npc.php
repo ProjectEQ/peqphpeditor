@@ -53,7 +53,8 @@ $pet_naming = array(
   1 => "`s familiar",
   2 => "`s Warder",
   3 => "Random pet name",
-  4 => "Keep DB name"
+  4 => "Keep DB name",
+  5 => "`s ward"
 );
 
 $pet_control = array(
