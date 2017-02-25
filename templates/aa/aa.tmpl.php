@@ -419,7 +419,7 @@ if ($prereqs) {
   foreach ($prereqs as $prereq) {
 ?>
                     <fieldset>
-                      <legend><strong><font size="2">Rank <?=$prereq['rank_id']?> Prerequisite</font></strong></legend>
+                      <legend><strong><font size="2">Rank ID <?=$prereq['rank_id']?> Prerequisite</font></strong></legend>
                       <table cellspacing="0" cellpadding="0" width="100%">
                         <tr>
                           <td>
