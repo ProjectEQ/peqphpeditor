@@ -7,7 +7,7 @@
     return "$expid";
   }
 
-  function getClasses($classes, $berserker) {
+  /*function getClasses($classes, $berserker) {
     if ($berserker == 0 && $classes == 0) {
       return "None";
     }
@@ -34,8 +34,9 @@
       $res = rtrim($res, " ");
       return $res;
     }
-  }
+  }*/
 ?>
+<?if (isset($_GET['action']) && $_GET['action'] == 2):?> 
   <div class="table_container" style="width:350px;">
     <div class="table_header">AA Search Results for Spell Effect: <?=$spa_name?> (<?=$spa_id?>)</div>
 <?if($results):?>
@@ -56,3 +57,30 @@
     <div class="table_content">Your search produced no results!</div>
 <?endif;?>
   </div>
+
+<?elseif (isset($_GET['action']) && $_GET['action'] == 1):?>
+  <div class="table_container" style="width:350px;">
+    <div class="table_header">AA Search Results</div>
+<?if($results != ''):?>
+    <table class="table_content2" width="100%">
+      <tr>
+        <th width="7%" align="center">ID</th>
+        <th width="25%" align="center">Name</th>
+        <th width="25%" align="center">Classes</th>
+		<th width="25%" align="center">Deities</th>
+      </tr>
+<? $x=0; foreach($results as $result): extract($result);?>
+      <tr bgcolor="#<? echo ($x % 2 == 0) ? "CCCCCC" : "AAAAAA"; $x++;?>">
+        <td align="center"><?=$id?></td>
+        <td align="center"><a href="index.php?editor=aa&aaid=<?=$id?>"><?=$name?></a></td>
+        <td align="center"><?=getClasses($classes);?></td>
+		<td align="center"><?=getDeities($deities);?></td>
+      </tr>
+<?endforeach;?>
+    </table>
+<?endif;?>
+<?if($results == ''):?>
+    <div class="table_content">Your search produced no results!</div>
+<?endif;?>
+  </div>
+<?endif?>
