@@ -33,7 +33,6 @@ switch ($action) {
     $body->set("acttypes", $sp_acttypes);
     $body->set("daytimes", $sp_daytimes);
     $body->set("traveltypes", $sp_traveltypes);
-    $body->set("spellcats", $sp_categories);
 
     $vars = spell_info();
     if ($vars) {
@@ -179,14 +178,10 @@ function spell_info() {
   global $mysql;
 
   $id = $_GET['id'];
-
-  $query = "SELECT name AS spellname FROM spells_new WHERE id=$id";
+  
+  $query = "SELECT * FROM spells_new WHERE id=$id";
   $result = $mysql->query_assoc($query);
 
-  $query = "SELECT * FROM spells_new WHERE id=$id";
-  $result2 = $mysql->query_assoc($query);
-
-  $result = $result + $result2;
   return $result;
 }
 
@@ -231,10 +226,10 @@ function update_spell() {
     "deities15",
     "deities16"
   );
-
+  
   //Sanitize checkboxes
   foreach ($cbs as $cb) {
-    if ($_POST[$cb] == 'on') {
+    if (isset($_POST[$cb])){
       $_POST[$cb] = 1;
     }
     else {
@@ -243,8 +238,8 @@ function update_spell() {
   }
 
   //Fix the 'use text field' elements
-  if ($_POST[spell_category] == -100) {
-    $_POST[spell_category] = $_POST[spcat];
+  if ($_POST["spell_category"] == -100) {
+    $_POST["spell_category"] = $_POST[spcat];
   }
 
   $fields = '';

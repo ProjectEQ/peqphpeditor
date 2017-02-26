@@ -1,7 +1,7 @@
   <form name="spell_edit" method="post" action="index.php?editor=spells&id=<?=$id?>&action=6">
     <div class="edit_form">
       <div class="edit_form_header">
-        Edit Spell <?=$id?> - <?=$spellname?> (<a href="http://lucy.allakhazam.com/spell.html?id=<?=$id?>" target="_blank">Lucy</a>)
+        Edit Spell <?=$id?> - <?=$name?> (<a href="http://lucy.allakhazam.com/spell.html?id=<?=$id?>" target="_blank">Lucy</a>)
         <div style="float:right;">
           <a href="index.php?editor=spells&id=<?=$id?>&action=7" onClick="return confirm('Really Copy Spell <?=$id?>?');"><img src="images/last.gif" border="0" title="Copy this Spell"></a>
           <a href="index.php?editor=spells&id=<?=$id?>&action=5" onClick="return confirm('Really Delete Spell <?=$id?>?');"><img src="images/table.gif" border="0" title="Delete this Spell"></a>
@@ -14,7 +14,7 @@
             <input type="hidden" name="id" value="<?=$id?>">
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
-                <td width="50%">Name:<br/><input type="text" name="name" size="40" value="<?=$spellname?>"></td>
+                <td width="50%">Name:<br/><input type="text" name="name" size="40" value="<?=$name?>"></td>
                 <td>Teleport Zone / Pet Type:<br/><input type="text" name="teleport_zone" size="40" value="<?=$teleport_zone?>"></td>
               </tr>
               <tr>
@@ -245,19 +245,19 @@
                   </select>
                 </td>
                 <td>
-                  Not Out of Combat:<br/>
-                  <select name="NotOutofCombat" style="width:80px;">
-                    <option value="-1"<?echo ($NotOutofCombat == -1) ? " selected" : "";?>>-1</option>
-                    <option value="0"<?echo ($NotOutofCombat == 0) ? " selected" : "";?>>0</option>
-                    <option value="1"<?echo ($NotOutofCombat == 1) ? " selected" : "";?>>1</option>
+                  Out of Combat:<br/>
+                  <select name="OutofCombat" style="width:80px;">
+                    <option value="-1"<?echo ($OutofCombat == -1) ? " selected" : "";?>>-1</option>
+                    <option value="0"<?echo ($OutofCombat == 0) ? " selected" : "";?>>0</option>
+                    <option value="1"<?echo ($OutofCombat == 1) ? " selected" : "";?>>1</option>
                   </select>
                 </td>
                 <td>
-                  Not In Combat:<br/>
-                  <select name="NotInCombat" style="width:80px;">
-                    <option value="-1"<?echo ($NotInCombat == -1) ? " selected" : "";?>>-1</option>
-                    <option value="0"<?echo ($NotInCombat == 0) ? " selected" : "";?>>0</option>
-                    <option value="1"<?echo ($NotInCombat == 1) ? " selected" : "";?>>1</option>
+                  In Combat:<br/>
+                  <select name="InCombat" style="width:80px;">
+                    <option value="-1"<?echo ($InCombat == -1) ? " selected" : "";?>>-1</option>
+                    <option value="0"<?echo ($InCombat == 0) ? " selected" : "";?>>0</option>
+                    <option value="1"<?echo ($InCombat == 1) ? " selected" : "";?>>1</option>
                   </select>
                 </td>
                 <td>
@@ -286,8 +286,8 @@
                     <option value="1"<?echo ($cast_not_standing == 1) ? " selected" : "";?>>1</option>
                   </select>
                 </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td>player_1<br/><input type="text" name="player_1" size="3" value="<?=$player_1?>"></td>
+                <td>spellgroup:<br/><input type="text" name="spellgroup" size="3" value="<?=$spellgroup?>"></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
@@ -334,8 +334,22 @@
                 <td width="16%">Rank:<br/><input type="text" name="rank" value="<?=$rank?>" size="5"></td>
                 <td width="17%">Cast Restriction:<br/><input type="text" name="CastRestriction" value="<?=$CastRestriction?>" size="5"></td>
                 <td width="17%">Max Targets:<br/><input type="text" name="maxtargets" value="<?=$maxtargets?>" size="5"></td>
-                <td width="16%">&nbsp;</td>
+                <td>aemaxtargets:<br/><input type="text" name="aemaxtargets" size="3" value="<?=$aemaxtargets?>"></td>
               </tr>
+	      <tr>
+                <td>viral_targets:<br/><input type="text" name="viral_targets" size="3" value="<?=$viral_targets?>"></td>
+                <td>viral_timer:<br/><input type="text" name="viral_timer" size="3" value="<?=$viral_timer?>"></td>
+		<td>viral_range:<br/><input type="text" name="viral_range" size="3" value="<?=$viral_range?>"></td>
+		<td>min_dist:<br/><input type="text" name="min_dist" size="3" value="<?=$min_dist?>"></td>
+                <td>min_dist_mod:<br/><input type="text" name="min_dist_mod" size="3" value="<?=$min_dist_mod?>"></td>
+	      </tr>
+	      <tr>
+		<td>max_dist:<br/><input type="text" name="field220" size="3" value="<?=$field220?>"></td>
+		<td>max_dist_mod:<br/><input type="text" name="max_dist_mod" size="3" value="<?=$max_dist_mod?>"></td>
+                <td>min_range:<br/><input type="text" name="min_range" size="3" value="<?=$min_range?>"></td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	      </tr>
             </table>
           </fieldset><br/>
           <fieldset style="text-align:left;">
@@ -343,6 +357,190 @@
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
                 <td width="40%">Spell Effect 1:<br/>
+                  <select name="effectid1" style="width:150px;">
+<?foreach($effects as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $effectid1) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Base Value 1:<br/><input type="text" size="4" name="effect_base_value1" value="<?=$effect_base_value1?>"></td>
+                <td>Max Value 1:<br/><input type="text" size="4" name="max1" value="<?=$max1?>"></td>
+                <td>Limit Value 1:<br/><input type="text" size="4" name="effect_limit_value1" value="<?=$effect_limit_value1?>"></td>
+                <td>Formula 1:<br/>
+                  <select name="formula1" style="width:175px;">
+<?foreach($formulas as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $formula1) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Mult(1-99):<br/><input type="text" size="2" name="fmm1" value="<? echo (intval($formula1) > 0 and intval($formula1) < 100) ? "$formula1" : "" ?>"></td>
+              </tr>
+              <tr>
+                <td>Spell Effect 2:<br/>
+                  <select name="effectid2" style="width:150px;">
+<?foreach($effects as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $effectid2) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Base Value 2:<br/><input type="text" size="4" name="effect_base_value2" value="<?=$effect_base_value2?>"></td>
+                <td>Max Value 2:<br/><input type="text" size="4" name="max2" value="<?=$max2?>"></td>
+                <td>Limit Value 2:<br/><input type="text" size="4" name="effect_limit_value2" value="<?=$effect_limit_value2?>"></td>
+                <td>Formula 2:<br/>
+                  <select name="formula2" style="width:175px;">
+<?foreach($formulas as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $formula2) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Mult(1-99):<br/><input type="text" size="2" name="fmm2" value="<? echo (intval($formula2) > 0 and intval($formula2) < 100) ? "$formula2" : "" ?>"></td>
+              </tr>
+              <tr>
+                <td>Spell Effect 3:<br/>
+                  <select name="effectid3" style="width:150px;">
+<?foreach($effects as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $effectid3) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Base Value 3:<br/><input type="text" size="4" name="effect_base_value3" value="<?=$effect_base_value3?>"></td>
+                <td>Max Value 3:<br/><input type="text" size="4" name="max3" value="<?=$max3?>"></td>
+                <td>Limit Value 3:<br/><input type="text" size="4" name="effect_limit_value3" value="<?=$effect_limit_value3?>"></td>
+                <td>Formula 3:<br/>
+                  <select name="formula3" style="width:175px;">
+<?foreach($formulas as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $formula3) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Mult(1-99):<br/><input type="text" size="2" name="fmm3" value="<? echo (intval($formula3) > 0 and intval($formula3) < 100) ? "$formula3" : "" ?>"></td>
+              </tr>
+              <tr>
+                <td>Spell Effect 4:<br/>
+                  <select name="effectid4" style="width:150px;">
+<?foreach($effects as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $effectid4) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Base Value 4:<br/><input type="text" size="4" name="effect_base_value4" value="<?=$effect_base_value4?>"></td>
+                <td>Max Value 4:<br/><input type="text" size="4" name="max4" value="<?=$max4?>"></td>
+                <td>Limit Value 4:<br/><input type="text" size="4" name="effect_limit_value4" value="<?=$effect_limit_value4?>"></td>
+                <td>Formula 4:<br/>
+                  <select name="formula4" style="width:175px;">
+<?foreach($formulas as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $formula4) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Mult(1-99):<br/><input type="text" size="2" name="fmm4" value="<? echo (intval($formula4) > 0 and intval($formula4) < 100) ? "$formula4" : "" ?>"></td>
+              </tr>
+              <tr>
+                <td>Spell Effect 5:<br/>
+                  <select name="effectid5" style="width:150px;">
+<?foreach($effects as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $effectid5) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Base Value 5:<br/><input type="text" size="4" name="effect_base_value5" value="<?=$effect_base_value5?>"></td>
+                <td>Max Value 5:<br/><input type="text" size="4" name="max5" value="<?=$max5?>"></td>
+                <td>Limit Value 5:<br/><input type="text" size="4" name="effect_limit_value5" value="<?=$effect_limit_value5?>"></td>
+                <td>Formula 5:<br/>
+                  <select name="formula5" style="width:175px;">
+<?foreach($formulas as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $formula5) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Mult(1-99):<br/><input type="text" size="2" name="fmm5" value="<? echo (intval($formula5) > 0 and intval($formula5) < 100) ? "$formula5" : "" ?>"></td>
+              </tr>
+              <tr>
+                <td>Spell Effect 6:<br/>
+                  <select name="effectid6" style="width:150px;">
+<?foreach($effects as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $effectid6) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Base Value 6:<br/><input type="text" size="4" name="effect_base_value6" value="<?=$effect_base_value6?>"></td>
+                <td>Max Value 6:<br/><input type="text" size="4" name="max6" value="<?=$max6?>"></td>
+                <td>Limit Value 6:<br/><input type="text" size="4" name="effect_limit_value6" value="<?=$effect_limit_value6?>"></td>
+                <td>Formula 6:<br/>
+                  <select name="formula6" style="width:175px;">
+<?foreach($formulas as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $formula6) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Mult(1-99):<br/><input type="text" size="2" name="fmm6" value="<? echo (intval($formula6) > 0 and intval($formula6) < 100) ? "$formula6" : "" ?>"></td>
+              </tr>
+              <tr>
+                <td>Spell Effect 7:<br/>
+                  <select name="effectid7" style="width:150px;">
+<?foreach($effects as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $effectid7) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Base Value 7:<br/><input type="text" size="4" name="effect_base_value7" value="<?=$effect_base_value7?>"></td>
+                <td>Max Value 7:<br/><input type="text" size="4" name="max7" value="<?=$max7?>"></td>
+                <td>Limit Value 7:<br/><input type="text" size="4" name="effect_limit_value7" value="<?=$effect_limit_value7?>"></td>
+                <td>Formula 7:<br/>
+                  <select name="formula7" style="width:175px;">
+<?foreach($formulas as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $formula7) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Mult(1-99):<br/><input type="text" size="2" name="fmm7" value="<? echo (intval($formula7) > 0 and intval($formula7) < 100) ? "$formula7" : "" ?>"></td>
+              </tr>
+              <tr>
+                <td>Spell Effect 8:<br/>
+                  <select name="effectid8" style="width:150px;">
+<?foreach($effects as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $effectid8) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Base Value 8:<br/><input type="text" size="4" name="effect_base_value8" value="<?=$effect_base_value8?>"></td>
+                <td>Max Value 8:<br/><input type="text" size="4" name="max8" value="<?=$max8?>"></td>
+                <td>Limit Value 8:<br/><input type="text" size="4" name="effect_limit_value8" value="<?=$effect_limit_value8?>"></td>
+                <td>Formula 8:<br/>
+                  <select name="formula8" style="width:175px;">
+<?foreach($formulas as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $formula8) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Mult(1-99):<br/><input type="text" size="2" name="fmm8" value="<? echo (intval($formula8) > 0 and intval($formula8) < 100) ? "$formula8" : "" ?>"></td>
+              </tr>
+              <tr>
+                <td>Spell Effect 9:<br/>
+                  <select name="effectid9" style="width:150px;">
+<?foreach($effects as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $effectid9) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Base Value 9:<br/><input type="text" size="4" name="effect_base_value9" value="<?=$effect_base_value9?>"></td>
+                <td>Max Value 9:<br/><input type="text" size="4" name="max9" value="<?=$max9?>"></td>
+                <td>Limit Value 9:<br/><input type="text" size="4" name="effect_limit_value9" value="<?=$effect_limit_value9?>"></td>
+                <td>Formula 9:<br/>
+                  <select name="formula9" style="width:175px;">
+<?foreach($formulas as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $formula9) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+                  </select>
+                </td>
+                <td>Mult(1-99):<br/><input type="text" size="2" name="fmm9" value="<? echo (intval($formula9) > 0 and intval($formula9) < 100) ? "$formula9" : "" ?>"></td>
+              </tr>
+              <tr>
+                <td>Spell Effect 10:<br/>
+                  <select name="effectid10" style="width:150px;">
+<?foreach($effects as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $effectid10) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<td width="40%">Spell Effect 1:<br/>
                   <select name="effectid1">
 <?foreach($effects as $k => $v):?>
                     <option value="<?=$k?>"<? echo ($k == $effectid1) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
@@ -546,6 +744,29 @@
                 <td>Enchanter:<br/><input type="text" name="classes14" size="3" value="<?=$classes14?>"></td>
                 <td>Beastlord:<br/><input type="text" name="classes15" size="3" value="<?=$classes15?>"></td>
                 <td>Berserker:<br/><input type="text" name="classes16" size="3" value="<?=$classes16?>"></td>
+              </tr>
+            </table>
+          </fieldset><br/>
+		  <fieldset style="text-align:left;">
+            <legend><strong><font size="4">Values that need assignment</font></strong></legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0">
+              <tr>
+              </tr>
+              
+                
+              </tr>
+              <tr>
+                
+                <td></td>
+              </tr>
+              <tr>
+                
+              </tr>
+              <tr>
+                
+              </tr>
+              <tr>
+                
               </tr>
             </table>
           </fieldset><br/>

@@ -387,7 +387,7 @@ function search_aas_by_name() {
   global $mysql;
   $search = $_GET['search'];
 
-  $query = "SELECT id, name FROM aa_ability WHERE name rlike \"$search\" ORDER BY name, id";
+  $query = "SELECT id, name, classes, deities FROM aa_ability WHERE name rlike \"$search\" ORDER BY name, id, classes, deities";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
@@ -396,7 +396,7 @@ function search_aas_by_id() {
   global $mysql;
   $aaid = $_GET['aaid'];
 
-  $query = "SELECT id, name FROM aa_ability WHERE id=\"$aaid\"";
+  $query = "SELECT id, name, classes, deities FROM aa_ability WHERE id rlike \"$aaid\"";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
