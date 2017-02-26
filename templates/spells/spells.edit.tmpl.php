@@ -286,8 +286,8 @@
                     <option value="1"<?echo ($cast_not_standing == 1) ? " selected" : "";?>>1</option>
                   </select>
                 </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td>player_1<br/><input type="text" name="player_1" size="3" value="<?=$player_1?>"></td>
+                <td>spellgroup:<br/><input type="text" name="spellgroup" size="3" value="<?=$spellgroup?>"></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
@@ -334,15 +334,29 @@
                 <td width="16%">Rank:<br/><input type="text" name="rank" value="<?=$rank?>" size="5"></td>
                 <td width="17%">Cast Restriction:<br/><input type="text" name="CastRestriction" value="<?=$CastRestriction?>" size="5"></td>
                 <td width="17%">Max Targets:<br/><input type="text" name="maxtargets" value="<?=$maxtargets?>" size="5"></td>
-                <td width="16%">&nbsp;</td>
+                <td>aemaxtargets:<br/><input type="text" name="aemaxtargets" size="3" value="<?=$aemaxtargets?>"></td>
               </tr>
+	      <tr>
+                <td>viral_targets:<br/><input type="text" name="viral_targets" size="3" value="<?=$viral_targets?>"></td>
+                <td>viral_timer:<br/><input type="text" name="viral_timer" size="3" value="<?=$viral_timer?>"></td>
+		<td>viral_range:<br/><input type="text" name="viral_range" size="3" value="<?=$viral_range?>"></td>
+		<td>min_dist:<br/><input type="text" name="min_dist" size="3" value="<?=$min_dist?>"></td>
+                <td>min_dist_mod:<br/><input type="text" name="min_dist_mod" size="3" value="<?=$min_dist_mod?>"></td>
+	      </tr>
+	      <tr>
+		<td>max_dist:<br/><input type="text" name="field220" size="3" value="<?=$field220?>"></td>
+		<td>max_dist_mod:<br/><input type="text" name="max_dist_mod" size="3" value="<?=$max_dist_mod?>"></td>
+                <td>min_range:<br/><input type="text" name="min_range" size="3" value="<?=$min_range?>"></td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	      </tr>
             </table>
           </fieldset><br/>
           <fieldset style="text-align:left;">
             <legend><strong><font size="4">Spell Effects</font></strong></legend>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
-                <td>Spell Effect 1:<br/>
+                <td width="40%">Spell Effect 1:<br/>
                   <select name="effectid1" style="width:150px;">
 <?foreach($effects as $k => $v):?>
                     <option value="<?=$k?>"<? echo ($k == $effectid1) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
@@ -737,61 +751,22 @@
             <legend><strong><font size="4">Values that need assignment</font></strong></legend>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
-                <td>player_1<br/><input type="text" name="player_1" size="3" value="<?=$player_1?>"></td>
-                <td>field142:<br/><input type="text" name="field142" size="3" value="<?=$field142?>"></td>
-                <td>field143:<br/><input type="text" name="field143" size="3" value="<?=$field143?>"></td>
-                <td>field152:<br/><input type="text" name="field152" size="3" value="<?=$field152?>"></td>
-                <td>field153:<br/><input type="text" name="field153" size="3" value="<?=$field153?>"></td>
-                <td>field160:<br/><input type="text" name="field160" size="3" value="<?=$field160?>"></td>
-                <td>field163:<br/><input type="text" name="field163" size="3" value="<?=$field163?>"></td>
-                <td>field164:<br/><input type="text" name="field164" size="3" value="<?=$field164?>"></td>
+              </tr>
+              
+                
               </tr>
               <tr>
-                <td>field169:<br/><input type="text" name="field169" size="3" value="<?=$field169?>"></td>
-                <td>field170:<br/><input type="text" name="field170" size="3" value="<?=$field170?>"></td>
-                <td>field171:<br/><input type="text" name="field171" size="3" value="<?=$field171?>"></td>
-                <td>field172:<br/><input type="text" name="field172" size="3" value="<?=$field172?>"></td>
-                <td>field181:<br/><input type="text" name="field181" size="3" value="<?=$field181?>"></td>
-                <td>viral_targets:<br/><input type="text" name="viral_targets" size="3" value="<?=$viral_targets?>"></td>
-                <td>viral_timer:<br/><input type="text" name="viral_timer" size="3" value="<?=$viral_timer?>"></td>
-                <td>field198:<br/><input type="text" name="field198" size="3" value="<?=$field198?>"></td>
+                
+                <td></td>
               </tr>
               <tr>
-                <td>field182:<br/><input type="text" name="field182" size="3" value="<?=$field182?>"></td>
-                <td>field199:<br/><input type="text" name="field199" size="3" value="<?=$field199?>"></td>
-                <td>viral_range:<br/><input type="text" name="viral_range" size="3" value="<?=$viral_range?>"></td>
-                <td>field203:<br/><input type="text" name="field203" size="3" value="<?=$field203?>"></td>
-                <td>field204:<br/><input type="text" name="field204" size="3" value="<?=$field204?>"></td>
-                <td>field206:<br/><input type="text" name="field206" size="3" value="<?=$field206?>"></td>
-                <td>spellgroup:<br/><input type="text" name="spellgroup" size="3" value="<?=$spellgroup?>"></td>
-                <td>field209:<br/><input type="text" name="field209" size="3" value="<?=$field209?>"></td>
+                
               </tr>
               <tr>
-                <td>field210:<br/><input type="text" name="field210" size="3" value="<?=$field210?>"></td>
-                <td>field215:<br/><input type="text" name="field215" size="3" value="<?=$field215?>"></td>
-                <td>field216:<br/><input type="text" name="field216" size="3" value="<?=$field216?>"></td>
-                <td>field217:<br/><input type="text" name="field217" size="3" value="<?=$field217?>"></td>
-                <td>aemaxtargets:<br/><input type="text" name="aemaxtargets" size="3" value="<?=$aemaxtargets?>"></td>
-                <td>field220:<br/><input type="text" name="field220" size="3" value="<?=$field220?>"></td>
+                
               </tr>
               <tr>
-                <td>field221:<br/><input type="text" name="field221" size="3" value="<?=$field221?>"></td>
-                <td>field222:<br/><input type="text" name="field222" size="3" value="<?=$field222?>"></td>
-                <td>field223:<br/><input type="text" name="field223" size="3" value="<?=$field223?>"></td>
-                <td>field225:<br/><input type="text" name="field225" size="3" value="<?=$field225?>"></td>
-                <td>field226:<br/><input type="text" name="field226" size="3" value="<?=$field226?>"></td>
-                <td>min_dist:<br/><input type="text" name="min_dist" size="3" value="<?=$min_dist?>"></td>
-                <td>min_dist_mod:<br/><input type="text" name="min_dist_mod" size="3" value="<?=$min_dist_mod?>"></td>
-                <td>max_dist:<br/><input type="text" name="field220" size="3" value="<?=$field220?>"></td>
-              </tr>
-              <tr>
-                <td>max_dist_mod:<br/><input type="text" name="max_dist_mod" size="3" value="<?=$max_dist_mod?>"></td>
-                <td>min_range:<br/><input type="text" name="min_range" size="3" value="<?=$min_range?>"></td>
-                <td>field232:<br/><input type="text" name="field232" size="3" value="<?=$field232?>"></td>
-                <td>field233:<br/><input type="text" name="field233" size="3" value="<?=$field233?>"></td>
-                <td>field234:<br/><input type="text" name="field234" size="3" value="<?=$field234?>"></td>
-                <td>field235:<br/><input type="text" name="field235" size="3" value="<?=$field235?>"></td>
-                <td>field236:<br/><input type="text" name="field236" size="3" value="<?=$field236?>"></td>
+                
               </tr>
             </table>
           </fieldset><br/>
