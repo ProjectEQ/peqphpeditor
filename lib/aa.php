@@ -78,15 +78,6 @@ switch ($action) {
     break;
   case 3: //Search AAs by Expansion and Class
   case 4: //Add AA
-/*check_authorization();
-	$javascript = new Template("templates/iframes/js.tmpl.php");
-	$body = new Template("templates/aa/aa_ranks.edit.tmpl.php");
-	$body->set('editmode', 2);
-	$body->set('aa_ability', $defaultvalues);
-	$body->set('aa_type', $aa_type);
-	$body->set('aa_category', $aa_category);
-	$body->set('errors', null);
-	break;*/
   case 5: //Insert AA
   case 6: //Add AA Rank
   case 7: //Insert AA Rank
