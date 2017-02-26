@@ -33,7 +33,6 @@ switch ($action) {
     $body->set("acttypes", $sp_acttypes);
     $body->set("daytimes", $sp_daytimes);
     $body->set("traveltypes", $sp_traveltypes);
-    //$body->set("spellcats", $sp_categories); Does this do anything? This is the only place it appears in the entire editor
 
     $vars = spell_info();
     if ($vars) {
@@ -179,14 +178,10 @@ function spell_info() {
   global $mysql;
 
   $id = $_GET['id'];
-
- /* $query = "SELECT name AS spellname FROM spells_new WHERE id=$id"; //spellname is useless, can just change $spellname in spells.edit.tmpl to $name and it does the same thing with less complexity
-  $result = $mysql->query_assoc($query);
-*/
+  
   $query = "SELECT * FROM spells_new WHERE id=$id";
   $result = $mysql->query_assoc($query);
 
-  //$result = $result + $result2;
   return $result;
 }
 
@@ -200,7 +195,7 @@ function delete_spell() {
 }
 
 function update_spell() {
-  global $mysql, $sp_fields;
+  global $mysql;
 
   $id = $_POST['id'];
   $vars = spell_info();
@@ -245,12 +240,6 @@ function update_spell() {
   //Fix the 'use text field' elements
   if ($_POST["spell_category"] == -100) {
     $_POST["spell_category"] = $_POST[spcat];
-  }
-  
-  for ($x = 1; $x <= 12; $x++) {
-    if($_POST['formula'.$x] == 1) {
-      $_POST['formula'.$x] = $_POST['fmm'.$x];
-    }
   }
 
   $fields = '';
