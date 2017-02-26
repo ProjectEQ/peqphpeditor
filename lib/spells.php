@@ -238,8 +238,8 @@ function update_spell() {
   }
 
   //Fix the 'use text field' elements
-  if ($_POST["spell_category"] == -100) {
-    $_POST["spell_category"] = $_POST[spcat];
+  if ($_POST['spell_category'] == -100) {
+    $_POST['spell_category'] = $_POST[spcat];
   }
 
   $fields = '';

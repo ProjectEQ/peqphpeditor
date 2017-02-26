@@ -31,7 +31,7 @@
   </div>
 
 <?elseif (isset($_GET['action']) && $_GET['action'] == 1):?>
-  <div class="table_container" style="width:350px;">
+  <div class="table_container" style="width:650px;">
     <div class="table_header">AA Search Results</div>
 <?if($results != ''):?>
     <table class="table_content2" width="100%">
