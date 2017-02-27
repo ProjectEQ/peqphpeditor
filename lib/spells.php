@@ -79,7 +79,9 @@ switch ($action) {
 //     exit;
   case 10: // Dump spells
     check_authorization();
-    $body = new Template("templates/spells/genspells.php");
+    $body = new Template("templates/spells/spells.genspellsfile.tmpl.php");
+    $response = generateSpellsFile();
+    $body->set('response', $response);
     break;
   case 11: // NPC Spells Effects List
     $body = new Template("templates/spells/npc.spells.effects.default.tmpl.php");
@@ -451,5 +453,37 @@ function current_npc_spells_effects($nseid) {
   else {
     return null;
   }
+}
+
+function generateSpellsFile() {
+  global $mysql;
+  $spellsfile = "spells_us.txt";
+  $count = 0;
+  $lastid = 0;
+  $success = false;
+
+  $query = "SELECT id FROM spells_new ORDER BY id";
+  $spellids = $mysql->query_mult_assoc($query);
+
+  $fileOut = fopen($spellsfile, 'w');
+  if(!$fileOut) {
+    die("Error opening $spellsfile for writing. Make sure the path is writable.");
+  }
+
+  foreach ($spellids as $spellid) {
+    $id = $spellid['id'];
+    $query = "SELECT * FROM spells_new WHERE id=$id";
+    $spelldata = $mysql->query_assoc($query);
+    fwrite($fileOut, implode("^", $spelldata) . "\n");
+    $lastid = $spellid['id'];
+    $count++;
+  }
+
+  fclose($fileOut);
+
+  $success = ($count > 0) ? true : false;
+  $response = array("success" => $success, "count" => $count, "lastid" => $lastid, "spellsfile" => $spellsfile);
+
+  return $response;
 }
 ?>
