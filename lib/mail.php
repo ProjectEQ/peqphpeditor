@@ -86,7 +86,7 @@ function update_message() {
   $msg_id = $_POST['msg_id'];
   $subject = $_POST['subject'];
   $body = $_POST['body'];
-  $charid = getPlayerID($_POST['to_text']);
+  $charid = $_POST['to_text'];
   $status = $_POST['status'];
   $to = $_POST['to_text'];
   $from = $_POST['from_text'];
@@ -100,7 +100,7 @@ function send_message() {
 
   $subject = $_POST['subject'];
   $body = $_POST['body'];
-  $charid = getPlayerID($_POST['to_text']);
+  $charid = $_POST['to_text'];
   $to = $_POST['to_text'];
   $from = $_POST['from_text'];
 

@@ -26,7 +26,7 @@ foreach($mail as $message):?>
             <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
               <td align="center" width="10%"><?=$message['msgid']?></td>
               <td align="center" width="15%"><?=$message['from']?></td>
-              <td align="center" width="15%"><?=getPlayerName($message['charid'])?></td>
+              <td align="center" width="15%"><?echo (getPlayerName($message['charid']) == "") ? "<font color='red'>Missing</font>" : getPlayerName($message['charid']);?></td>
               <td align="center" width="35%"><?=$message['subject']?></td>
               <td align="center" width="20%"><?=get_real_time($message['timestamp'])?></td>
               <td align="right"><a href="index.php?editor=mail&msg_id=<?=$message['msgid']?>&action=1"><img src="images/mail.gif" width="13" height="13" border="0" title="View Message"></a>&nbsp;<a onClick="return confirm('Really delete message <?=$message['msgid']?>?');" href="index.php?editor=mail&msg_id=<?=$message['msgid']?>&action=4"><img src="images/remove3.gif" border="0" title="Delete Message"></a></td>

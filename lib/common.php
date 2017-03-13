@@ -530,6 +530,8 @@ function delete_player($playerid) {
   //reports?
   $query = "DELETE FROM timers WHERE char_id=$playerid";
   $mysql->query_no_result($query);
+  $query = "DELETE FROM titles WHERE char_id=$playerid";
+  $mysql->query_no_result($query);
   $query = "DELETE FROM trader WHERE char_id=$playerid";
   $mysql->query_no_result($query);
   //trader_audit?
