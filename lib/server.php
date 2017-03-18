@@ -241,6 +241,11 @@ switch ($action) {
     check_admin_authorization();
     $breadcrumbs .= " >> Rules";
     $body = new Template("templates/server/rules.tmpl.php");
+    $ruleset = get_default_ruleset();
+    if ($ruleset) {
+      $body->set('ruleset_id', $ruleset['ruleset_id']);
+      $body->set('ruleset_name', $ruleset['name']);
+    }
     $rules = get_rules();
     if ($rules) {
       foreach ($rules as $key=>$value) {
@@ -250,7 +255,7 @@ switch ($action) {
     break;
   case 17: // Edit Rules
     check_admin_authorization();
-    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Rule Editor";
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Edit Rule";
     $body = new Template("templates/server/rules.edit.tmpl.php");
     $body->set('ruleset_id', $_GET['ruleset_id']);
     $rules = view_rule();
@@ -263,14 +268,14 @@ switch ($action) {
   case 18: // Update Rule
     check_admin_authorization();
     update_rule();
-    $ruleset_id = $_POST['ruleset_id1'];
+    $ruleset_id = $_POST['old_ruleset_id'];
     header("Location: index.php?editor=server&ruleset_id=$ruleset_id&action=28");
     exit;
   case 19: // Add Rule
     check_admin_authorization();
     $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Add Rule";
     $body = new Template("templates/server/rules.add.tmpl.php");
-    $body->set('suggestruleset', $_GET['ruleset_id']);
+    $body->set('ruleset_id', $_GET['ruleset_id']);
     break;
   case 20: // Add Rule
     check_admin_authorization();
@@ -286,7 +291,7 @@ switch ($action) {
     exit;
   case 22: // Edit Ruleset
     check_admin_authorization();
-    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Ruleset Editor";
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Edit Ruleset";
     $body = new Template("templates/server/ruleset.edit.tmpl.php");
     $body->set('ruleset_id', $_GET['ruleset_id']);
     $ruleset = view_ruleset();
@@ -303,30 +308,36 @@ switch ($action) {
     exit;
   case 24: // Delete Rule Set
     check_admin_authorization();
-    delete_ruleset();
+    delete_ruleset($_GET['ruleset_id']);
     header("Location: index.php?editor=server&action=27");
     exit;
   case 25: // Copy Ruleset
     check_admin_authorization();
     $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Copy Ruleset";
     $body = new Template("templates/server/ruleset.copy.tmpl.php");
-    $body->set('suggestruleid', suggest_ruleset_id());
-    $body->set('name', $_GET['name']);
+    $body->set('ruleset_id', suggest_ruleset_id());
+    $body->set('origin_id', $_GET['ruleset_id']);
+    $ruleset_name = get_ruleset_name($_GET['ruleset_id']);
+    if ($ruleset_name) {
+      $body->set('name', $ruleset_name);
+    }
     break;
   case 26: // Copy Rule Set
     check_admin_authorization();
     copy_ruleset();
     header("Location: index.php?editor=server&action=27");
     exit;
-  case 27: // Switch Ruleset
+  case 27: // View All Rulesets
     check_admin_authorization();
-    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Switch Ruleset";
-    $body = new Template("templates/server/ruleset.switch.tmpl.php");
-    $ruleset = view_rulesets();
-    if ($ruleset) {
-      foreach ($ruleset as $key=>$value) {
-        $body->set($key, $value);
-      }
+    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> View All Rulesets";
+    $body = new Template("templates/server/rulesets.view.tmpl.php");
+    $rulesets = view_rulesets();
+    if ($rulesets) {
+      $body->set('rulesets', $rulesets);
+    }
+    $orphans = check_orphaned_rules();
+    if ($orphans) {
+      $body->set('orphans', $orphans);
     }
     break;
   case 28: // View Rules from ruleset
@@ -334,6 +345,10 @@ switch ($action) {
     $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Ruleset Rules";
     $body = new Template("templates/server/rules.tmpl.php");
     $body->set('ruleset_id', $_GET['ruleset_id']);
+    $ruleset_name = get_ruleset_name($_GET['ruleset_id']);
+    if ($ruleset_name) {
+      $body->set('ruleset_name', $ruleset_name);
+    }
     $rules = get_rules_from_ruleset();
     if ($rules) {
       foreach ($rules as $key=>$value) {
@@ -341,16 +356,16 @@ switch ($action) {
        }
      }
     break;
-  case 29: // Delete Rule Set
+  case 29: // Repair Orphaned Rules
     check_admin_authorization();
-    delete_ruleset_rules();
+    repair_orphaned_rules();
     header("Location: index.php?editor=server&action=27");
     exit;
   case 30: // Add Ruleset
     check_admin_authorization();
     $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=16'>" . "Rules</a> >> Add Ruleset";
     $body = new Template("templates/server/ruleset.add.tmpl.php");
-    $body->set('suggestruleid', suggest_ruleset_id());
+    $body->set('ruleset_id', suggest_ruleset_id());
     break;
   case 31: // Add Ruleset
     check_admin_authorization();
@@ -633,6 +648,24 @@ function get_rules() {
   return $array;
 }
 
+function get_default_ruleset() {
+  global $mysql;
+
+  $query = "SELECT * FROM rule_sets WHERE `name`=\"default\" LIMIT 1";
+  $result = $mysql->query_assoc($query);
+
+  return $result;
+}
+
+function get_ruleset_name($ruleset_id) {
+  global $mysql;
+
+  $query = "SELECT `name` FROM rule_sets WHERE ruleset_id=$ruleset_id LIMIT 1";
+  $result = $mysql->query_assoc($query);
+
+  return $result['name'];
+}
+
 function get_rules_from_ruleset() {
   global $mysql;
   $ruleset_id = $_GET['ruleset_id'];
@@ -757,14 +790,10 @@ function view_ruleset() {
 function view_rulesets() {
   global $mysql;
 
-  $query = "SELECT ruleset_id, name FROM rule_sets order by ruleset_id";
-  $result = $mysql->query_mult_assoc($query);
-  if ($result) {
-    foreach ($result as $result) {
-     $array['ruleset'][$result['ruleset_id']] = array("ruleset_id"=>$result['ruleset_id'], "name"=>$result['name']);
-         }
-       }
-  return $array;
+  $query = "SELECT ruleset_id, name FROM rule_sets ORDER BY ruleset_id";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
 }
 
 function view_zone() {
@@ -826,14 +855,14 @@ function update_petition() {
 function update_rule() {
   global $mysql;
 
-  $rule_name = $_POST['rule_name'];
-  $rule_name1 = $_POST['rule_name1'];
   $ruleset_id = $_POST['ruleset_id'];
-  $ruleset_id1 = $_POST['ruleset_id1'];
+  $old_ruleset_id = $_POST['old_ruleset_id'];
+  $rule_name = $_POST['rule_name'];
+  $old_rule_name = $_POST['old_rule_name'];
   $rule_value = $_POST['rule_value'];
   $notes = $_POST['notes'];
 
-  $query = "UPDATE rule_values SET rule_name=\"$rule_name1\", rule_value=\"$rule_value\", ruleset_id=\"$ruleset_id1\", notes=\"$notes\" WHERE rule_name=\"$rule_name\" AND ruleset_id=\"$ruleset_id\"";
+  $query = "UPDATE rule_values SET ruleset_id=$ruleset_id, rule_name=\"$rule_name\", rule_value=\"$rule_value\", notes=\"$notes\" WHERE ruleset_id=$old_ruleset_id AND rule_name=\"$old_rule_name\"";
   $mysql->query_no_result($query);
 }
 
@@ -841,10 +870,13 @@ function update_ruleset() {
   global $mysql;
 
   $ruleset_id = $_POST['ruleset_id'];
-  $ruleset_id1 = $_POST['ruleset_id1'];
+  $old_ruleset_id = $_POST['old_ruleset_id'];
   $name = $_POST['name'];
 
-  $query = "UPDATE rule_sets SET name=\"$name\", ruleset_id=\"$ruleset_id1\" WHERE ruleset_id=\"$ruleset_id\"";
+  $query = "UPDATE rule_sets SET name=\"$name\", ruleset_id=$ruleset_id WHERE ruleset_id=$old_ruleset_id";
+  $mysql->query_no_result($query);
+
+  $query = "UPDATE rule_values SET ruleset_id=$ruleset_id WHERE ruleset_id=$old_ruleset_id";
   $mysql->query_no_result($query);
 }
 
@@ -926,28 +958,17 @@ function delete_rule() {
   $rule_name = $_GET['rule_name'];
   $ruleset_id = $_GET['ruleset_id'];
 
-  $query = "DELETE FROM rule_values WHERE rule_name=\"$rule_name\" AND ruleset_id=\"$ruleset_id\"";
+  $query = "DELETE FROM rule_values WHERE rule_name=\"$rule_name\" AND ruleset_id=$ruleset_id";
   $mysql->query_no_result($query);
 }
 
-function delete_ruleset() {
+function delete_ruleset($ruleset_id) {
   global $mysql;
 
-  $ruleset_id = $_GET['ruleset_id'];
-
-  $query = "DELETE FROM rule_sets WHERE ruleset_id=\"$ruleset_id\"";
-  $mysql->query_no_result($query);
-}
-
-function delete_ruleset_rules() {
-  global $mysql;
-
-  $ruleset_id = $_GET['ruleset_id'];
-
-  $query = "DELETE FROM rule_sets WHERE ruleset_id=\"$ruleset_id\"";
+  $query = "DELETE FROM rule_values WHERE ruleset_id=$ruleset_id";
   $mysql->query_no_result($query);
 
-  $query = "DELETE FROM rule_values WHERE ruleset_id=\"$ruleset_id\"";
+  $query = "DELETE FROM rule_sets WHERE ruleset_id=$ruleset_id";
   $mysql->query_no_result($query);
 }
 
@@ -1038,30 +1059,13 @@ function copy_ruleset() {
   global $mysql;
 
   $ruleset_id = $_POST['ruleset_id'];
-  $name = $_POST['name'];
-  $name1 = $_POST['name1'];
+  $name = $_POST['ruleset_name'];
+  $origin_id = $_POST['origin_id'];
 
-  $query = "REPLACE INTO rule_sets SET name=\"$name1\", ruleset_id=\"$ruleset_id\"";
+  $query = "INSERT INTO rule_sets (ruleset_id, `name`) VALUES ($ruleset_id, \"$name\")";
   $mysql->query_no_result($query);
 
-  $query = "UPDATE rule_values rv
-            INNER JOIN rule_sets rs ON rv.ruleset_id = rs.ruleset_id
-            SET rv.ruleset_id=\"$ruleset_id\"
-            WHERE rs.name=\"$name\"";
-  $mysql->query_no_result($query);
-
-  $query = "DELETE FROM rule_values WHERE ruleset_id=0";
-  $mysql->query_no_result($query);
-
-  $query = "INSERT INTO rule_values (rule_name,rule_value,notes) 
-            SELECT rule_name,rule_value,notes FROM rule_values where ruleset_id=\"$ruleset_id\"";
-  $mysql->query_no_result($query);
-  
-  $query = "SELECT ruleset_id FROM rule_sets where name=\"$name\"";
-  $result = $mysql->query_assoc($query);
-  $defaultid = $result['ruleset_id'];
-
-  $query = "UPDATE rule_values set ruleset_id=$defaultid where ruleset_id=0";
+  $query = "INSERT INTO rule_values (ruleset_id, rule_name, rule_value, notes) SELECT $ruleset_id, rule_name, rule_value, notes FROM rule_values where ruleset_id=$origin_id";
   $mysql->query_no_result($query);
 }
 
@@ -1217,5 +1221,31 @@ function getCharCreateComboList() {
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
+}
+
+function check_orphaned_rules() {
+  global $mysql;
+
+  $query = "SELECT DISTINCT(ruleset_id) AS ruleset_id FROM rule_values WHERE ruleset_id NOT IN (SELECT ruleset_id FROM rule_sets)";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
+}
+
+function repair_orphaned_rules() {
+  global $mysql;
+
+  $orphans = check_orphaned_rules();
+
+  foreach ($orphans as $orphan) {
+    $ruleset_id = suggest_ruleset_id();
+    $orphan_id = $orphan['ruleset_id'];
+
+    $query = "INSERT INTO rule_sets (ruleset_id, `name`) VALUES ($ruleset_id, \"Orphan Rule\")";
+    $mysql->query_no_result($query);
+
+    $query = "UPDATE rule_values SET ruleset_id=$ruleset_id WHERE ruleset_id=$orphan_id";
+    $mysql->query_no_result($query);
+  }
 }
 ?>
