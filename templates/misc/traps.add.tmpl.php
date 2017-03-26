@@ -1,10 +1,9 @@
-<div class="edit_form" style="width: 750px">
-      <div class="edit_form_header">
-        Add Trap
-      </div>
-
-      <div class="edit_form_content">
-        <form name="traps" method="post" action=index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=24">
+  <div class="edit_form" style="width: 750px">
+    <div class="edit_form_header">
+      Add Trap
+    </div>
+    <div class="edit_form_content">
+      <form name="traps" method="post" action="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=24">
         <table width="100%">
           <tr>
             <th>id</th>
@@ -25,10 +24,8 @@
             <td><input type="text" size="7" name="maxzdiff" value="0"></td>
             <td><input type="text" size="7" name="radius" value="0"></td>
             <td><input type="text" size="7" name="version" value="<?=$suggestver?>"></td>
-            
           </tr>
           <tr>
-            
             <th>effectvalue</th>
             <th>effectvalue2</th>
             <th>chance</th>
@@ -47,17 +44,20 @@
             <td><input type="text" size="7" name="level" value="1"></td>
             <td><input type="text" size="7" name="respawn_time" value="60"></td>
             <td><input type="text" size="7" name="respawn_var" value="0"></td>
-            <td><select class="left" name="effect">
+            <td>
+              <select class="left" name="effect">
 <?foreach($traptype as $k => $v):?>
-              <option value="<?=$k?>"<? echo ($k == $effect) ? " selected" : ""?>><?=$v?></option>
+                <option value="<?=$k?>"<? echo ($k == $effect) ? " selected" : ""?>><?=$v?></option>
 <?$x++; endforeach;?>
-           </td> 
-            <td><input type="text" size="14" name="message" value=""></td>  
-          </tr>            
-              </table><br><br>
+              </select>
+            </td>
+            <td><input type="text" size="14" name="message" value=""></td>
+          </tr>
+        </table><br><br>
         <center>
-          <input type="submit" value="Submit Changes">
+          <input type="submit" value="Add Trap">&nbsp;&nbsp;
+          <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </form>
-      </div>
-      </div>
+    </div>
+  </div>

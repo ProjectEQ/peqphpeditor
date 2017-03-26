@@ -4,74 +4,75 @@
     </div>
     <div class="edit_form_content">
       <form name="spawnpoint" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=15">
-        Suggested ID:<br/>
-        <input type="text" name="id" value="<?=$suggestedid?>"><br/><br/>
+        Suggested ID:<br>
+        <input type="text" name="id" value="<?=$suggestedid?>"><br><br>
         <table width="100%" cellspacing="0">
           <tr>
             <td width="33%">
-              x:<br/>
+              X:<br>
               <input type="text" name="x" value="">
             </td>
             <td width="33%">
-              y:<br/>
+              Y:<br>
               <input type="text" name="y" value="">
             </td>
             <td width="34%">
-              z:<br/>
+              Z:<br>
               <input type="text" name="z" value="">
             </td>
           </tr>
           <tr>
             <td width="33%">
-              heading:<br/>
+              Heading:<br>
               <input type="text" name="heading" value="0">
             </td>
             <td width="33%">
-              respawn:<br/>
-              <input type="text" name="respawntime" value="1200">
+              Respawn:<br>
+              <input type="text" name="respawntime" value="1200">s
             </td>
             <td width="34%">
-              variance:<br/>
-              <input type="text" name="variance" value="0">
+              Variance:<br>
+              <input type="text" name="variance" value="0">s
             </td>
           </tr>
           <tr>
             <td width="33%">
-              pathgrid:<br/>
+              Pathgrid:<br>
               <input type="text" name="pathgrid" value="0">
             </td>
             <td width="33%">
-              condition:<br/>
+              Condition:<br>
               <input type="text" name="_condition" value="0">
             </td>
             <td width="34%">
-              cond_value:<br/>
+              Cond Value:<br>
               <input type="text" name="cond_value" value="1">
             </td>
           </tr>
           <tr>
             <td width="33%">
-              version:<br/>
+              Version:<br>
               <input type="text" name="version" value="0">
             </td>
             <td width="33%">
-              enabled:<br/>
+              Enabled:<br>
               <input type="text" name="enabled" value="1">
             </td>
             <td align="left" width="34%">
-              animation:<br/>
+              Animation:<br>
               <select name="animation">
 <?foreach($animations as $k => $v):?>
-                <option value="<?=$k?>"><?=$v?>&nbsp;&nbsp;</option>
+                <option value="<?=$k?>"><?=$v?></option>
 <?endforeach;?>
               </select>
             </td>
           </tr>
-        </table><br/><br/>
+        </table><br><br>
         <center>
           <input type="hidden" name="zone" value="<?=$zone?>">
           <input type="hidden" name="spawngroupID" value="<?=$spawngroupID?>">
-          <input type="submit" value="Submit Changes">
+          <input type="submit" value="Add Spawnpoint">&nbsp;&nbsp;
+          <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </form>
     </div>

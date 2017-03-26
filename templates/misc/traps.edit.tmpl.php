@@ -1,9 +1,9 @@
-<div class="edit_form" style="width: 750px">
-      <div class="edit_form_header">
-        Edit Trap: <?=$id?>
-      </div>
-      <div class="edit_form_content">
-        <form name="traps" method="post" action=index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=21">
+  <div class="edit_form" style="width: 750px">
+    <div class="edit_form_header">
+      Edit Trap: <?=$id?>
+    </div>
+    <div class="edit_form_content">
+      <form name="traps" method="post" action="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=21">
         <table width="100%">
           <tr>
             <th>x</th>
@@ -40,19 +40,22 @@
             <td><input type="text" size="7" name="level" value="<?=$level?>"></td>
             <td><input type="text" size="7" name="respawn_time" value="<?=$respawn_time?>"></td>
             <td><input type="text" size="7" name="respawn_var" value="<?=$respawn_var?>"></td>
-            <td><select class="left" name="effect">
+            <td>
+              <select class="left" name="effect">
 <?foreach($traptype as $k => $v):?>
-              <option value="<?=$k?>"<? echo ($k == $effect) ? " selected" : ""?>><?=$v?></option>
+                <option value="<?=$k?>"<? echo ($k == $effect) ? " selected" : ""?>><?=$v?></option>
 <?endforeach;?>       
-           </select></td>
+              </select>
+            </td>
             <td><input type="text" size="20" name="message" value="<?=$message?>"></td>
           </tr>            
-              </table><br><br>
+        </table><br><br>
         <center>
           <input type="hidden" name="tid" value="<?=$id?>">
           <input type="hidden" name="zone" value="<?=$currzone?>">
-          <input type="submit" value="Submit Changes">
+          <input type="submit" value="Submit Changes">&nbsp;&nbsp;
+          <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </form>
-      </div>
-      </div>
+    </div>
+  </div>

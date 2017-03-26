@@ -145,7 +145,7 @@
               <td align="left" width="14%">MP Regen:    <br><input type="text" name="mana_regen_rate" size="5" value="0"/></td>
               <td align="left" width="14%">Assistradius:<br><input type="text" name="assistradius" size="5" value="0"/></td>
               <td align="left" width="14%">&nbsp;</td>
-              <td align="left" width="14%">Atk Delay:   <br><input type="text" name="attack_delay" size="5" value="<?=$attack_delay?>"/>%</td>
+              <td align="left" width="14%">Atk Delay:   <br><input type="text" name="attack_delay" size="5" value="<?=$attack_delay?>"/></td>
               <td align="left" width="14%">Spells ID:   <br><input type="text" name="npc_spells_id" size="5" value="0"/></td>
               <td align="left" width="15%">Heal Scale:  <br><input type="text" name="healscale" size="5" value="100"/>%</td>
             </tr>
@@ -299,7 +299,8 @@
           </center>
         </fieldset><br>
         <center>
-          <input type="submit" value="Submit Changes"/>
+          <input type="submit" value="Add NPC">&nbsp;&nbsp;
+          <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </div>
     </div>
