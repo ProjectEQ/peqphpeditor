@@ -22,6 +22,7 @@ switch ($action) {
     }
     break;
   case 1: // View fishing
+    $breadcrumbs .= " >> Fishing";
     $body = new Template("templates/misc/fishing.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -34,6 +35,7 @@ switch ($action) {
     break;
   case 2: // Edit fishing
     check_authorization();
+    $breadcrumbs .= " >> Fishing";
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/fishing.edit.tmpl.php");
     $body->set('currzone', $z);
@@ -57,6 +59,7 @@ switch ($action) {
     exit;
   case 5: // Add fishing
     check_authorization();
+    $breadcrumbs .= " >> Fishing";
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/fishing.add.tmpl.php");
     $body->set('currzone', $z);
@@ -70,6 +73,7 @@ switch ($action) {
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=1");
     exit;
   case 7: // View forage
+    $breadcrumbs .= " >> Foraging";
     $body = new Template("templates/misc/forage.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -82,6 +86,7 @@ switch ($action) {
     break;
    case 8: // Edit forage
     check_authorization();
+    $breadcrumbs .= " >> Foraging";
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/forage.edit.tmpl.php");
     $body->set('currzone', $z);
@@ -105,6 +110,7 @@ switch ($action) {
     exit;
    case 11: // Add forage
     check_authorization();
+    $breadcrumbs .= " >> Foraging";
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/forage.add.tmpl.php");
     $body->set('currzone', $z);
@@ -118,6 +124,7 @@ switch ($action) {
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=7");
     exit;
    case 13: // View ground spawns
+    $breadcrumbs .= " >> Ground Spawns";
     $body = new Template("templates/misc/groundspawn.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -130,6 +137,7 @@ switch ($action) {
     break;
    case 14: // Edit ground spawns
     check_authorization();
+    $breadcrumbs .= " >> Ground Spawns";
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/groundspawn.edit.tmpl.php");
     $body->set('currzone', $z);
@@ -153,6 +161,7 @@ switch ($action) {
     exit;
    case 17: // Add ground spawn
     check_authorization();
+    $breadcrumbs .= " >> Ground Spawns";
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/groundspawn.add.tmpl.php");
     $body->set('currzone', $z);
@@ -167,6 +176,7 @@ switch ($action) {
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=13");
     exit;
    case 19: // View traps
+    $breadcrumbs .= " >> Traps";
     $body = new Template("templates/misc/traps.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -181,6 +191,7 @@ switch ($action) {
     break;
    case 20: // Edit traps
     check_authorization();
+    $breadcrumbs .= " >> Traps";
     $body = new Template("templates/misc/traps.edit.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -204,6 +215,7 @@ switch ($action) {
     exit;
    case 23: // Add traps
     check_authorization();
+    $breadcrumbs .= " >> Traps";
     $body = new Template("templates/misc/traps.add.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -220,19 +232,23 @@ switch ($action) {
    case 25:  // Search functions
     $body = new Template("templates/misc/misc.searchresults.tmpl.php");
     if (isset($_GET['gspawnid']) && $_GET['gspawnid'] != "GroundSpawn"){
-       $gspawn = search_gspawn_by_id();
+      $breadcrumbs .= " >> Ground Spawns";
+      $gspawn = search_gspawn_by_id();
     }
     if (isset($_GET['forageid']) && $_GET['forageid'] != "Forage"){
-       $forage = search_forage_by_id();
+      $breadcrumbs .= " >> Foraging";
+      $forage = search_forage_by_id();
     }
     if (isset($_GET['fishid']) && $_GET['fishid'] != "Fishing"){
-       $fishing = search_fishing_by_id();
+      $breadcrumbs .= " >> Fishing";
+      $fishing = search_fishing_by_id();
     }
     $body->set("fishing", $fishing);
     $body->set("forage", $forage);
     $body->set("gspawn", $gspawn);
     break;
    case 26: // View fishing
+    $breadcrumbs .= " >> Fishing";
     $body = new Template("templates/misc/fishing.view.tmpl.php");
     $fishing = fishing_info();
     if ($fishing) {
@@ -242,6 +258,7 @@ switch ($action) {
     }
     break;
    case 27: // View forage
+    $breadcrumbs .= " >> Foraging";
     $body = new Template("templates/misc/forage.view.tmpl.php");
     $forage = forage_info();
     if ($forage) {
@@ -251,6 +268,7 @@ switch ($action) {
     }
     break;
    case 28: // View ground spawns
+    $breadcrumbs .= " >> Ground Spawns";
     $body = new Template("templates/misc/groundspawn.view.tmpl.php");
     $gspawn = gspawn_info();
     if ($gspawn) {
@@ -260,6 +278,7 @@ switch ($action) {
     }
     break;
    case 29: // View horses
+    $breadcrumbs .= " >> Horses";
     $body = new Template("templates/misc/horses.tmpl.php");
     $horses = get_horses();
     $body->set("races", $races);
@@ -272,6 +291,7 @@ switch ($action) {
     break;
    case 30: // Edit horses
     check_authorization();
+    $breadcrumbs .= " >> Horses";
     $body = new Template("templates/misc/horses.edit.tmpl.php");
     $body->set("races", $races);
     $body->set("genders", $genders);
@@ -294,6 +314,7 @@ switch ($action) {
     exit;
    case 33: // Add horses
     check_authorization();
+    $breadcrumbs .= " >> Horses";
     $body = new Template("templates/misc/horses.add.tmpl.php");
     $body->set("races", $races);
     $body->set("genders", $genders);
@@ -304,6 +325,7 @@ switch ($action) {
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=29");
     exit;
    case 35: // View doors
+    $breadcrumbs .= " >> Doors";
     $body = new Template("templates/misc/doors.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -316,6 +338,7 @@ switch ($action) {
     break;
   case 36: // Edit doors
     check_authorization();
+    $breadcrumbs .= " >> Doors";
     $body = new Template("templates/misc/doors.edit.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -338,6 +361,7 @@ switch ($action) {
     exit;
   case 39: // Add doors
     check_authorization();
+    $breadcrumbs .= " >> Doors";
     $body = new Template("templates/misc/doors.add.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -352,6 +376,7 @@ switch ($action) {
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=35");
     exit;
   case 41: // View objects
+    $breadcrumbs .= " >> Objects";
     $body = new Template("templates/misc/objects.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -365,6 +390,7 @@ switch ($action) {
     break;
   case 42: // Edit objects
     check_authorization();
+    $breadcrumbs .= " >> Objects";
     $body = new Template("templates/misc/objects.edit.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -388,6 +414,7 @@ switch ($action) {
     exit;
   case 45: // Add objects
     check_authorization();
+    $breadcrumbs .= " >> Objects";
     $body = new Template("templates/misc/objects.add.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -403,6 +430,7 @@ switch ($action) {
     exit;
   case 47:  // Copy doors
     check_authorization();
+    $breadcrumbs .= " >> Doors";
     $body = new Template("templates/misc/doors.copyver.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -415,6 +443,7 @@ switch ($action) {
     exit;
   case 49:  // Copy GSpawns
     check_authorization();
+    $breadcrumbs .= " >> Ground Spawns";
     $body = new Template("templates/misc/groundspawns.copyver.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -427,6 +456,7 @@ switch ($action) {
     exit;
   case 51:  // Copy Traps
     check_authorization();
+    $breadcrumbs .= " >> Traps";
     $body = new Template("templates/misc/traps.copyver.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -439,6 +469,7 @@ switch ($action) {
     exit;
   case 53:  // Copy Objects
     check_authorization();
+    $breadcrumbs .= " >> Objects";
     $body = new Template("templates/misc/objects.copyver.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);

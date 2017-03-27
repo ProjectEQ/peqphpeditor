@@ -20,7 +20,8 @@
         </table><br><br>
         <center>
           <input type="hidden" name="graveyard_id" value="<?=$id?>">
-          <input type="submit" value="Submit Changes">
+          <input type="submit" value="Submit Changes">&nbsp;&nbsp;
+          <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </form>
     </div>

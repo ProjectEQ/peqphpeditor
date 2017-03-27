@@ -202,7 +202,8 @@
             </fieldset><br>
             <input type="hidden" name="zoneidnumber" value="<?=$zoneidnumber?>">
             <input type="hidden" name="short_name" value="<?=$short_name?>">
-            <input type="submit" value="Submit Changes">
+            <input type="submit" value="Submit Changes">&nbsp;&nbsp;
+            <input type="button" value="Cancel" onClick="history.back();">
           </center>
         </div>
       </div>

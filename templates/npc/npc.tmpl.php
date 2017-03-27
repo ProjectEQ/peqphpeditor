@@ -12,13 +12,13 @@
     <div class="table_container">
       <div class="table_header">
         <div style="float:right">
-          <a onClick="document.getElementById('sql_block').style.display='block';document.getElementById('sql_image').style.display='none';"><img id="sql_image" src="images/sql.gif" border="0" title="Show SQL"></a>
-          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=42"><img src="images/add.gif" border="0" title="Add an NPC"></a>
-          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" border="0" title="Edit this NPC"></a>
-          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=43"><img src="images/upgrade.gif" border="0" title="Change NPC's Level"></a>
-          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=52"><img src="images/create.gif" border="0" title="Change NPC's AC/Resists"></a>
-          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=40"><img src="images/zone.gif" border="0" title="Get next npcid for a zone"></a>
-          <a onClick="return confirm('Really delete npcid <?=$npcid?>?');" href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=24"><img src="images/table.gif" border="0" title="Delete this NPC"></a>
+          <a onClick="document.getElementById('sql_block').style.display='block';document.getElementById('sql_image').style.display='none';"><img id="sql_image" src="images/sql.gif" style="border: 0;" title="Show SQL" alt="Show SQL"></a>
+          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=42"><img src="images/add.gif" style="border: 0;" title="Add an NPC" alt="Add an NPC"></a>
+          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" style="border: 0;" title="Edit this NPC" alt="Edit this NPC"></a>
+          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=43"><img src="images/upgrade.gif" style="border: 0;" title="Change NPC's Level" alt="Change NPC's Level"></a>
+          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=52"><img src="images/create.gif" style="border: 0;" title="Change NPC's AC/Resists" alt="Change NPC's AC/Resists"></a>
+          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=40"><img src="images/zone.gif" style="border: 0;" title="Get next npcid for a zone" alt="Get next npcid for a zone"></a>
+          <a onClick="return confirm('Really delete npcid <?=$npcid?>?');" href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=24"><img src="images/table.gif" style="border: 0;" title="Delete this NPC" alt="Delete this NPC"></a>
         </div>
         <?=$id?> - <?=$name?> <?echo ($lastname != '' ? "($lastname)" : '');?>
       </div>
@@ -70,7 +70,7 @@
 <?}?>
                   <b>Primary Faction</b>: [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=12">edit</a>]<br>
                   <?echo ($primaryfactionname != '') ? "<a title='Faction: " . $primaryfaction . "'>" . $primaryfactionname . "</a>" : "None";?><br><br>
-                  <b>Faction Hits:</b> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=15"><img src="images/add.gif" border="0" title="Add Faction Hit"></a><br>
+                  <b>Faction Hits:</b> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=15"><img src="images/add.gif" style="border: 0;" title="Add Faction Hit" alt="Add Faction Hit"></a><br>
 <?if ($faction_hits != '') {?>
                   <table width="100%">
 <?foreach($faction_hits as $hit): extract($hit);?>
@@ -80,8 +80,8 @@
                       <td><?=$faction_values[$npc_value]?></td>
                       <td>(<?=$tmpfacshort[$temp]?>)</td>
                       <td align="right">
-                        <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=19"><img src="images/edit2.gif" border="0" title="Edit this Faction Hit"></a>
-                        <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=21" onClick="return confirm('Are you sure you want to remove this faction hit?');"><img src="images/remove.gif" border="0" title="Remove this Faction Hit"></a>
+                        <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=19"><img src="images/edit2.gif" style="border: 0;" title="Edit this Faction Hit" alt="Edit this Faction Hit"></a>
+                        <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=21" onClick="return confirm('Are you sure you want to remove this faction hit?');"><img src="images/remove.gif" style="border: 0;" title="Remove this Faction Hit" alt="Remove this Faction Hit"></a>
                       </td>
                     </tr>
 <?endforeach;?>
@@ -376,8 +376,7 @@
         <input type="hidden" name="light" value="<?=$light?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
-          <input type="submit" value="Copy NPC">&nbsp;&nbsp;
-          <input type="button" value="Cancel" onClick="history.back();">
+          <input type="submit" value="Copy NPC">
         </center>
       </div>
     </div>

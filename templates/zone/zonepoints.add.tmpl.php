@@ -1,10 +1,9 @@
-<div class="edit_form" style="width: 600px">
-      <div class="edit_form_header">
-        Add Zone Point
-      </div>
-
-      <div class="edit_form_content">
-        <form name="zonepoints" method="post" action=index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=17">
+  <div class="edit_form" style="width: 600px">
+    <div class="edit_form_header">
+      Add Zone Point
+    </div>
+    <div class="edit_form_content">
+      <form name="zonepoints" method="post" action="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=17">
         <table width="100%">
           <tr>
             <th>ID</th>
@@ -14,7 +13,7 @@
             <th>Y</th>
             <th>Z</th>
             <th>Heading</th>
-           </tr>
+          </tr>
           <tr>
             <td><input type="text" size="7" name="zpid" value="<?=$suggestzpid?>"></td>
             <td><input type="text" size="10" name="zone" value="<?=$currzone?>"></td>
@@ -23,8 +22,8 @@
             <td><input type="text" size="7" name="y" value="0"></td>
             <td><input type="text" size="7" name="z_coord" value="0"></td>
             <td><input type="text" size="7" name="heading" value="0"></td>
-           </tr>
-           <tr>
+          </tr>
+          <tr>
             <th>Tar Instance</th>
             <th>Client</th>
             <th>Target X</th>
@@ -33,7 +32,7 @@
             <th>Tar Heading</th>
             <th>Version</th>
           </tr>
-           <tr>
+          <tr>
             <td><input type="text" size="7" name="target_instance" value="0"></td>
             <td><input type="text" size="10" name="client_version_mask" value="4294967295"></td>
             <td><input type="text" size="7" name="target_x" value="0"></td>
@@ -42,15 +41,17 @@
             <td><input type="text" size="7" name="target_heading" value="0"></td>
             <td><input type="text" size="7" name="version" value="<?=$suggestver?>"></td>
           </tr>
-          <th>Target Zone</th>
+          <tr>
+            <th>Target Zone</th>
           </tr>
-           <tr>
+          <tr>
             <td><input type="text" size="7" name="target_zone_id" value="<?=$zid?>"></td>
           </tr>
-         </table><br><br>
+        </table><br><br>
         <center>
-          <input type="submit" value="Submit Changes">
+          <input type="submit" value="Submit Changes">&nbsp;&nbsp;
+          <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </form>
-      </div>
-      </div>
+    </div>
+  </div>

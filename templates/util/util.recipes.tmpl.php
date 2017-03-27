@@ -2,12 +2,12 @@
     <table width="150" border="1" cellpadding="3" cellspacing="0" id="CustomCount" style="display:none;">
       <tr>
         <td align="center">
-          New Count: <input type="text" id="new_count" size="5" value="<?=$count?>"/><br/><br/>
+          New Count: <input type="text" id="new_count" size="5" value="<?=$count?>"><br><br>
           <input type="button" value="Submit" onClick="javascript:verifyCount();"/>&nbsp;<input type="button" value="Cancel" onClick="javascript:toggleCount();"/>
         </td>
       </tr>
     </table>
-  </center><br/>
+  </center><br>
   <div class="table_container" style="width: 500px;">
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
@@ -37,4 +37,4 @@
         </tr>
 <?endif;?>
       </table>
-    </div><br/>
+    </div><br>

@@ -1,10 +1,9 @@
-<div class="edit_form" style="width: 600px">
-      <div class="edit_form_header">
-        Edit Zone Point: <?=$id?>
-      </div>
-
-      <div class="edit_form_content">
-        <form name="graveyard" method="post" action=index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&zpid=<?=$id?>&action=14">
+  <div class="edit_form" style="width: 600px">
+    <div class="edit_form_header">
+      Edit Zone Point: <?=$id?>
+    </div>
+    <div class="edit_form_content">
+      <form name="graveyard" method="post" action="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&zpid=<?=$id?>&action=14">
         <table width="100%">
           <tr>
             <th>Zone</th>
@@ -13,7 +12,7 @@
             <th>Y</th>
             <th>Z</th>
             <th>Heading</th>
-           </tr>
+          </tr>
           <tr>
             <td><input type="text" size="10" name="zone" value="<?=$zone?>"></td>
             <td><input type="text" size="7" name="number" value="<?=$number?>"></td>
@@ -21,8 +20,8 @@
             <td><input type="text" size="7" name="y" value="<?=$y?>"></td>
             <td><input type="text" size="7" name="z_coord" value="<?=$z?>"></td>
             <td><input type="text" size="7" name="heading" value="<?=$heading?>"></td>
-           </tr>
-           <tr>
+          </tr>
+          <tr>
             <th>Target X</th>
             <th>Target Y</th>
             <th>Target Z</th>
@@ -30,7 +29,7 @@
             <th>Version</th>
             <th>Target Zone</th>
           </tr>
-           <tr>
+          <tr>
             <td><input type="text" size="10" name="target_x" value="<?=$target_x?>"></td>
             <td><input type="text" size="7" name="target_y" value="<?=$target_y?>"></td>
             <td><input type="text" size="7" name="target_z" value="<?=$target_z?>"></td>
@@ -42,16 +41,16 @@
             <th>Client</th>
             <th>Tar Instance</th> 
           </tr>
-           <tr>
+          <tr>
             <td><input type="text" size="10" name="client_version_mask" value="<?=$client_version_mask?>"></td>
             <td><input type="text" size="7" name="target_instance" value="<?=$target_instance?>"></td>
-            
           </tr>
-         </table><br><br>
+        </table><br><br>
         <center>
           <input type="hidden" name="zpid" value="<?=$id?>">
-          <input type="submit" value="Submit Changes">
+          <input type="submit" value="Submit Changes">&nbsp;&nbsp;
+          <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </form>
-      </div>
-      </div>
+    </div>
+  </div>
