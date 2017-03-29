@@ -7,12 +7,12 @@ if($search_results != ''):
   foreach ($search_results as $result):
     extract($result);
 ?>
-      <a href="index.php?editor=keys&action=1&playerid=<?=$result['char_id']?>"><?=getPlayerName($result['char_id'])?> - (<?=$result['char_id']?>)</a><br/>
+      <a href="index.php?editor=keys&action=1&playerid=<?=$result['char_id']?>"><?=getPlayerName($result['char_id'])?> - (<?=$result['char_id']?>)</a><br>
 <?
     $x++;
   endforeach;
   if ($x == $list_limit) {
-    echo "<br/>List limited to " . $list_limit . " results.";
+    echo "<br>List limited to " . $list_limit . " results.";
   }
 ?>
 <?else:?>

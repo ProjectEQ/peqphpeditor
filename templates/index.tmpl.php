@@ -2,6 +2,7 @@
 <html>
 
   <head>
+    <meta name="viewport" content="width=800">
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <script type="text/javascript">
       function gotosite(site) { if (site != "") { self.location=site; } }

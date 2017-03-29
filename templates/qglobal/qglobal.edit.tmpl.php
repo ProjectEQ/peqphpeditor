@@ -47,7 +47,7 @@
                 <input type="hidden" name="old_npcid" value="<?=$npcid?>">
                 <input type="hidden" name="old_zoneid" value="<?=$zoneid?>">
                 <input type="hidden" name="referer" value="<?echo $_SERVER["HTTP_REFERER"];?>">
-                <input type="submit" value="Update Quest Global">
+                <input type="submit" value="Update Quest Global">&nbsp;&nbsp;
                 <input type="button" value="Cancel Changes" onClick="history.back()">
               </center>
             </form>

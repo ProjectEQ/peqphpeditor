@@ -42,8 +42,8 @@
                 </tr>
               </table>
               <center>
-                <input type="submit" value="Insert Quest Global">
-                <input type="button" value="Cancel Insert" onClick="history.back()">
+                <input type="submit" value="Add Quest Global">&nbsp;&nbsp;
+                <input type="button" value="Cancel" onClick="history.back()">
               </center>
             </form>
           </div>
