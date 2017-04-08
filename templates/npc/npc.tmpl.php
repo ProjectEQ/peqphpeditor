@@ -264,17 +264,17 @@
                   <tr>
                     <td align="left" width="33%">Spawn Limit: <?echo ($spawn_limit > 0) ? $spawn_limit : "None";?></td>
                     <td align="left" width="33%">Unique Spawn: <?=$yesno[$unique_spawn_by_name]?></td>
-                    <td align="left" width="34%">Underwater: <?=$yesno[$underwater]?></td>
+                    <td align="left" width="34%">Ignore Despawn: <?=$yesno[$ignore_despawn]?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Pet: <?=$yesno[$pet]?></td>
                     <td align="left" width="33%">Private Corpse: <?=$yesno[$private_corpse]?></td>
-                    <td align="left" width="34%">Version: <?=$version?></td>
+                    <td align="left" width="34%">Underwater: <?=$yesno[$underwater]?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">No Target Hotkey: <?=$yesno[$no_target_hotkey]?></td>
                     <td align="left" width="33%">Raid Target: <?=$yesno[$raid_target]?></td>
-                    <td align="left" width="34%">&nbsp;</td>
+                    <td align="left" width="34%">Version: <?=$version?></td>
                   </tr>
                 </table>
               </fieldset>
@@ -374,6 +374,7 @@
         <input type="hidden" name="no_target_hotkey" value="<?=$no_target_hotkey?>">
         <input type="hidden" name="raid_target" value="<?=$raid_target?>">
         <input type="hidden" name="light" value="<?=$light?>">
+        <input type="hidden" name="ignore_despawn" value="<?=$ignore_despawn?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">

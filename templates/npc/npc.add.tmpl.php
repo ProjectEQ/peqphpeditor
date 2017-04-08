@@ -294,6 +294,11 @@
                   <input type="checkbox" name="34" value="34,1"/> Destructible Object (34)<br>
                   <input type="checkbox" name="isquest" value="1"> Has Quest File<br>
                 </td>
+                <td valign="top" align="left">
+                  <input type="checkbox" name="ignore_despawn" value="1"/> Ignore Despawn<br>
+                  &nbsp;<br>
+                  &nbsp;<br>
+                </td>
               </tr>
             </table>
           </center>
