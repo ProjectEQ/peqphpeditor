@@ -1,10 +1,7 @@
-<div class="edit_form" style="width: 750px">
-      <div class="edit_form_header">
-        Door: <?=$id?>
-      </div>
-
-      <div class="edit_form_content">
-        <form name="door" method="post" action=index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=37">
+  <div class="edit_form" style="width: 750px">
+    <div class="edit_form_header">Door: <?=$id?></div>
+    <div class="edit_form_content">
+      <form name="door" method="post" action="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=37">
         <table width="100%">
           <tr>
             <th>doorid</th>
@@ -25,7 +22,7 @@
             <td><input type="text" size="7" name="heading" value="<?=$heading?>"></td>
             <td><input type="text" size="7" name="opentype" value="<?=$opentype?>"></td>
             <td><input type="text" size="7" name="guild" value="<?=$guild?>"></td>      
-           </tr>
+          </tr>
           <tr>
             <th>size</th>
             <th>dest zone</th>
@@ -55,42 +52,45 @@
             <th>incline</th>
             <th>version</th>
             <th>LDoN Door</th>
-         </tr>
+          </tr>
           <tr>
             <td><input type="text" size="7" name="triggerdoor" value="<?=$triggerdoor?>"></td>
-            <td><input type="text" size="7" name="triggertype" value="<?=$triggertype?>"></td>
+            <td><input type="text" size="15" name="triggertype" value="<?=$triggertype?>"></td>
             <td><input type="text" size="7" name="door_param" value="<?=$door_param?>"></td>
             <td><input type="text" size="7" name="doorisopen" value="<?=$doorisopen?>"></td>
             <td><input type="text" size="7" name="invert_state" value="<?=$invert_state?>"></td>
             <td><input type="text" size="7" name="incline" value="<?=$incline?>"></td>
             <td><input type="text" size="7" name="version" value="<?=$version?>"></td>
-             <td>
-                 <select name="is_ldon_door">
-                   <option value="0"<?echo ($is_ldon_door == 0) ? " selected" : ""?>>No</option>
-                   <option value="1"<?echo ($is_ldon_door == 1) ? " selected" : ""?>>Yes</option>
-                 </select>
-               </td>
-         </tr>
+            <td>
+              <select name="is_ldon_door" style="width:77px;">
+                <option value="0"<?echo ($is_ldon_door == 0) ? " selected" : ""?>>No</option>
+                <option value="1"<?echo ($is_ldon_door == 1) ? " selected" : ""?>>Yes</option>
+              </select>
+            </td>
+          </tr>
           <tr>
             <th>dest instance</th>
-            <th>client</th>
+            <th>client bitmask</th>
             <th>no keyring</th>
-         </tr>
+            <th>disable timer</th>
+          </tr>
           <tr>
             <td><input type="text" size="7" name="dest_instance" value="<?=$dest_instance?>"></td>
-            <td><input type="text" size="7" name="client_version_mask" value="<?=$client_version_mask?>"></td>
-          <td>
-                 <select name="nokeyring">
-                   <option value="0"<?echo ($nokeyring == 0) ? " selected" : ""?>>No</option>
-                   <option value="1"<?echo ($nokeyring == 1) ? " selected" : ""?>>Yes</option>
-                 </select>
-               </td>
-         </tr>
-              </table><br><br>
+            <td><input type="text" size="15" name="client_version_mask" value="<?=$client_version_mask?>"></td>
+            <td>
+              <select name="nokeyring" style="width:77px;">
+                <option value="0"<?echo ($nokeyring == 0) ? " selected" : ""?>>No</option>
+                <option value="1"<?echo ($nokeyring == 1) ? " selected" : ""?>>Yes</option>
+              </select>
+            </td>
+            <td><input type="text" size="7" name="disable_timer" value="<?=$disable_timer?>"></td>
+          </tr>
+        </table><br><br>
         <center>
           <input type="hidden" name="drid" value="<?=$id?>">
-          <input type="submit" value="Submit Changes">
+          <input type="submit" value="Submit Changes">&nbsp;&nbsp;
+          <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </form>
-      </div>
-      </div>
+    </div>
+  </div>

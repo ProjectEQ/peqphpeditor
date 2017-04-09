@@ -665,7 +665,7 @@ function get_doors() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask']);
+     $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask'], "disable_timer"=>$result['disable_timer']);
          }
        }
    }
@@ -674,7 +674,7 @@ function get_doors() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask']);
+     $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask'], "disable_timer"=>$result['disable_timer']);
          }
        }
    }
@@ -902,8 +902,9 @@ function update_doors() {
   $nokeyring = $_POST['nokeyring'];
   $dest_instance = $_POST['dest_instance'];
   $client_version_mask = $_POST['client_version_mask'];
+  $disable_timer = $_POST['disable_timer'];
 
-  $query = "UPDATE doors SET doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\", version=\"$version\", is_ldon_door=\"$is_ldon_door\", nokeyring=\"$nokeyring\", dest_instance=\"$dest_instance\", client_version_mask=\"$client_version_mask\" WHERE id=\"$drid\"";
+  $query = "UPDATE doors SET doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\", version=\"$version\", is_ldon_door=\"$is_ldon_door\", nokeyring=\"$nokeyring\", dest_instance=\"$dest_instance\", client_version_mask=\"$client_version_mask\", disable_timer=\"$disable_timer\" WHERE id=\"$drid\"";
   $mysql->query_no_result($query);
 }
 
@@ -1177,8 +1178,9 @@ function add_doors() {
   $nokeyring = $_POST['nokeyring'];
   $dest_instance = $_POST['dest_instance'];
   $client_version_mask = $_POST['client_version_mask'];
+  $disable_timer = $_POST['disable_timer'];
 
-  $query = "INSERT INTO doors SET id=\"$drid\", zone=\"$z\", doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\", buffer=0, is_ldon_door=\"$is_ldon_door\", version=\"$version\", nokeyring=\"$nokeyring\", dest_instance=\"$dest_instance\", client_version_mask=\"$client_version_mask\"";
+  $query = "INSERT INTO doors SET id=\"$drid\", zone=\"$z\", doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\", buffer=0, is_ldon_door=\"$is_ldon_door\", version=\"$version\", nokeyring=\"$nokeyring\", dest_instance=\"$dest_instance\", client_version_mask=\"$client_version_mask\", disable_timer=\"$disable_timer\"";
   $mysql->query_no_result($query);
 }
 
@@ -1276,64 +1278,64 @@ function get_max_objectversion() {
 }
 
 function copy_doors() {
-   global $mysql, $z;
+  global $mysql, $z;
 
-   $door_version = $_POST['door_version'];
-   $new_version = $_POST['new_version'];
+  $door_version = $_POST['door_version'];
+  $new_version = $_POST['new_version'];
 
-   $query = "CREATE TEMPORARY TABLE `doors_temp` (
-  `id` int(11) NOT NULL,
-  `doorid` smallint(4) NOT NULL auto_increment,
-  `zone` varchar(16) NOT NULL default '',
-  `version` smallint(5) unsigned NOT NULL default '0',
-  `name` varchar(32) NOT NULL default '',
-  `pos_y` float NOT NULL default '0',
-  `pos_x` float NOT NULL default '0',
-  `pos_z` float NOT NULL default '0',
-  `heading` float NOT NULL default '0',
-  `opentype` smallint(4) NOT NULL default '0',
-  `guild` smallint(4) NOT NULL default '0',
-  `lockpick` smallint(4) NOT NULL default '0',
-  `keyitem` int(11) NOT NULL default '0',
-  `nokeyring` tinyint(3) unsigned NOT NULL default '0',
-  `triggerdoor` smallint(4) NOT NULL default '0',
-  `triggertype` smallint(4) NOT NULL default '0',
-  `doorisopen` smallint(4) NOT NULL default '0',
-  `door_param` int(4) NOT NULL default '0',
-  `dest_zone` varchar(16) default 'NONE',
-  `dest_x` float default '0',
-  `dest_y` float default '0',
-  `dest_z` float default '0',
-  `dest_heading` float default '0',
-  `invert_state` int(11) default '0',
-  `incline` int(11) default '0',
-  `size` smallint(5) unsigned NOT NULL default '100',
-  `buffer` float default '0',
-  `is_ldon_door` smallint(6) NOT NULL default '0',
-  `dest_instance` int UNSIGNED default 0 NOT NULL,
-  `client_version_mask` int UNSIGNED default 4294967295 NOT NULL,
-
-  PRIMARY KEY  (`doorid`)
-)";
+  $query = "CREATE TEMPORARY TABLE `doors_temp` (
+    `id` int(11) NOT NULL,
+    `doorid` smallint(4) NOT NULL auto_increment,
+    `zone` varchar(16) NOT NULL default '',
+    `version` smallint(5) unsigned NOT NULL default '0',
+    `name` varchar(32) NOT NULL default '',
+    `pos_y` float NOT NULL default '0',
+    `pos_x` float NOT NULL default '0',
+    `pos_z` float NOT NULL default '0',
+    `heading` float NOT NULL default '0',
+    `opentype` smallint(4) NOT NULL default '0',
+    `guild` smallint(4) NOT NULL default '0',
+    `lockpick` smallint(4) NOT NULL default '0',
+    `keyitem` int(11) NOT NULL default '0',
+    `nokeyring` tinyint(3) unsigned NOT NULL default '0',
+    `triggerdoor` smallint(4) NOT NULL default '0',
+    `triggertype` smallint(4) NOT NULL default '0',
+    `doorisopen` smallint(4) NOT NULL default '0',
+    `door_param` int(4) NOT NULL default '0',
+    `dest_zone` varchar(16) default 'NONE',
+    `dest_x` float default '0',
+    `dest_y` float default '0',
+    `dest_z` float default '0',
+    `dest_heading` float default '0',
+    `invert_state` int(11) default '0',
+    `incline` int(11) default '0',
+    `size` smallint(5) unsigned NOT NULL default '100',
+    `buffer` float default '0',
+    `is_ldon_door` smallint(6) NOT NULL default '0',
+    `dest_instance` int UNSIGNED default 0 NOT NULL,
+    `client_version_mask` int UNSIGNED default 4294967295 NOT NULL,
+    `disable_timer` tinyint(2) NOT NULL default 0,
+    PRIMARY KEY (`doorid`)
+  )";
    $mysql->query_no_result($query);
 
 
-   $query = "INSERT INTO doors_temp (id,doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask)
-            SELECT id,doorid,zone,name,version,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask FROM doors WHERE zone=\"$z\"";
+   $query = "INSERT INTO doors_temp (id,doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask,disable_timer)
+             SELECT id,doorid,zone,name,version,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask,disable_timer FROM doors WHERE zone=\"$z\"";
    $mysql->query_no_result($query);
 
    $query = "UPDATE doors SET version=$new_version WHERE version=$door_version AND zone=\"$z\"";
    $mysql->query_no_result($query);
 
-   $query = "INSERT INTO doors_temp (zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask)
-            SELECT zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask FROM doors WHERE zone=\"$z\" AND version=$new_version";
+   $query = "INSERT INTO doors_temp (zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask,disable_timer)
+             SELECT zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask,disable_timer FROM doors WHERE zone=\"$z\" AND version=$new_version";
    $mysql->query_no_result($query);
 
    $query = "UPDATE doors SET version=$door_version WHERE version=$new_version AND zone=\"$z\"";
    $mysql->query_no_result($query);
 
-   $query = "INSERT INTO doors (doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask)
-            SELECT doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask FROM doors_temp WHERE version=$new_version AND zone=\"$z\"";
+   $query = "INSERT INTO doors (doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask,disable_timer)
+             SELECT doorid,zone,version,name,pos_y,pos_x,pos_z,heading,opentype,guild,lockpick,keyitem,nokeyring,triggerdoor,triggertype,doorisopen,door_param,dest_zone,dest_x,dest_y,dest_z,dest_heading,invert_state,incline,size,is_ldon_door,dest_instance,client_version_mask,disable_timer FROM doors_temp WHERE version=$new_version AND zone=\"$z\"";
    $mysql->query_no_result($query);
 
    $query = "DROP table `doors_temp`";
