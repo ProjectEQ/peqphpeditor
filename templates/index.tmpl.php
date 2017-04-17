@@ -23,6 +23,16 @@
       <div id="header">
         <a href="index.php"><img src="images/peq_editor.gif" title="Home" border="0" alt="PEQ Editor Banner"></a>
       </div>
+<?php if (ini_get('short_open_tag') != 1): ?>
+  <div class="error">
+    <table width="100%">
+      <tr>
+        <td valign="middle" width="30px"><img src="images/caution.gif"></td>
+        <td style="padding:0px 5px;">The setting for short_open_tag is off in your php.ini settings.</td>
+      </tr>
+    </table>
+  </div>
+<?php exit; endif; ?>
 <?if (isset($headbar)) echo $headbar;?>
 <?if (isset($searchbar)) echo $searchbar;?>
       <div id="content">
