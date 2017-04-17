@@ -28,7 +28,7 @@
     <table width="100%">
       <tr>
         <td valign="middle" width="30px"><img src="images/caution.gif"></td>
-        <td style="padding:0px 5px;">The setting for short_open_tag is off in your php.ini settings.</td>
+        <td style="padding:0px 5px;">The setting for <strong><em>short_open_tag</em></strong> must be turned <strong><em>on</em></strong> in php.ini</td>
       </tr>
     </table>
   </div>
