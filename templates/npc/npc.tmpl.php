@@ -324,8 +324,8 @@
         <input type="hidden" name="armortint_red" value="<?=$armortint_red?>">
         <input type="hidden" name="armortint_green" value="<?=$armortint_green?>">
         <input type="hidden" name="armortint_blue" value="<?=$armortint_blue?>">
-        <input type="hidden" name="d_meele_texture1" value="<?=$d_meele_texture1?>">
-        <input type="hidden" name="d_meele_texture2" value="<?=$d_meele_texture2?>">
+        <input type="hidden" name="d_melee_texture1" value="<?=$d_melee_texture1?>">
+        <input type="hidden" name="d_melee_texture2" value="<?=$d_melee_texture2?>">
         <input type="hidden" name="ammo_idfile" value="<?=$ammo_idfile?>">
         <input type="hidden" name="prim_melee_type" value="<?=$prim_melee_type?>">
         <input type="hidden" name="sec_melee_type" value="<?=$sec_melee_type?>">

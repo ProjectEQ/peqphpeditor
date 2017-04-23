@@ -5,10 +5,11 @@
     <tr>
       <td class="edit_form_content">
         <form name="npc_level" method="post" action="index.php?editor=npc&npcid=<?=$npcid?>&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=44">
-          NPC Level:<br/>
-          <input type="text" name="npc_level" value=""><br/><br/>
+          NPC Level:<br>
+          <input type="text" name="npc_level" value=""><br><br>
           <center>
-            <input type="submit" value="Submit"><br/><br/>
+            <input type="submit" value="Submit">&nbsp;&nbsp;
+            <input type="button" value="Cancel" onClick="history.back();"><br><br>
           </center>
         </form>
       </td>

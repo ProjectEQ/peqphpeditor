@@ -134,7 +134,7 @@
     if (preg_match("/^$i,/", $special_abilities) == 1) {
       $specabil[$i] = 1;
       // Leading special ability
-      if (preg_match("/^$i,.+?\^/", $special_abilities, $match) == 1){
+      if (preg_match("/^$i,.+?\^/", $special_abilities, $match) == 1) {
         $specabilcont[$i] = $match[0];
         $specabilcont[$i] = rtrim($specabilcont[$i], "^");
       }
@@ -144,10 +144,10 @@
         $specabilcont[$i] = $match[0];
       }  
     }
-    elseif (preg_match("/\^$i,/", $special_abilities) == 1){
+    elseif (preg_match("/\^$i,/", $special_abilities) == 1) {
       $specabil[$i] = 1;
       // Middle special ability
-      if (preg_match("/\^$i,.+?\^/", $special_abilities, $match) == 1){
+      if (preg_match("/\^$i,.+?\^/", $special_abilities, $match) == 1) {
         $specabilcont[$i] = $match[0];
         $specabilcont[$i] = trim($specabilcont[$i], "^");
       }

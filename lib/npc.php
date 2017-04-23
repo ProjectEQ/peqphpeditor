@@ -382,7 +382,6 @@ switch ($action) {
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 27: // Search npcs
-    //check_authorization();
     $body = new Template("templates/npc/npc.searchresults.tmpl.php");
     if (isset($_GET['npcid']) && $_GET['npcid'] != "ID") {
       $results = search_npc_by_id();
@@ -511,6 +510,7 @@ switch ($action) {
     break;
   case 44: // Edit NPC Level
     check_authorization();
+    $javascript = new Template("templates/npc/js.tmpl.php");
     $body = new Template("templates/npc/npc.editlevel.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -526,6 +526,7 @@ switch ($action) {
     $body->set('specialattacks', $specialattacks);
     $body->set('faction_values', $faction_values);
     $body->set('pet', get_ispet());
+    $body->set('special_abilities_max', $special_abilities_max);
     $vars = npc_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
