@@ -1082,7 +1082,7 @@ function add_forage() {
   $level = $_POST['level'];
   $chance = $_POST['chance'];
 
-  $query = "INSERT INTO forage SET id=\"fgid\", Itemid=\"$fgiid\", zoneid=\"$zoneid\", level=\"$level\", chance=\"$chance\"";
+  $query = "INSERT INTO forage SET id=\"$fgid\", Itemid=\"$fgiid\", zoneid=\"$zoneid\", level=\"$level\", chance=\"$chance\"";
   $mysql->query_no_result($query);
 }
 
