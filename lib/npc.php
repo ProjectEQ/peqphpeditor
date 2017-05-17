@@ -961,9 +961,11 @@ function get_pet() {
   $query = "SELECT * FROM pets_equipmentset WHERE set_id=$equipmentset";
   $result2 = $mysql->query_assoc($query);
 
-  $result['set_id'] = $result2['set_id'];
-  $result['setname'] = $result2['setname'];
-  $result['nested_set'] = $result2['nested_set'];
+  if ($result2) {
+    $result['set_id'] = $result2['set_id'];
+    $result['setname'] = $result2['setname'];
+    $result['nested_set'] = $result2['nested_set'];
+  }
 
   return $result;
 }

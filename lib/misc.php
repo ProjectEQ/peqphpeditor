@@ -234,18 +234,18 @@ switch ($action) {
     if (isset($_GET['gspawnid']) && $_GET['gspawnid'] != "GroundSpawn"){
       $breadcrumbs .= " >> Ground Spawns";
       $gspawn = search_gspawn_by_id();
+      $body->set("gspawn", $gspawn);
     }
     if (isset($_GET['forageid']) && $_GET['forageid'] != "Forage"){
       $breadcrumbs .= " >> Foraging";
       $forage = search_forage_by_id();
+      $body->set("forage", $forage);
     }
     if (isset($_GET['fishid']) && $_GET['fishid'] != "Fishing"){
       $breadcrumbs .= " >> Fishing";
       $fishing = search_fishing_by_id();
+      $body->set("fishing", $fishing);
     }
-    $body->set("fishing", $fishing);
-    $body->set("forage", $forage);
-    $body->set("gspawn", $gspawn);
     break;
    case 26: // View fishing
     $breadcrumbs .= " >> Fishing";
@@ -531,7 +531,7 @@ function get_fishing() {
   $zid = getZoneID($z);
   $array = array();
 
-  $query = "SELECT fishing.id,Itemid AS fiid,zoneid,skill_level,chance,npc_id,npc_chance, items.name AS name
+  $query = "SELECT fishing.id, Itemid AS fiid, zoneid, skill_level, chance, npc_id, npc_chance, items.name AS name
                 FROM fishing, items
                 WHERE fishing.zoneid=$zid
                 AND fishing.Itemid=items.id
@@ -540,18 +540,18 @@ function get_fishing() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['fishing'][$result['id']] = array("fsid"=>$result['id'], "fiid"=>$result['fiid'], "zoneid"=>$result['zoneid'], "skill_level"=>$result['skill_level'], "chance"=>$result['chance'], "npc_id"=>$result['npc_id'], "npc_chance"=>$result['npc_chance'], "name"=>$result['name']);
-         }
-       }
-  return $array;
+      $array['fishing'][$result['id']] = array("fsid"=>$result['id'], "fiid"=>$result['fiid'], "zoneid"=>$result['zoneid'], "skill_level"=>$result['skill_level'], "chance"=>$result['chance'], "npc_id"=>$result['npc_id'], "npc_chance"=>$result['npc_chance'], "name"=>$result['name']);
+    }
   }
+  return $array;
+}
 
 function get_forage() {
   global $mysql, $z;
   $zid = getZoneID($z);
   $array = array();
 
-  $query = "SELECT forage.id,zoneid,Itemid AS fgiid,level,chance, items.name AS name
+  $query = "SELECT forage.id, zoneid, Itemid AS fgiid, level, chance, items.name AS name
                 FROM forage, items
                 WHERE forage.zoneid=$zid
                 AND forage.Itemid=items.id
@@ -560,11 +560,11 @@ function get_forage() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['forage'][$result['id']] = array("fgid"=>$result['id'], "fgiid"=>$result['fgiid'], "zoneid"=>$result['zoneid'], "level"=>$result['level'], "chance"=>$result['chance'], "name"=>$result['name']);
-         }
-       }
-  return $array;
+      $array['forage'][$result['id']] = array("fgid"=>$result['id'], "fgiid"=>$result['fgiid'], "zoneid"=>$result['zoneid'], "level"=>$result['level'], "chance"=>$result['chance'], "name"=>$result['name']);
+    }
   }
+  return $array;
+}
 
 function get_gspawn() {
   global $mysql, $z, $zoneid;
@@ -575,67 +575,66 @@ function get_gspawn() {
   $result = $mysql->query_assoc($query);
   $zversion = $result['zversion'];
 
-  if($zversion == 0){
-  $query = "SELECT ground_spawns.id,zoneid,max_x,max_y,max_z,min_x,min_y,heading,max_allowed,respawn_timer,version,item AS giid, items.name AS name
+  if($zversion == 0) {
+    $query = "SELECT ground_spawns.id, zoneid, max_x, max_y, max_z, min_x, min_y, heading, max_allowed, respawn_timer, version, item AS giid, items.name AS name
                 FROM ground_spawns, items
                 WHERE ground_spawns.zoneid=$zid
                 AND ground_spawns.item=items.id
                 OR ground_spawns.zoneid=0
                 AND ground_spawns.item=items.id";
-  $result = $mysql->query_mult_assoc($query);
-  if ($result) {
-    foreach ($result as $result) {
-     $array['gspawn'][$result['id']] = array("gsid"=>$result['id'], "giid"=>$result['giid'], "zoneid"=>$result['zoneid'], "max_x"=>$result['max_x'], "max_y"=>$result['max_y'], "max_z"=>$result['max_z'], "min_x"=>$result['min_x'], "min_y"=>$result['min_y'], "heading"=>$result['heading'], "gname"=>$result['gname'], "max_allowed"=>$result['max_allowed'], "comment"=>$result['comment'], "respawn_timer"=>$result['respawn_timer'], "iname"=>$result['name'], "version"=>$result['version']);
-         }
-       }
+    $result = $mysql->query_mult_assoc($query);
+    if ($result) {
+      foreach ($result as $result) {
+        $array['gspawn'][$result['id']] = array("gsid"=>$result['id'], "giid"=>$result['giid'], "zoneid"=>$result['zoneid'], "max_x"=>$result['max_x'], "max_y"=>$result['max_y'], "max_z"=>$result['max_z'], "min_x"=>$result['min_x'], "min_y"=>$result['min_y'], "heading"=>$result['heading'], "gname"=>$result['gname'], "max_allowed"=>$result['max_allowed'], "comment"=>$result['comment'], "respawn_timer"=>$result['respawn_timer'], "iname"=>$result['name'], "version"=>$result['version']);
+      }
+    }
   }
-  if($zversion > 0){
-  $query = "SELECT ground_spawns.id,zoneid,max_x,max_y,max_z,min_x,min_y,heading,max_allowed,respawn_timer,version,item AS giid, items.name AS name
+  elseif($zversion > 0) {
+    $query = "SELECT ground_spawns.id, zoneid, max_x, max_y, max_z, min_x, min_y, heading, max_allowed, respawn_timer, version, item AS giid, items.name AS name
                 FROM ground_spawns, items
                 WHERE ground_spawns.zoneid=$zid
                 AND ground_spawns.version=$zversion
                 AND ground_spawns.item=items.id
                 OR ground_spawns.zoneid=0
                 AND ground_spawns.item=items.id";
-  $result = $mysql->query_mult_assoc($query);
-  if ($result) {
-    foreach ($result as $result) {
-     $array['gspawn'][$result['id']] = array("gsid"=>$result['id'], "giid"=>$result['giid'], "zoneid"=>$result['zoneid'], "max_x"=>$result['max_x'], "max_y"=>$result['max_y'], "max_z"=>$result['max_z'], "min_x"=>$result['min_x'], "min_y"=>$result['min_y'], "heading"=>$result['heading'], "gname"=>$result['gname'], "max_allowed"=>$result['max_allowed'], "comment"=>$result['comment'], "respawn_timer"=>$result['respawn_timer'], "iname"=>$result['name'], "version"=>$result['version']);
-         }
-       }
+    $result = $mysql->query_mult_assoc($query);
+    if ($result) {
+      foreach ($result as $result) {
+        $array['gspawn'][$result['id']] = array("gsid"=>$result['id'], "giid"=>$result['giid'], "zoneid"=>$result['zoneid'], "max_x"=>$result['max_x'], "max_y"=>$result['max_y'], "max_z"=>$result['max_z'], "min_x"=>$result['min_x'], "min_y"=>$result['min_y'], "heading"=>$result['heading'], "gname"=>$result['gname'], "max_allowed"=>$result['max_allowed'], "comment"=>$result['comment'], "respawn_timer"=>$result['respawn_timer'], "iname"=>$result['name'], "version"=>$result['version']);
+      }
+    }
   }
   return $array;
-  }
+}
 
 function get_traps() {
   global $mysql, $z, $zoneid;
   $array = array();
 
-$query = "SELECT version AS zversion FROM zone where id=$zoneid";
+  $query = "SELECT version AS zversion FROM zone where id=$zoneid";
   $result = $mysql->query_assoc($query);
   $zversion = $result['zversion'];
 
-  if($zversion == 0){
-  $query = "SELECT * FROM traps WHERE zone=\"$z\"";
-  $result = $mysql->query_mult_assoc($query);
-  if ($result) {
-    foreach ($result as $result) {
-     $array['traps'][$result['id']] = array("tid"=>$result['id'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "chance"=>$result['chance'], "maxzdiff"=>$result['maxzdiff'], "radius"=>$result['radius'], "effect"=>$result['effect'], "effectvalue"=>$result['effectvalue'], "effectvalue2"=>$result['effectvalue2'], "message"=>$result['message'], "skill"=>$result['skill'], "level"=>$result['level'], "respawn_time"=>$result['respawn_time'], "respawn_var"=>$result['respawn_var'], "version"=>$result['version']);
-         }
-       }
-   }
-
-  if($zversion > 0){
-  $query = "SELECT * FROM traps WHERE zone=\"$z\" AND version=$zversion";
-  $result = $mysql->query_mult_assoc($query);
-  if ($result) {
-    foreach ($result as $result) {
-     $array['traps'][$result['id']] = array("tid"=>$result['id'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "chance"=>$result['chance'], "maxzdiff"=>$result['maxzdiff'], "radius"=>$result['radius'], "effect"=>$result['effect'], "effectvalue"=>$result['effectvalue'], "effectvalue2"=>$result['effectvalue2'], "message"=>$result['message'], "skill"=>$result['skill'], "level"=>$result['level'], "respawn_time"=>$result['respawn_time'], "respawn_var"=>$result['respawn_var'], "version"=>$result['version']);
-         }
-       }
-   }
-  return $array;
+  if($zversion == 0) {
+    $query = "SELECT * FROM traps WHERE zone=\"$z\"";
+    $result = $mysql->query_mult_assoc($query);
+    if ($result) {
+      foreach ($result as $result) {
+        $array['traps'][$result['id']] = array("tid"=>$result['id'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "chance"=>$result['chance'], "maxzdiff"=>$result['maxzdiff'], "radius"=>$result['radius'], "effect"=>$result['effect'], "effectvalue"=>$result['effectvalue'], "effectvalue2"=>$result['effectvalue2'], "message"=>$result['message'], "skill"=>$result['skill'], "level"=>$result['level'], "respawn_time"=>$result['respawn_time'], "respawn_var"=>$result['respawn_var'], "version"=>$result['version']);
+      }
+    }
   }
+  elseif($zversion > 0) {
+    $query = "SELECT * FROM traps WHERE zone=\"$z\" AND version=$zversion";
+    $result = $mysql->query_mult_assoc($query);
+    if ($result) {
+      foreach ($result as $result) {
+        $array['traps'][$result['id']] = array("tid"=>$result['id'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "chance"=>$result['chance'], "maxzdiff"=>$result['maxzdiff'], "radius"=>$result['radius'], "effect"=>$result['effect'], "effectvalue"=>$result['effectvalue'], "effectvalue2"=>$result['effectvalue2'], "message"=>$result['message'], "skill"=>$result['skill'], "level"=>$result['level'], "respawn_time"=>$result['respawn_time'], "respawn_var"=>$result['respawn_var'], "version"=>$result['version']);
+      }
+    }
+  }
+  return $array;
+}
 
 function get_horses() {
   global $mysql;
@@ -645,11 +644,11 @@ function get_horses() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['horses'][$result['filename']] = array("filename"=>$result['filename'], "race"=>$result['race'], "gender"=>$result['gender'], "texture"=>$result['texture'], "mountspeed"=>$result['mountspeed'], "notes"=>$result['notes']);
-         }
-       }
-  return $array;
+      $array['horses'][$result['filename']] = array("filename"=>$result['filename'], "race"=>$result['race'], "gender"=>$result['gender'], "texture"=>$result['texture'], "mountspeed"=>$result['mountspeed'], "notes"=>$result['notes']);
+    }
   }
+  return $array;
+}
 
 function get_doors() {
   global $mysql, $z, $zoneid;
@@ -660,26 +659,26 @@ function get_doors() {
   $result = $mysql->query_assoc($query);
   $zversion = $result['zversion'];
 
-  if($zversion == 0){
-  $query = "SELECT * FROM doors WHERE zone=\"$z\"";
-  $result = $mysql->query_mult_assoc($query);
-  if ($result) {
-    foreach ($result as $result) {
-     $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask'], "disable_timer"=>$result['disable_timer']);
-         }
-       }
-   }
-   if($zversion > 0){
-  $query = "SELECT * FROM doors WHERE zone=\"$z\" AND version=$zversion";
-  $result = $mysql->query_mult_assoc($query);
-  if ($result) {
-    foreach ($result as $result) {
-     $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask'], "disable_timer"=>$result['disable_timer']);
-         }
-       }
-   }
-  return $array;
+  if($zversion == 0) {
+    $query = "SELECT * FROM doors WHERE zone=\"$z\"";
+    $result = $mysql->query_mult_assoc($query);
+    if ($result) {
+      foreach ($result as $result) {
+        $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask'], "disable_timer"=>$result['disable_timer']);
+      }
+    }
   }
+  elseif($zversion > 0) {
+    $query = "SELECT * FROM doors WHERE zone=\"$z\" AND version=$zversion";
+    $result = $mysql->query_mult_assoc($query);
+    if ($result) {
+      foreach ($result as $result) {
+        $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask'], "disable_timer"=>$result['disable_timer']);
+      }
+    }
+  }
+  return $array;
+}
 
 function get_objects() {
   global $mysql, $z, $zoneid;
@@ -1211,7 +1210,7 @@ function search_fishing_by_id() {
 
    $fishid = $_GET['fishid'];
 
-   $query = "SELECT id AS fsid, Itemid AS fiid FROM fishing WHERE Itemid=\"$fishid\"";
+   $query = "SELECT id AS fsid, Itemid AS fiid, zoneid FROM fishing WHERE Itemid=\"$fishid\"";
    $results = $mysql->query_mult_assoc($query);
 
    return $results;
@@ -1222,7 +1221,7 @@ function search_gspawn_by_id() {
 
    $gspawnid = $_GET['gspawnid'];
 
-   $query = "SELECT id AS gsid, item AS giid FROM ground_spawns where item=\"$gspawnid\"";
+   $query = "SELECT id AS gsid, item AS giid, zoneid FROM ground_spawns where item=\"$gspawnid\"";
    $results = $mysql->query_mult_assoc($query);
 
    return $results;
@@ -1233,7 +1232,7 @@ function search_forage_by_id() {
 
    $forageid = $_GET['forageid'];
 
-   $query = "SELECT id AS fgid, Itemid AS fgiid FROM forage where Itemid=\"$forageid\"";
+   $query = "SELECT id AS fgid, Itemid AS fgiid, zoneid FROM forage where Itemid=\"$forageid\"";
    $results = $mysql->query_mult_assoc($query);
 
    return $results;
