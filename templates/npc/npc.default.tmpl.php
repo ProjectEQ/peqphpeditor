@@ -5,8 +5,9 @@
     <tr>
       <td class="edit_form_content">
         <center>
-          <a href="index.php?editor=misc&action=29">View Horses</a><br/>
-          <a href="index.php?editor=npc&action=78">View Emotes</a>
+          <a href="index.php?editor=misc&action=29">View Horses</a><br>
+          <a href="index.php?editor=npc&action=78">View Emotes</a><br>
+          <a href="index.php?editor=npc&action=83">View Pets</a>
         </center>
       </td>
     </tr>

@@ -31,7 +31,7 @@ foreach($titles as $title):?>
 endforeach;
 else:?>
       <tr>
-        <td align="left" width="100" style="padding: 10px;">No titles</td>
+        <td align="left" width="100%" style="padding: 10px;">No titles</td>
       </tr>
 <?endif;?>
     </table>

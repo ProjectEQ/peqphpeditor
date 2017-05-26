@@ -909,6 +909,14 @@ switch ($action) {
     setExistingEmote($npcid, 0);
     header("Location: index.php?editor=npc&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
+  case 83: // View all pets
+    $breadcrumbs .= " >> View Pets";
+    $body = new Template("templates/npc/npc.pets.view.tmpl.php");
+    $pets = get_pets();
+    if ($pets) {
+      $body->set('pets', $pets);
+    }
+    break;
 }
 
 function npc_info() {
@@ -968,6 +976,20 @@ function get_pet() {
   }
 
   return $result;
+}
+
+function get_pets() {
+  global $mysql;
+
+  $query = "SELECT type, petpower, npcID FROM pets";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
 }
 
 function get_pets_equipmentset_entries(){
