@@ -910,7 +910,7 @@ function update_doors() {
 function update_object() {
   global $mysql;
 
-  $objid = $_POST['objid'];
+  $id = $_POST['id'];
   $objectname = $_POST['objectname'];
   $xpos = $_POST['xpos'];
   $ypos = $_POST['ypos'];
@@ -925,8 +925,9 @@ function update_object() {
   $tilt_y = $_POST['tilt_y'];
   $size = $_POST['size'];
   $display_name = $_POST['display_name'];
+  $oldid = $_POST['oldid'];
 
-  $query = "UPDATE object SET objectname=\"$objectname\", xpos=\"$xpos\", ypos=\"$ypos\", zpos=\"$zpos\", heading=\"$heading\", itemid=\"$itemid\", charges=\"$charges\", type=\"$type\", icon=\"$icon\", version=\"$version\", tilt_x=\"$tilt_x\", tilt_y=\"$tilt_y\", size=\"$size\", display_name=\"$display_name\" WHERE id=\"$objid\"";
+  $query = "UPDATE object SET id=\"$id\", objectname=\"$objectname\", xpos=\"$xpos\", ypos=\"$ypos\", zpos=\"$zpos\", heading=\"$heading\", itemid=\"$itemid\", charges=\"$charges\", type=\"$type\", icon=\"$icon\", version=\"$version\", tilt_x=\"$tilt_x\", tilt_y=\"$tilt_y\", size=\"$size\", display_name=\"$display_name\" WHERE id=\"$oldid\"";
   $mysql->query_no_result($query);
 }
 

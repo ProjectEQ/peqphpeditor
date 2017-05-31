@@ -5,7 +5,7 @@
           <td>Objects</td>
           <td align="right">
             <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=53"><img src="images/last.gif" border="0" title="Copy objects by version"></a>&nbsp;
-            <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=45"><img src="images/add.gif" border="0" title="Add an entry to this zone"></a>&nbsp;
+            <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=45"><img src="images/add.gif" border="0" title="Add an object to this zone"></a>&nbsp;
             <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=61"><img src="images/remove3.gif" border="0" title="Delete objects by version"></a>
           </td>
         </tr>
