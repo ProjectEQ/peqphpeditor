@@ -1,8 +1,25 @@
 #Starting in Apache 2.4, they changed methods for allow/deny. To be certain of proper function, comment/uncomment the proper lines. Defaulting to 2.2 for now.
 #See http://httpd.apache.org/docs/2.4/upgrading.html#access for more information
 
-#Apache 2.2 and earlier
+##########################
+# Apache 2.2 and earlier #
+##########################
+<Files aasearch.php>
+  Order allow,deny
+  Allow from all
+</Files>
+
+<Files accountsearch.php>
+  Order allow,deny
+  Allow from all
+</Files>
+
 <Files itemsearch.php>
+  Order allow,deny
+  Allow from all
+</Files>
+
+<Files playersearch.php>
   Order allow,deny
   Allow from all
 </Files>
@@ -17,20 +34,23 @@
   Allow from all
 </Files>
 
-<Files playersearch.php>
-  Order allow,deny
-  Allow from all
-</Files>
+########################
+# Apache 2.4 and later #
+########################
+#<Files aasearch.php>
+#  Require all granted
+#</Files>
 
-<Files accountsearch.php>
-  Order allow,deny
-  Allow from all
-</Files>
+#<Files accountsearch.php>
+#  Require all granted
+#</Files>
 
-
-#Apache 2.4 and later
 #<Files itemsearch.php>
 #  Require all granted
+#</Files>
+
+#<Files playersearch.php>
+#  Require all granted
 #</Files>
 
 #<Files spellsearch.php>
@@ -38,13 +58,5 @@
 #</Files>
 
 #<Files spellsetsearch.php>
-#  Require all granted
-#</Files>
-
-#<Files playersearch.php>
-#  Require all granted
-#</Files>
-
-#<Files accountsearch.php>
 #  Require all granted
 #</Files>
