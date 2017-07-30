@@ -125,6 +125,19 @@ switch ($action) {
     update_player_location();
     header("Location: index.php?editor=player&playerid=$playerid");
     exit;
+  case 7: // Edit PVP Points
+    check_admin_authorization();
+    $body = new Template("templates/player/player.pvp.tmpl.php");
+    $points = getPVP();
+    $body->set("points", $points);
+    $body->set("player", $_GET['playerid']);
+    break;
+  case 8: // Update PVP Points
+    check_admin_authorization();
+    $player = $_POST['playerid'];
+    updatePVP();
+    header("Location: index.php?editor=player&playerid=$player");
+    exit;
 }
 
 function get_players($page_number, $results_per_page, $sort_by) {
@@ -310,5 +323,24 @@ function get_zones() {
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
+}
+
+function getPVP() {
+  global $mysql;
+  $player = $_GET['playerid'];
+
+  $query = "SELECT pvp_current_points FROM character_data WHERE id=$player";
+  $result = $mysql->query_assoc($query);
+
+  return $result['pvp_current_points'];
+}
+
+function updatePVP() {
+  global $mysql;
+  $player = $_POST['playerid'];
+  $points = $_POST['points'];
+
+  $query = "UPDATE character_data SET pvp_current_points=$points WHERE id=$player";
+  $mysql->query_no_result($query);
 }
 ?>

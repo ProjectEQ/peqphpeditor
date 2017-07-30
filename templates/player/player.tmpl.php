@@ -294,7 +294,7 @@
                         <td>Death Streak: <?=$pvp_worst_death_streak?></td>
                       </tr>
                       <tr>
-                        <td colspan="2">Available PVP Points: <?=$pvp_current_points?></td>
+                        <td colspan="2">Available PVP Points: <a href="index.php?editor=player&playerid=<?=$id?>&action=7"><?=$pvp_current_points?></a></td>
                         <td colspan="2">Current Kill Streak: <?=$pvp_current_kill_streak?></td>
                       </tr>
                       <tr>
