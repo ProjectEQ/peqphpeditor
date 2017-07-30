@@ -8,7 +8,7 @@
         <table width="100%">
           <tr>
             <td>
-              Add a New Title
+              Edit Title
             </td>
           </tr>
         </table>

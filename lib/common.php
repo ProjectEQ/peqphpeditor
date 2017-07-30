@@ -450,6 +450,8 @@ function delete_player($playerid) {
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_alt_currency WHERE char_id=$playerid";
   $mysql->query_no_result($query);
+  $query = "DELETE FROM character_auras WHERE id=$playerid";
+  $mysql->query_no_result($query);
   $query = "DELETE FROM character_backup WHERE charid=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_bandolier WHERE id=$playerid";

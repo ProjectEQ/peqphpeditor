@@ -1,6 +1,6 @@
 <?php
 
-$current_revision = "30 May 2017";
+$current_revision = "30 July 2017";
 
 require_once("config.php");
 require_once("lib/logging.php");
@@ -131,6 +131,9 @@ switch ($editor) {
     break;
   case 'titles':
     require_once('lib/titles.php');
+    break;
+  case 'auras':
+    require_once('lib/auras.php');
     break;
 }
 

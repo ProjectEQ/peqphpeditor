@@ -345,7 +345,27 @@
           </td>
         </tr>
         <tr>
-          <td>&nbsp;</td>
+          <td>
+            <fieldset>
+              <legend><strong>Auras</strong></legend>
+<?if ($auras):?>
+              <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td align="center"><u>Slot</u></td>
+                  <td align="center"><u>Spell</u></td>
+                </tr>
+<?foreach ($auras as $aura):?>
+                <tr>
+                  <td align="center"><?=$aura['slot']?></td>
+                  <td align="center"><a title="<?=getSpellName($aura['spell_id'])?>"><?=$aura['spell_id']?></a></td>
+                </tr>
+<?endforeach;?>
+              </table>
+<?else:?>
+              None
+<?endif;?>
+            </fieldset>
+          </td>
           <td>
             <fieldset>
               <legend><strong>Bind Points</strong></legend>

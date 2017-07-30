@@ -181,6 +181,11 @@ function player_info() {
   $result = $mysql->query_mult_assoc($query);
   $player_array['alternate_abilities'] = $result;
 
+  //Load from character_auras
+  $query = "SELECT * FROM character_auras WHERE id = $playerid";
+  $result = $mysql->query_mult_assoc($query);
+  $player_array['auras'] = $result;
+
   //Load from character_currency
   $query = "SELECT * FROM character_currency WHERE id = $playerid";
   $result = $mysql->query_assoc($query);
