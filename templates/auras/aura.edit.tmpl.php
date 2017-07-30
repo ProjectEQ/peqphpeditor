@@ -1,5 +1,6 @@
   <center>
     <iframe id="searchframe" src="templates/iframes/spellsearch.php" style="display:none;"></iframe>
+    <iframe id="searchframe2" src="templates/iframes/spellsearch2.php" style="display:none;"></iframe>
     <input id="button" type="button" value="Hide Search" onclick="javascript:hideSearch();" style="display:none;">
   </center>
   <div style="margin: auto; width: 500px;">
@@ -17,47 +18,62 @@
         <form name="aura_create" method="post" action="index.php?editor=auras&action=6">
           <table width="100%" cellspacing="0" cellpadding="3">
             <tr>
-              <td width="20%">
-                <strong>Type:</strong><br>
-                <input type="text" name="type" size="4" value="<?=$aura['type']?>">
+              <td>
+                <strong>Type:</strong> (<a href="javascript:showTypeSearch();">search</a>)<br>
+                <input type="text" name="type" id="type" size="10" value="<?=$aura['type']?>">
               </td>
-              <td width="30%">
+              <td>
                 <strong>NPC:</strong><br>
                 <input type="text" name="npc_type" size="8" value="<?=$aura['npc_type']?>">
               </td>
-              <td width="50%">
-                <strong>Name:</strong><br>
-                <input type="text" name="name" size="25" value="<?=$aura['name']?>">
+              <td>
+                <strong>Spell ID:</strong> (<a href="javascript:showSpellSearch();">search</a>)<br>
+                <input type="text" name="spell_id" id="id" size="10" value="<?=$aura['spell_id']?>">
               </td>
             </tr>
             <tr>
-              <td colspan="2">
-                <strong>Spell ID:</strong> (<a href="javascript:showSearch();">search</a>)<br>
-                <input type="text" name="spell_id" id="id" size="10" value="<?=$aura['spell_id']?>">
+              <td>
+                <strong>Name:</strong><br>
+                <input type="text" name="name" size="25" value="<?=$aura['name']?>">
               </td>
               <td>
                 <strong>Distance:</strong><br>
                 <input type="text" name="distance" size="4" value="<?=$aura['distance']?>">
               </td>
+              <td>
+                <strong>Duration:</strong><br>
+                <input type="text" name="duration" size="4" value="<?=$aura['duration']?>"> sec.
+              </td>
             </tr>
             <tr>
               <td>
                 <strong>Aura Type:</strong><br>
-                <input type="text" name="aura_type" size="4" value="<?=$aura['aura_type']?>">
+                <select name="aura_type">
+<?foreach ($aura_type as $k=>$v):?>
+                  <option value="<?=$k?>"<?echo ($k == $aura['aura_type']) ? " selected" : "";?>><?=$k?> - <?=$v?></option>
+<?endforeach;?>
+                </select>
               </td>
               <td>
-                <strong>Spawn Type:</strong><br>
-                <input type="text" name="spawn_type" size="4" value="<?=$aura['spawn_type']?>">
+                &nbsp;
               </td>
               <td>
                 <strong>Movement:</strong><br>
-                <input type="text" name="movement" size="4" value="<?=$aura['movement']?>">
+                <select name="movement">
+<?foreach ($aura_movement as $k=>$v):?>
+                  <option value="<?=$k?>"<?echo ($k == $aura['movement']) ? " selected" : "";?>><?=$k?> - <?=$v?></option>
+<?endforeach;?>
+                </select>
               </td>
             </tr>
             <tr>
               <td>
-                <strong>Duration:</strong><br>
-                <input type="text" name="duration" size="4" value="<?=$aura['duration']?>">
+                <strong>Spawn Type:</strong><br>
+                <select name="spawn_type">
+<?foreach ($aura_spawn as $k=>$v):?>
+                  <option value="<?=$k?>"<?echo ($k == $aura['spawn_type']) ? " selected" : "";?>><?=$k?> - <?=$v?></option>
+<?endforeach;?>
+                </select>
               </td>
               <td>
                 <strong>Icon:</strong><br>

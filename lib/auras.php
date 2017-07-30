@@ -1,4 +1,29 @@
 <?
+$aura_type = array (
+  0 => "On All Friendlies",
+  1 => "On All Group Members",
+  2 => "On Group Members Pets",
+  3 => "Totem",
+  4 => "Enter Trap",
+  5 => "Exit Trap",
+  6 => "Fully Scripted",
+  7 => "Max"
+);
+
+$aura_spawn = array (
+  0 => "Group Members",
+  1 => "Everyone",
+  2 => "No One",
+  3 => "Max"
+);
+
+$aura_movement = array (
+  0 => "Follow",
+  1 => "Stationary",
+  2 => "Pathing",
+  3 => "Max"
+);
+
 switch($action) {
   case 0: //Default
     $body = new Template("templates/auras/auras.default.tmpl.php");
@@ -14,6 +39,9 @@ switch($action) {
   case 2: //View Aura
     $body = new Template("templates/auras/aura.view.tmpl.php");
     $breadcrumbs .= " >> View Aura";
+    $body->set("aura_type", $aura_type);
+    $body->set("aura_spawn", $aura_spawn);
+    $body->set("aura_movement", $aura_movement);
     $aura = getAura();
     if ($aura) {
       $body->set("aura", $aura);
@@ -24,8 +52,9 @@ switch($action) {
     $body = new Template("templates/auras/aura.add.tmpl.php");
     $breadcrumbs .= " >> Add Aura";
     $javascript = new Template("templates/auras/js.tmpl.php");
-    $next_type = suggestType();
-    $body->set("next_type", $next_type);
+    $body->set("aura_type", $aura_type);
+    $body->set("aura_spawn", $aura_spawn);
+    $body->set("aura_movement", $aura_movement);
     break;
   case 4: //Insert Aura
     check_authorization();
@@ -38,6 +67,9 @@ switch($action) {
     $body = new Template("templates/auras/aura.edit.tmpl.php");
     $breadcrumbs .= " >> Edit Aura";
     $javascript = new Template("templates/auras/js.tmpl.php");
+    $body->set("aura_type", $aura_type);
+    $body->set("aura_spawn", $aura_spawn);
+    $body->set("aura_movement", $aura_movement);
     $aura = getAura();
     $body->set("aura", $aura);
     break;
@@ -170,15 +202,6 @@ function auraDelete() {
 
   $query = "DELETE FROM auras WHERE type=$type";
   $mysql->query_no_result($query);
-}
-
-function suggestType() {
-  global $mysql;
-
-  $query = "SELECT MAX(type) + 1 AS type FROM auras";
-  $result = $mysql->query_assoc($query);
-
-  return $result['type'];
 }
 
 function searchByName() {
