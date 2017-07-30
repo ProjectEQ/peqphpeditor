@@ -34,6 +34,11 @@
   Allow from all
 </Files>
 
+<Files spellsearch2.php>
+  Order allow,deny
+  Allow from all
+</Files>
+
 <Files spellsetsearch.php>
   Order allow,deny
   Allow from all
@@ -63,6 +68,10 @@
 #</Files>
 
 #<Files spellsearch.php>
+#  Require all granted
+#</Files>
+
+#<Files spellsearch2.php>
 #  Require all granted
 #</Files>
 
