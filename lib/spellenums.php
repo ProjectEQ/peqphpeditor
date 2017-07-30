@@ -44,7 +44,11 @@ $sp_buffformulas = array(
     10   => "Lowest of Level * 3 + 10 or Duration",
     11   => "Duration",
     12   => "Duration",
+    13   => "UNK Duration (13)",
+    14   => "UNK Duration (14)",
+    15   => "UNK Duration (15)",
     50   => "72000 (5 Days)",
+    51   => "Permabuff",
     3600 => "Duration if not 0, else 3600"
 );
 
