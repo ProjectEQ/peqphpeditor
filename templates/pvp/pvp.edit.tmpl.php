@@ -3,7 +3,7 @@
       Edit Points for <?=getPlayerName($player)?> (<?=$player?>)
     </div>
     <div class="edit_form_content">
-      <form name="pvp" method="post" action="index.php?editor=player&playerid=<?=$player?>&action=8">
+      <form name="pvp" method="post" action="index.php?editor=pvp&playerid=<?=$player?>&action=4">
         <table width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td align="center">
