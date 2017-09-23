@@ -13,6 +13,7 @@
         <center><a href="index.php?editor=server&action=43">View Variables</a><br></center>
         <center><a href="index.php?editor=server&action=50">View BannedIPs</a><br></center>
         <center><a href="index.php?editor=server&action=56">View Character Creation Combos</a><br></center>
+        <center><a href="index.php?editor=server&action=57">View Character Base Data</a><br></center>
       </td>
     </tr>
   </table>

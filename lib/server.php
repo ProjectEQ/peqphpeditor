@@ -559,6 +559,16 @@ switch ($action) {
       $body->set('expansions', $expansions);
     }
     break;
+  case 57: // View Character Base Data
+    check_authorization();
+    $breadcrumbs .= " >> Character Base Data";
+    $body = new Template("templates/server/charbasedata.tmpl.php");
+    $charbasedata = getCharBaseData();
+    if ($charbasedata) {
+      $body->set('charbasedata', $charbasedata);
+      $body->set('classes', $classes);
+    }
+    break;
 }
 
 function get_open_bugs($page_number, $results_per_page, $sort_by) {
@@ -1246,6 +1256,20 @@ function repair_orphaned_rules() {
 
     $query = "UPDATE rule_values SET ruleset_id=$ruleset_id WHERE ruleset_id=$orphan_id";
     $mysql->query_no_result($query);
+  }
+}
+
+function getCharBaseData() {
+  global $mysql;
+
+  $query = "SELECT * FROM base_data";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
   }
 }
 ?>
