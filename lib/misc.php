@@ -1073,7 +1073,7 @@ function add_fishing() {
   $npc_id = $_POST['npc_id'];
   $npc_chance = $_POST['npc_chance'];
 
-  $query = "INSERT INTO fishing SET id=\"fsid\", Itemid=\"$fiid\", zoneid=\"$zoneid\", skill_level=\"$skill_level\", chance=\"$chance\", npc_id=\"$npc_id\", npc_chance=\"$npc_chance\"";
+  $query = "INSERT INTO fishing SET id=\"$fsid\", Itemid=\"$fiid\", zoneid=\"$zoneid\", skill_level=\"$skill_level\", chance=\"$chance\", npc_id=\"$npc_id\", npc_chance=\"$npc_chance\"";
   $mysql->query_no_result($query);
 }
 
@@ -1137,7 +1137,7 @@ function add_traps() {
   $despawn_when_triggered = $_POST['despawn_when_triggered'];
   $undetectable = $_POST['undetectable'];
 
-  $query = "INSERT INTO traps SET id=\"tid\", zone=\"$zone\", x=\"$x\", y=\"$y\", z=\"$z_coord\", chance=\"$chance\", maxzdiff=\"$maxzdiff\", radius=\"$radius\", effect=\"$effect\", effectvalue=\"$effectvalue\", effectvalue2=\"$effectvalue2\", message=\"$message\", skill=\"$skill\", level=\"$level\", respawn_time=\"$respawn_time\", respawn_var=\"$respawn_var\", version=\"$version\", triggered_number=\"$triggered_number\", `group`=\"$group\", despawn_when_triggered=\"$despawn_when_triggered\", undetectable=\"$undetectable\"";
+  $query = "INSERT INTO traps SET id=\"$tid\", zone=\"$zone\", x=\"$x\", y=\"$y\", z=\"$z_coord\", chance=\"$chance\", maxzdiff=\"$maxzdiff\", radius=\"$radius\", effect=\"$effect\", effectvalue=\"$effectvalue\", effectvalue2=\"$effectvalue2\", message=\"$message\", skill=\"$skill\", level=\"$level\", respawn_time=\"$respawn_time\", respawn_var=\"$respawn_var\", version=\"$version\", triggered_number=\"$triggered_number\", `group`=\"$group\", despawn_when_triggered=\"$despawn_when_triggered\", undetectable=\"$undetectable\"";
   $mysql->query_no_result($query);
 }
 
