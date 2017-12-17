@@ -29,7 +29,7 @@
         <strong>Max</strong><br>
         <input class="indented" id="id" type="text" name="max_allowed" size="7" value="1"><br><br>
         <strong>Respawn</strong><br>
-        <input class="indented" id="id" type="text" name="respawn_timer" size="7" value="300000"><br><br>
+        <input class="indented" id="id" type="text" name="respawn_timer" size="7" value="300"><br><br>
         <strong>Version</strong><br>
         <input class="indented" id="id" type="text" name="version" size="7" value="<?=$suggestver?>"><br><br>
         <strong>Name</strong><br>

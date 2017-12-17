@@ -36,7 +36,7 @@
         <td align="center" width="5%"><?=$v['max_z']?></td>
         <td align="center" width="5%"><?=$v['min_x']?></td>
         <td align="center" width="5%"><?=$v['min_y']?></td>
-        <td align="center" width="5%"><?=$v['respawn_timer']?>ms</td>
+        <td align="center" width="5%"><?=$v['respawn_timer']?></td>
         <td align="center" width="5%"><?=$v['version']?></td>
         <td align="right">
           <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&gsid=<?=$v['gsid']?>&action=14"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>
