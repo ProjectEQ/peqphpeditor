@@ -154,54 +154,64 @@
             <table cellpadding="20px">
               <tr>
                 <td valign="top" align="left">
-                  Summon (1): <br><input type="text" name="1" size="10"><br>
-                  Enrage (2):  <br><input type="text" name="2" size="10"><br>
-                  Rampage (3):  <br><input type="text" name="3" size="10"><br>
-                  AE Rampage (4):  <br><input type="text" name="4" size="10"><br>
-                  Flurry (5):  <br><input type="text" name="5" size="10"><br>
-                  Tunnel Vision (29): <br><input type="text" name="29" size="10"><br>
-                  Leashed (32): <br><input type="text" name="32" size="10"><br>
-                  Tethered (33): <br><input type="text" name="33" size="10"><br>
-                  Flee Percent (37): <br><input type="text" name="37" size="10"><br>
-                  Chase Distance (40): <br><input type="text" name="40" size="10"><br>
-                  Casting Resist Diff (43): <br><input type="text" name="43" size="10"><br>
+                  Summon (1):<br><input type="text" name="1" size="10"><br>
+                  Enrage (2):<br><input type="text" name="2" size="10"><br>
+                  Rampage (3):<br><input type="text" name="3" size="10"><br>
+                  AE Rampage (4):<br><input type="text" name="4" size="10"><br>
+                  Flurry (5):<br><input type="text" name="5" size="10"><br>
+                  Tunnel Vision (29):<br><input type="text" name="29" size="10"><br>
+                  Leashed (32):<br><input type="text" name="32" size="10"><br>
+                  Tethered (33):<br><input type="text" name="33" size="10"><br>
+                  Flee Percent (37):<br><input type="text" name="37" size="10"><br>
+                  Chase Distance (40):<br><input type="text" name="40" size="10"><br>
+                  Casting Resist Diff (43):<br><input type="text" name="43" size="10"><br>
+                  Counter Avoid Damage (44):<br>
+                    <select name="44">
+                      <option value="">None</option>
+                      <option value="44,0^">All (44,0)</option>
+                      <option value="44,1^">Riposte (44,1)</option>
+                      <option value="44,2^">Block (44,2)</option>
+                      <option value="44,3^">Parry (44,3)</option>
+                      <option value="44,4^">Dodge (44,4)</option>
+                    </select><br>
                 </td>
                 <td valign="top" align="left">
-                  <input type="checkbox" name="6" value="6,1^"/>  Triple Attack (6)<br>
-                  <input type="checkbox" name="7" value="7,1^"/>  Quad Attack (7)<br>
-                  <input type="checkbox" name="10" value="10,1^"/>  Magic Attack (10)<br>
-                  <input type="checkbox" name="9" value="9,1^"/>  Bane Attack (9)<br>
-                  <input type="checkbox" name="8" value="8,1^"/>  Dual Wield (8)<br>
-                  <input type="checkbox" name="11" value="11,1^"/>  Ranged Attack (11)<br>
-                  <input type="checkbox" name="12" value="12,1^"/>  Unslowable (12)<br>
-                  <input type="checkbox" name="13" value="13,1^"/>  Unmezable (13)<br>
-                  <input type="checkbox" name="14" value="14,1^"/>  Uncharmable (14)<br>
-                  <input type="checkbox" name="15" value="15,1^"/>  Unstunable (15)<br>
-                  <input type="checkbox" name="16" value="16,1^"/>  Unsnareable (16)<br>
-                  <input type="checkbox" name="17" value="17,1^"/>  Unfearable (17)<br>
-                  <input type="checkbox" name="31" value="31,1^"/>  Unpacifiable (31)<br>
-                  <input type="checkbox" name="18" value="18,1^"/>  Immune to Dispell (18)<br>
-                  <input type="checkbox" name="35" value="35,1^"/>  No Harm from Players (35)<br>
-                  <input type="checkbox" name="39" value="39,1^"/>  Disable Melee (39)<br>
-                  <input type="checkbox" name="42" value="42,1^"/>  Ignore Root Aggro (42)<br>
+                  <input type="checkbox" name="6" value="6,1^"> Triple Attack (6)<br>
+                  <input type="checkbox" name="7" value="7,1^"> Quad Attack (7)<br>
+                  <input type="checkbox" name="10" value="10,1^"> Magic Attack (10)<br>
+                  <input type="checkbox" name="9" value="9,1^"> Bane Attack (9)<br>
+                  <input type="checkbox" name="8" value="8,1^"> Dual Wield (8)<br>
+                  <input type="checkbox" name="11" value="11,1^"> Ranged Attack (11)<br>
+                  <input type="checkbox" name="12" value="12,1^"> Unslowable (12)<br>
+                  <input type="checkbox" name="13" value="13,1^"> Unmezable (13)<br>
+                  <input type="checkbox" name="14" value="14,1^"> Uncharmable (14)<br>
+                  <input type="checkbox" name="15" value="15,1^"> Unstunable (15)<br>
+                  <input type="checkbox" name="16" value="16,1^"> Unsnareable (16)<br>
+                  <input type="checkbox" name="17" value="17,1^"> Unfearable (17)<br>
+                  <input type="checkbox" name="31" value="31,1^"> Unpacifiable (31)<br>
+                  <input type="checkbox" name="18" value="18,1^"> Immune to Dispell (18)<br>
+                  <input type="checkbox" name="35" value="35,1^"> No Harm from Players (35)<br>
+                  <input type="checkbox" name="39" value="39,1^"> Disable Melee (39)<br>
+                  <input type="checkbox" name="42" value="42,1^"> Ignore Root Aggro (42)<br>
                 </td>
                 <td valign="top" align="left">
-                  <input type="checkbox" name="26" value="26,1^"/>  Resist Ranged Spells (26)<br>
-                  <input type="checkbox" name="28" value="28,1^"/>  Immune to Taunt (28)<br>
-                  <input type="checkbox" name="19" value="19,1^"/>  Immune to Melee (19)<br>
-                  <input type="checkbox" name="20" value="20,1^"/>  Immune to Magic (20)<br>
-                  <input type="checkbox" name="21" value="21,1^"/>  Immune to Fleeing (21)<br>
-                  <input type="checkbox" name="23" value="23,1^"/>  Immune to non-Magical Melee (23)<br>
-                  <input type="checkbox" name="22" value="22,1^"/>  Immune to non-Bane Melee (22)<br>
-                  <input type="checkbox" name="24" value="24,1^"/>  Will Not Aggro (24)<br>
-                  <input type="checkbox" name="25" value="25,1^"/>  Immune to Aggro (25)<br>
-                  <input type="checkbox" name="27" value="27,1^"/>  See through Feign Death (27)<br>
-                  <input type="checkbox" name="npc_aggro" value="1"/> Can Aggro NPCs<br>
-                  <input type="checkbox" name="30" value="30,1^"/>  Does NOT buff/heal friends (30)<br>
-                  <input type="checkbox" name="36" value="36,1^"/>  Always Flee (36)<br>
-                  <input type="checkbox" name="38" value="38,1^"/>  Allow Beneficial (38)<br>
-                  <input type="checkbox" name="41" value="41,1^"/>  Allow Tank (41)<br>
-                  <input type="checkbox" name="44" value="44,1^"/>  Max Special Attack (44)<br>
+                  <input type="checkbox" name="26" value="26,1^"> Resist Ranged Spells (26)<br>
+                  <input type="checkbox" name="28" value="28,1^"> Immune to Taunt (28)<br>
+                  <input type="checkbox" name="19" value="19,1^"> Immune to Melee (19)<br>
+                  <input type="checkbox" name="20" value="20,1^"> Immune to Magic (20)<br>
+                  <input type="checkbox" name="21" value="21,1^"> Immune to Fleeing (21)<br>
+                  <input type="checkbox" name="23" value="23,1^"> Immune to non-Magical Melee (23)<br>
+                  <input type="checkbox" name="22" value="22,1^"> Immune to non-Bane Melee (22)<br>
+                  <input type="checkbox" name="24" value="24,1^"> Will Not Aggro (24)<br>
+                  <input type="checkbox" name="25" value="25,1^"> Immune to Aggro (25)<br>
+                  <input type="checkbox" name="27" value="27,1^"> See through Feign Death (27)<br>
+                  <input type="checkbox" name="npc_aggro" value="1"> Can Aggro NPCs<br>
+                  <input type="checkbox" name="30" value="30,1^"> Does NOT buff/heal friends (30)<br>
+                  <input type="checkbox" name="36" value="36,1^"> Always Flee (36)<br>
+                  <input type="checkbox" name="38" value="38,1^"> Allow Beneficial (38)<br>
+                  <input type="checkbox" name="41" value="41,1^"> Allow Tank (41)<br>
+                  <input type="checkbox" name="45" value="45,1^"> Prox Aggro (45)<br>
+                  <input type="checkbox" name="46" value="46,1^"> Immune to Ranged Attacks (46)<br>
                 </td>
               </tr>
             </table>

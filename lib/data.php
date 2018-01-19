@@ -967,7 +967,10 @@ $specialattacks = array(
  "40" => "Chase Distance",
  "41" => "Allow Tank",
  "42" => "Ignore Root Aggro",
- "43" => "Casting Resist Diff"
+ "43" => "Casting Resist Diff",
+ "44" => "Counter Avoid Damage",
+ "45" => "Proximity Aggro",
+ "46" => "Immune Ranged Attacks"
 );
 
 $tradeskills = array(
