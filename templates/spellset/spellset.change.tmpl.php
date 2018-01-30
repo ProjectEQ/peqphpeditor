@@ -14,7 +14,7 @@
               <input type="radio" name="action" value="10">Create a new Spellset<br>
               <input type="radio" name="action" value="12">Choose an existing Spellset<br><br>
               <center>
-                <input type="submit" value="Continue">
+                <input type="submit" value="Continue">&nbsp;&nbsp;<input type="button" value="Cancel" onClick="history.back();">
               </center>
             </form>
           </td>
