@@ -10,7 +10,7 @@
           <tr>
             <td colspan="2">
               <strong>Spellset Name:</strong><br>
-              <input type="text" name="name" size="25" value="">
+              <input type="text" name="name" size="25" value="<?=$name?>">
             </td>
             <td colspan="2">
               <strong>Parent list:</strong><br>

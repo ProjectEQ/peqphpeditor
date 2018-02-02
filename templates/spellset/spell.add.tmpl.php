@@ -34,7 +34,18 @@
             (-1 = Default)<br><br>
 
             <strong>Priority:</strong><br>
-            <input class="indented" id="id" type="text" name="priority" size="10" value="0"><br><br>
+            <input class="indented" id="id" type="text" name="priority" size="10" value="0"><br>
+            (0 = Innate)<br><br>
+
+            <strong>Resist Adjust:</strong><br>
+            <input class="indented" type="text" name="resist_adjust" size="10" value=""><br>
+            (blank = Default)<br><br>
+
+            <strong>Min HP:</strong><br>
+            <input class="indented" type="text" name="min_hp" size="10" value="0"><br><br>
+
+            <strong>Max HP:</strong><br>
+            <input class="indented" type="text" name="max_hp" size="10" value="0"><br><br>
 
             <center>
               <input type="hidden" name="npc_spells_id" value="<?=$npc_spells_id?>">

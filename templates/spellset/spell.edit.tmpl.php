@@ -3,7 +3,7 @@
         <input id="button" type="button" value='Hide Spellset Search' onclick='hideSearch();' style='display:none; margin-bottom: 20px;'>
       </center>
         
-      <div class="table_container" style="width: 150px">
+      <div class="table_container" style="width: 200px">
         <div class="edit_form_header">
             Edit a Spell
         </div>
@@ -34,7 +34,18 @@
             (-1 = Default)<br><br>
 
             <strong>Priority:</strong><br>
-            <input class="indented" type="text" name="priority" size="10" value="<?=$priority?>"><br><br>
+            <input class="indented" type="text" name="priority" size="10" value="<?=$priority?>"><br>
+            (0 = Innate)<br><br>
+
+            <strong>Resist Adjust:</strong><br>
+            <input class="indented" type="text" name="resist_adjust" size="10" value="<?=$resist_adjust?>"><br>
+            (blank = Default)<br><br>
+
+            <strong>Min HP:</strong><br>
+            <input class="indented" type="text" name="min_hp" size="10" value="<?=$min_hp?>"><br><br>
+
+            <strong>Max HP:</strong><br>
+            <input class="indented" type="text" name="max_hp" size="10" value="<?=$max_hp?>"><br><br>
 
             <center>
               <input type="hidden" name="id" value="<?=$id?>">

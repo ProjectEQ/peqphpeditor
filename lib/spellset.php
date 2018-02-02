@@ -282,10 +282,18 @@ function add_spell() {
   $maxlevel = $_POST['maxlevel'];
   $manacost = $_POST['manacost'];
   $recast_delay = $_POST['recast_delay'];
+  $resist_adjust = $_POST['resist_adjust'];
+  $min_hp = $_POST['min_hp'];
+  $max_hp = $_POST['max_hp'];
   $priority = $_POST['priority'];
 
-  $query = "INSERT INTO npc_spells_entries SET npc_spells_id=$npc_spells_id, spellid=$spellid, type=$type, minlevel=$minlevel, maxlevel=$maxlevel, manacost=$manacost, recast_delay=$recast_delay, priority=$priority";
+  $query = "INSERT INTO npc_spells_entries SET npc_spells_id=$npc_spells_id, spellid=$spellid, type=$type, minlevel=$minlevel, maxlevel=$maxlevel, manacost=$manacost, recast_delay=$recast_delay, priority=$priority, resist_adjust=NULL, min_hp=$min_hp, max_hp=$max_hp";
   $mysql->query_no_result($query);
+
+  if ($resist_adjust != "") {
+    $query = "UPDATE npc_spells_entries SET resist_adjust=\"$resist_adjust\" WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
 }
 
 function delete_spell() {
@@ -336,10 +344,18 @@ function update_spell() {
   $maxlevel = $_POST['maxlevel'];
   $manacost = $_POST['manacost'];
   $recast_delay = $_POST['recast_delay'];
+  $resist_adjust = $_POST['resist_adjust'];
+  $min_hp = $_POST['min_hp'];
+  $max_hp = $_POST['max_hp'];
   $priority = $_POST['priority'];
 
-  $query = "UPDATE npc_spells_entries SET spellid=$spellid, type=$type, minlevel=$minlevel, maxlevel=$maxlevel, manacost=$manacost, recast_delay=$recast_delay, priority=$priority WHERE id=$id";
+  $query = "UPDATE npc_spells_entries SET spellid=$spellid, type=$type, minlevel=$minlevel, maxlevel=$maxlevel, manacost=$manacost, recast_delay=$recast_delay, priority=$priority, resist_adjust=NULL, min_hp=$min_hp, max_hp=$max_hp WHERE id=$id";
   $mysql->query_no_result($query);
+
+  if ($resist_adjust != "") {
+    $query = "UPDATE npc_spells_entries SET resist_adjust=\"$resist_adjust\" WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
 }
 
 function suggest_spellset_id() {
