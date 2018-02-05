@@ -1363,6 +1363,14 @@ function update_npc() {
   //unique_
   //fixed
   if ($ignore_despawn != $_POST['ignore_despawn']) $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\", ";
+  if ($charm_ac != $_POST['charm_ac']) $fields .= "charm_ac=\"" . $_POST['charm_ac'] . "\", ";
+  if ($charm_min_dmg != $_POST['charm_min_dmg']) $fields .= "charm_min_dmg=\"" . $_POST['charm_min_dmg'] . "\", ";
+  if ($charm_max_dmg != $_POST['charm_max_dmg']) $fields .= "charm_max_dmg=\"" . $_POST['charm_max_dmg'] . "\", ";
+  if ($charm_atk != $_POST['charm_atk']) $fields .= "charm_atk=\"" . $_POST['charm_atk'] . "\", ";
+  if ($charm_attack_delay != $_POST['charm_attack_delay']) $fields .= "charm_attack_delay=\"" . $_POST['charm_attack_delay'] . "\", ";
+  if ($charm_accuracy_rating != $_POST['charm_accuracy_rating']) $fields .= "charm_accuracy_rating=\"" . $_POST['charm_accuracy_rating'] . "\", ";
+  if ($charm_avoidance_rating != $_POST['charm_avoidance_rating']) $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\", ";
+
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -1501,7 +1509,14 @@ function add_npc() {
   //peqid
   //unique_
   //fixed
-  $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\"";
+  $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\", ";
+  $fields .= "charm_ac=\"" . $_POST['charm_ac'] . "\", ";
+  $fields .= "charm_min_dmg=\"" . $_POST['charm_min_dmg'] . "\", ";
+  $fields .= "charm_max_dmg=\"" . $_POST['charm_max_dmg'] . "\", ";
+  $fields .= "charm_atk=\"" . $_POST['charm_atk'] . "\", ";
+  $fields .= "charm_attack_delay=\"" . $_POST['charm_attack_delay'] . "\", ";
+  $fields .= "charm_accuracy_rating=\"" . $_POST['charm_accuracy_rating'] . "\", ";
+  $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1623,7 +1638,13 @@ function copy_npc() {
   //unique_
   //fixed
   $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\", ";
-  $fields =  rtrim($fields, ", ");
+  $fields .= "charm_ac=\"" . $_POST['charm_ac'] . "\", ";
+  $fields .= "charm_min_dmg=\"" . $_POST['charm_min_dmg'] . "\", ";
+  $fields .= "charm_max_dmg=\"" . $_POST['charm_max_dmg'] . "\", ";
+  $fields .= "charm_atk=\"" . $_POST['charm_atk'] . "\", ";
+  $fields .= "charm_attack_delay=\"" . $_POST['charm_attack_delay'] . "\", ";
+  $fields .= "charm_accuracy_rating=\"" . $_POST['charm_accuracy_rating'] . "\", ";
+  $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";

@@ -80,6 +80,23 @@
             </table>
           </fieldset><br>
           <fieldset>
+            <legend><strong><font size="4">Charmed Stats</font></strong></legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0">
+              <tr>
+                <td colspan="7">0 = Not Used</td>
+              </tr>
+              <tr>
+                <td align="left" width="14%">AC:<br><input type="text" name="charm_ac" size="5" value="<?=$charm_ac?>"></td>
+                <td align="left" width="14%">Min Dmg:<br><input type="text" name="charm_min_dmg" size="5" value="<?=$charm_min_dmg?>"></td>
+                <td align="left" width="14%">Max Dmg:<br><input type="text" name="charm_max_dmg" size="5" value="<?=$charm_max_dmg?>"></td>
+                <td align="left" width="14%">Atk:<br><input type="text" name="charm_atk" size="5" value="<?=$charm_atk?>"></td>
+                <td align="left" width="14%">Atk Delay:<br><input type="text" name="charm_attack_delay" size="5" value="<?=$charm_attack_delay?>"></td>
+                <td align="left" width="15%">Accuracy:<br><input type="text" name="charm_accuracy_rating" size="5" value="<?=$charm_accuracy_rating?>"></td>
+                <td align="left" width="15%">Avoidance:<br><input type="text" name="charm_avoidance_rating" size="5" value="<?=$charm_avoidance_rating?>"></td>
+              </tr>
+            </table>
+          </fieldset><br>
+          <fieldset>
             <legend><strong><font size="4">Resists</font></strong></legend>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>

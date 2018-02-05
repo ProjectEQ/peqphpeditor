@@ -137,6 +137,26 @@
                       <td align="left" width="34%">&nbsp;</td>
                     </tr>
                   </table>
+                  <fieldset>
+                    <legend><strong>Charmed Stats</strong></legend>
+                      <table width="100%" border="0" cellpadding="3" cellspacing="0">
+                        <tr>
+                          <td align="left" width="33%">AC: <?=$charm_ac?></td>
+                          <td align="left" width="33%">Atk: <?=$charm_atk?></td>
+                          <td align="left" width="33%">Accuracy: <?=$charm_accuracy_rating?></td>
+                        </tr>
+                        <tr>
+                          <td align="left" width="33%">MinDmg: <?=$charm_min_dmg?></td>
+                          <td align="left" width="33%">Atk Delay: <?=$charm_attack_delay?></td>
+                          <td align="left" width="33%">Avoidance: <?=$charm_avoidance_rating?></td>
+                        </tr>
+                        <tr>
+                          <td align="left" width="33%">MaxDmg: <?=$charm_max_dmg?></td>
+                          <td align="left" width="33%">&nbsp;</td>
+                          <td align="left" width="33%">&nbsp;</td>
+                        </tr>
+                      </table>
+                  </fieldset>
               </fieldset>
               <fieldset>
                 <legend><strong>Resists</strong></legend>
@@ -375,6 +395,13 @@
         <input type="hidden" name="raid_target" value="<?=$raid_target?>">
         <input type="hidden" name="light" value="<?=$light?>">
         <input type="hidden" name="ignore_despawn" value="<?=$ignore_despawn?>">
+        <input type="hidden" name="charm_ac" value="<?=$charm_ac?>">
+        <input type="hidden" name="charm_min_dmg" value="<?=$charm_min_dmg?>">
+        <input type="hidden" name="charm_max_dmg" value="<?=$charm_max_dmg?>">
+        <input type="hidden" name="charm_atk" value="<?=$charm_atk?>">
+        <input type="hidden" name="charm_attack_delay" value="<?=$charm_attack_delay?>">
+        <input type="hidden" name="charm_accuracy_rating" value="<?=$charm_accuracy_rating?>">
+        <input type="hidden" name="charm_avoidance_rating" value="<?=$charm_avoidance_rating?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">
