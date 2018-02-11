@@ -192,7 +192,7 @@ switch($action) {
     exit;
 }
 
-function spells_info () {
+function spells_info() {
   global $mysql, $npcid, $spellset;
 
   $array = array();
@@ -480,7 +480,7 @@ function get_new_id() {
   return $nss;
 }
 
-function change_spellset_byname () {
+function change_spellset_byname() {
   check_authorization();
   global $mysql, $npcid, $z;
   $zid = getZoneID($z);
@@ -501,7 +501,7 @@ function change_spellset_byname () {
   }
 }
 
-function change_spellset_byclass () {
+function change_spellset_byclass() {
   check_authorization();
   global $mysql, $npcid, $z;
   $zid = getZoneID($z);

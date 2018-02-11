@@ -296,6 +296,11 @@
                     <td align="left" width="33%">Raid Target: <?=$yesno[$raid_target]?></td>
                     <td align="left" width="34%">Version: <?=$version?></td>
                   </tr>
+                  <tr>
+                    <td align="left" width="33%">Skip Global Loot: <?=$yesno[$skip_global_loot]?></td>
+                    <td align="left" width="33%">Rare Spawn: <?=$yesno[$rare_spawn]?></td>
+                    <td align="left" width="34%">&nbsp;</td>
+                  </tr>
                 </table>
               </fieldset>
             </td>
@@ -402,6 +407,8 @@
         <input type="hidden" name="charm_attack_delay" value="<?=$charm_attack_delay?>">
         <input type="hidden" name="charm_accuracy_rating" value="<?=$charm_accuracy_rating?>">
         <input type="hidden" name="charm_avoidance_rating" value="<?=$charm_avoidance_rating?>">
+        <input type="hidden" name="skip_global_loot" value="<?=$skip_global_loot?>">
+        <input type="hidden" name="rare_spawn" value="<?=$rare_spawn?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">

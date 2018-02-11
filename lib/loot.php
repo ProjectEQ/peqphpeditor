@@ -20,6 +20,9 @@ switch ($action) {
       $usage = mobs_using_loottable();
       $body->set('usage', $usage);
     }
+    else {
+      $body = new Template("templates/loot/loot.default.tmpl.php");
+    }
     break;
   case 1:  // Edit loottable
     check_authorization();
@@ -368,6 +371,56 @@ switch ($action) {
     move_copy_lootdrop_item();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
+  case 49:  // View Global Loot
+    $body = new Template("templates/loot/global.loot.view.tmpl.php");
+    $breadcrumbs .= " >> Global Loot";
+    $global_loot = global_loot_info();
+    $body->set('yesno', $yesno);
+    if ($global_loot) {
+      $body->set('global_loot', $global_loot);
+    }
+    break;
+  case 50:  // Add Global Loot
+    check_authorization();
+    $body = new Template("templates/loot/global.loot.add.tmpl.php");
+    $breadcrumbs .= " >> <a href='index.php?editor=loot&action=49'>Global Loot</a> >> Add Global Loot";
+    $new_id = suggest_next_global_loot();
+    $body->set('new_id', $new_id);
+    $body->set('races', $races);
+    $body->set('classes', $classes);
+    $body->set('bodytypes', $bodytypes);
+    $body->set('zoneids', $zoneids);
+    break;
+  case 51:  // Insert Global Loot
+    check_authorization();
+    insert_global_loot();
+    header("Location: index.php?editor=loot&action=49");
+    exit;
+  case 52:  // Edit Global Loot
+    check_authorization();
+    $body = new Template("templates/loot/global.loot.edit.tmpl.php");
+    $breadcrumbs .= " >> <a href='index.php?editor=loot&action=49'>Global Loot</a> >> Edit Global Loot";
+    $body->set('races', $races);
+    $body->set('classes', $classes);
+    $body->set('bodytypes', $bodytypes);
+    $body->set('zoneids', $zoneids);
+    $global_loot = getGlobalLoot($_GET['id']);
+    if ($global_loot) {
+      foreach ($global_loot as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 53:  // Update Global Loot
+    check_authorization();
+    update_global_loot();
+    header("Location: index.php?editor=loot&action=49");
+    exit;
+  case 54:  // Delete Global Loot
+    check_authorization();
+    delete_global_loot();
+    header("Location: index.php?editor=loot&action=49");
+    exit;
 }
 
 function loottable_info() {
@@ -417,6 +470,13 @@ function loottable_info() {
 
     $array['lootdrop_count'] = $count;
     $array['lootdrops'] = $array2;
+
+    $query4 = "SELECT id FROM global_loot WHERE loottable_id=$loottable LIMIT 1";
+    $result4 = $mysql->query_assoc($query4);
+
+    if ($result4) {
+      $array['global_loot_id'] = $result4['id'];
+    }
 
     return $array;
   }
@@ -923,6 +983,151 @@ function move_copy_lootdrop_item() {
   if ($move_copy_item == 1) {
     $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$new_ldid, item_id=$itemid, equip_item=$equip, item_charges=$charges, chance=$chance, minlevel=$minlevel, maxlevel=$maxlevel, multiplier=$multiplier";
     $mysql->query_no_result($query);
+  }
+}
+
+function global_loot_info() {
+  global $mysql;
+
+  $query = "SELECT * FROM global_loot";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function insert_global_loot() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $description = $_POST['description'];
+  $loottable_id = $_POST['loottable_id'];
+  $enabled = $_POST['enabled'];
+  $min_level = $_POST['min_level'];
+  $max_level = $_POST['max_level'];
+  $rare = ($_POST['rare'] == "null") ? "" : $_POST['rare'];
+  $raid = ($_POST['raid'] == "null") ? "" : $_POST['raid'];
+  $race = $_POST['race'];
+  $class = $_POST['class'];
+  $bodytype = $_POST['bodytype'];
+  $zone = $_POST['zone'];
+
+  $query = "INSERT INTO global_loot SET id=$id, description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL";
+  $mysql->query_no_result($query);
+
+  if ($rare != "") {
+    $query = "UPDATE global_loot SET rare=$rare WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
+
+  if ($raid != "") {
+    $query = "UPDATE global_loot SET raid=$raid WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
+
+  if ($race != "") {
+    $query = "UPDATE global_loot SET race=\"$race\" WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
+
+  if ($class != "") {
+    $query = "UPDATE global_loot SET class=\"$class\" WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
+
+  if ($bodytype != "") {
+    $query = "UPDATE global_loot SET bodytype=\"$bodytype\" WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
+
+  if ($zone != "") {
+    $query = "UPDATE global_loot SET zone=\"$zone\" WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
+}
+
+function update_global_loot() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $description = $_POST['description'];
+  $loottable_id = $_POST['loottable_id'];
+  $enabled = $_POST['enabled'];
+  $min_level = $_POST['min_level'];
+  $max_level = $_POST['max_level'];
+  $rare = ($_POST['rare'] == "null") ? "" : $_POST['rare'];
+  $raid = ($_POST['raid'] == "null") ? "" : $_POST['raid'];
+  $race = $_POST['race'];
+  $class = $_POST['class'];
+  $bodytype = $_POST['bodytype'];
+  $zone = $_POST['zone'];
+
+  $query = "UPDATE global_loot SET description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL WHERE id=$id";
+  $mysql->query_no_result($query);
+
+  if ($rare != "") {
+    $query = "UPDATE global_loot SET rare=$rare WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
+
+  if ($raid != "") {
+    $query = "UPDATE global_loot SET raid=$raid WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
+
+  if ($race != "") {
+    $query = "UPDATE global_loot SET race=\"$race\" WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
+
+  if ($class != "") {
+    $query = "UPDATE global_loot SET class=\"$class\" WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
+
+  if ($bodytype != "") {
+    $query = "UPDATE global_loot SET bodytype=\"$bodytype\" WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
+
+  if ($zone != "") {
+    $query = "UPDATE global_loot SET zone=\"$zone\" WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
+}
+
+function delete_global_loot() {
+  global $mysql;
+  $id = $_GET['id'];
+
+  $query = "DELETE FROM global_loot WHERE id=$id";
+  $mysql->query_no_result($query);
+}
+
+function suggest_next_global_loot() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS id FROM global_loot";
+  $result = $mysql->query_assoc($query);
+
+  return ($result['id'] + 1);
+}
+
+function getGlobalLoot($id) {
+  global $mysql;
+
+  $query = "SELECT * FROM global_loot WHERE id=$id";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
   }
 }
 

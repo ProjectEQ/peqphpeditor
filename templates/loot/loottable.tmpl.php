@@ -8,8 +8,8 @@
       </div>
       <div class="table_content">
         <center>
-          No Valid Loottable currently assigned.<br/><br/>
-          <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=11">Click here to change</a><br/>
+          No Valid Loottable currently assigned.<br><br>
+          <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=11">Click here to change</a><br>
           <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=46">Click here to import loot from Magelo</a>
         </center>
       </div>
@@ -30,10 +30,11 @@
           LootTable <?=$loottable_id?>: "<a href="index.php?editor=loot&action=1&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>"><?=$new_loottable_name?></a>"
         </div>
         <div class="table_content">
-          Cash loot [<a href="index.php?editor=loot&action=1&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">edit</a>]:<br/>
+          Global Loot: <?echo ($global_loot_id != 0) ? "<a href='index.php?editor=loot&id=" . $global_loot_id . "&action=52' title='View Global Loot'>" . $global_loot_id . "</a>" : "None";?><br><br>
+          Cash Loot [<a href="index.php?editor=loot&action=1&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">edit</a>]:<br>
           <div style="padding: 5px 0px 0px 20px;">
-            Min Cash: <?=$mincash?><br/>
-            Max Cash: <?=$maxcash?><br/>
+            Min Cash: <?=$mincash?><br>
+            Max Cash: <?=$maxcash?><br>
           </div>
           <div style="padding: 10px 0px 0px 0px;">
             NPCs using this loottable: <?=$usage['count']?>
@@ -42,7 +43,7 @@
 <? }else {?>
             [<a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">hide</a>]
 <?foreach($usage['mobs'] as $mob):?>
-            <br/>&nbsp;&nbsp;&nbsp;<?=$mob['id']?>: <?=$mob['name']?>
+            <br>&nbsp;&nbsp;&nbsp;<?=$mob['id']?>: <?=$mob['name']?>
 <?endforeach;?>
 <? } ?>
           </div>
@@ -58,7 +59,7 @@
   if ($lootdrops != ''):
     foreach ($lootdrops as $lootdrop):
 ?>
-      <br/>
+      <br>
       <div class="table_container">
         <div class="table_header">
           <table width="100%" cellpadding="0" cellspacing="0">

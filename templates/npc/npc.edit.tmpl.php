@@ -333,8 +333,8 @@
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="ignore_despawn" value="1"<?echo ($ignore_despawn == 1) ? " checked" : "";?>> Ignore Despawn<br>
-                  &nbsp;<br>
-                  &nbsp;<br>
+                  <input type="checkbox" name="skip_global_loot" value="1"<?echo ($skip_global_loot == 1) ? " checked" : "";?>> Skip Global Loot<br>
+                  <input type="checkbox" name="rare_spawn" value="1"<?echo ($rare_spawn == 1) ? " checked" : "";?>> Rare Spawn<br>
                 </td>
               </tr>
             </table>

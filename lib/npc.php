@@ -1241,6 +1241,8 @@ function update_npc() {
   if (!isset($_POST['underwater'])) $_POST['underwater'] = 0;
   if (!isset($_POST['isquest'])) $_POST['isquest'] = 0;
   if (!isset($_POST['ignore_despawn'])) $_POST['ignore_despawn'] = 0;
+  if (!isset($_POST['skip_global_loot'])) $_POST['skip_global_loot'] = 0;
+  if (!isset($_POST['rare_spawn'])) $_POST['rare_spawn'] = 0;
 
   // Check for special attacks change
   $new_specialattks = '';
@@ -1370,6 +1372,8 @@ function update_npc() {
   if ($charm_attack_delay != $_POST['charm_attack_delay']) $fields .= "charm_attack_delay=\"" . $_POST['charm_attack_delay'] . "\", ";
   if ($charm_accuracy_rating != $_POST['charm_accuracy_rating']) $fields .= "charm_accuracy_rating=\"" . $_POST['charm_accuracy_rating'] . "\", ";
   if ($charm_avoidance_rating != $_POST['charm_avoidance_rating']) $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\", ";
+  if ($skip_global_loot != $_POST['skip_global_loot']) $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
+  if ($rare_spawn != $_POST['rare_spawn']) $fields .= "rare_spawn=\"" . $_POST['rare_spawn'] . "\", ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -1395,6 +1399,8 @@ function add_npc() {
   if ($_POST['underwater'] != 1) $_POST['underwater'] = 0;
   if ($_POST['isquest'] != 1) $_POST['isquest'] = 0;
   if ($_POST['ignore_despawn'] != 1) $_POST['ignore_despawn'] = 0;
+  if ($_POST['skip_global_loot'] != 1) $_POST['skip_global_loot'] = 0;
+  if ($_POST['rare_spawn'] != 1) $_POST['rare_spawn'] = 0;
 
   foreach ($specialattacks as $k => $v) {
     if (isset($_POST["$k"])) {
@@ -1516,7 +1522,9 @@ function add_npc() {
   $fields .= "charm_atk=\"" . $_POST['charm_atk'] . "\", ";
   $fields .= "charm_attack_delay=\"" . $_POST['charm_attack_delay'] . "\", ";
   $fields .= "charm_accuracy_rating=\"" . $_POST['charm_accuracy_rating'] . "\", ";
-  $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\"";
+  $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\", ";
+  $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
+  $fields .= "rare_spawn=\"" .$_POST['rare_spawn'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1644,7 +1652,9 @@ function copy_npc() {
   $fields .= "charm_atk=\"" . $_POST['charm_atk'] . "\", ";
   $fields .= "charm_attack_delay=\"" . $_POST['charm_attack_delay'] . "\", ";
   $fields .= "charm_accuracy_rating=\"" . $_POST['charm_accuracy_rating'] . "\", ";
-  $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\"";
+  $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\", ";
+  $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
+  $fields .= "rare_spawn=\"" . $_POST['rare_spawn'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
