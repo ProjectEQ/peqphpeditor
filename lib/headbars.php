@@ -184,6 +184,8 @@ switch ($editor) {
   case 'pvp':
     $searchbar = new Template("templates/searchbar/searchbar.pvp.tmpl.php");
     break;
+  case 'databuckets':
+    break;
 }
 
 function build_tabs () {
@@ -216,6 +218,7 @@ function build_tabs () {
   $tabstatus25 = "off";
   $tabstatus26 = "off";
   $tabstatus27 = "off";
+  $tabstatus28 = "off";
 
   $zoneurl = "";
   $npcurl = "";
@@ -312,6 +315,9 @@ function build_tabs () {
     case 'pvp':
       $tabstatus27 = "on";
       break;
+    case 'databuckets':
+      $tabstatus28 = "on";
+      break;
   }
 
   $admin = '';
@@ -349,6 +355,7 @@ function build_tabs () {
         <div class=\"$tabstatus25\"><a href=\"index.php?editor=titles\">Titles</a></div>
         <div class=\"$tabstatus26\"><a href=\"index.php?editor=auras\">Auras</a></div>
         <div class=\"$tabstatus27\"><a href=\"index.php?editor=pvp\">PVP</a></div>
+        <div class=\"$tabstatus28\"><a href=\"index.php?editor=databuckets\">Data Buckets</a></div>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br/><br/>
       </div>
 ";
