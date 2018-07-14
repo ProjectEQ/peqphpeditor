@@ -65,6 +65,9 @@
           <legend><strong><font size="4">Description</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
+              <td>Note: Reference activities using "%1", etc.</td>
+            </tr>
+            <tr>
               <td><textarea name="description" rows="7" cols="88">[1,]</textarea></td>
             </tr>
           </table>
