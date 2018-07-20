@@ -40,7 +40,18 @@
           </table>
         </fieldset><br>
         <fieldset>
-          <legend><strong><font size="4">Reward</font></strong></legend>
+          <legend><strong><font size="4">Description</font></strong></legend>
+          <table width="100%" border="0" cellpadding="3" cellspacing="0">
+            <tr>
+              <td>Note: Reference activities using "%1", etc.</td>
+            </tr>
+            <tr>
+              <td><textarea name="description" rows="7" cols="88"><?echo htmlentities($description);?></textarea></td>
+            </tr>
+          </table>
+        </fieldset><br>
+        <fieldset>
+          <legend><strong><font size="4">Completion</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
               <td align="left" width="50%" colspan="2">Reward Text:<br><input type="text" name="reward" size="45" value="<?echo htmlentities($reward);?>"></td> 
@@ -60,15 +71,12 @@
               <td align="left" width="25%">Reward Faction:<br><input type="text" name="faction_reward" size="7" value="<?=$faction_reward?>"></td>
             </tr>
           </table>
-        </fieldset><br>
-        <fieldset>
-          <legend><strong><font size="4">Description</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td>Note: Reference activities using "%1", etc.</td>
-            </tr>
-            <tr>
-              <td><textarea name="description" rows="7" cols="88"><?echo htmlentities($description);?></textarea></td>
+              <td>
+                Completion Emote:<br>
+                <textarea name="completion_emote" rows="2" cols="88"><?=$completion_emote?></textarea>
+              </td>
             </tr>
           </table>
         </fieldset><br>

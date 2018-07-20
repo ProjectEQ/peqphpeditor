@@ -562,11 +562,13 @@ function update_tasks() {
     $title = mysqli_real_escape_string($mysql, $_POST['title']);
     $description = mysqli_real_escape_string($mysql, $_POST['description']); 
     $reward = mysqli_real_escape_string($mysql, $_POST['reward']);
+    $completion_emote = mysqli_real_escape_string($mysql, $_POST['completion_emote']);
   }
   else {
     $title = mysql_real_escape_string($_POST['title']);
     $description = mysql_real_escape_string($_POST['description']); 
     $reward = mysql_real_escape_string($_POST['reward']);
+    $completion_emote = mysql_real_escape_string($_POST['completion_emote']);
   }
   $rewardid = $_POST['rewardid'];
   $cashreward = $_POST['cashreward'];
@@ -577,7 +579,7 @@ function update_tasks() {
   $repeatable = $_POST['repeatable'];
   $faction_reward = $_POST['faction_reward'];
 
-  $query = "UPDATE tasks SET type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\" WHERE id=\"$id\"";
+  $query = "UPDATE tasks SET type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\" WHERE id=\"$id\"";
   $mysql->query_no_result($query);
 }
 
@@ -592,7 +594,7 @@ function update_activity() {
   if ($mysql_class == "mysqli") {
     $target_name = mysqli_real_escape_string($mysql, $_POST['target_name']);
     $item_list = mysqli_real_escape_string($mysql, $_POST['item_list']);
-    $description_override = mysqli_real_escape_string($mysql, $_POST['description_overrdie']);
+    $description_override = mysqli_real_escape_string($mysql, $_POST['description_override']);
     $skill_list = mysqli_real_escape_string($mysql, $_POST['skill_list']);
     $spell_list = mysqli_real_escape_string($mysql, $_POST['spell_list']);
     $zones = mysqli_real_escape_string($mysql, $_POST['zones']);
@@ -792,11 +794,13 @@ function add_tasks() {
     $title = mysqli_real_escape_string($mysql, $_POST['title']);
     $description = mysqli_real_escape_string($mysql, $_POST['description']); 
     $reward = mysqli_real_escape_string($mysql, $_POST['reward']);
+    $completion_emote = mysqli_real_escape_string($mysql, $_POST['completion_emote']);
   }
   else {
     $title = mysql_real_escape_string($_POST['title']);
     $description = mysql_real_escape_string($_POST['description']); 
     $reward = mysql_real_escape_string($_POST['reward']);
+    $completion_emote = mysql_real_escape_string($_POST['completion_emote']);
   }
   $rewardid = $_POST['rewardid'];
   $cashreward = $_POST['cashreward'];
@@ -807,7 +811,7 @@ function add_tasks() {
   $repeatable = $_POST['repeatable'];
   $faction_reward = $_POST['faction_reward'];
 
-  $query = "INSERT INTO tasks SET id=\"$id\", type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\"";
+  $query = "INSERT INTO tasks SET id=\"$id\", type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\"";
   $mysql->query_no_result($query);
 }
 

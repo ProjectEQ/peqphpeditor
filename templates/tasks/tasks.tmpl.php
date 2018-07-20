@@ -28,7 +28,15 @@
               </table>
             </fieldset><br>
             <fieldset>
-              <legend><strong>Reward</font></strong></legend>
+              <legend><strong>Description</font></strong></legend>
+              <table width="100%" border="0" cellpadding="3" cellspacing="0">
+                <tr>
+                  <td align="left" width="100%"><?=$description?></td>
+                </tr>
+              </table>
+            </fieldset><br>
+            <fieldset>
+              <legend><strong>Completion</font></strong></legend>
               <table width="100%" border="0" cellpadding="3" cellspacing="0">
                 <tr>
                   <td align="left" width="50%" colspan="2">Reward Text: "<?=$reward?>"</td>
@@ -51,16 +59,11 @@
 <?endif;?>
                   </td>
                   <td align="left" width="20%">Reward Cash: <?=$cashreward?></td>
-                  <td align="left" width="20%">Reward XP:  <?=$xpreward?></td>
-                  <td align="left" width="20%">Reward Faction:  <?=$faction_reward?></td>
+                  <td align="left" width="20%">Reward XP: <?=$xpreward?></td>
+                  <td align="left" width="20%">Reward Faction: <?=$faction_reward?></td>
                 </tr>
-              </table>
-            </fieldset><br>
-            <fieldset>
-              <legend><strong>Description</font></strong></legend>
-              <table width="100%" border="0" cellpadding="3" cellspacing="0">
                 <tr>
-                  <td align="left" width="100%"><?=$description?></td>
+                  <td align="left" width="100%" colspan="4">Completion Emote: "<?=$completion_emote?>"</td>
                 </tr>
               </table>
             </fieldset>
