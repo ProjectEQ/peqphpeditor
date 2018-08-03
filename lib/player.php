@@ -217,7 +217,7 @@ function player_info() {
   $player_array['tribute'] = $result;
 
   //Load from character_bandolier
-  $query = "SELECT * FROM character_bandolier WHERE id = $playerid";
+  $query = "SELECT * FROM character_bandolier WHERE id = $playerid ORDER BY bandolier_id, bandolier_slot";
   $result = $mysql->query_mult_assoc($query);
   $player_array['bandolier'] = $result;
 

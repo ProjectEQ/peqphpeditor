@@ -411,6 +411,35 @@
         <tr>
           <td colspan="2">
             <fieldset>
+              <legend><strong>Bandoliers</strong></legend>
+<?if ($bandolier):?>
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td><u>ID</u></td>
+                  <td><u>Name</u></td>
+                  <td><u>Slot</u></td>
+                  <td><u>Item</u></td>
+                  <td><u>Icon</u></td>
+                </tr>
+<?foreach ($bandolier as $bd):?>
+                <tr>
+                  <td><?=$bd['bandolier_id']?></td>
+                  <td><?=$bd['bandolier_name']?></td>
+                  <td><?=$bd['bandolier_slot']?></td>
+                  <td><?=get_item_name($bd['item_id'])?> (<?=$bd['item_id']?>) - [<a href="http://lucy.allakhazam.com/item.html?id=<?=$bd['item_id']?>" target="_blank">Lucy</a>]</td>
+                  <td><?=$bd['icon']?></td>
+                </tr>
+<?endforeach;?>
+              </table>
+<?else:?>
+              None
+<?endif;?>
+            </fieldset>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <fieldset>
               <legend><strong>Inspect Message</strong></legend>
               <?echo ($inspect_message) ? $inspect_message : "None";?>
             </fieldset>
