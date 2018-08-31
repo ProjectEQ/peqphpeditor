@@ -42,11 +42,12 @@
                     </select>
                   </td>
                   <td align="left" width="25%">
-                    Global Instance:<br>
-                    <select name="global">
-                      <option value="0"<?echo ($global == 0) ? " selected" : ""?>>No</option>
-                      <option value="1"<?echo ($global == 1) ? " selected" : ""?>>Yes</option>
-                    </select>
+                    Inst Type:<br>
+                    <input type="text" name="insttype" size="7" value="<?=$insttype?>"></td>
+                  </td>
+                  <td align="left" width="25%">
+                    Gravity:<br>
+                    <input type="text" name="gravity" size="7" value="<?=$gravity?>"></td>
                   </td>
                 </tr>
                 <tr>
@@ -80,10 +81,10 @@
               <legend><strong><font size="3">Restrictions</font></strong></legend>
               <table width="100%" border="0" cellpadding="3" cellspacing="0">
                 <tr>
-                  <td align="left" width="25%">Level:<br><input type="text" name="min_level" size="7" value="<?=$min_level?>"></td>
-                  <td align="left" width="25%">Status:<br><input type="text" name="min_status" size="7" value="<?=$min_status?>"></td>
-                  <td align="left" width="25%">Max Clients:<br><input type="text" name="maxclients" size="7" value="<?=$maxclients?>"></td>
-                  <td align="left" width="25%">Flag:<br><input type="text" name="flag_needed" size="15" value="<?=$flag_needed?>"></td>
+                  <td align="left" width="20%">Level:<br><input type="text" name="min_level" size="7" value="<?=$min_level?>"></td>
+                  <td align="left" width="20%">Status:<br><input type="text" name="min_status" size="7" value="<?=$min_status?>"></td>
+                  <td align="left" width="20%">Max Clients:<br><input type="text" name="maxclients" size="7" value="<?=$maxclients?>"></td>
+                  <td align="left" width="20%" colspan="2">Flag:<br><input type="text" name="flag_needed" size="15" value="<?=$flag_needed?>"></td>
                 </tr>
                 <tr>
                   <td align="left" width="20%">
@@ -94,7 +95,7 @@
                     </select>
                   </td>
                   <td align="left" width="20%">
-                    Outdoor:<br>
+                    Cast Outdoor:<br>
                     <select name="castoutdoor">
                       <option value="0"<?echo ($castoutdoor == 0) ? " selected" : ""?>>No</option>
                       <option value="1"<?echo ($castoutdoor == 1) ? " selected" : ""?>>Yes</option>
@@ -129,49 +130,46 @@
               <legend><strong><font size="3">Sky</font></strong></legend>
               <table width="100%" border="0" cellpadding="3" cellspacing="0">
                 <tr>
-                  <td align="left" width="14%">Sky:<br><input type="text" name="sky" size="5" value="<?=$sky?>"></td>
-                  <td align="left" width="14%">Min Clip:<br><input type="text" name="minclip" size="5" value="<?=$minclip?>"></td>
-                  <td align="left" width="14%">Max Clip:<br><input type="text" name="maxclip" size="5" value="<?=$maxclip?>"></td>
-                  <td align="left" width="14%">Fog Minclip:<br><input type="text" name="fog_minclip" size="5" value="<?=$fog_minclip?>"></td>
-                  <td align="left" width="14%">Fog Maxclip:<br><input type="text" name="fog_maxclip" size="5" value="<?=$fog_maxclip?>"></td>
-                  <td align="left" width="15%">Fog Blue:<br><input type="text" name="fog_blue" size="5" value="<?=$fog_blue?>"></td>
-                  <td align="left" width="15%">Fog Red:<br><input type="text" name="fog_red" size="5" value="<?=$fog_red?>"></td>
+                  <td align="left" width="20%">Sky:<br><input type="text" name="sky" size="5" value="<?=$sky?>"></td>
+                  <td align="left" width="20%">Sky Lock:<br><input type="text" name="skylock" size="5" value="<?=$skylock?>"></td>
+                  <td align="left" width="20%">Min Clip:<br><input type="text" name="minclip" size="5" value="<?=$minclip?>"></td>
+                  <td align="left" width="20%">Max Clip:<br><input type="text" name="maxclip" size="5" value="<?=$maxclip?>"></td>
+                  <td align="left" width="20%">Fog Density:<br><input type="text" name="fog_density" size="5" value="<?=$fog_density?>"></td>
                 </tr>
                 <tr>
-                  <td align="left" width="14%">Fog Green:<br><input type="text" name="fog_green" size="5" value="<?=$fog_green?>"></td>
-                  <td align="left" width="14%">Fog Minclip1:<br><input type="text" name="fog_minclip1" size="5" value="<?=$fog_minclip1?>"></td>
-                  <td align="left" width="14%">Fog Maxclip1:<br><input type="text" name="fog_maxclip1" size="5" value="<?=$fog_maxclip1?>"></td>
-                  <td align="left" width="14%">Fog Blue1:<br><input type="text" name="fog_blue1" size="5" value="<?=$fog_blue1?>"></td>
-                  <td align="left" width="14%">Fog Red1:<br><input type="text" name="fog_red1" size="5" value="<?=$fog_red1?>"></td>
-                  <td align="left" width="15%">Fog Green1:<br><input type="text" name="fog_green1" size="5" value="<?=$fog_green1?>"></td>
-                  <td align="left" width="15%">Fog Minclip2:<br><input type="text" name="fog_minclip2" size="5" value="<?=$fog_minclip2?>"></td>
+                  <td align="left" width="20%">Fog Minclip:<br><input type="text" name="fog_minclip" size="5" value="<?=$fog_minclip?>"></td>
+                  <td align="left" width="20%">Fog Maxclip:<br><input type="text" name="fog_maxclip" size="5" value="<?=$fog_maxclip?>"></td>
+                  <td align="left" width="20%">Fog Red:<br><input type="text" name="fog_red" size="5" value="<?=$fog_red?>"></td>
+                  <td align="left" width="20%">Fog Green:<br><input type="text" name="fog_green" size="5" value="<?=$fog_green?>"></td>
+                  <td align="left" width="20%">Fog Blue:<br><input type="text" name="fog_blue" size="5" value="<?=$fog_blue?>"></td>
                 </tr>
                 <tr>
-                  <td align="left" width="14%">Fog Maxclip2:<br><input type="text" name="fog_maxclip2" size="5" value="<?=$fog_maxclip2?>"></td>
-                  <td align="left" width="14%">Fog Blue2:<br><input type="text" name="fog_blue2" size="5" value="<?=$fog_blue2?>"></td>
-                  <td align="left" width="14%">Fog Red2:<br><input type="text" name="fog_red2" size="5" value="<?=$fog_red2?>"></td>
-                  <td align="left" width="14%">Fog Green2:<br><input type="text" name="fog_green2" size="5" value="<?=$fog_green2?>"></td>
-                  <td align="left" width="14%">Fog Minclip3:<br><input type="text" name="fog_minclip3" size="5" value="<?=$fog_minclip3?>"></td>
-                  <td align="left" width="15%">Fog Maxclip3:<br><input type="text" name="fog_maxclip3" size="5" value="<?=$fog_maxclip3?>"></td>
-                  <td align="left" width="15%">Fog Blue3:<br><input type="text" name="fog_blue3" size="5" value="<?=$fog_blue3?>"></td>
+                  <td align="left" width="20%">Fog Minclip1:<br><input type="text" name="fog_minclip1" size="5" value="<?=$fog_minclip1?>"></td>
+                  <td align="left" width="20%">Fog Maxclip1:<br><input type="text" name="fog_maxclip1" size="5" value="<?=$fog_maxclip1?>"></td>
+                  <td align="left" width="20%">Fog Red1:<br><input type="text" name="fog_red1" size="5" value="<?=$fog_red1?>"></td>
+                  <td align="left" width="20%">Fog Green1:<br><input type="text" name="fog_green1" size="5" value="<?=$fog_green1?>"></td>
+                  <td align="left" width="20%">Fog Blue1:<br><input type="text" name="fog_blue1" size="5" value="<?=$fog_blue1?>"></td>
                 </tr>
                 <tr>
-                  <td align="left" width="14%">Fog Red3:<br><input type="text" name="fog_red3" size="5" value="<?=$fog_red3?>"></td>
-                  <td align="left" width="14%">Fog Green3:<br><input type="text" name="fog_green3" size="5" value="<?=$fog_green3?>"></td>
-                  <td align="left" width="14%">Fog Minclip4:<br><input type="text" name="fog_minclip4" size="5" value="<?=$fog_minclip4?>"></td>
-                  <td align="left" width="14%">Fog Maxclip4:<br><input type="text" name="fog_maxclip4" size="5" value="<?=$fog_maxclip4?>"></td>
-                  <td align="left" width="14%">Fog Blue4:<br><input type="text" name="fog_blue4" size="5" value="<?=$fog_blue4?>"></td>
-                  <td align="left" width="15%">Fog Red4:<br><input type="text" name="fog_red4" size="5" value="<?=$fog_red4?>"></td>
-                  <td align="left" width="15%">Fog Green4:<br><input type="text" name="fog_green4" size="5" value="<?=$fog_green4?>"></td>
+                  <td align="left" width="20%">Fog Minclip2:<br><input type="text" name="fog_minclip2" size="5" value="<?=$fog_minclip2?>"></td>
+                  <td align="left" width="20%">Fog Maxclip2:<br><input type="text" name="fog_maxclip2" size="5" value="<?=$fog_maxclip2?>"></td>
+                  <td align="left" width="20%">Fog Red2:<br><input type="text" name="fog_red2" size="5" value="<?=$fog_red2?>"></td>
+                  <td align="left" width="20%">Fog Green2:<br><input type="text" name="fog_green2" size="5" value="<?=$fog_green2?>"></td>
+                  <td align="left" width="20%">Fog Blue2:<br><input type="text" name="fog_blue2" size="5" value="<?=$fog_blue2?>"></td>
                 </tr>
                 <tr>
-                  <td align="left" width="14%">Fog Density:<br><input type="text" name="fog_density" size="5" value="<?=$fog_density?>"></td>
-                  <td align="left" width="14%">&nbsp;</td>
-                  <td align="left" width="14%">&nbsp;</td>
-                  <td align="left" width="14%">&nbsp;</td>
-                  <td align="left" width="14%">&nbsp;</td>
-                  <td align="left" width="15%">&nbsp;</td>
-                  <td align="left" width="15%">&nbsp;</td>
+                  <td align="left" width="20%">Fog Minclip3:<br><input type="text" name="fog_minclip3" size="5" value="<?=$fog_minclip3?>"></td>
+                  <td align="left" width="20%">Fog Maxclip3:<br><input type="text" name="fog_maxclip3" size="5" value="<?=$fog_maxclip3?>"></td>
+                  <td align="left" width="20%">Fog Red3:<br><input type="text" name="fog_red3" size="5" value="<?=$fog_red3?>"></td>
+                  <td align="left" width="20%">Fog Green3:<br><input type="text" name="fog_green3" size="5" value="<?=$fog_green3?>"></td>
+                  <td align="left" width="20%">Fog Blue3:<br><input type="text" name="fog_blue3" size="5" value="<?=$fog_blue3?>"></td>
+                </tr>
+                <tr>
+                  <td align="left" width="20%">Fog Minclip4:<br><input type="text" name="fog_minclip4" size="5" value="<?=$fog_minclip4?>"></td>
+                  <td align="left" width="20%">Fog Maxclip4:<br><input type="text" name="fog_maxclip4" size="5" value="<?=$fog_maxclip4?>"></td>
+                  <td align="left" width="20%">Fog Red4:<br><input type="text" name="fog_red4" size="5" value="<?=$fog_red4?>"></td>
+                  <td align="left" width="20%">Fog Green4:<br><input type="text" name="fog_green4" size="5" value="<?=$fog_green4?>"></td>
+                  <td align="left" width="20%">Fog Blue4:<br><input type="text" name="fog_blue4" size="5" value="<?=$fog_blue4?>"></td>
                 </tr>
               </table>
             </fieldset><br>

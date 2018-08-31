@@ -251,7 +251,7 @@ switch ($action) {
    case 24:  // Copy zone
     check_authorization();
     $nzone = copy_zone();
-     header("Location: index.php?editor=zone&z=$z&zoneid=$nzone&action=1");
+    header("Location: index.php?editor=zone&z=$z&zoneid=$nzone&action=1");
     exit;
    case 25:  // Delete zone
     check_authorization();
@@ -310,32 +310,23 @@ function update_zone () {
   extract($oldstats);
 
   $fields = '';
-  if ($zoneidnumber != $_POST['zoneidnumber']) $fields .= "zoneidnumber=\"" . $_POST['zoneidnumber']. "\", ";
   if ($short_name != $_POST['short_name']) $fields .= "short_name=\"" . $_POST['short_name'] . "\", ";
   if ($file_name != $_POST['file_name']) $fields .= "file_name=\"" . $_POST['file_name'] . "\", ";
   if ($long_name != $_POST['long_name']) $fields .= "long_name=\"" . $_POST['long_name'] . "\", ";
+  if ($map_file_name != $_POST['map_file_name']) $fields .= "map_file_name=\"" . $_POST['map_file_name'] . "\", ";
   if ($safe_x != $_POST['safe_x']) $fields .= "safe_x=\"" . $_POST['safe_x'] . "\", ";
   if ($safe_y != $_POST['safe_y']) $fields .= "safe_y=\"" . $_POST['safe_y'] . "\", ";
   if ($safe_z != $_POST['safe_z']) $fields .= "safe_z=\"" . $_POST['safe_z'] . "\", ";
-  if ($underworld != $_POST['underworld']) $fields .= "underworld=\"" . $_POST['underworld'] . "\", ";
-  if ($timezone != $_POST['timezone']) $fields .= "timezone=\"" . $_POST['timezone'] . "\", ";
-  if ($time_type != $_POST['time_type']) $fields .= "time_type=\"" . $_POST['time_type'] . "\", ";
-  if ($note != $_POST['note']) $fields .= "note=\"" . $_POST['note'] . "\", ";
-  if ($shutdowndelay != $_POST['shutdowndelay']) $fields .= "shutdowndelay=\"" . $_POST['shutdowndelay'] . "\", ";
   if ($graveyard_id != $_POST['graveyard_id']) $fields .= "graveyard_id=\"" . $_POST['graveyard_id'] . "\", ";
-  if ($ztype != $_POST['ztype']) $fields .= "ztype=\"" . $_POST['ztype'] . "\", ";
-  if ($zone_exp_multiplier != $_POST['zone_exp_multiplier']) $fields .= "zone_exp_multiplier=\"" . $_POST['zone_exp_multiplier'] . "\", ";
-  if ($walkspeed != $_POST['walkspeed']) $fields .= "walkspeed=\"" . $_POST['walkspeed'] . "\", ";
   if ($min_level != $_POST['min_level']) $fields .= "min_level=\"" . $_POST['min_level'] . "\", ";
   if ($min_status != $_POST['min_status']) $fields .= "min_status=\"" . $_POST['min_status'] . "\", ";
+  if ($zoneidnumber != $_POST['zoneidnumber']) $fields .= "zoneidnumber=\"" . $_POST['zoneidnumber']. "\", ";
+  if ($version != $_POST['version']) $fields .= "version=\"" . $_POST['version'] . "\", ";
+  if ($timezone != $_POST['timezone']) $fields .= "timezone=\"" . $_POST['timezone'] . "\", ";
   if ($maxclients != $_POST['maxclients']) $fields .= "maxclients=\"" . $_POST['maxclients'] . "\", ";
-  if ($flag_needed != $_POST['flag_needed']) $fields .= "flag_needed=\"" . $_POST['flag_needed'] . "\", ";
-  if ($canlevitate != $_POST['canlevitate']) $fields .= "canlevitate=\"" . $_POST['canlevitate'] . "\", ";
-  if ($castoutdoor != $_POST['castoutdoor']) $fields .= "castoutdoor=\"" . $_POST['castoutdoor'] . "\", ";
-  if ($cancombat != $_POST['cancombat']) $fields .= "cancombat=\"" . $_POST['cancombat'] . "\", ";
-  if ($peqzone != $_POST['peqzone']) $fields .= "peqzone=\"" . $_POST['peqzone'] . "\", ";
-  if ($canbind != $_POST['canbind']) $fields .= "canbind=\"" . $_POST['canbind'] . "\", ";
-  if ($sky != $_POST['sky']) $fields .= "sky=\"" . $_POST['sky'] . "\", ";
+  if ($ruleset != $_POST['ruleset']) $fields .= "ruleset=\"" . $_POST['ruleset'] . "\", ";
+  if ($note != $_POST['note']) $fields .= "note=\"" . $_POST['note'] . "\", ";
+  if ($underworld != $_POST['underworld']) $fields .= "underworld=\"" . $_POST['underworld'] . "\", ";
   if ($minclip != $_POST['minclip']) $fields .= "minclip=\"" . $_POST['minclip'] . "\", ";
   if ($maxclip != $_POST['maxclip']) $fields .= "maxclip=\"" . $_POST['maxclip'] . "\", ";
   if ($fog_minclip != $_POST['fog_minclip']) $fields .= "fog_minclip=\"" . $_POST['fog_minclip'] . "\", ";
@@ -343,33 +334,43 @@ function update_zone () {
   if ($fog_blue != $_POST['fog_blue']) $fields .= "fog_blue=\"" . $_POST['fog_blue'] . "\", ";
   if ($fog_red != $_POST['fog_red']) $fields .= "fog_red=\"" . $_POST['fog_red'] . "\", ";
   if ($fog_green != $_POST['fog_green']) $fields .= "fog_green=\"" . $_POST['fog_green'] . "\", ";
-  if ($fog_minclip1 != $_POST['fog_minclip1']) $fields .= "fog_minclip1=\"" . $_POST['fog_minclip1'] . "\", ";
-  if ($fog_maxclip1 != $_POST['fog_maxclip1']) $fields .= "fog_maxclip1=\"" . $_POST['fog_maxclip1'] . "\", ";
-  if ($fog_blue1 != $_POST['fog_blue1']) $fields .= "fog_blue1=\"" . $_POST['fog_blue1'] . "\", ";
+  if ($sky != $_POST['sky']) $fields .= "sky=\"" . $_POST['sky'] . "\", ";
+  if ($ztype != $_POST['ztype']) $fields .= "ztype=\"" . $_POST['ztype'] . "\", ";
+  if ($zone_exp_multiplier != $_POST['zone_exp_multiplier']) $fields .= "zone_exp_multiplier=\"" . $_POST['zone_exp_multiplier'] . "\", ";
+  if ($walkspeed != $_POST['walkspeed']) $fields .= "walkspeed=\"" . $_POST['walkspeed'] . "\", ";
+  if ($time_type != $_POST['time_type']) $fields .= "time_type=\"" . $_POST['time_type'] . "\", ";
   if ($fog_red1 != $_POST['fog_red1']) $fields .= "fog_red1=\"" . $_POST['fog_red1'] . "\", ";
   if ($fog_green1 != $_POST['fog_green1']) $fields .= "fog_green1=\"" . $_POST['fog_green1'] . "\", ";
-  if ($fog_minclip2 != $_POST['fog_minclip2']) $fields .= "fog_minclip2=\"" . $_POST['fog_minclip2'] . "\", ";
-  if ($fog_maxclip2 != $_POST['fog_maxclip2']) $fields .= "fog_maxclip2=\"" . $_POST['fog_maxclip2'] . "\", ";
-  if ($fog_blue2 != $_POST['fog_blue2']) $fields .= "fog_blue2=\"" . $_POST['fog_blue2'] . "\", ";
+  if ($fog_blue1 != $_POST['fog_blue1']) $fields .= "fog_blue1=\"" . $_POST['fog_blue1'] . "\", ";
+  if ($fog_minclip1 != $_POST['fog_minclip1']) $fields .= "fog_minclip1=\"" . $_POST['fog_minclip1'] . "\", ";
+  if ($fog_maxclip1 != $_POST['fog_maxclip1']) $fields .= "fog_maxclip1=\"" . $_POST['fog_maxclip1'] . "\", ";
   if ($fog_red2 != $_POST['fog_red2']) $fields .= "fog_red2=\"" . $_POST['fog_red2'] . "\", ";
   if ($fog_green2 != $_POST['fog_green2']) $fields .= "fog_green2=\"" . $_POST['fog_green2'] . "\", ";
-  if ($fog_minclip3 != $_POST['fog_minclip3']) $fields .= "fog_minclip3=\"" . $_POST['fog_minclip3'] . "\", ";
-  if ($fog_maxclip3 != $_POST['fog_maxclip3']) $fields .= "fog_maxclip3=\"" . $_POST['fog_maxclip3'] . "\", ";
-  if ($fog_blue3 != $_POST['fog_blue3']) $fields .= "fog_blue3=\"" . $_POST['fog_blue3'] . "\", ";
+  if ($fog_blue2 != $_POST['fog_blue2']) $fields .= "fog_blue2=\"" . $_POST['fog_blue2'] . "\", ";
+  if ($fog_minclip2 != $_POST['fog_minclip2']) $fields .= "fog_minclip2=\"" . $_POST['fog_minclip2'] . "\", ";
+  if ($fog_maxclip2 != $_POST['fog_maxclip2']) $fields .= "fog_maxclip2=\"" . $_POST['fog_maxclip2'] . "\", ";
   if ($fog_red3 != $_POST['fog_red3']) $fields .= "fog_red3=\"" . $_POST['fog_red3'] . "\", ";
   if ($fog_green3 != $_POST['fog_green3']) $fields .= "fog_green3=\"" . $_POST['fog_green3'] . "\", ";
-  if ($fog_minclip4 != $_POST['fog_minclip4']) $fields .= "fog_minclip4=\"" . $_POST['fog_minclip4'] . "\", ";
-  if ($fog_maxclip4 != $_POST['fog_maxclip4']) $fields .= "fog_maxclip4=\"" . $_POST['fog_maxclip4'] . "\", ";
-  if ($fog_blue4 != $_POST['fog_blue4']) $fields .= "fog_blue4=\"" . $_POST['fog_blue4'] . "\", ";
+  if ($fog_blue3 != $_POST['fog_blue3']) $fields .= "fog_blue3=\"" . $_POST['fog_blue3'] . "\", ";
+  if ($fog_minclip3 != $_POST['fog_minclip3']) $fields .= "fog_minclip3=\"" . $_POST['fog_minclip3'] . "\", ";
+  if ($fog_maxclip3 != $_POST['fog_maxclip3']) $fields .= "fog_maxclip3=\"" . $_POST['fog_maxclip3'] . "\", ";
   if ($fog_red4 != $_POST['fog_red4']) $fields .= "fog_red4=\"" . $_POST['fog_red4'] . "\", ";
   if ($fog_green4 != $_POST['fog_green4']) $fields .= "fog_green4=\"" . $_POST['fog_green4'] . "\", ";
-  if ($ruleset != $_POST['ruleset']) $fields .= "ruleset=\"" . $_POST['ruleset'] . "\", ";
-  if ($version != $_POST['version']) $fields .= "version=\"" . $_POST['version'] . "\", ";
-  if ($map_file_name != $_POST['map_file_name']) $fields .= "map_file_name=\"" . $_POST['map_file_name'] . "\", ";
+  if ($fog_blue4 != $_POST['fog_blue4']) $fields .= "fog_blue4=\"" . $_POST['fog_blue4'] . "\", ";
+  if ($fog_minclip4 != $_POST['fog_minclip4']) $fields .= "fog_minclip4=\"" . $_POST['fog_minclip4'] . "\", ";
+  if ($fog_maxclip4 != $_POST['fog_maxclip4']) $fields .= "fog_maxclip4=\"" . $_POST['fog_maxclip4'] . "\", ";
   if ($fog_density != $_POST['fog_density']) $fields .= "fog_density=\"" . $_POST['fog_density'] . "\", ";
+  if ($flag_needed != $_POST['flag_needed']) $fields .= "flag_needed=\"" . $_POST['flag_needed'] . "\", ";
+  if ($canbind != $_POST['canbind']) $fields .= "canbind=\"" . $_POST['canbind'] . "\", ";
+  if ($cancombat != $_POST['cancombat']) $fields .= "cancombat=\"" . $_POST['cancombat'] . "\", ";
+  if ($canlevitate != $_POST['canlevitate']) $fields .= "canlevitate=\"" . $_POST['canlevitate'] . "\", ";
+  if ($castoutdoor != $_POST['castoutdoor']) $fields .= "castoutdoor=\"" . $_POST['castoutdoor'] . "\", ";
+  if ($hotzone != $_POST['hotzone']) $fields .= "hotzone=\"" . $_POST['hotzone'] . "\", ";
+  if ($insttype != $_POST['insttype']) $fields .= "insttype=\"" . $_POST['insttype'] . "\", ";
+  if ($shutdowndelay != $_POST['shutdowndelay']) $fields .= "shutdowndelay=\"" . $_POST['shutdowndelay'] . "\", ";
+  if ($peqzone != $_POST['peqzone']) $fields .= "peqzone=\"" . $_POST['peqzone'] . "\", ";
   if ($expansion != $_POST['expansion']) $fields .= "expansion=\"" . $_POST['expansion'] . "\", ";
   if ($suspendbuffs!= $_POST['suspendbuffs']) $fields .= "suspendbuffs=\"" . $_POST['suspendbuffs'] . "\", ";
-  if ($type != $_POST['type']) $fields .= "type=\"" . $_POST['type'] . "\", ";
   if ($rain_chance1 != $_POST['rain_chance1']) $fields .= "rain_chance1=\"" . $_POST['rain_chance1'] . "\", ";
   if ($rain_chance2 != $_POST['rain_chance2']) $fields .= "rain_chance2=\"" . $_POST['rain_chance2'] . "\", ";
   if ($rain_chance3 != $_POST['rain_chance3']) $fields .= "rain_chance3=\"" . $_POST['rain_chance3'] . "\", ";
@@ -386,6 +387,9 @@ function update_zone () {
   if ($snow_duration2 != $_POST['snow_duration2']) $fields .= "snow_duration2=\"" . $_POST['snow_duration2'] . "\", ";
   if ($snow_duration3 != $_POST['snow_duration3']) $fields .= "snow_duration3=\"" . $_POST['snow_duration3'] . "\", ";
   if ($snow_duration4 != $_POST['snow_duration4']) $fields .= "snow_duration4=\"" . $_POST['snow_duration4'] . "\", ";
+  if ($gravity != $_POST['gravity']) $fields .= "gravity=\"" . $_POST['gravity'] . "\", ";
+  if ($type != $_POST['type']) $fields .= "type=\"" . $_POST['type'] . "\", ";
+  if ($skylock != $_POST['skylock']) $fields .= "skylock=\"" . $_POST['skylock'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -642,22 +646,19 @@ function copy_zone() {
   check_authorization();
   global $mysql, $zoneid, $z;
 
-  $query = "DELETE FROM zone WHERE id=0";
+  $query = "INSERT INTO zone (`short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `rain_chance1`, `rain_chance2`, `rain_chance3`, `rain_chance4`, `rain_duration1`, `rain_duration2`, `rain_duration3`, `rain_duration4`, `snow_chance1`, `snow_chance2`, `snow_chance3`, `snow_chance4`, `snow_duration1`, `snow_duration2`, `snow_duration3`, `snow_duration4`, `gravity`, `type`, `skylock`)
+            SELECT `short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `rain_chance1`, `rain_chance2`, `rain_chance3`, `rain_chance4`, `rain_duration1`, `rain_duration2`, `rain_duration3`, `rain_duration4`, `snow_chance1`, `snow_chance2`, `snow_chance3`, `snow_chance4`, `snow_duration1`, `snow_duration2`, `snow_duration3`, `snow_duration4`, `gravity`, `type`, `skylock` FROM zone where id=$zoneid";
   $mysql->query_no_result($query);
 
-  $query = "INSERT INTO zone (`short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `type`, `weather_rate`, `rain_chance1`, `rain_chance2`, `rain_chance3`, `rain_chance4`, `rain_duration1`, `rain_duration2`, `rain_duration3`, `rain_duration4`, `snow_chance1`, `snow_chance2`, `snow_chance3`, `snow_chance4`, `snow_duration1`, `snow_duration2`, `snow_duration3`, `snow_duration4`)
-            SELECT `short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `type`, `weather_rate`, `rain_chance1`, `rain_chance2`, `rain_chance3`, `rain_chance4`, `rain_duration1`, `rain_duration2`, `rain_duration3`, `rain_duration4`, `snow_chance1`, `snow_chance2`, `snow_chance3`, `snow_chance4`, `snow_duration1`, `snow_duration2`, `snow_duration3`, `snow_duration4` FROM zone where id=$zoneid";
-  $mysql->query_no_result($query);
-
-  $query = "SELECT MAX(id) as zid FROM zone";
+  $query = "SELECT MAX(id) AS zid FROM zone";
   $result = $mysql->query_assoc($query);
   $nzone = $result['zid'];
 
-  $query2 = "SELECT MAX(version+1) as zver FROM zone WHERE short_name=\"$z\"";
+  $query2 = "SELECT MAX(version+1) AS zver FROM zone WHERE short_name=\"$z\"";
   $result2 = $mysql->query_assoc($query2);
   $nver = $result2['zver'];
 
-  $query = "UPDATE zone set version=$nver where id=$nzone";
+  $query = "UPDATE zone SET version=$nver WHERE id=$nzone";
   $mysql->query_no_result($query);
    
   return $nzone;
