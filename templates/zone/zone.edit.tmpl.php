@@ -51,6 +51,12 @@
                   </td>
                 </tr>
                 <tr>
+                  <td align="left" width="25%">Fast Regen HP:<br><input type="text" name="fast_regen_hp" size="7" value="<?=$fast_regen_hp?>"></td>
+                  <td align="left" width="25%">Fast Regen Mana:<br><input type="text" name="fast_regen_mana" size="7" value="<?=$fast_regen_mana?>"></td>
+                  <td align="left" width="25%">Fast Regen Endurance:<br><input type="text" name="fast_regen_endurance" size="7" value="<?=$fast_regen_endurance?>"></td>
+                  <td align="left" width="25%">NPC Max Aggro:<br><input type="text" name="npc_max_aggro_dist" size="7" value="<?=$npc_max_aggro_dist?>"></td>
+                </tr>
+                <tr>
                   <td align="left" width="25%">
                     Suspend Buffs:<br>
                     <select name="suspendbuffs">
