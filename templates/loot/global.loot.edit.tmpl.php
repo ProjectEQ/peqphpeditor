@@ -73,7 +73,7 @@
             <td>
               <strong>Rare:</strong><br>
               <select name="rare" style="width: 120px;">
-                <option value="null"<?echo ($rare === "") ? " selected" : "";?>>Unused</option>
+                <option value=""<?echo ($rare === "") ? " selected" : "";?>>Unused</option>
                 <option value="0"<?echo ($rare === "0") ? " selected" : "";?>>Must Not Be</option>
                 <option value="1"<?echo ($rare == 1) ? " selected" : "";?>>Must Be</option>
               </select>
@@ -81,7 +81,7 @@
             <td>
               <strong>Raid:</strong><br>
               <select name="raid" style="width: 120px;">
-                <option value="null"<?echo ($raid === "") ? " selected" : "";?>>Unused</option>
+                <option value=""<?echo ($raid === "") ? " selected" : "";?>>Unused</option>
                 <option value="0"<?echo ($raid === "0") ? " selected" : "";?>>Must Not Be</option>
                 <option value="1"<?echo ($raid == 1) ? " selected" : "";?>>Must Be</option>
               </select>

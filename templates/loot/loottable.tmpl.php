@@ -30,7 +30,6 @@
           LootTable <?=$loottable_id?>: "<a href="index.php?editor=loot&action=1&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>"><?=$new_loottable_name?></a>"
         </div>
         <div class="table_content">
-          Global Loot: <?echo ($global_loot_id != 0) ? "<a href='index.php?editor=loot&id=" . $global_loot_id . "&action=52' title='View Global Loot'>" . $global_loot_id . "</a>" : "None";?><br><br>
           Cash Loot [<a href="index.php?editor=loot&action=1&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">edit</a>]:<br>
           <div style="padding: 5px 0px 0px 20px;">
             Min Cash: <?=$mincash?><br>

@@ -27,7 +27,7 @@ foreach($global_loot as $loot):?>
         <td align="center" width="40%"><?=$loot['description']?></td>
         <td align="center" width="20%"><?=$loot['loottable_id']?></td>
         <td align="center" width="20%"><?=$yesno[$loot['enabled']]?></td>
-        <td align="right" width="10%"><a href="index.php?editor=loot&id=<?=$loot['id']?>&action=52"><img src="images/edit2.gif" width="13" height="13" border="0" title="Edit Global Loot Entry"></a>&nbsp;<a onClick="return confirm('Really delete Global Loot <?=$loot['id']?>?');" href="index.php?editor=loot&id=<?=$loot['id']?>&action=54"><img src="images/remove3.gif" border="0" title="Delete Global Loot Entry"></a></td>
+        <td align="right" width="10%"><a href="index.php?editor=loot&id=<?=$loot['id']?>&action=55"><img src="images/edit2.gif" width="13" height="13" border="0" title="View Global Loot Entry"></a>&nbsp;<a onClick="return confirm('Really delete Global Loot <?=$loot['id']?>? NOTE: This will NOT delete the associated lootdrops or loottable.');" href="index.php?editor=loot&id=<?=$loot['id']?>&action=54"><img src="images/remove3.gif" border="0" title="Delete Global Loot Entry"></a></td>
       </tr>
 <?$x++;
 endforeach;

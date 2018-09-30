@@ -8,6 +8,32 @@
       <button type="button" id="hide_sql" onClick="document.getElementById('sql_block').style.display='none';document.getElementById('sql_image').style.display='inline';">Hide SQL</button>
     </center><br>
   </div>
+<?if (isGlobalLoot($loottable_id)):?>
+  <div class="error">
+    <table width="100%">
+      <tr>
+        <td valign="middle" width="30px"><img src="images/caution.gif"></td>
+        <td style="padding:0px 5px;">This NPC's loottable is a global loottable.</td>
+      </tr>
+    </table>
+  </div>
+<?endif;?>
+<?
+if ($loottable_id > 0) {
+  if (!isValidLoot($loottable_id)) {
+?>
+  <div class="error">
+    <table width="100%">
+      <tr>
+        <td valign="middle" width="30px"><img src="images/caution.gif"></td>
+        <td style="padding:0px 5px;">This NPC's loottable is an orphaned loottable.</td>
+      </tr>
+    </table>
+  </div>
+<?
+  }
+}
+?>
   <form name="npc" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=28">
     <div class="table_container">
       <div class="table_header">

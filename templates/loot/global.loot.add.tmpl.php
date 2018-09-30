@@ -67,13 +67,13 @@
           <tr>
             <td>
               <strong>Loottable ID:</strong><br>
-              <input type="text" size="15" name="loottable_id" value="">
+              <input type="text" size="15" name="loottable_id" value="<?=$new_table_id?>">
             </td>
             <td>&nbsp;</td>
             <td>
               <strong>Rare:</strong><br>
               <select name="rare" style="width: 120px;">
-                <option value="null">Unused</option>
+                <option value="">Unused</option>
                 <option value="0">Must Not Be</option>
                 <option value="1">Must Be</option>
               </select>
@@ -81,7 +81,7 @@
             <td>
               <strong>Raid:</strong><br>
               <select name="raid" style="width: 120px;">
-                <option value="null">Unused</option>
+                <option value="">Unused</option>
                 <option value="0">Must Not Be</option>
                 <option value="1">Must Be</option>
               </select>
