@@ -69,12 +69,12 @@
         <div class="table_header">
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
-              <td width="30%">Lootdrop: <?=$lootdrop['id']?> - "<?=$lootdrop['name']?>"</td>
-              <td width="15%">Mindrop: <?=$lootdrop['mindrop']?></td>
-              <td width="15%">Droplimit: <?=$lootdrop['droplimit']?></td>
-              <td width="15%">Multiplier: <?=$lootdrop['multiplier']?></td>
-              <td width="15%">Probability: <?=$lootdrop['probability']?></td>
-              <td width="10%" align="right">
+              <td>Lootdrop: <?=$lootdrop['id']?> - "<?=$lootdrop['name']?>"</td>
+              <td>Mindrop: <?=$lootdrop['mindrop']?></td>
+              <td>Droplimit: <?=$lootdrop['droplimit']?></td>
+              <td>Multiplier: <?=$lootdrop['multiplier']?></td>
+              <td>Probability: <?=$lootdrop['probability']?></td>
+              <td align="right">
                 <a href="index.php?editor=loot&id=<?=$global_loot['id']?>&ltid=<?=$id?>&ldid=<?=$lootdrop['id']?>&action=62"><img src="images/edit2.gif" border="0" title="Edit this Lootdrop"></a>
                 <a href="index.php?editor=loot&id=<?=$global_loot['id']?>&ldid=<?=$lootdrop['id']?>&action=65"><img src="images/add.gif" border="0" title="Add an Item to this Lootdrop Table"></a>
                 <a onClick="return confirm('Really delete Lootdrop <?=$lootdrop['id']?>?');" href="index.php?editor=loot&id=<?=$global_loot['id']?>&ltid=<?=$id?>&ldid=<?=$lootdrop['id']?>&action=64"><img src="images/remove2.gif" border="0" title="Permanently delete this Lootdrop"></a>
