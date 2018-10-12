@@ -176,7 +176,7 @@ switch ($action) {
      }
     break;
    case 9: // Preview Reports
-    check_admin_authorization();
+    check_authorization();
     $breadcrumbs .= " >> Reports";
     $body = new Template("templates/server/reports.tmpl.php");
     $reports = get_reports();
@@ -192,7 +192,7 @@ switch ($action) {
     header("Location: index.php?editor=server&action=9");
     exit;
    case 11: // View Report
-    check_admin_authorization();
+    check_authorization();
     $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=9'>" . "Reports</a> >> Report Details";
     $body = new Template("templates/server/reports.view.tmpl.php");
     $reports = view_reports();
@@ -203,7 +203,7 @@ switch ($action) {
      }
     break;
   case 12: // View Petitions
-    check_admin_authorization();
+    check_authorization();
     $breadcrumbs .= " >> Petitions";
     $body = new Template("templates/server/petition.tmpl.php");
     $petitions = get_petitions();
@@ -214,7 +214,7 @@ switch ($action) {
      }
     break;
   case 13: // View Petition
-    check_admin_authorization();
+    check_authorization();
     $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=12'>" . "Petitions</a> >> Petition Details";
     $body = new Template("templates/server/petition.view.tmpl.php");
     $body->set('yesno', $yesno);
@@ -228,12 +228,12 @@ switch ($action) {
      }
     break;
   case 14: // Update Petition
-    check_admin_authorization();
+    check_authorization();
     update_petition();
     header("Location: index.php?editor=server&action=12");
     exit;
   case 15: // Delete Petition
-    check_admin_authorization();
+    check_authorization();
     delete_petition();
     header("Location: index.php?editor=server&action=12");
     exit;
@@ -277,7 +277,7 @@ switch ($action) {
     $body = new Template("templates/server/rules.add.tmpl.php");
     $body->set('ruleset_id', $_GET['ruleset_id']);
     break;
-  case 20: // Add Rule
+  case 20: // Insert Rule
     check_admin_authorization();
     add_rule();
     $ruleset_id = $_POST['ruleset_id'];
@@ -417,7 +417,7 @@ switch ($action) {
     $body = new Template("templates/server/zones.add.tmpl.php");
     $body->set('suggestlauncher', suggest_launcher());
     break;
-  case 37: // Add Zone
+  case 37: // Insert Zone
     check_admin_authorization();
     add_zone();
     header("Location: index.php?editor=server&action=32");
@@ -448,7 +448,7 @@ switch ($action) {
     $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=32'>" . "Zone Launcher Setup</a> >> Add Launcher";
     $body = new Template("templates/server/launcher.add.tmpl.php");
     break;
-  case 42: // Add launcher
+  case 42: // Insert launcher
     check_admin_authorization();
     add_launcher();
     header("Location: index.php?editor=server&action=32");
