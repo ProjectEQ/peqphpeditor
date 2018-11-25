@@ -569,6 +569,46 @@ switch ($action) {
       $body->set('classes', $classes);
     }
     break;
+  case 58: // View Name Filters
+    check_authorization();
+    $breadcrumbs .= " >> Name Filters";
+    $body = new Template("templates/server/namefilter.tmpl.php");
+    $nfdata = getNFData();
+    if ($nfdata) {
+      $body->set('nfdata', $nfdata);
+    }
+    break;
+  case 59: // Edit Name Filter
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=server&action=58'>Name Filters</a> >> Edit Name Filter";
+    $body = new Template("templates/server/namefilter.edit.tmpl.php");
+    $nf = getNF($_GET['id']);
+    if ($nf) {
+      $body->set('nf', $nf);
+    }
+    break;
+  case 60: // Update Name Filter
+    check_authorization();
+    update_nf();
+    header("Location: index.php?editor=server&action=58");
+    exit;
+  case 61: // Add Name Filter
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=server&action=58'>Name Filters</a> >> Add Name Filter";
+    $body = new Template("templates/server/namefilter.add.tmpl.php");
+    $nfid = getNextNFID();
+    $body->set('id', $nfid);
+    break;
+  case 62: // Insert Name Filter
+    check_authorization();
+    insert_nf();
+    header("Location: index.php?editor=server&action=58");
+    exit;
+  case 63: // Delete Name Filter
+    check_authorization();
+    delete_nf();
+    header("Location: index.php?editor=server&action=58");
+    exit;
 }
 
 function get_open_bugs($page_number, $results_per_page, $sort_by) {
@@ -1271,5 +1311,72 @@ function getCharBaseData() {
   else {
     return null;
   }
+}
+
+function getNFData() {
+  global $mysql;
+
+  $query = "SELECT * FROM name_filter ORDER BY id";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function getNF($nfid) {
+  global $mysql;
+
+  $query = "SELECT * FROM name_filter WHERE id=$nfid";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+function update_nf() {
+  global $mysql;
+
+  $old_id = $_POST['old_id'];
+  $id = $_POST['id'];
+  $name = $_POST['name'];
+
+  $query = "UPDATE name_filter SET id=$id, `name`=\"$name\" WHERE id=$old_id";
+  $mysql->query_no_result($query);
+}
+
+function insert_nf() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $name = $_POST['name'];
+
+  $query = "INSERT INTO name_filter SET id=$id, `name`=\"$name\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_nf() {
+  global $mysql;
+
+  $id = $_GET['id'];
+
+  $query = "DELETE FROM name_filter WHERE id=$id";
+  $mysql->query_no_result($query);
+}
+
+function getNextNFID() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS id FROM name_filter";
+  $result = $mysql->query_assoc($query);
+
+  return $result['id'] + 1;
 }
 ?>
