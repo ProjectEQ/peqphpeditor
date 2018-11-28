@@ -166,11 +166,8 @@ function suggest_id() {
 }
 
 function build_filter() {
-  global $mysql;
   $filter1 = $_GET['filter1'];
   $filter2 = $_GET['filter2'];
-  $filter3 = $_GET['filter3'];
-  $filter4 = $_GET['filter4'];
   $filter_final = array();
 
   if ($filter1) { // Filter by key
@@ -178,7 +175,10 @@ function build_filter() {
     $filter_final['sql'] = $filter_key;
   }
   if ($filter2) { // Filter by value
-    $filter_value = "value LIKE '%" . $filter2 . "%'";
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_value = "`value` LIKE '%" . $filter2 . "%'";
     $filter_final['sql'] .= $filter_value;
   }
 
