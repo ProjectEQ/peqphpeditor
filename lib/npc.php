@@ -1,6 +1,6 @@
 <?php
-
 $factions = faction_list();
+
 $faction_values = array(
  -1 => "Aggressive",
   0 => "Passive",
@@ -112,6 +112,13 @@ $columns = array(
 
 $special_abilities_max = count($specialattacks);
 
+$stuck = array(
+  0 => 'Run to Target',
+  1 => 'Warp to Target',
+  2 => 'Take No Action',
+  3 => 'Evade Combat'
+);
+
 switch ($action) {
   case 0:
     if ($npcid) {  // View NPC
@@ -167,6 +174,7 @@ switch ($action) {
     $body->set('faction_values', $faction_values);
     $body->set('pet', get_ispet());
     $body->set('special_abilities_max', $special_abilities_max);
+    $body->set('stuck', $stuck);
     $vars = npc_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -365,6 +373,7 @@ switch ($action) {
     $body->set('classes', $classes);
     $body->set('specialattacks', $specialattacks);
     $body->set('special_abilities_max', $special_abilities_max);
+    $body->set('stuck', $stuck);
     $vars = get_stats();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -1374,6 +1383,7 @@ function update_npc() {
   if ($charm_avoidance_rating != $_POST['charm_avoidance_rating']) $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\", ";
   if ($skip_global_loot != $_POST['skip_global_loot']) $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
   if ($rare_spawn != $_POST['rare_spawn']) $fields .= "rare_spawn=\"" . $_POST['rare_spawn'] . "\", ";
+  if ($stuck_behavior != $_POST['stuck_behavior']) $fields .= "stuck_behavior=\"" . $_POST['stuck_behavior'] . "\", ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -1524,7 +1534,8 @@ function add_npc() {
   $fields .= "charm_accuracy_rating=\"" . $_POST['charm_accuracy_rating'] . "\", ";
   $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\", ";
   $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
-  $fields .= "rare_spawn=\"" .$_POST['rare_spawn'] . "\"";
+  $fields .= "rare_spawn=\"" .$_POST['rare_spawn'] . "\", ";
+  $fields .= "stuck_behavior=\"" .$_POST['stuck_behavior'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1654,7 +1665,8 @@ function copy_npc() {
   $fields .= "charm_accuracy_rating=\"" . $_POST['charm_accuracy_rating'] . "\", ";
   $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\", ";
   $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
-  $fields .= "rare_spawn=\"" . $_POST['rare_spawn'] . "\"";
+  $fields .= "rare_spawn=\"" . $_POST['rare_spawn'] . "\", ";
+  $fields .= "stuck_behavior=\"" . $_POST['stuck_behavior'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";

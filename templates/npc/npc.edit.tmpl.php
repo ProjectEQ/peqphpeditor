@@ -310,7 +310,14 @@
               <td align="left" width="17%">Emote:           <br><input type="text" name="emoteid" size="10" value="<?=$emoteid?>"></td>
               <td align="left" width="17%">No Target Hotkey:<br><input type="text" name="no_target_hotkey" size="10" value="<?=$no_target_hotkey?>"></td>
               <td align="left" width="16%">Raid Target:     <br><input type="text" name="raid_target" size="5" value="<?=$raid_target?>"></td>
-              <td align="left" width="16%">&nbsp;</td>
+              <td align="left" width="16%">
+                Stuck Behavior:<br>
+                <select name="stuck_behavior" onChange="underwaterCheck();">
+<?foreach ($stuck as $key=>$value):?>
+                  <option value="<?=$key?>"<?echo ($stuck_behavior == $key) ? " selected" : "";?>><?=$key?>: <?=$value?></option>
+<?endforeach;?>
+                </select>
+              </td>
             </tr>
           </table><br>
           <center>
@@ -327,7 +334,7 @@
                   <input type="checkbox" name="unique_spawn_by_name" value="1"<?echo ($unique_spawn_by_name == 1) ? " checked" : "";?>> Unique by Name<br>
                 </td>
                 <td valign="top" align="left">
-                  <input type="checkbox" name="underwater" value="1"<?echo ($underwater == 1) ? " checked" : "";?>> Underwater NPC<br>
+                  <input type="checkbox" name="underwater" value="1"<?echo ($underwater == 1) ? " checked" : "";?> onChange="underwaterCheck();"> Underwater NPC<br>
                   <input type="checkbox" name="34" value="34,1^"<?echo ($specabil[34] == 1) ? "checked" : "";?>>  Destructible Object (34)<br>
                   <input type="checkbox" name="isquest" value="1"<?echo ($isquest == 1) ? " checked" : "";?>> Has Quest File<br>
                 </td>
