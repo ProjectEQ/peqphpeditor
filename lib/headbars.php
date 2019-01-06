@@ -369,7 +369,7 @@ function build_tabs () {
 function zones() {
   global $mysql;
 
-  $query = "SELECT id, short_name, version, expansion FROM zone ORDER BY short_name ASC";
+  $query = "SELECT id, short_name, version, expansion FROM zone ORDER BY short_name, version ASC";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
@@ -378,7 +378,7 @@ function zones() {
 function zones2() {
   global $mysql;
 
-  $query = "SELECT id, short_name, long_name, version, expansion FROM zone ORDER BY long_name ASC";
+  $query = "SELECT id, short_name, long_name, version, expansion FROM zone ORDER BY long_name, version ASC";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
