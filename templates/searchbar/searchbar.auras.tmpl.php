@@ -12,9 +12,9 @@
               <option value="index.php?editor=auras&type=<?=$aura['type']?>&action=2"<?echo ($aura['type'] == $_GET['type']) ? " selected" : "";?>><?=$aura['type']?> - <?=$aura['name']?></option>
 <?endforeach;?>
             </select>
-            or <strong>2.</strong> Search by <input type="text" name="name" size="22" value="Name" onFocus="clearField(document.forms[0].name);document.forms[0].npc.value='NPC';document.forms[0].spell.value='Spell';">
-            or by <input type="text" name="npc" size="8" value="NPC" onFocus="clearField(document.forms[0].npc);document.forms[0].name.value='Name';document.forms[0].spell.value='Spell';">
-            or by <input type="text" name="spell" size="8" value="Spell" onFocus="clearField(document.forms[0].spell);document.forms[0].name.value='Name';document.forms[0].npc.value='NPC'">
+            or <strong>2.</strong> Search by <input type="text" name="name" size="22" value="Name" onFocus="clearField(document.forms[0].name);document.forms[0].npc.value='NPC ID';document.forms[0].spell.value='Spell ID';">
+            or by <input type="text" name="npc" size="8" value="NPC ID" onFocus="clearField(document.forms[0].npc);document.forms[0].name.value='Name';document.forms[0].spell.value='Spell ID';">
+            or by <input type="text" name="spell" size="8" value="Spell ID" onFocus="clearField(document.forms[0].spell);document.forms[0].name.value='Name';document.forms[0].npc.value='NPC ID'">
             <input type="submit" value=" GO ">
           </form>
         </td>

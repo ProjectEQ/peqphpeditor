@@ -90,10 +90,10 @@ switch($action) {
     if (isset($_GET['name']) && $_GET['name'] != "Name") {
       $results = searchByName();
     }
-    elseif (isset($_GET['npc']) && $_GET['npc'] != "NPC") {
+    elseif (isset($_GET['npc']) && intval($_GET['npc']) && $_GET['npc'] != "NPC ID") {
       $results = searchByNPC();
     }
-    elseif (isset($_GET['spell']) && $_GET['spell'] != "Spell") {
+    elseif (isset($_GET['spell']) && intval($_GET['spell']) && $_GET['spell'] != "Spell ID") {
       $results = searchBySpell();
     }
     if ($results) {

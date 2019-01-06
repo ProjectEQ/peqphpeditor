@@ -22,9 +22,9 @@
 <?$x=0;
 foreach($auras as $aura):?>
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
-        <td align="center" width="15%"><?=$aura['type']?></td>
-        <td align="center" width="25%"><?=$aura['npc_type']?></td>
-        <td align="center" width="50%"><?=$aura['name']?></td>
+        <td align="center" width="15%"><a href="index.php?editor=auras&type=<?=$aura['type']?>&action=2"><?=$aura['type']?></a></td>
+        <td align="center" width="25%"><?echo ($aura['npc_type'] > 0) ? "<a href='index.php?editor=npc&npcid=" . $aura['npc_type'] . "'>" . $aura['npc_type'] . "</a>" : "";?></td>
+        <td align="center" width="50%"><a href="index.php?editor=auras&type=<?=$aura['type']?>&action=2"><?=$aura['name']?></a></td>
         <td align="right" width="10%"><a href="index.php?editor=auras&type=<?=$aura['type']?>&action=2"><img src="images/view_tbl.png" width="13" height="13" border="0" title="View Aura"></a>&nbsp;<a onClick="return confirm('Really delete aura <?=$aura['type']?>?');" href="index.php?editor=auras&type=<?=$aura['type']?>&action=7"><img src="images/remove3.gif" border="0" title="Delete Aura"></a></td>
       </tr>
 <?$x++;
