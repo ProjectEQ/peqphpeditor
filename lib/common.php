@@ -21,7 +21,12 @@ function getZoneID($short_name) {
 
   $query = "SELECT zoneidnumber AS id FROM zone WHERE short_name=\"$short_name\"";
   $result = $mysql->query_assoc($query);
-  return $result['id'];
+  if ($result) {
+    return $result['id'];
+  }
+  else {
+    return null;
+  }
 }
 
 function getZoneIDByName($short_name) {
@@ -184,7 +189,12 @@ function get_zone_by_npcid($npcid) {
   $query = "SELECT short_name FROM zone WHERE zoneidnumber=\"$npczone\"";
   $result = $mysql->query_assoc($query);
 
-  return $result['short_name'];
+  if ($result) {
+    return $result['short_name'];
+  }
+  else {
+    return null;
+  }
 }
 
 function get_zoneid_by_npcid($npcid) {
@@ -193,7 +203,13 @@ function get_zoneid_by_npcid($npcid) {
 
   $query = "SELECT id FROM zone WHERE zoneidnumber=\"$npczone\"";
   $result = $mysql->query_assoc($query);
-  return $result['id'];
+
+  if ($result) {
+    return $result['id'];
+  }
+  else {
+    return null;
+  }
 }
 
 function get_npcid_by_emoteid($emoteid) {

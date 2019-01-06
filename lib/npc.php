@@ -961,10 +961,10 @@ function npc_info() {
 function get_ispet() {
   global $mysql, $npcid;
 
-  $query = "SELECT count(*) FROM pets WHERE npcID=$npcid";
+  $query = "SELECT count(*) AS count FROM pets WHERE npcID=$npcid";
   $result = $mysql->query_assoc($query);
 
-  return $result['count(*)'];
+  return $result['count'];
 }
 
 function get_pet() {
