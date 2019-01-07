@@ -389,13 +389,11 @@ function npcs() {
   $version = 0;
   $zid = "___";
   $results = array();
-  $zonename = "";
 
   if($npc_list == '')
     $npc_list = 1;
 
   if($z) {
-    $zonename = $z;
     $zid = getZoneID($z) . "___";
     $query = "SELECT version FROM zone WHERE id = \"$zoneid\"";
     $result = $mysql->query_assoc($query);
@@ -404,11 +402,11 @@ function npcs() {
 
   if($npc_list == 1) {
     if ($version > 0) {
-      $query = "SELECT npc_types.id AS id, npc_types.name AS name FROM npc_types JOIN spawnentry ON id = spawnentry.npcID JOIN spawn2 ON spawnentry.spawngroupID = spawn2.spawngroupID WHERE spawn2.zone = '$zonename' AND spawn2.version = $version GROUP BY id ORDER BY name ASC";
+      $query = "SELECT id, name FROM npc_types WHERE id LIKE \"$zid\" AND version = $version GROUP BY id ORDER BY name ASC";
       $results = $mysql->query_mult_assoc($query);
     }
     if ($version < 1) {
-      $query = "SELECT npc_types.id AS id, npc_types.name AS name FROM npc_types JOIN spawnentry ON id = spawnentry.npcID JOIN spawn2 ON spawnentry.spawngroupID = spawn2.spawngroupID WHERE spawn2.zone = '$zonename' AND spawn2.version = 0 ORDER BY name ASC";
+      $query = "SELECT id, name FROM npc_types WHERE id LIKE \"$zid\" ORDER BY name ASC";
       $results = $mysql->query_mult_assoc($query);
     }
   }
