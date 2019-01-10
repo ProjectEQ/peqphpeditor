@@ -6,6 +6,7 @@ switch ($action) {
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
+    $body->set('mysql_class', $mysql_class);
     break;
 }
 

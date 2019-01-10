@@ -462,24 +462,23 @@ function generateSpellsFile() {
   $lastid = 0;
   $success = false;
 
-  $query = "SELECT id FROM spells_new ORDER BY id";
-  $spellids = $mysql->query_mult_assoc($query);
+  $query = "SELECT * FROM spells_new ORDER BY id";
+  $results = $mysql->query($query, MYSQLI_USE_RESULT);
 
-  $fileOut = fopen($spellsfile, 'w');
-  if(!$fileOut) {
-    die("Error opening $spellsfile for writing. Make sure the path is writable.");
+  if ($results) {
+    $fileOut = fopen($spellsfile, 'w');
+    if(!$fileOut) {
+      die("Error opening $spellsfile for writing. Make sure the path is writable.");
+    }
+
+    while ($spelldata = $results->fetch_assoc()) {
+      fwrite($fileOut, implode("^", $spelldata) . "\n");
+      $lastid = $spelldata['id'];
+      $count++;
+    }
+
+    fclose($fileOut);
   }
-
-  foreach ($spellids as $spellid) {
-    $id = $spellid['id'];
-    $query = "SELECT * FROM spells_new WHERE id=$id";
-    $spelldata = $mysql->query_assoc($query);
-    fwrite($fileOut, implode("^", $spelldata) . "\n");
-    $lastid = $spellid['id'];
-    $count++;
-  }
-
-  fclose($fileOut);
 
   $success = ($count > 0) ? true : false;
   $response = array("success" => $success, "count" => $count, "lastid" => $lastid, "spellsfile" => $spellsfile);

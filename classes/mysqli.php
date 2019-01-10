@@ -11,7 +11,7 @@ class mysql extends mysqli {
 
   function query_no_result($query) {
     global $log_error;
-    if (mysqli_query($this, $query)) {
+    if (mysqli_query($this, quote_smart($query))) {
       logSQL($query);
       return true;
     }
