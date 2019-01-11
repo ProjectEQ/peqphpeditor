@@ -85,6 +85,7 @@ switch ($action) {
     break;
   case 11: // NPC Spells Effects List
     $body = new Template("templates/spells/npc.spells.effects.default.tmpl.php");
+    $breadcrumbs = $breadcrumbs . " >> NPC Spells Effects";
     $effects = npc_spells_effects();
     if ($effects)
       $body->set('effects', $effects);
