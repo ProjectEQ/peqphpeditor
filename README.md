@@ -1,4 +1,11 @@
-### PHP Peq Editor
+## PHP Peq Editor
+
+#### IMPORTANT NOTE: Apache 2.2 and PHP 5.6 and earlier are deprecated. Support for these versions is no longer provided and all references will be removed in future updates.
+
+### Requirements
+* Apache 2.4
+* PHP 7
+* MySQL 5 or MariaDB 10
 
 *For more help on getting Apache, PHP, or the Editor itself set up, visit http://www.peqtgc.com/phpBB2/viewforum.php?f=29*
 
@@ -6,7 +13,7 @@ For Linux users, note the following.
 * Permissions: If you choose to store these files outside of your normal directory, ensure your symbolic link and physical folder have the same permissions. (Recommend 755 for folders and 644 for files)
 * AutoUpdate: You can set the AutoUpdate file with the execute flag and run to pull the latest from git and fix permissions if any were changed.
 
-#### Installation
+### Installation
 
 1) Install Apache and PHP. You can get from www.apache.org and www.php.net or get an all-in-one package such as XAMPP from www.apachefriends.org.
 
