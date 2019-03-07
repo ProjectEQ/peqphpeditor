@@ -7,7 +7,7 @@
 * PHP 7
 * MySQL 5 or MariaDB 10
 
-*For more help on getting Apache, PHP, or the Editor itself set up, visit http://www.peqtgc.com/phpBB2/viewforum.php?f=29*
+*For more help on getting Apache, PHP, or the Editor itself set up, visit us on Discord at https://discord.gg/SrbZrus*
 
 For Linux users, note the following.
 * Permissions: If you choose to store these files outside of your normal directory, ensure your symbolic link and physical folder have the same permissions. (Recommend 755 for folders and 644 for files)
