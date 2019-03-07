@@ -19,16 +19,16 @@
           <td colspan="2"><strong>Raid:</strong> <?echo ($global_loot['raid'] != "") ? $global_loot['raid'] : "N/A";?></td>
         </tr>
         <tr>
-          <td colspan="6"><strong>Races:</strong> <?echo ($global_loot['race'] != "") ? $race : "ALL";?></td>
+          <td colspan="6"><strong>Races:</strong> <?echo ($global_loot['race'] != "") ? $global_loot['race'] : "ALL";?></td>
         </tr>
         <tr>
-          <td colspan="6"><strong>Classes: </strong> <?echo ($global_loot['class'] != "") ? $class : "ALL"?></td>
+          <td colspan="6"><strong>Classes: </strong> <?echo ($global_loot['class'] != "") ? $global_loot['class'] : "ALL"?></td>
         </tr>
         <tr>
-          <td colspan="6"><strong>Bodytypes:</strong> <?echo ($global_loot['bodytype'] != "") ? $bodytype : "ALL"?></td>
+          <td colspan="6"><strong>Bodytypes:</strong> <?echo ($global_loot['bodytype'] != "") ? $global_loot['bodytype'] : "ALL"?></td>
         </tr>
         <tr>
-          <td colspan="6"><strong>Zones: </strong> <?echo ($global_loot['zone'] != "") ? $zone : "ALL"?></td>
+          <td colspan="6"><strong>Zones: </strong> <?echo ($global_loot['zone'] != "") ? $global_loot['zone'] : "ALL"?></td>
         </tr>
       </table>
     </div>
@@ -104,7 +104,7 @@
     if($lootdrop['probability'] > 0 && $lootdrop['probability'] < 100)
       $chance = $total;
     if($lootdrop['probability'] >= 100)
-      $chance = 100;
+      $chance = $chance;
 ?>
           <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
             <td align="center"><a href="index.php?editor=items&id=<?=$item_id?>&action=2"><?=$item_id?></td>

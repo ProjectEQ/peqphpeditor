@@ -1,80 +1,80 @@
-#Starting in Apache 2.4, they changed methods for allow/deny. To be certain of proper function, comment/uncomment the proper lines. Defaulting to 2.2 for now.
+#Starting in Apache 2.4, they changed methods for allow/deny. To be certain of proper function, comment/uncomment the proper lines. Apache 2.2 is now deprecated so defaulting to Apache 2.4.
 #See http://httpd.apache.org/docs/2.4/upgrading.html#access for more information
 
 ##########################
 # Apache 2.2 and earlier #
 ##########################
-<Files aasearch.php>
-  Order allow,deny
-  Allow from all
-</Files>
+#<Files aasearch.php>
+#  Order allow,deny
+#  Allow from all
+#</Files>
 
-<Files accountsearch.php>
-  Order allow,deny
-  Allow from all
-</Files>
+#<Files accountsearch.php>
+#  Order allow,deny
+#  Allow from all
+#</Files>
 
-<Files itemsearch.php>
-  Order allow,deny
-  Allow from all
-</Files>
+#<Files itemsearch.php>
+#  Order allow,deny
+#  Allow from all
+#</Files>
 
-<Files js.tmpl.php>
-  Order allow,deny
-  Allow from all
-</Files>
+#<Files js.tmpl.php>
+#  Order allow,deny
+#  Allow from all
+#</Files>
 
-<Files playersearch.php>
-  Order allow,deny
-  Allow from all
-</Files>
+#<Files playersearch.php>
+#  Order allow,deny
+#  Allow from all
+#</Files>
 
-<Files spellsearch.php>
-  Order allow,deny
-  Allow from all
-</Files>
+#<Files spellsearch.php>
+#  Order allow,deny
+#  Allow from all
+#</Files>
 
-<Files spellsearch2.php>
-  Order allow,deny
-  Allow from all
-</Files>
+#<Files spellsearch2.php>
+#  Order allow,deny
+#  Allow from all
+#</Files>
 
-<Files spellsetsearch.php>
-  Order allow,deny
-  Allow from all
-</Files>
+#<Files spellsetsearch.php>
+#  Order allow,deny
+#  Allow from all
+#</Files>
 
 ########################
 # Apache 2.4 and later #
 ########################
-#<Files aasearch.php>
-#  Require all granted
-#</Files>
+<Files aasearch.php>
+  Require all granted
+</Files>
 
-#<Files accountsearch.php>
-#  Require all granted
-#</Files>
+<Files accountsearch.php>
+  Require all granted
+</Files>
 
-#<Files itemsearch.php>
-#  Require all granted
-#</Files>
+<Files itemsearch.php>
+  Require all granted
+</Files>
 
-#<Files js.tmpl.php>
-#  Require all granted
-#</Files>
+<Files js.tmpl.php>
+  Require all granted
+</Files>
 
-#<Files playersearch.php>
-#  Require all granted
-#</Files>
+<Files playersearch.php>
+  Require all granted
+</Files>
 
-#<Files spellsearch.php>
-#  Require all granted
-#</Files>
+<Files spellsearch.php>
+  Require all granted
+</Files>
 
-#<Files spellsearch2.php>
-#  Require all granted
-#</Files>
+<Files spellsearch2.php>
+  Require all granted
+</Files>
 
-#<Files spellsetsearch.php>
-#  Require all granted
-#</Files>
+<Files spellsetsearch.php>
+  Require all granted
+</Files>
