@@ -431,13 +431,12 @@ function update_zonepoints() {
   $target_y = $_POST['target_y'];
   $target_z = $_POST['target_z']; 
   $target_heading = $_POST['target_heading'];
-  $zoneinst = $_POST['zoneinst'];
   $target_zone_id = $_POST['target_zone_id'];
   $version = $_POST['version'];
   $target_instance = $_POST['target_instance'];
   $client_version_mask = $_POST['client_version_mask'];
 
-  $query = "UPDATE zone_points SET zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z_coord\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", zoneinst=\"$zoneinst\", target_zone_id=\"$target_zone_id\", version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\" WHERE id=\"$zpid\"";
+  $query = "UPDATE zone_points SET zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z_coord\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", target_zone_id=\"$target_zone_id\", version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\" WHERE id=\"$zpid\"";
   $mysql->query_no_result($query);
 }
 
@@ -558,13 +557,12 @@ function add_zonepoints() {
   $target_y = $_POST['target_y']; 
   $target_z = $_POST['target_z']; 
   $target_heading = $_POST['target_heading'];
-  $zoneinst = $_POST['zoneinst'];
   $target_zone_id = $_POST['target_zone_id'];
   $version = $_POST['version'];
   $target_instance = $_POST['target_instance'];
   $client_version_mask = $_POST['client_version_mask'];
 
-  $query = "INSERT INTO zone_points SET id=\"$zpid\", zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z_coord\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", zoneinst=\"$zoneinst\", target_zone_id=\"$target_zone_id\", buffer=0, version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\"";
+  $query = "INSERT INTO zone_points SET id=\"$zpid\", zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z_coord\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", target_zone_id=\"$target_zone_id\", buffer=0, version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\"";
   $mysql->query_no_result($query);
 }
 
@@ -614,11 +612,11 @@ function zonepoints_info() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-    $array['zonepoints'][$result['id']] = array("zpid"=>$result['id'], "zone"=>$result['zone'], "number"=>$result['number'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "heading"=>$result['heading'], "target_x"=>$result['target_x'], "target_y"=>$result['target_y'], "target_z"=>$result['target_z'], "target_heading"=>$result['target_heading'], "zoneinst"=>$result['zoneinst'], "target_zone_id"=>$result['target_zone_id'], "version"=>$result['version'], "target_instance"=>$result['target_instance'], "client_version_mask"=>$result['client_version_mask']);
-         }
-       }
-  return $array;
+      $array['zonepoints'][$result['id']] = array("zpid"=>$result['id'], "zone"=>$result['zone'], "number"=>$result['number'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "heading"=>$result['heading'], "target_x"=>$result['target_x'], "target_y"=>$result['target_y'], "target_z"=>$result['target_z'], "target_heading"=>$result['target_heading'], "target_zone_id"=>$result['target_zone_id'], "version"=>$result['version'], "target_instance"=>$result['target_instance'], "client_version_mask"=>$result['client_version_mask']);
+    }
   }
+  return $array;
+}
 
 function blockedspell_info() {
   global $mysql, $z;
