@@ -11,7 +11,7 @@
               <td><strong>Object Name</strong></td>
             </tr>
             <tr>
-              <td><input type="text" size="7" name="id" value="<?=$suggestobjid?>"></td>
+              <td><input type="text" size="7" name="objid" value="<?=$suggestobjid?>"></td>
               <td><input type="text" size="7" name="xpos" value="0"></td>
               <td><input type="text" size="7" name="ypos" value="0"></td>
               <td><input type="text" size="7" name="zpos" value="0"></td>
