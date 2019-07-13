@@ -296,7 +296,7 @@
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
               <td align="left" width="17%">Spawn Limit:     <br><input type="text" name="spawn_limit" size="10" value="0"></td>
-              <td align="left" width="17%">Version:         <br><input type="text" name="version" size="10" value="0"></td>
+              <td align="left" width="17%">Version:         <br><input type="text" name="version" size="10" value="<?=$version?>"></td>
               <td align="left" width="17%">Emote:           <br><input type="text" name="emoteid" size="10" value="0"></td>
               <td align="left" width="17%">No Target Hotkey:<br><input type="text" name="no_target_hotkey" size="10" value="0"></td>
               <td align="left" width="16%">Raid Target:     <br><input type="text" name="raid_target" size="5" value="0"></td>

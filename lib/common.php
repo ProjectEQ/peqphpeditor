@@ -45,6 +45,15 @@ function getZoneName($zoneidnumber) {
   return $result['short_name'];
 }
 
+function getZoneVersion($zoneid) {
+  global $mysql;
+
+  $query = "SELECT version FROM zone WHERE id = \"$zoneid\"";
+  $result = $mysql->query_assoc($query);
+
+  return $result['version'];
+}
+
 function searchItems($search) {
   global $mysql;
   

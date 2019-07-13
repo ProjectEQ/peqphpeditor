@@ -374,6 +374,7 @@ switch ($action) {
     $body->set('specialattacks', $specialattacks);
     $body->set('special_abilities_max', $special_abilities_max);
     $body->set('stuck', $stuck);
+    $body->set('version', intval(getZoneVersion($zoneid)));
     $vars = get_stats();
     if ($vars) {
       foreach ($vars as $key=>$value) {
