@@ -1,6 +1,6 @@
 <?php
 
-$current_revision = "12 July 2019";
+$current_revision = "13 July 2019";
 
 require_once("config.php");
 require_once("lib/logging.php");
@@ -28,7 +28,6 @@ $acctid = (isset($_GET['acctid'])) ? intval($_GET['acctid']) : 0;
 $guildid = (isset($_GET['guildid'])) ? intval($_GET['guildid']) : 0;
 $aaid = (isset($_GET['aaid'])) ? intval($_GET['aaid']) : 0;
 $nseid = (isset($_GET['nseid'])) ? intval($_GET['nseid']) : 0;
-$npc_list = (isset($_GET['npc_list'])) ? intval($_GET['npc_list']) : 1;
 
 $searchbar = '';
 $body = '';
