@@ -57,6 +57,12 @@
                   <td align="left" width="25%">NPC Max Aggro:<br><input type="text" name="npc_max_aggro_dist" size="7" value="<?=$npc_max_aggro_dist?>"></td>
                 </tr>
                 <tr>
+                  <td align="left" width="25%">Max Movement Update:<br><input type="text" name="max_movement_update_range" size="7" value="<?=$max_movement_update_range?>"></td>
+                  <td align="left" width="25%">&nbsp;</td>
+                  <td align="left" width="25%">&nbsp;</td>
+                  <td align="left" width="25%">&nbsp;</td>
+                </tr>
+                <tr>
                   <td align="left" width="25%">
                     Suspend Buffs:<br>
                     <select name="suspendbuffs">

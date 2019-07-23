@@ -68,12 +68,17 @@
                   <tr>
                     <td align="left" width="33%">Suspend Buffs: <?=$yesno[$suspendbuffs]?></td>
                     <td align="left" width="33%">Gravity: <?=$gravity?></td>
-                    <td align="left" width="33%">NPC Max Aggro: <?=$npc_max_aggro_dist?></td>
+                    <td align="left" width="34%">NPC Max Aggro: <?=$npc_max_aggro_dist?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Fast Regen HP: <?=$fast_regen_hp?></td>
                     <td align="left" width="33%">Fast Regen Mana: <?=$fast_regen_mana?></td>
-                    <td align="left" width="33%">Fast Regen Endurance: <?=$fast_regen_endurance?></td>
+                    <td align="left" width="34%">Fast Regen Endurance: <?=$fast_regen_endurance?></td>
+                  </tr>
+                  <tr>
+                    <td align="left" width="33%">Max Movement Update: <?=$max_movement_update_range?></td>
+                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="34%">&nbsp;</td>
                   </tr>
                   <tr>
                     <td align="left" width="100%" colspan="3">Note: <?=$note?></td>
