@@ -309,6 +309,21 @@
                 </select>
               </td>
             </tr>
+            <tr>
+              <td align="left" width="17%">
+                Flymode<br>
+                <select name="flymode">
+<?foreach ($flymodetype as $key=>$value):?>
+                  <option value="<?=$key?>"<?echo ($key == -1) ? " selected" : "";?>><?=$key?>: <?=$value?></option>
+<?endforeach;?>
+                </select>
+              </td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="16%">&nbsp;</td>
+              <td align="left" width="16%">&nbsp;</td>
+            </tr>
           </table><br>
           <center>
             <table cellpadding="20px">

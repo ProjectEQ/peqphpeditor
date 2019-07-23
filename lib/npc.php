@@ -99,6 +99,15 @@ $emotetype = array(
   3 => "Message"
 );
 
+$flymodetype = array(
+ -1 => "None",
+  0 => "Ground",
+  1 => "Flying",
+  2 => "Levitate",
+  3 => "Water",
+  4 => "Floating"
+);
+
 $default_page = 1;
 $default_size = 50;
 $default_sort = 1;
@@ -139,6 +148,7 @@ switch ($action) {
       $body->set('tmpfacshort', $tmpfacshort);
       $body->set('pet', get_ispet());
       $body->set('special_abilities_max', $special_abilities_max);
+      $body->set('flymodetype', $flymodetype);
       $vars = npc_info();
       if ($vars) {
         foreach ($vars as $key=>$value) {
@@ -175,6 +185,7 @@ switch ($action) {
     $body->set('pet', get_ispet());
     $body->set('special_abilities_max', $special_abilities_max);
     $body->set('stuck', $stuck);
+    $body->set('flymodetype', $flymodetype);
     $vars = npc_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -374,6 +385,7 @@ switch ($action) {
     $body->set('specialattacks', $specialattacks);
     $body->set('special_abilities_max', $special_abilities_max);
     $body->set('stuck', $stuck);
+    $body->set('flymodetype', $flymodetype);
     $body->set('version', intval(getZoneVersion($zoneid)));
     $vars = get_stats();
     if ($vars) {
@@ -1385,6 +1397,7 @@ function update_npc() {
   if ($skip_global_loot != $_POST['skip_global_loot']) $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
   if ($rare_spawn != $_POST['rare_spawn']) $fields .= "rare_spawn=\"" . $_POST['rare_spawn'] . "\", ";
   if ($stuck_behavior != $_POST['stuck_behavior']) $fields .= "stuck_behavior=\"" . $_POST['stuck_behavior'] . "\", ";
+  if ($flymode != $_POST['flymode']) $fields .= "flymode=\"" . $_POST['flymode'] . "\", ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -1536,7 +1549,8 @@ function add_npc() {
   $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\", ";
   $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
   $fields .= "rare_spawn=\"" .$_POST['rare_spawn'] . "\", ";
-  $fields .= "stuck_behavior=\"" .$_POST['stuck_behavior'] . "\"";
+  $fields .= "stuck_behavior=\"" .$_POST['stuck_behavior'] . "\", ";
+  $fields .= "flymode=\"" .$_POST['flymode'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1667,7 +1681,8 @@ function copy_npc() {
   $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\", ";
   $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
   $fields .= "rare_spawn=\"" . $_POST['rare_spawn'] . "\", ";
-  $fields .= "stuck_behavior=\"" . $_POST['stuck_behavior'] . "\"";
+  $fields .= "stuck_behavior=\"" . $_POST['stuck_behavior'] . "\", ";
+  $fields .= "flymode=\"" . $_POST['flymode'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";

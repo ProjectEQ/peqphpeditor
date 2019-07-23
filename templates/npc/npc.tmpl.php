@@ -327,6 +327,11 @@ if ($loottable_id > 0) {
                     <td align="left" width="33%">Rare Spawn: <?=$yesno[$rare_spawn]?></td>
                     <td align="left" width="34%">Stuck Behavior: <?=$stuck_behavior?></td>
                   </tr>
+                  <tr>
+                    <td align="left" width="33%">Flymode: <?=$flymodetype[$flymode]?></td>
+                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="34%">&nbsp;</td>
+                  </tr>
                 </table>
               </fieldset>
             </td>
@@ -436,6 +441,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="skip_global_loot" value="<?=$skip_global_loot?>">
         <input type="hidden" name="rare_spawn" value="<?=$rare_spawn?>">
         <input type="hidden" name="stuck_behavior" value="<?=$stuck_behavior?>">
+        <input type="hidden" name="flymode" value="<?=$flymode?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">
