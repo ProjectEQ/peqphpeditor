@@ -1397,6 +1397,7 @@ function update_npc() {
   if ($skip_global_loot != $_POST['skip_global_loot']) $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
   if ($rare_spawn != $_POST['rare_spawn']) $fields .= "rare_spawn=\"" . $_POST['rare_spawn'] . "\", ";
   if ($stuck_behavior != $_POST['stuck_behavior']) $fields .= "stuck_behavior=\"" . $_POST['stuck_behavior'] . "\", ";
+  if ($model != $_POST['model']) $fields .= "model=\"" . $_POST['model'] . "\", ";
   if ($flymode != $_POST['flymode']) $fields .= "flymode=\"" . $_POST['flymode'] . "\", ";
 
   $fields =  rtrim($fields, ", ");
@@ -1550,6 +1551,7 @@ function add_npc() {
   $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
   $fields .= "rare_spawn=\"" .$_POST['rare_spawn'] . "\", ";
   $fields .= "stuck_behavior=\"" .$_POST['stuck_behavior'] . "\", ";
+  $fields .= "model=\"" .$_POST['model'] . "\", ";
   $fields .= "flymode=\"" .$_POST['flymode'] . "\"";
 
   if ($fields != '') {
@@ -1682,6 +1684,7 @@ function copy_npc() {
   $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
   $fields .= "rare_spawn=\"" . $_POST['rare_spawn'] . "\", ";
   $fields .= "stuck_behavior=\"" . $_POST['stuck_behavior'] . "\", ";
+  $fields .= "model=\"" . $_POST['model'] . "\", ";
   $fields .= "flymode=\"" . $_POST['flymode'] . "\"";
 
   if ($fields != '') {

@@ -295,7 +295,7 @@ if ($loottable_id > 0) {
                   <tr>
                    <td align="left" width="33%">Melee1 Type: <?=$prim_melee_type?></td>
                    <td align="left" width="33%">Melee2 Type: <?=$sec_melee_type?></td>
-                   <td align="left" width="34%">&nbsp;</td>
+                   <td align="left" width="34%">Model: <?echo ($model != 0) ? $model : "None";?></td>
                   </tr>
                 </table>
               </fieldset>
@@ -441,6 +441,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="skip_global_loot" value="<?=$skip_global_loot?>">
         <input type="hidden" name="rare_spawn" value="<?=$rare_spawn?>">
         <input type="hidden" name="stuck_behavior" value="<?=$stuck_behavior?>">
+        <input type="hidden" name="model" value="<?=$model?>">
         <input type="hidden" name="flymode" value="<?=$flymode?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
