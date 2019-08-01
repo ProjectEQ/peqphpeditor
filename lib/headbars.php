@@ -419,6 +419,9 @@ function npcs_by_merchantid() {
 
   if($z) {
     $zid = getZoneID($z) . "___";
+    if ($zoneid == "") {
+      $zoneid = getZoneID($z);
+    }
     $query = "SELECT version FROM zone WHERE id = \"$zoneid\"";
     $result = $mysql->query_assoc($query);
     $version = $result['version'];
@@ -477,6 +480,9 @@ function npcs_by_spellid() {
 
   if($z) {
     $zid = getZoneID($z) . "___";
+    if ($zoneid == "") {
+      $zoneid = getZoneID($z);
+    }
     $query = "SELECT version FROM zone WHERE id = $zoneid";
     $result = $mysql->query_assoc($query);
     $version = $result['version'];
