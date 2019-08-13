@@ -1,11 +1,18 @@
-<?php
+<?
 
 $normalize_amount = 10;
 
 switch ($action) {
   case 0:  // View Loottable
-    if ($npcid) {
+    if ($npcid || $_GET['npcid'] > 0) {
       $body = new Template("templates/loot/loottable.tmpl.php");
+      if (!$npcid) {
+        $npcid = $_GET['npcid'];
+      }
+      $z = get_zone_by_npcid($npcid);
+      $zoneid = getZoneIDByName($z);
+      $body->set('z', $z);
+      $body->set('zoneid', $zoneid);
       $body->set('currzone', $z);
       $body->set('currzoneid', $zoneid);
       $body->set('npcid', $npcid);
