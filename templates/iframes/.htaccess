@@ -48,11 +48,11 @@
 # Apache 2.4 and later #
 ########################
 <Files aasearch.php>
-  Require all granted
+  Require all granted
 </Files>
 
 <Files accountsearch.php>
-  Require all granted
+  Require all granted
 </Files>
 
 <Files itemsearch.php>
@@ -64,7 +64,7 @@
 </Files>
 
 <Files playersearch.php>
-  Require all granted
+  Require all granted
 </Files>
 
 <Files spellsearch.php>
