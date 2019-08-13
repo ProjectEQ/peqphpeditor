@@ -395,7 +395,7 @@ function npcs() {
     if ($zoneid == "") {
       $zoneid = getZoneID($z);
     }
-    $query = "SELECT version FROM zone WHERE id = \"$zoneid\"";
+    $query = "SELECT version FROM zone WHERE zoneidnumber = \"$zoneid\"";
     $result = $mysql->query_assoc($query);
     $version = $result['version'];
   }
