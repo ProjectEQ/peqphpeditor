@@ -41,14 +41,18 @@
 ?>
     </div>
   </div>
+ <?
+ if(strtolower(substr($filename, -3)) == "lua") { $mode = "lua"; }
+else { $mode = "perl"; }
+ ?>
 <script>
 window.onload = function() {
     editor = ace.edit("text");
     editor.setTheme("ace/theme/monokai");
     editor.setShowPrintMargin(false);
 	editor.getSession().setUseWrapMode(false)
-    editor.getSession().setMode("ace/mode/lua"); //perl still gets syntax'd just fine, this should be acceptable even if its a perl and not a lua
-    editor.getSession().setUseWorker(false);
+    editor.getSession().setMode("ace/mode/<? echo $mode ?>");
+    editor.getSession().setUseWorker(true);
 	document.getElementById("text").style.height = "300px"; //we need to make it so the user can change this as wanted.
 	editor.resize();
 }
