@@ -83,4 +83,14 @@ $quest_path = "/path/to/quests";
 $perl_path = "perl";
 $perl_log_file = $logs_dir . "/perl_log_$filetime.log";
 
+/**
+ * PHP Debugging
+ */
+$php_debug = false;
+error_reporting(0);
+if ($php_debug) {
+    error_reporting(1);
+    ini_set('display_errors', 1);
+}
+ini_set('short_open_tag', 'On');
 ?>
