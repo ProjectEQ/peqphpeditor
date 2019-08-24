@@ -1,3 +1,4 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
   <div class="table_container" style="width: 100%;">
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
@@ -17,7 +18,7 @@
       <table width="100%">
         <tr>
           <td>
-            <textarea name="text" rows="82" cols="90">
+            <div id="text" name="text">
 <?
     if (file_exists($filename)) {
       @readfile("$filename");
@@ -26,7 +27,7 @@
       echo "Unable to read from quest file.";
     }
 ?>
-            </textarea>
+            </div>
           </td>
         </tr>
       </table>
@@ -40,3 +41,15 @@
 ?>
     </div>
   </div>
+<script>
+window.onload = function() {
+    editor = ace.edit("text");
+    editor.setTheme("ace/theme/monokai");
+    editor.setShowPrintMargin(false);
+	editor.getSession().setUseWrapMode(false)
+    editor.getSession().setMode("ace/mode/lua"); //perl still gets syntax'd just fine, this should be acceptable even if its a perl and not a lua
+    editor.getSession().setUseWorker(false);
+	document.getElementById("text").style.height = "300px"; //we need to make it so the user can change this as wanted.
+	editor.resize();
+}
+</script>
