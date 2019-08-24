@@ -18,16 +18,14 @@
       <table width="100%">
         <tr>
           <td>
-            <div id="text" name="text">
-<?
-    if (file_exists($filename)) {
-      @readfile("$filename");
-    }
-    else {
-      echo "Unable to read from quest file.";
-    }
-?>
-            </div>
+            <div id="text" name="text" style="height: 600px;"><?
+			if (file_exists($filename)) {
+				@readfile("$filename");
+			}
+			else {
+				echo "Unable to read from quest file.";
+			}
+			?></div>
           </td>
         </tr>
       </table>
@@ -41,19 +39,47 @@
 ?>
     </div>
   </div>
- <?
- if(strtolower(substr($filename, -3)) == "lua") { $mode = "lua"; }
-else { $mode = "perl"; }
- ?>
 <script>
-window.onload = function() {
-    editor = ace.edit("text");
-    editor.setTheme("ace/theme/monokai");
-    editor.setShowPrintMargin(false);
-	editor.getSession().setUseWrapMode(false)
-    editor.getSession().setMode("ace/mode/<? echo $mode ?>");
-    editor.getSession().setUseWorker(true);
-	document.getElementById("text").style.height = "300px"; //we need to make it so the user can change this as wanted.
-	editor.resize();
+var filename = "<?php echo $filename ?>"
+var editor = ace.edit("text");
+var mode = autoImplementedMode(filename);
+editor.setTheme("ace/theme/monokai");
+editor.setShowPrintMargin(false);
+editor.getSession().setUseWrapMode(false);
+editor.getSession().setMode(mode);
+editor.getSession().setUseWorker(false);
+editor.resize();
+editor.getSession().on('change', function() {
+	DoSave()
+});
+
+function DoSave()
+{
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("POST", "savefile.php", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send("file="+filename+"&content=" + editor.getValue()); 
+}
+function autoImplementedMode(filename){
+    var ext = filename.split('.').pop();
+    var prefix = "ace/mode/";
+
+    if(!ext){
+        return prefix + "text";
+    }
+    switch (ext) {
+		case "lua":
+		return prefix + "lua";
+		case "pl":
+		return prefix + "perl"
+        case "js":
+        return prefix + "javascript";
+        case "cs":
+        return prefix + "csharp";
+        case "php":
+        return prefix + "php";
+        case "rb":
+        return prefix + "ruby";
+    }
 }
 </script>
