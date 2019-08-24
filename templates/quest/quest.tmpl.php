@@ -1,4 +1,4 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="ace-builds/src/ace.js" type="text/javascript" charset="utf-8"></script>
   <div class="table_container" style="width: 100%;">
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
@@ -44,10 +44,8 @@ var filename = "<?php echo $filename ?>"
 var editor = ace.edit("text");
 var mode = autoImplementedMode(filename);
 editor.setTheme("ace/theme/monokai");
-editor.setShowPrintMargin(false);
 editor.getSession().setUseWrapMode(false);
 editor.getSession().setMode(mode);
-editor.getSession().setUseWorker(false);
 editor.resize();
 editor.getSession().on('change', function() {
 	DoSave()
