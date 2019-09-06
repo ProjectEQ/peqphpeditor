@@ -546,8 +546,6 @@ function delete_player($playerid) {
   //petitions?
   $query = "DELETE FROM character_corpses WHERE charid=$playerid";
   $mysql->query_no_result($query);
-  $query = "DELETE FROM player_corpses_backup WHERE charid=$playerid";
-  $mysql->query_no_result($query);
   $query = "DELETE FROM player_titlesets WHERE char_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM quest_globals WHERE charid=$playerid";
