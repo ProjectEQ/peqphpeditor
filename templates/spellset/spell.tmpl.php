@@ -22,7 +22,7 @@
           Spellset: <?=$name?> (<?=$id?>)
         </div>
         <div class="table_content">
-          <strong>Attack Proc:</strong> <? echo ($attack_proc != -1) ? "$proc_name ($attack_proc) [<a href=\"http://lucy.allakhazam.com/spell.html?source=Live&id=$attack_proc\">Lucy</a>]" : "none";?><br>
+          <strong>Attack Proc:</strong> <? echo ($attack_proc != -1) ? "$proc_name ($attack_proc) [<a href=\"http://lucy.allakhazam.com/spell.html?source=Live&id=$attack_proc\" target=\"_blank\">Lucy</a>]" : "none";?><br>
 <?if($attack_proc != -1):?>
           <strong>Proc Chance:</strong> <?=$proc_chance?>%<br>
 <?endif;?>
