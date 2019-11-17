@@ -668,13 +668,13 @@ switch ($action) {
     break;
   case 60: // View spawn_condition values
     check_authorization();
-    $body = new Template("templates/spawn/spawnconditionvalue.tmpl.php");
+    $body = new Template("templates/spawn/spawnconditionvalues.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $_GET['npcid']);
     $body->set('spid', $_GET['spid']);
     $body->set('scid', $_GET['scid']);
-    $spawncv = get_spawn_condition_value();
+    $spawncv = get_spawn_condition_values();
     if ($spawncv) {
       foreach ($spawncv as $key=>$value) {
         $body->set($key, $value);
@@ -842,6 +842,27 @@ switch ($action) {
     check_authorization();
     magelo_import();
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid");
+    exit;
+  case 82: // Edit spawncondition value
+    check_authorization();
+    $body = new Template("templates/spawn/spawnconditionvalue.edit.tmpl.php");
+    $body->set('currzone', $z);
+    $body->set('currzoneid', $zoneid);
+    $body->set('npcid', $_GET['npcid']);
+    $body->set('spid', $_GET['spid']);
+    $body->set('scid', $_GET['scid']);
+    $spawncv = get_spawn_condition_value();
+    if ($spawncv) {
+      foreach ($spawncv as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
+  case 83:  // Update spawncondition value
+    check_authorization();
+    update_spawnconditionvalue();
+    $scvid = $_POST['scvid'];
+    header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&scid=$scvid&action=60");
     exit;
 }
 
@@ -1089,7 +1110,7 @@ function valid_npc() {
   }
 }
 
-function balance_spawns ($sid) {
+function balance_spawns($sid) {
   check_authorization();
   global $mysql;
 
@@ -1174,7 +1195,7 @@ function delete_spawngroup() {
   $mysql->query_no_result($query);
 }
 
-function search_npc_types ($search) {
+function search_npc_types($search) {
   global $mysql;
 
   $query = "SELECT id, name, level FROM npc_types WHERE name rlike \"$search\"";
@@ -1183,7 +1204,7 @@ function search_npc_types ($search) {
   return $results;
 }
 
-function get_spawnpoints () {
+function get_spawnpoints() {
   global $mysql;
   $sid = $_GET['sid'];
 
@@ -1193,7 +1214,7 @@ function get_spawnpoints () {
   return $results;
 }
 
-function grid_info () {
+function grid_info() {
   global $mysql, $z;
   $zid = getZoneID($z);
   $pathgrid = intval($_GET['pathgrid']);
@@ -1204,7 +1225,7 @@ function grid_info () {
   return $result;
 }
 
-function spawnpoint_fromgrid () {
+function spawnpoint_fromgrid() {
   global $mysql, $z;
   $zid = getZoneID($z);
   $spid = intval($_GET['spid']);
@@ -1215,7 +1236,7 @@ function spawnpoint_fromgrid () {
   return ($result['sid']);
 }
 
-function gridentry_info () {
+function gridentry_info() {
   global $mysql, $z;
   $zid = getZoneID($z);
   $pathgrid = intval($_GET['pathgrid']);
@@ -1233,7 +1254,7 @@ function gridentry_info () {
   return $array;
 }
 
-function gridpoint_info () {
+function gridpoint_info() {
   global $mysql, $z;
   $zid = getZoneID($z);
   $pathgrid = intval($_GET['pathgrid']);
@@ -1245,7 +1266,7 @@ function gridpoint_info () {
   return $result;
 }
 
-function spawnevent_info () {
+function spawnevent_info() {
   global $mysql, $z;
 
   $seid = $_GET['seid'];
@@ -1256,7 +1277,7 @@ function spawnevent_info () {
   return $result;
 }
 
-function spawncondition_info () {
+function spawncondition_info() {
   global $mysql, $z;
 
   $scid = $_GET['scid'];
@@ -1267,7 +1288,7 @@ function spawncondition_info () {
   return $result;
 }
 
-function delete_gridentry () {
+function delete_gridentry() {
   global $mysql, $z;
   $zid = getZoneID($z);
   $pathgrid = intval($_GET['pathgrid']);
@@ -1277,7 +1298,7 @@ function delete_gridentry () {
   $mysql->query_no_result($query);
 }
 
-function delete_gridentries () {
+function delete_gridentries() {
   global $mysql, $z;
   $zid = getZoneID($z);
   $pathgrid = intval($_GET['pathgrid']);
@@ -1286,7 +1307,7 @@ function delete_gridentries () {
   $mysql->query_no_result($query);
 }
 
-function delete_grid () {
+function delete_grid() {
   global $mysql, $z;
   $zid = getZoneID($z);
   $pathgrid = intval($_GET['pathgrid']);
@@ -1302,7 +1323,7 @@ function delete_grid () {
   $mysql->query_no_result($query);
 }
 
-function delete_grid_ns () {
+function delete_grid_ns() {
   global $mysql, $z;
   $zid = getZoneID($z);
   $pathgrid = intval($_GET['pathgrid']);
@@ -1345,7 +1366,7 @@ function delete_spawnconditionvalue() {
   $mysql->query_no_result($query);
 }
 
-function spawnpoint_info () {
+function spawnpoint_info() {
   global $mysql;
   $id = $_REQUEST['id'];
 
@@ -1612,7 +1633,7 @@ function force_spawn() {
   $mysql->query_no_result($query);
 }
 
-function grid_info_zone () {
+function grid_info_zone() {
   global $mysql, $z;
   $zid = getZoneID($z);
   $array = array();
@@ -1629,7 +1650,7 @@ function grid_info_zone () {
   return $array;
 }
 
-function get_spawn_condition () {
+function get_spawn_condition() {
   global $mysql, $z;
   $array = array();
 
@@ -1644,7 +1665,7 @@ function get_spawn_condition () {
   return $array;
 }
 
-function get_spawn_condition_value() {
+function get_spawn_condition_values() {
   global $mysql, $z;
   $array = array();
 
@@ -1659,6 +1680,36 @@ function get_spawn_condition_value() {
   }
 
   return $array;
+}
+
+function get_spawn_condition_value() {
+  global $mysql, $z;
+
+  $scid = $_GET['scid'];
+  $instance_id = $_GET['instance_id'];
+
+  $query = "SELECT id AS scvid, zone, value, instance_id FROM spawn_condition_values WHERE zone=\"$z\" AND id=$scid AND instance_id=$instance_id";
+  $result = $mysql->query_assoc($query);
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+function update_spawnconditionvalue() {
+  global $mysql, $z;
+
+  $scvid = $_POST['scvid'];
+  $value = $_POST['value'];
+  $zone = $_POST['zone'];
+  $instance_id = $_POST['instance_id'];
+  $old_value = $_POST['old_value'];
+  $old_instance_id = $_POST['old_instance_id'];
+
+  $query = "UPDATE spawn_condition_values SET value=$value, instance_id=$instance_id WHERE id=$scvid AND zone=\"$zone\" AND instance_id=$old_instance_id";
+  $mysql->query_no_result($query);
 }
 
 function get_spawn_event () {

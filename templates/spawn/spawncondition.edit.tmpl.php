@@ -1,4 +1,4 @@
-<div class="edit_form" style="width: 300px">
+<div class="edit_form" style="width: 400px">
       <div class="edit_form_header">
         Edit Spawn Condition: <?=$id?>
       </div>

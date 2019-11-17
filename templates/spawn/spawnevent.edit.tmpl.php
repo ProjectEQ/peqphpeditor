@@ -1,4 +1,4 @@
-      <div class="edit_form" style="width: 500px">
+      <div class="edit_form" style="width: 600px">
       <div class="edit_form_header">
         Edit Spawn Event: <?=$id?>
       </div>
