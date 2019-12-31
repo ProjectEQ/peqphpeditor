@@ -30,3 +30,4 @@ For Linux users, note the following.
 7) The default username/password for the editor is admin/password.  If you want to add a user other than the default user, you can do so via the "admin" link, by the "logout" link, after you log in.
 
 8) Open up index.php in your web browser and have fun!
+
