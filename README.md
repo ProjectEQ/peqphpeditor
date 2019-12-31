@@ -31,3 +31,4 @@ For Linux users, note the following.
 
 8) Open up index.php in your web browser and have fun!
 
+
