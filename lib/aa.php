@@ -28,7 +28,7 @@ $aa_type = array (
 
 switch ($action) {
   case 0: //View AA
-    if (isset($aaid) && $aaid >= 0) {
+    if (isset($_GET['aaid']) && $_GET['aaid'] >= 0) {
       $body = new Template("templates/aa/aa.tmpl.php");
       $javascript = new Template("templates/aa/js.tmpl.php");
       $aa_info = aa_info();
@@ -77,15 +77,39 @@ switch ($action) {
     break;
   case 3: //Search AAs by Expansion and Class
   case 4: //Add AA
+    check_authorization();
+    $body = new Template("templates/aa/aa.add.tmpl.php");
+    $javascript = new Template("templates/aa/js.tmpl.php");
+    $breadcrumbs .= " >> Create AA";
+    $body->set('yesno', $yesno);
+    $body->set('eqexpansions', $eqexpansions);
+    $body->set('sp_effects', $sp_effects);
+    $body->set('sp_spelltypes', $sp_spelltypes); //This is still wrong
+    $body->set('aa_type', $aa_type);
+    $body->set('aa_category', $aa_category);
+    $body->set('aas', $aas);
+    $body->set('new_id', suggest_id());
+    $body->set('all_ranks', get_aa_ranks());
+    break;
   case 5: //Insert AA
+    check_authorization();
+    insertAA();
+    $id = $_POST['id'];
+    header("Location: index.php?editor=aa&aaid=$id");
+    exit;
   case 6: //Add AA Rank
   case 7: //Insert AA Rank
   case 8: //Add AA Effect
   case 9: //Insert AA Effect
   case 10: //Add Prerequisite AA
   case 11: //Insert Prerequisite AA
-  case 12: //Edit AA
-  case 13: //Update AA
+  case 12: //Update AA
+    check_authorization();
+    $id = $_POST['id'];
+    updateAA();
+    header("Location: index.php?editor=aa&aaid=$id");
+    exit;
+  case 13:
   case 14: //Edit AA Rank
   case 15: //Update AA Rank
   case 16: //Edit AA Effect
@@ -93,6 +117,10 @@ switch ($action) {
   case 18: //Edit Prerequisite AA
   case 19: //Update Prerequisite AA
   case 20: //Delete AA
+    check_authorization();
+    deleteAA();
+    header("Location: index.php?editor=aa");
+    exit;
   case 21: //Delete AA Rank
   case 22: //Delete AA Effect
   case 23: //Delete Prerequiste AA
@@ -165,14 +193,11 @@ function aa_info() {
     }
   }
 
-  $query = "SELECT id FROM aa_ranks";
-  $all_ranks = $mysql->query_mult_assoc($query);
-
   $aa_array['base'] = $aa_base;
   $aa_array['ranks'] = $aa_ranks;
   $aa_array['effects'] = $aa_effects;
   $aa_array['prereqs'] = $aa_prereqs;
-  $aa_array['all_ranks'] = $all_ranks;
+  $aa_array['all_ranks'] = get_aa_ranks();
 
   if ($aa_array) {
     return $aa_array;
@@ -216,6 +241,116 @@ function getAAsBySPA($spa) {
 
   asort($results);
   return $results;    
+}
+
+function insertAA() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $name = $_POST['name'];
+  $category = $_POST['category'];
+  $type = $_POST['type'];
+  $classes = $_POST['classes'];
+  $races = $_POST['races'];
+  $deities = $_POST['deities'];
+  $enabled = $_POST['enabled'];
+  $first_rank_id = $_POST['first_rank_id'];
+  $grant_only = $_POST['grant_only'];
+  $status = $_POST['status'];
+  $charges = $_POST['charges'];
+  $drakkin_heritage = $_POST['drakkin_heritage'];
+
+  $classes_value = 0;
+  foreach ($classes as $v) {
+    $classes_value = $classes_value ^ $v;
+  }
+
+  $races_value = 0;
+  foreach ($races as $v) {
+    $races_value = $races_value ^ $v;
+  }
+
+  $deities_value = 0;
+  foreach ($deities as $v) {
+    $deities_value = $deities_value ^ $v;
+  }
+
+  $query = "INSERT INTO aa_ability SET id=$id, name=\"$name\", category=$category, type=$type, classes=$classes_value, races=$races_value, deities=$deities_value, enabled=$enabled, first_rank_id=$first_rank_id, grant_only=$grant_only, status=$status, charges=$charges, drakkin_heritage=$drakkin_heritage";
+  $mysql->query_no_result($query);
+
+  return;
+}
+
+function updateAA() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $name = $_POST['name'];
+  $category = $_POST['category'];
+  $type = $_POST['type'];
+  $classes = $_POST['classes'];
+  $races = $_POST['races'];
+  $deities = $_POST['deities'];
+  $enabled = $_POST['enabled'];
+  $first_rank_id = $_POST['first_rank_id'];
+  $grant_only = $_POST['grant_only'];
+  $status = $_POST['status'];
+  $charges = $_POST['charges'];
+  $drakkin_heritage = $_POST['drakkin_heritage'];
+
+  $classes_value = 0;
+  foreach ($classes as $v) {
+    $classes_value = $classes_value ^ $v;
+  }
+
+  $races_value = 0;
+  foreach ($races as $v) {
+    $races_value = $races_value ^ $v;
+  }
+
+  $deities_value = 0;
+  foreach ($deities as $v) {
+    $deities_value = $deities_value ^ $v;
+  }
+
+  $query = "UPDATE aa_ability SET name=\"$name\", category=$category, type=$type, classes=$classes_value, races=$races_value, deities=$deities_value, enabled=$enabled, first_rank_id=$first_rank_id, grant_only=$grant_only, status=$status, charges=$charges, drakkin_heritage=$drakkin_heritage WHERE id=$id";
+  $mysql->query_no_result($query);
+
+  return;
+}
+
+function deleteAA() {
+  global $mysql;
+
+  $id = $_GET['aaid'];
+
+  $query = "DELETE FROM aa_ability WHERE id=$id";
+  $mysql->query_no_result($query);
+
+  return;
+}
+
+function get_aa_ranks() {
+  global $mysql;
+
+  $query = "SELECT id FROM aa_ranks";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function suggest_id() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS id FROM aa_ability";
+  $result = $mysql->query_assoc($query);
+
+  return $result['id'] + 1;
 }
 
 ?>

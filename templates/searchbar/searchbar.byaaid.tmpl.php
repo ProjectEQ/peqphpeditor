@@ -6,7 +6,7 @@
           <select OnChange="gotosite(this.options[this.selectedIndex].value)">
             <option value="">Select an AA</option>
 <? foreach ($aas as $aa): extract($aa);?>
-            <option value="index.php?editor=<?=$curreditor?>&aaid=<?=$aa['id']?>"<?echo ($curraa == $aa['id']) ? " selected" : "";?>><?=$aa['name']?> (<?=$aa['id']?>)</option>
+            <option value="index.php?editor=<?=$curreditor?>&aaid=<?=$aa['id']?>"<?echo (isset($_GET['aaid']) && $_GET['aaid'] == $aa['id']) ? " selected" : "";?>><?=$aa['name']?> (<?=$aa['id']?>)</option>
 <? endforeach;?>
               </select>
             </td>
