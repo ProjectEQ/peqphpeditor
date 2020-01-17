@@ -47,37 +47,37 @@ $itempointtype= array(
 );
 
 $itemcasttype= array(
-0 => "None",
-1 => "Click from inventory w/Lvl",
-3 => "Expendable",
-4 => "Must equip to click",
-5 => "Click from inventory w/Lvl/Class/Race"
+  0 => "None",
+  1 => "Click from inventory w/Lvl",
+  3 => "Expendable",
+  4 => "Must equip to click",
+  5 => "Click from inventory w/Lvl/Class/Race"
 );
 
 $proccasttype= array(
-0   => "None/Proc"
+  0   => "None/Proc"
 );
 
 $worncasttype= array(
-0   => "None",
-2   => "Worn"
+  0   => "None",
+  2   => "Worn"
 );
 
 $focuscasttype= array(
-0   => "None",
-6   => "Focus"
+  0   => "None",
+  6   => "Focus"
 );
 
 $scrollcasttype= array(
-0   => "None",
-7   => "Scroll"
+  0   => "None",
+  7   => "Scroll"
 );
 
 switch ($action) {
   case 0: //Default
     $body = new Template("templates/items/items.default.tmpl.php");
     break;
-  case 1:   // Search items
+  case 1: //Search Items
     $body = new Template("templates/items/items.searchresults.tmpl.php");
     if (isset($_GET['id']) && $_GET['id'] != "ID") {
       $results = search_item_by_id();
@@ -85,7 +85,7 @@ switch ($action) {
    else $results = search_items();
     $body->set("results", $results);
     break;
-  case 2: // Edit Item
+  case 2: //Edit Item
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/items/items.edit.tmpl.php");
     $body->set("itemsize", $itemsize);
@@ -133,79 +133,137 @@ switch ($action) {
       $body->set("errors", $errors);
     }
     break;
-  case 3: // Book Text
-     $body = new Template("templates/items/items.book.tmpl.php");
-     $body->set('id', $_GET['id']);
-     $body->set('name', $_GET['name']);
-     $vars = book_info();
-     if ($vars) {
+  case 3: //Book Text
+    $body = new Template("templates/items/items.book.tmpl.php");
+    $body->set('id', $_GET['id']);
+    $body->set('name', $_GET['name']);
+    $vars = book_info();
+    if ($vars) {
       foreach ($vars as $key=>$value) {
         $body->set($key, $value);
       }
-     }
-     break;
+    }
+    break;
   case 4: //Update Book Text
-     check_authorization();
-     $id = $_POST['id'];
-     update_book();
-     header("Location: index.php?editor=items&id=$id&action=2");
-     exit;
-  case 5: // Delete Item
-     check_authorization();
-     delete_item();
-     header("Location: index.php?editor=items");
-     exit;
-  case 6: // Update Item
-     check_authorization();
-     $id = $_GET['id'];
-     update_item();
-     header("Location: index.php?editor=items&id=$id&action=2");
-     exit;
-  case 7: // Copy Item
-     check_authorization();
-     $id = copy_item();
-     header("Location: index.php?editor=items&id=$id&action=2");
-     exit;
-  case 8: // Add Item
-     check_authorization();
-     $javascript = new Template("templates/iframes/js.tmpl.php");
-     $body = new Template("templates/items/items.add.tmpl.php");
-     $body->set("itemsize", $itemsize);
-     $body->set("itemmaterial", $itemmaterial);
-     $body->set("itemtypes", $itemtypes);
-     $body->set("itemldontheme", $itemldontheme);
-     $body->set("skilltypes", $skilltypes);
-     $body->set("bodytypes", $bodytypes);
-     $body->set("itemraces", $races);
-     $body->set("itemsaugrestrict", $itemsaugrestrict);
-     $body->set("itembagsize", $itembagsize);
-     $body->set("world_containers", $world_containers);
-     $body->set("itembardtype", $itembardtype);
-     $body->set("itempointtype", $itempointtype);
-     $body->set("itemcasttype", $itemcasttype);
-     $body->set("proccasttype", $proccasttype);
-     $body->set("worncasttype", $worncasttype);
-     $body->set("focuscasttype", $focuscasttype);
-     $body->set("scrollcasttype", $scrollcasttype);
-     $body->set("yesno", $yesno);
-     $body->set('newid', get_max_id());
-     $body->set("factions", factions_array());
-     $vars = getdate();
-     if ($vars) {
+    check_authorization();
+    $id = $_POST['id'];
+    update_book();
+    header("Location: index.php?editor=items&id=$id&action=2");
+    exit;
+  case 5: //Delete Item
+    check_authorization();
+    delete_item();
+    header("Location: index.php?editor=items");
+    exit;
+  case 6: //Update Item
+    check_authorization();
+    $id = $_GET['id'];
+    update_item();
+    header("Location: index.php?editor=items&id=$id&action=2");
+    exit;
+  case 7: //Copy Item
+    check_authorization();
+    $id = copy_item();
+    header("Location: index.php?editor=items&id=$id&action=2");
+    exit;
+  case 8: //Add Item
+    check_authorization();
+    $javascript = new Template("templates/iframes/js.tmpl.php");
+    $body = new Template("templates/items/items.add.tmpl.php");
+    $body->set("itemsize", $itemsize);
+    $body->set("itemmaterial", $itemmaterial);
+    $body->set("itemtypes", $itemtypes);
+    $body->set("itemldontheme", $itemldontheme);
+    $body->set("skilltypes", $skilltypes);
+    $body->set("bodytypes", $bodytypes);
+    $body->set("itemraces", $races);
+    $body->set("itemsaugrestrict", $itemsaugrestrict);
+    $body->set("itembagsize", $itembagsize);
+    $body->set("world_containers", $world_containers);
+    $body->set("itembardtype", $itembardtype);
+    $body->set("itempointtype", $itempointtype);
+    $body->set("itemcasttype", $itemcasttype);
+    $body->set("proccasttype", $proccasttype);
+    $body->set("worncasttype", $worncasttype);
+    $body->set("focuscasttype", $focuscasttype);
+    $body->set("scrollcasttype", $scrollcasttype);
+    $body->set("yesno", $yesno);
+    $body->set('newid', get_max_id());
+    $body->set("factions", factions_array());
+    $vars = getdate();
+    if ($vars) {
       foreach ($vars as $key=>$value) {
         $body->set($key, $value);
       }
-     }
-     break;
-  case 9: //Add Item 
-     check_authorization();
-     add_item();
-     $id = $_POST['id'];
-     header("Location: index.php?editor=items&id=$id&action=2");
-     exit;
+    }
+    break;
+  case 9: //Insert Item
+    check_authorization();
+    add_item();
+    $id = $_POST['id'];
+    header("Location: index.php?editor=items&id=$id&action=2");
+    exit;
+  case 10: //Starting Items
+    $body = new Template("templates/items/items.starting.tmpl.php");
+    $breadcrumbs .= " >> Starting Items";
+    $items = get_starting_items();
+    if ($items) {
+      $body->set("items", $items);
+      $body->set("races", $races);
+      $body->set("classes", $classes);
+      $body->set("deities", $deities);
+      $body->set("zones", $zoneids);
+    }
+    break;
+  case 11: //Edit Starting Item
+    $javascript = new Template("templates/items/js.tmpl.php");
+    $body = new Template("templates/items/items.starting.edit.tmpl.php");
+    $breadcrumbs .= " >> <a href='index.php?editor=items&action=10'>Starting Items</a> >> Edit Starting Item";
+    $id = $_GET['id'];
+    $race = $_GET['race'];
+    $item = get_starting_item($id, $race);
+    if ($item) {
+      $body->set("item", $item);
+      $body->set("races", $races);
+      $body->set("classes", $classes);
+      $body->set("deities", $deities);
+      $body->set("zones", $zoneids);
+    }
+    break;
+  case 12: //Update Starting Item
+    check_authorization();
+    update_starting_item();
+    $id = $_POST['id'];
+    $race = $_POST['race'];
+    header("Location: index.php?editor=items&action=10");
+    exit;
+  case 13: //Add Starting Item
+    check_authorization();
+    $javascript = new Template("templates/items/js.tmpl.php");
+    $body = new Template("templates/items/items.starting.add.tmpl.php");
+    $breadcrumbs .= " >> <a href='index.php?editor=items&action=10'>Starting Items</a> >> Add Starting Item";
+    $nextid = next_starting_item_id();
+    $body->set("nextid", $nextid);
+    $body->set("races", $races);
+    $body->set("classes", $classes);
+    $body->set("deities", $deities);
+    $body->set("zones", $zoneids);
+    break;
+  case 14: //Insert Starting Item
+    check_authorization();
+    insert_starting_item();
+    $id = $_POST['id'];
+    $race = $_POST['race'];
+    header("Location: index.php?editor=items&action=10");
+    exit;
+  case 15: //Delete Starting Item
+    check_authorization();
+    delete_starting_item();
+    header("Location: index.php?editor=items&action=10");
+    exit;
 }
 
-function item_info () {
+function item_info() {
   global $mysql;
 
   $id = $_GET['id'];
@@ -220,7 +278,7 @@ function item_info () {
   return $result;
 }
 
-function book_info () {
+function book_info() {
   global $mysql;
 
   $name = $_GET['name'];
@@ -231,7 +289,7 @@ function book_info () {
   return $result;
 }
 
-function update_book () {
+function update_book() {
   global $mysql;
 
   $name = $_POST['name'];
@@ -241,7 +299,7 @@ function update_book () {
   $mysql->query_no_result($query);
 }
 
-function delete_item () {
+function delete_item() {
   global $mysql;
 
   $id = $_GET['id'];
@@ -250,7 +308,7 @@ function delete_item () {
   $mysql->query_no_result($query);
 }
 
-function update_item () {
+function update_item() {
   global $mysql;
 
   $id = $_POST['id'];
@@ -565,7 +623,7 @@ function update_item () {
   }
 }
 
-function copy_item () {
+function copy_item() {
   global $mysql;
 
    $id = $_GET['id'];
@@ -587,7 +645,7 @@ function copy_item () {
    return $newid;
 }
 
-function get_max_id () {
+function get_max_id() {
   global $mysql;
 
   $query = "SELECT max(id) AS iid FROM items"; 
@@ -597,7 +655,7 @@ function get_max_id () {
   return $newid;
 }
 
-function add_item () {
+function add_item() {
   global $mysql;
 
   // Define checkbox fields:
@@ -902,6 +960,87 @@ function add_item () {
   $fields .= "comment=\"" . $_POST['comment'] . "\"";
 
   $query = "INSERT INTO items SET $fields";
+  $mysql->query_no_result($query);
+}
+
+function get_starting_items() {
+  global $mysql;
+
+  $query = "SELECT * FROM starting_items";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function get_starting_item($id, $race) {
+  global $mysql;
+
+  $query = "SELECT * FROM starting_items WHERE id=$id AND race=$race LIMIT 1";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+function update_starting_item() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $race = $_POST['race'];
+  $class = $_POST['class'];
+  $deityid = $_POST['deityid'];
+  $zoneid = $_POST['zoneid'];
+  $itemid = $_POST['itemid'];
+  $item_charges = $_POST['item_charges'];
+  $gm = $_POST['gm'];
+  $slot = $_POST['slot'];
+
+  $query = "UPDATE starting_items SET class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot WHERE id=$id AND race=$race";
+  $mysql->query_no_result($query);
+}
+
+function insert_starting_item() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $race = $_POST['race'];
+  $class = $_POST['class'];
+  $deityid = $_POST['deityid'];
+  $zoneid = $_POST['zoneid'];
+  $itemid = $_POST['itemid'];
+  $item_charges = $_POST['item_charges'];
+  $gm = $_POST['gm'];
+  $slot = $_POST['slot'];
+
+  $query = "INSERT INTO starting_items SET id=$id, race=$race, class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot";
+  $mysql->query_no_result($query);
+}
+
+function next_starting_item_id() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS id FROM starting_items";
+  $result = $mysql->query_assoc($query);
+
+  return $result['id'] + 1;
+}
+
+function delete_starting_item() {
+  global $mysql;
+
+  $id = $_GET['id'];
+  $race = $_GET['race'];
+
+  $query = "DELETE FROM starting_items WHERE id=$id AND race=$race";
   $mysql->query_no_result($query);
 }
 
