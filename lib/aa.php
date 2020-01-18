@@ -98,6 +98,11 @@ switch ($action) {
     header("Location: index.php?editor=aa&aaid=$id");
     exit;
   case 6: //Add AA Rank
+    check_authorization();
+    insert_aa_rank();
+    $id = $_POST['aaid'];
+    header("Location: index.php?editor=aa&aaid=$id");
+    exit;
   case 7: //Insert AA Rank
   case 8: //Add AA Effect
   case 9: //Insert AA Effect
@@ -112,6 +117,11 @@ switch ($action) {
   case 13:
   case 14: //Edit AA Rank
   case 15: //Update AA Rank
+    check_authorization();
+    $id = $_POST['aaid'];
+    update_aa_rank();
+    header("Location: index.php?editor=aa&aaid=$id");
+    exit;
   case 16: //Edit AA Effect
   case 17: //Update AA Effect
   case 18: //Edit Prerequisite AA
@@ -122,6 +132,11 @@ switch ($action) {
     header("Location: index.php?editor=aa");
     exit;
   case 21: //Delete AA Rank
+    check_authorization();
+    delete_aa_rank();
+    $aaid = $_GET['aaid'];
+    header("Location: index.php?editor=aa&aaid=$aaid");
+    exit;
   case 22: //Delete AA Effect
   case 23: //Delete Prerequiste AA
     header("Location: index.php?editor=aa");
@@ -344,10 +359,100 @@ function get_aa_ranks() {
   }
 }
 
+function insert_aa_rank() {
+  global $mysql;
+
+  $aaid = $_POST['aaid'];
+  $id = suggest_rank_id();
+  $upper_hotkey_sid = $id;
+  $lower_hotkey_sid = $id;
+  $title_sid = $id;
+  $desc_sid = $id;
+  $cost = 1;
+  $level_req = 51;
+  $spell = -1;
+  $spell_type = 0;
+  $recast_time = 0;
+  $expansion = 0;
+  $prev_id = $_POST['prev_id'];
+  $next_id = -1;
+
+  $query = "INSERT INTO aa_ranks SET id=$id, upper_hotkey_sid=$upper_hotkey_sid, lower_hotkey_sid=$lower_hotkey_sid, title_sid=$title_sid, desc_sid=$desc_sid, cost=$cost, level_req=$level_req, spell=$spell, spell_type=$spell_type, recast_time=$recast_time, expansion=$expansion, prev_id=$prev_id, next_id=$next_id";
+  $mysql->query_no_result($query);
+
+  if ($prev_id == -1) {
+    $query = "UPDATE aa_ability SET first_rank_id=$id WHERE id=$aaid";
+    $mysql->query_no_result($query);
+  }
+  else if ($prev_id > 0) {
+    $query = "UPDATE aa_ranks SET next_id=$id WHERE id=$prev_id";
+    $mysql->query_no_result($query);
+  }
+}
+
+function update_aa_rank() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $upper_hotkey_sid = $_POST['upper_hotkey_sid'];
+  $lower_hotkey_sid = $_POST['lower_hotkey_sid'];
+  $title_sid = $_POST['title_sid'];
+  $desc_sid = $_POST['desc_sid'];
+  $cost = $_POST['cost'];
+  $level_req = $_POST['level_req'];
+  $spell = $_POST['spell'];
+  $spell_type = $_POST['spell_type'];
+  $recast_time = $_POST['recast_time'];
+  $expansion = $_POST['expansion'] - 1;
+  $prev_id = $_POST['prev_id'];
+  $next_id = $_POST['next_id'];
+
+  $query = "UPDATE aa_ranks SET upper_hotkey_sid=$upper_hotkey_sid, lower_hotkey_sid=$lower_hotkey_sid, title_sid=$title_sid, desc_sid=$desc_sid, cost=$cost, level_req=$level_req, spell=$spell, spell_type=$spell_type, recast_time=$recast_time, expansion=$expansion, prev_id=$prev_id, next_id=$next_id WHERE id=$id";
+  $mysql->query_no_result($query);
+}
+
+function delete_aa_rank() {
+  global $mysql;
+
+  $id = $_GET['rankid'];
+  $aaid = $_GET['aaid'];
+
+  $query = "SELECT first_rank_id FROM aa_ability WHERE id=$aaid";
+  $base = $mysql->query_assoc($query);
+
+  if ($base['first_rank_id'] == $id) {
+    $query = "UPDATE aa_ability SET first_rank_id=-1 WHERE id=$aaid";
+    $mysql->query_no_result($query);
+  }
+
+  $query = "SELECT prev_id FROM aa_ranks WHERE id=$id";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    $previous = $result['prev_id'];
+    if ($previous != -1) {
+      $query = "UPDATE aa_ranks SET next_id=-1 WHERE id=$previous";
+      $mysql->query_no_result($query);
+    }
+  }
+
+  $query = "DELETE FROM aa_ranks WHERE id=$id";
+  $mysql->query_no_result($query);
+}
+
 function suggest_id() {
   global $mysql;
 
   $query = "SELECT MAX(id) AS id FROM aa_ability";
+  $result = $mysql->query_assoc($query);
+
+  return $result['id'] + 1;
+}
+
+function suggest_rank_id() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS id FROM aa_ranks";
   $result = $mysql->query_assoc($query);
 
   return $result['id'] + 1;

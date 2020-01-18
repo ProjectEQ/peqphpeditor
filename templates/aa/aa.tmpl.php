@@ -15,8 +15,8 @@
               <tr>
                 <td>
                   <fieldset>
-                    <form name="base" method="post" action="index.php?editor=aa&aaid=<?=$base['id']?>&action=12">
-                      <legend><strong><font size="4">Base AA Info</font></strong></legend>
+                    <legend><strong><font size="4">Base AA Info</font></strong></legend>
+                    <form name="base" method="POST" action="index.php?editor=aa&aaid=<?=$base['id']?>&action=12">
                       <input name="id" type="hidden" value="<?=$base['id']?>">
                       <table cellpadding="0" cellspacing="0" width="100%">
                         <tr>
@@ -166,9 +166,9 @@
                             </select>
                           </td>
                           <td colspan="2">
-                            <b>First Rank:</b><br>
-                            <select name="first_rank_id">
-                              <option value="0">None</option>
+                            <b>First Rank:</b><?echo ($base['first_rank_id'] != -1 && count($ranks) == 0) ? " <a title='Rank ID defined (". $base['first_rank_id'] . ") but rank data missing'><img src='images/caution.gif' width='13'></a>" : "";?><br>
+                            <select name="first_rank_id"<?echo ($base['first_rank_id'] != -1 && count($ranks) == 0) ? " style='background-color: red;'": "";?>>
+                              <option value="-1">None</option>
 <?
   foreach ($all_ranks as $rank) {
 ?>
@@ -202,10 +202,10 @@
                       </table>
                       <center>
                         <br>
-                        <input type="submit" value="Update Base AA Info" style="width: 150px;">&nbsp;&nbsp;
+                        <input type="submit" value="Update Base AA Info" style="width: 150px;">
                       </center>
                     </form>
-                  </fieldset>
+                  </fieldset><br>
                 </td>
               </tr>
             </table>
@@ -229,81 +229,90 @@ if ($ranks) {
 ?>
                     <fieldset>
                       <legend><strong><font size="2">Rank <?=$count?></font></strong></legend>
-                      <input name="rank<?=$count?>_id" type="hidden" value="<?=$rank['id']?>">
-                      <table cellspacing="0" cellpadding="0" width="100%">
-                        <tr>
-                          <td>
-                            <b>Rank ID:</b><br>
-                            <input type="text" size="8" value="<?=$rank['id']?>" disabled>
-                          </td>
-                          <td>
-                            <b>Upper Hotkey SID:</b><br>
-                            <input name="rank<?=$count?>_upper_hotkey_sid" type="text" size="8" value="<?=$rank['upper_hotkey_sid']?>">
-                          </td>
-                          <td>
-                            <b>Lower Hotkey SID:</b><br>
-                            <input name="rank<?=$count?>_lower_hotkey_sid" type="text" size="8" value="<?=$rank['lower_hotkey_sid']?>">
-                          </td>
-                          <td>
-                            <b>Title SID:</b><br>
-                            <input name="rank<?=$count?>_title_sid" type="text" size="8" value="<?=$rank['title_sid']?>">
-                          </td>
-                          <td>
-                            <b>Desc SID:</b><br>
-                            <input name="rank<?=$count?>_desc_sid" type="text" size="8" value="<?=$rank['desc_sid']?>">
-                          </td>
-                        </tr>
-                        <tr><td colspan="5">&nbsp;</td></tr>
-                        <tr>
-                          <td>
-                            <b>Cost:</b><br>
-                            <input name="rank<?=$count?>_" type="text" size="8" value="<?=$rank['cost']?>">
-                          </td>
-                          <td>
-                            <b>Level Required:</b><br>
-                            <input name="rank<?=$count?>_" type="text" size="8" value="<?=$rank['level_req']?>">
-                          </td>
-                          <td>
-                            <b>Spell:</b><br>
-                            <input name="rank<?=$count?>_" type="text" size="8" value="<?=$rank['spell']?>">
-                          </td>
-                          <td>
-                            <b>Spell Type:</b><br>
-                            <input name="rank<?=$count?>_" type="text" size="8" value="<?=$rank['spell_type']?>">
-                          </td>
-                          <td>
-                            <b>Recast Time:</b><br>
-                            <input name="rank<?=$count?>_" type="text" size="8" value="<?=$rank['recast_time']?>">
-                          </td>
-                        </tr>
-                        <tr><td colspan="5">&nbsp;</td></tr>
-                        <tr>
-                          <td colspan="2">
-                            <b>Expansion:</b><br>
-                            <select name="rank<?=$count?>_">
+<?if ($count == count($ranks)):?>
+                      <div style="float:right;">
+                        <a onClick="return confirm('Really delete this rank?');" href="index.php?editor=aa&aaid=<?=$base['id']?>&rankid=<?=$rank['id']?>&action=21">
+                          <img src="images/remove.gif" border="0" title="Delete this rank">
+                        </a>
+                      </div>
+<?endif;?>
+                      <form name="rank<?=$count?>" method="POST" action="index.php?editor=aa&aaid=<?=$base['id']?>&rankid=<?=$rank['id']?>&action=15">
+                        <table cellspacing="0" cellpadding="0" width="100%">
+                          <tr>
+                            <td>
+                              <b>Rank ID:</b><br>
+                              <input type="text" size="8" value="<?=$rank['id']?>" disabled>
+                            </td>
+                            <td>
+                              <b>Upper Hotkey SID:</b><br>
+                              <input name="upper_hotkey_sid" type="text" size="8" value="<?=$rank['upper_hotkey_sid']?>">
+                            </td>
+                            <td>
+                              <b>Lower Hotkey SID:</b><br>
+                              <input name="lower_hotkey_sid" type="text" size="8" value="<?=$rank['lower_hotkey_sid']?>">
+                            </td>
+                            <td>
+                              <b>Title SID:</b><br>
+                              <input name="title_sid" type="text" size="8" value="<?=$rank['title_sid']?>">
+                            </td>
+                            <td>
+                              <b>Desc SID:</b><br>
+                              <input name="desc_sid" type="text" size="8" value="<?=$rank['desc_sid']?>">
+                            </td>
+                          </tr>
+                          <tr><td colspan="5">&nbsp;</td></tr>
+                          <tr>
+                            <td>
+                              <b>Cost:</b><br>
+                              <input name="cost" type="text" size="8" value="<?=$rank['cost']?>">
+                            </td>
+                            <td>
+                              <b>Level Required:</b><br>
+                              <input name="level_req" type="text" size="8" value="<?=$rank['level_req']?>">
+                            </td>
+                            <td>
+                              <b>Spell:</b><br>
+                              <input name="spell" type="text" size="8" value="<?=$rank['spell']?>">
+                            </td>
+                            <td>
+                              <b>Spell Type:</b><br>
+                              <input name="spell_type" type="text" size="8" value="<?=$rank['spell_type']?>">
+                            </td>
+                            <td>
+                              <b>Recast Time:</b><br>
+                              <input name="recast_time" type="text" size="8" value="<?=$rank['recast_time']?>">
+                            </td>
+                          </tr>
+                          <tr><td colspan="5">&nbsp;</td></tr>
+                          <tr>
+                            <td colspan="2">
+                              <b>Expansion:</b><br>
+                              <select name="expansion">
 <?
   foreach ($eqexpansions as $k => $v) {
 ?>
-                              <option value="<?=$k?>"<?echo ($rank['expansion'] + 1 == $k) ? " selected" : "";?>><?=$v?></option>
+                                <option value="<?=$k?>"<?echo ($rank['expansion'] + 1 == $k) ? " selected" : "";?>><?=$v?></option>
 <?
   }
 ?>
-                          </td>
-                          <td>
-                            <b>Previous ID:</b><br>
-                            <input name="rank<?=$count?>_" type="text" size="8" value="<?=$rank['prev_id'];?>">
-                          </td>
-                          <td>
-                            <b>Next ID:</b><br>
-                            <input name="rank<?=$count?>_" type="text" size="8" value="<?=$rank['next_id'];?>">
-                          </td>
-                        </tr>
-                      </table>
-                      <center>
-                        <br>
-                        <input type="button" value="Update Rank" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">&nbsp;&nbsp;
-                        <input type="button" value="Delete Rank" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">&nbsp;&nbsp;
-                      </center>
+                            </td>
+                            <td>
+                              <b>Previous ID:</b><?echo ($count == 1 && $rank['prev_id'] != -1) ? " <a title='First rank should have -1 as the previous rank id'><img src='images/caution.gif' width='13'></a>" : "";?><br>
+                              <input name="prev_id" type="text" size="8" value="<?=$rank['prev_id'];?>"<?echo ($count == 1 && $rank['prev_id'] != -1) ? " style='background-color: red;'" : "";?>>
+                            </td>
+                            <td>
+                              <b>Next ID:</b><?echo ($count == count($ranks) && $rank['next_id'] != -1) ? " <a title='Next rank defined but rank data missing - last rank should be -1'><img src='images/caution.gif' width='13'></a>" : "";?><br>
+                              <input name="next_id" type="text" size="8" value="<?=$rank['next_id'];?>"<?echo ($count == count($ranks) && $rank['next_id'] != -1) ? " style='background-color: red;'" : "";?>>
+                            </td>
+                          </tr>
+                        </table>
+                        <center>
+                          <br>
+                          <input type="hidden" name="id" value="<?=$rank['id']?>">
+                          <input type="hidden" name="aaid" value="<?=$base['id']?>">
+                          <input type="submit" value="Update Rank (<?=$count?>)" style="width: 150px;">
+                        </center>
+                      </form>
                     </fieldset><br>
 <?
     $count++;
@@ -318,9 +327,13 @@ else {
 }
 ?>
                     <center>
-                      <input type="button" value="New Rank" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">
+                      <form name="new_aa_rank" method="POST" action="index.php?editor=aa&aaid=<?=$base['id']?>&prev_id=<?echo (count($ranks) > 0) ? end($ranks)['id'] : -1;?>&action=6">
+                        <input type="hidden" name="aaid" value="<?=$base['id']?>">
+                        <input type="hidden" name="prev_id" value="<?echo (count($ranks) > 0) ? end($ranks)['id'] : -1;?>">
+                        <input type="submit" value="New Rank (<?echo count($ranks) + 1;?>)" style="width: 150px;">
+                      </form>
                     </center>
-                  </fieldset>
+                  </fieldset><br>
                 </td>
               </tr>
             </table>
@@ -375,7 +388,7 @@ if ($effects) {
                         <input type="button" value="Reset Values" style="width: 150px;" onClick="window.location.reload();"><br><br>
                         <input type="button" value="New Effect" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">
                       </center>
-                    </fieldset>
+                    </fieldset><br>
 <?
     }
   }
@@ -386,7 +399,7 @@ else {
 <?
 }
 ?>
-                  </fieldset>
+                  </fieldset><br>
                 </td>
               </tr>
             </table>
@@ -434,15 +447,14 @@ if ($prereqs) {
                         <input type="button" value="Delete Prerequisite" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">&nbsp;&nbsp;
                         <input type="button" value="Reset Values" style="width: 150px;" onClick="window.location.reload();">
                       </center>
-                    </fieldset>
+                    </fieldset><br>
 <?
   }
 ?>
                     <center>
-                      <br>
-                        <input type="button" value="New Prerequisite" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">
+                      <input type="button" value="New Prerequisite" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">
                     </center>
-                  </fieldset>
+                  </fieldset><br>
                 </td>
               </tr>
             </table>
