@@ -364,10 +364,10 @@ function insert_aa_rank() {
 
   $aaid = $_POST['aaid'];
   $id = suggest_rank_id();
-  $upper_hotkey_sid = $id;
-  $lower_hotkey_sid = $id;
-  $title_sid = $id;
-  $desc_sid = $id;
+  $upper_hotkey_sid = -1;
+  $lower_hotkey_sid = -1;
+  $title_sid = -1;
+  $desc_sid = -1;
   $cost = 1;
   $level_req = 51;
   $spell = -1;
