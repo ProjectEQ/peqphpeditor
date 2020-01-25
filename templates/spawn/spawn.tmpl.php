@@ -91,6 +91,18 @@
           </tr>
         </table>
       </div>
+      <div class="table_header">
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="25%">
+              wp_spawns: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$wp_spawns?></a>
+            </td>
+            <td width="25%">&nbsp;</td>
+            <td width="25%">&nbsp;</td>
+            <td width="25%">&nbsp;</td>
+          </tr>
+        </table>
+      </div>
 <?if($npcs != ''):?>
       <div class="table_content2" style="padding: 0px;">
         <table width="100%" cellspacing="0">

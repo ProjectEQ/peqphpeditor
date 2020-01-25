@@ -1,4 +1,4 @@
-  <div class="edit_form" style="width: 500px">
+  <div class="edit_form" style="width: 600px">
     <div class="edit_form_header">
       Add a Grid Entry <?=$pathgrid?>       
     </div>
@@ -12,6 +12,7 @@
             <th>Z:</th>
             <th>Heading:</th>
             <th>Pause:</th>
+            <th>Centerpoint:</th>
           </tr>
           <tr>
             <td><input type="text" size="7" name="number" value="<?=$suggestednum?>"></td>
@@ -20,12 +21,14 @@
             <td><input type="text" size="7" name="z_coord" value="<?echo ($z_coord) ? $z_coord : 0;?>"></td>
             <td><input type="text" size="7" name="heading" value="<?echo ($heading) ? $heading : -1;?>"></td>
             <td><input type="text" size="7" name="pause" value="<?echo ($pause) ? $pause : 0;?>"></td>
+            <td><input type="text" size="7" name="centerpoint" value="<?echo ($centerpoint) ? $centerpoint : 0;?>"></td>
           </tr>
         </table><br><br>
         <center>
           <input type="hidden" name="pathgrid" value="<?=$pathgrid?>">
           <input type="hidden" name="zoneid" value="<?=$zid?>">
-          <input type="submit" value="Submit Changes">
+          <input type="submit" value="Submit Changes">&nbsp;&nbsp;
+          <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </form>
     </div>
