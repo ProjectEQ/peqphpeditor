@@ -9,7 +9,8 @@
     <div class="table_content">
       <table width="100%" cellpadding="3" cellspacing="0" border="0">
         <tr>
-          <td colspan="2"><strong>Enabled:</strong> <?echo $yesno[$global_loot['enabled']]?></td>
+          <td><strong>Enabled:</strong> <?echo $yesno[$global_loot['enabled']]?></td>
+          <td><strong>Hot Zone:</strong> <?echo ($global_loot['hot_zone'] == 0) ? "No" : "Yes";?></td>
           <td colspan="2"><strong>Min Level:</strong>  <?=$global_loot['min_level']?></td>
           <td colspan="2"><strong>Max Level:</strong> <?=$global_loot['max_level']?></td>
         </tr>

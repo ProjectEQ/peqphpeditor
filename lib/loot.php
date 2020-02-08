@@ -1138,8 +1138,9 @@ function insert_global_loot() {
   $class = $_POST['class'];
   $bodytype = $_POST['bodytype'];
   $zone = $_POST['zone'];
+  $hot_zone = $_POST['hot_zone'];
 
-  $query = "INSERT INTO global_loot SET id=$id, description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL";
+  $query = "INSERT INTO global_loot SET id=$id, description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL, hot_zone=$hot_zone";
   $mysql->query_no_result($query);
 
   if ($rare != "") {
@@ -1189,8 +1190,9 @@ function update_global_loot() {
   $class = $_POST['class'];
   $bodytype = $_POST['bodytype'];
   $zone = $_POST['zone'];
+  $hot_zone = $_POST['hot_zone'];
 
-  $query = "UPDATE global_loot SET description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL WHERE id=$id";
+  $query = "UPDATE global_loot SET description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL, hot_zone=$hot_zone WHERE id=$id";
   $mysql->query_no_result($query);
 
   if ($rare != "") {

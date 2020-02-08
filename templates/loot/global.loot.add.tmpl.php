@@ -56,11 +56,18 @@
               <strong>Description:</strong><br>
               <input type="text" size="50" name="description" value="">
             </td>
-            <td colspan="2">
+            <td>
               <strong>Enabled:</strong><br>
               <select name="enabled" style="width: 80px;">
                 <option value="0">No</option>
                 <option value="1" selected>Yes</option>
+              </select>
+            </td>
+            <td>
+              <strong>Hot Zone:</strong><br>
+              <select name="hot_zone" style="width: 80px;">
+                <option value="0" selected>No</option>
+                <option value="1">Yes</option>
               </select>
             </td>
           </tr>
