@@ -165,7 +165,7 @@
                               <option value="1"<?echo ($base['enabled'] == 1) ? " selected" : "";?>>Yes</option>
                             </select>
                           </td>
-                          <td colspan="2">
+                          <td>
                             <b>First Rank:</b><?echo ($base['first_rank_id'] != -1 && count($ranks) == 0) ? " <a title='Rank ID defined (". $base['first_rank_id'] . ") but rank data missing'><img src='images/caution.gif' width='13'></a>" : "";?><br>
                             <select name="first_rank_id"<?echo ($base['first_rank_id'] != -1 && count($ranks) == 0) ? " style='background-color: red;'": "";?>>
                               <option value="-1">None</option>
@@ -197,6 +197,13 @@
                           <td>
                             <b>Drakkin Heritage:</b><br>
                             <input name="drakkin_heritage" type="text" size="3" value="<?=$base['drakkin_heritage']?>">
+                          </td>
+                          <td>
+                            <b>Reset on Death:</b><br>
+                            <select name="reset_on_death">
+                              <option value="0"<?echo ($base['reset_on_death'] == 0) ? " selected" : "";?>>No</option>
+                              <option value="1"<?echo ($base['reset_on_death'] == 1) ? " selected" : "";?>>Yes</option>
+                            </select>
                           </td>
                         </tr>
                       </table>
@@ -356,38 +363,39 @@ if ($effects) {
     foreach ($effect as $effect_detail) {
 ?>
                     <fieldset>
-                      <legend><strong><font size="2">Rank <?=$effect_detail['rank_id']?> - Slot <?=$effect_detail['slot']?></font></strong></legend>
-                      <table cellspacing="0" cellpadding="0" width="100%">
-                        <tr>
-                          <td>
-                            <b>Effect:</b><br>
-                            <select name="effect_<?=$count?>_slot_<?=$effect_detail['slot']?>">
+                      <legend><strong><font size="2">Rank (<?=$effect_detail['rank_id']?>) - Slot <?=$effect_detail['slot']?></font></strong></legend>
+                      <form name="effect<?=$effect_detail['rank_id']?>" method="POST" action="index.php?editor=aa&aaid=<?=$base['id']?>&rankid=<?=$effect_detail['rank_id']?>&slot=<?=$effect_detail['slot']?>&action=17">
+                        <table cellspacing="0" cellpadding="0" width="100%">
+                          <tr>
+                            <td>
+                              <b>Effect:</b><br>
+                              <select name="effect_id">
 <?
       foreach ($sp_effects as $k => $v) {
 ?>
-                              <option value="<?=$k?>"<?echo ($k == $effect_detail['effect_id']) ? " selected" : "";?>><?=$k?> - <?=$v?></option>
+                                <option value="<?=$k?>"<?echo ($k == $effect_detail['effect_id']) ? " selected" : "";?>><?=$k?> - <?=$v?></option>
 <?
       }
 ?>
-                            </select>
-                          </td>
-                          <td>
-                            <b>Base 1:</b><br>
-                            <input name="effect_<?=$count?>_slot_<?=$effect_detail['slot']?>_base1" type="text" value="<?=$effect_detail['base1']?>">
-                          </td>
-                          <td>
-                            <b>Base 2:</b><br>
-                            <input name="effect_<?=$count?>_slot_<?=$effect_detail['slot']?>_base2" type="text" value="<?=$effect_detail['base2']?>">
-                          </td>
-                        </tr>
-                      </table>
-                      <center>
-                        <br>
-                        <input type="button" value="Update Effect" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">&nbsp;&nbsp;
-                        <input type="button" value="Delete Effect" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">&nbsp;&nbsp;
-                        <input type="button" value="Reset Values" style="width: 150px;" onClick="window.location.reload();"><br><br>
-                        <input type="button" value="New Effect" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">
-                      </center>
+                              </select>
+                            </td>
+                            <td>
+                              <b>Base 1:</b><br>
+                              <input name="base1" type="text" value="<?=$effect_detail['base1']?>">
+                            </td>
+                            <td>
+                              <b>Base 2:</b><br>
+                              <input name="base2" type="text" value="<?=$effect_detail['base2']?>">
+                            </td>
+                          </tr>
+                        </table>
+                        <center>
+                          <br>
+                          <input type="hidden" name="rank_id" value="<?=$effect_detail['rank_id']?>">
+                          <input type="hidden" name="slot" value="<?=$effect_detail['slot']?>">
+                          <input type="submit" value="Update Effect (<?=$effect_detail['rank_id']?>) - Slot <?=$effect_detail['slot']?>">
+                        </center>
+                      </form>
                     </fieldset><br>
 <?
     }

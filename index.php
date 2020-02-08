@@ -1,6 +1,7 @@
 <?php
 
-$current_revision = "25 January 2020";
+$current_revision = "8 February 2020";
+$current_db_version = 9150;
 
 require_once("config.php");
 require_once("lib/logging.php");
@@ -48,6 +49,7 @@ switch ($editor) {
   case '':
     $body = new Template("templates/intro.tmpl.php");
     $body->set('current_revision', $current_revision);
+    $body->set('current_db_version', $current_db_version);
     break;
   case 'loot':
     require_once('lib/loot.php');

@@ -16,3 +16,29 @@ if ($php_version[0] < 7):
     </table>
   </div>
 <? endif; ?>
+
+<?
+if (isset($current_db_version) && $current_db_version > 0) {
+  global $mysql;
+
+  $query = "SELECT version FROM db_version LIMIT 1";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    $local_db_version = $result['version'];
+    if ($local_db_version != $current_db_version):
+?>
+  <div class="error">
+    <table width="100%">
+      <tr>
+        <td valign="middle" width="30px"><img src="images/caution.gif"></td>
+        <td style="padding:0px 5px; font-size:10px;">Your database schema (<?=$local_db_version?>) does not match the current binary database version (<?=$current_db_version?>). You may experience errors or inaccurate data if you continue.</td>
+      </tr>
+    </table>
+  </div>
+
+<?
+    endif;
+  }
+}
+?>
