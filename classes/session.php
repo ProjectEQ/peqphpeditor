@@ -24,7 +24,7 @@ class session {
     }
     else {
       $_SESSION['error'] = 1;
-      logSQL("Invalid login attempt. Bad password from IP: '" . getIP() . "'. Username: '$login' Password: '$pw'.");
+      logSQL("Invalid login attempt. Bad password from IP: '" . getIP() . "'. Username: '$login' Password: '*****'.");
     }
   }
   
