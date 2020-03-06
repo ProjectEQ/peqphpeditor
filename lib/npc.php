@@ -1399,6 +1399,7 @@ function update_npc() {
   if ($stuck_behavior != $_POST['stuck_behavior']) $fields .= "stuck_behavior=\"" . $_POST['stuck_behavior'] . "\", ";
   if ($model != $_POST['model']) $fields .= "model=\"" . $_POST['model'] . "\", ";
   if ($flymode != $_POST['flymode']) $fields .= "flymode=\"" . $_POST['flymode'] . "\", ";
+  if ($always_aggro != $_POST['always_aggro']) $fields .= "always_aggro=\"" . $_POST['always_aggro'] . "\", ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -1552,7 +1553,8 @@ function add_npc() {
   $fields .= "rare_spawn=\"" .$_POST['rare_spawn'] . "\", ";
   $fields .= "stuck_behavior=\"" .$_POST['stuck_behavior'] . "\", ";
   $fields .= "model=\"" .$_POST['model'] . "\", ";
-  $fields .= "flymode=\"" .$_POST['flymode'] . "\"";
+  $fields .= "flymode=\"" .$_POST['flymode'] . "\", ";
+  $fields .= "always_aggro=\"" .$_POST['always_aggro'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1685,7 +1687,8 @@ function copy_npc() {
   $fields .= "rare_spawn=\"" . $_POST['rare_spawn'] . "\", ";
   $fields .= "stuck_behavior=\"" . $_POST['stuck_behavior'] . "\", ";
   $fields .= "model=\"" . $_POST['model'] . "\", ";
-  $fields .= "flymode=\"" . $_POST['flymode'] . "\"";
+  $fields .= "flymode=\"" . $_POST['flymode'] . "\", ";
+  $fields .= "always_aggro=\"" . $_POST['always_aggro'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";

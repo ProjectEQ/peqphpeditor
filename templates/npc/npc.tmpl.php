@@ -226,7 +226,7 @@ if ($loottable_id > 0) {
                   </tr>
                   <tr>
                     <td align="left" width="33%">Aggro: <?=$aggroradius?></td>
-                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="33%">Always Aggro: <?=$always_aggro?></td>
 <?
   $new_special_abilities = '';
     for ($i = 1; $i <= $special_abilities_max; $i++){

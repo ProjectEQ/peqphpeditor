@@ -35,7 +35,7 @@
                     Shared Platinum: <?=$sharedplat?><br>
                     Minilogin IP: <?=$minilogin_ip?><br>
                     Suspended: <?echo ($suspendeduntil > 0) ? $suspendeduntil : "N/A";?><br>
-                    Suspend Reason <?echo ($suspend_reason != "") ? $suspend_reason : "N/A";?><br>
+                    Suspend Reason: <?echo ($suspend_reason != "") ? $suspend_reason : "N/A";?><br>
                     Ban Reason: <?echo ($ban_reason != "") ? $ban_reason : "N/A";?><br>
                     Account Created: <?=get_real_time($time_creation)?>
                   </fieldset>
