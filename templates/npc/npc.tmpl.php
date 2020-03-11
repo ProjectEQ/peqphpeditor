@@ -443,6 +443,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="stuck_behavior" value="<?=$stuck_behavior?>">
         <input type="hidden" name="model" value="<?=$model?>">
         <input type="hidden" name="flymode" value="<?=$flymode?>">
+        <input type="hidden" name="always_aggro" value="<?=$always_aggro?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">
