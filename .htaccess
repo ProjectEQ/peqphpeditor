@@ -1,25 +1,5 @@
-#Starting in Apache 2.4, they changed methods for allow/deny. To be certain of proper function, comment/uncomment the proper lines. Apache 2.2 is now deprecated so defaulting to Apache 2.4.
-#See http://httpd.apache.org/docs/2.4/upgrading.html#access for more information
-
 Options -Indexes
 
-#Apache 2.2 and earlier
-#<Files ~ "\.(php|sql)$">
-#  Order deny,allow
-#  Deny from all
-#</Files>
-
-#<Files index.php>
-#  Order allow,deny
-#  Allow from all
-#</Files>
-
-#<Files aasearch.php>
-#  Order allow,deny
-#  Allow from all
-#</Files>
-
-#Apache 2.4 and later
 <Files ~ "\.(php|sql)$">
   Require all denied
 </Files>

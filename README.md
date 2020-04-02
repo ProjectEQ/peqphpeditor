@@ -1,4 +1,4 @@
-## PHP Peq Editor
+## PHP PEQ Editor
 
 #### IMPORTANT NOTE: Apache 2.2 and PHP 5.6 and earlier are deprecated. Support for these versions is no longer provided and all references will be removed in future updates.
 
@@ -10,7 +10,7 @@
 *For more help on getting Apache, PHP, or the Editor itself set up, visit us on Discord at https://discord.gg/SrbZrus*
 
 For Linux users, note the following.
-* Permissions: If you choose to store these files outside of your normal directory, ensure your symbolic link and physical folder have the same permissions. (Recommend 755 for folders and 644 for files)
+* Permissions: If you choose to store these files outside of your normal html directory, ensure your symbolic link and physical folder have the same permissions. (Recommend 755 for folders and 644 for files)
 * AutoUpdate: You can set the AutoUpdate file with the execute flag and run to pull the latest from git and fix permissions if any were changed.
 
 ### Installation
@@ -25,10 +25,8 @@ For Linux users, note the following.
 
 5) Rename config.php.dist as config.php.  Then, open up config.php and edit the variables according to your database and needs.
 
-6) Edit your .htaccess files in the editor root directory and the templates/iframes directory as needed to match your Apache version.
+6) The default username/password for the editor is admin/password.  If you want to add a user other than the default user, you can do so via the "admin" link, by the "logout" link, after you log in.
 
-7) The default username/password for the editor is admin/password.  If you want to add a user other than the default user, you can do so via the "admin" link, by the "logout" link, after you log in.
-
-8) Open up index.php in your web browser and have fun!
+7) Open up index.php in your web browser and have fun!
 
 

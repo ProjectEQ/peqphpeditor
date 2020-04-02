@@ -8,7 +8,7 @@ class Template {
      *
      * @param $file string the file name you want to load
      */
-    function Template($file = null) {
+    function __construct($file = null) {
         $this->file = $file;
     }
 
