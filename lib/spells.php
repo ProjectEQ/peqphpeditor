@@ -248,7 +248,9 @@ function update_spell() {
   $fields = '';
   foreach(array_keys($vars) as $f) {
     //Put field name in backticks to avoid conflicts with columns named for sql functions (like range)
-    if($vars[$f] != stripslashes($_POST[$f]) and isset($_POST[$f])) { $fields .= "`$f` = \"$_POST[$f]\", "; }
+    if(isset($_POST[$f]) && ($vars[$f] != stripslashes($_POST[$f]))) {
+      $fields .= "`$f` = \"$_POST[$f]\", ";
+    }
   }
   $fields =  rtrim($fields, ", ");
 
