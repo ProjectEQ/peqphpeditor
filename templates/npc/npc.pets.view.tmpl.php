@@ -18,7 +18,7 @@ foreach($pets as $pet):?>
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
         <td align="center" width="50%"><a href="index.php?editor=npc&npcid=<?=$pet['npcID']?>&action=56"><?=$pet['type']?></a></td>
         <td align="center" width="20%"><?=$pet['petpower']?></td>
-        <td align="center" width="30%"><a href="index.php?editor=npc&npcid=<?=$pet['npcID']?>"><?=$pet['npcID']?></td>
+        <td align="center" width="30%"><a href="index.php?editor=npc&npcid=<?=$pet['npcID']?>"><?=$pet['npcID']?></a></td>
       </tr>
 <?$x++;
 endforeach;

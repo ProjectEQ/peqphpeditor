@@ -16,9 +16,10 @@
                   Title:    <br><input type="text" name="lastname" size="40" value=""><br><br>
                   Level:    <br><input type="text" name="level" size="10" value="<?=$level?>"><br><br>
                   Max Level:<br><input type="text" name="maxlevel" size="10" value="0"><br><br>
-                  <td valign="top">
+                </td>
+                <td valign="top">
                     Race:<br>
-                    <select name="race" style="width: 265px;">
+                    <select name="race" style="width: 265px;" onChange="raceCheck();">
 <?foreach($races as $key=>$value):?>
                       <option value="<?=$key?>"<?echo ($key == 1)? " selected" : "";?>><?=$key?>: <?=$value?></option>
 <?endforeach;?>
@@ -41,7 +42,6 @@
                       <option value="<?=$key?>"><?=$value?></option>
 <?endforeach;?>
                     </select>
-                  </td>
                 </td>
               </tr>
             </table>
@@ -177,8 +177,8 @@
                   AE Rampage (4):<br><input type="text" name="4" size="10"><br>
                   Flurry (5):<br><input type="text" name="5" size="10"><br>
                   Tunnel Vision (29):<br><input type="text" name="29" size="10"><br>
-                  Leashed (32):<br><input type="text" name="32" size="10"><br>
-                  Tethered (33):<br><input type="text" name="33" size="10"><br>
+                  Leashed (32):<br><input type="text" name="32" size="10" onChange="tetherCheck();"><br>
+                  Tethered (33):<br><input type="text" name="33" size="10" onChange="tetherCheck();"><br>
                   Flee Percent (37):<br><input type="text" name="37" size="10"><br>
                   Chase Distance (40):<br><input type="text" name="40" size="10"><br>
                   Casting Resist Diff (43):<br><input type="text" name="43" size="10"><br>
@@ -330,8 +330,8 @@
               <tr>
                 <td valign="top" align="left">
                   <input type="checkbox" name="qglobal" value="1"> Enable Quest Globals<br>
-                  <input type="checkbox" name="findable" value="1"> NPC is Findable<br>
-                  <input type="checkbox" name="trackable" value="1" checked/> NPC is Trackable<br>
+                  <input type="checkbox" name="findable" value="1" onChange="raceCheck();"> NPC is Findable<br>
+                  <input type="checkbox" name="trackable" value="1" checked onChange="raceCheck();"> NPC is Trackable<br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="pet" value="1"> NPC is a Pet<br>
