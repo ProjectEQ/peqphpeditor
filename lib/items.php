@@ -264,57 +264,57 @@ switch ($action) {
 }
 
 function item_info() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_GET['id'];
 
   $query = "SELECT Name AS itemname FROM items WHERE id=$id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   $query = "SELECT * FROM items WHERE id=$id";
-  $result2 = $mysql->query_assoc($query);
+  $result2 = $mysql_content_db->query_assoc($query);
 
   $result = $result+$result2;
   return $result;
 }
 
 function book_info() {
-  global $mysql;
+  global $mysql_content_db;
 
   $name = $_GET['name'];
 
   $query = "SELECT * FROM books WHERE name=\"$name\"";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result;
 }
 
 function update_book() {
-  global $mysql;
+  global $mysql_content_db;
 
   $name = $_POST['name'];
   $txtfile = $_POST['txtfile'];
 
   $query = "REPLACE INTO books SET txtfile=\"$txtfile\", name=\"$name\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_item() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_GET['id'];
 
   $query = "DELETE FROM items WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function update_item() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
 
   $query = "SELECT * FROM items WHERE id=$id";
-  $item = $mysql->query_assoc($query);
+  $item = $mysql_content_db->query_assoc($query);
 
   // Define checkbox fields:
   $slots = 0;
@@ -619,44 +619,44 @@ function update_item() {
 
   if ($fields != '') {
     $query = "UPDATE items SET $fields WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 }
 
 function copy_item() {
-  global $mysql;
+  global $mysql_content_db;
 
    $id = $_GET['id'];
    
-   $query = "DELETE FROM items where id=0";
-   $mysql->query_no_result($query);
+   $query = "DELETE FROM items WHERE id=0";
+   $mysql_content_db->query_no_result($query);
 
    $query2 = "INSERT INTO items (minstatus, Name, aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, skillmodmax, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evolvinglevel, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4,bardunk5, bardname, bardunk7, UNK214)
-              SELECT minstatus, concat(Name, ' - Copy'), aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, skillmodmax, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evolvinglevel, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4, bardunk5, bardname, bardunk7, UNK214 FROM items where id=$id";
-   $mysql->query_no_result($query2);
+              SELECT minstatus, concat(Name, ' - Copy'), aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, skillmodmax, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evolvinglevel, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4, bardunk5, bardname, bardunk7, UNK214 FROM items WHERE id=$id";
+   $mysql_content_db->query_no_result($query2);
 
-   $query3 = "SELECT max(id) AS iid FROM items"; 
-   $result = $mysql->query_assoc($query3);
+   $query3 = "SELECT MAX(id) AS iid FROM items"; 
+   $result = $mysql_content_db->query_assoc($query3);
    $newid = $result['iid'] + 1;
 
-   $query4 = "UPDATE items set id=$newid WHERE id=0";
-   $mysql->query_no_result($query4);
+   $query4 = "UPDATE items SET id=$newid WHERE id=0";
+   $mysql_content_db->query_no_result($query4);
 
    return $newid;
 }
 
 function get_max_id() {
-  global $mysql;
+  global $mysql_content_db;
 
-  $query = "SELECT max(id) AS iid FROM items"; 
-  $result = $mysql->query_assoc($query);
+  $query = "SELECT MAX(id) AS iid FROM items"; 
+  $result = $mysql_content_db->query_assoc($query);
   $newid = $result['iid'] + 1;
 
   return $newid;
 }
 
 function add_item() {
-  global $mysql;
+  global $mysql_content_db;
 
   // Define checkbox fields:
   $slots = 0;
@@ -960,14 +960,14 @@ function add_item() {
   $fields .= "comment=\"" . $_POST['comment'] . "\"";
 
   $query = "INSERT INTO items SET $fields";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function get_starting_items() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM starting_items";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   if ($results) {
     return $results;
@@ -978,10 +978,10 @@ function get_starting_items() {
 }
 
 function get_starting_item($id, $race) {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM starting_items WHERE id=$id AND race=$race LIMIT 1";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   if ($result) {
     return $result;
@@ -992,7 +992,7 @@ function get_starting_item($id, $race) {
 }
 
 function update_starting_item() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $race = $_POST['race'];
@@ -1005,11 +1005,11 @@ function update_starting_item() {
   $slot = $_POST['slot'];
 
   $query = "UPDATE starting_items SET class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot WHERE id=$id AND race=$race";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function insert_starting_item() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $race = $_POST['race'];
@@ -1022,26 +1022,26 @@ function insert_starting_item() {
   $slot = $_POST['slot'];
 
   $query = "INSERT INTO starting_items SET id=$id, race=$race, class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function next_starting_item_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS id FROM starting_items";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result['id'] + 1;
 }
 
 function delete_starting_item() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_GET['id'];
   $race = $_GET['race'];
 
   $query = "DELETE FROM starting_items WHERE id=$id AND race=$race";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 ?>

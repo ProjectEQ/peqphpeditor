@@ -131,10 +131,10 @@ switch($action) {
 }
 
 function getAuras() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT type, npc_type, name FROM auras";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   if ($results) {
     return $results;
@@ -145,11 +145,11 @@ function getAuras() {
 }
 
 function getAura() {
-  global $mysql;
+  global $mysql_content_db;
   $type = $_GET['type'];
 
   $query = "SELECT * FROM auras WHERE type=$type";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   if ($result) {
     return $result;
@@ -160,7 +160,7 @@ function getAura() {
 }
 
 function auraInsert() {
-  global $mysql;
+  global $mysql_content_db;
   $type = $_POST['type'];
   $npc_type = $_POST['npc_type'];
   $name = $_POST['name'];
@@ -174,11 +174,11 @@ function auraInsert() {
   $cast_time = $_POST['cast_time'];
 
   $query = "INSERT INTO auras (type, npc_type, name, spell_id, distance, aura_type, spawn_type, movement, duration, icon, cast_time) VALUES ($type, $npc_type, \"$name\", $spell_id, $distance, $aura_type, $spawn_type, $movement, $duration, $icon, $cast_time)";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function auraUpdate() {
-  global $mysql;
+  global $mysql_content_db;
   $old_type = $_POST['old_type'];
   $type = $_POST['type'];
   $npc_type = $_POST['npc_type'];
@@ -193,23 +193,23 @@ function auraUpdate() {
   $cast_time = $_POST['cast_time'];
 
   $query = "UPDATE auras SET type=$type, npc_type=$npc_type, name=\"$name\", spell_id=$spell_id, distance=$distance, aura_type=$aura_type, spawn_type=$spawn_type, movement=$movement, duration=$duration, icon=$icon, cast_time=$cast_time WHERE type=$old_type";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function auraDelete() {
-  global $mysql;
+  global $mysql_content_db;
   $type = $_GET['type'];
 
   $query = "DELETE FROM auras WHERE type=$type";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function searchByName() {
-  global $mysql;
+  global $mysql_content_db;
   $search = $_GET['name'];
 
   $query = "SELECT type, name FROM auras WHERE name RLIKE \"$search\" ORDER BY type";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   if ($results) {
     return $results;
@@ -220,11 +220,11 @@ function searchByName() {
 }
 
 function searchByNPC() {
-  global $mysql;
+  global $mysql_content_db;
   $search = $_GET['npc'];
 
   $query = "SELECT type, name FROM auras WHERE npc_type=$search ORDER BY type";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   if ($results) {
     return $results;
@@ -235,11 +235,11 @@ function searchByNPC() {
 }
 
 function searchBySpell() {
-  global $mysql;
+  global $mysql_content_db;
   $search = $_GET['spell'];
 
   $query = "SELECT type, name FROM auras WHERE spell_id=$search ORDER BY type";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   if ($results) {
     return $results;

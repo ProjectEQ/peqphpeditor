@@ -20,7 +20,7 @@ switch ($action) {
       $filter = build_filter();
     }
     $body = new Template("templates/databuckets/databuckets.tmpl.php");
-    $page_stats = getPageInfo("data_buckets", $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
+    $page_stats = getPageInfo("data_buckets", FALSE, $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
     if ($filter) {
       $body->set('filter', $filter);
     }
@@ -100,7 +100,7 @@ function get_databuckets($page_number, $results_per_page, $sort_by, $where = "")
 function view_databucket($id, $key, $value, $expires) {
   global $mysql;
 
-  $query = "SELECT * FROM data_buckets WHERE id = \"$id\" AND `key` = \"$key\" AND value = \"$value\" AND expires = \"$expires\"";
+  $query = "SELECT * FROM data_buckets WHERE id=\"$id\" AND `key`=\"$key\" AND value=\"$value\" AND expires=\"$expires\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -140,7 +140,7 @@ function update_databucket() {
 
   $fields =  rtrim($fields, ", ");
   if ($fields != '') {
-    $query = "UPDATE data_buckets SET $fields WHERE id = \"$old_id\" AND `key` = \"$old_key\" AND value = \"$old_value\" AND expires = \"$old_expires\"";
+    $query = "UPDATE data_buckets SET $fields WHERE id=\"$old_id\" AND `key`=\"$old_key\" AND value=\"$old_value\" AND expires=\"$old_expires\"";
     $mysql->query_no_result($query);
   }
 }
@@ -152,7 +152,7 @@ function delete_databucket() {
   $value = $_GET['value'];
   $expires = $_GET['expires'];
 
-  $query = "DELETE FROM data_buckets WHERE id = \"$id\" AND `key` = \"$key\" AND value = \"$value\" AND expires = \"$expires\"";
+  $query = "DELETE FROM data_buckets WHERE id=\"$id\" AND `key`=\"$key\" AND value=\"$value\" AND expires=\"$expires\"";
   $mysql->query_no_result($query);
 }
 

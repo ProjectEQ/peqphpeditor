@@ -49,7 +49,7 @@ switch ($action) {
       $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
       $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
       $body = new Template("templates/player/player.default.tmpl.php");
-      $page_stats = getPageInfo("character_data", $curr_page, $curr_size, $_GET['sort']);
+      $page_stats = getPageInfo("character_data", FALSE, $curr_page, $curr_size, $_GET['sort']);
       if ($page_stats['page']) {
         $players = get_players($page_stats['page'], $curr_size, $curr_sort);
       }
@@ -304,10 +304,10 @@ function update_player_location() {
 }
 
 function get_zones() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT zoneidnumber, short_name, version FROM zone ORDER BY short_name ASC";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }

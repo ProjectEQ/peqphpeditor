@@ -568,11 +568,11 @@ switch ($action) {
 }
 
 function loottable_info() {
-  global $mysql, $npcid;
+  global $mysql_content_db, $npcid;
   $count = 0;
 
   $query = "SELECT loottable_id FROM npc_types WHERE id=$npcid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   if ($result['loottable_id'] == 0) {
     return false;
@@ -584,7 +584,7 @@ function loottable_info() {
               FROM npc_types LEFT JOIN loottable
               ON loottable.id=npc_types.loottable_id
               WHERE npc_types.id=$npcid";
-    $result = $mysql->query_assoc($query);
+    $result = $mysql_content_db->query_assoc($query);
     $loottable = $result['loottable_id'];
     $array = $result;
 
@@ -592,7 +592,7 @@ function loottable_info() {
                FROM loottable_entries, lootdrop
                WHERE loottable_entries.loottable_id='$loottable'
                AND loottable_entries.lootdrop_id=lootdrop.id";
-    $result2 = $mysql->query_mult_assoc($query2);
+    $result2 = $mysql_content_db->query_mult_assoc($query2);
     if (!$result2) {
       $array['lootdrop_count'] = 0;
       $array['lootdrops'] = '';
@@ -602,7 +602,7 @@ function loottable_info() {
       $count++;
       $lootdrop = $row2['lootdrop_id'];
       $query3 = "SELECT * FROM lootdrop_entries WHERE lootdrop_id='$lootdrop'";
-      $result3 = $mysql->query_mult_assoc($query3);
+      $result3 = $mysql_content_db->query_mult_assoc($query3);
       if ($result3) {
         foreach ($result3 as $row3) {
           $row2['items'][] = $row3;
@@ -619,15 +619,15 @@ function loottable_info() {
 }
 
 function mobs_using_loottable() {
-  global $mysql, $npcid;
+  global $mysql_content_db, $npcid;
 
   $query = "SELECT loottable_id FROM npc_types WHERE id=$npcid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $ltid = $result['loottable_id'];
 
   if($ltid > 0) {
     $query = "SELECT id, name FROM npc_types WHERE loottable_id=$ltid";
-    $results = $mysql->query_mult_assoc($query);
+    $results = $mysql_content_db->query_mult_assoc($query);
     $count = count($results);
     return array("count"=>$count, "mobs"=>$results);
   }
@@ -637,21 +637,21 @@ function mobs_using_loottable() {
 }
 
 function loottables_using_lootdrop() {
-  global $mysql;
+  global $mysql_content_db;
   $array = array();
   $ldid = $_GET['ldid'];
 
   $query = "SELECT loottable_entries.loottable_id AS loottid, loottable.name AS loottname, npc_types.id AS npcid
             FROM loottable_entries
-            INNER JOIN loottable ON loottable.id = loottable_entries.loottable_id
-            INNER JOIN npc_types ON npc_types.loottable_id = loottable.id 
+            INNER JOIN loottable ON loottable.id=loottable_entries.loottable_id
+            INNER JOIN npc_types ON npc_types.loottable_id=loottable.id 
             WHERE loottable_entries.lootdrop_id=$ldid";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
   return $results;
 }
 
 function update_loottable() {
-  global $mysql;
+  global $mysql_content_db;
   $id = $_POST['loottable_id'];
   $name = $_POST['name'];
   $mincash = $_POST['mincash'];
@@ -659,11 +659,11 @@ function update_loottable() {
   $avgcoin = $_POST['avgcoin'];
   
   $query = "UPDATE loottable SET name=\"$name\", mincash=\"$mincash\", maxcash=\"$maxcash\", avgcoin=\"$avgcoin\" WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function add_loottable() {
-  global $mysql, $npcid;
+  global $mysql_content_db, $npcid;
   $id = $_POST['id'];
   $name = $_POST['name'];
   $mincash = $_POST['mincash'];
@@ -671,21 +671,21 @@ function add_loottable() {
   $avgcoin = $_POST['avgcoin'];
 
   $query = "INSERT INTO loottable SET id=$id, name=\"$name\", mincash=\"$mincash\", maxcash=\"$maxcash\", avgcoin=\"$avgcoin\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
   
   change_npc_loottable();
 }
 
 function change_npc_loottable() {
-  global $mysql, $npcid;
+  global $mysql_content_db, $npcid;
   $id = $_REQUEST['id'];
 
   $query = "UPDATE npc_types SET loottable_id=$id WHERE id=$npcid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function change_loottable_byname() {
-  global $mysql, $npcid, $z;
+  global $mysql_content_db, $npcid, $z;
   $zid = getZoneID($z);
   $min_id = $zid*1000-1;
   $max_id = $zid*1000+1000;
@@ -694,18 +694,18 @@ function change_loottable_byname() {
   $updateall = $_POST['updateall'];
  
   if ($updateall == 0) {
-    $query = "UPDATE npc_types SET loottable_id=$ltid WHERE name like \"%$npcname%\" AND id > $min_id AND id < $max_id AND loottable_id = 0";
-    $mysql->query_no_result($query);
+    $query = "UPDATE npc_types SET loottable_id=$ltid WHERE name LIKE \"%$npcname%\" AND id > $min_id AND id < $max_id AND loottable_id=0";
+    $mysql_content_db->query_no_result($query);
   }
 
   if ($updateall == 1) {
-    $query = "UPDATE npc_types SET loottable_id=$ltid WHERE name like \"%$npcname%\" AND id > $min_id AND id < $max_id";
-    $mysql->query_no_result($query);
+    $query = "UPDATE npc_types SET loottable_id=$ltid WHERE name LIKE \"%$npcname%\" AND id > $min_id AND id < $max_id";
+    $mysql_content_db->query_no_result($query);
   }
 }
 
 function change_loottable_byrace() {
-  global $mysql, $npcid, $z;
+  global $mysql_content_db, $npcid, $z;
   $zid = getZoneID($z);
   $min_id = $zid*1000-1;
   $max_id = $zid*1000+1000;
@@ -714,21 +714,21 @@ function change_loottable_byrace() {
   $updateall = $_POST['updateall'];
  
   if ($updateall == 0) {
-    $query = "UPDATE npc_types SET loottable_id=$ltid WHERE race = $npcrace AND id > $min_id AND id < $max_id AND loottable_id = 0";
-    $mysql->query_no_result($query);
+    $query = "UPDATE npc_types SET loottable_id=$ltid WHERE race=$npcrace AND id > $min_id AND id < $max_id AND loottable_id=0";
+    $mysql_content_db->query_no_result($query);
   }
 
   if ($updateall == 1) {
-    $query = "UPDATE npc_types SET loottable_id=$ltid WHERE race = $npcrace AND id > $min_id AND id < $max_id";
-    $mysql->query_no_result($query);
+    $query = "UPDATE npc_types SET loottable_id=$ltid WHERE race=$npcrace AND id > $min_id AND id < $max_id";
+    $mysql_content_db->query_no_result($query);
   }
 }
 
 function suggest_new_loottable() {
-  global $mysql, $npcid;
+  global $mysql_content_db, $npcid;
 
   $query = "SELECT MAX(id) AS id FROM loottable";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $id = $result['id'] + 1;
   $name = getNPCName($npcid);
 
@@ -736,18 +736,18 @@ function suggest_new_loottable() {
 }
 
 function lootdrop_info() {
-  global $mysql;
+  global $mysql_content_db;
   $ldid = $_GET['ldid'];
   $itemid = $_GET['itemid'];
 
   $query = "SELECT * FROM lootdrop_entries WHERE lootdrop_id=$ldid AND item_id=$itemid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result;
 }
 
 function update_lootdrop_item() {
-  global $mysql;
+  global $mysql_content_db;
   $ldid = $_POST['ldid'];
   $itemid = $_POST['itemid'];
   $equip = $_POST['equip_item'];
@@ -758,49 +758,49 @@ function update_lootdrop_item() {
   $multiplier = $_POST['multiplier'];
 
   $query = "UPDATE lootdrop_entries SET equip_item=$equip, item_charges=$charges, chance=$chance, minlevel=$minlevel, maxlevel=$maxlevel, multiplier=$multiplier WHERE lootdrop_id=$ldid AND item_id=$itemid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function getLootdropName($id) {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT name FROM lootdrop WHERE id=$id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result['name'];
 }
 
 function getLoottableName($id) {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT name FROM loottable WHERE id=$id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result['name'];
 }
 
 function update_lootdrop_name() {
-  global $mysql;
+  global $mysql_content_db;
   $ldname = $_POST['ldname'];
   $ldid = $_GET['ldid'];
 
   $query = "UPDATE lootdrop SET name=\"$ldname\" WHERE id=$ldid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function loottable_entries_info() {
-  global $mysql;
+  global $mysql_content_db;
   $ltid = $_GET['ltid'];
   $ldid = $_GET['ldid'];
 
   $query = "SELECT * FROM loottable_entries WHERE loottable_id=$ltid AND lootdrop_id=$ldid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result;
 }
 
 function update_loottable_entries() {
-  global $mysql;
+  global $mysql_content_db;
   $droplimit = $_POST['droplimit'];
   $mindrop = $_POST['mindrop'];
   $multiplier = $_POST['multiplier'];
@@ -809,79 +809,79 @@ function update_loottable_entries() {
   $probability = $_POST['probability'];
 
   $query = "UPDATE loottable_entries SET droplimit=$droplimit, mindrop=$mindrop, multiplier=$multiplier, probability=$probability WHERE loottable_id=$ltid AND lootdrop_id=$ldid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function search_loottable_names($search) {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM loottable WHERE name RLIKE \"$search\"";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
 
 function delete_loottable($id) {
-  global $mysql, $npcid;
+  global $mysql_content_db, $npcid;
 
   $query = "DELETE FROM loottable WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM loottable_entries WHERE loottable_id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "UPDATE npc_types SET loottable_id=0 WHERE id=$npcid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_lootdrop_item() {
-  global $mysql;
+  global $mysql_content_db;
   $ldid = $_GET['ldid'];
   $itemid = $_GET['itemid'];
   
   $query = "DELETE FROM lootdrop_entries WHERE lootdrop_id=$ldid AND item_id=$itemid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function disable_lootdrop_item() {
-  global $mysql;
+  global $mysql_content_db;
   $ldid = $_GET['ldid'];
   $itemid = $_GET['itemid'];
   $chance = $_GET['chance'];
   
   $query = "UPDATE lootdrop_entries SET disabled_chance=$chance, chance=0 WHERE lootdrop_id=$ldid AND item_id=$itemid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function enable_lootdrop_item() {
-  global $mysql;
+  global $mysql_content_db;
   $ldid = $_GET['ldid'];
   $itemid = $_GET['itemid'];
   $dchance = $_GET['dchance'];
   
   $query = "UPDATE lootdrop_entries SET disabled_chance=0, chance=$dchance WHERE lootdrop_id=$ldid AND item_id=$itemid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function normalize_drops() {
-  global $mysql, $normalize_amount;
+  global $mysql_content_db, $normalize_amount;
   $ldid = $_GET['ldid'];
   
   $query = "UPDATE lootdrop_entries SET chance=$normalize_amount WHERE lootdrop_id=$ldid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function remove_lootdrop_from_loottable() {
-  global $mysql;
+  global $mysql_content_db;
   $ltid = $_GET['ltid'];
   $ldid = $_GET['ldid'];
   
   $query = "DELETE FROM loottable_entries WHERE lootdrop_id=$ldid AND loottable_id=$ltid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function add_lootdrop_item($itemid) {
-  global $mysql;
+  global $mysql_content_db;
   $ldid = $_GET['ldid'];
   $item_charges = $_POST['item_charges'];
   $multiplier = $_POST['multiplier'];
@@ -889,7 +889,7 @@ function add_lootdrop_item($itemid) {
   $eitem = 0;
 
   $query = "SELECT slots, augtype FROM items WHERE id=$itemid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   $slots = $result['slots'];
   $augment = $result['augtype'];
@@ -899,11 +899,11 @@ function add_lootdrop_item($itemid) {
   }
 
   $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$ldid, item_id=$itemid, equip_item=$eitem, item_charges=$item_charges, multiplier=$multiplier, chance=$chance";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function assign_lootdrop() {
-  global $mysql;
+  global $mysql_content_db;
   $ltid = $_POST['ltid'];
   $ldid = $_POST['ldid'];
   $droplimit = $_POST['droplimit'];
@@ -912,38 +912,38 @@ function assign_lootdrop() {
   $probability = $_POST['probability'];
   
   $query = "INSERT INTO loottable_entries SET loottable_id=$ltid, lootdrop_id=$ldid, droplimit=$droplimit, mindrop=$mindrop, multiplier=$multiplier, probability=$probability";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_lootdrop() {
-  global $mysql;
+  global $mysql_content_db;
   $ldid = $_GET['ldid'];
   
   $query = "DELETE FROM loottable_entries WHERE lootdrop_id=$ldid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query2 = "DELETE FROM lootdrop_entries WHERE lootdrop_id=$ldid";
-  $mysql->query_no_result($query2);
+  $mysql_content_db->query_no_result($query2);
 
   $query3 = "DELETE FROM lootdrop WHERE id=$ldid";
-  $mysql->query_no_result($query3);
+  $mysql_content_db->query_no_result($query3);
 }
 
 function search_lootdrops($search) {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM lootdrop WHERE name RLIKE \"$search\"";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
 
 function suggest_new_lootdrop() {
-  global $mysql, $npcid;
+  global $mysql_content_db, $npcid;
   $ltid = $_GET['ltid'];
 
   $query = "SELECT MAX(id) AS id FROM lootdrop";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $id = $result['id'] + 1;
 
   $name = getNPCName($npcid);
@@ -953,16 +953,16 @@ function suggest_new_lootdrop() {
 }
 
 function create_lootdrop() {
-  global $mysql;
+  global $mysql_content_db;
   $ldid = $_POST['ldid'];
   $name = $_POST['name'];
 
   $query = "INSERT INTO lootdrop SET id=$ldid, name=\"$name\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function search_loot_by_item() {
-  global $mysql;
+  global $mysql_content_db;
   $search = $_GET['search'];
 
   $query = "SELECT npc_types.id,npc_types.name FROM lootdrop_entries
@@ -970,87 +970,87 @@ function search_loot_by_item() {
             INNER JOIN npc_types ON npc_types.loottable_id=loottable_entries.loottable_id
             INNER JOIN items ON items.id=lootdrop_entries.item_id
             WHERE items.id=\"$search\"";
-            // WHERE items.name rlike \"$search\" limit 50";
-  $results = $mysql->query_mult_assoc($query);
+            // WHERE items.name RLIKE \"$search\" LIMIT 50";
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
 
 function drop_loottable() {
-  global $mysql, $npcid;
+  global $mysql_content_db, $npcid;
 
   $query = "UPDATE npc_types SET loottable_id=0 WHERE id=$npcid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function copy_lootdrop() {
-  global $mysql;
+  global $mysql_content_db;
   $ldid = $_GET['ldid'];
   $name = $_GET['name'];
 
   $query = "SELECT MAX(id) AS lid FROM lootdrop";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $nlid = $result['lid'] + 1;
   
   $query = "DELETE FROM loottable_entries WHERE lootdrop_id=0";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM lootdrop_entries WHERE lootdrop_id=0";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $newname = $name . '_' . $nlid;
   $query = "INSERT INTO lootdrop SET id=\"$nlid\", name=\"$newname\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO loottable_entries (loottable_id,droplimit,mindrop,multiplier,probability) 
-            SELECT loottable_id,droplimit,mindrop,multiplier,probability FROM loottable_entries WHERE lootdrop_id=$ldid";
-  $mysql->query_no_result($query);
+  $query = "INSERT INTO loottable_entries (loottable_id, droplimit, mindrop, multiplier, probability) 
+            SELECT loottable_id, droplimit, mindrop, multiplier, probability FROM loottable_entries WHERE lootdrop_id=$ldid";
+  $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO lootdrop_entries (item_id,item_charges,equip_item,chance,minlevel,maxlevel,multiplier) 
-            SELECT item_id,item_charges,equip_item,chance,minlevel,maxlevel,multiplier FROM lootdrop_entries WHERE lootdrop_id=$ldid";
-  $mysql->query_no_result($query);
+  $query = "INSERT INTO lootdrop_entries (item_id, item_charges, equip_item, chance, minlevel, maxlevel, multiplier) 
+            SELECT item_id, item_charges, equip_item, chance, minlevel, maxlevel, multiplier FROM lootdrop_entries WHERE lootdrop_id=$ldid";
+  $mysql_content_db->query_no_result($query);
 
   $query = "UPDATE loottable_entries SET lootdrop_id=$nlid WHERE lootdrop_id=0";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "UPDATE lootdrop_entries SET lootdrop_id=$nlid WHERE lootdrop_id=0";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function merge_lootdrop() {
-  global $mysql;
+  global $mysql_content_db;
 
   $ldid = $_GET['ldid'];
   $lootdropid = $_POST['lootdropid'];
 
   $query = "UPDATE lootdrop_entries SET lootdrop_id = $lootdropid WHERE lootdrop_id=$ldid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM lootdrop WHERE id=$ldid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM loottable_entries WHERE lootdrop_id=$ldid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "UPDATE loottable_entries SET droplimit=droplimit+1 WHERE lootdrop_id=$lootdropid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function move_multiplier() {
-  global $mysql;
+  global $mysql_content_db;
 
   $ldid = $_GET['ldid'];
   $multiplier = $_GET['multiplier'];
 
   $query = "UPDATE lootdrop_entries SET multiplier=$multiplier WHERE lootdrop_id=$ldid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "UPDATE loottable_entries SET multiplier=1 WHERE lootdrop_id=$ldid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function magelo_import() {
-  global $mysql, $npcid, $perl_path;
+  global $mysql_content_db, $npcid, $perl_path;
 
   $output = array();
   $output = exec("perl $perl_path/Loot.pl $npcid 2>&1");
@@ -1072,7 +1072,7 @@ function magelo_import() {
   }
   elseif (preg_match("(0 item drops added)", $output)) {
     $query = "SHOW TABLES LIKE '%magelo_npc_loot_parse%'";
-    $table_test = $mysql->query_assoc($query);
+    $table_test = $mysql_content_db->query_assoc($query);
     if (!$table_test) {
       logPerl("Error: Database is missing magelo_npc_loot_parse table.");
     }
@@ -1084,7 +1084,7 @@ function magelo_import() {
 }
 
 function move_copy_lootdrop_item() {
-  global $mysql;
+  global $mysql_content_db;
   $ldid = $_GET['ldid'];
   $itemid = $_GET['itemid'];
   $equip = $_POST['equip_item'];
@@ -1098,22 +1098,22 @@ function move_copy_lootdrop_item() {
 
   if ($move_copy_item == 0) {
     $query1 = "DELETE FROM lootdrop_entries WHERE lootdrop_id=$ldid AND item_id=$itemid";
-    $mysql->query_no_result($query1);
+    $mysql_content_db->query_no_result($query1);
     
     $query2 = "INSERT INTO lootdrop_entries SET lootdrop_id=$new_ldid, item_id=$itemid, equip_item=$equip, item_charges=$charges, chance=$chance, minlevel=$minlevel, maxlevel=$maxlevel, multiplier=$multiplier";
-    $mysql->query_no_result($query2);
+    $mysql_content_db->query_no_result($query2);
   }
   if ($move_copy_item == 1) {
     $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$new_ldid, item_id=$itemid, equip_item=$equip, item_charges=$charges, chance=$chance, minlevel=$minlevel, maxlevel=$maxlevel, multiplier=$multiplier";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 }
 
 function global_loot_info() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM global_loot";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   if ($results) {
     return $results;
@@ -1124,7 +1124,7 @@ function global_loot_info() {
 }
 
 function insert_global_loot() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $description = $_POST['description'];
@@ -1141,42 +1141,42 @@ function insert_global_loot() {
   $hot_zone = $_POST['hot_zone'];
 
   $query = "INSERT INTO global_loot SET id=$id, description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL, hot_zone=$hot_zone";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   if ($rare != "") {
     $query = "UPDATE global_loot SET rare=$rare WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 
   if ($raid != "") {
     $query = "UPDATE global_loot SET raid=$raid WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 
   if ($race != "") {
     $query = "UPDATE global_loot SET race=\"$race\" WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 
   if ($class != "") {
     $query = "UPDATE global_loot SET class=\"$class\" WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 
   if ($bodytype != "") {
     $query = "UPDATE global_loot SET bodytype=\"$bodytype\" WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 
   if ($zone != "") {
     $query = "UPDATE global_loot SET zone=\"$zone\" WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
   create_empty_loottable($id);
 }
 
 function update_global_loot() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $description = $_POST['description'];
@@ -1193,75 +1193,75 @@ function update_global_loot() {
   $hot_zone = $_POST['hot_zone'];
 
   $query = "UPDATE global_loot SET description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL, hot_zone=$hot_zone WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   if ($rare != "") {
     $query = "UPDATE global_loot SET rare=$rare WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 
   if ($raid != "") {
     $query = "UPDATE global_loot SET raid=$raid WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 
   if ($race != "") {
     $query = "UPDATE global_loot SET race=\"$race\" WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 
   if ($class != "") {
     $query = "UPDATE global_loot SET class=\"$class\" WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 
   if ($bodytype != "") {
     $query = "UPDATE global_loot SET bodytype=\"$bodytype\" WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 
   if ($zone != "") {
     $query = "UPDATE global_loot SET zone=\"$zone\" WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 }
 
 function delete_global_loot() {
-  global $mysql;
+  global $mysql_content_db;
   $id = $_GET['id'];
 
   $query = "DELETE FROM global_loot WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function suggest_next_global_loot() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS id FROM global_loot";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $loot_ids['new_id'] = $result['id'] + 1;
 
   $query = "SELECT MAX(id) AS id FROM loottable";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $loot_ids['new_table_id'] = $result['id'] + 1;
 
   return $loot_ids;
 }
 
 function suggest_next_global_lootdrop() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS id FROM lootdrop";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result['id'] + 1;
 }
 
 function getGlobalLoot($id) {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM global_loot WHERE id=$id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   if ($result) {
     return $result;
@@ -1272,10 +1272,10 @@ function getGlobalLoot($id) {
 }
 
 function getGlobalLoottableID($id) {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT loottable_id FROM global_loot WHERE id=$id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   if ($result) {
     return $result['loottable_id'];
@@ -1286,7 +1286,7 @@ function getGlobalLoottableID($id) {
 }
 
 function global_loottable_info($id) {
-  global $mysql;
+  global $mysql_content_db;
   $array = array();
   $count = 0;
 
@@ -1297,7 +1297,7 @@ function global_loottable_info($id) {
   }
 
   $query = "SELECT * FROM loottable WHERE id=$loottable_id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   if ($result) {
     $array = $result;
@@ -1310,7 +1310,7 @@ function global_loottable_info($id) {
   }
 
   $query2 = "SELECT * FROM loottable_entries, lootdrop WHERE loottable_entries.loottable_id=$loottable_id AND loottable_entries.lootdrop_id=lootdrop.id";
-  $result2 = $mysql->query_mult_assoc($query2);
+  $result2 = $mysql_content_db->query_mult_assoc($query2);
   if (!$result2) {
     $array['lootdrop_count'] = 0;
     $array['lootdrops'] = '';
@@ -1322,7 +1322,7 @@ function global_loottable_info($id) {
     $lootdrop = $row2['lootdrop_id'];
 
     $query3 = "SELECT * FROM lootdrop_entries WHERE lootdrop_id=$lootdrop";
-    $result3 = $mysql->query_mult_assoc($query3);
+    $result3 = $mysql_content_db->query_mult_assoc($query3);
 
     if ($result3) {
       foreach ($result3 as $row3) {
@@ -1339,7 +1339,7 @@ function global_loottable_info($id) {
 }
 
 function update_global_loottable() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $name = $_POST['name'];
@@ -1349,55 +1349,55 @@ function update_global_loottable() {
   //$done = $_POST['done'];
 
   $query = "UPDATE loottable SET name=\"$name\", mincash=$mincash, maxcash=$maxcash, avgcoin=$avgcoin WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function create_empty_loottable($id) {
-  global $mysql;
+  global $mysql_content_db;
   $loottable_id = getGlobalLoottableID($id);
 
   if ($loottable_id) {
     $query = "INSERT INTO loottable SET id=$loottable_id, name=\"\", mincash=0, maxcash=0, avgcoin=0";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
   else {
     $suggest = suggest_next_global_loot();
     $loottable_id = $suggest['new_table_id'];
 
     $query = "INSERT INTO loottable SET id=$loottable_id, name=\"\", mincash=0, maxcash=0, avgcoin=0";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
 
     $query = "UPDATE global_loot SET loottable_id=$loottable_id WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 }
 
 function delete_global_loottable($id) {
-  global $mysql;
+  global $mysql_content_db;
   $loottable_id = getGlobalLoottableID($id);
 
   if ($loottable_id) {
     $query = "UPDATE global_loot SET loottable_id=0 WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
 
     $query = "DELETE FROM loottable WHERE id=$loottable_id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 }
 
 function global_lootdrop_info() {
-  global $mysql;
+  global $mysql_content_db;
   $loottable_id = $_GET['ltid'];
   $lootdrop_id = $_GET['ldid'];
 
   $query = "SELECT * FROM loottable_entries INNER JOIN lootdrop WHERE loottable_entries.lootdrop_id=lootdrop.id AND loottable_entries.loottable_id=$loottable_id AND lootdrop.id=$lootdrop_id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result;
 }
 
 function insert_global_lootdrop() {
-  global $mysql;
+  global $mysql_content_db;
   $loottable_id = $_POST['loottable_id'];
   $lootdrop_id = $_POST['id'];
   $name = $_POST['name'];
@@ -1407,14 +1407,14 @@ function insert_global_lootdrop() {
   $probability = $_POST['probability'];
 
   $query = "INSERT INTO lootdrop SET id=$lootdrop_id, name=\"$name\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "INSERT INTO loottable_entries SET loottable_id=$loottable_id, lootdrop_id=$lootdrop_id, multiplier=$multiplier, droplimit=$droplimit, mindrop=$mindrop, probability=$probability";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function update_global_lootdrop() {
-  global $mysql;
+  global $mysql_content_db;
   $loottable_id = $_POST['loottable_id'];
   $lootdrop_id = $_POST['id'];
   $name = $_POST['name'];
@@ -1424,29 +1424,29 @@ function update_global_lootdrop() {
   $probability = $_POST['probability'];
 
   $query = "UPDATE lootdrop SET name=\"$name\" WHERE id=$lootdrop_id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "UPDATE loottable_entries SET multiplier=$multiplier, droplimit=$droplimit, mindrop=$mindrop, probability=$probability WHERE loottable_id=$loottable_id AND lootdrop_id=$lootdrop_id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_global_lootdrop() {
-  global $mysql;
+  global $mysql_content_db;
   $loottable_id = $_GET['ltid'];
   $lootdrop_id = $_GET['ldid'];
 
   $query = "DELETE FROM lootdrop_entries WHERE lootdrop_id=$lootdrop_id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM lootdrop WHERE id=$lootdrop_id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM loottable_entries WHERE loottable_id=$loottable_id AND lootdrop_id=$lootdrop_id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function insert_global_lootdrop_item() {
-  global $mysql;
+  global $mysql_content_db;
   $ldid = $_POST['ldid'];
   $itemid = $_POST['itemid'];
   $item_charges = $_POST['item_charges'];
@@ -1455,7 +1455,7 @@ function insert_global_lootdrop_item() {
   $eitem = 0;
 
   $query = "SELECT slots, augtype FROM items WHERE id=$itemid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   $slots = $result['slots'];
   $augment = $result['augtype'];
@@ -1465,7 +1465,7 @@ function insert_global_lootdrop_item() {
   }
 
   $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$ldid, item_id=$itemid, equip_item=$eitem, item_charges=$item_charges, multiplier=$multiplier, chance=$chance";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 ?>

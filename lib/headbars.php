@@ -367,25 +367,25 @@ function build_tabs () {
 }
 
 function zones() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT id, short_name, version, expansion FROM zone ORDER BY short_name, version ASC";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
 
 function zones2() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT id, short_name, long_name, version, expansion FROM zone ORDER BY long_name, version ASC";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
 
 function npcs() {
-  global $mysql, $z, $zoneid, $npc_list;
+  global $mysql_content_db, $z, $zoneid, $npc_list;
   $version = 0;
   $zid = "___";
   $results = array();
@@ -395,24 +395,24 @@ function npcs() {
     if ($zoneid == "") {
       $zoneid = getZoneID($z);
     }
-    $query = "SELECT version FROM zone WHERE id = \"$zoneid\"";
-    $result = $mysql->query_assoc($query);
+    $query = "SELECT version FROM zone WHERE id=\"$zoneid\"";
+    $result = $mysql_content_db->query_assoc($query);
     $version = $result['version'];
   }
 
   if($npc_list == 1) {
-    $query = "SELECT id, name FROM npc_types WHERE id LIKE \"$zid\" AND version = $version GROUP BY id ORDER BY name ASC";
-    $results = $mysql->query_mult_assoc($query);
+    $query = "SELECT id, name FROM npc_types WHERE id LIKE \"$zid\" AND version=$version GROUP BY id ORDER BY name ASC";
+    $results = $mysql_content_db->query_mult_assoc($query);
   }
   else if($npc_list == 2) {
-    $query = "SELECT npc_types.id AS id, npc_types.name AS name FROM npc_types, spawnentry,spawn2 WHERE (spawn2.spawngroupid = spawnentry.spawngroupid AND npc_types.id = spawnentry.npcid) AND spawn2.zone = '$z' AND spawn2.version = $version GROUP BY npc_types.id ORDER BY npc_types.name ASC";
-    $results = $mysql->query_mult_assoc($query);
+    $query = "SELECT npc_types.id AS id, npc_types.name AS name FROM npc_types, spawnentry, spawn2 WHERE (spawn2.spawngroupid=spawnentry.spawngroupid AND npc_types.id=spawnentry.npcid) AND spawn2.zone='$z' AND spawn2.version=$version GROUP BY npc_types.id ORDER BY npc_types.name ASC";
+    $results = $mysql_content_db->query_mult_assoc($query);
   }
   return $results;
 }
 
 function npcs_by_merchantid() {
-  global $mysql, $z, $zoneid;
+  global $mysql_content_db, $z, $zoneid;
   $version = 0;
   $zid = "___";
   $results = array();
@@ -422,58 +422,58 @@ function npcs_by_merchantid() {
     if ($zoneid == "") {
       $zoneid = getZoneID($z);
     }
-    $query = "SELECT version FROM zone WHERE id = \"$zoneid\"";
-    $result = $mysql->query_assoc($query);
+    $query = "SELECT version FROM zone WHERE id=\"$zoneid\"";
+    $result = $mysql_content_db->query_assoc($query);
     $version = $result['version'];
 
     if ($version > 0) {
-      $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND version = $version AND merchant_id != 0 GROUP BY id ORDER BY name ASC";
-      $results = $mysql->query_mult_assoc($query);
+      $query = "SELECT id, name FROM npc_types WHERE id LIKE \"$zid\" AND version=$version AND merchant_id != 0 GROUP BY id ORDER BY name ASC";
+      $results = $mysql_content_db->query_mult_assoc($query);
     }
     if ($version == 0) {
-      $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND merchant_id != 0 GROUP BY id ORDER BY name ASC";
-      $results = $mysql->query_mult_assoc($query);
+      $query = "SELECT id, name FROM npc_types WHERE id LIKE \"$zid\" AND merchant_id != 0 GROUP BY id ORDER BY name ASC";
+      $results = $mysql_content_db->query_mult_assoc($query);
     }
   }
   else {
-    $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND merchant_id != 0 GROUP BY id ORDER BY name ASC";
-    $results = $mysql->query_mult_assoc($query);
+    $query = "SELECT id, name FROM npc_types WHERE id LIKE \"$zid\" AND merchant_id != 0 GROUP BY id ORDER BY name ASC";
+    $results = $mysql_content_db->query_mult_assoc($query);
   }
   return $results;
 }
 
 function factions() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT id, name FROM faction_list ORDER BY name";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
 
 function recipes() {
-  global $mysql, $ts;
+  global $mysql_content_db, $ts;
 
   $results = array();
   if ($ts != '') {
     $query = "SELECT id, name FROM tradeskill_recipe WHERE tradeskill=$ts ORDER BY name";
-    $results = $mysql->query_mult_assoc($query);
+    $results = $mysql_content_db->query_mult_assoc($query);
   }
 
   return $results;
 }
 
 function tasks() {
-  global $mysql;
+  global $mysql_content_db;
 
     $query = "SELECT id, title FROM tasks ORDER BY title";
-    $results = $mysql->query_mult_assoc($query);
+    $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
 
 function npcs_by_spellid() {
-  global $mysql, $z, $zoneid;
+  global $mysql_content_db, $z, $zoneid;
   $version = 0;
   $zid = "___";
   $results = array();
@@ -483,31 +483,31 @@ function npcs_by_spellid() {
     if ($zoneid == "") {
       $zoneid = getZoneID($z);
     }
-    $query = "SELECT version FROM zone WHERE id = $zoneid";
-    $result = $mysql->query_assoc($query);
+    $query = "SELECT version FROM zone WHERE id=$zoneid";
+    $result = $mysql_content_db->query_assoc($query);
     $version = $result['version'];
 
     if ($version > 0) {
-      $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND version = $version AND npc_spells_id != 0 GROUP BY id ORDER BY name ASC";
-      $results = $mysql->query_mult_assoc($query);
+      $query = "SELECT id, name FROM npc_types WHERE id LIKE \"$zid\" AND version=$version AND npc_spells_id != 0 GROUP BY id ORDER BY name ASC";
+      $results = $mysql_content_db->query_mult_assoc($query);
     }
     if ($version == 0) {
-      $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND npc_spells_id != 0 GROUP BY id ORDER BY name ASC";
-      $results = $mysql->query_mult_assoc($query);
+      $query = "SELECT id, name FROM npc_types WHERE id LIKE \"$zid\" AND npc_spells_id != 0 GROUP BY id ORDER BY name ASC";
+      $results = $mysql_content_db->query_mult_assoc($query);
     }
   }
   else {
-    $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND npc_spells_id != 0 GROUP BY id ORDER BY name ASC";
-    $results = $mysql->query_mult_assoc($query);
+    $query = "SELECT id, name FROM npc_types WHERE id LIKE \"$zid\" AND npc_spells_id != 0 GROUP BY id ORDER BY name ASC";
+    $results = $mysql_content_db->query_mult_assoc($query);
   }
   return $results;
 }
 
 function spellsets() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT id, name FROM npc_spells";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
@@ -522,19 +522,19 @@ function guilds() {
 }
 
 function aas() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT id, name FROM aa_ability ORDER BY name, id";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
 
 function auras() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT type, name FROM auras ORDER BY name";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }

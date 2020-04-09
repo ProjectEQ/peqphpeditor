@@ -165,7 +165,7 @@ switch ($action) {
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/tradeskill/learned.tmpl.php");
-    $page_stats = getPageInfo("char_recipe_list", $curr_page, $curr_size, $_GET['sort']);
+    $page_stats = getPageInfo("char_recipe_list", FALSE, $curr_page, $curr_size, $_GET['sort']);
     if ($page_stats['page']) {
       $recipes = getLearnedRecipes($page_stats['page'], $curr_size, $curr_sort);
     }
@@ -188,16 +188,16 @@ switch ($action) {
     exit;
 }
 
-function getRecipeTradeskill () {
-  global $mysql, $rec;
+function getRecipeTradeskill() {
+  global $mysql_content_db, $rec;
   
   $query = "SELECT tradeskill FROM tradeskill_recipe WHERE id=$rec";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   return $result['tradeskill'];
 }
 
-function recipe_info () {
-  global $mysql, $rec, $world_containers;
+function recipe_info() {
+  global $mysql_content_db, $rec, $world_containers;
 
   $array = array();
   $array['containers'] = '';
@@ -205,12 +205,12 @@ function recipe_info () {
   $array['products'] = '';
     
   $query = "SELECT * FROM tradeskill_recipe WHERE id=$rec";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   $array = $result;
 
   $query = "SELECT * FROM tradeskill_recipe_entries WHERE recipe_id=$rec";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
   
   if ($results != '') {
     foreach($results as $r) {
@@ -224,9 +224,9 @@ function recipe_info () {
   return $array;
 }
 
-function update_recipe () {
+function update_recipe() {
   check_authorization();
-  global $mysql;
+  global $mysql_content_db;
   
   $id = $_POST['id'];
   $name = $_POST['name'];
@@ -258,29 +258,29 @@ function update_recipe () {
 
   if ($fields != '') {
     $query = "UPDATE tradeskill_recipe SET $fields WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 }
 
-function delete_recipe () {
+function delete_recipe() {
   check_authorization();
-  global $mysql, $rec;
+  global $mysql_content_db, $rec;
   
   $query = "DELETE FROM tradeskill_recipe WHERE id=$rec";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM tradeskill_recipe_entries WHERE recipe_id=$rec";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM char_recipe_list WHERE recipe_id=$rec";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function getItemBagtype($item) {
-  global $mysql;
+  global $mysql_content_db;
   
   $query = "SELECT bagtype FROM items WHERE id=$item";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   if ($result) {
     return $result['bagtype'];
@@ -291,19 +291,19 @@ function getItemBagtype($item) {
 }
 
 function component_info() {
-  global $mysql, $rec;
+  global $mysql_content_db, $rec;
 
   $id = $_GET['id'];
 
   $query = "SELECT * FROM tradeskill_recipe_entries WHERE id=$id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result;
 }
 
 function update_component() {
   check_authorization();
-  global $mysql;
+  global $mysql_content_db;
   
   $id = $_POST['id'];
   $recipe_id = $_POST['recipe_id'];
@@ -329,13 +329,13 @@ function update_component() {
 
   if ($fields != '') {
     $query = "UPDATE tradeskill_recipe_entries SET $fields WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 }
 
 function add_component() {
   check_authorization();
-  global $mysql;
+  global $mysql_content_db;
   
   $fields = '';
   
@@ -350,42 +350,42 @@ function add_component() {
   $fields =  rtrim($fields, ", ");
 
   $query = "INSERT INTO tradeskill_recipe_entries SET $fields";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
-function delete_component () {
+function delete_component() {
   check_authorization();
-  global $mysql, $rec;
+  global $mysql_content_db, $rec;
   $id = $_GET['id'];
   
   $query = "DELETE FROM tradeskill_recipe_entries WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function search_recipes() {
-  global $mysql;
+  global $mysql_content_db;
   $search = $_GET['search'];
 
   $query = "SELECT id, name FROM tradeskill_recipe WHERE name RLIKE \"$search\" ORDER BY name, id";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
   return $results;
 }
 
 function search_recipes_by_item() {
-  global $mysql;
+  global $mysql_content_db;
   $itemid = $_GET['itemid'];
 
   $query = "SELECT recipe_id AS id, tradeskill_recipe.name AS name FROM tradeskill_recipe_entries LEFT JOIN tradeskill_recipe ON tradeskill_recipe.id=tradeskill_recipe_entries.recipe_id WHERE item_id=$itemid ORDER BY name, id";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
   return $results;
 }
 
 function add_recipe() {
   check_authorization();
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS id FROM tradeskill_recipe";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   $id = $result['id'] + 1;
   
@@ -405,44 +405,44 @@ function add_recipe() {
   $fields =  rtrim($fields, ", ");
 
   $query = "INSERT INTO tradeskill_recipe SET $fields";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
   
   return $id;
 }
 
 function copy_tradeskill() {
   check_authorization();
-  global $mysql;
+  global $mysql_content_db;
   $rec = $_GET['rec'];
 
   $query = "DELETE FROM tradeskill_recipe WHERE id=0";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM tradeskill_recipe_entries WHERE recipe_id=0";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO tradeskill_recipe (name,tradeskill,skillneeded,trivial,nofail,replace_container,notes,must_learn,quest,enabled) 
-            SELECT CONCAT(name,' - Copy'),tradeskill,skillneeded,trivial,nofail,replace_container,notes,must_learn,quest,enabled FROM tradeskill_recipe where id=$rec";
-  $mysql->query_no_result($query);
+  $query = "INSERT INTO tradeskill_recipe (name, tradeskill, skillneeded, trivial, nofail, replace_container, notes, must_learn, quest, enabled) 
+            SELECT CONCAT(name,' - Copy'), tradeskill, skillneeded, trivial, nofail, replace_container, notes, must_learn, quest, enabled FROM tradeskill_recipe where id=$rec";
+  $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO tradeskill_recipe_entries (item_id,successcount,failcount,componentcount,iscontainer,salvagecount) 
-            SELECT item_id,successcount,failcount,componentcount,iscontainer,salvagecount FROM tradeskill_recipe_entries where recipe_id=$rec";
-  $mysql->query_no_result($query);
+  $query = "INSERT INTO tradeskill_recipe_entries (item_id, successcount, failcount, componentcount, iscontainer, salvagecount) 
+            SELECT item_id, successcount, failcount, componentcount, iscontainer, salvagecount FROM tradeskill_recipe_entries WHERE recipe_id=$rec";
+  $mysql_content_db->query_no_result($query);
 
-  $query = "SELECT MAX(id) as tid FROM tradeskill_recipe";
-  $result = $mysql->query_assoc($query);
+  $query = "SELECT MAX(id) AS tid FROM tradeskill_recipe";
+  $result = $mysql_content_db->query_assoc($query);
   $nrec = $result['tid'];
 
-  $query = "UPDATE tradeskill_recipe_entries set recipe_id=$nrec where recipe_id=0";
-  $mysql->query_no_result($query);
+  $query = "UPDATE tradeskill_recipe_entries SET recipe_id=$nrec WHERE recipe_id=0";
+  $mysql_content_db->query_no_result($query);
 }
 
 function get_new_id() {
   check_authorization();
-  global $mysql;
+  global $mysql_content_db;
 
-  $query = "SELECT MAX(id) as tid FROM tradeskill_recipe";
-  $result = $mysql->query_assoc($query);
+  $query = "SELECT MAX(id) AS tid FROM tradeskill_recipe";
+  $result = $mysql_content_db->query_assoc($query);
   $nrec = $result['tid'];
   return $nrec;
 }
@@ -457,7 +457,7 @@ function getLearnedRecipes($page_number, $results_per_page, $sort_by) {
   return $results;
 }
 
-function delete_LearnedRecipe () {
+function delete_LearnedRecipe() {
   global $mysql;
   $char_id = $_GET['char_id'];
   $recipe_id = $_GET['recipe_id'];
@@ -467,7 +467,7 @@ function delete_LearnedRecipe () {
 }
 
 function export_recipe_sql() {
-  global $mysql;
+  global $mysql_content_db;
   $recipe_id = $_GET['rec'];
   $table_string = "";
   $value_string = "";
@@ -477,7 +477,7 @@ function export_recipe_sql() {
   $export_string .= "DELETE FROM tradeskill_recipe WHERE id = $recipe_id;\n";
 
   $query = "SELECT * FROM tradeskill_recipe WHERE id = $recipe_id";
-  $results = $mysql->query_assoc($query);
+  $results = $mysql_content_db->query_assoc($query);
   foreach ($results as $key=>$value) {
     if($table_string) {
       $table_string .= ", " . $key;
@@ -496,7 +496,7 @@ function export_recipe_sql() {
   $export_string .= "DELETE FROM tradeskill_recipe_entries WHERE recipe_id = $recipe_id;\n";
 
   $query = "SELECT * FROM tradeskill_recipe_entries WHERE recipe_id = $recipe_id";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
   if ($results) {
     foreach ($results as $result) {
       foreach ($result as $key=>$value) {

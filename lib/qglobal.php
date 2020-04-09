@@ -20,7 +20,7 @@ switch ($action) {
       $filter = build_filter();
     }
     $body = new Template("templates/qglobal/qglobal.tmpl.php");
-    $page_stats = getPageInfo("quest_globals", $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
+    $page_stats = getPageInfo("quest_globals", FALSE, $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
     if ($filter) {
       $body->set('filter', $filter);
     }
@@ -161,7 +161,7 @@ function delete_qglobal() {
 }
 
 function build_filter() {
-  global $mysql;
+  global $mysql, $mysql_content_db;
   $filter1 = $_GET['filter1'];
   $filter2 = $_GET['filter2'];
   $filter3 = $_GET['filter3'];
@@ -173,7 +173,7 @@ function build_filter() {
     $filter_final['sql'] = $filter_name;
   }
   if ($filter2) { // Filter by character
-    $query = "SELECT c.id FROM character_data c, quest_globals q WHERE c.id = q.charid AND c.name LIKE \"%$filter2%\" GROUP BY id";
+    $query = "SELECT id FROM character_data WHERE name LIKE \"%$filter2%\"";
     $results = $mysql->query_mult_assoc($query);
     $filter_charid = "charid IN (";
     if ($results) {
@@ -192,8 +192,8 @@ function build_filter() {
     $filter_final['sql'] .= $filter_charid;
   }
   if ($filter3) { // Filter by npc
-    $query = "SELECT n.id FROM npc_types n, quest_globals q WHERE n.id = q.npcid AND n.name LIKE \"%$filter3%\" GROUP BY id";
-    $results = $mysql->query_mult_assoc($query);
+    $query = "SELECT id FROM npc_types WHERE name LIKE \"%$filter3%\"";
+    $results = $mysql_content_db->query_mult_assoc($query);
     $filter_npcid = "npcid IN (";
     if ($results) {
       foreach ($results as $result) {
@@ -211,8 +211,8 @@ function build_filter() {
     $filter_final['sql'] .= $filter_npcid;
   }
   if ($filter4) { // Filter by zone
-    $query = "SELECT z.zoneidnumber FROM zone z, quest_globals q WHERE z.zoneidnumber = q.zoneid AND z.short_name LIKE \"%$filter4%\" GROUP BY zoneidnumber";
-    $results = $mysql->query_mult_assoc($query);
+    $query = "SELECT zoneidnumber FROM zone WHERE short_name LIKE \"%$filter4%\"";
+    $results = $mysql_content_db->query_mult_assoc($query);
     $filter_zoneid = "zoneid IN (";
     if ($results) {
       foreach ($results as $result) {

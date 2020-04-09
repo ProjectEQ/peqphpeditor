@@ -94,7 +94,7 @@ switch ($action) {
       $filter = build_filter();
     }
     $body = new Template("templates/faction/faction.players.view.tmpl.php");
-    $page_stats = getPageInfo("faction_values", $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
+    $page_stats = getPageInfo("faction_values", FALSE, $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
     if ($filter) {
       $body->set('filter', $filter);
     }
@@ -220,16 +220,16 @@ switch ($action) {
 }
 
 function faction_info() {
-  global $mysql, $fid;
+  global $mysql_content_db, $fid;
   $faction_array = array();
   $faction_info = array();
   $faction_mods = array();
 
   $query = "SELECT * FROM faction_list WHERE id=$fid";
-  $faction_info = $mysql->query_assoc($query);
+  $faction_info = $mysql_content_db->query_assoc($query);
 
   $query = "SELECT * FROM faction_list_mod WHERE faction_id=$fid ORDER BY id";
-  $faction_mods = $mysql->query_mult_assoc($query);
+  $faction_mods = $mysql_content_db->query_mult_assoc($query);
 
   $faction_array['faction_info'] = $faction_info;
   $faction_array['faction_mods'] = $faction_mods;
@@ -238,58 +238,58 @@ function faction_info() {
 }
 
 function search_factions_by_name() {
-  global $mysql;
+  global $mysql_content_db;
 
   $search = $_POST['faction_name'];
 
-  $query = "SELECT id, `name` FROM faction_list WHERE `name` rlike \"$search\"";
-  $results = $mysql->query_mult_assoc($query);
+  $query = "SELECT id, `name` FROM faction_list WHERE `name` RLIKE \"$search\"";
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
 
 function search_factions_by_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $search = $_POST['faction_id'];
 
-  $query = "SELECT id, `name` FROM faction_list WHERE id = \"$search\"";
-  $results = $mysql->query_mult_assoc($query);
+  $query = "SELECT id, `name` FROM faction_list WHERE id=\"$search\"";
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
 
 function suggest_faction_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS flid FROM faction_list";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return ($result['flid'] + 1);
 }
 
 function suggest_faction_mod_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS fmid FROM faction_list_mod";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return ($result['fmid'] + 1);
 }
 
 function add_faction() {
-  global $mysql;
+  global $mysql_content_db;
   
   $id = $_POST['id'];
   $name = $_POST['name'];
   $base = $_POST['base'];
 
   $query = "INSERT INTO faction_list SET id=$id, `name`=\"$name\", base=$base";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function update_faction() {
-  global $mysql, $fid;
+  global $mysql_content_db, $fid;
 
   $old_id = $fid;
   $old_name = $_POST['old_name'];
@@ -306,36 +306,36 @@ function update_faction() {
 
   if ($fields != '') {
     $query = "UPDATE faction_list SET $fields WHERE id=$old_id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
   if ($old_id != $new_id) {
     $query = "UPDATE faction_list_mod SET faction_id=$new_id WHERE faction_id=$old_id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
     $fid = $new_id;
   }
 }
 
 function delete_faction() {
-  global $mysql, $fid;
+  global $mysql_content_db, $fid;
 
   $query = "DELETE FROM faction_list WHERE id=$fid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM faction_list_mod WHERE faction_id=$fid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function get_faction_mod($fmid) {
-  global $mysql, $fid;
+  global $mysql_content_db, $fid;
 
   $query = "SELECT * FROM faction_list_mod WHERE id=$fmid AND faction_id=$fid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result;
 }
 
 function add_faction_mod() {
-  global $mysql, $fid;
+  global $mysql_content_db, $fid;
   
   $id = $_POST['id'];
   $faction_id = $fid;
@@ -343,12 +343,12 @@ function add_faction_mod() {
   $mod = $_POST['mod'];
 
   $query = "INSERT INTO faction_list_mod SET id=$id, faction_id=$faction_id, mod_name=\"$mod_name\", `mod`=$mod";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
 }
 
 function update_faction_mod() {
-  global $mysql, $fid;
+  global $mysql_content_db, $fid;
 
   $old_id = $_POST['old_id'];
   $old_mod_name = $_POST['old_mod_name'];
@@ -365,17 +365,17 @@ function update_faction_mod() {
 
   if ($fields != '') {
     $query = "UPDATE faction_list_mod SET $fields WHERE id=$old_id AND faction_id=$fid";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 }
 
 function delete_faction_mod() {
-  global $mysql, $fid;
+  global $mysql_content_db, $fid;
 
   $fmid = $_GET['fmid'];
 
   $query = "DELETE FROM faction_list_mod WHERE id=$fmid AND faction_id=$fid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function get_player_factions($page_number, $results_per_page, $sort_by, $where = "") {
@@ -399,7 +399,7 @@ function get_player_faction() {
   $char_id = $_GET['char_id'];
   $faction_id = $_GET['faction_id'];
   
-  $query = "SELECT * FROM faction_values WHERE char_id = $char_id AND faction_id = $faction_id";
+  $query = "SELECT * FROM faction_values WHERE char_id=$char_id AND faction_id=$faction_id";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -478,35 +478,35 @@ function build_filter() {
 }
 
 function npcs_using_primary() {
-  global $mysql, $fid;
+  global $mysql_content_db, $fid;
 
-  $query = "SELECT nt.id AS npcid, nt.name AS npcname, nf.name AS factionname from npc_types nt
-            INNER JOIN npc_faction nf ON nf.id = nt.npc_faction_id
-            WHERE nf.primaryfaction = $fid GROUP by nt.id ORDER by nt.name";
-  $results = $mysql->query_mult_assoc($query);
+  $query = "SELECT nt.id AS npcid, nt.name AS npcname, nf.name AS factionname FROM npc_types nt
+            INNER JOIN npc_faction nf ON nf.id=nt.npc_faction_id
+            WHERE nf.primaryfaction=$fid GROUP BY nt.id ORDER BY nt.name";
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
 
 function npcs_using_faction($value) {
-  global $mysql, $fid;
+  global $mysql_content_db, $fid;
 
   if ($value == 1) {
-    $query = "SELECT nt.id AS npcid, nt.name AS npcname, nfe.npc_value AS factionvalue from npc_types nt
-              INNER JOIN npc_faction_entries nfe ON nfe.npc_faction_id = nt.npc_faction_id
-              WHERE nfe.faction_id = $fid AND nfe.npc_faction_id in (SELECT npc_faction_id from npc_faction_entries where value > 0 and faction_id = $fid) GROUP by nt.id ORDER by nt.name";
+    $query = "SELECT nt.id AS npcid, nt.name AS npcname, nfe.npc_value AS factionvalue FROM npc_types nt
+              INNER JOIN npc_faction_entries nfe ON nfe.npc_faction_id=nt.npc_faction_id
+              WHERE nfe.faction_id=$fid AND nfe.npc_faction_id IN (SELECT npc_faction_id FROM npc_faction_entries WHERE value > 0 AND faction_id=$fid) GROUP BY nt.id ORDER BY nt.name";
   }
   if ($value == 2) {
-    $query = "SELECT nt.id AS npcid, nt.name AS npcname, nfe.npc_value AS factionvalue from npc_types nt
-              INNER JOIN npc_faction_entries nfe ON nfe.npc_faction_id = nt.npc_faction_id
-              WHERE nfe.faction_id = $fid AND nfe.npc_faction_id in (SELECT npc_faction_id from npc_faction_entries where value < 0 and faction_id = $fid) GROUP by nt.id ORDER by nt.name";
+    $query = "SELECT nt.id AS npcid, nt.name AS npcname, nfe.npc_value AS factionvalue FROM npc_types nt
+              INNER JOIN npc_faction_entries nfe ON nfe.npc_faction_id=nt.npc_faction_id
+              WHERE nfe.faction_id=$fid AND nfe.npc_faction_id IN (SELECT npc_faction_id FROM npc_faction_entries WHERE value < 0 AND faction_id=$fid) GROUP BY nt.id ORDER BY nt.name";
   }
   if ($value == 3) {
-    $query = "SELECT nt.id AS npcid, nt.name AS npcname, nfe.npc_value AS factionvalue from npc_types nt
-              INNER JOIN npc_faction_entries nfe ON nfe.npc_faction_id = nt.npc_faction_id
-              WHERE nfe.faction_id = $fid AND nfe.npc_faction_id in (SELECT npc_faction_id from npc_faction_entries where value = 0 and faction_id = $fid) GROUP by nt.id ORDER by nt.name";
+    $query = "SELECT nt.id AS npcid, nt.name AS npcname, nfe.npc_value AS factionvalue FROM npc_types nt
+              INNER JOIN npc_faction_entries nfe ON nfe.npc_faction_id=nt.npc_faction_id
+              WHERE nfe.faction_id=$fid AND nfe.npc_faction_id IN (SELECT npc_faction_id FROM npc_faction_entries WHERE value = 0 AND faction_id=$fid) GROUP BY nt.id ORDER BY nt.name";
   }
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }

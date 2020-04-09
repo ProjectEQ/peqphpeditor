@@ -370,7 +370,7 @@ switch ($action) {
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/tasks/tasks.activetasks.tmpl.php");
-    $page_stats = getPageInfo("character_tasks", $curr_page, $curr_size, $_GET['sort']);
+    $page_stats = getPageInfo("character_tasks", FALSE, $curr_page, $curr_size, $_GET['sort']);
     if ($page_stats['page']) {
       $active_tasks = getActiveTasks($page_stats['page'], $curr_size, $curr_sort);
     }
@@ -392,7 +392,7 @@ switch ($action) {
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/tasks/tasks.completedtasks.tmpl.php");
-    $page_stats = getPageInfo("completed_tasks", $curr_page, $curr_size, $_GET['sort']);
+    $page_stats = getPageInfo("completed_tasks", FALSE, $curr_page, $curr_size, $_GET['sort']);
     if ($page_stats['page']) {
       $completed_tasks = getCompletedTasks($page_stats['page'], $curr_size, $curr_sort);
     }
@@ -422,53 +422,53 @@ switch ($action) {
 }
 
 function tasks_info() {
-  global $mysql, $tskid;
+  global $mysql_content_db, $tskid;
   
   $query = "SELECT * FROM tasks WHERE id=$tskid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   return $result;
 }
 
 function activity_info() {
-  global $mysql, $tskid;
+  global $mysql_content_db, $tskid;
   
   $activityid = $_GET['activityid'];
 
   $query = "SELECT * FROM task_activities WHERE taskid=$tskid AND activityid=\"$activityid\"";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   return $result;
 }
 
 function goallist_info() {
-  global $mysql;
+  global $mysql_content_db;
   
   $listid = $_GET['listid'];
 
   $query = "SELECT * FROM goallists WHERE listid=$listid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   return $result;
 }
 
 function taskset_info() {
-  global $mysql;
+  global $mysql_content_db;
   
   $id = $_GET['tsksetid'];
   $taskid = $_GET['tskid'];
 
   $query = "SELECT * FROM tasksets WHERE id=$id and taskid=$taskid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   return $result;
 }
 
 function tasksets_id() {
-  global $mysql, $tskid;
+  global $mysql_content_db, $tskid;
   
   $query = "SELECT id AS tsksetid FROM tasksets WHERE taskid=$tskid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   if ($result) {
     return ($result['tsksetid']);
@@ -479,11 +479,11 @@ function tasksets_id() {
 }
 
 function get_activities() {
-  global $mysql, $tskid;
+  global $mysql_content_db, $tskid;
   $array = array();
   
   $query = "SELECT * FROM task_activities WHERE taskid=\"$tskid\"";
-  $result = $mysql->query_mult_assoc($query);
+  $result = $mysql_content_db->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
       $array['activity'][$result['activityid']] = array("taskid"=>$result['taskid'], "activityid"=>$result['activityid'], "step"=>$result['step'], "activitytype"=>$result['activitytype'], "target_name"=>$result['target_name'], "item_list"=>$result['item_list'], "description_override"=>$result['description_override'], "skill_list"=>$result['skill_list'], "spell_list"=>$result['spell_list'], "goalid"=>$result['goalid'], "goalmethod"=>$result['goalmethod'], "goalcount"=>$result['goalcount'], "delivertonpc"=>$result['delivertonpc'], "optional"=>$result['optional']);
@@ -493,13 +493,13 @@ function get_activities() {
 }
 
 function get_goallist() {
-  global $mysql;
+  global $mysql_content_db;
   $array = array();
   
   $listid = $_GET['lid'];
 
   $query = "SELECT * FROM goallists WHERE listid=\"$listid\"";
-  $result = $mysql->query_mult_assoc($query);
+  $result = $mysql_content_db->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
       $array['goallist'][$result['entry']] = array("listid"=>$result['listid'], "entry"=>$result['entry']);
@@ -509,24 +509,24 @@ function get_goallist() {
 }
 
 function proximity_info() {
-  global $mysql;
+  global $mysql_content_db;
   
   $exploreid = $_GET['eid'];
 
   $query = "SELECT * FROM proximities WHERE exploreid=\"$exploreid\"";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   return $result;
 }
 
 function get_proximity() {
-  global $mysql;
+  global $mysql_content_db;
   $array = array();
   
   $exploreid = $_GET['eid'];
 
   $query = "SELECT * FROM proximities WHERE exploreid=\"$exploreid\"";
-  $result = $mysql->query_mult_assoc($query);
+  $result = $mysql_content_db->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
       $array['proximity'][$result['maxx']] = array("exploreid"=>$result['exploreid'], "zoneid"=>$result['zoneid'], "minx"=>$result['minx'], "miny"=>$result['miny'], "minz"=>$result['minz'], "maxx"=>$result['maxx'], "maxy"=>$result['maxy'], "maxz"=>$result['maxz']);
@@ -536,13 +536,13 @@ function get_proximity() {
 }
 
 function get_taskset() {
-  global $mysql;
+  global $mysql_content_db;
   $array = array();
   
   $id = $_GET['tsksetid'];
 
   $query = "SELECT * FROM tasksets WHERE id=\"$id\"";
-  $result = $mysql->query_mult_assoc($query);
+  $result = $mysql_content_db->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
       $array['tasksets'][$result['taskid']] = array("id"=>$result['id'], "taskid"=>$result['taskid']);
@@ -552,7 +552,7 @@ function get_taskset() {
 }
 
 function update_tasks() {
-  global $mysql, $mysql_class;
+  global $mysql_content_db, $mysql_class;
 
   $id = $_POST['id'];
   $type = $_POST['type'];
@@ -580,11 +580,11 @@ function update_tasks() {
   $faction_reward = $_POST['faction_reward'];
 
   $query = "UPDATE tasks SET type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\" WHERE id=\"$id\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function update_activity() {
-  global $mysql, $mysql_class;
+  global $mysql_content_db, $mysql_class;
 
   $taskid = $_POST['taskid'];
   $activityid = $_POST['activityid'];
@@ -614,14 +614,14 @@ function update_activity() {
   $optional = $_POST['optional'];
 
   $query = "DELETE FROM task_activities WHERE taskid=\"$taskid\" AND activityid=\"$activityid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "INSERT INTO task_activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$newactivityid\", activitytype=\"$activitytype\", target_name=\"$target_name\", item_list=\"$item_list\", description_override=\"$description_override\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", goalid=\"$goalid\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", optional=\"$optional\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function update_proximity() {
-  global $mysql;
+  global $mysql_content_db;
 
   $exploreid = $_POST['exploreid'];
   $zoneid = $_POST['zoneid'];
@@ -633,158 +633,158 @@ function update_proximity() {
   $maxz = $_POST['maxz']; 
 
   $query = "UPDATE proximities SET zoneid=\"$zoneid\", minx=\"$minx\", miny=\"$miny\", minz=\"$minz\", maxx=\"$maxx\", maxy=\"$maxy\", maxz=\"$maxz\" WHERE exploreid=\"$exploreid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_tasks() {
-  global $mysql, $tskid;
+  global $mysql_content_db, $tskid;
 
   $query = "DELETE FROM tasks WHERE id=\"$tskid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM task_activities WHERE taskid=\"$tskid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_goallist() {
-  global $mysql;
+  global $mysql_content_db;
   
   $listid = $_GET['lid'];
   $entry = $_GET['entry'];
 
   $query = "DELETE FROM goallists WHERE listid=\"$listid\" AND entry=\"$entry\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
 }
 
 function delete_taskentry() {
-  global $mysql;
+  global $mysql_content_db;
   
   $taskid = $_GET['entry'];
   $id = $_GET['tsksetid'];
 
   $query = "DELETE FROM tasksets WHERE id=\"$id\" AND taskid=\"$taskid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
 }
 
 function delete_taskset() {
-  global $mysql;
+  global $mysql_content_db;
   
   $id = $_GET['tsksetid'];
 
   $query = "DELETE FROM tasksets WHERE id=\"$id\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
 }
 
 function delete_goallists() {
-  global $mysql;
+  global $mysql_content_db;
   
   $listid = $_GET['lid'];
   $tskid = $_GET['tskid'];
 
   $query = "DELETE FROM goallists WHERE listid=\"$listid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "UPDATE tasks SET rewardid=0 WHERE id=\"$tskid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
 }
 
 function delete_goallists_act() {
-  global $mysql;
+  global $mysql_content_db;
   
   $listid = $_GET['lid'];
   $aid = $_GET['aid'];
   $tskid = $_GET['tskid'];
 
   $query = "DELETE FROM goallists WHERE listid=\"$listid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "UPDATE task_activities SET goalid=0 WHERE taskid=\"$tskid\" AND activityid=\"$aid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
 }
 
 function delete_proximity() {
-  global $mysql;
+  global $mysql_content_db;
   
   $eid = $_GET['eid'];
   $tskid = $_GET['tskid'];
   $aid = $_GET['aid'];
 
   $query = "DELETE FROM proximities WHERE exploreid=\"$eid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "UPDATE task_activities SET goalid=0 WHERE taskid=\"$tskid\" AND activityid=\"$aid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
 }
 
 function delete_activity() {
-  global $mysql, $tskid;
+  global $mysql_content_db, $tskid;
 
   $activityid = $_GET['activityid'];
 
   $query = "DELETE FROM task_activities WHERE taskid=\"$tskid\" AND activityid=\"$activityid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function suggest_tasks_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS tskid FROM tasks";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   return ($result['tskid'] + 1);
 }
 
 function suggest_activity_id() {
-  global $mysql, $tskid;
+  global $mysql_content_db, $tskid;
 
   $query = "SELECT MAX(activityid) AS aid FROM task_activities WHERE taskid=\"$tskid\"";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   return ($result['aid'] + 1);
 }
 
 function suggest_list_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(listid) AS lid FROM goallists";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   return ($result['lid'] + 1);
 }
 
 function suggest_explore_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(exploreid) AS eid FROM proximities";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   return ($result['eid'] + 1);
 }
 
 function suggest_taskset_id() {
-  global $mysql;
+  global $mysql_content_db;
   $query = "SELECT MAX(id) AS tasksetid FROM tasksets";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   return ($result['tasksetid'] + 1);
 }
 
 function suggest_step() {
-  global $mysql, $tskid;
+  global $mysql_content_db, $tskid;
 
   $query = "SELECT MAX(step) AS stp FROM task_activities WHERE taskid=\"$tskid\"";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   return ($result['stp'] + 1);
 }
 
 function add_tasks() {
-  global $mysql, $mysql_class;
+  global $mysql_content_db, $mysql_class;
 
   $id = $_POST['id'];
   $type = $_POST['type'];
@@ -812,11 +812,11 @@ function add_tasks() {
   $faction_reward = $_POST['faction_reward'];
 
   $query = "INSERT INTO tasks SET id=\"$id\", type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function add_activity() {
-  global $mysql, $mysql_class;
+  global $mysql_content_db, $mysql_class;
 
   $taskid = $_POST['taskid'];
   $activityid = $_POST['activityid'];
@@ -846,25 +846,25 @@ function add_activity() {
   $optional = $_POST['optional'];
 
   $query = "INSERT INTO task_activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$activityid\", activitytype=\"$activitytype\", target_name=\"$target_name\", item_list=\"$item_list\", description_override=\"$description_override\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", goalid=\"$goalid\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", optional=\"$optional\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function add_goallist() {
-  global $mysql;
+  global $mysql_content_db;
 
   $taskid = $_POST['taskid'];
   $listid = $_POST['listid'];
   $entry = $_POST['entry'];
 
   $query = "INSERT INTO goallists SET listid=\"$listid\", entry=\"$entry\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
   
   $query = "UPDATE tasks SET rewardid=\"$listid\" WHERE id=\"$taskid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function add_goallist_act() {
-  global $mysql;
+  global $mysql_content_db;
 
   $taskid = $_POST['taskid'];
   $listid = $_POST['listid'];
@@ -872,14 +872,14 @@ function add_goallist_act() {
   $aid = $_POST['aid'];
 
   $query = "INSERT INTO goallists SET listid=\"$listid\", entry=\"$entry\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
   
   $query = "UPDATE task_activities SET goalid=\"$listid\" WHERE taskid=\"$taskid\" AND activityid=\"$aid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function add_proximity() {
-  global $mysql;
+  global $mysql_content_db;
 
   $tskid = $_POST['tskid'];
   $aid = $_POST['aid'];
@@ -893,28 +893,28 @@ function add_proximity() {
   $maxz = $_POST['maxz']; 
 
   $query = "INSERT INTO proximities SET exploreid=\"$exploreid\", zoneid=\"$zoneid\", minx=\"$minx\", miny=\"$miny\", minz=\"$minz\", maxx=\"$maxx\", maxy=\"$maxy\", maxz=\"$maxz\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "UPDATE task_activities SET goalid=\"$exploreid\" WHERE taskid=\"$tskid\" AND activityid=\"$aid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function add_taskset() {
   check_authorization();
-  global $mysql;
+  global $mysql_content_db;
   $id = $_POST['id'];
   $taskid = $_POST['taskid'];
 
   $query = "INSERT INTO tasksets VALUES ($id, $taskid)";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function search_tasks() {
-  global $mysql;
+  global $mysql_content_db;
   $search = $_GET['search'];
 
   $query = "SELECT id, title FROM tasks WHERE title RLIKE \"$search\"";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
   return $results;
 }
 

@@ -79,13 +79,13 @@ function find_quest_script() {
 }
 
 function MarkQuestNPC() {
-  global $mysql, $quest_path;
+  global $mysql_content_db, $quest_path;
 
-  $query = "UPDATE npc_types SET isquest = 0";
-  $mysql->query_no_result($query);
+  $query = "UPDATE npc_types SET isquest=0";
+  $mysql_content_db->query_no_result($query);
 
   $query = "SELECT id FROM npc_types";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   foreach ($results as $r) {
 
@@ -109,7 +109,7 @@ function MarkQuestNPC() {
 
     if(file_exists($LuafullpathID) || file_exists($LuafullpathName) || file_exists($LuafulltempID) || file_exists($LuafulltempName) || file_exists($fullpathID) || file_exists($fullpathName) || file_exists($fulltempID) || file_exists($fulltempName)) {
       $query = "UPDATE npc_types SET isquest=1 WHERE id=$npcid";
-      $mysql->query_no_result($query);
+      $mysql_content_db->query_no_result($query);
     }
 
   }

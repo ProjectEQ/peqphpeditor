@@ -2,11 +2,7 @@
   <body bgcolor="#FFCCCC">
 <?
 if(isset($_GET['name']) && ($_GET['name'] != '')) {
-  require("../../config.php");
-  if($mysql_class = "mysqli")
-    require("../../classes/mysqli.php");
-  else
-    require("../../classes/mysql.php");
+  global $mysql;
 
   $name = $_GET['name'];
 

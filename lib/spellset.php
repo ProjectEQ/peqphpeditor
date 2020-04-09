@@ -193,13 +193,13 @@ switch($action) {
 }
 
 function spells_info() {
-  global $mysql, $npcid, $spellset;
+  global $mysql_content_db, $npcid, $spellset;
 
   $array = array();
 
   if (!$spellset) {
     $query = "SELECT npc_spells_id FROM npc_types WHERE id=$npcid";
-    $result = $mysql->query_assoc($query);
+    $result = $mysql_content_db->query_assoc($query);
     $npc_spells_id = $result['npc_spells_id'];
   }
   else $npc_spells_id = $spellset;
@@ -207,13 +207,13 @@ function spells_info() {
   if ($npc_spells_id == 0) return array("npc_spells_id" => 0);
 
   $query = "SELECT * FROM npc_spells WHERE id=$npc_spells_id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $array = $result;
 
   $array['proc_name'] = getSpellName($array['attack_proc']);
 
   $query = "SELECT * FROM npc_spells_entries WHERE npc_spells_id=$npc_spells_id ORDER BY minlevel";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
   if ($results != '') {
     foreach ($results as $result) {
       $result['name'] = getSpellName($result['spellid']);
@@ -224,12 +224,12 @@ function spells_info() {
 
   if (isset($array['parent_list']) && ($array['parent_list'] != 0)) {
     $query = "SELECT * FROM npc_spells WHERE id={$array['parent_list']}";
-    $result = $mysql->query_assoc($query);
+    $result = $mysql_content_db->query_assoc($query);
     $array['parent']['name'] = $result['name'];
     $array['parent']['id'] = $result['id'];
 
     $query = "SELECT * FROM npc_spells_entries WHERE npc_spells_id={$array['parent_list']} ORDER BY minlevel";
-    $results = $mysql->query_mult_assoc($query);
+    $results = $mysql_content_db->query_mult_assoc($query);
     if ($results) {
       foreach ($results as $result) {
         $result['name'] = getSpellName($result['spellid']);
@@ -243,7 +243,7 @@ function spells_info() {
 
 function update_spellset() {
   check_authorization();
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $name = $_POST['name'];
@@ -268,12 +268,12 @@ function update_spellset() {
   $idle_b_chance = $_POST['idle_b_chance'];
 
   $query = "UPDATE npc_spells SET name=\"$name\", parent_list=$parent_list, attack_proc=$attack_proc, proc_chance=$proc_chance, range_proc=$range_proc, rproc_chance=$rproc_chance, defensive_proc=$defensive_proc, dproc_chance=$dproc_chance, fail_recast=$fail_recast, engaged_no_sp_recast_min=$engaged_no_sp_recast_min, engaged_no_sp_recast_max=$engaged_no_sp_recast_max, engaged_b_self_chance=$engaged_b_self_chance, engaged_b_other_chance=$engaged_b_other_chance, engaged_d_chance=$engaged_d_chance, pursue_no_sp_recast_min=$pursue_no_sp_recast_min, pursue_no_sp_recast_max=$pursue_no_sp_recast_max, pursue_d_chance=$pursue_d_chance, idle_no_sp_recast_min=$idle_no_sp_recast_min, idle_no_sp_recast_max=$idle_no_sp_recast_max, idle_b_chance=$idle_b_chance WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function add_spell() {
   check_authorization();
-  global $mysql;
+  global $mysql_content_db;
 
   $npc_spells_id = $_POST['npc_spells_id'];
   $spellid = $_POST['spellid'];
@@ -288,54 +288,54 @@ function add_spell() {
   $priority = $_POST['priority'];
 
   $query = "INSERT INTO npc_spells_entries SET npc_spells_id=$npc_spells_id, spellid=$spellid, type=$type, minlevel=$minlevel, maxlevel=$maxlevel, manacost=$manacost, recast_delay=$recast_delay, priority=$priority, resist_adjust=NULL, min_hp=$min_hp, max_hp=$max_hp";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   if ($resist_adjust != "") {
     $query = "UPDATE npc_spells_entries SET resist_adjust=\"$resist_adjust\" WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 }
 
 function delete_spell() {
   check_authorization();
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_GET['id'];
 
   $query = "DELETE FROM npc_spells_entries WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function spell_info() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_GET['id'];
 
   $query = "SELECT * FROM npc_spells_entries WHERE id=$id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result;
 }
 
 function delete_spellset() {
   check_authorization();
-  global $mysql, $npcid;
+  global $mysql_content_db, $npcid;
 
   $id = $_GET['id'];
 
   $query = "DELETE FROM npc_spells WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM npc_spells_entries WHERE npc_spells_id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "UPDATE npc_types SET npc_spells_id=0 WHERE id=$npcid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function update_spell() {
   check_authorization();
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $spellid = $_POST['spellid'];
@@ -350,23 +350,23 @@ function update_spell() {
   $priority = $_POST['priority'];
 
   $query = "UPDATE npc_spells_entries SET spellid=$spellid, type=$type, minlevel=$minlevel, maxlevel=$maxlevel, manacost=$manacost, recast_delay=$recast_delay, priority=$priority, resist_adjust=NULL, min_hp=$min_hp, max_hp=$max_hp WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   if ($resist_adjust != "") {
     $query = "UPDATE npc_spells_entries SET resist_adjust=\"$resist_adjust\" WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 }
 
 function suggest_spellset_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS id FROM npc_spells";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $id1 = $result['id'];
 
   $query = "SELECT MAX(npc_spells_id) AS id FROM npc_spells_entries";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $id2 = $result['id'];
 
   return (max($id1, $id2) + 1);
@@ -374,7 +374,7 @@ function suggest_spellset_id() {
 
 function add_spellset() {
   check_authorization();
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $name = $_POST['name'];
@@ -399,90 +399,90 @@ function add_spellset() {
   $idle_b_chance = $_POST['idle_b_chance'];
 
   $query = "INSERT INTO npc_spells SET id=$id, name=\"$name\", parent_list=$parent_list, attack_proc=$attack_proc, proc_chance=$proc_chance, range_proc=$range_proc, rproc_chance=$rproc_chance, defensive_proc=$defensive_proc, dproc_chance=$dproc_chance, fail_recast=$fail_recast, engaged_no_sp_recast_min=$engaged_no_sp_recast_min, engaged_no_sp_recast_max=$engaged_no_sp_recast_max, engaged_b_self_chance=$engaged_b_self_chance, engaged_b_other_chance=$engaged_b_other_chance, engaged_d_chance=$engaged_d_chance, pursue_no_sp_recast_min=$pursue_no_sp_recast_min, pursue_no_sp_recast_max=$pursue_no_sp_recast_max, pursue_d_chance=$pursue_d_chance, idle_no_sp_recast_min=$idle_no_sp_recast_min, idle_no_sp_recast_max=$idle_no_sp_recast_max, idle_b_chance=$idle_b_chance";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function update_npc_spellset() {
   check_authorization();
-  global $mysql, $npcid;
+  global $mysql_content_db, $npcid;
 
   $id = $_POST['id'];
 
   $query = "UPDATE npc_types SET npc_spells_id=$id WHERE id=$npcid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function remove_spellset() {
   check_authorization();
-  global $mysql, $npcid;
+  global $mysql_content_db, $npcid;
 
   $query = "UPDATE npc_types SET npc_spells_id=0 WHERE id=$npcid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function search_spells() {
-  global $mysql;
+  global $mysql_content_db;
   $search = $_GET['search'];
 
   $query = "SELECT npc_spells_entries.npc_spells_id, spells_new.name AS spellname 
   FROM npc_spells_entries
   INNER JOIN spells_new ON spells_new.id = npc_spells_entries.spellid
   WHERE spells_new.name rlike \"$search\"";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
   return $results;
 }
 
 function copy_spellset() {
   check_authorization();
-  global $mysql;
+  global $mysql_content_db;
   $spellsetid = $_GET['spellsetid'];
   $npcid = $_GET['npcid'];
 
   $query = "DELETE FROM npc_spells WHERE id=0";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM npc_spells_entries WHERE npc_spells_id=0";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "INSERT INTO npc_spells (name,parent_list,attack_proc,proc_chance) 
             SELECT name,parent_list,attack_proc,proc_chance FROM npc_spells where id=$spellsetid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "INSERT INTO npc_spells_entries (spellid,type,minlevel,maxlevel,manacost,recast_delay,priority) 
             SELECT spellid,type,minlevel,maxlevel,manacost,recast_delay,priority FROM npc_spells_entries where npc_spells_id=$spellsetid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "SELECT MAX(id) as sid FROM npc_spells";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $nss = $result['sid'];
 
   $query = "UPDATE npc_spells_entries set npc_spells_id=$nss where npc_spells_id=0";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "SELECT name FROM npc_types WHERE id=$npcid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $name = $result['name'];
 
   $query = "UPDATE npc_types set npc_spells_id=$nss where id=$npcid";
-  $mysql->query_no_result($query);  
+  $mysql_content_db->query_no_result($query);  
 
   $query = "UPDATE npc_spells set name=\"$name\" where id=$nss";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function get_new_id() {
   check_authorization();
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) as sid FROM npc_spells";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $nss = $result['sid'];
   return $nss;
 }
 
 function change_spellset_byname() {
   check_authorization();
-  global $mysql, $npcid, $z;
+  global $mysql_content_db, $npcid, $z;
   $zid = getZoneID($z);
   $min_id = $zid*1000-1;
   $max_id = $zid*1000+1000;
@@ -492,18 +492,18 @@ function change_spellset_byname() {
  
   if($updateall == 0){
   $query = "UPDATE npc_types SET npc_spells_id=$id WHERE name like \"%$npcname%\" AND id > $min_id AND id < $max_id AND npc_spells_id = 0";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
   }
 
   if($updateall == 1){
   $query = "UPDATE npc_types SET npc_spells_id=$id WHERE name like \"%$npcname%\" AND id > $min_id AND id < $max_id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
   }
 }
 
 function change_spellset_byclass() {
   check_authorization();
-  global $mysql, $npcid, $z;
+  global $mysql_content_db, $npcid, $z;
   $zid = getZoneID($z);
   $min_id = $zid*1000-1;
   $max_id = $zid*1000+1000;
@@ -513,12 +513,12 @@ function change_spellset_byclass() {
  
   if($updateall == 0){
   $query = "UPDATE npc_types SET npc_spells_id=$id WHERE class = $npcclass AND id > $min_id AND id < $max_id AND npc_spells_id = 0";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
   }
 
   if($updateall == 1){
   $query = "UPDATE npc_types SET npc_spells_id=$id WHERE class = $npcclass AND id > $min_id AND id < $max_id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
   }
 }
 ?>

@@ -94,6 +94,15 @@ class mysql extends mysqli {
 
 $mysql = new mysql($dbhost, $dbuser, $dbpass, $db);
 
+// Establish content database connection (if any)
+$mysql_content_db = null;
+if ($use_content_db) {
+  $mysql_content_db = new mysql($content_dbhost, $content_dbuser, $content_dbpass, $content_db);
+}
+else {
+  $mysql_content_db = $mysql;
+}
+
 // Quote variable to make safe
 function quote_smart($value) {
 

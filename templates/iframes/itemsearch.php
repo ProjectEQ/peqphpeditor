@@ -2,14 +2,11 @@
   <body bgcolor="#FFCCCC">
 <?php
 if(isset($_GET['name']) && ($_GET['name'] != '')) {
-  require("../../config.php");
-  if($mysql_class = "mysqli")
-    require("../../classes/mysqli.php");
-  else
-    require("../../classes/mysql.php");
+  global $mysql;
+
   $name = $_GET['name'];
-  $query = "SELECT id, name, lore FROM items WHERE name rlike \"$name\" ORDER BY id";
-  $results = $mysql->query_mult_assoc($query);
+  $query = "SELECT id, name, lore FROM items WHERE name RLIKE \"$name\" ORDER BY id";
+  $results = $mysql_content_db->query_mult_assoc($query);
   if($results == '') {
     print "No items found!<br>";
   }

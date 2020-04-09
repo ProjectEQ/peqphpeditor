@@ -137,84 +137,84 @@ switch ($action) {
 }
 
 function get_altcur_items() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM alternate_currency";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
 
 function view_altcur_item() {
-  global $mysql;
+  global $mysql_content_db;
   $id = $_GET['id'];
 
   $query = "SELECT * FROM alternate_currency WHERE id=$id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result;
 }
 
 function insert_altcur_item() {
-  global $mysql;
+  global $mysql_content_db;
   $id = $_POST['id'];
   $item_id = $_POST['item_id'];
 
   $query = "INSERT INTO alternate_currency (id, item_id) VALUES ($id, $item_id)";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function update_altcur_item() {
-  global $mysql;
+  global $mysql_content_db;
   $id = $_POST['id'];
   $item_id = $_POST['item_id'];
 
   $query = "UPDATE alternate_currency SET item_id=$item_id WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_altcur_item() {
-  global $mysql;
+  global $mysql_content_db;
   $id = $_GET['id'];
 
   $query = "DELETE FROM alternate_currency WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function get_altcur_npcs() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT id, alt_currency_id FROM npc_types WHERE alt_currency_id > 0";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
 
 function view_altcur_npc() {
-  global $mysql;
+  global $mysql_content_db;
   $npcid = $_GET['npcid'];
 
   $query = "SELECT alt_currency_id FROM npc_types WHERE id=$npcid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result['alt_currency_id'];
 }
 
 function update_altcur_npc() {
-  global $mysql;
+  global $mysql_content_db;
   $npcid = $_POST['npcid'];
   $curr_id = $_POST['curr_id'];
 
   $query = "UPDATE npc_types SET alt_currency_id=$curr_id WHERE id=$npcid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_altcur_npc() {
-  global $mysql;
+  global $mysql_content_db;
   $npcid = $_GET['npcid'];
 
   $query = "UPDATE npc_types SET alt_currency_id=0 WHERE id=$npcid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function get_altcur_characters() {
@@ -268,10 +268,10 @@ function delete_altcur_character() {
 }
 
 function get_next_currid() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS maxid FROM alternate_currency";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result['maxid'] + 1;
 }

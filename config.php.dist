@@ -18,10 +18,19 @@ function env($variable, $default)
 /**
  * Database info
  */
-$dbhost      = env('DB_HOST', 'localhost');
-$dbuser      = env('DB_USER', 'username');
-$dbpass      = env('DB_PASSWORD', 'password');
-$db          = env('DB_NAME', 'database_name');
+$dbhost = env('DB_HOST', 'localhost');
+$dbuser = env('DB_USER', 'username');
+$dbpass = env('DB_PASSWORD', 'password');
+$db     = env('DB_NAME', 'database_name');
+
+/**
+ * Content database info
+ */
+$use_content_db = FALSE;
+$content_dbhost = env('CONTENT_DB_HOST', 'remote_host');
+$content_dbuser = env('CONTENT_DB_USER', 'remote_username');
+$content_dbpass = env('CONTENT_DB_PASSWORD', 'remote_password');
+$content_db     = env('CONTENT_DB_NAME', 'remote_database_name');
 
 /**
  * Limit editor listings to a specified expansion

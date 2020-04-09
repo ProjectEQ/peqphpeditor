@@ -178,27 +178,27 @@ switch ($action) {
 }
 
 function spell_info() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_GET['id'];
   
   $query = "SELECT * FROM spells_new WHERE id=$id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result;
 }
 
 function delete_spell() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_GET['id'];
 
   $query = "DELETE FROM spells_new WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function update_spell() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $vars = spell_info();
@@ -256,45 +256,45 @@ function update_spell() {
 
   if ($fields != '') {
     $query = "UPDATE spells_new SET $fields WHERE id=$id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 }
 
 function copy_spell() {
-  global $mysql, $sp_fields;
+  global $mysql_content_db, $sp_fields;
 
   $id = $_GET['id'];
 
   $query1 = "SELECT max(id) AS iid FROM spells_new";
-  $result = $mysql->query_assoc($query1);
+  $result = $mysql_content_db->query_assoc($query1);
   $newid = $result['iid'] + 1;
 
   $fields = implode(", ", $sp_fields);
   
   $query2 = "INSERT INTO spells_new ($fields, id) SELECT $fields, $newid AS id FROM spells_new WHERE id = '$id'";
-  $mysql->query_no_result($query2);
+  $mysql_content_db->query_no_result($query2);
 
   $query3 = "UPDATE spells_new SET name = concat(name, ' - Copy') WHERE id = $newid";
-  $mysql->query_no_result($query3);
+  $mysql_content_db->query_no_result($query3);
 
   return $newid;
 }
 
 function get_max_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT max(id) AS iid FROM spells_new";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $newid = $result['iid'] + 1;
 
   return $newid;
 }
 
 function npc_spells_effects() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM npc_spells_effects ORDER BY id";
-  $result = $mysql->query_mult_assoc($query);
+  $result = $mysql_content_db->query_mult_assoc($query);
 
   if ($result) {
     return $result;
@@ -305,10 +305,10 @@ function npc_spells_effects() {
 }
 
 function npc_spells_effect($nseid) {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM npc_spells_effects WHERE id=$nseid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   if ($result) {
     return $result;
@@ -319,10 +319,10 @@ function npc_spells_effect($nseid) {
 }
 
 function npc_spells_effects_entries($nseid) {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM npc_spells_effects_entries WHERE npc_spells_effects_id=$nseid ORDER BY spell_effect_id";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   if ($results) {
     return $results;
@@ -333,10 +333,10 @@ function npc_spells_effects_entries($nseid) {
 }
 
 function npc_spells_effects_entry($nseeid) {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM npc_spells_effects_entries WHERE id=$nseeid";
-  $results = $mysql->query_assoc($query);
+  $results = $mysql_content_db->query_assoc($query);
 
   if ($results) {
     return $results;
@@ -347,59 +347,59 @@ function npc_spells_effects_entry($nseeid) {
 }
 
 function npc_spells_effects_next_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS last FROM npc_spells_effects";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result['last'] + 1;
 }
 
 function npc_spells_effects_entry_next_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS last FROM npc_spells_effects_entries";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result['last'] + 1;
 }
 
 function insert_npc_spells_effect() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $name = $_POST['name'];
   $parent_list = $_POST['parent_list'];
 
   $query = "INSERT INTO npc_spells_effects (id, name, parent_list) VALUES ($id, '$name', $parent_list)";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function update_npc_spells_effect() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $name = $_POST['name'];
   $parent_list = $_POST['parent_list'];
 
   $query = "UPDATE npc_spells_effects SET name='$name', parent_list=$parent_list WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_npc_spells_effect() {
-  global $mysql;
+  global $mysql_content_db;
 
   $nseid = $_GET['nseid'];
 
   $query1 = "DELETE FROM npc_spells_effects_entries WHERE npc_spells_effects_id=$nseid";
-  $mysql->query_no_result($query1);
+  $mysql_content_db->query_no_result($query1);
 
   $query2 = "DELETE FROM npc_spells_effects WHERE id=$nseid";
-  $mysql->query_no_result($query2);
+  $mysql_content_db->query_no_result($query2);
 }
 
 function insert_npc_spells_effects_entry() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $npc_spells_effects_id = $_POST['npc_spells_effects_id'];
@@ -411,11 +411,11 @@ function insert_npc_spells_effects_entry() {
   $se_max = $_POST['se_max'];
 
   $query = "INSERT INTO npc_spells_effects_entries (id, npc_spells_effects_id, spell_effect_id, minlevel, maxlevel, se_base, se_limit, se_max) VALUES ($id, $npc_spells_effects_id, $spell_effect_id, $minlevel, $maxlevel, $se_base, $se_limit, $se_max)";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function update_npc_spells_effects_entry() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $npc_spells_effects_id = $_POST['npc_spells_effects_id'];
@@ -427,25 +427,25 @@ function update_npc_spells_effects_entry() {
   $se_max = $_POST['se_max'];
 
   $query = "UPDATE npc_spells_effects_entries SET spell_effect_id=$spell_effect_id, minlevel=$minlevel, maxlevel=$maxlevel, se_base=$se_base, se_limit=$se_limit, se_max=$se_max WHERE id=$id AND npc_spells_effects_id=$npc_spells_effects_id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_npc_spells_effects_entry() {
-  global $mysql;
+  global $mysql_content_db;
 
   $nseeid = $_GET['nseeid'];
   $nseid = $_GET['nseid'];
 
   $query = "DELETE FROM npc_spells_effects_entries WHERE id=$nseeid AND npc_spells_effects_id=$nseid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function current_npc_spells_effects($nseid) {
-  global $mysql;
+  global $mysql_content_db;
   $effects = array();
 
   $query = "SELECT spell_effect_id FROM npc_spells_effects_entries WHERE npc_spells_effects_id=$nseid";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   if ($results) {
     foreach ($results as $result) {
@@ -459,14 +459,14 @@ function current_npc_spells_effects($nseid) {
 }
 
 function generateSpellsFile() {
-  global $mysql;
+  global $mysql_content_db;
   $spellsfile = "spells_us.txt";
   $count = 0;
   $lastid = 0;
   $success = false;
 
   $query = "SELECT * FROM spells_new ORDER BY id";
-  $results = $mysql->query($query, MYSQLI_USE_RESULT);
+  $results = $mysql_content_db->query($query, MYSQLI_USE_RESULT);
 
   if ($results) {
     $fileOut = fopen($spellsfile, 'w');

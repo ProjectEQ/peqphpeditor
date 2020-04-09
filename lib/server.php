@@ -63,7 +63,7 @@ switch ($action) {
     $body = new Template("templates/server/bugs.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $bugs = get_open_bugs($curr_page, $curr_size, $curr_sort);
-    $page_stats = getPageInfo("bugs", $curr_page, $curr_size, $_GET['sort'], "status = 0");
+    $page_stats = getPageInfo("bugs", FALSE, $curr_page, $curr_size, $_GET['sort'], "status = 0");
     if ($bugs) {
       foreach ($bugs as $key=>$value) {
         $body->set($key, $value);
@@ -108,7 +108,7 @@ switch ($action) {
     $body = new Template("templates/server/bugs.resolved.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $bugs = get_resolved_bugs($curr_page, $curr_size, $curr_sort);
-    $page_stats = getPageInfo("bugs", $curr_page, $curr_size, $_GET['sort'], "status != 0");
+    $page_stats = getPageInfo("bugs", FALSE, $curr_page, $curr_size, $_GET['sort'], "status != 0");
     if ($bugs) {
       foreach ($bugs as $key=>$value) {
         $body->set($key, $value);
@@ -138,7 +138,7 @@ switch ($action) {
       $filter = build_filter();
     }
     $body = new Template("templates/server/hackers.tmpl.php");
-    $page_stats = getPageInfo("hackers", $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
+    $page_stats = getPageInfo("hackers", FALSE, $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
     if ($filter) {
       $body->set('filter', $filter);
     }
@@ -852,7 +852,7 @@ function view_zone() {
   $zone = $_GET['zone'];
   $launcher = $_GET['launcher'];
 
-  $query = "SELECT * FROM launcher_zones where launcher = \"$launcher\" and zone = \"$zone\"";
+  $query = "SELECT * FROM launcher_zones WHERE launcher=\"$launcher\" AND zone=\"$zone\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -863,7 +863,7 @@ function view_launcher() {
 
   $name = $_GET['name'];
 
-  $query = "SELECT * FROM launcher where name = \"$name\"";
+  $query = "SELECT * FROM launcher WHERE name=\"$name\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -874,7 +874,7 @@ function view_variable() {
 
   $varname = $_GET['varname'];
 
-  $query = "SELECT * FROM variables where varname = \"$varname\"";
+  $query = "SELECT * FROM variables WHERE varname=\"$varname\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -939,7 +939,7 @@ function update_zone() {
   $zone = $_POST['zone'];
   $port = $_POST['port'];
 
-  $query = "UPDATE launcher_zones SET launcher=\"$launcher1\", zone=\"$zone1\", port=\"$port\" WHERE launcher=\"$launcher\" and zone=\"$zone\"";
+  $query = "UPDATE launcher_zones SET launcher=\"$launcher1\", zone=\"$zone1\", port=\"$port\" WHERE launcher=\"$launcher\" AND zone=\"$zone\"";
   $mysql->query_no_result($query);
 }
 
@@ -1131,7 +1131,7 @@ function suggest_ruleset_id() {
 function suggest_launcher() {
   global $mysql;
 
-  $query = "SELECT name FROM launcher limit 1";
+  $query = "SELECT name FROM launcher LIMIT 1";
   $result = $mysql->query_assoc($query);
   
   return $result['name'];
@@ -1158,7 +1158,6 @@ function notify_status($new_status) {
 }
 
 function build_filter() {
-  global $mysql;
   $filter1 = $_GET['filter1'];
   $filter2 = $_GET['filter2'];
   $filter3 = $_GET['filter3'];
@@ -1239,7 +1238,7 @@ function view_bannedips() {
 
   $ip_address = $_GET['ip'];
 
-  $query = "SELECT ip_address,notes FROM Banned_IPs where ip_address = \"$ip_address\"";
+  $query = "SELECT ip_address,notes FROM Banned_IPs where ip_address=\"$ip_address\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -1250,7 +1249,7 @@ function delete_bannedip() {
 
   $ip_address = $_GET['ip'];
 
-  $query = "DELETE FROM Banned_IPs where ip_address = \"$ip_address\"";
+  $query = "DELETE FROM Banned_IPs where ip_address=\"$ip_address\"";
   $mysql->query_no_result($query);
 }
 
@@ -1260,15 +1259,15 @@ function update_bannedip() {
   $ip_address = $_POST['ip_address'];
   $notes = $_POST['notes']; 
 
-  $query = "UPDATE Banned_IPs SET notes=\"$notes\" WHERE ip_address = \"$ip_address\"";
+  $query = "UPDATE Banned_IPs SET notes=\"$notes\" WHERE ip_address=\"$ip_address\"";
   $mysql->query_no_result($query);
 }
 
 function getCharCreateComboList() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM char_create_combinations ORDER BY race, class, deity, start_zone";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
@@ -1300,10 +1299,10 @@ function repair_orphaned_rules() {
 }
 
 function getCharBaseData() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM base_data";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   if ($results) {
     return $results;

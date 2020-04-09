@@ -144,7 +144,7 @@ switch ($action) {
 }
 
 function aa_info() {
-  global $mysql, $aaid;
+  global $mysql_content_db, $aaid;
   $aa_array = array();
   $aa_base = array();
   $aa_ranks = array();
@@ -156,13 +156,13 @@ function aa_info() {
 
   //Get AA info from aa_ability
   $query = "SELECT * from aa_ability WHERE id=$aaid";
-  $base_results = $mysql->query_assoc($query);
+  $base_results = $mysql_content_db->query_assoc($query);
 
   if ($base_results) {
     $aa_base = $base_results;
     $first = $aa_base['first_rank_id'];
     $query = "SELECT * FROM aa_ranks WHERE id=$first";
-    $first_rank_result = $mysql->query_assoc($query);
+    $first_rank_result = $mysql_content_db->query_assoc($query);
 
     if ($first_rank_result) {
       $aa_ranks[$rank] = $first_rank_result;
@@ -170,13 +170,13 @@ function aa_info() {
       $next_id = $first_rank_result['next_id'];
 
       $query = "SELECT * FROM aa_rank_effects WHERE rank_id=$effect_id";
-      $first_effect_results = $mysql->query_mult_assoc($query);
+      $first_effect_results = $mysql_content_db->query_mult_assoc($query);
       if ($first_effect_results) {
         $aa_effects[$rank] = $first_effect_results;
       }
 
       $query = "SELECT * FROM aa_rank_prereqs WHERE rank_id=$effect_id";
-      $prereq_result = $mysql->query_assoc($query);
+      $prereq_result = $mysql_content_db->query_assoc($query);
       if ($prereq_result) {
         $aa_prereqs[$rank] = $prereq_result;
       }
@@ -184,19 +184,19 @@ function aa_info() {
 
       while ($next_id > 0) {
         $query = "SELECT * FROM aa_ranks WHERE id=$next_id";
-        $result_detail = $mysql->query_assoc($query);
+        $result_detail = $mysql_content_db->query_assoc($query);
         if ($result_detail) {
           $rank++;
           $aa_ranks[$rank] = $result_detail;
           $next_id = $result_detail['next_id'];
           $effect_id = $result_detail['id'];
           $query = "SELECT * FROM aa_rank_effects WHERE rank_id=$effect_id";
-          $effect_detail = $mysql->query_mult_assoc($query);
+          $effect_detail = $mysql_content_db->query_mult_assoc($query);
           if ($effect_detail) {
             $aa_effects[$rank] = $effect_detail;
           }
           $query = "SELECT * FROM aa_rank_prereqs WHERE rank_id=$effect_id";
-          $prereq_result = $mysql->query_assoc($query);
+          $prereq_result = $mysql_content_db->query_assoc($query);
           if ($prereq_result) {
             $aa_prereqs[$rank] = $prereq_result;
           }
@@ -223,18 +223,18 @@ function aa_info() {
 }
 
 function getAAsBySPA($spa) {
-  global $mysql;
+  global $mysql_content_db;
   $results = array();
 
   $query = "SELECT id FROM spells_new WHERE $spa IN (effectid1, effectid2, effectid3, effectid4, effectid5, effectid6, effectid7, effectid8, effectid9, effectid10, effectid11, effectid12)";
-  $spells = $mysql->query_mult_assoc($query);
+  $spells = $mysql_content_db->query_mult_assoc($query);
 
   if ($spells) {
     foreach ($spells as $spell) {
       $spell_id = $spell['id'];
 
       $query = "SELECT id FROM aa_ranks WHERE spell=$spell_id";
-      $ranks = $mysql->query_mult_assoc($query);
+      $ranks = $mysql_content_db->query_mult_assoc($query);
 
       if ($ranks) {
         foreach ($ranks as $rank) {
@@ -242,7 +242,7 @@ function getAAsBySPA($spa) {
 
 
           $query = "SELECT id FROM aa_ability WHERE first_rank_id = $rank_id";
-          $abilities = $mysql->query_mult_assoc($query);
+          $abilities = $mysql_content_db->query_mult_assoc($query);
 
           if ($abilities) {
             foreach ($abilities as $ability) {
@@ -259,7 +259,7 @@ function getAAsBySPA($spa) {
 }
 
 function insertAA() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $name = $_POST['name'];
@@ -292,13 +292,13 @@ function insertAA() {
   }
 
   $query = "INSERT INTO aa_ability SET id=$id, name=\"$name\", category=$category, type=$type, classes=$classes_value, races=$races_value, deities=$deities_value, enabled=$enabled, first_rank_id=$first_rank_id, grant_only=$grant_only, status=$status, charges=$charges, drakkin_heritage=$drakkin_heritage, reset_on_death=$reset_on_death";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   return;
 }
 
 function updateAA() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $name = $_POST['name'];
@@ -331,27 +331,27 @@ function updateAA() {
   }
 
   $query = "UPDATE aa_ability SET name=\"$name\", category=$category, type=$type, classes=$classes_value, races=$races_value, deities=$deities_value, enabled=$enabled, first_rank_id=$first_rank_id, grant_only=$grant_only, status=$status, charges=$charges, drakkin_heritage=$drakkin_heritage, reset_on_death=$reset_on_death WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   return;
 }
 
 function deleteAA() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_GET['aaid'];
 
   $query = "DELETE FROM aa_ability WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   return;
 }
 
 function get_aa_ranks() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT id FROM aa_ranks";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   if ($results) {
     return $results;
@@ -362,7 +362,7 @@ function get_aa_ranks() {
 }
 
 function insert_aa_rank() {
-  global $mysql;
+  global $mysql_content_db;
 
   $aaid = $_POST['aaid'];
   $id = suggest_rank_id();
@@ -380,20 +380,20 @@ function insert_aa_rank() {
   $next_id = -1;
 
   $query = "INSERT INTO aa_ranks SET id=$id, upper_hotkey_sid=$upper_hotkey_sid, lower_hotkey_sid=$lower_hotkey_sid, title_sid=$title_sid, desc_sid=$desc_sid, cost=$cost, level_req=$level_req, spell=$spell, spell_type=$spell_type, recast_time=$recast_time, expansion=$expansion, prev_id=$prev_id, next_id=$next_id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   if ($prev_id == -1) {
     $query = "UPDATE aa_ability SET first_rank_id=$id WHERE id=$aaid";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
   else if ($prev_id > 0) {
     $query = "UPDATE aa_ranks SET next_id=$id WHERE id=$prev_id";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 }
 
 function update_aa_rank() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $upper_hotkey_sid = $_POST['upper_hotkey_sid'];
@@ -410,52 +410,52 @@ function update_aa_rank() {
   $next_id = $_POST['next_id'];
 
   $query = "UPDATE aa_ranks SET upper_hotkey_sid=$upper_hotkey_sid, lower_hotkey_sid=$lower_hotkey_sid, title_sid=$title_sid, desc_sid=$desc_sid, cost=$cost, level_req=$level_req, spell=$spell, spell_type=$spell_type, recast_time=$recast_time, expansion=$expansion, prev_id=$prev_id, next_id=$next_id WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_aa_rank() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_GET['rankid'];
   $aaid = $_GET['aaid'];
 
   $query = "SELECT first_rank_id FROM aa_ability WHERE id=$aaid";
-  $base = $mysql->query_assoc($query);
+  $base = $mysql_content_db->query_assoc($query);
 
   if ($base['first_rank_id'] == $id) {
     $query = "UPDATE aa_ability SET first_rank_id=-1 WHERE id=$aaid";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 
   $query = "SELECT prev_id FROM aa_ranks WHERE id=$id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   if ($result) {
     $previous = $result['prev_id'];
     if ($previous != -1) {
       $query = "UPDATE aa_ranks SET next_id=-1 WHERE id=$previous";
-      $mysql->query_no_result($query);
+      $mysql_content_db->query_no_result($query);
     }
   }
 
   $query = "DELETE FROM aa_ranks WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function suggest_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS id FROM aa_ability";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result['id'] + 1;
 }
 
 function suggest_rank_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS id FROM aa_ranks";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result['id'] + 1;
 }

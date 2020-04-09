@@ -261,50 +261,50 @@ switch ($action) {
 }
 
 function get_zone() {
-  global $mysql, $zoneid;
+  global $mysql_content_db, $zoneid;
 
   $query = "SELECT * FROM zone WHERE id=$zoneid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result;
 }
 
 function get_graveyard() {
-  global $mysql; 
+  global $mysql_content_db; 
 
   $graveyard_id = $_GET['graveyard_id'];
  
   $query = "SELECT * FROM graveyard WHERE id=$graveyard_id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result;
 }
 
 function get_zonepoints() {
-  global $mysql;
+  global $mysql_content_db;
 
   $zpid = $_GET['zpid'];
 
   $query = "SELECT * FROM zone_points WHERE id=$zpid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result;
 }
 
 function get_blockedspell() {
-  global $mysql;
+  global $mysql_content_db;
 
   $bsid = $_GET['bsid'];
 
-  $query = "SELECT id AS bsid,spellid,type,zoneid AS bszoneid, x AS x_coord,y AS y_coord,z AS z_coord,x_diff,y_diff,z_diff,message,description FROM blocked_spells WHERE id=\"$bsid\"";
-  $result = $mysql->query_assoc($query);
+  $query = "SELECT id AS bsid, spellid, type, zoneid AS bszoneid, x AS x_coord, y AS y_coord, z AS z_coord, x_diff, y_diff, z_diff, message, description FROM blocked_spells WHERE id=\"$bsid\"";
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result;
 }
 
-function update_zone () {
+function update_zone() {
   check_authorization();
-  global $mysql, $zoneid;
+  global $mysql_content_db, $zoneid;
 
   $oldstats = get_zone();
   extract($oldstats);
@@ -399,12 +399,12 @@ function update_zone () {
 
   if ($fields != '') {
     $query = "UPDATE zone SET $fields WHERE id=$zoneid";
-    $mysql->query_no_result($query);
+    $mysql_content_db->query_no_result($query);
   }
 }
 
 function update_graveyard() {
-  global $mysql;
+  global $mysql_content_db;
 
   $zone_id = $_POST['zone_id'];
   $graveyard_id = $_POST['graveyard_id'];
@@ -415,11 +415,11 @@ function update_graveyard() {
   $heading = $_POST['heading'];
 
   $query = "UPDATE graveyard SET zone_id=\"$zone_id\", x=\"$x\", y=\"$y\", z=\"$z_coord\", heading=\"$heading\" WHERE id=\"$graveyard_id\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function update_zonepoints() {
-  global $mysql;
+  global $mysql_content_db;
 
   $zpid = $_POST['zpid'];
   $zone = $_POST['zone']; 
@@ -438,11 +438,11 @@ function update_zonepoints() {
   $client_version_mask = $_POST['client_version_mask'];
 
   $query = "UPDATE zone_points SET zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z_coord\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", target_zone_id=\"$target_zone_id\", version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\" WHERE id=\"$zpid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function update_blockedspell() {
-  global $mysql;
+  global $mysql_content_db;
 
   $bsid = $_POST['bsid'];
   $spellid = $_POST['spellid']; 
@@ -453,81 +453,81 @@ function update_blockedspell() {
   $x_diff = $_POST['x_diff'];
   $y_diff = $_POST['y_diff']; 
   $z_diff = $_POST['z_diff'];
-  $message = $mysql->real_escape_string($_POST['message']); 
+  $message = $mysql_content_db->real_escape_string($_POST['message']); 
   $description = $_POST['description'];
 
   $query = "UPDATE blocked_spells SET spellid=\"$spellid\", type=\"$type\", x=\"$x_coord\", y=\"$y_coord\", z=\"$z_coord\", x_diff=\"$x_diff\", y_diff=\"$y_diff\", z_diff=\"$z_diff\", message=\"$message\", description=\"$description\" WHERE id=\"$bsid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_graveyard() {
-  global $mysql;
+  global $mysql_content_db;
   
   $graveyard_id = $_GET['graveyard_id'];
 
   $query = "DELETE FROM graveyard WHERE id=\"$graveyard_id\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "UPDATE zone SET graveyard_id=0 WHERE graveyard_id=\"$graveyard_id\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_zonepoints() {
-  global $mysql;
+  global $mysql_content_db;
   
   $zpid = $_GET['zpid'];
 
   $query = "DELETE FROM zone_points WHERE id=\"$zpid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_blockedspell() {
-  global $mysql;
+  global $mysql_content_db;
   
   $bsid = $_GET['bsid'];
 
   $query = "DELETE FROM blocked_spells WHERE id=\"$bsid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function suggest_graveyard_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS graveyard_id FROM graveyard";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   return ($result['graveyard_id'] + 1);
 }
 
 function suggest_zonepoint_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS zpid FROM zone_points";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   return ($result['zpid'] + 1);
 }
 
 function suggest_zonepoint_number() {
-  global $mysql, $z;
+  global $mysql_content_db, $z;
 
   $query = "SELECT MAX(number) AS num FROM zone_points WHERE zone=\"$z\"";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   return ($result['num'] + 1);
 }
 
 function suggest_blockedspell_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS bsid FROM blocked_spells";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   
   return ($result['bsid'] + 1);
 }
 
 function add_graveyard() {
-  global $mysql, $z;
+  global $mysql_content_db, $z;
   
   $zid = getZoneID($z);
   $graveyard_id = $_POST['graveyard_id'];
@@ -538,14 +538,14 @@ function add_graveyard() {
   $heading = $_POST['heading'];
 
   $query = "INSERT INTO graveyard SET id=\"$graveyard_id\", zone_id=\"$zone_id\", x=\"$x\", y=\"$y\", z=\"$z_coord\", heading=\"$heading\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "UPDATE zone SET graveyard_id=\"$graveyard_id\" WHERE zoneidnumber=\"$zid\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function add_zonepoints() {
-  global $mysql;
+  global $mysql_content_db;
   
   $zpid = $_POST['zpid'];
   $zone = $_POST['zone']; 
@@ -564,11 +564,11 @@ function add_zonepoints() {
   $client_version_mask = $_POST['client_version_mask'];
 
   $query = "INSERT INTO zone_points SET id=\"$zpid\", zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z_coord\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", target_zone_id=\"$target_zone_id\", buffer=0, version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function add_blockedspell() {
-  global $mysql;
+  global $mysql_content_db;
 
   $bsid = $_POST['bsid'];
   $zoneid = $_POST['zoneid'];
@@ -580,19 +580,19 @@ function add_blockedspell() {
   $x_diff = $_POST['x_diff'];
   $y_diff = $_POST['y_diff']; 
   $z_diff = $_POST['z_diff'];
-  $message = $mysql->real_escape_string($_POST['message']); 
+  $message = $mysql_content_db->real_escape_string($_POST['message']); 
   $description = $_POST['description'];
 
   $query = "INSERT INTO blocked_spells SET id=\"$bsid\", zoneid=\"$zoneid\", spellid=\"$spellid\", type=\"$type\", x=\"$x_coord\", y=\"$y_coord\", z=\"$z_coord\", x_diff=\"$x_diff\", y_diff=\"$y_diff\", z_diff=\"$z_diff\", message=\"$message\", description=\"$description\"";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function graveyard_info() {
-  global $mysql;
+  global $mysql_content_db;
   $array = array();
   
   $query = "SELECT * FROM graveyard";
-  $result = $mysql->query_mult_assoc($query);
+  $result = $mysql_content_db->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
      $array['graveyard'][$result['id']] = array("graveyard_id"=>$result['id'], "zone_id"=>$result['zone_id'], "x"=>$result['x'], "y"=>$result['y'], "z_coord"=>$result['z'], "heading"=>$result['heading']);
@@ -602,15 +602,15 @@ function graveyard_info() {
   }
 
 function zonepoints_info() {
-  global $mysql, $z, $zoneid;
+  global $mysql_content_db, $z, $zoneid;
   $array = array();
 
   $query = "SELECT version AS zversion FROM zone where id=$zoneid";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $zversion = $result['zversion'];
 
   $query = "SELECT * FROM zone_points WHERE zone=\"$z\" AND version=$zversion";
-  $result = $mysql->query_mult_assoc($query);
+  $result = $mysql_content_db->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
       $array['zonepoints'][$result['id']] = array("zpid"=>$result['id'], "zone"=>$result['zone'], "number"=>$result['number'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "heading"=>$result['heading'], "target_x"=>$result['target_x'], "target_y"=>$result['target_y'], "target_z"=>$result['target_z'], "target_heading"=>$result['target_heading'], "target_zone_id"=>$result['target_zone_id'], "version"=>$result['version'], "target_instance"=>$result['target_instance'], "client_version_mask"=>$result['client_version_mask']);
@@ -620,12 +620,12 @@ function zonepoints_info() {
 }
 
 function blockedspell_info() {
-  global $mysql, $z;
+  global $mysql_content_db, $z;
   $zid = getZoneID($z);
   $array = array();
 
   $query = "SELECT * FROM blocked_spells WHERE zoneid=\"$zid\"";
-  $result = $mysql->query_mult_assoc($query);
+  $result = $mysql_content_db->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
      $array['blockedspell'][$result['id']] = array("bsid"=>$result['id'], "spellid"=>$result['spellid'], "type"=>$result['type'], "zoneid"=>$result['zoneid'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "x_diff"=>$result['x_diff'], "y_diff"=>$result['y_diff'], "z_diff"=>$result['z_diff'], "message"=>$result['message'], "description"=>$result['description']);
@@ -635,88 +635,88 @@ function blockedspell_info() {
   }
 
 function get_graveyard_zone() {
-   global $mysql;
+   global $mysql_content_db;
 
    $graveyard_id = $_GET['graveyard_id'];
 
    $query = "SELECT short_name FROM zone WHERE graveyard_id=\"$graveyard_id\" limit 1";
-   $result = $mysql->query_assoc($query);
+   $result = $mysql_content_db->query_assoc($query);
 
   return $result['short_name'];
 }
 
 function copy_zone() {
   check_authorization();
-  global $mysql, $zoneid, $z;
+  global $mysql_content_db, $zoneid, $z;
 
   $query = "INSERT INTO zone (`short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `rain_chance1`, `rain_chance2`, `rain_chance3`, `rain_chance4`, `rain_duration1`, `rain_duration2`, `rain_duration3`, `rain_duration4`, `snow_chance1`, `snow_chance2`, `snow_chance3`, `snow_chance4`, `snow_duration1`, `snow_duration2`, `snow_duration3`, `snow_duration4`, `gravity`, `type`, `skylock`, `fast_regen_hp`, `fast_regen_mana`, `fast_regen_endurance`, `npc_max_aggro_dist`, `max_movement_update_range`)
             SELECT `short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `rain_chance1`, `rain_chance2`, `rain_chance3`, `rain_chance4`, `rain_duration1`, `rain_duration2`, `rain_duration3`, `rain_duration4`, `snow_chance1`, `snow_chance2`, `snow_chance3`, `snow_chance4`, `snow_duration1`, `snow_duration2`, `snow_duration3`, `snow_duration4`, `gravity`, `type`, `skylock`, `fast_regen_hp`, `fast_regen_mana`, `fast_regen_endurance`, `npc_max_aggro_dist`, `max_movement_update_range` FROM zone WHERE id=$zoneid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 
   $query = "SELECT MAX(id) AS zid FROM zone";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
   $nzone = $result['zid'];
 
   $query2 = "SELECT MAX(version+1) AS zver FROM zone WHERE short_name=\"$z\"";
-  $result2 = $mysql->query_assoc($query2);
+  $result2 = $mysql_content_db->query_assoc($query2);
   $nver = $result2['zver'];
 
   $query = "UPDATE zone SET version=$nver WHERE id=$nzone";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
    
   return $nzone;
 }
 
 function delete_zone() {
   check_authorization();
-  global $mysql, $zoneid;
+  global $mysql_content_db, $zoneid;
 
   $query = "DELETE FROM zone WHERE id=$zoneid";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
    
-function get_isglobal () {
-  global $mysql, $z, $zoneid;
+function get_isglobal() {
+  global $mysql_content_db, $z, $zoneid;
 
   $zid = getZoneID($z);
 
-  $query1 = "SELECT version AS zversion FROM zone where id=$zoneid";
-  $result1 = $mysql->query_assoc($query1);
+  $query1 = "SELECT version AS zversion FROM zone WHERE id=$zoneid";
+  $result1 = $mysql_content_db->query_assoc($query1);
   $zversion = $result1['zversion'];
 
-  $query = "SELECT count(*) FROM instance_list WHERE zone=$zid AND version=$zversion";
-  $result = $mysql->query_assoc($query);
+  $query = "SELECT COUNT(*) FROM instance_list WHERE zone=$zid AND version=$zversion";
+  $result = $mysql_content_db->query_assoc($query);
 
-  return $result['count(*)'];
+  return $result['COUNT(*)'];
 }
 
 function update_global () {
-  global $mysql, $z, $zoneid;
+  global $mysql_content_db, $z, $zoneid;
 
   $zid = getZoneID($z);
 
-  $query1 = "SELECT version AS zversion FROM zone where id=$zoneid";
-  $result1 = $mysql->query_assoc($query1);
+  $query1 = "SELECT version AS zversion FROM zone WHERE id=$zoneid";
+  $result1 = $mysql_content_db->query_assoc($query1);
   $zversion = $result1['zversion'];
 
   $query2 = "SELECT id AS currid from instance_list WHERE zone=$zid AND version=$zversion AND id < 30";
-  $result2 = $mysql->query_assoc($query2);
+  $result2 = $mysql_content_db->query_assoc($query2);
   $currid = $result2['currid'];
 
   $query = "REPLACE INTO instance_list SET id=$currid, zone=$zid, version=$zversion, is_global=1, never_expires=1";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
   }
 
 function delete_global () {
-  global $mysql, $z, $zoneid;
+  global $mysql_content_db, $z, $zoneid;
 
   $zid = getZoneID($z);
 
-  $query1 = "SELECT version AS zversion FROM zone where id=$zoneid";
-  $result1 = $mysql->query_assoc($query1);
+  $query1 = "SELECT version AS zversion FROM zone WHERE id=$zoneid";
+  $result1 = $mysql_content_db->query_assoc($query1);
   $zversion = $result1['zversion'];
 
   $query = "DELETE FROM instance_list WHERE zone=$zid AND version=$zversion AND id < 30";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 ?>

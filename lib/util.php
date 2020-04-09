@@ -144,7 +144,7 @@ function get_recipe_activity($count) {
 function get_cash_totals() {
   global $mysql;
 
-  $query = "SELECT SUM(copper + copper_bank +copper_cursor) AS copper FROM character_currency";
+  $query = "SELECT SUM(copper + copper_bank + copper_cursor) AS copper FROM character_currency";
   $result = $mysql->query_assoc($query);
   $copper = $result['copper'];
 

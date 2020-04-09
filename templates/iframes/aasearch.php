@@ -68,11 +68,8 @@ function getExpansionName($expid) {
 
 
 if(isset($_GET['search']) && ($_GET['search'] != '')) {
-  require("../../config.php");
-  if($mysql_class = "mysqli")
-    require("../../classes/mysqli.php");
-  else
-    require("../../classes/mysql.php");
+  global $mysql;
+
   require("../../lib/data.php");
   $name = $_GET['search'];
   
@@ -115,7 +112,7 @@ if(isset($_GET['search']) && ($_GET['search'] != '')) {
     $query = "SELECT skill_id, name, prereq_skill, classes, berserker, aa_expansion, max_level, class_type FROM altadv_vars WHERE name rlike \"$name\" ORDER BY skill_id";
   }
   
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
   
   if($results == '') {
     print "No abilities found!<br>";
