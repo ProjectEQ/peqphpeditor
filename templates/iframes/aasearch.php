@@ -68,7 +68,7 @@ function getExpansionName($expid) {
 
 
 if(isset($_GET['search']) && ($_GET['search'] != '')) {
-  global $mysql;
+  global $mysql_content_db;
 
   require("../../lib/data.php");
   $name = $_GET['search'];
