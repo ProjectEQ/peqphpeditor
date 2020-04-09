@@ -3,7 +3,7 @@
 class mysql extends mysqli {
 
   public function __construct($host, $username, $password, $database, $port) {
-    parent::__construct("$host", "$username", "$password", "$database", "$port");
+    parent::__construct("$host", "$username", "$password", "$database", $port);
     if (mysqli_connect_error()) {
       die('Could not connect: ' . mysqli_connect_error());
     }

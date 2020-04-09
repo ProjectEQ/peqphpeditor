@@ -3,7 +3,8 @@
 <?php
 
 if(isset($_GET['name']) && ($_GET['name'] != '')) {
-  global $mysql_content_db;
+  require("../../config.php");
+  require("../../classes/mysqli.php");
 
   $name = $_GET['name'];
   $query = "SELECT id, name FROM spells_new WHERE name RLIKE \"$name\" ORDER BY id";

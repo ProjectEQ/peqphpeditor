@@ -2,7 +2,8 @@
   <body bgcolor="#FFCCCC">
 <?
 if(isset($_GET['name']) && ($_GET['name'] != '')) {
-  global $mysql;
+  require("../../config.php");
+  require("../../classes/mysqli.php");
 
   $name = $_GET['name'];
   $query = "SELECT name FROM account WHERE name RLIKE \"$name\" LIMIT 50";
