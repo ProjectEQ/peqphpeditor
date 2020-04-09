@@ -2,8 +2,8 @@
 
 class mysql extends mysqli {
 
-  public function __construct($host, $username, $password, $database) {
-    parent::__construct("$host", "$username", "$password", "$database");
+  public function __construct($host, $username, $password, $database, $port) {
+    parent::__construct("$host", "$username", "$password", "$database", "$port");
     if (mysqli_connect_error()) {
       die('Could not connect: ' . mysqli_connect_error());
     }
@@ -92,12 +92,12 @@ class mysql extends mysqli {
 
 }
 
-$mysql = new mysql($dbhost, $dbuser, $dbpass, $db);
+$mysql = new mysql($dbhost, $dbuser, $dbpass, $db, $dbport);
 
 // Establish content database connection (if any)
 $mysql_content_db = null;
 if ($use_content_db) {
-  $mysql_content_db = new mysql($content_dbhost, $content_dbuser, $content_dbpass, $content_db);
+  $mysql_content_db = new mysql($content_dbhost, $content_dbuser, $content_dbpass, $content_db, $content_dbport);
 }
 else {
   $mysql_content_db = $mysql;

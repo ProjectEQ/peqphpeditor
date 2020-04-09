@@ -113,7 +113,12 @@ function getRecipeName($id) {
   global $mysql_content_db;
   $query = "SELECT name FROM tradeskill_recipe WHERE id=$id";
   $result = $mysql_content_db->query_assoc($query);
-  return $result['name'];
+  if ($result) {
+    return $result['name'];
+  }
+  else {
+    return "Not Found";
+  }
 }
 
 function getSpellName($id) {

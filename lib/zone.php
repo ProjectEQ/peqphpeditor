@@ -676,7 +676,7 @@ function delete_zone() {
 }
    
 function get_isglobal() {
-  global $mysql_content_db, $z, $zoneid;
+  global $mysql, $mysql_content_db, $z, $zoneid;
 
   $zid = getZoneID($z);
 
@@ -685,7 +685,7 @@ function get_isglobal() {
   $zversion = $result1['zversion'];
 
   $query = "SELECT COUNT(*) FROM instance_list WHERE zone=$zid AND version=$zversion";
-  $result = $mysql_content_db->query_assoc($query);
+  $result = $mysql->query_assoc($query);
 
   return $result['COUNT(*)'];
 }
@@ -700,15 +700,15 @@ function update_global () {
   $zversion = $result1['zversion'];
 
   $query2 = "SELECT id AS currid from instance_list WHERE zone=$zid AND version=$zversion AND id < 30";
-  $result2 = $mysql_content_db->query_assoc($query2);
+  $result2 = $mysql->query_assoc($query2);
   $currid = $result2['currid'];
 
   $query = "REPLACE INTO instance_list SET id=$currid, zone=$zid, version=$zversion, is_global=1, never_expires=1";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
   }
 
 function delete_global () {
-  global $mysql_content_db, $z, $zoneid;
+  global $mysql, $mysql_content_db, $z, $zoneid;
 
   $zid = getZoneID($z);
 
@@ -717,6 +717,6 @@ function delete_global () {
   $zversion = $result1['zversion'];
 
   $query = "DELETE FROM instance_list WHERE zone=$zid AND version=$zversion AND id < 30";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 ?>

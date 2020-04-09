@@ -95,7 +95,7 @@ function guild_info () {
   $guild_array['guild_members'] = $guild_members_array;
 
   //Load Guild Bank
-  $query = "SELECT b.area AS area, b.slot AS slot, b.itemid AS itemid, b.qty AS qty, b.donator AS donator, b.permissions AS permissions, b.whofor AS whofor, i.name AS itemname FROM guild_bank b, items i WHERE b.itemid = i.id and b.guildid = $guildid ORDER BY b.area, b.slot";
+  $query = "SELECT area, slot, itemid, qty, donator, permissions, whofor FROM guild_bank WHERE guildid=$guildid ORDER BY area, slot";
   $guild_bank_array = $mysql->query_mult_assoc($query);
   $guild_array['guild_items'] = $guild_bank_array;
 
