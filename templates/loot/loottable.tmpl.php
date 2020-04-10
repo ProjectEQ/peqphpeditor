@@ -13,6 +13,7 @@
           <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=46">Click here to import loot from Magelo</a>
         </center>
       </div>
+    </div>
 <?} else {?>
       <div class="table_container" style="width: 350px">
         <div class="table_header">
@@ -46,6 +47,7 @@
 <?endforeach;?>
           </div>
 <? } ?>
+        </div>
           <div style="padding: 5px 0px 0px 0px;">
             LootDrops associated with this LootTable: <?=$lootdrop_count?> <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=22&ltid=<?=$loottable_id?>"><img src="images/add.gif" border="0" title="Add a LootDrop to this LootTable"></a>
           </div>
