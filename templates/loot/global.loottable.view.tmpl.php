@@ -108,7 +108,7 @@
       $chance = $chance;
 ?>
           <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
-            <td align="center"><a href="index.php?editor=items&id=<?=$item_id?>&action=2"><?=$item_id?></td>
+            <td align="center"><a href="index.php?editor=items&id=<?=$item_id?>&action=2"><?=$item_id?></a></td>
             <td align="center"><?echo (get_item_name($item_id) != "") ? get_item_name($item_id) : "<a title='Item not in database!'>UNKNOWN</a>";?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$item_id?>" target="_blank">lucy</a>]</span></td>
             <td align="center" width="100"><?echo ($equip_item == 0) ? "No" : "Yes";?></td>
             <td align="center"><?=$item_charges?></td>
@@ -148,5 +148,4 @@
         </table>
       </div>
 <? endforeach; ?>
-    </div>
 <? endif;?>

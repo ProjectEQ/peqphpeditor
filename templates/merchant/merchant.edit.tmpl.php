@@ -22,12 +22,14 @@
             <td align="center"><input type="text" size="3" name="newslot<?=$x?>" value="<?=$slot?>"></td>
             <td align="center"><input type="text" size="7" name="item<?=$x?>" value="<?=$v['item']?>"></td>
             <td><?=$v['item_name']?></td>
-            <td align="center"><input type="text" size="3" name="faction_required<?=$x?>" value="<?=$v['faction_required']?>"</td>
-            <td align="center"><input type="text" size="3" name="level_required<?=$x?>" value="<?=$v['level_required']?>"</td>
-            <td align="center"><input type="text" size="3" name="alt_currency_cost<?=$x?>" value="<?=$v['alt_currency_cost']?>"</td>
-            <td align="center"><input type="text" size="3" name="classes_required<?=$x?>" value="<?=$v['classes_required']?>"</td>
-            <td align="center"><input type="text" size="3" name="probability<?=$x?>" value="<?=$v['probability']?>"</td>
-            <input type="hidden" name="slot<?=$x?>" value="<?=$slot?>">
+            <td align="center"><input type="text" size="3" name="faction_required<?=$x?>" value="<?=$v['faction_required']?>"></td>
+            <td align="center"><input type="text" size="3" name="level_required<?=$x?>" value="<?=$v['level_required']?>"></td>
+            <td align="center"><input type="text" size="3" name="alt_currency_cost<?=$x?>" value="<?=$v['alt_currency_cost']?>"></td>
+            <td align="center"><input type="text" size="3" name="classes_required<?=$x?>" value="<?=$v['classes_required']?>"></td>
+            <td align="center">
+              <input type="text" size="3" name="probability<?=$x?>" value="<?=$v['probability']?>">
+              <input type="hidden" name="slot<?=$x?>" value="<?=$slot?>">
+            </td>
           </tr>
 <?$x++; endforeach?>
         </table><br/><br/>

@@ -16,7 +16,7 @@
 <?} else {?>
       <div class="table_container" style="width: 350px">
         <div class="table_header">
-          <div style="float: right">
+          <div style="float: right;">
             <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=11"><img src="images/create.gif" border="0" title="Change LootTable"></a>&nbsp;
             <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ltid=<?=$loottable_id?>&action=36"><img src="images/last.gif" border="0" title="Apply LootTable to Multiple NPCs"></a>&nbsp;
             <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=34" onClick="return confirm('Really remove this loottable from the selected NPC?');"><img src="images/minus2.gif" border="0" title="Drop this loottable"></a>
@@ -44,8 +44,8 @@
 <?foreach($usage['mobs'] as $mob):?>
             <br>&nbsp;&nbsp;&nbsp;<?=$mob['id']?>: <?=$mob['name']?>
 <?endforeach;?>
-<? } ?>
           </div>
+<? } ?>
           <div style="padding: 5px 0px 0px 0px;">
             LootDrops associated with this LootTable: <?=$lootdrop_count?> <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=22&ltid=<?=$loottable_id?>"><img src="images/add.gif" border="0" title="Add a LootDrop to this LootTable"></a>
           </div>
@@ -160,8 +160,11 @@
             <td align="left" width="100" style="padding: 10px;">No items currently assigned to this lootdrop</td>
           </tr>
 <? endif;?>
+<? endforeach; ?>
         </table>
       </div>
-<? endforeach; ?>
 <? endif;?>
 <? } /*endelse*/?>
+
+
+    </div>
