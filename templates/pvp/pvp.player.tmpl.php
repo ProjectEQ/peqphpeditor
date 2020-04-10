@@ -13,9 +13,11 @@
         <td><br><strong>Career Points:</strong> <?=$playerPVP['pvp_career_points']?><br><br></td>
         <td><br>&nbsp;</td>
       </tr>
+      <tr>
         <td><strong>Kills:</strong> <?=$playerPVP['pvp_kills']?><br><br></td>
         <td><strong>Current Kill Streak:</strong> <?=$playerPVP['pvp_current_kill_streak']?><br><br></td>
         <td><strong>Best Kill Streak:</strong> <?=$playerPVP['pvp_best_kill_streak']?><br><br></td>
+      </tr>
       <tr>
         <td><strong>Deaths:</strong> <?=$playerPVP['pvp_deaths']?><br><br></td>
         <td><strong>Worst Death Streak:</strong> <?=$playerPVP['pvp_worst_death_streak']?><br><br></td>

@@ -14,8 +14,8 @@
   <div id="sql_block" style="display:none;">
     <center>
       <textarea id="sql_text" rows="3" cols="90"><?=$export_sql?></textarea><br><br>
-      <input type="button" id="copy_sql" onClick="clipboardData.setData('Text', sql_text.value);">Copy SQL to Clipboard</input>&nbsp;
-      <input type="button" id="hide_sql" onClick="document.getElementById('sql_block').style.display='none';document.getElementById('sql_image').style.display='inline';">Hide SQL</input>
+      <input type="button" id="copy_sql" onClick="clipboardData.setData('Text', sql_text.value);" value="Copy SQL to Clipboard">&nbsp;&nbsp;
+      <input type="button" id="hide_sql" onClick="document.getElementById('sql_block').style.display='none';document.getElementById('sql_image').style.display='inline';" value="Hide SQL">
     </center><br>
   </div>
   <div class="table_container" style="width:350px;">

@@ -302,6 +302,7 @@ if ($ranks) {
 <?
   }
 ?>
+                              </select>
                             </td>
                             <td>
                               <b>Previous ID:</b><?echo ($count == 1 && $rank['prev_id'] != -1) ? " <a title='First rank should have -1 as the previous rank id'><img src='images/caution.gif' width='13'></a>" : "";?><br>
@@ -442,6 +443,7 @@ if ($prereqs) {
 <?
     }
 ?>
+                            </select>
                           </td>
                           <td>
                             <b>Points:</b><br>
@@ -462,13 +464,7 @@ if ($prereqs) {
                     <center>
                       <input type="button" value="New Prerequisite" style="width: 150px;" onClick="javascript:alert('Edit functionality not enabled yet.');">
                     </center>
-                  </fieldset><br>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
+
 <?
 }
 else {
@@ -477,5 +473,12 @@ else {
 <?
 }
 ?>
+                  </fieldset><br>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>

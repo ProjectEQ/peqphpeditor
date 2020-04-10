@@ -1,25 +1,25 @@
-      <div class="table_container" style="width: 600px;">
-      <div class="table_header">
-        <table width="100%" cellpadding="0" cellspacing="0">
-          <tr>
-           <td>Trap Templates</td>
-           <td align="right">    
-          <a href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16"><img src="images/add.gif" border="0" title="Add a trap template"></a>
-            </td>
-           </tr>        
-         </table>
-      </div>
-
-       <table class="table_content2" width="100%">
+  <div class="table_container" style="width: 600px;">
+    <div class="table_header">
+      <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>Trap Templates</td>
+          <td align="right">    
+            <a href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16"><img src="images/add.gif" border="0" title="Add a trap template"></a>
+          </td>
+        </tr>        
+      </table>
+    </div>
+    <div>
+      <table class="table_content2" width="100%">
 <? if (isset($ldontrap)):?>
-         <tr>
+        <tr>
           <td align="center" width="4%"><strong>id</strong></td>
           <td align="center" width="20%"><strong>type</strong></td>
           <td align="center" width="20%"><strong>spell</strong></td>
           <td align="center" width="10%"><strong>skill</strong></td>
           <td align="center" width="20%"><strong>locked</strong></td>
-          <th width="5%"></th>
-         </tr>
+          <td width="5%"></td>
+        </tr>
 <?$x=0; foreach($ldontrap as $ldontrap=>$v):?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "AAAAAA" : "BBBBBB";?>">
           <td align="center" width="4%"><?=$v['id']?></td>
@@ -37,11 +37,13 @@
             <a onClick="return confirm('Really Delete Trap Template <?=$v['id']?>?');" href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=15"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
-        <?$x++; endforeach;?>
-        </table>
-        <?endif;?>
+<?$x++; endforeach;?>
+<?endif;?>
 <? if (!isset($ldontrap)):?>
         <tr>
           <td align="left" width="100" style="padding: 10px;">There are no trap templates assigned to this NPC.</td>
         </tr>
 <?endif;?>
+      </table>
+    </div>
+  </div>

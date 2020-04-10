@@ -2,7 +2,7 @@
     <iframe id='searchframe' src='templates/iframes/itemsearch.php'></iframe>
     <input id="button" type="button" value='Hide Item Search' onclick='hideSearch();' style='display:none; margin-bottom: 20px;'>
   </center>
-  <form name="gspawn" method="post" action=index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=15">
+  <form name="gspawn" method="post" action="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=15">
     <div class="edit_form" style="width: 200px;">
       <div class="edit_form_header">
         Edit Ground Spawn <?=$gsid?>

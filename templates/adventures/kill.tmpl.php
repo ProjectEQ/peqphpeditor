@@ -1,17 +1,17 @@
-      <div class="table_container" style="width: 750px;">
-      <div class="table_header">
-        <table width="100%" cellpadding="0" cellspacing="0">
-          <tr>
-           <td>Kill Adventures</td>
-           <td align="right">    
-          <a href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=10"><img src="images/add.gif" border="0" title="Add an adventure"></a>            </td>
-           </tr>        
-         </table>
-      </div>
-
-       <table class="table_content2" width="100%">
+  <div class="table_container" style="width: 750px;">
+    <div class="table_header">
+      <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>Kill Adventures</td>
+          <td align="right">    
+            <a href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=10"><img src="images/add.gif" border="0" title="Add an adventure"></a></td>
+        </tr>        
+      </table>
+    </div>
+    <div>
+      <table class="table_content2" width="100%">
 <? if (isset($kill)):?>
-         <tr>
+        <tr>
           <td align="center" width="1%"><strong>id</strong></td>
           <td align="center" width="10%"><strong>zone</strong></td>
           <td align="center" width="5%"><strong>hard</strong></td>
@@ -22,8 +22,8 @@
           <td align="center" width="5%"><strong>count</strong></td>
           <td align="center" width="20%"><strong>theme</strong></td>
           <td align="center" width="10%"><strong>zone in</strong></td>
-          <th width="5%"></th>
-         </tr>
+          <td width="5%"></td>
+        </tr>
 <?$x=0; foreach($kill as $kill=>$v):?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="1%"><?=$v['id']?></td>
@@ -41,11 +41,13 @@
             <a onClick="return confirm('Really Delete Adventure <?=$v['id']?>?');" href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['id']?>&action=7"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
           </td>
         </tr>
-        <?$x++; endforeach;?>
-        </table>
-        <?endif;?>
+<?$x++; endforeach;?>
+<?endif;?>
 <? if (!isset($kill)):?>
         <tr>
           <td align="left" width="100" style="padding: 10px;">There are no kill adventures assigned to this NPC.</td>
         </tr>
 <?endif;?>
+      </table>
+    </div>
+  </div>

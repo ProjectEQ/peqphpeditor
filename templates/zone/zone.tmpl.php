@@ -62,7 +62,7 @@
                   </tr>
                   <tr>
                     <td align="left" width="33%">Version: <?=$version?></td>
-                    <td align="left" width="33%">Ruleset: <a href="index.php?editor=server&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&ruleset_id=<?=$ruleset?>&action=28"> <?=$ruleset?></td>
+                    <td align="left" width="33%">Ruleset: <a href="index.php?editor=server&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&ruleset_id=<?=$ruleset?>&action=28"> <?=$ruleset?></a></td>
                     <td align="left" width="34%">Inst Type: <?=$insttype?></td>
                   </tr>
                   <tr>

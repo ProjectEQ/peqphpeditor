@@ -2,7 +2,7 @@
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-          <td>Graveyard List</a></td>
+          <td>Graveyard List</td>
           <td align="right"><a href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=8"><img src="images/add.gif" border="0" title="Add Graveyard Data"></a></td>
         </tr>        
       </table>

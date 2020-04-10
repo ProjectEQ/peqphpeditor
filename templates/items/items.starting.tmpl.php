@@ -4,7 +4,7 @@
         <tr>
           <td>All Starting Items</td>
           <td>
-            <div style="float:right">
+            <div style="float:right;">
               <a href="index.php?editor=items&action=13"><img src="images/add.gif" border="0" title="Create a new starting item"></a>
             </div>
           </td>
@@ -25,7 +25,7 @@
 <?$x=0;
 foreach($items as $item):?>
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
-        <td align="center" width="5%"><?=$item['id']?></a></td>
+        <td align="center" width="5%"><?=$item['id']?></td>
         <td align="center" width="12%"><?echo ($item['race'] == 0) ? "ALL" : $races[$item['race']];?></td>
         <td align="center" width="12%"><?echo ($item['class'] == 0) ? "ALL" : $classes[$item['class']];?></td>
         <td align="center" width="12%"><?echo ($item['deityid'] == 0) ? "ALL" : $deities[$item['deityid']];?></td>
