@@ -45,7 +45,6 @@
 <?foreach($usage['mobs'] as $mob):?>
             <br>&nbsp;&nbsp;&nbsp;<?=$mob['id']?>: <?=$mob['name']?>
 <?endforeach;?>
-          </div>
 <? } ?>
         </div>
           <div style="padding: 5px 0px 0px 0px;">
@@ -55,12 +54,11 @@
             <center><a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=46">Click here to import loot from Magelo</a></center>
           </div>
         </div>
-      </div>
+      </div><br>
 <?
   if ($lootdrops != ''):
     foreach ($lootdrops as $lootdrop):
 ?>
-      <br>
       <div class="table_container">
         <div class="table_header">
           <table width="100%" cellpadding="0" cellspacing="0">
@@ -154,19 +152,18 @@
               <a title="Set chance for all items on this table to <?=$normalize_amount?>" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=18" style="color:yellow;">Normalize Drops</a>
             </td>
           </tr>
+        </table>
+      </div><br>
 <?
   endif;
 ?>
 <? if(!isset($lootdrop['items'])):?>
           <tr>
-            <td align="left" width="100" style="padding: 10px;">No items currently assigned to this lootdrop</td>
+            <td align="left" style="padding: 10px;">No items currently assigned to this lootdrop</td>
           </tr>
+        </table>
+      </div><br>
 <? endif;?>
 <? endforeach; ?>
-        </table>
-      </div>
 <? endif;?>
 <? } /*endelse*/?>
-
-
-    </div>
