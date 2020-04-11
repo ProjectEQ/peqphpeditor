@@ -20,7 +20,7 @@
               </td>
               <td><input type="text" size="10" name="current_value" value="0"></td>
             </tr>
-          </table><br/><br/>
+          </table><br><br>
           <center>
             <input type="submit" value="Submit Changes">&nbsp;<input type="button" value="Cancel" onClick="history.back();">
           </center>

@@ -10,7 +10,7 @@
     <form method="POST" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">
       <div class="table_content">
         <center>
-          Next available ID: <?=$next_npcid?><br/><br/>
+          Next available ID: <?=$next_npcid?><br><br>
           <input type="hidden" name="selected_id" value="<?=$next_npcid?>">
           <input type="submit" value="Use this ID">
         </center>

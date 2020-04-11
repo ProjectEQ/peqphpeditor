@@ -58,14 +58,14 @@
                       <td align="center" width="90%"><?=$bug?></td>
                     </tr>
                   </table>
-                </fieldset><br/>
+                </fieldset><br>
               </center>
               <fieldset id="notify" style="display:none">
                 <legend><strong>Player Notification</strong></legend>
-                <br/><input type="checkbox" name="notify" value="notify" onChange="toggleNote();"/>Notify player of status change<br/><br/>
-                Note to Player: (Optional)<br/>
+                <br><input type="checkbox" name="notify" value="notify" onChange="toggleNote();">Notify player of status change<br><br>
+                Note to Player: (Optional)<br>
                 <textarea name="optional_note" id="note" cols="68" rows="5" disabled="true"></textarea>
-              </fieldset><br/><br/>
+              </fieldset><br><br>
               <center>
                 <input type="hidden" name="bid" value="<?=$bid?>">
                 <input type="hidden" name="bug_date" value="<?=$date?>">

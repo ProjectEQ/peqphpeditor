@@ -46,7 +46,7 @@
             </td>
           </tr>
         </table><br><br>
-        <input type="hidden" name="msg_id" value="<?=$message['msgid']?>"/>
+        <input type="hidden" name="msg_id" value="<?=$message['msgid']?>">
         <center><input type="submit" value="Update Message"></center>
       </form>
     </div>

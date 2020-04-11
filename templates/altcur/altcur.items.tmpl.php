@@ -5,7 +5,7 @@
           <td>Alternate Currency Items</td>
           <td>
             <div style="float:right">
-              <a href="index.php?editor=altcur&action=2"><img src="images/add.gif" border="0" title="Create a new entry" /></a>
+              <a href="index.php?editor=altcur&action=2"><img src="images/add.gif" border="0" title="Create a new entry"></a>
             </div>
           </td>
         </tr>

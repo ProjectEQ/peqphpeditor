@@ -5,7 +5,7 @@
       <button type="button" id="copy_sql" onClick="clipboardData.setData('Text', sql_text.value);">Copy SQL to Clipboard</button>&nbsp;
       <button type="button" id="hide_sql" onClick="document.getElementById('sql_block').style.display='none';">Hide SQL</button>
     </center>
-    <br/>
+    <br>
   </div>
   <div>
     <table class="edit_form">
@@ -13,7 +13,7 @@
         <td class="edit_form_content"><a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=31">View Grids for <?=$currzone?></a></td>
       </tr>
     </table>
-    <br />
+    <br>
   </div>
   <div class="table_container" style="width: 300px">
     <div class="table_header">

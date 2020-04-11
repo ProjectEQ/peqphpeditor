@@ -3,7 +3,7 @@
       <tr>
         <td align="center">
           New Count: <input type="text" id="new_count" size="5" value="<?=$count?>"><br><br>
-          <input type="button" value="Submit" onClick="javascript:verifyCount();"/>&nbsp;<input type="button" value="Cancel" onClick="javascript:toggleCount();"/>
+          <input type="button" value="Submit" onClick="javascript:verifyCount();">&nbsp;<input type="button" value="Cancel" onClick="javascript:toggleCount();">
         </td>
       </tr>
     </table>

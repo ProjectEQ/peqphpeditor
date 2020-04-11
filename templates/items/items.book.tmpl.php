@@ -13,7 +13,7 @@
                 <td><textarea name="txtfile" rows="20" cols="88"><?=$txtfile?></textarea></td>
                 <td align="right">&nbsp;</td>
             </tr>
-        </table><br/>
+        </table><br>
         <center>
           <input type="hidden" name="name" value="<?=$name?>">
           <input type="hidden" name="id" value="<?=$id?>">

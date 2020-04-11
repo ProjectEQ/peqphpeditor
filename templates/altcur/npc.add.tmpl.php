@@ -7,11 +7,11 @@
         <table width="100%" cellspacing="0">
           <tr>
             <td width="40%">
-              NPC ID:<br/>
-              <input type="text" name="npcid" value="<?=$npcid?>" size="10"/>
+              NPC ID:<br>
+              <input type="text" name="npcid" value="<?=$npcid?>" size="10">
             </td>
             <td width="60%">
-              Currency:<br/>
+              Currency:<br>
               <select name="curr_id">
                 <option value="0">None (0)</option>
 <?foreach ($currencies as $currency):?>
@@ -20,10 +20,10 @@
               </select>
             </td>
           </tr>
-        </table><br/><br/>
+        </table><br><br>
         <center>
-          <input type="submit" value="Add Entry"/>
-          <input type="button" value="Cancel" onClick="history.back()"/>
+          <input type="submit" value="Add Entry">
+          <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </form>
     </div>

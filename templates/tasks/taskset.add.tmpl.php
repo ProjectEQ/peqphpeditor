@@ -34,7 +34,7 @@
               <td><input type="text" size="5" name="taskid" value=""></td>
 <?endif;?>
               <td>
-                <br/><br/>
+                <br><br>
                 <center>
                   <input type="submit" value="Submit">
                 </center>

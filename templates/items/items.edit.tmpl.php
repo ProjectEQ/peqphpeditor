@@ -66,7 +66,7 @@
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="33%"><?echo ($filename != '') ? '<a href="index.php?editor=items&id=' . $id . '&name=' . $filename . '&action=3">File Name:</a>' : 'File Name:'?><br><input type="text" name="filename" size="25" value="<?=$filename?>"/></td>
+              <td align="left" width="33%"><?echo ($filename != '') ? '<a href="index.php?editor=items&id=' . $id . '&name=' . $filename . '&action=3">File Name:</a>' : 'File Name:'?><br><input type="text" name="filename" size="25" value="<?=$filename?>"></td>
               <td align="left" width="33%">Book:<br>
                 <select name="book">
                   <option value="0"<?echo ($book == 0) ? " selected" : ""?>>No</option>
@@ -74,12 +74,12 @@
                   <option value="2"<?echo ($book == 2) ? " selected" : ""?>>Message</option>
                 </select>
               </td>
-              <td align="left" width="33%">Booktype:<br><input type="text" name="booktype" size="10" value="<?=$booktype?>"/></td>
+              <td align="left" width="33%">Booktype:<br><input type="text" name="booktype" size="10" value="<?=$booktype?>"></td>
             </tr>
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="33%"><?echo ($charmfile != '') ? '<a href="index.php?editor=items&id=' . $id . '&name=' . $charmfile . '&action=3">Charmfile:</a>' : 'Charmfile:'?><br><input type="text" name="charmfile" size="25" value="<?=$charmfile?>"/></td>
+              <td align="left" width="33%"><?echo ($charmfile != '') ? '<a href="index.php?editor=items&id=' . $id . '&name=' . $charmfile . '&action=3">Charmfile:</a>' : 'Charmfile:'?><br><input type="text" name="charmfile" size="25" value="<?=$charmfile?>"></td>
               <td align="left" width="33%">Charmfile ID:<br><input type="text" name="charmfileid" size="10" value="<?=$charmfileid?>"></td>
               <td align="left" width="33%">Script File ID:<br><input type="text" name="scriptfileid" size="10" value="<?=$scriptfileid?>"></td>
             </tr>

@@ -4,11 +4,11 @@
         <tr>
           <td align="left" width="33%">Learned Recipes</td>
           <td align="center" width="33%">
-            <?echo ($page > 1) ? "<a href='index.php?editor=tradeskill&action=13&page=1" . (($sort != "") ? "&sort=" . $sort : "") . "'><img src='images/first.gif' border='0' width='12' height='12' title='First'/></a>" : "<img src='images/first.gif' border='0' width='12' height='12'/>";?>
-            <?echo ($page > 1) ? "<a href='index.php?editor=tradeskill&action=13&page=" . ($page - 1) . (($sort != "") ? "&sort=" . $sort : "") . "'><img src='images/prev.gif' border='0' width='12' height='12' title='Previous'/></a>" : "<img src='images/prev.gif' border='0' width='12' height='12'/>";?>
+            <?echo ($page > 1) ? "<a href='index.php?editor=tradeskill&action=13&page=1" . (($sort != "") ? "&sort=" . $sort : "") . "'><img src='images/first.gif' border='0' width='12' height='12' title='First'></a>" : "<img src='images/first.gif' border='0' width='12' height='12'>";?>
+            <?echo ($page > 1) ? "<a href='index.php?editor=tradeskill&action=13&page=" . ($page - 1) . (($sort != "") ? "&sort=" . $sort : "") . "'><img src='images/prev.gif' border='0' width='12' height='12' title='Previous'></a>" : "<img src='images/prev.gif' border='0' width='12' height='12'>";?>
             <?echo $page . " of " . $pages;?>
-            <?echo ($page < $pages) ? "<a href='index.php?editor=tradeskill&action=13&page=" . ($page + 1) . (($sort != "") ? "&sort=" . $sort : "") . "'><img src='images/next.gif' border='0' width='12' height='12' title='Next'/></a>" : "<img src='images/next.gif' border='0' width='12' height='12'/>";?>
-            <?echo ($page < $pages) ? "<a href='index.php?editor=tradeskill&action=13&page=" . $pages . (($sort != "") ? "&sort=" . $sort : "") . "'><img src='images/last.gif' border='0' width='12' height='12' title='Last'/></a>" : "<img src='images/last.gif' border='0' width='12' height='12'/>";?>
+            <?echo ($page < $pages) ? "<a href='index.php?editor=tradeskill&action=13&page=" . ($page + 1) . (($sort != "") ? "&sort=" . $sort : "") . "'><img src='images/next.gif' border='0' width='12' height='12' title='Next'></a>" : "<img src='images/next.gif' border='0' width='12' height='12'>";?>
+            <?echo ($page < $pages) ? "<a href='index.php?editor=tradeskill&action=13&page=" . $pages . (($sort != "") ? "&sort=" . $sort : "") . "'><img src='images/last.gif' border='0' width='12' height='12' title='Last'></a>" : "<img src='images/last.gif' border='0' width='12' height='12'>";?>
           </td>
           <td align="right" width="33%">&nbsp;</td>
         </tr>
@@ -17,8 +17,8 @@
     <table class="table_content2" width="100%">
 <?if (isset($recipes)):?>
       <tr>
-        <td align="center"><strong><?echo ($sort == 1) ? "Character <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=tradeskill&action=13&sort=1'>Character <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Character'/></a>";?></strong></td>
-        <td align="center"><strong><?echo ($sort == 2) ? "Recipe <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=tradeskill&action=13&sort=2'>Recipe <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Recipe'/></a>";?></strong></td>
+        <td align="center"><strong><?echo ($sort == 1) ? "Character <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=tradeskill&action=13&sort=1'>Character <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Character'></a>";?></strong></td>
+        <td align="center"><strong><?echo ($sort == 2) ? "Recipe <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=tradeskill&action=13&sort=2'>Recipe <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Recipe'></a>";?></strong></td>
         <td align="center"><strong>Count</strong></td>
         <td width="5%">&nbsp;</td>
       </tr>

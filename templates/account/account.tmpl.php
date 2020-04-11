@@ -1,12 +1,12 @@
   <div class="table_container">
     <div class="table_header">
       <div style="float:right">
-        <a onClick="javascript:alert('Not yet!');"><img src="images/c_table.gif" border="0" title="Edit this Account" /></a>
+        <a onClick="javascript:alert('Not yet!');"><img src="images/c_table.gif" border="0" title="Edit this Account"></a>
 <?if ($character_array) {
-    echo '<a onClick="javascript:alert(\'Unable to delete account yet. Delete all characters associated with this account first!\');"><img src="images/table.gif" border="0" title="Characters Still Exist on this Account!" /></a>';
+    echo '<a onClick="javascript:alert(\'Unable to delete account yet. Delete all characters associated with this account first!\');"><img src="images/table.gif" border="0" title="Characters Still Exist on this Account!"></a>';
   }
   else {
-    echo '<a onClick="return confirm(\'Really delete account ' . trim($name) . ' (' . $acctid . ')?\');" href="index.php?editor=account&acctid=' . $acctid . '&action=4"><img src="images/table.gif" border="0" title="Delete this Account" /></a>';
+    echo '<a onClick="return confirm(\'Really delete account ' . trim($name) . ' (' . $acctid . ')?\');" href="index.php?editor=account&acctid=' . $acctid . '&action=4"><img src="images/table.gif" border="0" title="Delete this Account"></a>';
   }
 ?>
       </div>

@@ -20,7 +20,7 @@
               </td>
               <td><input type="text" size="10" name="current_value" value="<?=$current_value?>"></td>
             </tr>
-          </table><br/><br/>
+          </table><br><br>
           <center>
             <input type="hidden" name="o_cid" value="<?=$char_id?>">
             <input type="hidden" name="o_fid" value="<?=$faction_id?>">

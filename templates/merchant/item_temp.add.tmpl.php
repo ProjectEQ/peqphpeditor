@@ -8,11 +8,11 @@
         Add a Temp Item to Merchant NPC <?=$npcid?>
       </div>
       <div class="edit_form_content">
-        <strong>Enter an Item ID:</strong> (<a href="javascript:showSearch('searchframe');">search</a>)<br/>
-        <input class="indented" id="id" type="text" name="itemid"/><br/><br/>
+        <strong>Enter an Item ID:</strong> (<a href="javascript:showSearch('searchframe');">search</a>)<br>
+        <input class="indented" id="id" type="text" name="itemid"><br><br>
         <strong>Charges:</strong>
-        <input class="indented" id="charges" type="text" name="charges" value="1"/><br/><br/>
-        <center><input type="submit" name="submit" value=" Submit "/></center>
+        <input class="indented" id="charges" type="text" name="charges" value="1"><br><br>
+        <center><input type="submit" name="submit" value=" Submit "></center>
       </div>
     </div>
   </form>

@@ -9,7 +9,7 @@
       </div>
       <div class="edit_form_content">
         <form name="filter" id="filter" method="get" action="index.php">
-          <input type="hidden" name="editor" value="qglobal"/>
+          <input type="hidden" name="editor" value="qglobal">
 <?echo (($sort != '') ? '<input type="hidden" name="sort" value="' . $sort . '">' : '')?>
           <input type="hidden" name="filter" id="filter_status" value="on">
           <table class="table_content" width="100%">

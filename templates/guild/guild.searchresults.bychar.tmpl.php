@@ -5,7 +5,7 @@
         <div class="table_content">
           <?if($results != ''):?>
             <?foreach($results as $result): extract($result);?>
-              <a href="index.php?editor=guild&guildid=<?=$guild_id?>"><?echo getPlayerName($char_id) . " (" . $char_id . ") - " . getGuildName($guild_id) . " (" . $guild_id . ")" . "</a><br />"?>
+              <a href="index.php?editor=guild&guildid=<?=$guild_id?>"><?echo getPlayerName($char_id) . " (" . $char_id . ") - " . getGuildName($guild_id) . " (" . $guild_id . ")" . "</a><br>"?>
             <?endforeach;?>
           <?endif;?>
           <?if($results == ''):?>

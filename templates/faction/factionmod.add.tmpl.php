@@ -10,7 +10,7 @@
       <tr><td align="right">-500 to -101</td><td>&nbsp;</td><td align="left">Dubious</td></tr>
       <tr><td align="right">-750 to -501</td><td>&nbsp;</td><td align="left">Threatening</td></tr>
       <tr><td align="right">-751 and Below</td><td>&nbsp;</td><td align="left">KOS</td></tr>
-    </table><br/><br/>
+    </table><br><br>
   </center>
   <div style="width: 550px; margin: auto;">
     <form id="form" name="faction" method="post" action="index.php?editor=faction&fid=<?=$faction_id?>&action=21">
@@ -23,10 +23,10 @@
             <legend><strong>Faction Mod Info</strong></legend>
             <table width="100%">
               <tr>
-                <td width="25%">ID:<br/><input size="8" type="text" name="id" value="<?=$suggested_id?>"></td>
+                <td width="25%">ID:<br><input size="8" type="text" name="id" value="<?=$suggested_id?>"></td>
                 <td width="50%">
-                  Type:<br/>
-                  <input type="radio" id="mod_race" name="mod_select" value="Race" onchange="toggleModType();" checked>Race <input type="radio" id="mod_class" name="mod_select" value="Class" onchange="toggleModType();">Class <input type="radio" id="mod_deity" name="mod_select" value="Deity" onchange="toggleModType();">Deity<br/>
+                  Type:<br>
+                  <input type="radio" id="mod_race" name="mod_select" value="Race" onchange="toggleModType();" checked>Race <input type="radio" id="mod_class" name="mod_select" value="Class" onchange="toggleModType();">Class <input type="radio" id="mod_deity" name="mod_select" value="Deity" onchange="toggleModType();">Deity<br>
                   <select id="select_race" style="display: inline;">
                     <option>Select a Race</option>
 <?foreach ($races as $race_id=>$race_name):?>
@@ -46,10 +46,10 @@
 <?endforeach;?>
                   </select>
                 </td>
-                <td width="25%">Mod:<br/><input size="8" type="text" name="mod" value="0"></td>
+                <td width="25%">Mod:<br><input size="8" type="text" name="mod" value="0"></td>
               </tr>
             </table>
-          </fieldset><br/>
+          </fieldset><br>
           <center>
             <input type="hidden" name="faction_id" value="<?=$faction_id?>">
             <input type="hidden" id="mod_name" name="mod_name" value="">

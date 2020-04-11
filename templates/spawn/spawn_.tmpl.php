@@ -25,7 +25,7 @@
       </ul>
     </tr>
   </table>
-<br />
+<br>
 <?foreach($spawngroups as $sg): extract($sg);?>
       <div style="border: 1px solid black; margin-bottom: 15px;">
       <div class="table_header">

@@ -9,39 +9,39 @@
       </div>
       <div class="edit_form_content">
         <form name="filter" id="filter" method="get" action="index.php">
-          <input type="hidden" name="editor" value="faction"/>
-          <input type="hidden" name="action" value="9"/>
-<?echo (($sort != '') ? '<input type="hidden" name="sort" value="' . $sort . '"/>' : '')?>
-          <input type="hidden" name="filter" id="filter_status" value="on"/>
+          <input type="hidden" name="editor" value="faction">
+          <input type="hidden" name="action" value="9">
+<?echo (($sort != '') ? '<input type="hidden" name="sort" value="' . $sort . '">' : '')?>
+          <input type="hidden" name="filter" id="filter_status" value="on">
           <table class="table_content" width="100%">
             <tr>
               <td width="50%">
-                Character Name:<br/>
-                <input type="text" name="filter1" id="filter1" value="<?=$filter['filter1']?>"/>
+                Character Name:<br>
+                <input type="text" name="filter1" id="filter1" value="<?=$filter['filter1']?>">
               </td>
               <td width="50%">
-                Faction ID:<br/>
-                <input type="text" name="filter2" id="filter2" value="<?=$filter['filter2']?>"/>
+                Faction ID:<br>
+                <input type="text" name="filter2" id="filter2" value="<?=$filter['filter2']?>">
               </td>
             </tr>
             <tr>
-              <td colspan="2" align="center"><br/><input type="submit" value="Apply Filters"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Remove Filters" onClick="document.getElementById('filter1').value='';document.getElementById('filter2').value='';document.getElementById('filter_status').value='';"/></td>
+              <td colspan="2" align="center"><br><input type="submit" value="Apply Filters">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Remove Filters" onClick="document.getElementById('filter1').value='';document.getElementById('filter2').value='';document.getElementById('filter_status').value='';"></td>
             </tr>
           </table>
         </form>
       </div>
-    </div><br/>
+    </div><br>
         <div class="table_container" style="width: 500px;">
           <div class="table_header">
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td align="left" width="33%">Player Faction Entries</td>
                 <td align="center" width="33%">
-                  <?echo ($page > 1) ? "<a href='index.php?editor=faction&action=9&page=1" . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/first.gif' border='0' width='12' height='12' title='First'/></a>" : "<img src='images/first.gif' border='0' width='12' height='12'/>";?>
-                  <?echo ($page > 1) ? "<a href='index.php?editor=faction&action=9&page=" . ($page - 1) . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/prev.gif' border='0' width='12' height='12' title='Previous'/></a>" : "<img src='images/prev.gif' border='0' width='12' height='12'/>";?>
+                  <?echo ($page > 1) ? "<a href='index.php?editor=faction&action=9&page=1" . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/first.gif' border='0' width='12' height='12' title='First'></a>" : "<img src='images/first.gif' border='0' width='12' height='12'>";?>
+                  <?echo ($page > 1) ? "<a href='index.php?editor=faction&action=9&page=" . ($page - 1) . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/prev.gif' border='0' width='12' height='12' title='Previous'></a>" : "<img src='images/prev.gif' border='0' width='12' height='12'>";?>
                   <?echo $page . " of " . $pages;?>
-                  <?echo ($page < $pages) ? "<a href='index.php?editor=faction&action=9&page=" . ($page + 1) . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/next.gif' border='0' width='12' height='12' title='Next'/></a>" : "<img src='images/next.gif' border='0' width='12' height='12'/>";?>
-                  <?echo ($page < $pages) ? "<a href='index.php?editor=faction&action=9&page=" . $pages . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/last.gif' border='0' width='12' height='12' title='Last'/></a>" : "<img src='images/last.gif' border='0' width='12' height='12'/>";?>
+                  <?echo ($page < $pages) ? "<a href='index.php?editor=faction&action=9&page=" . ($page + 1) . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/next.gif' border='0' width='12' height='12' title='Next'></a>" : "<img src='images/next.gif' border='0' width='12' height='12'>";?>
+                  <?echo ($page < $pages) ? "<a href='index.php?editor=faction&action=9&page=" . $pages . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/last.gif' border='0' width='12' height='12' title='Last'></a>" : "<img src='images/last.gif' border='0' width='12' height='12'>";?>
                 </td>
                 <td align="right" width="33%"><a onClick="document.getElementById('filter_box').style.display='block';"><img src="images/filter.jpg" border="0" height="13" width="13" title="Show filter"></a>&nbsp;<a href="index.php?editor=faction&action=12"><img src="images/add.gif" border="0" title="Add a faction entry"></a></td>
               </tr>
@@ -50,8 +50,8 @@
           <table class="table_content2" width="100%">
 <?if (isset($player_factions)):?>
             <tr>
-              <td align="center" width="20%"><strong><?echo ($sort == 1) ? "Character <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=faction&action=9&sort=1" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Character <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Character'/></a>";?></strong></td>
-              <td align="center" width="20%"><strong><?echo ($sort == 2) ? "Faction <img src='images/sort_red.bmp' border='0' width='8' height='8'/>" : "<a href='index.php?editor=faction&action=9&sort=2" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Faction <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Faction'/></a>";?></strong></td>
+              <td align="center" width="20%"><strong><?echo ($sort == 1) ? "Character <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=faction&action=9&sort=1" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Character <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Character'></a>";?></strong></td>
+              <td align="center" width="20%"><strong><?echo ($sort == 2) ? "Faction <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=faction&action=9&sort=2" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Faction <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Faction'></a>";?></strong></td>
               <td align="center" width="20%"><strong>Value</strong></td>
               <td width="10%">&nbsp;</td>
             </tr>

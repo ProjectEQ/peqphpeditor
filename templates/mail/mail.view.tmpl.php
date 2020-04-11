@@ -5,8 +5,8 @@
           <td>View Message</td>
           <td>
             <div style="float:right">
-              <a href="index.php?editor=mail&msg_id=<?=$message['msgid']?>&action=2"><img src="images/edit2.gif" border="0" title="Edit this message" /></a>
-              <a onClick="return confirm('Really delete message <?=$message['msgid']?>?');" href="index.php?editor=mail&msg_id=<?=$message['msgid']?>&action=4"><img src="images/remove2.gif" border="0" title="Delete this message" /></a>
+              <a href="index.php?editor=mail&msg_id=<?=$message['msgid']?>&action=2"><img src="images/edit2.gif" border="0" title="Edit this message"></a>
+              <a onClick="return confirm('Really delete message <?=$message['msgid']?>?');" href="index.php?editor=mail&msg_id=<?=$message['msgid']?>&action=4"><img src="images/remove2.gif" border="0" title="Delete this message"></a>
             </div>
           </td>
         </tr>

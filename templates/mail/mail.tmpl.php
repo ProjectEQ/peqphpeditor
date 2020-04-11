@@ -5,7 +5,7 @@
                 <td>Mail</td>
                 <td>
                   <div style="float:right">
-                    <a href="index.php?editor=mail&action=3"><img src="images/add.gif" border="0" title="Create a new message" /></a>
+                    <a href="index.php?editor=mail&action=3"><img src="images/add.gif" border="0" title="Create a new message"></a>
                   </div>
                 </td>
               </tr>

@@ -5,7 +5,7 @@
           <td>Character Totals</td>
           <td>
             <div style="float:right">
-              <a href="index.php?editor=altcur&action=14"><img src="images/add.gif" border="0" title="Create a new entry" /></a>
+              <a href="index.php?editor=altcur&action=14"><img src="images/add.gif" border="0" title="Create a new entry"></a>
             </div>
           </td>
         </tr>
