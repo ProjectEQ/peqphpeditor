@@ -552,24 +552,16 @@ function get_taskset() {
 }
 
 function update_tasks() {
-  global $mysql_content_db, $mysql_class;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $type = $_POST['type'];
   $duration = $_POST['duration'];
   $duration_code = $_POST['duration_code'];
-  if ($mysql_class == "mysqli") {
-    $title = mysqli_real_escape_string($mysql, $_POST['title']);
-    $description = mysqli_real_escape_string($mysql, $_POST['description']); 
-    $reward = mysqli_real_escape_string($mysql, $_POST['reward']);
-    $completion_emote = mysqli_real_escape_string($mysql, $_POST['completion_emote']);
-  }
-  else {
-    $title = mysql_real_escape_string($_POST['title']);
-    $description = mysql_real_escape_string($_POST['description']); 
-    $reward = mysql_real_escape_string($_POST['reward']);
-    $completion_emote = mysql_real_escape_string($_POST['completion_emote']);
-  }
+  $title = mysqli_real_escape_string($mysql_content_db, $_POST['title']);
+  $description = mysqli_real_escape_string($mysql_content_db, $_POST['description']); 
+  $reward = mysqli_real_escape_string($mysql_content_db, $_POST['reward']);
+  $completion_emote = mysqli_real_escape_string($mysql_content_db, $_POST['completion_emote']);
   $rewardid = $_POST['rewardid'];
   $cashreward = $_POST['cashreward'];
   $xpreward = $_POST['xpreward'];
@@ -584,29 +576,19 @@ function update_tasks() {
 }
 
 function update_activity() {
-  global $mysql_content_db, $mysql_class;
+  global $mysql_content_db;
 
   $taskid = $_POST['taskid'];
   $activityid = $_POST['activityid'];
   $newactivityid = $_POST['newactivityid'];
   $step = $_POST['step'];
   $activitytype = $_POST['activitytype']; 
-  if ($mysql_class == "mysqli") {
-    $target_name = mysqli_real_escape_string($mysql, $_POST['target_name']);
-    $item_list = mysqli_real_escape_string($mysql, $_POST['item_list']);
-    $description_override = mysqli_real_escape_string($mysql, $_POST['description_override']);
-    $skill_list = mysqli_real_escape_string($mysql, $_POST['skill_list']);
-    $spell_list = mysqli_real_escape_string($mysql, $_POST['spell_list']);
-    $zones = mysqli_real_escape_string($mysql, $_POST['zones']);
-  }
-  else {
-    $target_name = mysql_real_escape_string($_POST['target_name']);
-    $item_list = mysql_real_escape_string($_POST['item_list']);
-    $description_override = mysql_real_escape_string($_POST['description_override']);
-    $skill_list = mysql_real_escape_string($_POST['skill_list']);
-    $spell_list = mysql_real_escape_string($_POST['spell_list']);
-    $zones = mysql_real_escape_string($_POST['zones']);
-  }
+  $target_name = mysqli_real_escape_string($mysql_content_db, $_POST['target_name']);
+  $item_list = mysqli_real_escape_string($mysql_content_db, $_POST['item_list']);
+  $description_override = mysqli_real_escape_string($mysql_content_db, $_POST['description_override']);
+  $skill_list = mysqli_real_escape_string($mysql_content_db, $_POST['skill_list']);
+  $spell_list = mysqli_real_escape_string($mysql_content_db, $_POST['spell_list']);
+  $zones = mysqli_real_escape_string($mysql_content_db, $_POST['zones']);
   $goalid = $_POST['goalid'];
   $goalmethod = $_POST['goalmethod']; 
   $goalcount = $_POST['goalcount'];
@@ -784,24 +766,16 @@ function suggest_step() {
 }
 
 function add_tasks() {
-  global $mysql_content_db, $mysql_class;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $type = $_POST['type'];
   $duration = $_POST['duration'];
   $duration_code = $_POST['duration_code'];
-  if ($mysql_class == "mysqli") {
-    $title = mysqli_real_escape_string($mysql, $_POST['title']);
-    $description = mysqli_real_escape_string($mysql, $_POST['description']); 
-    $reward = mysqli_real_escape_string($mysql, $_POST['reward']);
-    $completion_emote = mysqli_real_escape_string($mysql, $_POST['completion_emote']);
-  }
-  else {
-    $title = mysql_real_escape_string($_POST['title']);
-    $description = mysql_real_escape_string($_POST['description']); 
-    $reward = mysql_real_escape_string($_POST['reward']);
-    $completion_emote = mysql_real_escape_string($_POST['completion_emote']);
-  }
+  $title = mysqli_real_escape_string($mysql_content_db, $_POST['title']);
+  $description = mysqli_real_escape_string($mysql_content_db, $_POST['description']); 
+  $reward = mysqli_real_escape_string($mysql_content_db, $_POST['reward']);
+  $completion_emote = mysqli_real_escape_string($mysql_content_db, $_POST['completion_emote']);
   $rewardid = $_POST['rewardid'];
   $cashreward = $_POST['cashreward'];
   $xpreward = $_POST['xpreward'];
@@ -816,28 +790,18 @@ function add_tasks() {
 }
 
 function add_activity() {
-  global $mysql_content_db, $mysql_class;
+  global $mysql_content_db;
 
   $taskid = $_POST['taskid'];
   $activityid = $_POST['activityid'];
   $step = $_POST['step'];
   $activitytype = $_POST['activitytype']; 
-  if ($mysql_class == "mysqli") {
-    $target_name = mysqli_real_escape_string($mysql, $_POST['target_name']);
-    $item_list = mysqli_real_escape_string($mysql, $_POST['item_list']);
-    $description_override = mysqli_real_escape_string($mysql, $_POST['description_override']);
-    $skill_list = mysqli_real_escape_string($mysql, $_POST['skill_list']);
-    $spell_list = mysqli_real_escape_string($mysql, $_POST['spell_list']);
-    $zones = mysqli_real_escape_string($mysql, $_POST['zones']);
-  }
-  else {
-    $target_name = mysql_real_escape_string($_POST['target_name']);
-    $item_list = mysql_real_escape_string($_POST['item_list']);
-    $description_override = mysql_real_escape_string($_POST['description_override']);
-    $skill_list = mysql_real_escape_string($_POST['skill_list']);
-    $spell_list = mysql_real_escape_string($_POST['spell_list']);
-    $zones = mysql_real_escape_string($_POST['zones']);
-  }
+  $target_name = mysqli_real_escape_string($mysql_content_db, $_POST['target_name']);
+  $item_list = mysqli_real_escape_string($mysql_content_db, $_POST['item_list']);
+  $description_override = mysqli_real_escape_string($mysql_content_db, $_POST['description_override']);
+  $skill_list = mysqli_real_escape_string($mysql_content_db, $_POST['skill_list']);
+  $spell_list = mysqli_real_escape_string($mysql_content_db, $_POST['spell_list']);
+  $zones = mysqli_real_escape_string($mysql_content_db, $_POST['zones']);
   $goalid = $_POST['goalid'];
   $goalmethod = $_POST['goalmethod']; 
   $goalcount = $_POST['goalcount'];
