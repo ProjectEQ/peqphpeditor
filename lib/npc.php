@@ -533,7 +533,7 @@ switch ($action) {
   case 44: // Edit NPC Level
     check_authorization();
     $javascript = new Template("templates/npc/js.tmpl.php");
-    $body = new Template("templates/npc/npc.editlevel.tmpl.php");
+    $body = new Template("templates/npc/npc.edit.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
@@ -560,6 +560,20 @@ switch ($action) {
       foreach ($vars_ as $key=>$value) {
         $body->set($key, $value);
       }
+      $body->set('maxlevel', 0);
+      $body->set('STR', $vars_['stats']);
+      $body->set('STA', $vars_['stats']);
+      $body->set('DEX', $vars_['stats']);
+      $body->set('AGI', $vars_['stats']);
+      $body->set('_INT', $vars_['stats']);
+      $body->set('WIS', $vars_['stats']);
+      $body->set('CHA', $vars_['stats']);
+      $body->set('MR', $vars_['resists']);
+      $body->set('CR', $vars_['resists']);
+      $body->set('FR', $vars_['resists']);
+      $body->set('PR', $vars_['resists']);
+      $body->set('DR', $vars_['resists']);
+      $body->set('changed_level', TRUE);
     }
     break;
  case 45: // Change NPC level
@@ -2206,38 +2220,38 @@ function next_npcid() {
 function get_stats() {
   global $mysql_content_db;
  
- $npc_level = $_POST['npc_level'];
+  $npc_level = $_POST['npc_level'];
  
- if($npc_level < 11) {
- $query = "SELECT level, AVG(hp) AS hp, AVG(mana) AS mana, AVG(ac) AS ac, AVG(str) AS stats, AVG(mr) AS resists, AVG(mindmg) AS mindmg, AVG(maxdmg) AS maxdmg, AVG(attack_speed) AS attack_speed, AVG(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" AND name NOT LIKE '#%' AND bodytype < 35 AND bodytype NOT IN (10, 11, 17, 18, 33) AND hp < 1000 AND race != 240 AND str < 300 AND id < 200000 GROUP BY level";
- $results = $mysql_content_db->query_assoc($query);
- return $results;
- }
- if($npc_level > 10 && $npc_level < 31) {
-  $query = "SELECT level, AVG(hp) AS hp, AVG(mana) AS mana, AVG(ac) AS ac, AVG(str) AS stats, AVG(mr) AS resists, AVG(mindmg) AS mindmg, AVG(maxdmg) AS maxdmg, AVG(attack_speed) AS attack_speed, AVG(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" AND name NOT LIKE '#%' AND bodytype < 35 AND bodytype NOT IN (10, 11, 17, 18, 33) AND hp < 2500 AND race != 240 AND str < 300 AND id < 200000 GROUP BY level";
- $results = $mysql_content_db->query_assoc($query);
- return $results;
- }
-  if($npc_level > 30 && $npc_level < 51) {
-  $query = "SELECT level, AVG(hp) AS hp, AVG(mana) AS mana, AVG(ac) AS ac, AVG(str) AS stats, AVG(mr) AS resists, AVG(mindmg) AS mindmg, AVG(maxdmg) AS maxdmg, AVG(attack_speed) AS attack_speed, AVG(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" AND name NOT LIKE '#%' AND bodytype < 35 AND bodytype NOT IN (10, 11, 17, 18, 33) AND hp < 5000 AND race != 240 AND str < 300 AND id < 200000 GROUP BY level";
- $results = $mysql_content_db->query_assoc($query);
- return $results;
- }
- if($npc_level > 50 && $npc_level < 61) {
-  $query = "SELECT level, AVG(hp) AS hp, AVG(mana) AS mana, AVG(ac) AS ac, AVG(str) AS stats, AVG(mr) AS resists, AVG(mindmg) AS mindmg, AVG(maxdmg) AS maxdmg, AVG(attack_speed) AS attack_speed, AVG(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" AND name NOT LIKE '#%' AND bodytype < 35 AND bodytype NOT IN (10, 11, 17, 18, 33) AND hp < 7000 AND race != 240 AND str < 300 GROUP BY level";
- $results = $mysql_content_db->query_assoc($query);
- return $results;
- }
- if($npc_level > 60 && $npc_level < 66) {
- $query = "SELECT level, AVG(hp) AS hp, AVG(mana) AS mana, AVG(ac) AS ac, AVG(str) AS stats, AVG(mr) AS resists, AVG(mindmg) AS mindmg, AVG(maxdmg) AS maxdmg, AVG(attack_speed) AS attack_speed, AVG(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" AND name NOT LIKE '#%' AND bodytype < 35 AND bodytype NOT IN (10, 11, 17, 18, 33) AND hp < 7500 AND race != 240 GROUP BY level";
- $results = $mysql_content_db->query_assoc($query);
- return $results;
- }
- else {
- $query = "SELECT level, AVG(hp) AS hp, AVG(mana) AS mana, AVG(ac) AS ac, AVG(str) AS stats, AVG(mr) AS resists, AVG(mindmg) AS mindmg, AVG(maxdmg) AS maxdmg, AVG(attack_speed) AS attack_speed, AVG(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" AND name NOT LIKE '#%' AND bodytype < 35 AND bodytype NOT IN (10, 11, 17, 18, 33) AND hp < 50000 AND race != 240 GROUP BY level";
- $results = $mysql_content_db->query_assoc($query);
- return $results;
- }
+  if ($npc_level < 11) {
+    $query = "SELECT level, AVG(hp) AS hp, AVG(mana) AS mana, AVG(ac) AS AC, AVG(str) AS stats, AVG(mr) AS resists, AVG(mindmg) AS mindmg, AVG(maxdmg) AS maxdmg, AVG(attack_speed) AS attack_speed, AVG(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" AND name NOT LIKE '#%' AND bodytype < 35 AND bodytype NOT IN (10, 11, 17, 18, 33) AND hp < 1000 AND race != 240 AND str < 300 AND id < 200000 GROUP BY level";
+    $results = $mysql_content_db->query_assoc($query);
+    return $results;
+  }
+  if ($npc_level > 10 && $npc_level < 31) {
+    $query = "SELECT level, AVG(hp) AS hp, AVG(mana) AS mana, AVG(ac) AS AC, AVG(str) AS stats, AVG(mr) AS resists, AVG(mindmg) AS mindmg, AVG(maxdmg) AS maxdmg, AVG(attack_speed) AS attack_speed, AVG(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" AND name NOT LIKE '#%' AND bodytype < 35 AND bodytype NOT IN (10, 11, 17, 18, 33) AND hp < 2500 AND race != 240 AND str < 300 AND id < 200000 GROUP BY level";
+    $results = $mysql_content_db->query_assoc($query);
+    return $results;
+  }
+  if ($npc_level > 30 && $npc_level < 51) {
+    $query = "SELECT level, AVG(hp) AS hp, AVG(mana) AS mana, AVG(ac) AS AC, AVG(str) AS stats, AVG(mr) AS resists, AVG(mindmg) AS mindmg, AVG(maxdmg) AS maxdmg, AVG(attack_speed) AS attack_speed, AVG(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" AND name NOT LIKE '#%' AND bodytype < 35 AND bodytype NOT IN (10, 11, 17, 18, 33) AND hp < 5000 AND race != 240 AND str < 300 AND id < 200000 GROUP BY level";
+    $results = $mysql_content_db->query_assoc($query);
+    return $results;
+  }
+  if ($npc_level > 50 && $npc_level < 61) {
+    $query = "SELECT level, AVG(hp) AS hp, AVG(mana) AS mana, AVG(ac) AS AC, AVG(str) AS stats, AVG(mr) AS resists, AVG(mindmg) AS mindmg, AVG(maxdmg) AS maxdmg, AVG(attack_speed) AS attack_speed, AVG(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" AND name NOT LIKE '#%' AND bodytype < 35 AND bodytype NOT IN (10, 11, 17, 18, 33) AND hp < 7000 AND race != 240 AND str < 300 GROUP BY level";
+    $results = $mysql_content_db->query_assoc($query);
+    return $results;
+  }
+  if ($npc_level > 60 && $npc_level < 66) {
+    $query = "SELECT level, AVG(hp) AS hp, AVG(mana) AS mana, AVG(ac) AS AC, AVG(str) AS stats, AVG(mr) AS resists, AVG(mindmg) AS mindmg, AVG(maxdmg) AS maxdmg, AVG(attack_speed) AS attack_speed, AVG(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" AND name NOT LIKE '#%' AND bodytype < 35 AND bodytype NOT IN (10, 11, 17, 18, 33) AND hp < 7500 AND race != 240 GROUP BY level";
+    $results = $mysql_content_db->query_assoc($query);
+    return $results;
+  }
+  else {
+    $query = "SELECT level, AVG(hp) AS hp, AVG(mana) AS mana, AVG(ac) AS AC, AVG(str) AS stats, AVG(mr) AS resists, AVG(mindmg) AS mindmg, AVG(maxdmg) AS maxdmg, AVG(attack_speed) AS attack_speed, AVG(attack_delay) AS attack_delay FROM npc_types WHERE level=\"$npc_level\" AND name NOT LIKE '#%' AND bodytype < 35 AND bodytype NOT IN (10, 11, 17, 18, 33) AND hp < 50000 AND race != 240 GROUP BY level";
+    $results = $mysql_content_db->query_assoc($query);
+    return $results;
+  }
 }
 
 function change_npc_level_ver() {
