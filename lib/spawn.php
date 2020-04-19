@@ -1273,12 +1273,12 @@ function gridpoint_info() {
 }
 
 function spawnevent_info() {
-  global $mysql_content_db, $z;
+  global $mysql_db, $z;
 
   $seid = $_GET['seid'];
 
   $query = "SELECT * FROM spawn_events WHERE id=\"$seid\"";
-  $result = $mysql_content_db->query_assoc($query);
+  $result = $mysql_db->query_assoc($query);
 
   return $result;
 }
@@ -1343,11 +1343,11 @@ function delete_grid_ns() {
 
 function delete_spawnevent() {
   check_authorization();
-  global $mysql_content_db;
+  global $mysql_db;
   $seid = $_GET['seid'];
 
   $query = "DELETE FROM spawn_events WHERE id=$seid";
-  $mysql_content_db->query_no_result($query);
+  $mysql_db->query_no_result($query);
 }
 
 function delete_spawncondition() {
@@ -1467,10 +1467,10 @@ function suggest_grid_number() {
 }
 
 function suggest_spawnevent_id() {
-  global $mysql_content_db;
+  global $mysql_db;
 
   $query = "SELECT MAX(id) AS seid FROM spawn_events";
-  $result = $mysql_content_db->query_assoc($query);
+  $result = $mysql_db->query_assoc($query);
 
   return ($result['seid'] + 1);
 }
@@ -1724,11 +1724,11 @@ function update_spawnconditionvalue() {
 }
 
 function get_spawn_event() {
-  global $mysql_content_db, $z;
+  global $mysql_db, $z;
   $array = array();
 
-  $query = "SELECT id AS seid,zone AS sezone,cond_id,name AS sename,period,next_minute,next_hour,next_day,next_month,next_year,enabled,action,argument,strict FROM spawn_events WHERE zone=\"$z\" order by id";
-  $results = $mysql_content_db->query_mult_assoc($query);
+  $query = "SELECT id AS seid, zone AS sezone, cond_id, name AS sename, period, next_minute, next_hour, next_day, next_month, next_year, enabled, action, argument, strict FROM spawn_events WHERE zone=\"$z\" ORDER BY id";
+  $results = $mysql_db->query_mult_assoc($query);
   if ($results) {
     foreach ($results as $result) {
       $array['spawne'][$result['seid']] = array("seid"=>$result['seid'], "sezone"=>$result['sezone'], "cond_id"=>$result['cond_id'], "sename"=>$result['sename'], "period"=>$result['period'], "next_minute"=>$result['next_minute'], "next_hour"=>$result['next_hour'], "next_day"=>$result['next_day'], "next_month"=>$result['next_month'], "next_year"=>$result['next_year'], "enabled"=>$result['enabled'], "action"=>$result['action'], "argument"=>$result['argument'], "strict"=>$result['strict']);
@@ -1740,7 +1740,7 @@ function get_spawn_event() {
 
 function update_spawnevent() {
   check_authorization();
-  global $mysql_content_db, $z;
+  global $mysql_db, $z;
 
   $seid = $_POST['seid'];
   $cond_id = $_POST['cond_id'];
@@ -1757,7 +1757,7 @@ function update_spawnevent() {
   $strict = $_POST['strict'];
 
   $query = "UPDATE spawn_events SET cond_id=\"$cond_id\", name=\"$sename\", period=\"$period\", next_minute=\"$next_minute\", next_hour=\"$next_hour\", next_day=\"$next_day\", next_month=\"$next_month\", next_year=\"$next_year\", enabled=\"$enabled\", action=\"$action\", argument=\"$argument\", strict=\"$strict\" WHERE id=\"$seid\" AND zone=\"$z\"";
-  $mysql_content_db->query_no_result($query);
+  $mysql_db->query_no_result($query);
 }
 
 function update_spawncondition() {
@@ -1787,7 +1787,7 @@ function update_spawntimer() {
 
 function add_spawnevent() {
   check_authorization();
-  global $mysql_content_db, $z;
+  global $mysql_db, $z;
 
   $cond_id = $_POST['cond_id'];
   $sename = $_POST['sename'];
@@ -1802,7 +1802,7 @@ function add_spawnevent() {
   $argument = $_POST['argument'];
 
   $query = "INSERT INTO spawn_events SET zone=\"$z\", cond_id=\"$cond_id\", name=\"$sename\", period=\"$period\", next_minute=\"$next_minute\", next_hour=\"$next_hour\", next_day=\"$next_day\", next_month=\"$next_month\", next_year=\"$next_year\", enabled=\"$enabled\", action=\"$action\", argument=\"$argument\"";
-  $mysql_content_db->query_no_result($query);
+  $mysql_db->query_no_result($query);
 }
 
 function add_spawncondition() {
