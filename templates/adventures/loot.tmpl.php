@@ -38,7 +38,7 @@
           <td align="center" width="18%"><a href="index.php?editor=npc&z=$z&npcid=<?=$v['type_data']?>"><?=getNPCName($v['type_data'])?></a></td>
 <?endif;?>
 <?if($v['type'] == 3):?>
-          <td align="center" width="18%"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['type_data']?>&action=2"><?=get_item_name($v['type_data'])?></a> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['type_data']?>">lucy</a>]</span></td>
+          <td align="center" width="18%"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['type_data']?>&action=2"><?=get_item_name($v['type_data'])?></a> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$v['type_data']?>" target="_blank">Lucy</a>]</span></td>
 <?endif;?>    
 <?if($v['type'] == 2):?>   
           <td align="center" width="18%">Any</td>  

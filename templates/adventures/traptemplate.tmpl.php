@@ -28,7 +28,7 @@
           <td align="center" width="10%">None</td>  
 <?endif;?>
 <?if($v['spell_id'] > 0):?>  
-          <td align="center" width="20%"><?=getSpellName($v['spell_id'])?> <span>[<a href="http://lucy.allakhazam.com/spell.html?id=<?=$v['spell_id']?>">lucy</a>]</span></td>
+          <td align="center" width="20%"><?=getSpellName($v['spell_id'])?> <span>[<a href="https://lucy.allakhazam.com/spell.html?id=<?=$v['spell_id']?>" target="_blank">Lucy</a>]</span></td>
 <?endif;?>
           <td align="center" width="10%"><?=$v['skill']?></td>
           <td align="center" width="20%"><?=$yesno[$v['locked']]?></td>

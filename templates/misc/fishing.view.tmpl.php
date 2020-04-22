@@ -23,7 +23,7 @@
          </tr>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="5%"><?=$fsid?></td>
-          <td align="center" width="12%"><?=get_item_name($fiid)?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$fiid?>">lucy</a>]</span></td>
+          <td align="center" width="12%"><?=get_item_name($fiid)?> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$fiid?>" target="_blank">Lucy</a>]</span></td>
 <?if($zoneid == 0):?>          
           <td align="center" width="12%">All</td>
 <?endif;?>

@@ -30,7 +30,7 @@ foreach($items as $item):?>
         <td align="center" width="12%"><?echo ($item['class'] == 0) ? "ALL" : $classes[$item['class']];?></td>
         <td align="center" width="12%"><?echo ($item['deityid'] == 0) ? "ALL" : $deities[$item['deityid']];?></td>
         <td align="center" width="12%"><?echo ($item['zoneid'] == 0) ? "ALL" : $zones[$item['zoneid']];?></td>
-        <td align="center" width="40%"><?=get_item_name($item['itemid'])?> (<?=$item['itemid']?>) - [<a href="http://lucy.allakhazam.com/item.html?id=<?=$item['itemid']?>" target="_blank">Lucy</a>]</td>
+        <td align="center" width="40%"><?=get_item_name($item['itemid'])?> (<?=$item['itemid']?>) - [<a href="https://lucy.allakhazam.com/item.html?id=<?=$item['itemid']?>" target="_blank">Lucy</a>]</td>
         <td align="right" width="7%"><a href="index.php?editor=items&id=<?=$item['id']?>&race=<?=$item['race']?>&action=11"><img src="images/edit2.gif" width="13" height="13" border="0" title="View Item"></a>&nbsp;<a onClick="return confirm('Really delete item?');" href="index.php?editor=items&id=<?=$item['id']?>&race=<?=$item['race']?>&action=15"><img src="images/remove3.gif" border="0" title="Delete Item"></a></td>
       </tr>
 <?$x++;

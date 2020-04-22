@@ -17,7 +17,7 @@
   <form name="item_edit" method="post" action="index.php?editor=items&id=<?=$id?>&action=6">
     <div class="edit_form">
       <div class="edit_form_header">
-        Edit Item - <?=$id?> (<a href="http://lucy.allakhazam.com/item.html?id=<?=$id?>" target="_blank">Lucy</a>)
+        Edit Item - <?=$id?> (<a href="https://lucy.allakhazam.com/item.html?id=<?=$id?>" target="_blank">Lucy</a>)
         <div style="float:right">
           <a href="index.php?editor=items&action=8"><img src="images/add.gif" border="0" title="Add an Item"></a>
           <a href="index.php?editor=items&id=<?=$id?>&action=7" onClick="return confirm('Really Copy Item <?=$id?>?');"><img src="images/last.gif" border="0" title="Copy this Item"></a>

@@ -28,7 +28,7 @@
 <?$x=0; foreach($blockedspell as $blockedspell=>$v):?>
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
         <td align="center" width="5%"><?=$v['bsid']?></td>
-        <td align="center" width="14%"><?=getSpellName($v['spellid'])?> <span>[<a href="http://lucy.allakhazam.com/spell.html?id=<?=$v['spellid']?>" target="_blank">lucy</a>]</span></td>
+        <td align="center" width="14%"><?=getSpellName($v['spellid'])?> <span>[<a href="https://lucy.allakhazam.com/spell.html?id=<?=$v['spellid']?>" target="_blank">Lucy</a>]</span></td>
         <td align="center" width="8%"><?=$blockedtype[$v['type']]?></td>
         <td align="center" width="5%"><?=$v['x_coord']?></td> 
         <td align="center" width="5%"><?=$v['y_coord']?></td>

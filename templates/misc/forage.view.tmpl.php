@@ -27,7 +27,7 @@
 <?if($zoneid != 0):?> 
           <td align="center" width="10%"><?=getZoneName($zoneid)?></td>
 <?endif;?>
-          <td align="center" width="20%"><?=get_item_name($fgiid)?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$fgiid?>">lucy</a>]</span></td>
+          <td align="center" width="20%"><?=get_item_name($fgiid)?> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$fgiid?>" target="_blank">Lucy</a>]</span></td>
           <td align="center" width="5%"><?=$level?></td>
           <td align="center" width="5%"><?=$chance?>%</td>  
           <td align="right">      

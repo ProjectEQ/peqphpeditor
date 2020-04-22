@@ -22,7 +22,7 @@
           Spellset: <?=$name?> (<?=$id?>)
         </div>
         <div class="table_content">
-          <strong>Attack Proc:</strong> <? echo ($attack_proc != -1) ? "$proc_name ($attack_proc) [<a href=\"http://lucy.allakhazam.com/spell.html?source=Live&id=$attack_proc\" target=\"_blank\">Lucy</a>]" : "none";?><br>
+          <strong>Attack Proc:</strong> <? echo ($attack_proc != -1) ? "$proc_name ($attack_proc) [<a href=\"https://lucy.allakhazam.com/spell.html?source=Live&id=$attack_proc\" target=\"_blank\">Lucy</a>]" : "none";?><br>
 <?if($attack_proc != -1):?>
           <strong>Proc Chance:</strong> <?=$proc_chance?>%<br>
 <?endif;?>
@@ -56,7 +56,7 @@
             </tr>
 <?$x=0; foreach($spells as $spell): extract($spell);?>
             <tr<?echo($x % 2 == 1) ? " bgcolor=\"#BBBBBB\"" : "";?>>
-              <td><?=$name?> (<?=$spellid?>) [<a href="http://lucy.allakhazam.com/spell.html?source=Live&id=<?=$spellid?>">Lucy</a>]</td>
+              <td><?=$name?> (<?=$spellid?>) [<a href="https://lucy.allakhazam.com/spell.html?source=Live&id=<?=$spellid?>" target="_blank">Lucy</a>]</td>
               <td align="center"><?=$spelltypes[$type]?></td>
               <td align="center"><?=$minlevel?></td>
               <td align="center"><?=$maxlevel?></td>
@@ -121,7 +121,7 @@
             </tr>
 <?$x=0; foreach($parent['spells'] as $spell): extract($spell);?>
             <tr<?echo($x % 2 == 1) ? " bgcolor=\"#BBBBBB\"" : "";?>>
-              <td><?=$name?> (<?=$spellid?>) [<a href="http://lucy.allakhazam.com/spell.html?source=Live&id=<?=$spellid?>">Lucy</a>]</td>
+              <td><?=$name?> (<?=$spellid?>) [<a href="https://lucy.allakhazam.com/spell.html?source=Live&id=<?=$spellid?>" target="_blank">Lucy</a>]</td>
               <td align="center"><?=$spelltypes[$type]?></td>
               <td align="center"><?=$minlevel?></td>
               <td align="center"><?=$maxlevel?></td>

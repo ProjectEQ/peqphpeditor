@@ -68,7 +68,7 @@ foreach($slots as $slot=>$v):
           <td align="center"><?=$slot?></td>
           <td align="center"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['item']?>&action=2"><?=$v['item']?></a></td>
           <td><?=$v['item_name']?></td>
-          <td><a href="http://lucy.allakhazam.com/item.html?id=<?=$v['item']?>">Lucy</a></td>
+          <td><a href="https://lucy.allakhazam.com/item.html?id=<?=$v['item']?>" target="_blank">Lucy</a></td>
 <?php
 $round_cost = round($cost,3);
 $round_sells = round($sells,3);

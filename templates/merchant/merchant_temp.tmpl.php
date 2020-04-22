@@ -55,7 +55,7 @@ foreach($slots as $slot=>$v):
           <td align="center"><?=$slot?></td>
           <td align="center"><?=$v['itemid']?></td>
           <td><?=$v['item_name']?></td>
-          <td><a href="http://lucy.allakhazam.com/item.html?id=<?=$v['itemid']?>">Lucy</a></td>
+          <td><a href="https://lucy.allakhazam.com/item.html?id=<?=$v['itemid']?>" target="_blank">Lucy</a></td>
           <td align="center"><?=$v['charges']?></td>
           <td align="center"><?=$cost?>
 <?if ($v['price'] > 999):?>

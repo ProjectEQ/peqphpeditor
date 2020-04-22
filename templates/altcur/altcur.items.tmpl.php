@@ -26,7 +26,7 @@ foreach($altcur_items as $item):?>
         <td align="center" width="15%"><?=$item['id']?></td>
         <td align="center" width="20%"><?=$item['item_id']?></td>
         <td align="center" width="45%"><?=get_item_name($item['item_id'])?></td>
-        <td align="left" width="10%"><a href="http://lucy.allakhazam.com/item.html?id=<?=$item['item_id']?>" target="_blank">Lucy</a></td>
+        <td align="left" width="10%"><a href="https://lucy.allakhazam.com/item.html?id=<?=$item['item_id']?>" target="_blank">Lucy</a></td>
         <td align="right"><a href="index.php?editor=altcur&id=<?=$item['id']?>&action=4"><img src="images/edit2.gif" width="13" height="13" border="0" title="Edit Entry"></a>&nbsp;<a onClick="return confirm('Really delete this entry?');" href="index.php?editor=altcur&id=<?=$item['id']?>&action=6"><img src="images/remove3.gif" border="0" title="Delete Entry"></a></td>
       </tr>
 <?$x++;

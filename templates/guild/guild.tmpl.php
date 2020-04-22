@@ -127,7 +127,7 @@
       echo '<tr>';
       echo '<td align="center">' . (($guild_item['area'] == 0) ? 'Deposit' : 'Bank') . '</td>';
       echo '<td align="center">' . $guild_item['slot'] . '</td>';
-      echo '<td align="center">' . get_item_name($guild_item['itemid']) . ' <a href="index.php?editor=items&id=' . $guild_item['itemid'] . '&action=2">' . $guild_item['itemid'] . '</a> [<a href="http://lucy.allakhazam.com/item.html?id=' . $guild_item['itemid'] . '" target="_new">lucy</a>]</td>';
+      echo '<td align="center">' . get_item_name($guild_item['itemid']) . ' <a href="index.php?editor=items&id=' . $guild_item['itemid'] . '&action=2">' . $guild_item['itemid'] . '</a> [<a href="https://lucy.allakhazam.com/item.html?id=' . $guild_item['itemid'] . '" target="_blank">Lucy</a>]</td>';
       echo '<td align="center">' . $guild_item['qty'] . '</td>';
       echo '<td align="center">' . $permissions[$guild_item['permissions']] . '</td>';
       echo '<td align="center">' . $guild_item['donator'] . '</td>';

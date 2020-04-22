@@ -48,7 +48,7 @@
         <td align="center" width="10%"><?=$v['effectvalue']?></td>
 <?endif;?>
 <?if($v['effect'] == 0):?>
-        <td align="center" width="10%"><?=getSpellName($v['effectvalue'])?> <span>[<a href="http://lucy.allakhazam.com/spell.html?id=<?=$v['effectvalue']?>">lucy</a>]</span>
+        <td align="center" width="10%"><?=getSpellName($v['effectvalue'])?> <span>[<a href="https://lucy.allakhazam.com/spell.html?id=<?=$v['effectvalue']?>" target="_blank">Lucy</a>]</span>
 <?endif;?>    
 <?if($v['effect'] == 1):?>   
         <td align="center" width="10%"><?=$alarmtype[$v['effectvalue2']]?></td>  

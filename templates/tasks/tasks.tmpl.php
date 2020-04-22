@@ -46,7 +46,7 @@
                   <td align="left" width="35%">
                     Reward:
 <?if(($rewardmethod == 0 || $rewardmethod == 2) && $rewardid > 1000):?>
-                    <a href="index.php?editor=items&tskid=<?=$id?>&id=<?=$rewardid?>&action=2"><?echo $rewardid . " - " . get_item_name($rewardid)?></a> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$rewardid?>">lucy</a>]</span>
+                    <a href="index.php?editor=items&tskid=<?=$id?>&id=<?=$rewardid?>&action=2"><?echo $rewardid . " - " . get_item_name($rewardid)?></a> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$rewardid?>" target="_blank">Lucy</a>]</span>
 <?endif;?> 
 <?if($rewardmethod == 2 && $rewardid < 1001):?>
                     <?=$rewardid?>
@@ -129,7 +129,7 @@
         <td align="center" width="5%"><?=$v['goalid']?></td>
 <?endif;?>
 <?if(($v['activitytype'] == 3 || $v['activitytype'] == 1 || $v['activitytype'] == 7 || $v['activitytype'] == 8  || $v['activitytype'] == 6) && ($v['goalmethod'] == 0)):?>
-        <td align="center" width="5%"><a href="index.php?editor=items&tskid=<?=$id?>&id=<?=$v['goalid']?>&action=2"><?=$v['goalid']?></a> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['goalid']?>">lucy</a>]</span></td>
+        <td align="center" width="5%"><a href="index.php?editor=items&tskid=<?=$id?>&id=<?=$v['goalid']?>&action=2"><?=$v['goalid']?></a> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$v['goalid']?>" target="_blank">Lucy</a>]</span></td>
 <?endif;?>
 <?if(($v['activitytype'] == 3 || $v['activitytype'] == 1 || $v['activitytype'] == 7 || $v['activitytype'] == 8  || $v['activitytype'] == 6) && ($v['goalmethod'] == 2)):?>
         <td align="center" width="5%"><?=$v['goalid']?> 

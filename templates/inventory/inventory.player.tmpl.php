@@ -25,7 +25,7 @@ if ($inventory):
 ?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td>&nbsp;&nbsp;&nbsp;<?=$inv['slotid']?> - <?=$slots[$inv['slotid']]?></td>
-          <td align="center"><?=get_item_name($inv['itemid'])?> (<?=$inv['itemid']?>) - [<a href="http://lucy.allakhazam.com/item.html?id=<?=$inv['itemid']?>" target="_blank">Lucy</a>]</td>
+          <td align="center"><?=get_item_name($inv['itemid'])?> (<?=$inv['itemid']?>) - [<a href="https://lucy.allakhazam.com/item.html?id=<?=$inv['itemid']?>" target="_blank">Lucy</a>]</td>
           <td align="right"><a href="index.php?editor=inv&playerid=<?=$inv['charid']?>&slotid=<?=$inv['slotid']?>&action=6"><img src="images/edit2.gif" width="13" height="13" border="0" title="View/Edit Entry" alt="View/Edit Entry"></a>&nbsp;<a onClick="return confirm('Really delete this entry?');" href="index.php?editor=inv&playerid=<?=$inv['charid']?>&slotid=<?=$inv['slotid']?>&action=8"><img src="images/remove3.gif" border="0" title="Delete Entry" alt="Delete Entry"></a></td>
         </tr>
 <?
@@ -38,7 +38,7 @@ if ($shared_inventory):
 ?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td>&nbsp;&nbsp;&nbsp;<?=$s_inv['slotid']?> - <?=$slots[$s_inv['slotid']]?></td>
-          <td align="center"><?=get_item_name($s_inv['itemid'])?> (<?=$s_inv['itemid']?>) - [<a href="http://lucy.allakhazam.com/item.html?id=<?=$s_inv['itemid']?>" target="_blank">Lucy</a>]</td>
+          <td align="center"><?=get_item_name($s_inv['itemid'])?> (<?=$s_inv['itemid']?>) - [<a href="https://lucy.allakhazam.com/item.html?id=<?=$s_inv['itemid']?>" target="_blank">Lucy</a>]</td>
           <td align="right">&nbsp;</td>
         </tr>
 <?

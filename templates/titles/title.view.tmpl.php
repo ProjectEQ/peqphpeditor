@@ -26,7 +26,7 @@
         <td><strong>Gender:</strong> <?echo ($title['gender'] == -1) ? "N/A" : $genders[$title['gender']];?><br><br></td>
         <td><strong>Character:</strong> <?echo ($title['char_id'] == -1) ? "N/A" : ((getPlayerName($title['char_id']) == "") ? "<font color='red'>Missing</font>" : getPlayerName($title['char_id']));?><br><br></td>
         <td><strong>Status:</strong> <?echo ($title['status'] == -1) ? "N/A" : $title['status'];?><br><br></td>
-        <td><strong>Item ID:</strong> <?echo ($title['item_id'] == -1) ? "N/A" : "<a href='http://lucy.allakhazam.com/item.html?id=" . $title['item_id'] . "' target='_blank'>" . $title['item_id'] . "</a>";?><br><br></td>
+        <td><strong>Item ID:</strong> <?echo ($title['item_id'] == -1) ? "N/A" : "<a href='https://lucy.allakhazam.com/item.html?id=" . $title['item_id'] . "' target='_blank'>" . $title['item_id'] . "</a>";?><br><br></td>
         <td><strong>Title Set:</strong> <?echo ($title['title_set'] == 0) ? "N/A" : $title['title_set'];?><br><br></td>
       </tr>
       <tr>

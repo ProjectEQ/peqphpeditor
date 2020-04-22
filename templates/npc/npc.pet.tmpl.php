@@ -43,7 +43,7 @@
 <?$x=0; foreach($equipment as $equipment=>$v):?>
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
         <td align="center" width="5%"><?=$v['slot']?></td>
-        <td align="center" width="20%"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&id=<?=$v['item_id']?>&action=2"><?=get_item_name($v['item_id'])?></a> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['item_id']?>" target="_blank">lucy</a>]</span></td>
+        <td align="center" width="20%"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&id=<?=$v['item_id']?>&action=2"><?=get_item_name($v['item_id'])?></a> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$v['item_id']?>" target="_blank">Lucy</a>]</span></td>
         <td align="right">
           <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&set_id=<?=$set_id?>&slot=<?=$v['slot']?>&action=69"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>
           <a onClick="return confirm('Really Remove the Equipmentset Entry in slot <?=$v['slot']?>?');" href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&set_id=<?=$set_id?>&slot=<?=$v['slot']?>&action=68"><img src="images/remove3.gif" border="0" title="Remove Equipmentset entry"></a>

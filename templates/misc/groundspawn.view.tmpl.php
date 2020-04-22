@@ -33,7 +33,7 @@
 <?if($zoneid != 0):?> 
           <td align="center" width="10%"><?=getZoneName($zoneid)?></td>
 <?endif;?>
-          <td align="center" width="10%"><?=get_item_name($giid)?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$giid?>">lucy</a>]</span></td>
+          <td align="center" width="10%"><?=get_item_name($giid)?> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$giid?>" target="_blank">Lucy</a>]</span></td>
           <td align="center" width="5%"><?=$max_allowed?></td>
           <td align="center" width="5%"><?=$max_x?></td>
           <td align="center" width="5%"><?=$max_y?></td>

@@ -43,7 +43,7 @@
           <td align="center" width="3%"><?=$v['keyitem']?></td> 
 <?endif;?>
 <?if($v['keyitem'] > 0):?>  
-          <td align="center" width="3%"><?=get_item_name($v['keyitem'])?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['keyitem']?>">lucy</a>]</span></td>
+          <td align="center" width="3%"><?=get_item_name($v['keyitem'])?> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$v['keyitem']?>" target="_blank">Lucy</a>]</span></td>
 <?endif;?>
           <td align="center" width="3%"><?=$v['opentype']?></td> 
           <td align="center" width="7%"><?=$v['dest_zone']?></td>   

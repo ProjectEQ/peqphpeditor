@@ -22,7 +22,7 @@
 <?$x=0; foreach($forage as $forage=>$v):?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
           <td align="center" width="5%"><?=$v['fgid']?></td>
-          <td align="center" width="20%"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&id=<?=$v['fgiid']?>&action=2"><?=$v['name']?></a> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['fgiid']?>">lucy</a>]</span></td>
+          <td align="center" width="20%"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&id=<?=$v['fgiid']?>&action=2"><?=$v['name']?></a> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$v['fgiid']?>" target="_blank">Lucy</a>]</span></td>
           <td align="center" width="15%"><?=$v['level']?></td>
           <td align="center" width="15%"><?=$v['chance']?>%</td>  
           <td align="right">      

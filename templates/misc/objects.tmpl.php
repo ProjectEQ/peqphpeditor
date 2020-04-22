@@ -47,7 +47,7 @@ if (isset($objects)):
     endif;
     if($v['itemid'] > 0):
 ?>
-        <td align="center" width="2%"><?=get_item_name($v['itemid'])?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$v['itemid']?>">lucy</a>]</span></td>
+        <td align="center" width="2%"><?=get_item_name($v['itemid'])?> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$v['itemid']?>" target="_blank">Lucy</a>]</span></td>
 <?
     endif;
 ?>

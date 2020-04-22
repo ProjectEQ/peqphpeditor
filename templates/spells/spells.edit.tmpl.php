@@ -1,7 +1,7 @@
   <form name="spell_edit" method="post" action="index.php?editor=spells&id=<?=$id?>&action=6">
     <div class="edit_form">
       <div class="edit_form_header">
-        Edit Spell <?=$id?> - <?=$name?> (<a href="http://lucy.allakhazam.com/spell.html?id=<?=$id?>" target="_blank">Lucy</a>)
+        Edit Spell <?=$id?> - <?=$name?> (<a href="https://lucy.allakhazam.com/spell.html?id=<?=$id?>" target="_blank">Lucy</a>)
         <div style="float:right;">
           <a href="index.php?editor=spells&id=<?=$id?>&action=7" onClick="return confirm('Really Copy Spell <?=$id?>?');"><img src="images/last.gif" border="0" title="Copy this Spell"></a>
           <a href="index.php?editor=spells&id=<?=$id?>&action=5" onClick="return confirm('Really Delete Spell <?=$id?>?');"><img src="images/table.gif" border="0" title="Delete this Spell"></a>

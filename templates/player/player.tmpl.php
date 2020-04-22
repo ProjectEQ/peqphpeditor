@@ -426,7 +426,7 @@
                   <td><?=$bd['bandolier_id']?></td>
                   <td><?=$bd['bandolier_name']?></td>
                   <td><?=$bd['bandolier_slot']?></td>
-                  <td><?=get_item_name($bd['item_id'])?> (<?=$bd['item_id']?>) - [<a href="http://lucy.allakhazam.com/item.html?id=<?=$bd['item_id']?>" target="_blank">Lucy</a>]</td>
+                  <td><?=get_item_name($bd['item_id'])?> (<?=$bd['item_id']?>) - [<a href="https://lucy.allakhazam.com/item.html?id=<?=$bd['item_id']?>" target="_blank">Lucy</a>]</td>
                   <td><?=$bd['icon']?></td>
                 </tr>
 <?endforeach;?>
