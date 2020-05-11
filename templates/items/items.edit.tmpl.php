@@ -88,7 +88,7 @@
             <tr>
               <td align="left" width="33%">Power Source Capacity:<br><input type="text" name="powersourcecapacity" size="10" value="<?=$powersourcecapacity?>"></td>
               <td align="left" width="33%">Potion Belt Slots:<br><input type="text" name="potionbeltslots" size="10" value="<?=$potionbeltslots?>"></td>
-              <td align="left" width="33%">&nbsp;</td>
+              <td align="left" width="33%">Subtype:<br><input type="text" name="subtype" size="10" value="<?=$subtype?>"></td>
             </tr>
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">

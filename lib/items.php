@@ -590,6 +590,7 @@ function update_item() {
   if ($item['bardlevel'] != $_POST['bardlevel']) $fields .= "bardlevel=\"" . $_POST['bardlevel'] . "\", ";
   if ($item['bardlevel2'] != $_POST['bardlevel2']) $fields .= "bardlevel2=\"" . $_POST['bardlevel2'] . "\", ";
   if ($item['bardname'] != $_POST['bardname']) $fields .= "bardname=\"" . $_POST['bardname'] . "\", ";
+  if ($item['subtype'] != $_POST['subtype']) $fields .= "subtype=\"" . $_POST['subtype'] . "\", ";
   if ($item['augslot1visible'] != $_POST['augslot1visible']) $fields .= "augslot1visible=\"" . $_POST['augslot1visible'] . "\", ";
   if ($item['augslot2visible'] != $_POST['augslot2visible']) $fields .= "augslot2visible=\"" . $_POST['augslot2visible'] . "\", ";
   if ($item['augslot3visible'] != $_POST['augslot3visible']) $fields .= "augslot3visible=\"" . $_POST['augslot3visible'] . "\", ";
@@ -933,6 +934,7 @@ function add_item() {
   $fields .= "bardlevel=\"" . $_POST['bardlevel'] . "\", ";
   $fields .= "bardlevel2=\"" . $_POST['bardlevel2'] . "\", ";
   $fields .= "bardname=\"" . $_POST['bardname'] . "\", ";
+  $fields .= "subtype=\"" . $_POST['subtype'] . "\", ";
   $fields .= "augslot1visible=\"" . $_POST['augslot1visible'] . "\", ";
   $fields .= "augslot2visible=\"" . $_POST['augslot2visible'] . "\", ";
   $fields .= "augslot3visible=\"" . $_POST['augslot3visible'] . "\", ";
