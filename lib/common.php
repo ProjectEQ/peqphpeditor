@@ -506,8 +506,6 @@ function delete_player($playerid) {
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_leadership_abilities WHERE id=$playerid";
   $mysql->query_no_result($query);
-  $query = "DELETE FROM character_lookup WHERE id=$playerid";
-  $mysql->query_no_result($query);
   $query = "DELETE FROM character_memmed_spells WHERE id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_pet_buffs WHERE char_id=$playerid";
