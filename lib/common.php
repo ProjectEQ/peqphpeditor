@@ -472,8 +472,6 @@ function getPageInfo($table, $is_content_table, $page, $size, $sort, $where = ""
 function delete_player($playerid) {
   global $mysql;
 
-  $query = "DELETE FROM aa_timers WHERE charid=$playerid";
-  $mysql->query_no_result($query);
   $query = "DELETE FROM adventure_members WHERE charid=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM adventure_stats WHERE player_id=$playerid";
