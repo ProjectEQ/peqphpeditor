@@ -2,94 +2,168 @@
     <div class="edit_form_header">Add Door</div>
     <div class="edit_form_content">
       <form name="door" method="post" action="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=40">
-        <table width="100%">
+        <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
-            <th>id</th>
-            <th>doorid</th>
-            <th>name</th>
-            <th>x</th>
-            <th>y</th>
-            <th>z</th>
-            <th>heading</th>
-            <th>opentype</th>             
-          </tr>
-          <tr>
-            <td><input type="text" size="7" name="drid" value="<?=$suggestdrid?>"></td>
-            <td><input type="text" size="7" name="doorid" value="<?=$suggestdoorid?>"></td>
-            <td><input type="text" size="15" name="name" value=""></td>
-            <td><input type="text" size="7" name="pos_x" value="0"></td>
-            <td><input type="text" size="7" name="pos_y" value="0"></td>
-            <td><input type="text" size="7" name="pos_z" value="0"></td>
-            <td><input type="text" size="7" name="heading" value="0"></td>
-            <td><input type="text" size="7" name="opentype" value="0"></td>
-           </tr>
-          <tr>
-            <th>guild</th>
-            <th>size</th>
-            <th>dest zone</th>
-            <th>dest x</th>
-            <th>dest y</th>
-            <th>dest z</th>
-            <th>dest heading</th>
-            <th>lockpick</th>
-          </tr>
-          <tr>
-            <td><input type="text" size="7" name="guild" value="0"></td> 
-            <td><input type="text" size="7" name="size" value="100"></td>
-            <td><input type="text" size="15" name="dest_zone" value="NONE"></td>
-            <td><input type="text" size="7" name="dest_x" value="0"></td>
-            <td><input type="text" size="7" name="dest_y" value="0"></td>
-            <td><input type="text" size="7" name="dest_z" value="0"></td>
-            <td><input type="text" size="7" name="dest_heading" value="0"></td>
-            <td><input type="text" size="7" name="lockpick" value="0"></td>  
-          </tr>       
-          <tr>
-            <th>triggerdoor</th>
-            <th>triggertype</th>
-            <th>param</th>
-            <th>doorisopen</th>
-            <th>invert</th>
-            <th>incline</th>
-            <th>keyitem</th>
-            <th>version</th>
-          </tr>
-          <tr>
-            <td><input type="text" size="7" name="triggerdoor" value="0"></td>
-            <td><input type="text" size="7" name="triggertype" value="0"></td>
-            <td><input type="text" size="15" name="door_param" value="0"></td>
-            <td><input type="text" size="7" name="doorisopen" value="0"></td>
-            <td><input type="text" size="7" name="invert_state" value="0"></td>
-            <td><input type="text" size="7" name="incline" value="0"></td>
-            <td><input type="text" size="7" name="keyitem" value="0"></td>    
-            <td><input type="text" size="7" name="version" value="<?=$suggestver?>"></td>
-          </tr>
-          <tr>
-            <th>dest instance</th>
-            <th>LDoN Door</th> 
-            <th>client bitmask</th>
-            <th>no keyring</th>
-            <th>disable timer</th>
-          </tr>
-          <tr>
-            <td><input type="text" size="7" name="dest_instance" value="0"></td>    
             <td>
+              <strong>ID</strong><br>
+              <input type="text" size="7" name="drid" value="<?=$suggestdrid?>">
+            </td>
+            <td>
+              <strong>Door ID</strong><br>
+              <input type="text" size="7" name="doorid" value="<?=$suggestdoorid?>">
+            </td>
+            <td colspan="2">
+              <strong>Name</strong><br>
+              <input type="text" size="25" name="name" value="">
+            </td>
+            <td>
+              <strong>Size</strong><br>
+              <input type="text" size="7" name="size" value="100">
+            </td>
+            <td>
+              <strong>Invert State</strong><br>
+              <input type="text" size="7" name="invert_state" value="0">
+            </td>
+            <td>
+              <strong>Incline</strong><br>
+              <input type="text" size="7" name="incline" value="0">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Zone</strong><br>
+              <input type="text" size="25" value="<?=$currzone?>" disabled>
+            </td>
+            <td>
+              <strong>Version</strong><br>
+              <input type="text" size="7" name="version" value="<?=$suggestver?>">
+            </td>
+            <td>
+              <strong>X</strong><br>
+              <input type="text" size="7" name="pos_x" value="0">
+            </td>
+            <td>
+              <strong>Y</strong><br>
+              <input type="text" size="7" name="pos_y" value="0">
+            </td>
+            <td>
+              <strong>Z</strong><br>
+              <input type="text" size="7" name="pos_z" value="0">
+            </td>
+            <td>
+              <strong>Heading</strong><br>
+              <input type="text" size="7" name="heading" value="0">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Dest Zone</strong><br>
+              <input type="text" size="25" name="dest_zone" value="NONE">
+            </td>
+            <td>
+              <strong>Dest Instance</strong><br>
+              <input type="text" size="7" name="dest_instance" value="0">
+            </td>
+            <td>
+              <strong>Dest X</strong><br>
+              <input type="text" size="7" name="dest_x" value="0">
+            </td>
+            <td>
+              <strong>Dest Y</strong><br>
+              <input type="text" size="7" name="dest_y" value="0">
+            </td>
+            <td>
+              <strong>Dest Z</strong><br>
+              <input type="text" size="7" name="dest_z" value="0">
+            </td>
+            <td>
+              <strong>Dest Heading</strong><br>
+              <input type="text" size="7" name="dest_heading" value="0">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Door Param</strong><br>
+              <input type="text" size="25" name="door_param" value="0">
+            </td>
+            <td>
+              <strong>Trigger Door</strong><br>
+              <input type="text" size="7" name="triggerdoor" value="0">
+            </td>
+            <td>
+              <strong>Trigger Type</strong><br>
+              <input type="text" size="7" name="triggertype" value="0">
+            </td>
+            <td>
+              <strong>Door Is Open</strong><br>
+              <input type="text" size="7" name="doorisopen" value="0">
+            </td>
+            <td>
+              <strong>Guild</strong><br>
+              <input type="text" size="7" name="guild" value="0">
+            </td>
+            <td>
+              <strong>Buffer</strong><br>
+              <input type="text" size="7" name="buffer" value="0">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Client Version Mask</strong><br>
+              <input type="text" size="25" name="client_version_mask" value="4294967295">
+            </td>
+            <td>
+              <strong>LDoN Door</strong><br>
               <select name="is_ldon_door" style="width:77px;">
-                <option value="0"<?echo ($is_ldon_door == 0) ? " selected" : ""?>>No</option>
-                <option value="1"<?echo ($is_ldon_door == 1) ? " selected" : ""?>>Yes</option>
+                <option value="0" selected>No</option>
+                <option value="1">Yes</option>
               </select>
             </td>
-            <td><input type="text" size="15" name="client_version_mask" value="4294967295"></td>
             <td>
+              <strong>Keyitem</strong><br>
+              <input type="text" size="7" name="keyitem" value="0">
+            </td>
+            <td>
+              <strong>No Keyring</strong><br>
               <select name="nokeyring" style="width:77px;">
-                <option value="0"<?echo ($nokeyring == 0) ? " selected" : ""?>>No</option>
-                <option value="1"<?echo ($nokeyring == 1) ? " selected" : ""?>>Yes</option>
+                <option value="0" selected>No</option>
+                <option value="1">Yes</option>
               </select>
             </td>
-            <td><input type="text" size="7" name="disable_timer" value="0"></td>    
+            <td>
+              <strong>Open Type</strong><br>
+              <input type="text" size="7" name="opentype" value="0">
+            </td>
+            <td>
+              <strong>Lockpick</strong><br>
+              <input type="text" size="7" name="lockpick" value="0">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Disable Timer</strong><br>
+              <input type="text" size="7" name="disable_timer" value="0">
+            </td>
+            <td>
+              <strong>Min Expansion</strong><br>
+              <input type="text" size="7" name="min_expansion" value="0">
+            </td>
+            <td>
+              <strong>Max Expansion</strong><br>
+              <input type="text" size="7" name="max_expansion" value="0">
+            </td>
+            <td colspan="2">
+              <strong>Content Flags</strong><br>
+              <input type="text" size="25" name="content_flags" value="0">
+            </td>
+            <td colspan="2">
+              <strong>Content Flags Disabled</strong><br>
+              <input type="text" size="25" name="content_flags_disabled" value="0">
+            </td>
           </tr>
         </table><br><br>
         <center>
-          <input type="submit" value="Add Door">&nbsp;
+          <input type="submit" value="Add Door">&nbsp;&nbsp;
           <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </form>
