@@ -69,7 +69,8 @@
           </tr>
         </table>
         <center>
-          <input type="submit" value="Submit Changes">&nbsp;<input type="button" value="Cancel" onClick="history.back();">
+          <input type="submit" value="Add Entry">&nbsp;&nbsp;
+          <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </div>
     </div>
