@@ -949,13 +949,12 @@ function update_object() {
   $tilt_y = $_POST['tilt_y'];
   $size = $_POST['size'];
   $display_name = $_POST['display_name'];
-  $oldid = $_POST['oldid'];
   $min_expansion = $_POST['min_expansion'];
   $max_expansion = $_POST['max_expansion'];
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE object SET id=\"$id\", objectname=\"$objectname\", xpos=\"$xpos\", ypos=\"$ypos\", zpos=\"$zpos\", heading=\"$heading\", itemid=\"$itemid\", charges=\"$charges\", type=\"$type\", icon=\"$icon\", version=\"$version\", tilt_x=\"$tilt_x\", tilt_y=\"$tilt_y\", size=\"$size\", display_name=\"$display_name\", min_expansion=\"$min_expansion\", max_expansion=\"$max_expansion\", content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\" WHERE id=\"$oldid\"";
+  $query = "UPDATE object SET objectname=\"$objectname\", xpos=\"$xpos\", ypos=\"$ypos\", zpos=\"$zpos\", heading=\"$heading\", itemid=\"$itemid\", charges=\"$charges\", type=\"$type\", icon=\"$icon\", version=\"$version\", tilt_x=\"$tilt_x\", tilt_y=\"$tilt_y\", size=\"$size\", display_name=\"$display_name\", min_expansion=\"$min_expansion\", max_expansion=\"$max_expansion\", content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\" WHERE id=\"$id\"";
   $mysql_content_db->query_no_result($query);
 }
 
