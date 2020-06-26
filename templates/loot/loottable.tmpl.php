@@ -8,7 +8,7 @@
       </div>
       <div class="table_content">
         <center>
-          No Valid Loottable currently assigned.<br><br>
+          No Valid Loottable Currently Assigned<br><br>
           <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=11">Click here to change</a><br>
           <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=46">Click here to import loot from Magelo</a>
         </center>
@@ -18,26 +18,33 @@
       <div class="table_container" style="width: 350px">
         <div class="table_header">
           <div style="float: right;">
-            <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=11"><img src="images/create.gif" border="0" title="Change LootTable"></a>&nbsp;
-            <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ltid=<?=$loottable_id?>&action=36"><img src="images/last.gif" border="0" title="Apply LootTable to Multiple NPCs"></a>&nbsp;
-            <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=34" onClick="return confirm('Really remove this loottable from the selected NPC?');"><img src="images/minus2.gif" border="0" title="Drop this loottable"></a>
-            <a onClick="return confirm('Really Delete LootTable <?=$loottable_id?>?');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16&ltid=<?=$loottable_id?>"><img src="images/remove3.gif" border="0" title="Delete LootTable"></a>
+            <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=11"><img src="images/create.gif" border="0" title="Change Loottable"></a>&nbsp;
+            <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ltid=<?=$loottable_id?>&action=36"><img src="images/last.gif" border="0" title="Apply Loottable to Multiple NPCs"></a>&nbsp;
+            <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=34" onClick="return confirm('Really remove this loottable from the selected NPC?');"><img src="images/minus2.gif" border="0" title="Drop this Loottable"></a>
+            <a onClick="return confirm('Really Delete Loottable <?=$loottable_id?>?');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=16&ltid=<?=$loottable_id?>"><img src="images/remove3.gif" border="0" title="Delete Loottable"></a>
           </div>
 <? 
   $new_loottable_name = substr($loottable_name, 0, 18); 
   if ($new_loottable_name != $loottable_name) 
     $new_loottable_name = "$new_loottable_name...";
 ?>
-          LootTable <?=$loottable_id?>: "<a href="index.php?editor=loot&action=1&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>"><?=$new_loottable_name?></a>"
+          Loottable <?=$loottable_id?>: "<a href="index.php?editor=loot&action=1&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>"><?=$new_loottable_name?></a>"
         </div>
         <div class="table_content">
-          Cash Loot [<a href="index.php?editor=loot&action=1&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">edit</a>]:<br>
+          <strong>Cash Loot [<a href="index.php?editor=loot&action=1&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">edit</a>]:</strong><br>
           <div style="padding: 5px 0px 0px 20px;">
-            Min Cash: <?=$mincash?><br>
-            Max Cash: <?=$maxcash?><br>
+            <strong>Min Cash:</strong> <?=$mincash?><br>
+            <strong>Max Cash:</strong> <?=$maxcash?><br>
+          </div><br>
+          <strong>Content Control:</strong>
+          <div style="padding: 5px 0px 0px 20px;">
+            <strong>Min Expansion:</strong> <?=$min_expansion?><br>
+            <strong>Max Expansion:</strong> <?=$max_expansion?><br>
+            <strong>Content Flags:</strong> <?echo ($content_flags != "") ? $content_flags : "N/A";?><br>
+            <strong>Content Flags Disabled:</strong> <?echo ($content_flags_disabled != "") ? $content_flags_disabled : "N/A";?><br>
           </div>
           <div style="padding: 10px 0px 0px 0px;">
-            NPCs using this loottable: <?=$usage['count']?>
+            <strong>NPCs using this loottable:</strong> <?=$usage['count']?>
 <? if (!isset($_GET['display_usage'])) {?>
             [<a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&display_usage">show</a>]
 <? }else {?>
@@ -48,7 +55,7 @@
 <? } ?>
         </div>
           <div style="padding: 5px 0px 0px 0px;">
-            LootDrops associated with this LootTable: <?=$lootdrop_count?> <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=22&ltid=<?=$loottable_id?>"><img src="images/add.gif" border="0" title="Add a LootDrop to this LootTable"></a>
+            <strong>Lootdrops associated with this loottable:</strong> <?=$lootdrop_count?> <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=22&ltid=<?=$loottable_id?>"><img src="images/add.gif" border="0" title="Add a Lootdrop to this Loottable"></a>
           </div>
           <div style="padding: 10px 0px 0px 0px;">
             <center><a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=46">Click here to import loot from Magelo</a></center>
@@ -64,7 +71,7 @@
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td>
-                Lootdrop: <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=33"><?=$lootdrop['id']?></a>
+                Lootdrop: <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=33" title="Loottables Using this Lootdrop"><?=$lootdrop['id']?></a>
               </td>
 <? 
   $newname = substr($lootdrop['name'], 0, 22); 
@@ -72,7 +79,7 @@
     $newname = "$newname...";
 ?>
               <td>
-                "<a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=3"><?=$newname?></a>"
+                "<a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ltid=<?=$loottable_id?>&ldid=<?=$lootdrop['id']?>&action=7"><?=$newname?></a>"
               </td>
               <td>
                 Mindrop: <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ltid=<?=$loottable_id?>&ldid=<?=$lootdrop['id']?>&action=7"><?=$lootdrop['mindrop']?></a>
@@ -87,12 +94,12 @@
                 Probability: <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ltid=<?=$loottable_id?>&ldid=<?=$lootdrop['id']?>&action=7"><?=$lootdrop['probability']?></a>
               </td>
               <td align="right">
-                <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=20&ldid=<?=$lootdrop['id']?>"><img src="images/add.gif" border="0" title="Add an Item to this LootDrop Table"></a>
-                <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=41&ldid=<?=$lootdrop['id']?>"><img src="images/resetpw.gif" border="0" title="Merge this LootDrop"></a>
-                <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=35&ldid=<?=$lootdrop['id']?>&name=<?=$lootdrop['name']?>"><img src="images/last.gif" border="0" title="Copy lootdrop"></a>
-                <a onClick="return confirm('Really move multiplier to the items in lootdrop: <?=$lootdrop['id']?>?  The table multiplier will be set to 1.');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=43&ldid=<?=$lootdrop['id']?>&multiplier=<?=$lootdrop['multiplier']?>"><img src="images/sort.gif" border="0" title="Move mutliplier to items"></a>
-                <a onClick="return confirm('Really remove LootDrop <?=$lootdrop['id']?> from LootTable <?=$loottable_id?>?  All <?=$usage['count']?> NPCs that use LootTable <?=$loottable_id?> will be affected.');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=19&ltid=<?=$loottable_id?>&ldid=<?=$lootdrop['id']?>"><img src="images/minus2.gif" border="0" title="Remove this LootDrop from LootTable <?=$loottable_id?>"></a>
-                <a onClick="return confirm('Really delete LootDrop <?=$lootdrop['id']?>?  All LootTables that use this LootDrop will be affected.');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=26&ldid=<?=$lootdrop['id']?>"><img src="images/remove2.gif" border="0" title="Permanently delete this LootDrop"></a>
+                <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=20&ldid=<?=$lootdrop['id']?>"><img src="images/add.gif" border="0" title="Add an Item to this Lootdrop"></a>
+                <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=41&ldid=<?=$lootdrop['id']?>"><img src="images/resetpw.gif" border="0" title="Merge this Lootdrop"></a>
+                <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=35&ldid=<?=$lootdrop['id']?>&name=<?=$lootdrop['name']?>"><img src="images/last.gif" border="0" title="Copy Lootdrop"></a>
+                <a onClick="return confirm('Really move multiplier to the items in lootdrop: <?=$lootdrop['id']?>?  The table multiplier will be set to 1.');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=43&ldid=<?=$lootdrop['id']?>&multiplier=<?=$lootdrop['multiplier']?>"><img src="images/sort.gif" border="0" title="Move Mutliplier to Items"></a>
+                <a onClick="return confirm('Really remove Lootdrop <?=$lootdrop['id']?> from Loottable <?=$loottable_id?>?  All <?=$usage['count']?> NPCs that use loottable <?=$loottable_id?> will be affected.');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=19&ltid=<?=$loottable_id?>&ldid=<?=$lootdrop['id']?>"><img src="images/minus2.gif" border="0" title="Remove this Lootdrop from Loottable <?=$loottable_id?>"></a>
+                <a onClick="return confirm('Really delete Lootdrop <?=$lootdrop['id']?>?  All Loottables that use this lootdrop will be affected.');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=26&ldid=<?=$lootdrop['id']?>"><img src="images/remove2.gif" border="0" title="Permanently Delete this Lootdrop"></a>
               </td>
             </tr>
           </table>
@@ -108,7 +115,7 @@
             <th align="center" width="7%">MaxLevel</th>
             <th align="center" width="8%">Multiplier</th>
             <th align="center" width="8%">Chance</th>
-            <th width="13%"></th>
+            <th width="13%">&nbsp;</th>
           </tr>
 <?
   foreach ($lootdrop['items'] as $item): extract($item);
@@ -139,7 +146,7 @@
 <? if($disabled_chance > 0): ?>
               <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&dchance=<?=$disabled_chance?>&action=45"><img src="images/upgrade.gif" border="0" title="Enable Item"></a>
 <? endif; ?>
-              <a onClick="return confirm('Really remove item <?=$item_id?> from LootDrop <?=$lootdrop['id']?>?');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=17"><img src="images/remove3.gif" border="0" title="Remove Item"></a>
+              <a onClick="return confirm('Really remove item <?=$item_id?> from Lootdrop <?=$lootdrop['id']?>?');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=17"><img src="images/remove3.gif" border="0" title="Remove Item"></a>
             </td>
             <td>&nbsp;</td>
           </tr>
@@ -148,7 +155,13 @@
     endforeach;
 ?>
           <tr bgcolor="#000000">
-            <td colspan="10" align="right">
+            <td colspan="2">
+              <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ltid=<?=$loottable_id?>&ldid=<?=$lootdrop['id']?>&action=7" style="color:yellow;">Expansion Flags: <?echo ($lootdrop['min_expansion'] > 0 || $lootdrop['max_expansion'] > 0) ? "Yes" : "No";?></a>
+            </td>
+            <td colspan="4">
+              <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ltid=<?=$loottable_id?>&ldid=<?=$lootdrop['id']?>&action=7" style="color:yellow;">Content Flags: <?echo ($lootdrop['content_flags'] != "" || $lootdrop['content_flags_disabled'] != "") ? "Yes" : "No";?></a>
+            </td>
+            <td colspan="4" align="right">
               <a title="Set chance for all items on this table to <?=$normalize_amount?>" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=18" style="color:yellow;">Normalize Drops</a>
             </td>
           </tr>

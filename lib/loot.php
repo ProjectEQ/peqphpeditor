@@ -85,7 +85,7 @@ switch ($action) {
     update_lootdrop_item();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 7:  // Edit loottable entry
+  case 7:  // Edit loottable entry and lootdrop
     check_authorization();
     $body = new Template("templates/loot/lootdrop.edit.tmpl.php");
     $body->set('currzone', $z);
@@ -580,7 +580,9 @@ function loottable_info() {
   else {
     $query = "SELECT npc_types.id AS npcid, npc_types.name AS npc_name,
               npc_types.loottable_id, loottable.name AS loottable_name,
-              loottable.mincash, loottable.maxcash, loottable.avgcoin
+              loottable.mincash, loottable.maxcash, loottable.avgcoin,
+              loottable.min_expansion, loottable.max_expansion,
+              loottable.content_flags, loottable.content_flags_disabled
               FROM npc_types LEFT JOIN loottable
               ON loottable.id=npc_types.loottable_id
               WHERE npc_types.id=$npcid";
@@ -638,7 +640,6 @@ function mobs_using_loottable() {
 
 function loottables_using_lootdrop() {
   global $mysql_content_db;
-  $array = array();
   $ldid = $_GET['ldid'];
 
   $query = "SELECT loottable_entries.loottable_id AS loottid, loottable.name AS loottname, npc_types.id AS npcid
@@ -647,6 +648,7 @@ function loottables_using_lootdrop() {
             INNER JOIN npc_types ON npc_types.loottable_id=loottable.id 
             WHERE loottable_entries.lootdrop_id=$ldid";
   $results = $mysql_content_db->query_mult_assoc($query);
+
   return $results;
 }
 
@@ -657,8 +659,13 @@ function update_loottable() {
   $mincash = $_POST['mincash'];
   $maxcash = $_POST['maxcash'];
   $avgcoin = $_POST['avgcoin'];
+  //$done = $_POST['done'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
   
-  $query = "UPDATE loottable SET name=\"$name\", mincash=\"$mincash\", maxcash=\"$maxcash\", avgcoin=\"$avgcoin\" WHERE id=$id";
+  $query = "UPDATE loottable SET name=\"$name\", mincash=\"$mincash\", maxcash=\"$maxcash\", avgcoin=\"$avgcoin\", min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -669,8 +676,13 @@ function add_loottable() {
   $mincash = $_POST['mincash'];
   $maxcash = $_POST['maxcash'];
   $avgcoin = $_POST['avgcoin'];
+  //$done = $_POST['done'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO loottable SET id=$id, name=\"$name\", mincash=\"$mincash\", maxcash=\"$maxcash\", avgcoin=\"$avgcoin\"";
+  $query = "INSERT INTO loottable SET id=$id, name=\"$name\", mincash=\"$mincash\", maxcash=\"$maxcash\", avgcoin=\"$avgcoin\", min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\"";
   $mysql_content_db->query_no_result($query);
   
   change_npc_loottable();
@@ -796,7 +808,10 @@ function loottable_entries_info() {
   $query = "SELECT * FROM loottable_entries WHERE loottable_id=$ltid AND lootdrop_id=$ldid";
   $result = $mysql_content_db->query_assoc($query);
 
-  return $result;
+  $query2 = "SELECT * FROM lootdrop WHERE id=$ldid";
+  $result2 = $mysql_content_db->query_assoc($query2);
+
+  return array("loottable_entries" => $result, "lootdrop" => $result2);
 }
 
 function update_loottable_entries() {
@@ -807,9 +822,17 @@ function update_loottable_entries() {
   $ltid = $_GET['ltid'];
   $ldid = $_GET['ldid'];
   $probability = $_POST['probability'];
+  $name = $_POST['name'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
   $query = "UPDATE loottable_entries SET droplimit=$droplimit, mindrop=$mindrop, multiplier=$multiplier, probability=$probability WHERE loottable_id=$ltid AND lootdrop_id=$ldid";
   $mysql_content_db->query_no_result($query);
+
+  $query2 = "UPDATE lootdrop SET name=\"$name\", min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\" WHERE id=$ldid";
+  $mysql_content_db->query_no_result($query2);
 }
 
 function search_loottable_names($search) {
@@ -956,8 +979,12 @@ function create_lootdrop() {
   global $mysql_content_db;
   $ldid = $_POST['ldid'];
   $name = $_POST['name'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO lootdrop SET id=$ldid, name=\"$name\"";
+  $query = "INSERT INTO lootdrop SET id=$ldid, name=\"$name\", min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -1139,8 +1166,12 @@ function insert_global_loot() {
   $bodytype = $_POST['bodytype'];
   $zone = $_POST['zone'];
   $hot_zone = $_POST['hot_zone'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO global_loot SET id=$id, description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL, hot_zone=$hot_zone";
+  $query = "INSERT INTO global_loot SET id=$id, description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL, hot_zone=$hot_zone, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags='$content_flags', content_flags_disabled='$content_flags_disabled'";
   $mysql_content_db->query_no_result($query);
 
   if ($rare != "") {
@@ -1191,8 +1222,12 @@ function update_global_loot() {
   $bodytype = $_POST['bodytype'];
   $zone = $_POST['zone'];
   $hot_zone = $_POST['hot_zone'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE global_loot SET description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL, hot_zone=$hot_zone WHERE id=$id";
+  $query = "UPDATE global_loot SET description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL, hot_zone=$hot_zone, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags='$content_flags', content_flags_disabled='$content_flags_disabled' WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 
   if ($rare != "") {
@@ -1347,8 +1382,12 @@ function update_global_loottable() {
   $maxcash = $_POST['maxcash'];
   $avgcoin = $_POST['avgcoin'];
   //$done = $_POST['done'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE loottable SET name=\"$name\", mincash=$mincash, maxcash=$maxcash, avgcoin=$avgcoin WHERE id=$id";
+  $query = "UPDATE loottable SET name=\"$name\", mincash=$mincash, maxcash=$maxcash, avgcoin=$avgcoin, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -1357,14 +1396,14 @@ function create_empty_loottable($id) {
   $loottable_id = getGlobalLoottableID($id);
 
   if ($loottable_id) {
-    $query = "INSERT INTO loottable SET id=$loottable_id, name=\"\", mincash=0, maxcash=0, avgcoin=0";
+    $query = "INSERT INTO loottable SET id=$loottable_id, name=\"\", mincash=0, maxcash=0, avgcoin=0, min_expansion=0, max_expansion=0, content_flags='', content_flags_disabled=''";
     $mysql_content_db->query_no_result($query);
   }
   else {
     $suggest = suggest_next_global_loot();
     $loottable_id = $suggest['new_table_id'];
 
-    $query = "INSERT INTO loottable SET id=$loottable_id, name=\"\", mincash=0, maxcash=0, avgcoin=0";
+    $query = "INSERT INTO loottable SET id=$loottable_id, name=\"\", mincash=0, maxcash=0, avgcoin=0, min_expansion=0, max_expansion=0, content_flags='', content_flags_disabled=''";
     $mysql_content_db->query_no_result($query);
 
     $query = "UPDATE global_loot SET loottable_id=$loottable_id WHERE id=$id";
