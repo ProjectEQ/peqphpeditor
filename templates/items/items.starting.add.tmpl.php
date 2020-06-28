@@ -4,15 +4,7 @@
   </center>
   <div style="margin: auto; width: 650px;">
     <div class="edit_form">
-      <div class="edit_form_header">
-        <table width="100%">
-          <tr>
-            <td>
-              Add a New Starting Item
-            </td>
-          </tr>
-        </table>
-      </div>
+      <div class="edit_form_header">Add New Starting Item</div>
       <div class="edit_form_content">
         <form name="starting_item_create" method="post" action="index.php?editor=items&action=14">
           <table width="100%" cellspacing="0" cellpadding="3">
@@ -21,7 +13,7 @@
                 <strong>ID:</strong><br>
                 <input type="text" name="id" size="7" value="<?=$nextid?>">
               </td>
-              <td>
+              <td colspan="2">
                 <strong>Race:</strong><br>
                 <select name="race">
 <?foreach ($races as $k=>$v):?>
@@ -60,12 +52,12 @@
                 <strong>GM:</strong><br>
                 <input type="text" name="gm" size="5" value="0">
               </td>
-            </tr>
-            <tr>
               <td>
                 <strong>Item ID:</strong> (<a href="javascript:showSearch();">search</a>)<br>
                 <input type="text" name="itemid" size="7" id="id" value="0">
               </td>
+            </tr>
+            <tr>
               <td>
                 <strong>Charges:</strong><br>
                 <input type="text" name="item_charges" size="5" value="1">
@@ -74,9 +66,30 @@
                 <strong>Slot:</strong><br>
                 <input type="text" name="slot" size="5" value="-1">
               </td>
+              <td>
+                <strong>Min Expansion:</strong><br>
+                <input type="text" name="min_expansion" size="10" value="0">
+              </td>
+              <td>
+                <strong>Max Expansion:</strong><br>
+                <input type="text" name="max_expansion" size="10" value="0">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <strong>Content Flags:</strong><br>
+                <input type="text" name="content_flags" size="40" value="">
+              </td>
+              <td colspan="2">
+                <strong>Content Flags Disabled:</strong><br>
+                <input type="text" name="content_flags_disabled" size="40" value="">
+              </td>
             </tr>
           </table><br><br>
-          <center><input type="submit" value="Add Item"></center>
+          <center>
+            <input type="submit" value="Add Item">&nbsp;&nbsp;
+            <input type="button" value="Cancel" onClick="history.back();">
+          </center>
         </form>
       </div>
     </div>
