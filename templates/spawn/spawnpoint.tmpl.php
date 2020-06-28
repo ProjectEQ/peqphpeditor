@@ -13,12 +13,10 @@
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-          <td>
-            Spawnpoint ID: <?=$id?> <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$sid?>&spid=<?=$id?>&action=35">spawn status</a></td>
-          </td>
+          <td>Spawnpoint Info [<a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$sid?>&spid=<?=$id?>&action=35">Check Spawn Status</a>]</td>
           <td align="right">
-            <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">View Spawngroups for this spawnpoint</a>&nbsp;
-            <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$id?>&sid=<?=$sid?>&action=18"><img src="images/add.gif" border="0" title="Add a grid to this Spawnpoint"></a>&nbsp;
+            <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">View spawngroups for this spawnpoint</a>&nbsp;
+            <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$id?>&sid=<?=$sid?>&action=18"><img src="images/add.gif" border="0" title="Add a Grid to this Spawnpoint"></a>&nbsp;
             <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$id?>&action=11"><img src="images/c_table.gif" border="0" title="Edit this Spawnpoint"></a>&nbsp;
             <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$id?>&action=50"><img src="images/last.gif" border="0" title="Copy this Spawnpoint"></a>&nbsp;
             <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$id?>&action=52"><img src="images/next.gif" border="0" title="Move this Spawnpoint"></a>&nbsp;
@@ -28,41 +26,75 @@
       </table>
     </div>
     <div class="edit_form_content">
-      <table width="100%">
+      <table width="100%" cellpadding="3" cellspacing="3">
         <tr>
-          <td width="33%">X: <?=$x?></td>
-          <td width="33%">Y: <?=$y?></td>
-          <td width="34%">Z: <?=$z?></td>
+          <td>
+            <strong>ID:</strong> <?=$id?>
+          </td>
+          <td>
+            <strong>Spawngroup ID:</strong> <?=$spawngroupID?>
+          </td>
+          <td>
+            <strong>Zone:</strong> <?=$zone?>
+          </td>
+          <td>
+            <strong>Version:</strong> <?=$version?>
+          </td>
         </tr>
         <tr>
-          <td width="33%">Heading: <?=$heading?></td>
-          <td width="33%">Respawn: <?=$respawntime?>s</td>
-          <td width="34%">Variance: <?=$variance?>s</td>
+          <td>
+            <strong>X:</strong> <?=$x?>
+          </td>
+          <td>
+            <strong>Y:</strong> <?=$y?>
+          </td>
+          <td>
+            <strong>Z:</strong> <?=$z?>
+          </td>
+          <td>
+            <strong>Heading:</strong> <?=$heading?>
+          </td>
         </tr>
         <tr>
-<?if($pathgrid > 0):?>
-          <td width="33%">Pathgrid: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$id?>&pathgrid=<?=$pathgrid?>&action=20"><?=$pathgrid?></td>
-<?endif;?>
-<?if($pathgrid < 1):?>
-          <td width="33%">Pathgrid: <?=$pathgrid?></td>
-<?endif;?>
-<?if($_condition > 0):?>
-          <td width="33%">Condition: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&spid=<?=$id?>&action=36"><?=$_condition?></td>
-<?endif;?>
-<?if($_condition < 1):?>
-          <td width="33%">Condition: <?=$_condition?></td>
-<?endif;?>
-          <td width="34%">Cond Value: <?=$cond_value?></td>
+          <td>
+            <strong>Respawn:</strong> <?=$respawntime?>s
+          </td>
+          <td>
+            <strong>Variance:</strong> <?=$variance?>s
+          </td>
+          <td>
+            <strong>Condition:</strong> <?=$_condition?><?echo ($_condition > 0) ? " [<a href='index.php?editor=spawn&z=$currzone&zoneid=$currzoneid&npcid=$npcid&spid=$id&action=36'>View</a>]" : "";?>
+          </td>
+          <td>
+            <strong>Cond Value:</strong> <?=$cond_value?>
+          </td>
         </tr>
         <tr>
-          <td width="33%">Version: <?=$version?></td>
-          <td width="33%">Enabled: <?=$enabled?></td>
-          <td width="33%">Animation: <?=$animations[$animation]?></td>
+          <td>
+            <strong>Pathgrid:</strong> <?=$pathgrid?><?echo ($pathgrid > 0) ? " [<a href='index.php?editor=spawn&z=$currzone&zoneid=$currzoneid&npcid=$npcid&spid=$id&pathgrid=$pathgrid&action=20'>View</a>]" : "";?>
+          </td>
+          <td>
+            <strong>Enabled:</strong> <?echo ($enabled == 1) ? "Y" : "N";?>
+          </td>
+          <td align="left">
+            <strong>Animation:</strong> <?=$animations[$animation]?>
+          </td>
         </tr>
         <tr>
-          <td width="33%">Zone: <?=$zone?></td>
-          <td width="33%">&nbsp;</td>
-          <td width="33%">&nbsp;</td>
+          <td>
+            <strong>Min Expansion:</strong> <?=$min_expansion?>
+          </td>
+          <td>
+            <strong>Max Expansion:</strong> <?=$max_expansion?>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <strong>Content Flags:</strong> <?echo ($content_flags != "") ? $content_flags : "None";?>
+          </td>
+          <td colspan="2">
+            <strong>Content Flags Disabled:</strong> <?echo ($content_flags_disabled != "") ? $content_flags_disabled : "None";?>
+          </td>
         </tr>
       </table>
     </div>
@@ -71,11 +103,7 @@
 <?endif;?>
 <?if($spawnpoints == ''):?>
   <div class="table_container">
-    <div class="edit_form_header">
-      Spawnpoints
-    </div>
-    <div class="table_content">
-      No Spawnpoints assigned to this spawngroup
-    </div>
+    <div class="edit_form_header">Spawnpoints</div>
+    <div class="table_content">No Spawnpoints assigned to this spawngroup</div>
   </div>
 <?endif;?>
