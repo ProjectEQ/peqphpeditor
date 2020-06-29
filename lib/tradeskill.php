@@ -144,6 +144,7 @@ switch ($action) {
     $javascript = new Template("templates/tradeskill/js.tmpl.php");
     $body = new Template("templates/tradeskill/recipe.add.tmpl.php");
     $body->set("tradeskills", $tradeskills);
+    $body->set("id", get_new_id());
     if ($_GET['ts'] > 0)
       $body->set('ts', $_GET['ts']);
     break;
@@ -154,9 +155,8 @@ switch ($action) {
     exit;
   case 12:  // Copy tradeskill
     check_authorization();
-    copy_tradeskill();
-    $nrec = get_new_id();
-    header("Location: index.php?editor=tradeskill&ts=$ts&rec=$nrec");
+    $newid = copy_tradeskill();
+    header("Location: index.php?editor=tradeskill&ts=$ts&rec=$newid");
     exit;
   case 13:  // View Learned Recipes
     check_authorization();
@@ -227,7 +227,7 @@ function recipe_info() {
 function update_recipe() {
   check_authorization();
   global $mysql_content_db;
-  
+
   $id = $_POST['id'];
   $name = $_POST['name'];
   $tradeskill = $_POST['tradeskill'];
@@ -239,6 +239,10 @@ function update_recipe() {
   $must_learn = $_POST['must_learn'];
   $quest = $_POST['quest'];
   $enabled = $_POST['enabled'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
   $old = recipe_info();
   $fields = '';
 
@@ -253,6 +257,10 @@ function update_recipe() {
   if($old['must_learn'] != $must_learn) $fields .= "must_learn=\"$must_learn\", ";
   if($old['quest'] != $quest) $fields .= "quest=\"$quest\", ";
   if($old['enabled'] != $enabled) $fields .= "enabled=\"$enabled\", ";
+  if($old['min_expansion'] != $min_expansion) $fields .= "min_expansion=\"$min_expansion\", ";
+  if($old['max_expansion'] != $max_expansion) $fields .= "max_expansion=\"$max_expansion\", ";
+  if($old['content_flags'] != $content_flags) $fields .= "content_flags=\"$content_flags\", ";
+  if($old['content_flags_disabled'] != $content_flags_disabled) $fields .= "content_flags_disabled=\"$content_flags_disabled\", ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -384,36 +392,50 @@ function add_recipe() {
   check_authorization();
   global $mysql_content_db;
 
-  $query = "SELECT MAX(id) AS id FROM tradeskill_recipe";
-  $result = $mysql_content_db->query_assoc($query);
-  
-  $id = $result['id'] + 1;
-  
-  $fields = "id=$id, ";
-  
-  if(isset($_POST['name'])) $fields .= "name=\"{$_POST['name']}\", ";
-  if(isset($_POST['tradeskill'])) $fields .= "tradeskill={$_POST['tradeskill']}, ";
-  if(isset($_POST['skillneeded'])) $fields .= "skillneeded={$_POST['skillneeded']}, ";
-  if(isset($_POST['trivial'])) $fields .= "trivial={$_POST['trivial']}, ";
-  if(isset($_POST['nofail'])) $fields .= "nofail={$_POST['nofail']}, ";
-  if(isset($_POST['replace_container'])) $fields .= "replace_container={$_POST['replace_container']}, ";
-  if(isset($_POST['notes'])) $fields .= "notes=\"{$_POST['notes']}\", ";
-  if(isset($_POST['must_learn'])) $fields .= "must_learn=\"{$_POST['must_learn']}\", ";
-  if(isset($_POST['quest'])) $fields .= "quest=\"{$_POST['quest']}\", ";
-  if(isset($_POST['enabled'])) $fields .= "enabled=\"{$_POST['enabled']}\", ";
+  $id = $_POST['id'];
+  $name = $_POST['name'];
+  $tradeskill = $_POST['tradeskill'];
+  $skillneeded = $_POST['skillneeded'];
+  $trivial = $_POST['trivial'];
+  $nofail = $_POST['nofail'];
+  $replace_container = $_POST['replace_container'];
+  $notes = $_POST['notes'];
+  $must_learn = $_POST['must_learn'];
+  $quest = $_POST['quest'];
+  $enabled = $_POST['enabled'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $fields =  rtrim($fields, ", ");
-
-  $query = "INSERT INTO tradeskill_recipe SET $fields";
+  $query = "INSERT INTO tradeskill_recipe SET id=$id, name=\"$name\", tradeskill=$tradeskill, skillneeded=$skillneeded, trivial=$trivial, nofail=$nofail, replace_container=$replace_container, notes=\"$notes\", must_learn=$must_learn, quest=$quest, enabled=$enabled, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\"";
   $mysql_content_db->query_no_result($query);
-  
-  return $id;
 }
 
 function copy_tradeskill() {
   check_authorization();
   global $mysql_content_db;
-  $rec = $_GET['rec'];
+
+  $oldid = $_GET['rec'];
+  $newid = get_new_id();
+
+  $query = "SELECT * FROM tradeskill_recipe WHERE id=$oldid";
+  $oldrecipe = $mysql_content_db->query_assoc($query);
+
+  $name = $oldrecipe['name'] . " - Copy";
+  $tradeskill = $oldrecipe['tradeskill'];
+  $skillneeded = $oldrecipe['skillneeded'];
+  $trivial = $oldrecipe['trivial'];
+  $nofail = $oldrecipe['nofail'];
+  $replace_container = $oldrecipe['replace_container'];
+  $notes = $oldrecipe['notes'];
+  $must_learn = $oldrecipe['must_learn'];
+  $quest = $oldrecipe['quest'];
+  $enabled = $oldrecipe['enabled'];
+  $min_expansion = $oldrecipe['min_expansion'];
+  $max_expansion = $oldrecipe['max_expansion'];
+  $content_flags = $oldrecipe['content_flags'];
+  $content_flags_disabled = $oldrecipe['content_flags_disabled'];
 
   $query = "DELETE FROM tradeskill_recipe WHERE id=0";
   $mysql_content_db->query_no_result($query);
@@ -421,20 +443,16 @@ function copy_tradeskill() {
   $query = "DELETE FROM tradeskill_recipe_entries WHERE recipe_id=0";
   $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO tradeskill_recipe (name, tradeskill, skillneeded, trivial, nofail, replace_container, notes, must_learn, quest, enabled) 
-            SELECT CONCAT(name,' - Copy'), tradeskill, skillneeded, trivial, nofail, replace_container, notes, must_learn, quest, enabled FROM tradeskill_recipe where id=$rec";
+  $query = "INSERT INTO tradeskill_recipe (id, name, tradeskill, skillneeded, trivial, nofail, replace_container, notes, must_learn, quest, enabled, min_expansion, max_expansion, content_flags, content_flags_disabled) VALUES ($newid, \"$name\", $tradeskill, $skillneeded, $trivial, $nofail, $replace_container, \"$notes\", $must_learn, $quest, $enabled, $min_expansion, $max_expansion, \"$content_flags\", \"$content_flags_disabled\")";
   $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO tradeskill_recipe_entries (item_id, successcount, failcount, componentcount, iscontainer, salvagecount) 
-            SELECT item_id, successcount, failcount, componentcount, iscontainer, salvagecount FROM tradeskill_recipe_entries WHERE recipe_id=$rec";
+  $query = "INSERT INTO tradeskill_recipe_entries (item_id, successcount, failcount, componentcount, iscontainer, salvagecount) SELECT item_id, successcount, failcount, componentcount, iscontainer, salvagecount FROM tradeskill_recipe_entries WHERE recipe_id=$oldid";
   $mysql_content_db->query_no_result($query);
 
-  $query = "SELECT MAX(id) AS tid FROM tradeskill_recipe";
-  $result = $mysql_content_db->query_assoc($query);
-  $nrec = $result['tid'];
-
-  $query = "UPDATE tradeskill_recipe_entries SET recipe_id=$nrec WHERE recipe_id=0";
+  $query = "UPDATE tradeskill_recipe_entries SET recipe_id=$newid WHERE recipe_id=0";
   $mysql_content_db->query_no_result($query);
+
+  return $newid;
 }
 
 function get_new_id() {
@@ -443,8 +461,8 @@ function get_new_id() {
 
   $query = "SELECT MAX(id) AS tid FROM tradeskill_recipe";
   $result = $mysql_content_db->query_assoc($query);
-  $nrec = $result['tid'];
-  return $nrec;
+
+  return $result['tid'] + 1;
 }
 
 function getLearnedRecipes($page_number, $results_per_page, $sort_by) {
