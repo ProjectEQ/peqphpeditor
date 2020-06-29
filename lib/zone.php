@@ -185,7 +185,7 @@ switch ($action) {
     $body = new Template("templates/zone/zonepoints.add.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
-    $body->set('zid', getZoneID($z));
+    $body->set('id', getZoneID($z));
     $body->set('suggestzpid', suggest_zonepoint_id());
     $body->set('suggestnum', suggest_zonepoint_number());
     $body->set('suggestver', suggest_version());
@@ -303,7 +303,6 @@ function get_blockedspell() {
 }
 
 function update_zone() {
-  check_authorization();
   global $mysql_content_db, $zoneid;
 
   $oldstats = get_zone();
@@ -395,6 +394,10 @@ function update_zone() {
   if ($fast_regen_endurance != $_POST['fast_regen_endurance']) $fields .= "fast_regen_endurance=\"" . $_POST['fast_regen_endurance'] . "\", ";
   if ($npc_max_aggro_dist != $_POST['npc_max_aggro_dist']) $fields .= "npc_max_aggro_dist=\"" . $_POST['npc_max_aggro_dist'] . "\", ";
   if ($max_movement_update_range != $_POST['max_movement_update_range']) $fields .= "max_movement_update_range=\"" . $_POST['max_movement_update_range'] . "\", ";
+  if ($min_expansion != $_POST['min_expansion']) $fields .= "min_expansion=\"" . $_POST['min_expansion'] . "\", ";
+  if ($max_expansion != $_POST['max_expansion']) $fields .= "max_expansion=\"" . $_POST['max_expansion'] . "\", ";
+  if ($content_flags != $_POST['content_flags']) $fields .= "content_flags=\"" . $_POST['content_flags'] . "\", ";
+  if ($content_flags_disabled != $_POST['content_flags_disabled']) $fields .= "content_flags_disabled=\"" . $_POST['content_flags_disabled'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -421,12 +424,12 @@ function update_graveyard() {
 function update_zonepoints() {
   global $mysql_content_db;
 
-  $zpid = $_POST['zpid'];
+  $id = $_POST['id'];
   $zone = $_POST['zone']; 
   $number = $_POST['number'];
   $x = $_POST['x']; 
   $y = $_POST['y'];
-  $z_coord = $_POST['z_coord'];
+  $z = $_POST['z'];
   $heading = $_POST['heading'];
   $target_x = $_POST['target_x']; 
   $target_y = $_POST['target_y'];
@@ -436,8 +439,12 @@ function update_zonepoints() {
   $version = $_POST['version'];
   $target_instance = $_POST['target_instance'];
   $client_version_mask = $_POST['client_version_mask'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE zone_points SET zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z_coord\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", target_zone_id=\"$target_zone_id\", version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\" WHERE id=\"$zpid\"";
+  $query = "UPDATE zone_points SET number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", target_zone_id=\"$target_zone_id\", version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\", min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\" WHERE id=\"$id\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -502,10 +509,10 @@ function suggest_graveyard_id() {
 function suggest_zonepoint_id() {
   global $mysql_content_db;
 
-  $query = "SELECT MAX(id) AS zpid FROM zone_points";
+  $query = "SELECT MAX(id) AS id FROM zone_points";
   $result = $mysql_content_db->query_assoc($query);
   
-  return ($result['zpid'] + 1);
+  return ($result['id'] + 1);
 }
 
 function suggest_zonepoint_number() {
@@ -547,12 +554,12 @@ function add_graveyard() {
 function add_zonepoints() {
   global $mysql_content_db;
   
-  $zpid = $_POST['zpid'];
+  $id = $_POST['id'];
   $zone = $_POST['zone']; 
   $number = $_POST['number'];
   $x = $_POST['x']; 
   $y = $_POST['y'];
-  $z_coord = $_POST['z_coord'];
+  $z = $_POST['z'];
   $heading = $_POST['heading'];
   $target_x = $_POST['target_x'];
   $target_y = $_POST['target_y']; 
@@ -562,8 +569,12 @@ function add_zonepoints() {
   $version = $_POST['version'];
   $target_instance = $_POST['target_instance'];
   $client_version_mask = $_POST['client_version_mask'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO zone_points SET id=\"$zpid\", zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z_coord\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", target_zone_id=\"$target_zone_id\", buffer=0, version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\"";
+  $query = "INSERT INTO zone_points SET id=\"$id\", zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", target_zone_id=\"$target_zone_id\", buffer=0, version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\", min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -593,19 +604,21 @@ function graveyard_info() {
   
   $query = "SELECT * FROM graveyard";
   $result = $mysql_content_db->query_mult_assoc($query);
+
   if ($result) {
     foreach ($result as $result) {
-     $array['graveyard'][$result['id']] = array("graveyard_id"=>$result['id'], "zone_id"=>$result['zone_id'], "x"=>$result['x'], "y"=>$result['y'], "z_coord"=>$result['z'], "heading"=>$result['heading']);
-         }
-       }
-  return $array;
+      $array['graveyard'][$result['id']] = array("graveyard_id"=>$result['id'], "zone_id"=>$result['zone_id'], "x"=>$result['x'], "y"=>$result['y'], "z_coord"=>$result['z'], "heading"=>$result['heading']);
+    }
   }
+
+  return $array;
+}
 
 function zonepoints_info() {
   global $mysql_content_db, $z, $zoneid;
   $array = array();
 
-  $query = "SELECT version AS zversion FROM zone where id=$zoneid";
+  $query = "SELECT version AS zversion FROM zone WHERE id=$zoneid";
   $result = $mysql_content_db->query_assoc($query);
   $zversion = $result['zversion'];
 
@@ -613,7 +626,7 @@ function zonepoints_info() {
   $result = $mysql_content_db->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-      $array['zonepoints'][$result['id']] = array("zpid"=>$result['id'], "zone"=>$result['zone'], "number"=>$result['number'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "heading"=>$result['heading'], "target_x"=>$result['target_x'], "target_y"=>$result['target_y'], "target_z"=>$result['target_z'], "target_heading"=>$result['target_heading'], "target_zone_id"=>$result['target_zone_id'], "version"=>$result['version'], "target_instance"=>$result['target_instance'], "client_version_mask"=>$result['client_version_mask']);
+      $array['zonepoints'][$result['id']] = array("id"=>$result['id'], "zone"=>$result['zone'], "number"=>$result['number'], "x"=>$result['x'], "y"=>$result['y'], "z"=>$result['z'], "heading"=>$result['heading'], "target_x"=>$result['target_x'], "target_y"=>$result['target_y'], "target_z"=>$result['target_z'], "target_heading"=>$result['target_heading'], "target_zone_id"=>$result['target_zone_id'], "version"=>$result['version'], "target_instance"=>$result['target_instance'], "client_version_mask"=>$result['client_version_mask'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$results['content_flags_disabled']);
     }
   }
   return $array;
@@ -628,29 +641,28 @@ function blockedspell_info() {
   $result = $mysql_content_db->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-     $array['blockedspell'][$result['id']] = array("bsid"=>$result['id'], "spellid"=>$result['spellid'], "type"=>$result['type'], "zoneid"=>$result['zoneid'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "x_diff"=>$result['x_diff'], "y_diff"=>$result['y_diff'], "z_diff"=>$result['z_diff'], "message"=>$result['message'], "description"=>$result['description']);
-         }
-       }
-  return $array;
+      $array['blockedspell'][$result['id']] = array("bsid"=>$result['id'], "spellid"=>$result['spellid'], "type"=>$result['type'], "zoneid"=>$result['zoneid'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "x_diff"=>$result['x_diff'], "y_diff"=>$result['y_diff'], "z_diff"=>$result['z_diff'], "message"=>$result['message'], "description"=>$result['description']);
+    }
   }
+  return $array;
+}
 
 function get_graveyard_zone() {
-   global $mysql_content_db;
+  global $mysql_content_db;
 
-   $graveyard_id = $_GET['graveyard_id'];
+  $graveyard_id = $_GET['graveyard_id'];
 
-   $query = "SELECT short_name FROM zone WHERE graveyard_id=\"$graveyard_id\" limit 1";
-   $result = $mysql_content_db->query_assoc($query);
+  $query = "SELECT short_name FROM zone WHERE graveyard_id=\"$graveyard_id\" LIMIT 1";
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result['short_name'];
 }
 
 function copy_zone() {
-  check_authorization();
   global $mysql_content_db, $zoneid, $z;
 
-  $query = "INSERT INTO zone (`short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `rain_chance1`, `rain_chance2`, `rain_chance3`, `rain_chance4`, `rain_duration1`, `rain_duration2`, `rain_duration3`, `rain_duration4`, `snow_chance1`, `snow_chance2`, `snow_chance3`, `snow_chance4`, `snow_duration1`, `snow_duration2`, `snow_duration3`, `snow_duration4`, `gravity`, `type`, `skylock`, `fast_regen_hp`, `fast_regen_mana`, `fast_regen_endurance`, `npc_max_aggro_dist`, `max_movement_update_range`)
-            SELECT `short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `rain_chance1`, `rain_chance2`, `rain_chance3`, `rain_chance4`, `rain_duration1`, `rain_duration2`, `rain_duration3`, `rain_duration4`, `snow_chance1`, `snow_chance2`, `snow_chance3`, `snow_chance4`, `snow_duration1`, `snow_duration2`, `snow_duration3`, `snow_duration4`, `gravity`, `type`, `skylock`, `fast_regen_hp`, `fast_regen_mana`, `fast_regen_endurance`, `npc_max_aggro_dist`, `max_movement_update_range` FROM zone WHERE id=$zoneid";
+  $query = "INSERT INTO zone (`short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `rain_chance1`, `rain_chance2`, `rain_chance3`, `rain_chance4`, `rain_duration1`, `rain_duration2`, `rain_duration3`, `rain_duration4`, `snow_chance1`, `snow_chance2`, `snow_chance3`, `snow_chance4`, `snow_duration1`, `snow_duration2`, `snow_duration3`, `snow_duration4`, `gravity`, `type`, `skylock`, `fast_regen_hp`, `fast_regen_mana`, `fast_regen_endurance`, `npc_max_aggro_dist`, `max_movement_update_range`, min_expansion, max_expansion, content_flags, content_flags_disabled)
+            SELECT `short_name`, `file_name`, `long_name`, `map_file_name`, `safe_x`, `safe_y`, `safe_z`, `graveyard_id`, `min_level`, `min_status`, `zoneidnumber`, `version`, `timezone`, `maxclients`, `ruleset`, `note`, `underworld`, `minclip`, `maxclip`, `fog_minclip`, `fog_maxclip`, `fog_blue`, `fog_red`, `fog_green`, `sky`, `ztype`, `zone_exp_multiplier`, `walkspeed`, `time_type`, `fog_red1`, `fog_green1`, `fog_blue1`, `fog_minclip1`, `fog_maxclip1`, `fog_red2`, `fog_green2`, `fog_blue2`, `fog_minclip2`, `fog_maxclip2`, `fog_red3`, `fog_green3`, `fog_blue3`, `fog_minclip3`, `fog_maxclip3`, `fog_red4`, `fog_green4`, `fog_blue4`, `fog_minclip4`, `fog_maxclip4`, `fog_density`, `flag_needed`, `canbind`, `cancombat`, `canlevitate`, `castoutdoor`, `hotzone`, `insttype`, `shutdowndelay`, `peqzone`, `expansion`, `suspendbuffs`, `rain_chance1`, `rain_chance2`, `rain_chance3`, `rain_chance4`, `rain_duration1`, `rain_duration2`, `rain_duration3`, `rain_duration4`, `snow_chance1`, `snow_chance2`, `snow_chance3`, `snow_chance4`, `snow_duration1`, `snow_duration2`, `snow_duration3`, `snow_duration4`, `gravity`, `type`, `skylock`, `fast_regen_hp`, `fast_regen_mana`, `fast_regen_endurance`, `npc_max_aggro_dist`, `max_movement_update_range`, min_expansion, max_expansion, content_flags, content_flags_disabled FROM zone WHERE id=$zoneid";
   $mysql_content_db->query_no_result($query);
 
   $query = "SELECT MAX(id) AS zid FROM zone";
@@ -668,7 +680,6 @@ function copy_zone() {
 }
 
 function delete_zone() {
-  check_authorization();
   global $mysql_content_db, $zoneid;
 
   $query = "DELETE FROM zone WHERE id=$zoneid";
@@ -690,7 +701,7 @@ function get_isglobal() {
   return $result['COUNT(*)'];
 }
 
-function update_global () {
+function update_global() {
   global $mysql_content_db, $z, $zoneid;
 
   $zid = getZoneID($z);
@@ -699,15 +710,15 @@ function update_global () {
   $result1 = $mysql_content_db->query_assoc($query1);
   $zversion = $result1['zversion'];
 
-  $query2 = "SELECT id AS currid from instance_list WHERE zone=$zid AND version=$zversion AND id < 30";
+  $query2 = "SELECT id AS currid FROM instance_list WHERE zone=$zid AND version=$zversion AND id < 30";
   $result2 = $mysql->query_assoc($query2);
   $currid = $result2['currid'];
 
   $query = "REPLACE INTO instance_list SET id=$currid, zone=$zid, version=$zversion, is_global=1, never_expires=1";
   $mysql->query_no_result($query);
-  }
+}
 
-function delete_global () {
+function delete_global() {
   global $mysql, $mysql_content_db, $z, $zoneid;
 
   $zid = getZoneID($z);
