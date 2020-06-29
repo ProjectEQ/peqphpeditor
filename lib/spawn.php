@@ -1273,12 +1273,12 @@ function gridpoint_info() {
 }
 
 function spawnevent_info() {
-  global $mysql_db, $z;
+  global $mysql, $z;
 
   $seid = $_GET['seid'];
 
   $query = "SELECT * FROM spawn_events WHERE id=\"$seid\"";
-  $result = $mysql_db->query_assoc($query);
+  $result = $mysql->query_assoc($query);
 
   return $result;
 }
@@ -1343,11 +1343,11 @@ function delete_grid_ns() {
 
 function delete_spawnevent() {
   check_authorization();
-  global $mysql_db;
+  global $mysql;
   $seid = $_GET['seid'];
 
   $query = "DELETE FROM spawn_events WHERE id=$seid";
-  $mysql_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function delete_spawncondition() {
@@ -1467,10 +1467,10 @@ function suggest_grid_number() {
 }
 
 function suggest_spawnevent_id() {
-  global $mysql_db;
+  global $mysql;
 
   $query = "SELECT MAX(id) AS seid FROM spawn_events";
-  $result = $mysql_db->query_assoc($query);
+  $result = $mysql->query_assoc($query);
 
   return ($result['seid'] + 1);
 }
