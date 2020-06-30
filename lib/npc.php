@@ -549,6 +549,9 @@ switch ($action) {
     $body->set('faction_values', $faction_values);
     $body->set('pet', get_ispet());
     $body->set('special_abilities_max', $special_abilities_max);
+    $body->set('stuck', $stuck);
+    $body->set('flymodetype', $flymodetype);
+    $body->set('version', intval(getZoneVersion($zoneid)));
     $vars = npc_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
