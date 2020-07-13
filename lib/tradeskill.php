@@ -264,7 +264,7 @@ function update_recipe() {
 
 function delete_recipe() {
   check_authorization();
-  global $mysql_content_db, $rec;
+  global $mysql, $mysql_content_db, $rec;
   
   $query = "DELETE FROM tradeskill_recipe WHERE id=$rec";
   $mysql_content_db->query_no_result($query);
@@ -273,7 +273,7 @@ function delete_recipe() {
   $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM char_recipe_list WHERE recipe_id=$rec";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function getItemBagtype($item) {
