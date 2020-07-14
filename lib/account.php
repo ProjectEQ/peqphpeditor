@@ -105,6 +105,15 @@ switch ($action) {
     update_account_status();
     header("Location: index.php?editor=account&acctid=$acctid");
     exit;
+  case 9: // Search Accounts by IP Address
+    check_admin_authorization();
+    $accounts = get_accounts_by_ip();
+    $body = new Template("templates/account/accounts.by.ip.tmpl.php");
+    $body->set('ip', $_GET['ip']);
+    if ($accounts) {
+      $body->set('accounts', $accounts);
+    }
+    break;
 }
 
 function get_accounts($page_number, $results_per_page, $sort_by) {
@@ -185,5 +194,20 @@ function update_account_status() {
 
   $query = "UPDATE account SET status=$new_status WHERE id=$acctid";
   $mysql->query_no_result($query);
+}
+
+function get_accounts_by_ip() {
+  global $mysql;
+  $ip = $_GET['ip'];
+
+  $query = "SELECT accid, count, lastused, name FROM account_ip LEFT JOIN account ON account_ip.accid = account.id WHERE ip = \"$ip\"";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
 }
 ?>

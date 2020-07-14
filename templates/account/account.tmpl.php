@@ -53,7 +53,7 @@
   if ($ips) {
     foreach ($ips as $ip_address) {
       echo '<tr>';
-      echo '<td width="40%"><center>' . $ip_address['ip'] . '</center></td>';
+      echo '<td width="40%"><center><a href="index.php?editor=account&ip=' . $ip_address['ip'] . '&action=9">' . $ip_address['ip'] . '</a></center></td>';
       echo '<td width="20%"><center>' . $ip_address['count'] . '</center></td>';
       echo '<td width="40%"><center>' . $ip_address['lastused'] . '</center></td>';
       echo '</tr>';
