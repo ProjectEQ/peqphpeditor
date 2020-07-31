@@ -137,6 +137,26 @@
                   </td>
                 </tr>
               </table>
+              <table width="100%" cellpadding="5" cellspacing="3">
+                <tr>
+                  <td>
+                    Min Expansion:<br>
+                    <input type="text" name="min_expansion" size="8" value="<?=$min_expansion?>">
+                  </td>
+                  <td>
+                    Max Expansion:<br>
+                    <input type="text" name="max_expansion" size="8" value="<?=$max_expansion?>">
+                  </td>
+                  <td>
+                    Content Flags:<br>
+                    <input type="text" name="content_flags" size="35" value="<?=$content_flags?>">
+                  </td>
+                  <td>
+                    Content Flags Disabled:<br>
+                    <input type="text" name="content_flags_disabled" size="35" value="<?=$content_flags_disabled?>">
+                  </td>
+                </tr>
+              </table>
             </fieldset><br>
             <fieldset>
               <legend><strong><font size="3">Sky</font></strong></legend>
@@ -212,7 +232,7 @@
             </fieldset><br>
             <input type="hidden" name="zoneidnumber" value="<?=$zoneidnumber?>">
             <input type="hidden" name="short_name" value="<?=$short_name?>">
-            <input type="submit" value="Submit Changes">&nbsp;&nbsp;
+            <input type="submit" value="Update Zone">&nbsp;&nbsp;
             <input type="button" value="Cancel" onClick="history.back();">
           </center>
         </div>

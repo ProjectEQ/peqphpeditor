@@ -23,13 +23,20 @@
           <td colspan="6"><strong>Races:</strong> <?echo ($global_loot['race'] != "") ? $global_loot['race'] : "ALL";?></td>
         </tr>
         <tr>
-          <td colspan="6"><strong>Classes: </strong> <?echo ($global_loot['class'] != "") ? $global_loot['class'] : "ALL"?></td>
+          <td><strong>Classes: </strong> <?echo ($global_loot['class'] != "") ? $global_loot['class'] : "ALL"?></td>
+          <td>&nbsp;</td>
+          <td colspan="2"><strong>Min Expansion:</strong>  <?=$global_loot['min_expansion']?></td>
+          <td colspan="2"><strong>Max Expansion:</strong> <?=$global_loot['max_expansion']?></td>
         </tr>
         <tr>
-          <td colspan="6"><strong>Bodytypes:</strong> <?echo ($global_loot['bodytype'] != "") ? $global_loot['bodytype'] : "ALL"?></td>
+          <td><strong>Bodytypes:</strong> <?echo ($global_loot['bodytype'] != "") ? $global_loot['bodytype'] : "ALL"?></td>
+          <td>&nbsp;</td>
+          <td colspan="4"><strong>Content Flags:</strong>  <?echo ($global_loot['content_flags'] != "") ? $global_loot['content_flags'] : "None"?></td>
         </tr>
         <tr>
-          <td colspan="6"><strong>Zones: </strong> <?echo ($global_loot['zone'] != "") ? $global_loot['zone'] : "ALL"?></td>
+          <td><strong>Zones: </strong> <?echo ($global_loot['zone'] != "") ? $global_loot['zone'] : "ALL"?></td>
+          <td>&nbsp;</td>
+          <td colspan="4"><strong>Content Flags Disabled:</strong>  <?echo ($global_loot['content_flags_disabled'] != "") ? $global_loot['content_flags_disabled'] : "None"?></td>
         </tr>
       </table>
     </div>

@@ -1005,8 +1005,12 @@ function update_starting_item() {
   $item_charges = $_POST['item_charges'];
   $gm = $_POST['gm'];
   $slot = $_POST['slot'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE starting_items SET class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot WHERE id=$id AND race=$race";
+  $query = "UPDATE starting_items SET class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id AND race=$race";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -1022,8 +1026,12 @@ function insert_starting_item() {
   $item_charges = $_POST['item_charges'];
   $gm = $_POST['gm'];
   $slot = $_POST['slot'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO starting_items SET id=$id, race=$race, class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot";
+  $query = "INSERT INTO starting_items SET id=$id, race=$race, class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\"";
   $mysql_content_db->query_no_result($query);
 }
 

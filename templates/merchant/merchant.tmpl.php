@@ -1,5 +1,5 @@
 <?if ($id != 0):?>
-  <div class="table_container" style="width: 650px;">
+  <div class="table_container" style="width: 750px;">
     <div class="table_header">
       <div style="float:right;">
         <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=8">Temp List</a>&nbsp;
@@ -7,9 +7,6 @@
           <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=19"><img src="images/sort.gif" border="0" title="Sort this merchantlist"></a>&nbsp;
         </div>
         <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=4"><img src="images/add.gif" border="0" title="Add an Item"></a>&nbsp;
-        <div style="display:<?echo (isset($slots)) ? "inline" : "none";?>">
-          <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" border="0" title="Edit this Merchant"></a>&nbsp;
-        </div>
         <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=20"><img src="images/resetpw.gif" border="0" title="Change merchantlist to use NPC ID if used by no other NPCs"></a>&nbsp;
         <div style="display:<?echo (isset($slots)) ? "inline" : "none";?>">
           <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&mid=<?=$id?>&action=18" onClick="return confirm('Really Copy Merchant <?=$id?>?');"><img src="images/last.gif" border="0" title="Copy this merchantlist"></a>&nbsp;
@@ -33,7 +30,9 @@
           <th>Lvl<br>Req</th>
           <th>Alt<br>Cur</th>
           <th>Class<br>Req</th>
-          <th>Probability<br>Req</th>
+          <th>Prob<br>Req</th>
+          <th>Expan<br>Flags</th>
+          <th>Content<br>Flags</th>
           <th>&nbsp;</th>
         </tr>
 <?
@@ -68,7 +67,7 @@ foreach($slots as $slot=>$v):
           <td align="center"><?=$slot?></td>
           <td align="center"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$v['item']?>&action=2"><?=$v['item']?></a></td>
           <td><?=$v['item_name']?></td>
-          <td><a href="https://lucy.allakhazam.com/item.html?id=<?=$v['item']?>" target="_blank">Lucy</a></td>
+          <td>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$v['item']?>" target="_blank">Lucy</a>]</td>
 <?php
 $round_cost = round($cost,3);
 $round_sells = round($sells,3);
@@ -106,7 +105,10 @@ $round_sells = round($sells,3);
           <td align="center"><?=$v['alt_currency_cost']?></td>
           <td align="center"><?echo ($v['classes_required'] == 65535) ? "N" : "Y";?></td>
           <td align="center"><?=$v['probability']?></td>
+          <td align="center"><?echo (($v['min_expansion'] > 0) || ($v['max_expansion'] > 0)) ? "Y" : "N";?></td>
+          <td align="center"><?echo (($v['content_flags'] != "") || ($v['content_flags_disabled'] != "")) ? "Y" : "N";?></td>
           <td align="right" style="padding-right: 10px;">
+            <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&mid=<?=$id?>&slot=<?=$slot?>&id=<?=$v['item']?>&action=1"><img src="images/c_table.gif" border="0" title="Edit this Item"></a>&nbsp;
             <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&mid=<?=$id?>&slot=<?=$slot?>&id=<?=$v['item']?>&action=3" onClick="return confirm('Really remove this item from the merchant?');"><img src="images/remove.gif" border="0" title="Delete item from Merchantlist"></a>
           </td>
         </tr>
@@ -114,7 +116,7 @@ $round_sells = round($sells,3);
       </table>
 <?endif;?>
 <? if (!isset($slots)):?>
-      No Wares currently assigned
+      No wares currently assigned
 <?endif;?>
     </div>
   </div>
@@ -126,7 +128,7 @@ $round_sells = round($sells,3);
     </tr>
     <tr>
       <td class="edit_form_content">
-        No Merchantlist currently assigned.<br><br>
+        No merchantlist currently assigned.<br><br>
         <center><a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=22">Click here to change</a></center>
       </td>
     </tr>
