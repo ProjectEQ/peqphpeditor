@@ -12,7 +12,7 @@ class mysql extends mysqli {
   function add_query_signature($query) {
     global $_SESSION;
 
-    return sprintf("%s /* %s */", $query, $_SESSION['login']);
+    return sprintf("%s /* user: %s */", $query, $_SESSION['login']);
   }
 
   function query_no_result($query) {
@@ -21,7 +21,7 @@ class mysql extends mysqli {
 
     $user = $_SESSION['login'];
     if (mysqli_query($this, quote_smart($query))) {
-      logSQL($query . " /* user: $user */");
+      logSQL($query);
       return true;
     }
     else {
