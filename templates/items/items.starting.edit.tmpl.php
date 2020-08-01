@@ -4,15 +4,7 @@
   </center>
   <div style="margin: auto; width: 650px;">
     <div class="edit_form">
-      <div class="edit_form_header">
-        <table width="100%">
-          <tr>
-            <td>
-              Edit Starting Item
-            </td>
-          </tr>
-        </table>
-      </div>
+      <div class="edit_form_header">Edit Starting Item</div>
       <div class="edit_form_content">
         <form name="starting_item_edit" method="post" action="index.php?editor=items&action=12">
           <table width="100%" cellspacing="0" cellpadding="3">
@@ -21,11 +13,11 @@
                 <strong>ID:</strong><br>
                 <input type="text" size="7" value="<?=$item['id']?>" disabled>
               </td>
-              <td>
+              <td colspan="2">
                 <strong>Race:</strong><br>
                 <select disabled>
 <?foreach ($races as $k=>$v):?>
-                  <option value="<?=$k?>"<?echo ($item['race'] == $k) ? " selected" : "";?>><?echo ($k == 0) ? "ALL" : $v;?></option>
+                  <option value="<?=$k?>"<?echo ($k == $item['race']) ? " selected" : "";?>><?echo ($k == 0) ? "ALL" : $v;?></option>
 <?endforeach;?>
                 </select>
               </td>
@@ -33,7 +25,7 @@
                 <strong>Class:</strong><br>
                 <select name="class">
 <?foreach ($classes as $k=>$v):?>
-                  <option value="<?=$k?>"<?echo ($item['class'] == $k) ? " selected" : "";?>><?echo ($k == 0) ? "ALL" : $v;?></option>
+                  <option value="<?=$k?>"<?echo ($k == $item['class']) ? " selected" : "";?>><?echo ($k == 0) ? "ALL" : $v;?></option>
 <?endforeach;?>
                 </select>
               </td>
@@ -42,9 +34,9 @@
               <td>
                 <strong>Deity:</strong><br>
                 <select name="deityid">
-                  <option value="0"<?echo ($item['deityid'] == 0) ? " selected" : "";?>>ALL</option>
+                  <option value="0">ALL</option>
 <?foreach ($deities as $k=>$v):?>
-                  <option value="<?=$k?>"<?echo ($item['deityid'] == $k) ? " selected" : "";?>><?=$v?></option>
+                  <option value="<?=$k?>"<?echo ($k == $item['deityid']) ? " selected" : "";?>><?=$v?></option>
 <?endforeach;?>
                 </select>
               </td>
@@ -52,7 +44,7 @@
                 <strong>Zone:</strong><br>
                 <select name="zoneid">
 <?foreach ($zones as $k=>$v):?>
-                  <option value="<?=$k?>"<?echo ($item['zoneid'] == $k) ? " selected" : "";?>><?echo ($k == 0) ? "ALL" : $v;?></option>
+                  <option value="<?=$k?>"<?echo ($k == $item['zoneid']) ? " selected" : "";?>><?echo ($k == 0) ? "ALL" : $v;?></option>
 <?endforeach;?>
                 </select>
               </td>
@@ -60,12 +52,12 @@
                 <strong>GM:</strong><br>
                 <input type="text" name="gm" size="5" value="<?=$item['gm']?>">
               </td>
-            </tr>
-            <tr>
               <td>
                 <strong>Item ID:</strong> (<a href="javascript:showSearch();">search</a>)<br>
                 <input type="text" name="itemid" size="7" id="id" value="<?=$item['itemid']?>">
               </td>
+            </tr>
+            <tr>
               <td>
                 <strong>Charges:</strong><br>
                 <input type="text" name="item_charges" size="5" value="<?=$item['item_charges']?>">
@@ -74,12 +66,31 @@
                 <strong>Slot:</strong><br>
                 <input type="text" name="slot" size="5" value="<?=$item['slot']?>">
               </td>
+              <td>
+                <strong>Min Expansion:</strong><br>
+                <input type="text" name="min_expansion" size="10" value="<?=$item['min_expansion']?>">
+              </td>
+              <td>
+                <strong>Max Expansion:</strong><br>
+                <input type="text" name="max_expansion" size="10" value="<?=$item['max_expansion']?>">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <strong>Content Flags:</strong><br>
+                <input type="text" name="content_flags" size="40" value="<?=$item['content_flags']?>">
+              </td>
+              <td colspan="2">
+                <strong>Content Flags Disabled:</strong><br>
+                <input type="text" name="content_flags_disabled" size="40" value="<?=$item['content_flags_disabled']?>">
+              </td>
             </tr>
           </table><br><br>
           <center>
             <input type="hidden" name="id" value="<?=$item['id']?>">
             <input type="hidden" name="race" value="<?=$item['race']?>">
-            <input type="submit" value="Update Item">
+            <input type="submit" value="Edit Item">&nbsp;&nbsp;
+            <input type="button" value="Cancel" onClick="history.back();">
           </center>
         </form>
       </div>

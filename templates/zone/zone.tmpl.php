@@ -62,7 +62,7 @@
                   </tr>
                   <tr>
                     <td align="left" width="33%">Version: <?=$version?></td>
-                    <td align="left" width="33%">Ruleset: <a href="index.php?editor=server&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&ruleset_id=<?=$ruleset?>&action=28"> <?=$ruleset?></a></td>
+                    <td align="left" width="33%">Ruleset: <?=$ruleset?> [<a href="index.php?editor=server&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&ruleset_id=<?=$ruleset?>&action=28">View</a>]</td>
                     <td align="left" width="34%">Inst Type: <?=$insttype?></td>
                   </tr>
                   <tr>
@@ -81,7 +81,7 @@
                     <td align="left" width="34%">&nbsp;</td>
                   </tr>
                   <tr>
-                    <td align="left" width="100%" colspan="3">Note: <?=$note?></td>
+                    <td align="left" width="100%" colspan="3">Note: <?echo ($note != "") ? $note : "None";?></td>
                   </tr>
                 </table>
               </fieldset>
@@ -102,6 +102,11 @@
                     <td align="left" width="33%">Outdoor: <?=$yesno[$castoutdoor]?></td>
                     <td align="left" width="33%">Combat: <?=$yesno[$cancombat]?></td>
                     <td align="left" width="34%">PEQZone: <?=$yesno[$peqzone]?></td>
+                  </tr>
+                  <tr>
+                    <td align="left" width="33%">Expansion Flags: <?echo ($min_expansion > 0 || $max_expansion > 0) ? "Yes" : "No";?></td>
+                    <td align="left" width="33%">Content Flags: <?echo ($content_flags != "" || $content_flags_disabled != "") ? "Yes" : "No";?>
+                    <td align="left" width="34%">&nbsp;</td>
                   </tr>
                 </table>
               </fieldset>

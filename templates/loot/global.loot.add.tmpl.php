@@ -103,6 +103,25 @@
             </td>
           </tr>
           <tr>
+            <td>
+              <strong>Min Expansion</strong><br>
+              <input type="text" size="15" name="min_expansion" value="0">
+            </td>
+            <td>&nbsp;</td>
+            <td>
+              <strong>Max Expansion</strong><br>
+              <input type="text" size="15" name="max_expansion" value="0">
+            </td>
+            <td>
+              <strong>Content Flags</strong><br>
+              <input type="text" size="25" name="content_flags" value="">
+            </td>
+            <td colspan="2">
+              <strong>Content Flags Disabled</strong><br>
+              <input type="text" size="25" name="content_flags_disabled" value="">
+            </td>
+          </tr>
+          <tr>
             <td colspan="6">
               <fieldset>
                 <legend><strong>Races</strong></legend>

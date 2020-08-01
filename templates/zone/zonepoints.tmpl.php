@@ -29,12 +29,12 @@
       </tr>
 <?$x=0; foreach($zonepoints as $zonepoints=>$v):?>
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
-        <td align="center" width="5%"><?=$v['zpid']?></td>
+        <td align="center" width="5%"><?=$v['id']?></td>
         <td align="center" width="5%"><?=$v['zone']?></td>
         <td align="center" width="5%"><?=$v['number']?></td>
-        <td align="center" width="5%"><?=$v['x_coord']?></td>
-        <td align="center" width="5%"><?=$v['y_coord']?></td>
-        <td align="center" width="5%"><?=$v['z_coord']?></td>
+        <td align="center" width="5%"><?=$v['x']?></td>
+        <td align="center" width="5%"><?=$v['y']?></td>
+        <td align="center" width="5%"><?=$v['z']?></td>
         <td align="center" width="5%"><?=$v['heading']?></td>
         <td align="center" width="5%"><?=$v['target_x']?></td>
         <td align="center" width="5%"><?=$v['target_y']?></td>
@@ -43,8 +43,8 @@
         <td align="center" width="5%"><?=$v['target_instance']?></td>
         <td align="center" width="5%"><?=getZoneName($v['target_zone_id'])?></td>
         <td align="right">      
-          <a href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&zpid=<?=$v['zpid']?>&action=13"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-          <a onClick="return confirm('Really Delete Point <?=$v['zpid']?>?');" href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&zpid=<?=$v['zpid']?>&action=15"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+          <a href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&zpid=<?=$v['id']?>&action=13"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
+          <a onClick="return confirm('Really Delete Point <?=$v['id']?>?');" href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&zpid=<?=$v['id']?>&action=15"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
         </td>
       </tr>
 <?$x++; endforeach;?>

@@ -589,7 +589,7 @@ switch ($action) {
     $sid = $_POST['sgid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
     exit;
-  case 52:  // Copy Spawnpoint
+  case 52:  // Move Spawnpoint
     check_authorization();
     $body = new Template("templates/spawn/spawnpoint.move.tmpl.php");
     $body->set('currzone', $z);
@@ -1499,6 +1499,7 @@ function add_spawnpoint() {
   $id = $_POST['id'];
   $spawngroupID = $_POST['spawngroupID'];
   $zone = $_POST['zone'];
+  $version = $_POST['version'];
   $x = $_POST['x'];
   $y = $_POST['y'];
   $z = $_POST['z'];
@@ -1508,11 +1509,14 @@ function add_spawnpoint() {
   $pathgrid = $_POST['pathgrid'];
   $condition = $_POST['_condition'];
   $cond_value = $_POST['cond_value'];
-  $version = $_POST['version'];
   $enabled = $_POST['enabled'];
   $animation = $_POST['animation'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation";
+  $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -1839,28 +1843,39 @@ function add_spawnconditionvalue() {
 function copy_spawnpoint() {
   check_authorization();
   global $mysql_content_db;
-  $zone = $_POST['zone'];
-  $x = $_POST['x'];
-  $y = $_POST['y'];
-  $z = $_POST['z'];
-  $heading = $_POST['heading'];
-  $respawntime = $_POST['respawntime'];
-  $variance = $_POST['variance'];
-  $pathgrid = $_POST['pathgrid'];
-  $condition = $_POST['condition'];
-  $cond_value = $_POST['cond_value'];
-  $version = $_POST['version'];
-  $enabled = $_POST['enabled'];
-  $animation = $_POST['animation'];
+
+  $id = $_POST['id'];
   $sgid = $_POST['sgid'];
 
-  $query = "INSERT INTO spawn2 SET spawngroupID=\"$sgid\", zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation";
-  $mysql_content_db->query_no_result($query);
+  $query1 = "SELECT * FROM spawn2 WHERE id=$id";
+  $original = $mysql_content_db->query_assoc($query1);
+
+  $zone = $original['zone'];
+  $version = $original['version'];
+  $x = $original['x'];
+  $y = $original['y'];
+  $z = $original['z'];
+  $heading = $original['heading'];
+  $respawntime = $original['respawntime'];
+  $variance = $original['variance'];
+  $pathgrid = $original['pathgrid'];
+  $condition = $original['_condition'];
+  $cond_value = $original['cond_value'];
+  $enabled = $original['enabled'];
+  $animation = $original['animation'];
+  $min_expansion = $original['min_expansion'];
+  $max_expansion = $original['max_expansion'];
+  $content_flags = $original['content_flags'];
+  $content_flags_disabled = $original['content_flags_disabled'];
+
+  $query2 = "INSERT INTO spawn2 SET spawngroupID=\"$sgid\", zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\"";
+  $mysql_content_db->query_no_result($query2);
 }
 
 function move_spawnpoint() {
   check_authorization();
   global $mysql_content_db;
+
   $id = $_POST['id'];
   $sgid = $_POST['sgid'];
 
@@ -1870,6 +1885,7 @@ function move_spawnpoint() {
 
 function search_spawngroups($search) {
   global $mysql_content_db;
+
   $query = "SELECT * FROM spawngroup WHERE name rlike \"$search\"";
   $results = $mysql_content_db->query_mult_assoc($query);
 
@@ -1878,6 +1894,7 @@ function search_spawngroups($search) {
 
 function get_spawngroups_by_zone($search) {
   global $mysql_content_db;
+
   $query = "SELECT spawn2.spawngroupID, spawngroup.name, spawnentry.npcID FROM spawn2 LEFT JOIN spawnentry USING (spawngroupID) LEFT JOIN spawngroup ON (spawn2.spawngroupID = spawngroup.id) WHERE spawn2.zone = '$search'";
   $results = $mysql_content_db->query_mult_assoc($query);
 
@@ -1886,6 +1903,7 @@ function get_spawngroups_by_zone($search) {
 
 function export_grid_sql() {
   global $mysql_content_db;
+
   $gridid = $_GET['pathgrid'];
   $zoneid = getZoneID($_GET['z']);
   $table_string = "";
@@ -1939,6 +1957,7 @@ function export_grid_sql() {
 
 function sort_grid() {
   global $mysql_content_db;
+
   $gridid = $_GET['pathgrid'];
   $zoneid = getZoneID($_GET['z']);
   $old_number = array();
@@ -1964,6 +1983,7 @@ function sort_grid() {
 
 function copy_grid() {
   global $mysql_content_db;
+
   $gridid = $_GET['pathgrid'];
   $zoneid = getZoneID($_GET['z']);
   $newid = suggest_grid_id();
@@ -1999,6 +2019,7 @@ function copy_grid() {
 
 function get_npcs_by_grid() {
   global $mysql_content_db;
+
   $pathgrid = $_GET['pathgrid'];
   $zone = getZoneName(getZoneID($_GET['z']));
 

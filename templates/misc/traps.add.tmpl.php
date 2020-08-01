@@ -2,102 +2,125 @@
     <div class="edit_form_header">Add Trap</div>
     <div class="edit_form_content">
       <form name="traps" method="post" action="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=24">
-        <table width="100%" cellpadding="5" cellspacing="0">
+        <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
-            <td align="center">
-              <strong>id</strong><br>
+            <td>
+              <strong>ID</strong><br>
               <input type="text" size="7" name="tid" value="<?=$suggesttid?>">
             </td>
-            <td align="center">
-              <strong>zone</strong><br>
+            <td>
+              <strong>Zone</strong><br>
               <input type="text" size="7" name="zone" value="<?=$currzone?>">
             </td>
-            <td align="center">
-              <strong>version</strong><br>
+            <td>
+              <strong>Version</strong><br>
               <input type="text" size="7" name="version" value="<?=$suggestver?>">
             </td>
-            <td align="center">
-              <strong>x</strong><br>
+            <td>
+              <strong>X</strong><br>
               <input type="text" size="7" name="x_coord" value="0">
             </td>
-            <td align="center">
-              <strong>y</strong><br>
+            <td>
+              <strong>Y</strong><br>
               <input type="text" size="7" name="y_coord" value="0">
             </td>
-            <td align="center">
-              <strong>z</strong><br>
+            <td>
+              <strong>Z</strong><br>
               <input type="text" size="7" name="z_coord" value="0">
             </td>
-            <td align="center">
-              <strong>maxzdiff</strong><br>
+          </tr>
+          <tr>
+            <td>
+              <strong>Chance</strong><br>
+              <input type="text" size="7" name="chance" value="0">
+            </td>
+            <td>
+              <strong>Max Z Diff</strong><br>
               <input type="text" size="7" name="maxzdiff" value="0">
             </td>
-          </tr>
-          <tr>
-            <td align="center">
-              <strong>level</strong><br>
-              <input type="text" size="7" name="level" value="1">
-            </td>
-            <td align="center">
-              <strong>skill</strong><br>
-              <input type="text" size="7" name="skill" value="0">
-            </td>
-            <td align="center">
-              <strong>radius</strong><br>
+            <td>
+              <strong>Radius</strong><br>
               <input type="text" size="7" name="radius" value="0">
             </td>
-            <td align="center">
-              <strong>respawn</strong><br>
-              <input type="text" size="7" name="respawn_time" value="60">
-            </td>
-            <td align="center">
-              <strong>effectvalue</strong><br>
-              <input type="text" size="7" name="effectvalue" value="0">
-            </td>
-            <td align="center">
-              <strong>effectvalue2</strong><br>
-              <input type="text" size="7" name="effectvalue2" value="0">
-            </td>
-            <td align="center">
-              <strong>effect</strong><br>
+            <td>
+              <strong>Effect</strong><br>
               <select class="left" name="effect">
 <?foreach($traptype as $k => $v):?>
-                <option value="<?=$k?>"<? echo ($k == $effect) ? " selected" : ""?>><?=$v?></option>
-<?$x++; endforeach;?>
+                <option value="<?=$k?>"><?=$v?></option>
+<?endforeach;?>
               </select>
+            </td>
+            <td>
+              <strong>Effect Value</strong><br>
+              <input type="text" size="7" name="effectvalue" value="0">
+            </td>
+            <td>
+              <strong>Effect Value 2</strong><br>
+              <input type="text" size="7" name="effectvalue2" value="0">
             </td>
           </tr>
           <tr>
-            <td colspan="7" align="center">
-              <strong>message</strong>
+            <td colspan="7">
+              <strong>Message</strong>
               <input type="text" size="114" name="message" value="">
             </td>
           </tr>
           <tr>
-            <td align="center">
-              <strong><br>chance</strong><br>
-              <input type="text" size="7" name="chance" value="0">
+            <td>
+              <strong><br>Skill</strong><br>
+              <input type="text" size="7" name="skill" value="0">
             </td>
-            <td align="center">
-              <strong><br>variance</strong><br>
+            <td>
+              <strong><br>Level</strong><br>
+              <input type="text" size="7" name="level" value="1">
+            </td>
+            <td>
+              <strong><br>Respawn</strong><br>
+              <input type="text" size="7" name="respawn_time" value="60">
+            </td>
+            <td>
+              <strong><br>Variance</strong><br>
               <input type="text" size="7" name="respawn_var" value="0">
             </td>
-            <td align="center">
-              <strong>triggered<br>number</strong><br>
+            <td>
+              <strong>Triggered<br>Number</strong><br>
               <input type="text" size="7" name="triggered_number" value="0">
             </td>
-            <td align="center">
-              <strong><br>group</strong><br>
+            <td>
+              <strong><br>Group</strong><br>
               <input type="text" size="7" name="group" value="0">
             </td>
-            <td align="center">
-              <strong>despawn when<br>triggered</strong><br>
+          </tr>
+          <tr>
+            <td>
+              <strong>Despawn when<br>Triggered</strong><br>
               <input type="text" size="7" name="despawn_when_triggered" value="0">              
             </td>
-            <td align="center">
-              <strong><br>undetectable</strong><br>
+            <td>
+              <strong><br>Undetectable</strong><br>
               <input type="text" size="7" name="undetectable" value="0">
             </td>
+            <td>
+              <strong><br>Min Expansion</strong><br>
+              <input type="text" size="7" name="min_expansion" value="0">
+            </td>
+            <td>
+              <strong><br>Max Expansion</strong><br>
+              <input type="text" size="7" name="max_expansion" value="0">
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Content Flags</strong><br>
+              <input type="text" size="25" name="content_flags" value="">
+            </td>
+            <td colspan="2">
+              <strong>Content Flags Disabled</strong><br>
+              <input type="text" size="25" name="content_flags_disabled" value="">
+            </td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
           </tr>
         </table><br><br>
