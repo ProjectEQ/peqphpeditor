@@ -11,8 +11,9 @@ class mysql extends mysqli {
 
   function query_no_result($query) {
     global $log_error;
+    $user = $_SESSION['login'];
     if (mysqli_query($this, quote_smart($query))) {
-      logSQL($query);
+      logSQL($query . " /* user: $user */");
       return true;
     }
     else {
