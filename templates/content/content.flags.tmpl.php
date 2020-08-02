@@ -21,7 +21,7 @@ foreach($content_flags as $flag):?>
         <td align="center" width="15%"><?=$flag['id']?></td>
         <td align="center" width="50%"><?=$flag['flag_name']?></td>
         <td align="center" width="20%"><?=$yesno[$flag['enabled']]?></td>
-        <td align="right" width="10%">
+        <td align="right" width="15%">
           <a href="index.php?editor=content&id=<?=$flag['id']?>&action=3"><img src="images/edit2.gif" width="13" height="13" border="0" title="Edit Content Flag"></a>&nbsp;
           <a href="index.php?editor=content&id=<?=$flag['id']?>&action=5" onClick="return confirm('Really delete content flag?');"><img src="images/remove.gif" width="13" height="13" border="0" title="Delete Content Flag"></a>
         </td>
