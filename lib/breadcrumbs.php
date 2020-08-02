@@ -1,4 +1,4 @@
-<?php
+<?
 
 switch ($editor) {
   case '':
@@ -93,6 +93,9 @@ switch ($editor) {
   case 'databuckets':
     $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Data Buckets</a>";
     break;
+  case 'content':
+    $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Content Flags</a>";
+    breka;
 }
 
 if (isset($z) && $z != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&z=" . $z . "&zoneid=" . $zoneid . "'>" . getZoneLongName($z) . "</a>";

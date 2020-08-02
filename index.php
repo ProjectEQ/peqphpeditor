@@ -140,6 +140,9 @@ switch ($editor) {
   case 'databuckets':
     require_once('lib/databuckets.php');
     break;
+  case 'content':
+    require_once('lib/content.php');
+    break;
 }
 
 $tmpl->set('javascript', $javascript);

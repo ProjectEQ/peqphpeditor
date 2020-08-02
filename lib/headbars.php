@@ -186,6 +186,8 @@ switch ($editor) {
     break;
   case 'databuckets':
     break;
+  case 'content':
+    break;
 }
 
 function build_tabs () {
@@ -219,6 +221,7 @@ function build_tabs () {
   $tabstatus26 = "off";
   $tabstatus27 = "off";
   $tabstatus28 = "off";
+  $tabstatus29 = "off";
 
   $zoneurl = "";
   $npcurl = "";
@@ -318,6 +321,9 @@ function build_tabs () {
     case 'databuckets':
       $tabstatus28 = "on";
       break;
+    case 'content':
+      $tabstatus29 = "on";
+      break;
   }
 
   $admin = '';
@@ -356,6 +362,7 @@ function build_tabs () {
         <div class=\"$tabstatus26\"><a href=\"index.php?editor=auras\">Auras</a></div>
         <div class=\"$tabstatus27\"><a href=\"index.php?editor=pvp\">PVP</a></div>
         <div class=\"$tabstatus28\"><a href=\"index.php?editor=databuckets\">Data Buckets</a></div>
+        <div class=\"$tabstatus29\"><a href=\"index.php?editor=content\">Content Flags</a></div>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br><br>
       </div>
 ";
