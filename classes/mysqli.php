@@ -118,30 +118,11 @@ else {
 // Quote variable to make safe
 function quote_smart($value) {
 
-  // Stripslashes
-  if (get_magic_quotes_gpc()) {
-    //$value = stripslashes($value);
-  }
-
-  // Quote if not integer
-  if (!is_numeric($value)) {
-    //$value = "'" . mysql_real_escape_string($value) . "'";
-  }
-
   // Deter UNION SQL Injection
-  if (function_exists("stripos")) { //PHP5+ installed
-    if (stripos($value, 'union all') || stripos($value, 'union select')) {
-      logSQL("SQL injection monitored by user at IP: '" . getIP() . "' using the query: '" . $value . "'.");
-      header("Location: index.php");
-      exit;
-    }
-  }
-  else { //PHP<5 installed
-    if (strpos(strtolower($value), 'union all') || strpos(strtolower($value), 'union select')) {
-      logSQL("SQL injection monitored by user at IP: '" . getIP() . "' using the query: '" . $value . "'.");
-      header("Location: index.php");
-      exit;
-    }
+  if (stripos($value, 'union all') || stripos($value, 'union select')) {
+    logSQL("SQL injection monitored by user at IP: '" . getIP() . "' using the query: '" . $value . "'.");
+    header("Location: index.php");
+    exit;
   }
 
   return $value;
