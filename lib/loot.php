@@ -66,7 +66,7 @@ switch ($action) {
     update_lootdrop_name();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 5:  // Edit Lootdrop Item page
+  case 5:  // Edit Lootdrop Item
     check_authorization();
     $body = new Template("templates/loot/lootdrop.edit.item.tmpl.php");
     $body->set('currzone', $z);
@@ -909,19 +909,9 @@ function add_lootdrop_item($itemid) {
   $item_charges = $_POST['item_charges'];
   $multiplier = $_POST['multiplier'];
   $chance= $_POST['chance'];
-  $eitem = 0;
+  $equip_item = $_POST['equip_item'];
 
-  $query = "SELECT slots, augtype FROM items WHERE id=$itemid";
-  $result = $mysql_content_db->query_assoc($query);
-
-  $slots = $result['slots'];
-  $augment = $result['augtype'];
-
-  if ($slots && !$augment) {
-    $eitem = 1;
-  }
-
-  $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$ldid, item_id=$itemid, equip_item=$eitem, item_charges=$item_charges, multiplier=$multiplier, chance=$chance";
+  $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$ldid, item_id=$itemid, equip_item=$equip_item, item_charges=$item_charges, multiplier=$multiplier, chance=$chance";
   $mysql_content_db->query_no_result($query);
 }
 
