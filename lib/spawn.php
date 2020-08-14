@@ -1614,12 +1614,12 @@ function update_gridentry() {
 }
 
 function is_spawned() {
-  global $mysql_content_db;
+  global $mysql;
   $spid = intval($_GET['spid']);
 
   $array['id'] = $spid;
   $query = "SELECT * FROM respawn_times where id=$spid and instance_id = 0";
-  $result = $mysql_content_db->query_mult_assoc($query);
+  $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
       $array['spawned'][$result['id']] = array("start"=>$result['start'], "duration"=>$result['duration'], "instance_id"=>$result['instance_id']);
@@ -1630,22 +1630,22 @@ function is_spawned() {
 }
 
 function view_respawn() {
-  global $mysql_content_db;
+  global $mysql;
   $spid = intval($_GET['spid']);
 
   $query = "SELECT * FROM respawn_times where id=$spid and instance_id = 0";
-  $result = $mysql_content_db->query_assoc($query);
+  $result = $mysql->query_assoc($query);
 
   return $result;
 }
 
 function force_spawn() {
-  global $mysql_content_db;
+  global $mysql;
   $spid = intval($_GET['spid']);
   $instance_id = intval($_GET['instance_id']);
 
   $query = "DELETE FROM respawn_times where id=$spid and instance_id=$instance_id";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function grid_info_zone() {
@@ -1779,14 +1779,14 @@ function update_spawncondition() {
 
 function update_spawntimer() {
   check_authorization();
-  global $mysql_content_db;
+  global $mysql;
 
   $rid = $_POST['rid'];
   $start = $_POST['start'];
   $duration = $_POST['duration'];
 
   $query = "UPDATE respawn_times SET start=\"$start\", duration=\"$duration\" WHERE id=\"$rid\"";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function add_spawnevent() {
