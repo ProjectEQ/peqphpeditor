@@ -51,13 +51,13 @@
       Loottable: <?=$id?> - "<?=$name?>"
     </div>
     <div class="table_content">
-      Cash Loot:<br>
+      <strong>Cash Loot:</strong><br>
       <div style="padding: 5px 0px 0px 20px;">
-        Min Cash: <?=$mincash?><br>
-        Max Cash: <?=$maxcash?><br>
+        <strong>Min Cash:</strong> <?=$mincash?><br>
+        <strong>Max Cash:</strong> <?=$maxcash?><br>
       </div>
       <div style="padding: 5px 0px 0px 0px;">
-        Lootdrops associated with this loottable: <?=$lootdrop_count?> <a href="index.php?editor=loot&id=<?=$global_loot['id']?>&ltid=<?=$id?>&action=60"><img src="images/add.gif" border="0" title="Add a Lootdrop to this Loottable"></a>
+        <strong>Lootdrops associated with this loottable:</strong> <?=$lootdrop_count?> <a href="index.php?editor=loot&id=<?=$global_loot['id']?>&ltid=<?=$id?>&action=60"><img src="images/add.gif" border="0" title="Add a Lootdrop to this Loottable"></a>
       </div>
     </div>
   </div>
@@ -95,11 +95,11 @@
           <tr>
             <th align="center" width="8%">Item ID</th>
             <th align="center" width="36%">Item Name</th>
-            <th align="center" width="7%">Equipped?</th>
+            <th align="center" width="7%">Equip</th>
             <th align="center" width="7%">Charges</th>
-            <th align="center" width="7%">MinLevel</th>
-            <th align="center" width="7%">MaxLevel</th>
-            <th align="center" width="8%">Multiplier</th>
+            <th align="center" width="7%">Trivial<br>Min</th>
+            <th align="center" width="7%">Trivial<br>Max</th>
+            <th align="center" width="8%">Mult</th>
             <th align="center" width="8%">Chance</th>
             <th width="13%"></th>
           </tr>
@@ -119,8 +119,8 @@
             <td align="center"><?echo (get_item_name($item_id) != "") ? get_item_name($item_id) : "<a title='Item not in database!'>UNKNOWN</a>";?> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$item_id?>" target="_blank">Lucy</a>]</span></td>
             <td align="center" width="100"><?echo ($equip_item == 0) ? "No" : "Yes";?></td>
             <td align="center"><?=$item_charges?></td>
-            <td align="center"><?=$minlevel?></td>
-            <td align="center"><?=$maxlevel?></td>
+            <td align="center"><?=$trivial_min_level?></td>
+            <td align="center"><?=$trivial_max_level?></td>
             <td align="center"><?=$multiplier?></td>
             <td align="center"><?=$chance?></td>
             <td align="right">

@@ -1,34 +1,71 @@
-  <table class="edit_form">
-    <tr>
-      <td class="edit_form_header"><?=$ldname?></td>
-    </tr>
-    <tr>
-      <td class="edit_form_content">
-        <form name="item" method="post" action="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=6&npcid=<?=$npcid?>&ldid=<?=$ldid?>&itemid=<?=$itemid?>">
-          <strong>Lootdrop:</strong><br>
-          <input type="text" value="<?=$ldid?>" disabled><br><br>
-          <strong>Item:</strong><br>
-          <input type="text" value="<?=$itemid?>" disabled><br><br>
-          <strong>Equipped:</strong><br>
-          <input type="radio" name="equip_item" value="0"<?echo ($equip_item == 0) ? " checked" : ""?>>no<br>
-          <input type="radio" name="equip_item" value="1"<?echo ($equip_item == 1) ? " checked" : ""?>>yes<br><br>
-          <strong>Item Charges:</strong> <br>
-          <input type="text" size="5" name="charges" value="<?=$item_charges?>"><br><br>
-          <strong>Min Level:</strong> <br>
-          <input type="text" size="5" name="minlevel" value="<?=$minlevel?>"><br><br>
-          <strong>Max Level:</strong> <br>
-          <input type="text" size="5" name="maxlevel" value="<?=$maxlevel?>"><br><br>
-          <strong>Multiplier:</strong> <br>
-          <input type="text" size="5" name="multiplier" value="<?=$multiplier?>"><br><br>
-          <strong>Chance:</strong> <br>
-          <input type="text" size="5" name="chance" value="<?=$chance?>">%<br><br>
-          <center>
-            <input type="hidden" name="ldid" value="<?=$ldid?>">
-            <input type="hidden" name="itemid" value="<?=$itemid?>">
-            <input type="submit" name="submit" value="Submit Changes">&nbsp;&nbsp;
-            <input type="button" value="Cancel" onClick="history.back();">
-          </center>
-        </form>
-      </td>
-    </tr>
-  </table>
+  <form name="lootdrop_item" method="POST" action="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=6&npcid=<?=$npcid?>&ldid=<?=$ldid?>&itemid=<?=$itemid?>">
+    <div class="edit_form" style="width: 400px;">
+      <div class="edit_form_header">Edit Lootdrop Item</div>
+      <div class="edit_form_content">
+        <table width="100%" cellpadding="3" cellspacing="3">
+          <tr>
+            <td>
+              <strong>Lootdrop ID:</strong><br>
+              <input type="text" size="5" value="<?=$ldid?>" disabled>
+            </td>
+            <td>
+              <strong>Item ID:</strong><br>
+              <input id="id" type="text" size="5" value="<?=$itemid?>" disabled>
+            </td>
+            <td>
+              <strong>Charges:</strong><br>
+              <input type="text" size="5" name="item_charges" value="<?=$item_charges?>">
+            </td>
+          </tr>
+        </table><br>
+        <table width="100%" cellpadding="3" cellspacing="3">
+          <tr>
+            <td>
+              <strong>&nbsp;<br>Equip:</strong><br>
+              <select name="equip_item">
+                <option value="0"<?echo ($equip_item == 0) ? " selected" : "";?>>No</option>
+                <option value="1"<?echo ($equip_item == 1) ? " selected" : "";?>>Yes</option>
+              </select>
+            </td>
+            <td>
+              <strong>&nbsp;<br>Chance:</strong><br>
+              <input type="text" size="5" name="chance" value="<?=$chance?>">
+            </td>
+            <td>
+              <strong>Disabled<br>Chance:</strong><br>
+              <input type="text" size="5" name="disabled_chance" value="<?=$disabled_chance?>">
+            </td>
+            <td>
+              <strong>&nbsp;<br>Multiplier:</strong><br>
+              <input type="text" size="5" name="multiplier" value="<?=$multiplier?>">
+            </td>
+          </tr>
+          <tr><td colspan="4">&nbsp;</td></tr>
+          <tr>
+            <td>
+              <strong>Trivial<br>Min Level:</strong><br>
+              <input type="text" size="5" name="trivial_min_level" value="<?=$trivial_min_level?>">
+            </td>
+            <td>
+              <strong>Trivial<br>Max Level:</strong><br>
+              <input type="text" size="5" name="trivial_max_level" value="<?=$trivial_max_level?>">
+            </td>
+            <td>
+              <strong>NPC<br>Min Level:</strong><br>
+              <input type="text" size="5" name="npc_min_level" value="<?=$npc_min_level?>">
+            </td>
+            <td>
+              <strong>NPC<br>Max Level:</strong><br>
+              <input type="text" size="5" name="npc_max_level" value="<?=$npc_max_level?>">
+            </td>
+          </tr>
+        </table><br><br>
+        <center>
+          <input type="hidden" name="ldid" value="<?=$ldid?>">
+          <input type="hidden" name="itemid" value="<?=$itemid?>">
+          <input type="submit" name="submit" value="Update Item">&nbsp;&nbsp;
+          <input type="button" value="Cancel" onClick="history.back();">
+        </center>
+      </div>
+    </div>
+  </form>
