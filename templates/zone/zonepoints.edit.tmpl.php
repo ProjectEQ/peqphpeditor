@@ -85,6 +85,24 @@
               <input type="text" size="23" name="content_flags_disabled" value="<?=$content_flags_disabled?>">
             </td>
           </tr>
+          <tr>
+            <td>
+              <strong>Virtual:</strong><br>
+              <select name="is_virtual">
+                <option value="0"<?echo ($is_virtual == 0) ? " selected" : "";?>>No</option>
+                <option value="1"<?echo ($is_virtual == 1) ? " selected" : "";?>>Yes</option>
+              </select>
+            </td>
+            <td>
+              <strong>Height:</strong><br>
+              <input type="text" size="7" name="height" value="<?=$height?>">
+            </td>
+            <td>
+              <strong>Width:</strong><br>
+              <input type="text" size="7" name="width" value="<?=$width?>">
+            </td>
+            <td colspan="4">&nbsp;</td>
+          </tr>
         </table><br><br>
         <center>
           <input type="hidden" name="id" value="<?=$id?>">

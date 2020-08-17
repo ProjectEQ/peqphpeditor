@@ -85,6 +85,24 @@
               <input type="text" size="23" name="content_flags_disabled" value="">
             </td>
           </tr>
+          <tr>
+            <td>
+              <strong>Virtual:</strong><br>
+              <select name="is_virtual">
+                <option value="0" selected>No</option>
+                <option value="1">Yes</option>
+              </select>
+            </td>
+            <td>
+              <strong>Height:</strong><br>
+              <input type="text" size="7" name="height" value="0">
+            </td>
+            <td>
+              <strong>Width:</strong><br>
+              <input type="text" size="7" name="width" value="0">
+            </td>
+            <td colspan="4">&nbsp;</td>
+          </tr>
         </table><br><br>
         <center>
           <input type="hidden" name="zone" value="<?=$currzone?>">
