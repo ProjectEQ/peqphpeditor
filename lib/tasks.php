@@ -369,10 +369,16 @@ switch ($action) {
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
+    if ($_GET['filter'] == 'on') {
+      $filter = build_filter();
+    }
     $body = new Template("templates/tasks/tasks.activetasks.tmpl.php");
-    $page_stats = getPageInfo("character_tasks", FALSE, $curr_page, $curr_size, $_GET['sort']);
+    $page_stats = getPageInfo("character_tasks", FALSE, $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
+    if ($filter) {
+      $body->set('filter', $filter);
+    }
     if ($page_stats['page']) {
-      $active_tasks = getActiveTasks($page_stats['page'], $curr_size, $curr_sort);
+      $active_tasks = getActiveTasks($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
     }
     if ($active_tasks) {
       $body->set('active_tasks', $active_tasks);
@@ -391,10 +397,16 @@ switch ($action) {
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
+    if ($_GET['filter'] == 'on') {
+      $filter = build_filter();
+    }
     $body = new Template("templates/tasks/tasks.completedtasks.tmpl.php");
     $page_stats = getPageInfo("completed_tasks", FALSE, $curr_page, $curr_size, $_GET['sort']);
+    if ($filter) {
+      $body->set('filter', $filter);
+    }
     if ($page_stats['page']) {
-      $completed_tasks = getCompletedTasks($page_stats['page'], $curr_size, $curr_sort);
+      $completed_tasks = getCompletedTasks($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
     }
     if ($completed_tasks) {
       $body->set('completed_tasks', $completed_tasks);
@@ -882,21 +894,29 @@ function search_tasks() {
   return $results;
 }
 
-function getActiveTasks($page_number, $results_per_page, $sort_by) {
+function getActiveTasks($page_number, $results_per_page, $sort_by, $where = "") {
   global $mysql;
   $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
 
-  $query = "SELECT * FROM character_tasks ORDER BY $sort_by LIMIT $limit";
+  $query = "SELECT * FROM character_tasks";
+  if ($where) {
+    $query .= " WHERE $where";
+  }
+  $query .= " ORDER BY $sort_by LIMIT $limit";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
 }
 
-function getCompletedTasks($page_number, $results_per_page, $sort_by) {
+function getCompletedTasks($page_number, $results_per_page, $sort_by, $where = "") {
   global $mysql;
   $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
 
-  $query = "SELECT * FROM completed_tasks ORDER BY $sort_by LIMIT $limit";
+  $query = "SELECT * FROM completed_tasks";
+  if ($where) {
+    $query .= " WHERE $where";
+  }
+  $query .= " ORDER BY $sort_by LIMIT $limit";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
@@ -918,5 +938,55 @@ function delete_completed_task() {
 
   $query = "DELETE FROM completed_tasks WHERE taskid=\"$taskid\" AND charid=\"$charid\"";
   $mysql->query_no_result($query);
+}
+
+function build_filter() {
+  global $mysql, $mysql_content_db;
+  $filter1 = $_GET['filter1'];
+  $filter2 = $_GET['filter2'];
+  $filter_final = array();
+
+  if ($filter1) { // Filter by task title
+    $query = "SELECT id FROM tasks WHERE title LIKE \"%$filter1%\"";
+    $results = $mysql_content_db->query_mult_assoc($query);
+    $filter_title = "taskid IN(";
+    if ($results) {
+      foreach ($results as $result) {
+        $filter_title .= $result['id'] . ",";
+      }
+      $filter_title = rtrim($filter_title, ",");
+    }
+    else {
+      $filter_title .= "NULL";
+    }
+    $filter_title .= ")";
+    $filter_final['sql'] = $filter_title;
+  }
+  if ($filter2) { // Filter by character
+    $query = "SELECT id FROM character_data WHERE name LIKE \"%$filter2%\"";
+    $results = $mysql->query_mult_assoc($query);
+    $filter_charid = "charid IN (";
+    if ($results) {
+      foreach ($results as $result) {
+        $filter_charid .= $result['id'] . ",";
+      }
+      $filter_charid = rtrim($filter_charid, ",");
+    }
+    else {
+      $filter_charid .= "NULL";
+    }
+    $filter_charid .= ")";
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_charid;
+  }
+
+  $filter_final['url'] = "&filter=on&filter1=$filter1&filter2=$filter2";
+  $filter_final['status'] = "on";
+  $filter_final['filter1'] = $filter1;
+  $filter_final['filter2'] = $filter2;
+
+  return $filter_final;
 }
 ?>
