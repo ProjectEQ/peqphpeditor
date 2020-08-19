@@ -401,7 +401,7 @@ switch ($action) {
       $filter = build_filter();
     }
     $body = new Template("templates/tasks/tasks.completedtasks.tmpl.php");
-    $page_stats = getPageInfo("completed_tasks", FALSE, $curr_page, $curr_size, $_GET['sort']);
+    $page_stats = getPageInfo("completed_tasks", FALSE, $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
     if ($filter) {
       $body->set('filter', $filter);
     }
