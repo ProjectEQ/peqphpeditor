@@ -1010,8 +1010,18 @@ function update_starting_item() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE starting_items SET class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id AND race=$race";
+  $query = "UPDATE starting_items SET class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id AND race=$race";
   $mysql_content_db->query_no_result($query);
+
+  if ($content_flags != "") {
+    $query = "UPDATE starting_items SET content_flags=\"$content_flags\" WHERE id=$id AND race=$race";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE starting_items SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id AND race=$race";
+    $mysql_content_db->query_no_result($query);
+  }
 }
 
 function insert_starting_item() {
@@ -1031,8 +1041,18 @@ function insert_starting_item() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO starting_items SET id=$id, race=$race, class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\"";
+  $query = "INSERT INTO starting_items SET id=$id, race=$race, class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
+
+  if ($content_flags != "") {
+    $query = "UPDATE starting_items SET content_flags=\"$content_flags\" WHERE id=$id AND race=$race";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE starting_items SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id AND race=$race";
+    $mysql_content_db->query_no_result($query);
+  }
 }
 
 function next_starting_item_id() {

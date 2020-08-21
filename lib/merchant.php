@@ -246,8 +246,18 @@ function update_merchant_item() {
     $classes_value = $classes_value ^ $v;
   }
 
-  $query = "UPDATE merchantlist SET slot=$new_slot, item=$item, faction_required=$faction_required, level_required=$level_required, alt_currency_cost=$alt_currency_cost, classes_required=$classes_value, probability=$probability, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\" WHERE merchantid=$merchantid AND slot=$slot";
+  $query = "UPDATE merchantlist SET slot=$new_slot, item=$item, faction_required=$faction_required, level_required=$level_required, alt_currency_cost=$alt_currency_cost, classes_required=$classes_value, probability=$probability, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE merchantid=$merchantid AND slot=$slot";
   $mysql_content_db->query_no_result($query);
+
+  if ($content_flags != "") {
+    $query = "UPDATE merchantlist SET content_flags=\"$content_flags\" WHERE merchantid=$merchantid AND slot=$slot";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE merchantlist SET content_flags_disabled=\"$content_flags_disabled\" WHERE merchantid=$merchantid AND slot=$slot";
+    $mysql_content_db->query_no_result($query);
+  }
 }
 
 function update_merchantlist_temp() {
@@ -327,8 +337,18 @@ function add_merchant_item() {
     $classes_value = $classes_value ^ $v;
   }
 
-  $query = "INSERT INTO merchantlist SET merchantid=$mid, slot=$slot, item=$item, faction_required=$faction_required, level_required=$level_required, alt_currency_cost=$alt_currency_cost, classes_required=$classes_value, probability=$probability, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\"";
+  $query = "INSERT INTO merchantlist SET merchantid=$mid, slot=$slot, item=$item, faction_required=$faction_required, level_required=$level_required, alt_currency_cost=$alt_currency_cost, classes_required=$classes_value, probability=$probability, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
+
+  if ($content_flags != "") {
+    $query = "UPDATE merchantlist SET content_flags=\"$content_flags\" WHERE merchantid=$mid AND slot=$slot";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE merchantlist SET content_flags_disabled=\"$content_flags_disabled\" WHERE merchantid=$mid AND slot=$slot";
+    $mysql_content_db->query_no_result($query);
+  }
 }
 
 function add_merchant_item_temp() {

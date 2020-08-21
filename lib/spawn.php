@@ -1325,7 +1325,7 @@ function delete_grid() {
   $query = "DELETE FROM grid_entries WHERE zoneid=$zid AND gridid=$pathgrid";
   $mysql_content_db->query_no_result($query);
 
-  $query = "UPDATE spawn2 SET pathgrid = 0 WHERE id=$spid";
+  $query = "UPDATE spawn2 SET pathgrid=0 WHERE id=$spid";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -1391,14 +1391,29 @@ function update_spawnpoint() {
   $fields = '';
   foreach ($old as $k => $v) {
     if ($v != $_POST["$k"]) {
-      $fields .= "$k=\"" . $_POST["$k"] . "\", ";
+      if (($k != 'content_flags') && ($k != 'content_flags_disabled')) {
+        $fields .= "$k=\"" . $_POST["$k"] . "\", ";
+      }
     }
   }
+
+  $fields .= "content_flags=NULL, ";
+  $fields .= "content_flags_disabled=NULL, ";
 
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
     $query = "UPDATE spawn2 SET $fields WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($_POST['content_flags'] != "") {
+    $query = "UPDATE spawn2 SET content_flags=\"$content_flags\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($_POST['content_flags_disabled'] != "") {
+    $query = "UPDATE spawn2 SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id";
     $mysql_content_db->query_no_result($query);
   }
 }
@@ -1496,6 +1511,7 @@ function suggest_spawncondition_value() {
 function add_spawnpoint() {
   check_authorization();
   global $mysql_content_db;
+
   $id = $_POST['id'];
   $spawngroupID = $_POST['spawngroupID'];
   $zone = $_POST['zone'];
@@ -1516,8 +1532,18 @@ function add_spawnpoint() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\"";
+  $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
+
+  if ($content_flags != "") {
+    $query = "UPDATE spawn2 SET content_flags=\"$content_flags\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE spawn2 SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
 }
 
 function add_spawngroup() {
@@ -1633,7 +1659,7 @@ function view_respawn() {
   global $mysql;
   $spid = intval($_GET['spid']);
 
-  $query = "SELECT * FROM respawn_times where id=$spid and instance_id = 0";
+  $query = "SELECT * FROM respawn_times WHERE id=$spid AND instance_id=0";
   $result = $mysql->query_assoc($query);
 
   return $result;
@@ -1644,7 +1670,7 @@ function force_spawn() {
   $spid = intval($_GET['spid']);
   $instance_id = intval($_GET['instance_id']);
 
-  $query = "DELETE FROM respawn_times where id=$spid and instance_id=$instance_id";
+  $query = "DELETE FROM respawn_times WHERE id=$spid AND instance_id=$instance_id";
   $mysql->query_no_result($query);
 }
 
@@ -1654,7 +1680,7 @@ function grid_info_zone() {
   $array = array();
 
   $array['id'] = $zid;
-  $query = "SELECT id,type,type2 FROM grid WHERE zoneid=$zid";
+  $query = "SELECT id, type, type2 FROM grid WHERE zoneid=$zid";
   $results = $mysql_content_db->query_mult_assoc($query);
   if ($results) {
     foreach ($results as $result) {
@@ -1846,6 +1872,7 @@ function copy_spawnpoint() {
 
   $id = $_POST['id'];
   $sgid = $_POST['sgid'];
+  $new_id = suggest_spawnpoint_id();
 
   $query1 = "SELECT * FROM spawn2 WHERE id=$id";
   $original = $mysql_content_db->query_assoc($query1);
@@ -1868,8 +1895,18 @@ function copy_spawnpoint() {
   $content_flags = $original['content_flags'];
   $content_flags_disabled = $original['content_flags_disabled'];
 
-  $query2 = "INSERT INTO spawn2 SET spawngroupID=\"$sgid\", zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\"";
+  $query2 = "INSERT INTO spawn2 SET id=$new_id, spawngroupID=\"$sgid\", zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query2);
+
+  if ($content_flags != "") {
+    $query3 = "UPDATE spawn2 SET content_flags=\"$content_flags\" WHERE id=$new_id";
+    $mysql_content_db->query_no_result($query3);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query4 = "UPDATE spawn2 SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$new_id";
+    $mysql_content_db->query_no_result($query4);
+  }
 }
 
 function move_spawnpoint() {
@@ -1879,14 +1916,14 @@ function move_spawnpoint() {
   $id = $_POST['id'];
   $sgid = $_POST['sgid'];
 
-  $query = "UPDATE spawn2 set spawngroupID=\"$sgid\" where id=$id";
+  $query = "UPDATE spawn2 SET spawngroupID=$sgid WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 }
 
 function search_spawngroups($search) {
   global $mysql_content_db;
 
-  $query = "SELECT * FROM spawngroup WHERE name rlike \"$search\"";
+  $query = "SELECT * FROM spawngroup WHERE name RLIKE \"$search\"";
   $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;

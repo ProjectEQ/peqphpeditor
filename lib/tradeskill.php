@@ -246,21 +246,33 @@ function update_recipe() {
   $old = recipe_info();
   $fields = '';
 
-  if($old['id'] != $id) $fields .= "id=$id, ";
-  if($old['name'] != $name) $fields .= "name=\"$name\", ";
-  if($old['tradeskill'] != $tradeskill) $fields .= "tradeskill=$tradeskill, ";
-  if($old['skillneeded'] != $skillneeded) $fields .= "skillneeded=$skillneeded, ";
-  if($old['trivial'] != $trivial) $fields .= "trivial=$trivial, ";
-  if($old['nofail'] != $nofail) $fields .= "nofail=$nofail, ";
-  if($old['replace_container'] != $replace_container) $fields .= "replace_container=$replace_container, ";
-  if($old['notes'] != $notes) $fields .= "notes=\"$notes\", ";
-  if($old['must_learn'] != $must_learn) $fields .= "must_learn=\"$must_learn\", ";
-  if($old['quest'] != $quest) $fields .= "quest=\"$quest\", ";
-  if($old['enabled'] != $enabled) $fields .= "enabled=\"$enabled\", ";
-  if($old['min_expansion'] != $min_expansion) $fields .= "min_expansion=\"$min_expansion\", ";
-  if($old['max_expansion'] != $max_expansion) $fields .= "max_expansion=\"$max_expansion\", ";
-  if($old['content_flags'] != $content_flags) $fields .= "content_flags=\"$content_flags\", ";
-  if($old['content_flags_disabled'] != $content_flags_disabled) $fields .= "content_flags_disabled=\"$content_flags_disabled\", ";
+  if ($old['id'] != $id) $fields .= "id=$id, ";
+  if ($old['name'] != $name) $fields .= "name=\"$name\", ";
+  if ($old['tradeskill'] != $tradeskill) $fields .= "tradeskill=$tradeskill, ";
+  if ($old['skillneeded'] != $skillneeded) $fields .= "skillneeded=$skillneeded, ";
+  if ($old['trivial'] != $trivial) $fields .= "trivial=$trivial, ";
+  if ($old['nofail'] != $nofail) $fields .= "nofail=$nofail, ";
+  if ($old['replace_container'] != $replace_container) $fields .= "replace_container=$replace_container, ";
+  if ($old['notes'] != $notes) $fields .= "notes=\"$notes\", ";
+  if ($old['must_learn'] != $must_learn) $fields .= "must_learn=\"$must_learn\", ";
+  if ($old['quest'] != $quest) $fields .= "quest=\"$quest\", ";
+  if ($old['enabled'] != $enabled) $fields .= "enabled=\"$enabled\", ";
+  if ($old['min_expansion'] != $min_expansion) $fields .= "min_expansion=$min_expansion, ";
+  if ($old['max_expansion'] != $max_expansion) $fields .= "max_expansion=$max_expansion, ";
+
+  if ($content_flags != "") {
+    $fields .= "content_flags=\"$content_flags\", ";
+  }
+  else {
+    $fields .= "content_flags=NULL, ";
+  }
+
+  if($content_flags_disabled != "") {
+    $fields .= "content_flags_disabled=\"$content_flags_disabled\", ";
+  }
+  else {
+    $fields .= "content_flags_disabled=NULL, ";
+  }
 
   $fields =  rtrim($fields, ", ");
 
@@ -325,13 +337,13 @@ function update_component() {
   $old = component_info();
   $fields = '';
 
-  if($old['recipe_id'] != $recipe_id) $fields .= "recipe_id=$recipe_id, ";
-  if($old['item_id'] != $item_id) $fields .= "item_id=$item_id, ";
-  if($old['successcount'] != $successcount) $fields .= "successcount=$successcount, ";
-  if($old['failcount'] != $failcount) $fields .= "failcount=$failcount, ";
-  if($old['componentcount'] != $componentcount) $fields .= "componentcount=$componentcount, ";
-  if($old['iscontainer'] != $iscontainer) $fields .= "iscontainer=$iscontainer, ";
-  if($old['salvagecount'] != $salvagecount) $fields .= "salvagecount=$salvagecount, ";
+  if ($old['recipe_id'] != $recipe_id) $fields .= "recipe_id=$recipe_id, ";
+  if ($old['item_id'] != $item_id) $fields .= "item_id=$item_id, ";
+  if ($old['successcount'] != $successcount) $fields .= "successcount=$successcount, ";
+  if ($old['failcount'] != $failcount) $fields .= "failcount=$failcount, ";
+  if ($old['componentcount'] != $componentcount) $fields .= "componentcount=$componentcount, ";
+  if ($old['iscontainer'] != $iscontainer) $fields .= "iscontainer=$iscontainer, ";
+  if ($old['salvagecount'] != $salvagecount) $fields .= "salvagecount=$salvagecount, ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -347,13 +359,13 @@ function add_component() {
   
   $fields = '';
   
-  if(isset($_POST['recipe_id'])) $fields .= "recipe_id={$_POST['recipe_id']}, ";
-  if(isset($_POST['item_id'])) $fields .= "item_id={$_POST['item_id']}, ";
-  if(isset($_POST['successcount'])) $fields .= "successcount={$_POST['successcount']}, ";
-  if(isset($_POST['failcount'])) $fields .= "failcount={$_POST['failcount']}, ";
-  if(isset($_POST['componentcount'])) $fields .= "componentcount={$_POST['componentcount']}, ";
-  if(isset($_POST['iscontainer'])) $fields .= "iscontainer={$_POST['iscontainer']}, ";
-  if(isset($_POST['salvagecount'])) $fields .= "salvagecount={$_POST['salvagecount']}, ";
+  if (isset($_POST['recipe_id'])) $fields .= "recipe_id={$_POST['recipe_id']}, ";
+  if (isset($_POST['item_id'])) $fields .= "item_id={$_POST['item_id']}, ";
+  if (isset($_POST['successcount'])) $fields .= "successcount={$_POST['successcount']}, ";
+  if (isset($_POST['failcount'])) $fields .= "failcount={$_POST['failcount']}, ";
+  if (isset($_POST['componentcount'])) $fields .= "componentcount={$_POST['componentcount']}, ";
+  if (isset($_POST['iscontainer'])) $fields .= "iscontainer={$_POST['iscontainer']}, ";
+  if (isset($_POST['salvagecount'])) $fields .= "salvagecount={$_POST['salvagecount']}, ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -408,8 +420,18 @@ function add_recipe() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO tradeskill_recipe SET id=$id, name=\"$name\", tradeskill=$tradeskill, skillneeded=$skillneeded, trivial=$trivial, nofail=$nofail, replace_container=$replace_container, notes=\"$notes\", must_learn=$must_learn, quest=$quest, enabled=$enabled, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\"";
+  $query = "INSERT INTO tradeskill_recipe SET id=$id, name=\"$name\", tradeskill=$tradeskill, skillneeded=$skillneeded, trivial=$trivial, nofail=$nofail, replace_container=$replace_container, notes=\"$notes\", must_learn=$must_learn, quest=$quest, enabled=$enabled, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
+
+  if ($content_flags != "") {
+    $query = "UPDATE tradeskill_recipe SET content_flags=\"$content_flags\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE tradeskill_recipe SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
 }
 
 function copy_tradeskill() {
@@ -443,8 +465,18 @@ function copy_tradeskill() {
   $query = "DELETE FROM tradeskill_recipe_entries WHERE recipe_id=0";
   $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO tradeskill_recipe (id, name, tradeskill, skillneeded, trivial, nofail, replace_container, notes, must_learn, quest, enabled, min_expansion, max_expansion, content_flags, content_flags_disabled) VALUES ($newid, \"$name\", $tradeskill, $skillneeded, $trivial, $nofail, $replace_container, \"$notes\", $must_learn, $quest, $enabled, $min_expansion, $max_expansion, \"$content_flags\", \"$content_flags_disabled\")";
+  $query = "INSERT INTO tradeskill_recipe (id, name, tradeskill, skillneeded, trivial, nofail, replace_container, notes, must_learn, quest, enabled, min_expansion, max_expansion, content_flags, content_flags_disabled) VALUES ($newid, \"$name\", $tradeskill, $skillneeded, $trivial, $nofail, $replace_container, \"$notes\", $must_learn, $quest, $enabled, $min_expansion, $max_expansion, NULL, NULL)";
   $mysql_content_db->query_no_result($query);
+
+  if ($content_flags != "") {
+    $query = "UPDATE tradeskill_recipe SET content_flags=\"$content_flags\" WHERE id=$newid";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE tradeskill_recipe SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$newid";
+    $mysql_content_db->query_no_result($query);
+  }
 
   $query = "INSERT INTO tradeskill_recipe_entries (item_id, successcount, failcount, componentcount, iscontainer, salvagecount) SELECT item_id, successcount, failcount, componentcount, iscontainer, salvagecount FROM tradeskill_recipe_entries WHERE recipe_id=$oldid";
   $mysql_content_db->query_no_result($query);

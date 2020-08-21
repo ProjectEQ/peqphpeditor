@@ -396,8 +396,25 @@ function update_zone() {
   if ($max_movement_update_range != $_POST['max_movement_update_range']) $fields .= "max_movement_update_range=\"" . $_POST['max_movement_update_range'] . "\", ";
   if ($min_expansion != $_POST['min_expansion']) $fields .= "min_expansion=\"" . $_POST['min_expansion'] . "\", ";
   if ($max_expansion != $_POST['max_expansion']) $fields .= "max_expansion=\"" . $_POST['max_expansion'] . "\", ";
-  if ($content_flags != $_POST['content_flags']) $fields .= "content_flags=\"" . $_POST['content_flags'] . "\", ";
-  if ($content_flags_disabled != $_POST['content_flags_disabled']) $fields .= "content_flags_disabled=\"" . $_POST['content_flags_disabled'] . "\", ";
+
+  if ($content_flags != $_POST['content_flags']) {
+    if ($_POST['content_flags'] == "") {
+       $fields .= "content_flags=NULL,";
+    }
+    else {
+       $fields .= "content_flags=\"" . $_POST['content_flags'] . "\", ";
+    }
+  }
+
+  if ($content_flags_disabled != $_POST['content_flags_disabled']) {
+    if ($_POST['content_flags_disabled'] == "") {
+       $fields .= "content_flags_disabled=NULL,";
+    }
+    else {
+       $fields .= "content_flags_disabled=\"" . $_POST['content_flags_disabled'] . "\", ";
+    }
+  }
+
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -447,8 +464,18 @@ function update_zonepoints() {
   $height = $_POST['height'];
   $width = $_POST['width'];
 
-  $query = "UPDATE zone_points SET number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", target_zone_id=\"$target_zone_id\", version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\", min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\", is_virtual=$is_virtual, height=$height, width=$width WHERE id=\"$id\"";
+  $query = "UPDATE zone_points SET number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", target_zone_id=\"$target_zone_id\", version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\", min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL, is_virtual=$is_virtual, height=$height, width=$width WHERE id=\"$id\"";
   $mysql_content_db->query_no_result($query);
+
+  if ($content_flags != "") {
+    $query = "UPDATE zone_points SET content_flags=\"$content_flags\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE zone_points SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
 }
 
 function update_blockedspell() {
@@ -580,8 +607,18 @@ function add_zonepoints() {
   $height = $_POST['height'];
   $width = $_POST['width'];
 
-  $query = "INSERT INTO zone_points SET id=\"$id\", zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", target_zone_id=\"$target_zone_id\", buffer=0, version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\", min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=\"$content_flags\", content_flags_disabled=\"$content_flags_disabled\", is_virtual=$is_virtual, height=$height, width=$width";
+  $query = "INSERT INTO zone_points SET id=\"$id\", zone=\"$zone\", number=\"$number\", x=\"$x\", y=\"$y\", z=\"$z\", heading=\"$heading\", target_x=\"$target_x\", target_y=\"$target_y\", target_z=\"$target_z\", target_heading=\"$target_heading\", target_zone_id=\"$target_zone_id\", buffer=0, version=\"$version\", target_instance=\"$target_instance\", client_version_mask=\"$client_version_mask\", min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL, is_virtual=$is_virtual, height=$height, width=$width";
   $mysql_content_db->query_no_result($query);
+
+  if ($content_flags != "") {
+    $query = "UPDATE zone_points SET content_flags=\"$content_flags\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE zone_points SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
 }
 
 function add_blockedspell() {
@@ -629,10 +666,10 @@ function zonepoints_info() {
   $zversion = $result['zversion'];
 
   $query = "SELECT * FROM zone_points WHERE zone=\"$z\" AND version=$zversion";
-  $result = $mysql_content_db->query_mult_assoc($query);
-  if ($result) {
-    foreach ($result as $result) {
-      $array['zonepoints'][$result['id']] = array("id"=>$result['id'], "zone"=>$result['zone'], "number"=>$result['number'], "x"=>$result['x'], "y"=>$result['y'], "z"=>$result['z'], "heading"=>$result['heading'], "target_x"=>$result['target_x'], "target_y"=>$result['target_y'], "target_z"=>$result['target_z'], "target_heading"=>$result['target_heading'], "target_zone_id"=>$result['target_zone_id'], "version"=>$result['version'], "target_instance"=>$result['target_instance'], "client_version_mask"=>$result['client_version_mask'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$results['content_flags_disabled'], "is_virtual"=>$results['is_virtual'], "height"=>$results['height'], "width"=>$results['width']);
+  $results = $mysql_content_db->query_mult_assoc($query);
+  if ($results) {
+    foreach ($results as $result) {
+      $array['zonepoints'][$result['id']] = array("id"=>$result['id'], "zone"=>$result['zone'], "number"=>$result['number'], "x"=>$result['x'], "y"=>$result['y'], "z"=>$result['z'], "heading"=>$result['heading'], "target_x"=>$result['target_x'], "target_y"=>$result['target_y'], "target_z"=>$result['target_z'], "target_heading"=>$result['target_heading'], "target_zone_id"=>$result['target_zone_id'], "version"=>$result['version'], "target_instance"=>$result['target_instance'], "client_version_mask"=>$result['client_version_mask'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled'], "is_virtual"=>$result['is_virtual'], "height"=>$result['height'], "width"=>$result['width']);
     }
   }
   return $array;
