@@ -149,6 +149,8 @@
                             </fieldset><br>
                           </td>
                         </tr>
+                      </table>
+                      <table cellspacing="0" border="0" width="100%">
                         <tr>
                           <td>
                             <b>Enabled:</b><br>
@@ -157,7 +159,7 @@
                               <option value="1" selected>Yes</option>
                             </select>
                           </td>
-                          <td colspan="2">
+                          <td>
                             <b>First Rank:</b><br>
                             <select name="first_rank_id">
                               <option value="0" selected>None</option>
@@ -185,10 +187,16 @@
                             <b>Charges:</b><br>
                             <input name="charges" type="text" size="3" value="0">
                           </td>
-                          <td>&nbsp;</td>
                           <td>
                             <b>Drakkin Heritage:</b><br>
                             <input name="drakkin_heritage" type="text" size="3" value="127">
+                          </td>
+                          <td>
+                            <b>Reset on Death:</b><br>
+                            <select name="reset_on_death">
+                              <option value="0" selected>No</option>
+                              <option value="1">Yes</option>
+                            </select>
                           </td>
                         </tr>
                       </table>
