@@ -339,8 +339,8 @@ function update_item() {
   if (isset($_POST['slot_Legs'])) $slots = $slots+262144;
   if (isset($_POST['slot_Feet'])) $slots = $slots+524288;
   if (isset($_POST['slot_Waist'])) $slots = $slots+1048576;
-  if (isset($_POST['slot_Ammo'])) $slots = $slots+2097152;
-  if (isset($_POST['slot_Powersource'])) $slots = $slots+4194304;
+  if (isset($_POST['slot_Powersource'])) $slots = $slots+2097152;
+  if (isset($_POST['slot_Ammo'])) $slots = $slots+4194304;
 
   $races = 0;
   if (isset($_POST['race_Human'])) $races = $races+1;
@@ -682,8 +682,8 @@ function add_item() {
   if (isset($_POST['slot_Legs'])) $slots = $slots+262144;
   if (isset($_POST['slot_Feet'])) $slots = $slots+524288;
   if (isset($_POST['slot_Waist'])) $slots = $slots+1048576;
-  if (isset($_POST['slot_Ammo'])) $slots = $slots+2097152;
-  if (isset($_POST['slot_Powersource'])) $slots = $slots+4194304;
+  if (isset($_POST['slot_Powersource'])) $slots = $slots+2097152;
+  if (isset($_POST['slot_Ammo'])) $slots = $slots+4194304;
 
   $races = 0;
   if (isset($_POST['race_Human'])) $races = $races+1;

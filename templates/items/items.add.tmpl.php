@@ -260,8 +260,8 @@
               <td valign="top" align="left">
                 <br>
                 <input type="checkbox" name="slot_Waist" value="1048576"> Waist<br>
-                <input type="checkbox" name="slot_Ammo" value="2097152"> Ammo<br>
-                <input type="checkbox" name="slot_Powersource" value="4194304"> Powersource<br>
+                <input type="checkbox" name="slot_Powersource" value="2097152"> Powersource<br>
+                <input type="checkbox" name="slot_Ammo" value="4194304"> Ammo<br>
                 <input type="checkbox" name="all_none" value="yes" onClick="Check(document.item_edit)"> <b>All/None</b><br>
               </td>
             </tr>
