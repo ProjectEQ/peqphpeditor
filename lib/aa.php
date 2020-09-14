@@ -88,7 +88,7 @@ switch ($action) {
     $body->set('aa_type', $aa_type);
     $body->set('aa_category', $aa_category);
     $body->set('aas', $aas);
-    $body->set('new_id', suggest_id());
+    $body->set('new_id', suggest_ability_id());
     $body->set('all_ranks', get_aa_ranks());
     break;
   case 5: //Insert AA
@@ -123,7 +123,12 @@ switch ($action) {
     header("Location: index.php?editor=aa&aaid=$id");
     exit;
   case 16: //Edit AA Effect
-  case 17: //Update AA Effect
+  case 17: //Update AA Rank Effect
+    check_authorization();
+    $id = $_POST['aaid'];
+    update_rank_effect();
+    header("Location: index.php?editor=aa&aaid=$id");
+    exit;
   case 18: //Edit Prerequisite AA
   case 19: //Update Prerequisite AA
   case 20: //Delete AA
@@ -442,7 +447,7 @@ function delete_aa_rank() {
   $mysql_content_db->query_no_result($query);
 }
 
-function suggest_id() {
+function suggest_ability_id() {
   global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS id FROM aa_ability";
@@ -458,6 +463,23 @@ function suggest_rank_id() {
   $result = $mysql_content_db->query_assoc($query);
 
   return $result['id'] + 1;
+}
+
+function insert_rank_effect() {
+
+}
+
+function update_rank_effect() {
+  global $mysql_content_db;
+
+  $rank_id = $_POST['rank_id'];
+  $slot = $_POST['slot'];
+  $effect_id = $_POST['effect_id'];
+  $base1 = $_POST['base1'];
+  $base2 = $_POST['base2'];
+
+  $query = "UPDATE aa_rank_effects SET effect_id=$effect_id, base1=$base1, base2=$base2 WHERE rank_id=$rank_id AND slot=$slot";
+  $mysql_content_db->query_no_result($query);
 }
 
 ?>

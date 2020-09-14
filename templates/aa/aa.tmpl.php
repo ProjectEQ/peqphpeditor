@@ -365,7 +365,7 @@ if ($effects) {
 ?>
                     <fieldset>
                       <legend><strong><font size="2">Rank (<?=$effect_detail['rank_id']?>) - Slot <?=$effect_detail['slot']?></font></strong></legend>
-                      <form name="effect<?=$effect_detail['rank_id']?>" method="POST" action="index.php?editor=aa&aaid=<?=$base['id']?>&rankid=<?=$effect_detail['rank_id']?>&slot=<?=$effect_detail['slot']?>&action=17">
+                      <form name="effect<?=$effect_detail['rank_id']?>" method="POST" action="index.php?editor=aa&aaid=<?=$base['id']?>&action=17">
                         <table cellspacing="0" cellpadding="0" width="100%">
                           <tr>
                             <td>
@@ -392,6 +392,7 @@ if ($effects) {
                         </table>
                         <center>
                           <br>
+                          <input type="hidden" name="aaid" value="<?=$base['id']?>">
                           <input type="hidden" name="rank_id" value="<?=$effect_detail['rank_id']?>">
                           <input type="hidden" name="slot" value="<?=$effect_detail['slot']?>">
                           <input type="submit" value="Update Effect (<?=$effect_detail['rank_id']?>) - Slot <?=$effect_detail['slot']?>">
