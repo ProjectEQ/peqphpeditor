@@ -66,8 +66,9 @@
             <td>
               <strong>Hot Zone:</strong><br>
               <select name="hot_zone" style="width: 80px;">
-                <option value="0"<?echo ($hot_zone == 0) ? " selected" : "";?>>No</option>
-                <option value="1"<?echo ($hot_zone != 0) ? " selected" : "";?>>Yes</option>
+                <option value="-1"<?echo ($hot_zone == "") ? " selected" : "";?>>Not Used</option>
+                <option value="0"<?echo ($hot_zone == "0") ? " selected" : "";?>>Must Not Be</option>
+                <option value="1"<?echo ($hot_zone == "1") ? " selected" : "";?>>Must Be</option>
               </select>
             </td>
           </tr>

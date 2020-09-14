@@ -66,8 +66,9 @@
             <td>
               <strong>Hot Zone:</strong><br>
               <select name="hot_zone" style="width: 80px;">
-                <option value="0" selected>No</option>
-                <option value="1">Yes</option>
+                <option value="-1" selected>Not Used</option>
+                <option value="0">Must Not Be</option>
+                <option value="1">Must Be</option>
               </select>
             </td>
           </tr>
