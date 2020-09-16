@@ -1,7 +1,6 @@
 <?
 switch ($action) {
   case 0:
-    check_authorization();
     if($npcid) {
       $body = new Template("templates/quest/quest.tmpl.php");
       $body->set('currzone', $z);

@@ -157,7 +157,6 @@ switch ($action) {
     }
     break;
   case 10:  // View Spawnpoints
-    check_authorization();
     if ($npcid) {
       $body = new Template("templates/spawn/spawnpoint.tmpl.php");
       $body->set('currzone', $z);
@@ -254,7 +253,6 @@ switch ($action) {
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
     exit;
   case 20: // View grid
-    check_authorization();
     $body = new Template("templates/spawn/grid.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -375,7 +373,6 @@ switch ($action) {
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
     break;
   case 31: // View zone grids
-    check_authorization();
     $body = new Template("templates/spawn/grid.zone.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -426,7 +423,6 @@ switch ($action) {
     }
     break;
   case 36: // View spawn_conditions and events
-    check_authorization();
     $body = new Template("templates/spawn/spawncondition.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -618,7 +614,6 @@ switch ($action) {
     $body->set('despawntype', $despawntype);
     break;
   case 55: // Search spawngroup by name
-    check_authorization();
     $body = new Template("templates/spawn/spawngroup.search.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -633,7 +628,6 @@ switch ($action) {
     $body->set('npcid', $npcid);
     break;
   case 57: // Search spawngroups by name
-    check_authorization();
     $body = new Template("templates/spawn/spawngroup.searchresults.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -662,7 +656,6 @@ switch ($action) {
     }
     break;
   case 59: // List spawngroups for a zone
-    check_authorization();
     $res = get_spawngroups_by_zone($z);
     $body = new Template("templates/spawn/spawngroup.showgroups.tmpl.php");
     $body->set('currzone', $z);
@@ -670,7 +663,6 @@ switch ($action) {
     $body->set('results', $res);
     break;
   case 60: // View spawn_condition values
-    check_authorization();
     $body = new Template("templates/spawn/spawnconditionvalues.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -731,7 +723,6 @@ switch ($action) {
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&action=31");
     exit;
   case 66: // View NPCs on Grid
-    check_authorization();
     $body = new Template("templates/spawn/grid.npcs.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -739,14 +730,12 @@ switch ($action) {
     $body->set('grid_npcs', $grid_npcs);
     break;
   case 67: // Search for spawngroups
-    check_authorization();
     $body = new Template("templates/spawn/spawngroup.showoptions.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     break;
   case 68: // List spawngroups by NPC
-    check_authorization();
     $body = new Template("templates/spawn/spawn_.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
