@@ -140,14 +140,12 @@ switch ($action) {
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 14: // Search Loottables
-    check_authorization();
     $body = new Template("templates/loot/loottable.search.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     break;
   case 15: // Display Search Results
-    check_authorization();
     $body = new Template("templates/loot/loottable.searchresults.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -211,7 +209,6 @@ switch ($action) {
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 25: // Search Loot Item
-    check_authorization();
     $body = new Template("templates/loot/lootdrop.search.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -229,7 +226,6 @@ switch ($action) {
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 28: // Display Search Results
-    check_authorization();
     $body = new Template("templates/loot/lootdrop.searchresults.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -266,7 +262,6 @@ switch ($action) {
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 32:  // Search npc by item
-    check_authorization();
     $body = new Template("templates/loot/loot.searchresults.tmpl.php");
     $results = search_loot_by_item();
     $body->set("results", $results);
