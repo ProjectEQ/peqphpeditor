@@ -2,7 +2,7 @@
     <br><br><br>
     <h1>Admin Editor</h1>
     <br><br>
-    <div class="table_container" style="width:500px;">
+    <div class="table_container" style="width:350px;">
       <div class="table_header">
         User Management
         <div style="float:right;">
@@ -31,7 +31,7 @@
         </table>
       </div>
     </div><br><br>
-    <div class="table_container" style="width:350px;">
+    <div class="table_container" style="width:500px;">
       <div class="table_header">
         GM IPs
         <div style="float:right;">
