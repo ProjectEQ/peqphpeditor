@@ -32,7 +32,7 @@ foreach($players as $player):?>
         <td align="center"><a href="index.php?editor=account&acctid=<?=$player['account_id']?>"><?echo getAccountName($player['account_id'])?></a></td>
         <td align="center"><?=$classes[$player['class']]?></td>
         <td align="center"><?=$player['level']?></td>
-        <td align="right"><a href="index.php?editor=player&playerid=<?=$player['id']?>"><img src="images/view_all.gif" width="13" height="13" border="0" title="View Player"></a></td>
+        <td align="right"><a href="index.php?editor=player&playerid=<?=$player['id']?>"><img src="images/view_all.gif" width="13" height="13" border="0" title="View Player"></a><?echo (stripos($player['name'], "-deleted-")) ? "<a href='index.php?editor=player&playerid=" . $player['id'] . "&action=7' onClick='return confirm(\"Are you sure you want to undelete this player? You should verify there are enough free slots on the account before proceeding.\")'><img src='images/undelete.png' width='13' border='0' title='Undelete Player'></a>" : "";?></td>
       </tr>
 <?$x++;
 endforeach;

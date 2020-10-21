@@ -67,6 +67,7 @@
                   <fieldset>
                     <legend><strong>Other Info</strong></legend>
                     Birth: <?=get_real_time($birthday)?><br>
+                    Deleted: <?echo (stripos($name, "-deleted-")) ? "<a href='index.php?editor=player&playerid=" . $id . "&action=7' onClick='return confirm(\"Are you sure you want to undelete this player? You should verify there are enough free slots on the account before proceeding.\")'>" . $deleted_at . "</a>" : "N/A";?><br>
                     Anonymous: <?=$anonymity[$anon]?><br>
                     LFG: <?=$yesno[$lfg]?><br>
                     LFP: <?=$yesno[$lfp]?><br>

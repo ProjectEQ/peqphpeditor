@@ -125,6 +125,12 @@ switch ($action) {
     update_player_location();
     header("Location: index.php?editor=player&playerid=$playerid");
     exit;
+  case 7: // Undelete Player
+    check_admin_authorization();
+    $playerid = $_GET['playerid'];
+    undelete_player($playerid);
+    header("Location: index.php?editor=player&playerid=$playerid");
+    exit;
 }
 
 function get_players($page_number, $results_per_page, $sort_by) {
@@ -310,5 +316,14 @@ function get_zones() {
   $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
+}
+
+function undelete_player($playerid) {
+  global $mysql;
+  $deleted_name = getPlayerName($playerid);
+  $restored_name = substr($deleted_name, 0, stripos($deleted_name, "-deleted"));
+
+  $query = "UPDATE character_data SET name=\"$restored_name\", deleted_at=NULL WHERE id=$playerid";
+  $mysql->query_no_result($query);
 }
 ?>
