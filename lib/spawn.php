@@ -1397,11 +1397,13 @@ function update_spawnpoint() {
   }
 
   if ($_POST['content_flags'] != "") {
+    $content_flags = $_POST['content_flags'];
     $query = "UPDATE spawn2 SET content_flags=\"$content_flags\" WHERE id=$id";
     $mysql_content_db->query_no_result($query);
   }
 
   if ($_POST['content_flags_disabled'] != "") {
+    $content_flags_disabled = $_POST['content_flags_disabled'];
     $query = "UPDATE spawn2 SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id";
     $mysql_content_db->query_no_result($query);
   }
