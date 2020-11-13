@@ -44,10 +44,10 @@ switch($action) {
 }
 
 function get_content_flags() {
-  global $mysql_content_db;
+  global $mysql;
 
   $query = "SELECT * FROM content_flags";
-  $results = $mysql_content_db->query_mult_assoc($query);
+  $results = $mysql->query_mult_assoc($query);
 
   if ($results) {
     return $results;
@@ -58,10 +58,10 @@ function get_content_flags() {
 }
 
 function get_content_flag($id) {
-  global $mysql_content_db;
+  global $mysql;
 
   $query = "SELECT * FROM content_flags WHERE id=$id";
-  $result = $mysql_content_db->query_assoc($query);
+  $result = $mysql->query_assoc($query);
 
   if ($result) {
     return $result;
@@ -72,7 +72,7 @@ function get_content_flag($id) {
 }
 
 function add_content_flag() {
-  global $mysql_content_db;
+  global $mysql;
 
   $id = $_POST['id'];
   $flag_name = $_POST['flag_name'];
@@ -80,11 +80,11 @@ function add_content_flag() {
   $notes = $_POST['notes'];
 
   $query = "INSERT INTO content_flags SET id=$id, flag_name=\"$flag_name\", enabled=$enabled, notes=\"$notes\"";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function update_content_flag() {
-  global $mysql_content_db;
+  global $mysql;
 
   $id = $_POST['id'];
   $flag_name = $_POST['flag_name'];
@@ -92,21 +92,21 @@ function update_content_flag() {
   $notes = $_POST['notes'];
 
   $query = "UPDATE content_flags SET flag_name=\"$flag_name\", enabled=$enabled, notes=\"$notes\" WHERE id=$id";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function delete_content_flag($id) {
-  global $mysql_content_db;
+  global $mysql;
 
   $query = "DELETE FROM content_flags WHERE id=$id";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function next_content_flag() {
-  global $mysql_content_db;
+  global $mysql;
 
   $query = "SELECT MAX(id) AS id FROM content_flags";
-  $result = $mysql_content_db->query_assoc($query);
+  $result = $mysql->query_assoc($query);
 
   return $result['id'] + 1;
 }
