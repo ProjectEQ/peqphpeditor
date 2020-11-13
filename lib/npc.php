@@ -2186,17 +2186,48 @@ function suggest_npcid() {
   $query = "SELECT zoneidnumber FROM zone WHERE short_name=\"$z\"";
   $result = $mysql_content_db->query_assoc($query);
 
-  if ($result) {
-    $zid = $result['zoneidnumber'] . "___";
+  if ($result) { // Associated with a zone
+    $npczoneid = $result['zoneidnumber'];
+
+    $query = "SELECT id FROM npc_types WHERE id = $npczoneid * 1000";
+    $result = $mysql_content_db->query_assoc($query);
+
+    if (!$result) { // Very first id is available
+      return $npczoneid * 1000;
+    }
+
+    // Find next available id
+    $query = "SELECT MIN(n1.id + 1) AS npcid FROM npc_types n1 LEFT JOIN npc_types n2 ON n1.id + 1 = n2.id WHERE n1.id >= $npczoneid * 1000 AND n1.id < $npczoneid * 1000 + 1000 AND n2.id IS NULL";
+    $result = $mysql_content_db->query_assoc($query);
+
+    if ($result['npcid'] > 0) {
+      return $result['npcid'];
+    }
+    else {
+      return "";
+    }
   }
-  else {
-    $zid = "___";
+  else { // Not associated with a zone (pet, trigger, chest, etc.)
+
+    $query = "SELECT id FROM npc_types WHERE id = 1";
+    $result = $mysql_content_db->query_assoc($query);
+
+    if (!$result) { // Very first id is available
+      return 1;
+    }
+
+    // Find next available id
+    $query = "SELECT MIN(n1.id + 1) AS npcid FROM npc_types n1 LEFT JOIN npc_types n2 ON n1.id + 1 = n2.id WHERE n1.id >= 0 AND n1.id < 1000 AND n2.id IS NULL";
+    $result = $mysql_content_db->query_assoc($query);
+
+    if ($result['npcid'] > 0) {
+      return $result['npcid'];
+    }
+    else {
+      return "";
+    }
   }
 
-  $query = "SELECT MAX(id) AS id FROM npc_types WHERE id LIKE \"$zid\"";
-  $result = $mysql_content_db->query_assoc($query);
-
-  return (($result['id'] == 0) ? "" : $result['id'] + 1);
 }
 
 function tint_info() {
@@ -2215,9 +2246,23 @@ function next_npcid() {
 
   $npczoneid = $_POST['npczoneid'];
 
-  $query = "SELECT MAX(id) AS npcid FROM npc_types WHERE id < \"$npczoneid\"*1000+1000";
+  $query = "SELECT id FROM npc_types WHERE id = $npczoneid * 1000";
   $result = $mysql_content_db->query_assoc($query);
-  return ($result['npcid'] + 1);
+
+  if (!$result) { // Very first id is available
+    return $npczoneid * 1000;
+  }
+
+  // Find next available id
+  $query = "SELECT MIN(n1.id + 1) AS npcid FROM npc_types n1 LEFT JOIN npc_types n2 ON n1.id + 1 = n2.id WHERE n1.id >= $npczoneid * 1000 AND n1.id < $npczoneid * 1000 + 1000 AND n2.id IS NULL";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result['npcid'] > 0) {
+    return $result['npcid'];
+  }
+  else {
+    return "";
+  }
 }
 
 function get_stats() {
