@@ -1341,24 +1341,24 @@ function delete_spawnevent() {
 
 function delete_spawncondition() {
   check_authorization();
-  global $mysql_content_db, $z;
+  global $mysql, $mysql_content_db, $z;
   $scid = $_GET['scid'];
 
   $query = "DELETE FROM spawn_conditions WHERE id=$scid AND zone=\"$z\"";
   $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM spawn_condition_values WHERE id=$scid AND zone=\"$z\"";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function delete_spawnconditionvalue() {
   check_authorization();
-  global $mysql_content_db, $z;
+  global $mysql, $z;
   $scid = $_GET['scid'];
   $instance_id = $_GET['instance_id'];
 
   $query = "DELETE FROM spawn_condition_values WHERE id=$scid AND zone=\"$z\" AND instance_id = $instance_id";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function spawnpoint_info() {
@@ -1698,13 +1698,13 @@ function get_spawn_condition() {
 }
 
 function get_spawn_condition_values() {
-  global $mysql_content_db, $z;
+  global $mysql, $z;
   $array = array();
 
   $scid = $_GET['scid'];
 
   $query = "SELECT id AS scvid, zone, value, instance_id FROM spawn_condition_values WHERE zone=\"$z\" AND id=$scid";
-  $results = $mysql_content_db->query_mult_assoc($query);
+  $results = $mysql->query_mult_assoc($query);
   if ($results) {
     foreach ($results as $result) {
       $array['spawncv'][$result['instance_id']] = array("zone"=>$result['zone'], "value"=>$result['value'], "instance_id"=>$result['instance_id']);
@@ -1715,13 +1715,13 @@ function get_spawn_condition_values() {
 }
 
 function get_spawn_condition_value() {
-  global $mysql_content_db, $z;
+  global $mysql, $z;
 
   $scid = $_GET['scid'];
   $instance_id = $_GET['instance_id'];
 
   $query = "SELECT id AS scvid, zone, value, instance_id FROM spawn_condition_values WHERE zone=\"$z\" AND id=$scid AND instance_id=$instance_id";
-  $result = $mysql_content_db->query_assoc($query);
+  $result = $mysql->query_assoc($query);
   if ($result) {
     return $result;
   }
@@ -1731,7 +1731,7 @@ function get_spawn_condition_value() {
 }
 
 function update_spawnconditionvalue() {
-  global $mysql_content_db, $z;
+  global $mysql, $z;
 
   $scvid = $_POST['scvid'];
   $value = $_POST['value'];
@@ -1741,7 +1741,7 @@ function update_spawnconditionvalue() {
   $old_instance_id = $_POST['old_instance_id'];
 
   $query = "UPDATE spawn_condition_values SET value=$value, instance_id=$instance_id WHERE id=$scvid AND zone=\"$zone\" AND instance_id=$old_instance_id";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function get_spawn_event() {
@@ -1828,7 +1828,7 @@ function add_spawnevent() {
 
 function add_spawncondition() {
   check_authorization();
-  global $mysql_content_db, $z;
+  global $mysql, $mysql_content_db, $z;
 
   $scid = $_POST['scid'];
   $value = $_POST['value'];
@@ -1839,22 +1839,22 @@ function add_spawncondition() {
   $mysql_content_db->query_no_result($query);
 
   $query = "INSERT INTO spawn_condition_values SET id=\"$scid\", zone=\"$z\", value=\"$value\", instance_id=0";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function add_spawnconditionvalue() {
   check_authorization();
-  global $mysql_content_db, $z;
+  global $mysql, $z;
 
   $scid = $_GET['scid'];
 
   $query = "SELECT MAX(instance_id) AS scvinst FROM spawn_condition_values WHERE zone=\"$z\" AND id=$scid";
-  $result = $mysql_content_db->query_assoc($query);
+  $result = $mysql->query_assoc($query);
 
   $instance_id = ($result['scvinst'] + 1);
 
   $query = "INSERT INTO spawn_condition_values SET id=\"$scid\", zone=\"$z\", value=0, instance_id=\"$instance_id\"";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function copy_spawnpoint() {
