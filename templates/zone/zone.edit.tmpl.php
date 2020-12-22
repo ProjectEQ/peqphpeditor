@@ -58,7 +58,7 @@
                 </tr>
                 <tr>
                   <td align="left" width="25%">Max Movement Update:<br><input type="text" name="max_movement_update_range" size="7" value="<?=$max_movement_update_range?>"></td>
-                  <td align="left" width="25%">&nbsp;</td>
+                  <td align="left" width="25%">Underworld Teleport Index:<br><input type="text" name="underworld_teleport_index" size="7" value="<?=$underworld_teleport_index?>"></td>
                   <td align="left" width="25%">&nbsp;</td>
                   <td align="left" width="25%">&nbsp;</td>
                 </tr>

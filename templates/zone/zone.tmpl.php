@@ -77,7 +77,7 @@
                   </tr>
                   <tr>
                     <td align="left" width="33%">Max Movement Update: <?=$max_movement_update_range?></td>
-                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="33%">Underworld Teleport Index: <?=$underworld_teleport_index?></td>
                     <td align="left" width="34%">&nbsp;</td>
                   </tr>
                   <tr>
