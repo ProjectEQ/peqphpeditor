@@ -8,6 +8,18 @@ $dynamic_zone_type = array(
   5 => "Quest"
 );
 
+$default_page = 1;
+$default_size = 50;
+$default_sort = 1;
+
+$columns = array(
+  1 => 'id',
+  2 => 'character_id',
+  3 => 'expedition_name',
+  4 => 'event_name',
+  5 => 'expire_time'
+);
+
 switch ($action) {
   case 0: // Default View
     $body = new Template("templates/expeditions/expeditions.default.tmpl.php");
@@ -197,11 +209,30 @@ switch ($action) {
     }
     exit;
   case 25: // View Character Lockouts
+    $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
+    $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
+    $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
+    if ($_GET['filter'] == 'on') {
+      $filter = build_filter();
+    }
     $body = new Template("templates/expeditions/character.lockouts.view.tmpl.php");
     $breadcrumbs .= " >> View Character Lockouts";
-    $character_lockouts = get_character_lockouts();
+    $page_stats = getPageInfo("character_expedition_lockouts", FALSE, $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
+    if ($filter) {
+      $body->set('filter', $filter);
+    }
+    if ($page_stats['page']) {
+      $character_lockouts = get_character_lockouts($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
+    }
     if ($character_lockouts) {
       $body->set('character_lockouts', $character_lockouts);
+      foreach ($page_stats as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    else {
+      $body->set('page', 0);
+      $body->set('pages', 0);
     }
     break;
   case 26: // Add Character Lockout
@@ -555,10 +586,15 @@ function suggest_expedition_member_id() {
   return $result['id'] + 1;
 }
 
-function get_character_lockouts() {
+function get_character_lockouts($page_number, $results_per_page, $sort_by, $where = "") {
   global $mysql;
+  $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
 
   $query = "SELECT * FROM character_expedition_lockouts";
+  if ($where) {
+    $query .= " WHERE $where";
+  }
+  $query .= " ORDER BY $sort_by LIMIT $limit";
   $results = $mysql->query_mult_assoc($query);
 
   if ($results) {
@@ -641,5 +677,52 @@ function get_expedition_lockout_by_expedition($expedition_id) {
   else {
     return null;
   }
+}
+
+function build_filter() {
+  global $mysql;
+  $filter1 = $_GET['filter1'];
+  $filter2 = $_GET['filter2'];
+  $filter3 = $_GET['filter3'];
+  $filter_final = array();
+
+  if ($filter1) { // Filter by character
+    $query = "SELECT id FROM character_data WHERE name LIKE '%$filter1%'";
+    $results = $mysql->query_mult_assoc($query);
+    $filter_character_id = "character_id IN (";
+    if ($results) {
+      foreach ($results as $result) {
+        $filter_character_id .= $result['id'] . ",";
+      }
+      $filter_character_id = rtrim($filter_character_id, ",");
+    }
+    else {
+      $filter_character_id .= "NULL";
+    }
+    $filter_character_id .= ")";
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_character_id;
+  }
+  if ($filter2) { // Filter by expedition
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_expedition = "`expedition_name` LIKE '%" . $filter2 . "%'";
+    $filter_final['sql'] .= $filter_expedition;
+  }
+  if ($filter3) { // Filter by event
+    $filter_event = "`event_name` LIKE '%" . $filter3 . "%'";
+    $filter_final['sql'] = $filter_event;
+  }
+
+  $filter_final['url'] = "&filter=on&filter1=$filter1&filter2=$filter2&filter3=$filter3";
+  $filter_final['status'] = "on";
+  $filter_final['filter1'] = $filter1;
+  $filter_final['filter2'] = $filter2;
+  $filter_final['filter3'] = $filter3;
+
+  return $filter_final;
 }
 ?>
