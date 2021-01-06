@@ -1,4 +1,4 @@
-  <div class="table_container" style="width: 700px;">
+  <div class="table_container" style="width: 750px;">
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
@@ -14,7 +14,6 @@
       <tr>
         <td align="center"><strong>ID</a></strong></td>
         <td align="center"><strong>Name</a></strong></td>
-        <td align="center"><strong>Zone</a></strong></td>
         <td align="center"><strong>Leader</a></strong></td>
         <td align="center"><strong>Min Players</a></strong></td>
         <td align="center"><strong>Max Players</a></strong></td>
@@ -26,8 +25,7 @@ foreach($expeditions as $expedition):?>
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
         <td align="center"><?=$expedition['id']?></td>
         <td align="center"><?=$expedition['expedition_name']?></td>
-        <td align="center"><?=$expedition['dynamic_zone_id']?></td>
-        <td align="center"><?=$expedition['leader_id']?></td>
+        <td align="center"><?=getPlayerName($expedition['leader_id'])?> (<?=$expedition['leader_id']?>)</td>
         <td align="center"><?=$expedition['min_players']?></td>
         <td align="center"><?=$expedition['max_players']?></td>
         <td align="center"><?=$yesno[$expedition['is_locked']]?></td>
