@@ -176,7 +176,7 @@
               </fieldset>
             </td>
           </tr>
-        </table><br>
+        </table>
       </fieldset><br>
       <fieldset>
         <legend><strong>Lockout</strong> (<a href="index.php?editor=expeditions&id=<?=$expedition_lockout['id']?>&action=10">edit</a>)</legend>
@@ -212,7 +212,7 @@
             </td>
             <td>&nbsp;</td>
           </tr>
-        </table><br>
+        </table>
       </fieldset><br>
       <fieldset>
         <legend><strong>Members</strong></legend>
@@ -236,7 +236,7 @@ if (isset($expedition_members)):
 <?
   endforeach;
 ?>
-        </table><br>
+        </table>
 <?
 else:
 ?>
