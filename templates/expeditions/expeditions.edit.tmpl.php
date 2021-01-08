@@ -180,6 +180,9 @@
       </fieldset><br>
       <fieldset>
         <legend><strong>Lockout</strong> (<a href="index.php?editor=expeditions&id=<?=$expedition_lockout['id']?>&action=10">edit</a>)</legend>
+<?
+if ($expedition['is_locked']):
+?>
         <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
             <td>
@@ -213,6 +216,13 @@
             <td>&nbsp;</td>
           </tr>
         </table>
+<?
+else:
+?>
+        Expedition Not Locked
+<?
+endif;
+?>
       </fieldset><br>
       <fieldset>
         <legend><strong>Members</strong></legend>
