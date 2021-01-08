@@ -239,7 +239,7 @@ if (isset($expedition_members)):
   foreach ($expedition_members as $expedition_member):
 ?>
           <tr>
-            <td><?=getPlayerName($expedition_member['character_id'])?> (<?=$expedition_member['character_id']?>)</td>
+            <td><?=getPlayerName($expedition_member['character_id'])?> (<?=$expedition_member['character_id']?>)<?echo ($expedition['leader_id'] == $expedition_member['character_id']) ? " <strong>(LEADER)</strong>" : "";?></td>
             <td><?=$yesno[$expedition_member['is_current_member']]?> (<?=$expedition_member['is_current_member']?>)</td>
             <td><a href="index.php?editor=expeditions&id=<?=$expedition_member['id']?>&action=22"><img src="images/edit2.gif" width="13" height="13" border="0" title="Edit Expedition Member" alt="Edit"></a>&nbsp;<a onClick="return confirm('Really delete expedition member?');" href="index.php?editor=expeditions&id=<?=$expedition_member['id']?>&action=24&return=1"><img src="images/remove3.gif" border="0" title="Delete Expedition Member" alt="Delete"></a></td>
           </tr>
