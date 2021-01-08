@@ -1148,7 +1148,7 @@ function suggest_object_id() {
 function add_fishing() {
   global $mysql_content_db;
 
-  $fsid = $_GET['fsid'];
+  $fsid = $_POST['fsid'];
   $fiid = $_POST['fiid'];
   $zoneid = $_POST['zoneid'];
   $skill_level = $_POST['skill_level'];
@@ -1177,7 +1177,7 @@ function add_fishing() {
 function add_forage() {
   global $mysql_content_db;
 
-  $fgid = $_GET['fgid'];
+  $fgid = $_POST['fgid'];
   $fgiid = $_POST['fgiid'];
   $zoneid = $_POST['zoneid'];
   $level = $_POST['level'];
