@@ -12,9 +12,9 @@
     <table class="table_content2" width="100%">
 <?if (isset($dynamic_zones)):?>
       <tr>
-        <td align="center"><strong>ID</a></strong></td>
-        <td align="center"><strong>Instance</a></strong></td>
-        <td align="center"><strong>Type</a></strong></td>
+        <td align="center"><strong>ID</strong></td>
+        <td align="center"><strong>Instance</strong></td>
+        <td align="center"><strong>Type</strong></td>
         <td align="right">&nbsp;</td>
       </tr>
 <?$x=0;

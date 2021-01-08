@@ -12,11 +12,11 @@
     <table class="table_content2" width="100%">
 <?if (isset($expedition_lockouts)):?>
       <tr>
-        <td align="center"><strong>ID</a></strong></td>
-        <td align="center"><strong>Expedition</a></strong></td>
-        <td align="center"><strong>Event Name</a></strong></td>
-        <td align="center"><strong>Expires</a></strong></td>
-        <td align="center"><strong>Duration</a></strong></td>
+        <td align="center"><strong>ID</strong></td>
+        <td align="center"><strong>Expedition</strong></td>
+        <td align="center"><strong>Event Name</strong></td>
+        <td align="center"><strong>Expires</strong></td>
+        <td align="center"><strong>Duration</strong></td>
         <td align="right">&nbsp;</td>
       </tr>
 <?$x=0;

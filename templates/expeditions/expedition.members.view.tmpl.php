@@ -12,10 +12,10 @@
     <table class="table_content2" width="100%">
 <?if (isset($expedition_members)):?>
       <tr>
-        <td align="center"><strong>ID</a></strong></td>
-        <td align="center"><strong>Expedition</a></strong></td>
-        <td align="center"><strong>Character</a></strong></td>
-        <td align="center"><strong>Current Member</a></strong></td>
+        <td align="center"><strong>ID</strong></td>
+        <td align="center"><strong>Expedition</strong></td>
+        <td align="center"><strong>Character</strong></td>
+        <td align="center"><strong>Current Member</strong></td>
         <td align="right">&nbsp;</td>
       </tr>
 <?$x=0;

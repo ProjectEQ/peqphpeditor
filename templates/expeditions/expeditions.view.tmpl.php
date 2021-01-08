@@ -12,12 +12,12 @@
     <table class="table_content2" width="100%">
 <?if (isset($expeditions)):?>
       <tr>
-        <td align="center"><strong>ID</a></strong></td>
-        <td align="center"><strong>Name</a></strong></td>
-        <td align="center"><strong>Leader</a></strong></td>
-        <td align="center"><strong>Min Players</a></strong></td>
-        <td align="center"><strong>Max Players</a></strong></td>
-        <td align="center"><strong>Locked</a></strong></td>
+        <td align="center"><strong>ID</strong></td>
+        <td align="center"><strong>Name</strong></td>
+        <td align="center"><strong>Leader</strong></td>
+        <td align="center"><strong>Min Players</strong></td>
+        <td align="center"><strong>Max Players</strong></td>
+        <td align="center"><strong>Locked</strong></td>
         <td align="right">&nbsp;</td>
       </tr>
 <?$x=0;
