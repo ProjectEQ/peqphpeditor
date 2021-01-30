@@ -148,10 +148,12 @@ switch ($action) {
     if ($_GET['ts'] > 0)
       $body->set('ts', $_GET['ts']);
     break;
-  case 11:  // Add component
+  case 11:  // Insert Recipe
     check_authorization();
-    $id = add_recipe();
-    header("Location: index.php?editor=tradeskill&rec=$id");
+    add_recipe();
+    $id = $_POST['id'];
+    $ts = $_POST['tradeskill'];
+    header("Location: index.php?editor=tradeskill&ts=$ts&rec=$id");
     exit;
   case 12:  // Copy tradeskill
     check_authorization();
