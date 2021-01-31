@@ -110,6 +110,29 @@
                 </select>
               </td>
             </tr>
+            <tr>
+              <td>
+                Heirloom:<br>
+                <select name="heirloom">
+                  <option value="0"<?echo ($heirloom == 0) ? " selected" : "";?>>No</option>
+                  <option value="1"<?echo ($heirloom == 1) ? " selected" : "";?>>Yes</option>
+                </select>
+              </td>
+              <td>
+                Placeable:<br>
+                <select name="placeable">
+                  <option value="0"<?echo ($placeable == 0) ? " selected" : "";?>>No</option>
+                  <option value="1"<?echo ($placeable == 1) ? " selected" : "";?>>Yes</option>
+                </select>
+              </td>
+              <td>
+                Epic Item:<br>
+                <select name="epicitem">
+                  <option value="0"<?echo ($epicitem == 0) ? " selected" : "";?>>No</option>
+                  <option value="1"<?echo ($epicitem == 1) ? " selected" : "";?>>Yes</option>
+                </select>
+              </td>
+            </tr>
           </table>
         </fieldset>
         <fieldset>

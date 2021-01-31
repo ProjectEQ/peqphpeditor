@@ -100,6 +100,29 @@
                 </select>
               </td>
             </tr>
+            <tr>
+              <td>
+                Heirloom:<br>
+                <select name="heirloom">
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
+                </select>
+              </td>
+              <td>
+                Placeable:<br>
+                <select name="placeable">
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
+                </select>
+              </td>
+              <td>
+                Epic Item:<br>
+                <select name="epicitem">
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
+                </select>
+              </td>
+            </tr>
           </table>
         </fieldset>
         <fieldset>
