@@ -68,7 +68,7 @@
         </form>
       </fieldset><br>
       <fieldset>
-        <legend><strong>Dynamic Zone</strong> <a href="index.php?editor=expeditions&id=<?$dynamic_zone['id']?>&action=16">edit</a>)</legend>
+        <legend><strong>Dynamic Zone</strong> (<a href="index.php?editor=expeditions&id=<?$dynamic_zone['id']?>&action=16">edit</a>)</legend>
         <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
             <td width="1%">&nbsp;</td>
