@@ -179,7 +179,7 @@
         </table>
       </fieldset><br>
       <fieldset>
-        <legend><strong>Lockout</strong><?echo ($expedition['is_locked']) ? " (<a href=\"index.php?editor=expeditions&id=<?=$expedition_lockout['id']?>&action=10\">edit</a>)" : "";?></legend>
+        <legend><strong>Lockout</strong><?echo ($expedition['is_locked']) ? " (<a href=\"index.php?editor=expeditions&id=" . $expedition_lockout['id'] . "&action=10\">edit</a>)" : "";?></legend>
 <?
 if ($expedition['is_locked']):
 ?>
