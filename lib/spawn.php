@@ -371,7 +371,7 @@ switch ($action) {
     $sid = $_GET['sid'];
     $npcid = $_GET['npcid'];
     header("Location: index.php?editor=spawn&z=$z&zoneid=$zoneid&npcid=$npcid&sid=$sid&action=10");
-    break;
+    exit;
   case 31: // View zone grids
     $body = new Template("templates/spawn/grid.zone.tmpl.php");
     $body->set('currzone', $z);
