@@ -96,6 +96,14 @@ switch ($action) {
       $body->set('recipes', $recipes);
     }
     break;
+  case 7: // View Orphaned Grids
+    $breadcrumbs .= " >> Orphaned Grids";
+    $body = new Template("templates/util/util.orphan.grids.tmpl.php");
+    $orphan_grids = get_orphan_grids();
+    if ($orphan_grids) {
+      $body->set("orphan_grids", $orphan_grids);
+    }
+    break;
 }
 
 function get_old_characters($datetime, $purge_count) {
@@ -192,4 +200,23 @@ function get_total_accounts() {
   return $result['total'];
 }
 
+function get_orphan_grids() {
+  global $mysql_content_db;
+  $orphan_grids = array();
+
+  $query = "SELECT zoneidnumber, short_name FROM zone ORDER BY zoneidnumber";
+  $zones = $mysql_content_db->query_mult_assoc($query);
+
+  foreach ($zones as $zone) {
+    $query = "SELECT id, zoneid FROM grid WHERE zoneid=" . $zone['zoneidnumber'] . " AND id NOT IN (SELECT DISTINCT(gridid) FROM grid_entries WHERE zoneid=" . $zone['zoneidnumber'] . ")";
+    $grids = $mysql_content_db->query_mult_assoc($query);
+    if ($grids) {
+      foreach ($grids as $grid) {
+        array_push($orphan_grids, $grid);
+      }
+    }
+  }
+
+  return $orphan_grids;
+}
 ?>
