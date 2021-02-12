@@ -14,7 +14,7 @@
                 <select name="faction_id">
                   <option value="">Select a Faction</option>
 <? foreach ($factions as $faction) {?>
-                  <option value="<?=$faction['id']?>"><?=$faction['name']?></option>
+                  <option value="<?=$faction['id']?>"><?=$faction['name']?> (<?=$faction['id']?>)</option>
 <? }?>
                 </select>
               </td>

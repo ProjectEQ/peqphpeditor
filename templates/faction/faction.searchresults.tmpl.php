@@ -3,7 +3,7 @@
       <div class="table_content">
 <?if($results != ''):?>
 <?foreach($results as $result): extract($result);?>
-        <a href="index.php?editor=faction&fid=<?=$id?>"><?=$name?></a><br>
+        <a href="index.php?editor=faction&fid=<?=$id?>"><?=$name?> (<?=$id?>)</a><br>
 <?endforeach;?>
 <?endif;?>
 <?if($results == ''):?>
