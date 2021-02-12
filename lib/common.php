@@ -102,6 +102,31 @@ function getFactionName($fid) {
   return $result['name'];
 }
 
+function get_faction_standing($value) {
+  switch ($value){
+    case $value >= 1100:
+      return "Ally";
+    case $value >= 750:
+      return "Warmly";
+    case $value >= 500:
+      return "Kindly";
+    case $value >= 100:
+      return "Amiable";
+    case $value >= 0:
+      return "Indifferent";
+    case $value >= -100:
+      return "Apprehensive";
+    case $value >= -500:
+      return "Dubious";
+    case $value >= -750:
+      return "Threatening";
+    case $value < -750:
+      return "KOS";
+    default:
+      return "UNK";
+  }
+}
+
 function getTaskTitle($tskid) {
   global $mysql_content_db;
   $query = "SELECT title FROM tasks WHERE id=$tskid";
