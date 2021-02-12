@@ -1,4 +1,4 @@
-    <div class="edit_form" id="filter_box" style="width: 700px; display: <?echo ($filter['status'] == 'on') ? 'block' : 'none'?>">
+    <div class="edit_form" id="filter_box" style="width: 350px; display: <?echo ($filter['status'] == 'on') ? 'block' : 'none'?>">
       <div class="edit_form_header">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
@@ -31,7 +31,7 @@
         </form>
       </div>
     </div><br>
-        <div class="table_container" style="width: 500px;">
+        <div class="table_container" style="width: 700px;">
           <div class="table_header">
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>

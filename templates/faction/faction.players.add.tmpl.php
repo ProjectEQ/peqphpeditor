@@ -1,4 +1,4 @@
-  <div class="edit_form" style="width: 500px">
+  <div class="edit_form" style="width: 550px">
     <div class="edit_form_header">Add Faction Entry</div>
       <div class="edit_form_content">
         <form name="player_factions" method="post" action="index.php?editor=faction&action=13">
