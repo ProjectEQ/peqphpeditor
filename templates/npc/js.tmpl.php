@@ -12,7 +12,7 @@
     var underwater = document.forms[1].underwater.checked;
     var stuck = document.forms[1].stuck_behavior.value;
 
-    if (underwater && stuck < 2) {
+    if (underwater && stuck != 2) {
       document.forms[1].stuck_behavior.style.backgroundColor = "red";
       alert("NPC is marked as an Underwater NPC. It is recommended to set Stuck Behavior to 'Take No Action'.");
     }
