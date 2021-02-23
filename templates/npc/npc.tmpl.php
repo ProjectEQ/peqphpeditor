@@ -220,9 +220,9 @@ if ($loottable_id > 0) {
                     <td align="left" width="34%">Attack Count: <?=$attack_count?></td>
                   </tr>
                   <tr>
-                    <td align="left" width="33%">Loottable ID: <?=$loottable_id?></td>
                     <td align="left" width="33%">HP Regen: <?=$hp_regen_rate?></td>
-                    <td align="left" width="34%">MP Regen: <?=$mana_regen_rate?></td>
+                    <td align="left" width="33%">MP Regen: <?=$mana_regen_rate?></td>
+                    <td align="left" width="34%">&nbsp;</td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Aggro: <?=$aggroradius?></td>
@@ -300,6 +300,21 @@ if ($loottable_id > 0) {
                 </table>
               </fieldset>
               <fieldset>
+                <legend><strong>Experience/Loot</strong></legend>
+                <table width="100%" border="0" cellpadding="3" cellspacing="3">
+                  <tr>
+                    <td align="left" width="33%">Loottable ID: <?echo ($loottable_id > 0) ? $loottable_id : "N/A";?></td>
+                    <td align="left" width="33%">Skip Global Loot: <?=$yesno[$skip_global_loot]?></td>
+                    <td align="left" width="34%">Private Corpse: <?=$yesno[$private_corpse]?></td>
+                  </tr>
+                  <tr>
+                    <td align="left" width="33%">Experience Mod: <?=$exp_mod?></td>
+                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="34%">&nbsp;</td>
+                  <tr>
+                </table>
+              </fieldset>
+              <fieldset>
                 <legend><strong>Misc</strong></legend>
                 <table width="100%" border="0" cellpadding="3" cellspacing="0">
                   <tr>
@@ -310,11 +325,11 @@ if ($loottable_id > 0) {
                   <tr>
                     <td align="left" width="33%">Spawn Limit: <?echo ($spawn_limit > 0) ? $spawn_limit : "None";?></td>
                     <td align="left" width="33%">Unique Spawn: <?=$yesno[$unique_spawn_by_name]?></td>
-                    <td align="left" width="34%">Ignore Despawn: <?=$yesno[$ignore_despawn]?></td>
+                    <td align="left" width="34%">Rare Spawn: <?=$yesno[$rare_spawn]?></td>
                   </tr>
                   <tr>
+                    <td align="left" width="33%">Ignore Despawn: <?=$yesno[$ignore_despawn]?></td>
                     <td align="left" width="33%">Pet: <?=$yesno[$pet]?></td>
-                    <td align="left" width="33%">Private Corpse: <?=$yesno[$private_corpse]?></td>
                     <td align="left" width="34%">Underwater: <?=$yesno[$underwater]?></td>
                   </tr>
                   <tr>
@@ -323,13 +338,8 @@ if ($loottable_id > 0) {
                     <td align="left" width="34%">Version: <?=$version?></td>
                   </tr>
                   <tr>
-                    <td align="left" width="33%">Skip Global Loot: <?=$yesno[$skip_global_loot]?></td>
-                    <td align="left" width="33%">Rare Spawn: <?=$yesno[$rare_spawn]?></td>
-                    <td align="left" width="34%">Stuck Behavior: <?=$stuck_behavior?></td>
-                  </tr>
-                  <tr>
                     <td align="left" width="33%">Flymode: <?=$flymodetype[$flymode]?></td>
-                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="33%">Stuck Behavior: <?=$stuck_behavior?></td>
                     <td align="left" width="34%">&nbsp;</td>
                   </tr>
                 </table>
@@ -444,6 +454,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="model" value="<?=$model?>">
         <input type="hidden" name="flymode" value="<?=$flymode?>">
         <input type="hidden" name="always_aggro" value="<?=$always_aggro?>">
+        <input type="hidden" name="exp_mod" value="<?=$exp_mod?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">

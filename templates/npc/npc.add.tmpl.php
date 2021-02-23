@@ -153,8 +153,8 @@
               <td align="left" width="14%">HP Regen:    <br><input type="text" name="hp_regen_rate" size="5" value="0"></td>
               <td align="left" width="14%">Aggroradius: <br><input type="text" name="aggroradius" size="5" value="70"></td>
               <td align="left" width="14%">Attack Count:<br><input type="text" name="attack_count" size="5" value="-1"></td>
-              <td align="left" width="14%">Loot ID:     <br><input type="text" name="loottable_id" size="5" value="0"></td>
-              <td align="left" width="15%">Slow Mit:    <br><input type="text" name="slow_mitigation" size="5" value="0"></td>
+              <td align="left" width="14%">Atk Delay:   <br><input type="text" name="attack_delay" size="5" value="<?=$attack_delay?>"></td>
+              <td align="left" width="15%">Spells ID:   <br><input type="text" name="npc_spells_id" size="5" value="0"></td>
               <td align="left" width="15%">Spell Scale: <br><input type="text" name="spellscale" size="5" value="100">%</td>
             </tr>
             <tr>
@@ -162,8 +162,8 @@
               <td align="left" width="14%">MP Regen:    <br><input type="text" name="mana_regen_rate" size="5" value="0"></td>
               <td align="left" width="14%">Assistradius:<br><input type="text" name="assistradius" size="5" value="0"></td>
               <td align="left" width="14%">Always Aggro:<br><input type="text" name="always_aggro" size="5" value="0"></td>
-              <td align="left" width="14%">Atk Delay:   <br><input type="text" name="attack_delay" size="5" value="<?=$attack_delay?>"></td>
-              <td align="left" width="14%">Spells ID:   <br><input type="text" name="npc_spells_id" size="5" value="0"></td>
+              <td align="left" width="14%">Slow Mit:    <br><input type="text" name="slow_mitigation" size="5" value="0"></td>
+              <td align="left" width="14%">&nbsp;</td>
               <td align="left" width="15%">Heal Scale:  <br><input type="text" name="healscale" size="5" value="100">%</td>
             </tr>
           </table>
@@ -233,6 +233,21 @@
               </tr>
             </table>
           </center>
+        </fieldset><br>
+        <fieldset>
+          <legend><strong><font size="4">Experience/Loot</font></strong></legend>
+          <table width="100%" border="0" cellpadding="3" cellspacing="0">
+            <tr>
+              <td align="left" width="33%">Loottable ID:<br><input type="text" name="loottable_id" size="5" value="0"></td>
+              <td align="left" width="33%"><input type="checkbox" name="private_corpse" value="1"> Corpse does not Unlock</td>
+              <td align="left" width="34%"><input type="checkbox" name="skip_global_loot" value="1"> Skip Global Loot</td>
+            </tr>
+            <tr>
+              <td align="left" width="33%">Experience Mod:<br><input type="text" name="exp_mod" size="5" value="100"></td>
+              <td align="left" width="33%">&nbsp;</td>
+              <td align="left" width="34%">&nbsp;</td>
+            </tr>
+          </table>
         </fieldset><br>
         <fieldset>
           <legend><strong><font size="4">Appearance</font></strong></legend>
@@ -330,23 +345,23 @@
               <tr>
                 <td valign="top" align="left">
                   <input type="checkbox" name="qglobal" value="1"> Enable Quest Globals<br>
-                  <input type="checkbox" name="findable" value="1" onChange="raceCheck();"> NPC is Findable<br>
-                  <input type="checkbox" name="trackable" value="1" checked onChange="raceCheck();"> NPC is Trackable<br>
-                </td>
-                <td valign="top" align="left">
                   <input type="checkbox" name="pet" value="1"> NPC is a Pet<br>
-                  <input type="checkbox" name="private_corpse" value="1"> Corpse does not Unlock<br>
                   <input type="checkbox" name="unique_spawn_by_name" value="1"> Unique by Name<br>
                 </td>
                 <td valign="top" align="left">
-                  <input type="checkbox" name="underwater" value="1" onChange="underwaterCheck();"> Underwater NPC<br>
-                  <input type="checkbox" name="34" value="34,1"> Destructible Object (34)<br>
                   <input type="checkbox" name="isquest" value="1"> Has Quest File<br>
+                  <input type="checkbox" name="34" value="34,1"> Destructible Object (34)<br>
+                  <input type="checkbox" name="rare_spawn" value="1"> Rare Spawn<br>
                 </td>
                 <td valign="top" align="left">
+                  <input type="checkbox" name="findable" value="1" onChange="raceCheck();"> NPC is Findable<br>
+                  <input type="checkbox" name="underwater" value="1" onChange="underwaterCheck();"> Underwater NPC<br>
                   <input type="checkbox" name="ignore_despawn" value="1"> Ignore Despawn<br>
-                  <input type="checkbox" name="skip_global_loot" value="1"> Skip Global Loot<br>
-                  <input type="checkbox" name="rare_spawn" value="1"> Rare Spawn<br>
+                </td>
+                <td valign="top" align="left">
+                  <input type="checkbox" name="trackable" value="1" checked onChange="raceCheck();"> NPC is Trackable<br>
+                  &nbsp;<br>
+                  &nbsp;<br>
                 </td>
               </tr>
             </table>
