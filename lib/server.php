@@ -609,6 +609,44 @@ switch ($action) {
     delete_nf();
     header("Location: index.php?editor=server&action=58");
     exit;
+  case 64: // View Scheduled Events
+    $breadcrumbs .= " >> Server Scheduled Events";
+    $body = new Template("templates/server/scheduled.events.view.tmpl.php");
+    $scheduled_events = get_scheduled_events();
+    if ($scheduled_events) {
+      $body->set("scheduled_events", $scheduled_events);
+    }
+    break;
+  case 65: // Add Scheduled Event
+    check_authorization();
+    $breadcrumbs .= " >> Add Server Scheduled Event";
+    $body = new Template("templates/server/scheduled.event.add.tmpl.php");
+    $body->set("suggested_id", suggest_scheduled_event_id());
+    break;
+  case 66: // Insert Scheduled Event
+    check_authorization();
+    insert_scheduled_event();
+    header("Location: index.php?editor=server&action=64");
+    exit;
+  case 67: // Edit Scheduled Event
+    check_authorization();
+    $breadcrumbs .= " >> Edit Server Scheduled Event";
+    $body = new Template("templates/server/scheduled.event.edit.tmpl.php");
+    $scheduled_event = get_scheduled_event($_GET['id']);
+    if ($scheduled_event) {
+      $body->set("scheduled_event", $scheduled_event);
+    }
+    break;
+  case 68: // Update Scheduled Event
+    check_authorization();
+    update_scheduled_event();
+    header("Location: index.php?editor=server&action=64");
+    exit;
+  case 69: // Delete Scheduled Event
+    check_authorization();
+    delete_scheduled_event($_GET['id']);
+    header("Location: index.php?editor=server&action=64");
+    exit;
 }
 
 function get_open_bugs($page_number, $results_per_page, $sort_by) {
@@ -1374,6 +1412,101 @@ function getNextNFID() {
   global $mysql;
 
   $query = "SELECT MAX(id) AS id FROM name_filter";
+  $result = $mysql->query_assoc($query);
+
+  return $result['id'] + 1;
+}
+
+
+function get_scheduled_events() {
+  global $mysql;
+
+  $query = "SELECT * FROM server_scheduled_events";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function get_scheduled_event($id) {
+  global $mysql;
+
+  $query = "SELECT * FROM server_scheduled_events WHERE id=$id";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+function insert_scheduled_event() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $description = $_POST['description'];
+  $event_type = $_POST['event_type'];
+  $event_data = $_POST['event_data'];
+  $minute_start = $_POST['minute_start'];
+  $hour_start = $_POST['hour_start'];
+  $day_start = $_POST['day_start'];
+  $month_start = $_POST['month_start'];
+  $year_start = $_POST['year_start'];
+  $minute_end = $_POST['minute_end'];
+  $hour_end = $_POST['hour_end'];
+  $day_end = $_POST['day_end'];
+  $month_end = $_POST['month_end'];
+  $year_end = $_POST['year_end'];
+  $cron_expression = $_POST['cron_expression'];
+  $created_at = $_POST['created_at'];
+  $deleted_at = $_POST['deleted_at'];
+
+  $query = "INSERT INTO server_scheduled_events SET id=$id, description='$description', event_type='$event_type', event_data='$event_data', minute_start=$minute_start, hour_start=$hour_start, day_start=$day_start, month_start=$month_start, year_start=$year_start, minute_end=$minute_end, hour_end=$hour_end, day_end=$day_end, month_end=$month_end, year_end=$year_end, cron_expression='$cron_expression', created_at='$created_at', deleted_at='$deleted_at'";
+  $mysql->query_no_result($query);
+}
+
+function update_scheduled_event() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $description = $_POST['description'];
+  $event_type = $_POST['event_type'];
+  $event_data = $_POST['event_data'];
+  $minute_start = $_POST['minute_start'];
+  $hour_start = $_POST['hour_start'];
+  $day_start = $_POST['day_start'];
+  $month_start = $_POST['month_start'];
+  $year_start = $_POST['year_start'];
+  $minute_end = $_POST['minute_end'];
+  $hour_end = $_POST['hour_end'];
+  $day_end = $_POST['day_end'];
+  $month_end = $_POST['month_end'];
+  $year_end = $_POST['year_end'];
+  $cron_expression = $_POST['cron_expression'];
+  $created_at = $_POST['created_at'];
+  $deleted_at = $_POST['deleted_at'];
+
+  $query = "UPDATE server_scheduled_events SET description='$description', event_type='$event_type', event_data='$event_data', minute_start=$minute_start, hour_start=$hour_start, day_start=$day_start, month_start=$month_start, year_start=$year_start, minute_end=$minute_end, hour_end=$hour_end, day_end=$day_end, month_end=$month_end, year_end=$year_end, cron_expression='$cron_expression', created_at='$created_at', deleted_at='$deleted_at' WHERE id=$id";
+  $mysql->query_no_result($query);
+}
+
+function delete_scheduled_event($id) {
+  global $mysql;
+
+  $query = "DELETE FROM server_scheduled_events WHERE id=$id";
+  $mysql->query_no_result($query);
+}
+
+function suggest_scheduled_event_id() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS id FROM server_scheduled_events";
   $result = $mysql->query_assoc($query);
 
   return $result['id'] + 1;
