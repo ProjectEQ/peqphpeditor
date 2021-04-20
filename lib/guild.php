@@ -143,7 +143,7 @@ function delete_guild() {
 function assign_guild_member($char_id) {
   global $mysql, $guildid;
 
-  $query = "REPLACE INTO guild_members SET char_id=$char_id, guild_id=$guildid, rank=0";
+  $query = "REPLACE INTO guild_members SET char_id=$char_id, guild_id=$guildid, rank=0, public_note=''";
   $mysql->query_no_result($query);
 }
 
