@@ -1,9 +1,10 @@
-<?php
+<?
 switch ($action) {
-  case 0:  // View Guild Info
+  case 0: // View Guild Info
     check_admin_authorization();
     if ($guildid) {
       $body = new Template("templates/guild/guild.tmpl.php");
+      $javascript = new Template("templates/guild/js.tmpl.php");
       $body->set('guildid', $guildid);
       $body->set('yesno', $yesno);
       $body->set('guildname', getGuildName($guildid));
@@ -32,7 +33,7 @@ switch ($action) {
       }
     }
     break;
-  case 2:  // Search Guilds
+  case 2: // Search Guilds
     check_admin_authorization();
     $body = new Template("templates/guild/guild.searchresults.byguild.tmpl.php");
     if (isset($_GET['guild_id']) && $_GET['guild_id'] != "Guild ID") {
@@ -70,9 +71,31 @@ switch ($action) {
     delete_guild();
     header("Location: index.php?editor=guild");
     exit;
+  case 6: // Select New Guild Member
+    check_admin_authorization();
+    $body = new Template("templates/guild/guild.add.member.tmpl.php");
+    $javascript = new Template("templates/guild/js.tmpl.php");
+    $breadcrumbs .= " >> Assign Guild Member";
+    $body->set('guildid', $guildid);
+    break;
+  case 7: // Assign New Guild Member
+    check_admin_authorization();
+    assign_guild_member($_POST['player']);
+    header("Location: index.php?editor=guild&guildid=$guildid");
+    exit;
+  case 8: // Remove Guild Member
+    check_admin_authorization();
+    remove_guild_member($_GET['char_id']);
+    header("Location: index.php?editor=guild&guildid=$guildid");
+    exit;
+  case 9: // Set Member Rank
+    check_admin_authorization();
+    set_member_rank();
+    header("Location: index.php?editor=guild&guildid=$guildid");
+    exit;
 }
 
-function guild_info () {
+function guild_info() {
   global $mysql, $guildid;
   $guild_array = array();
   $guild_ranks_array = array();
@@ -107,13 +130,56 @@ function guild_info () {
   return $guild_array;
 }
 
-function update_guild () {
+function update_guild() {
   global $mysql, $playerid;
   //Update guild info here
 }
 
-function delete_guild () {
+function delete_guild() {
   global $mysql, $playerid;
   //Delete guild info here
+}
+
+function assign_guild_member($char_id) {
+  global $mysql, $guildid;
+
+  $query = "REPLACE INTO guild_members SET char_id=$char_id, guild_id=$guildid, rank=0";
+  $mysql->query_no_result($query);
+}
+
+function remove_guild_member($char_id) {
+  global $mysql, $guildid;
+
+  if ($_GET['leader'] == 1) {
+    $query = "UPDATE guilds SET leader=0 WHERE id=$guildid";
+    $mysql->query_no_result($query);
+  }
+
+  $query = "DELETE FROM guild_members WHERE guild_id=$guildid AND char_id=$char_id";
+  $mysql->query_no_result($query);
+}
+
+function set_member_rank() {
+  global $mysql, $guildid;
+
+  $char_id = $_POST['char_id'];
+  $rank = $_POST['rank'];
+  $previous_rank = $_POST['previous_rank'];
+
+  if ($rank == 2) { // Change guild leadership
+    $query = "UPDATE guild_members SET rank=0 WHERE guild_id=$guildid AND rank=2";
+    $mysql->query_no_result($query);
+
+    $query = "UPDATE guilds SET leader=$char_id WHERE id=$guildid";
+    $mysql->query_no_result($query);
+  }
+
+  if ($previous_rank == 2) { // Drop guild leadership
+    $query = "UPDATE guilds SET leader=0 WHERE id=$guildid";
+    $mysql->query_no_result($query);
+  }
+
+  $query = "UPDATE guild_members SET rank=$rank WHERE guild_id=$guildid AND char_id=$char_id";
+  $mysql->query_no_result($query);
 }
 ?>

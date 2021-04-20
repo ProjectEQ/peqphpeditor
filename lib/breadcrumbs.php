@@ -110,7 +110,7 @@ if (isset($rec) && intval($rec) > 0) $breadcrumbs .= " >> " . getRecipeName($rec
 if (isset($spellset) && intval($spellset) > 0) $breadcrumbs .= " >> " . getSpellsetName($spellset);
 if (isset($playerid) && intval($playerid) > 0) $breadcrumbs .= " >> <a href='index.php?editor=" . $editor . "&playerid=" . $playerid . "'>" . getPlayerName($playerid) . " ($playerid)</a>";
 if (isset($acctid) && intval($acctid) > 0) $breadcrumbs .= " >> " . getAccountName($acctid) . " ($acctid)";
-if (isset($guildid) && intval($guildid) > 0) $breadcrumbs .= " >> " . getGuildName($guildid) . " ($guildid)";
+if (isset($guildid) && intval($guildid) > 0) $breadcrumbs .= " >> <a href='index.php?editor=" . $editor . "&guildid=" . $guildid . "'>" . getGuildName($guildid) . " ($guildid)</a>";
 if (isset($aaid) && intval($aaid) > 0) $breadcrumbs .= " >> " . getAAName($aaid) . " ($aaid)";
 if (isset($nseid) && intval($nseid) > 0) $breadcrumbs .= " >> <a href='index.php?editor=" . $editor . "&action=11'>NPC Spells Effects</a>";
 

@@ -17,7 +17,7 @@
                   <legend><strong>Guild Info</strong></legend>
                   Name: <?=$name?><br>
                   Guild ID: <?=$id?><br>
-                  Leader: <?=getPlayerName($leader)?><br>
+                  Leader: <?echo ($leader > 0) ? getPlayerName($leader) : "None";?><br>
                   Min Status: <?=$minstatus?><br>
                   URL: <?=$url?><br>
                   Tribute: <?=$tribute?><br>
@@ -75,7 +75,7 @@
       <tr>
         <td>
           <fieldset>
-            <legend><strong>Guild Members</strong></legend>
+            <legend><strong>Guild Members</strong> (<a href="index.php?editor=guild&guildid=<?=$id?>&action=6">Add Member</a>)</legend>
             <table cellspacing="0" border="0" width="100%">
               <tr>
                 <td align="center">Rank</td>
@@ -86,19 +86,45 @@
                 <td align="center">Banker</td>
                 <td align="center">Alt</td>
                 <td align="center">Public Note</td>
+                <td align="center">&nbsp;</td>
               </tr>
 <?
+  $i = 0;
   foreach ($guild_members as $guild_member) {
-    echo '<tr>';
-    echo '<td align="center">' . $guild_member['rank'] . '</td>';
-    echo '<td><a href="index.php?editor=player&playerid=' . $guild_member['char_id'] . '">' . getPlayerName($guild_member['char_id']) . '</a></td>';
-    echo '<td align="center">' . $guild_member['total_tribute'] . '</td>';
-    echo '<td align="center">' . $guild_member['last_tribute'] . '</td>';
-    echo '<td align="center">' . $yesno[$guild_member['tribute_enable']] . '</td>';
-    echo '<td align="center">' . $yesno[$guild_member['banker']] . '</td>';
-    echo '<td align="center">' . $yesno[$guild_member['alt']] . '</td>';
-    echo '<td align="center"><img src="images\note.gif" title="' . (($guild_member['public_note'] != '') ? $guild_member['public_note'] : 'No Public Note') . '"></td>';
-    echo '</tr>';
+?>
+    <tr>
+      <td align="center">
+        <div id="current_rank_<?=$i?>" style="display: block;">
+          <a title="Change Rank" onClick="showRankChange(<?=$i?>);"><?=$guild_member['rank']?></a>
+        </div>
+        <div id="new_rank_<?=$i?>" style="display: none;">
+          <br>
+          <form name="change_rank_<?=$i?>" method="POST" action="index.php?editor=guild&guildid=<?=$id?>&action=9">
+            <select name="rank" onChange="document.change_rank_<?=$i?>.submit();">
+<?
+    foreach ($guild_ranks as $guild_rank) {
+?>
+              <option value="<?=$guild_rank['rank']?>"<?echo ($guild_rank['rank'] == $guild_member['rank']) ? " selected" : "";?>><?=$guild_rank['rank']?></option>
+<?
+    }
+?>
+            </select>
+            <input type="hidden" name="char_id" value="<?=$guild_member['char_id']?>">
+            <input type="hidden" name="previous_rank" value="<?=$guild_member['rank']?>">
+          </form>
+        </div>
+      </td>
+      <td><a href="index.php?editor=player&playerid=<?=$guild_member['char_id']?>"><?=getPlayerName($guild_member['char_id'])?></a></td>
+      <td align="center"><?=$guild_member['total_tribute']?></td>
+      <td align="center"><?=$guild_member['last_tribute']?></td>
+      <td align="center"><?=$yesno[$guild_member['tribute_enable']]?></td>
+      <td align="center"><?=$yesno[$guild_member['banker']]?></td>
+      <td align="center"><?=$yesno[$guild_member['alt']]?></td>
+      <td align="center"><img src="images\note.gif" title="<?echo ($guild_member['public_note'] != '') ? $guild_member['public_note'] : 'No Public Note';?>"></td>
+      <td align="center"><a href="index.php?editor=guild&guildid=<?=$id?>&char_id=<?=$guild_member['char_id']?>&leader=<?echo ($guild_member['rank'] == 2) ? "1" : "0";?>&action=8"><img src="images\delete.gif" width="13" title="Remove from guild"></a></td>
+    </tr>
+<?
+  $i++;
   }
 ?>
             </table>
