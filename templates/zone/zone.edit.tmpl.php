@@ -16,7 +16,7 @@
                 </tr>
                 <tr>
                   <td align="left" width="30%">File Name:<br><input type="text" name="file_name" size="20" value="<?=$file_name?>"></td>
-                  <td align="left" width="23%">Underworld:<br><input type="text" name="underworld" size="7" value="<?=$underworld?>"></td>
+                  <td align="left" width="23%">Safe Heading:<br><input type="text" name="safe_heading" size="7" value="<?=$safe_heading?>"></td>
                   <td align="left" width="23%">Timezone:<br><input type="text" name="timezone" size="7" value="<?=$timezone?>"></td>
                   <td align="left" width="24%">Time Type:<br><input type="text" name="time_type" size="7" value="<?=$time_type?>"></td>
                 </tr> 
@@ -58,8 +58,8 @@
                 </tr>
                 <tr>
                   <td align="left" width="25%">Max Movement Update:<br><input type="text" name="max_movement_update_range" size="7" value="<?=$max_movement_update_range?>"></td>
+                  <td align="left" width="25%">Underworld:<br><input type="text" name="underworld" size="7" value="<?=$underworld?>"></td>
                   <td align="left" width="25%">Underworld Teleport Index:<br><input type="text" name="underworld_teleport_index" size="7" value="<?=$underworld_teleport_index?>"></td>
-                  <td align="left" width="25%">&nbsp;</td>
                   <td align="left" width="25%">&nbsp;</td>
                 </tr>
                 <tr>

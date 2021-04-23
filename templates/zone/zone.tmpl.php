@@ -30,7 +30,8 @@
                       <strong>File:</strong> <?=$file_name?><br>
                       <strong>Safe X:</strong> <?=$safe_x?><br>
                       <strong>Safe Y:</strong> <?=$safe_y?><br>
-                      <strong>Safe Z:</strong> <?=$safe_z?>
+                      <strong>Safe Z:</strong> <?=$safe_z?><br>
+                      <strong>Safe Heading:</strong> <?=$safe_heading?>
                     </td>
                   </tr>
                 </table>
