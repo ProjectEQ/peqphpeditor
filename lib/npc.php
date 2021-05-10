@@ -141,7 +141,7 @@ switch ($action) {
       $body->set('races', $races);
       $body->set('yesno', $yesno);
       $body->set('skilltypes', $skilltypes);
-      $body->set('suggestedid', ($_POST['selected_id'] > 0) ? $_POST['selected_id'] : suggest_npcid());
+      $body->set('suggestedid', (isset($_POST['selected_id']) && $_POST['selected_id'] > 0) ? $_POST['selected_id'] : suggest_npcid());
       $body->set('npc_name', getNPCName($npcid));
       $body->set('factions', $factions);
       $body->set('faction_values', $faction_values);
@@ -857,7 +857,7 @@ switch ($action) {
     $body->set('eventtype', $eventtype);
     $body->set('emotetype', $emotetype);
     $emoteid = 0;
-    if($_GET['emoteid'] != 0) {
+    if(isset($_GET['emoteid']) && $_GET['emoteid'] != 0) {
       $emoteid = $_GET['emoteid'];
     }
     else {
@@ -877,16 +877,16 @@ switch ($action) {
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
-    if ($_GET['filter'] == 'on') {
+    if (isset($_GET['filter']) && $_GET['filter'] == 'on') {
       $filter = build_filter();
     }
     $body = new Template("templates/npc/emotes.list.tmpl.php");
-    $page_stats = getPageInfo("npc_emotes", TRUE, $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
-    if ($filter) {
+    $page_stats = getPageInfo("npc_emotes", TRUE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null), ((isset($filter)) ? $filter['sql'] : null));
+    if (isset($filter)) {
       $body->set('filter', $filter);
     }
     if ($page_stats['page']) {
-      $emotes = list_emotes($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
+      $emotes = list_emotes($page_stats['page'], $curr_size, $curr_sort, ((isset($filter)) ? $filter['sql'] : null));
     }
     if ($emotes) {
       $body->set('emotes', $emotes);
@@ -2346,7 +2346,7 @@ function export_sql() {
   $results = $mysql_content_db->query_assoc($query);
 
   foreach ($results as $key=>$value) {
-    if($table_string) {
+    if (isset($table_string)) {
       $table_string .= ", " . $key;
       $value_string .= ", \"" . $value . "\"";
     }
@@ -2358,7 +2358,7 @@ function export_sql() {
   $export_array['insert'] = "INSERT INTO npc_types ($table_string) VALUES ($value_string);";
 
   foreach ($results as $key=>$value) {
-    if($update_string) {
+    if (isset($update_string)) {
       $update_string .= ", " . $key . "=\"" . $value . "\"";
     }
     else {

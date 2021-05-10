@@ -41,7 +41,7 @@
       <div class="table_content">
         <table width="100%">
 <?
-if ($ips) {
+if (isset($ips)) {
 ?>
           <tr>
             <td><strong>Name</strong></td>

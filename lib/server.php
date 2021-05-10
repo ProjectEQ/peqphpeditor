@@ -63,7 +63,7 @@ switch ($action) {
     $body = new Template("templates/server/bugs.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $bugs = get_open_bugs($curr_page, $curr_size, $curr_sort);
-    $page_stats = getPageInfo("bugs", FALSE, $curr_page, $curr_size, $_GET['sort'], "status = 0");
+    $page_stats = getPageInfo("bugs", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null), "status = 0");
     if ($bugs) {
       foreach ($bugs as $key=>$value) {
         $body->set($key, $value);
@@ -108,7 +108,7 @@ switch ($action) {
     $body = new Template("templates/server/bugs.resolved.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $bugs = get_resolved_bugs($curr_page, $curr_size, $curr_sort);
-    $page_stats = getPageInfo("bugs", FALSE, $curr_page, $curr_size, $_GET['sort'], "status != 0");
+    $page_stats = getPageInfo("bugs", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null), "status != 0");
     if ($bugs) {
       foreach ($bugs as $key=>$value) {
         $body->set($key, $value);
@@ -134,18 +134,18 @@ switch ($action) {
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns1[$_GET['sort']] : $columns1[$default_sort];
-    if ($_GET['filter'] == 'on') {
+    if (isset($_GET['fliter']) && $_GET['filter'] == 'on') {
       $filter = build_filter();
     }
     $body = new Template("templates/server/hackers.tmpl.php");
-    $page_stats = getPageInfo("hackers", FALSE, $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
-    if ($filter) {
+    $page_stats = getPageInfo("hackers", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null), ((isset($filter)) ? $filter['sql'] : null));
+    if (isset($filter)) {
       $body->set('filter', $filter);
     }
     if ($page_stats['page']) {
       $hackers = get_hackers($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
     }
-    if ($hackers) {
+    if (isset($hackers)) {
       foreach ($hackers as $key=>$value) {
         $body->set($key, $value);
       }
@@ -660,7 +660,12 @@ function get_open_bugs($page_number, $results_per_page, $sort_by) {
       $array['bugs'][$result['id']] = array("bid"=>$result['id'], "zone"=>$result['zone'], "name"=>$result['name'], "ui"=>$result['ui'], "x"=>$result['x'], "y"=>$result['y'], "z"=>$result['z'], "type"=>$result['type'], "flag"=>$result['flag'], "target"=>$result['target'], "bug"=>$result['bug'], "date"=>$result['date'], "status"=>$result['status']);
     }
   }
-  return $array;
+  if (isset($array)) {
+    return $array;
+  }
+  else {
+    return null;
+  }
 }
 
 function get_resolved_bugs($page_number, $results_per_page, $sort_by) {
@@ -674,7 +679,12 @@ function get_resolved_bugs($page_number, $results_per_page, $sort_by) {
       $array['bugs'][$result['id']] = array("bid"=>$result['id'], "zone"=>$result['zone'], "name"=>$result['name'], "ui"=>$result['ui'], "x"=>$result['x'], "y"=>$result['y'], "z"=>$result['z'], "type"=>$result['type'], "flag"=>$result['flag'], "target"=>$result['target'], "bug"=>$result['bug'], "date"=>$result['date'], "status"=>$result['status']);
     }
   }
-  return $array;
+  if (isset($array)) {
+    return $array;
+  }
+  else {
+    return null;
+  }
 }
 
 function get_hackers($page_number, $results_per_page, $sort_by, $where = "") {
@@ -692,7 +702,12 @@ function get_hackers($page_number, $results_per_page, $sort_by, $where = "") {
       $array['hackers'][$result['id']] = array("hid"=>$result['id'], "account"=>$result['account'], "name"=>$result['name'], "hacked"=>$result['hacked'], "date"=>$result['date'], "zone"=>$result['zone']);
     }
   }
-  return $array;
+  if (isset($array)) {
+    return $array;
+  }
+  else {
+    return null;
+  }
 }
 
 function get_reports() {
@@ -705,7 +720,12 @@ function get_reports() {
       $array['reports'][$result['id']] = array("rid"=>$result['id'], "name"=>$result['name'], "reported"=>$result['reported'], "reported_text"=>$result['reported_text']);
     }
   }
-  return $array;
+  if (isset($array)) {
+    return $array;
+  }
+  else {
+    return null;
+  }
 }
 
 function get_petitions() {
@@ -718,7 +738,12 @@ function get_petitions() {
       $array['petitions'][$result['dib']] = array("dib"=>$result['dib'], "petid"=>$result['petid'], "accountname"=>$result['accountname'], "charname"=>$result['charname'], "senttime"=>$result['senttime'], "zone"=>$result['zone']);
     }
   }
-  return $array;
+  if (isset($array)) {
+    return $array;
+  }
+  else {
+    return null;
+  }
 }
 
 function get_rules() {
@@ -733,7 +758,12 @@ function get_rules() {
       $array['rules'][$result['rule_name']] = array("ruleset_id"=>$result['ruleset_id'], "rule_value"=>$result['rule_value'], "rule_name"=>$result['rule_name'], "notes"=>$result['notes']);
     }
   }
-  return $array;
+  if (isset($array)) {
+    return $array;
+  }
+  else {
+    return null;
+  }
 }
 
 function get_default_ruleset() {
@@ -742,7 +772,12 @@ function get_default_ruleset() {
   $query = "SELECT * FROM rule_sets WHERE `name`=\"default\" LIMIT 1";
   $result = $mysql->query_assoc($query);
 
-  return $result;
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
 }
 
 function get_ruleset_name($ruleset_id) {
