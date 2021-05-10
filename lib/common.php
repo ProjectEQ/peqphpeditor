@@ -503,11 +503,13 @@ function delete_player($playerid) {
   $mysql->query_no_result($query);
   $query = "DELETE FROM buyer WHERE charid=$playerid";
   $mysql->query_no_result($query);
+  $query = "DELETE FROM char_recipe_list WHERE char_id=$playerid";
+  $mysql->query_no_result($query);
   $query = "DELETE FROM character_activities WHERE charid=$playerid";
   $mysql->query_no_result($query);
-  $query = "DELETE FROM character_alternate_abilities WHERE id=$playerid";
-  $mysql->query_no_result($query);
   $query = "DELETE FROM character_alt_currency WHERE char_id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_alternate_abilities WHERE id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_auras WHERE id=$playerid";
   $mysql->query_no_result($query);
@@ -517,20 +519,27 @@ function delete_player($playerid) {
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_buffs WHERE character_id=$playerid";
   $mysql->query_no_result($query);
+  $query = "DELETE FROM character_corpses WHERE charid=$playerid";
+  $mysql->query_no_result($query);
   $query = "DELETE FROM character_currency WHERE id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_data WHERE id=$playerid";
   $mysql->query_no_result($query);
-  $query = "DELETE FROM character_disciplines WHERE id=$playerid";
-  $mysql->query_no_result($query);
+  //character_disciplines?
   $query = "DELETE FROM character_enabledtasks WHERE charid=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_expedition_lockouts WHERE character_id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_exp_modifiers WHERE character_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_inspect_messages WHERE id=$playerid";
   $mysql->query_no_result($query);
+  //character_item_recast?
   $query = "DELETE FROM character_languages WHERE id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_leadership_abilities WHERE id=$playerid";
   $mysql->query_no_result($query);
+  //character_material?
   $query = "DELETE FROM character_memmed_spells WHERE id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_pet_buffs WHERE char_id=$playerid";
@@ -549,11 +558,10 @@ function delete_player($playerid) {
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_tribute WHERE id=$playerid";
   $mysql->query_no_result($query);
-  $query = "DELETE FROM char_recipe_list WHERE char_id=$playerid";
-  $mysql->query_no_result($query);
   $query = "DELETE FROM completed_tasks WHERE charid=$playerid";
   $mysql->query_no_result($query);
-  $query = "DELETE FROM discovered_items WHERE char_name=(SELECT name FROM character_data WHERE id=$playerid)";
+  //data_buckets?
+  $query = "DELETE FROM discovered_items WHERE char_name=\"(SELECT name FROM character_data WHERE id=$playerid)\"";
   $mysql->query_no_result($query);
   $query = "DELETE FROM faction_values WHERE char_id=$playerid";
   $mysql->query_no_result($query);
@@ -568,14 +576,14 @@ function delete_player($playerid) {
   $mysql->query_no_result($query);
   $query = "DELETE FROM inventory WHERE charid=$playerid";
   $mysql->query_no_result($query);
+  $query = "DELETE FROM inventory_snapshots WHERE charid=$playerid";
+  $mysql->query_no_result($query);
   $query = "DELETE FROM keyring WHERE char_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM mail WHERE charid=$playerid";
   $mysql->query_no_result($query);
   //mercs?
   //petitions?
-  $query = "DELETE FROM character_corpses WHERE charid=$playerid";
-  $mysql->query_no_result($query);
   $query = "DELETE FROM player_titlesets WHERE char_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM quest_globals WHERE charid=$playerid";
@@ -607,8 +615,6 @@ function delete_account($acctid) {
   $mysql->query_no_result($query);
   $query = "DELETE FROM gm_ips WHERE account_id=$acctid";
   $mysql->query_no_result($query);
-  //hackers table not associated with $acctid
-  //petitions table not associated with $acctid
   $query = "DELETE FROM sharedbank WHERE acctid=$acctid";
   $mysql->query_no_result($query);
 }

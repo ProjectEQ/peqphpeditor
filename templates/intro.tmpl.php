@@ -32,7 +32,7 @@ if (isset($current_db_version) && $current_db_version > 0) {
     <table width="100%">
       <tr>
         <td valign="middle" width="30px"><img src="images/caution.gif"></td>
-        <td style="padding:0px 5px; font-size:10px;">Your database schema (<?=$local_db_version?>) does not match the current binary database version (<?=$current_db_version?>). You may experience errors or inaccurate data if you continue.</td>
+        <td style="padding:0px 5px; font-size:10px;">Your database schema (<?=$local_db_version?>) does not match the current binary database version (<?=$current_db_version?>) which this editor supports.<br>Proceed with caution as you may experience errors or inaccurate data if you continue.</td>
       </tr>
     </table>
   </div>

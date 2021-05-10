@@ -559,6 +559,47 @@
             </fieldset>
           </td>
         </tr>
+        <tr>
+          <td colspan="2">
+            <fieldset>
+              <legend><strong>Modifiers</strong></legend>
+              <table width="100%">
+                <tr>
+                  <td width="50%">
+                    <fieldset>
+                      <legend><strong>Experience Mods</strong> (<a href="index.php?editor=player&playerid=<?=$playerid?>&action=8">Add</a>)</legend>
+<?if ($exp_mods):?>
+                        <table width="100%">
+                          <tr>
+                            <td align="center"><u>Zone</u></td>
+                            <td align="center"><u>Base EXP Mod</u></td>
+                            <td align="center"><u>AA EXP Mod</u></td>
+                            <td align="center">&nbsp;</td>
+                          </tr>
+<?  foreach ($exp_mods as $exp_mod):?>
+                          <tr>
+                            <td align="center"><?=getZoneName($exp_mod['zone_id'])?> (<?=$exp_mod['zone_id']?>)</td>
+                            <td align="center"><?=$exp_mod['exp_modifier']?></td>
+                            <td align="center"><?=$exp_mod['aa_modifier']?></td>
+                            <td align="center">
+                              <?echo ($exp_mod['exp_modifier'] == 0 && $exp_mod['aa_modifier'] == 0) ? "<img src='images\caution.gif' width='13' title='Zero values have no effect'>&nbsp;" : "";?>
+                              <a href="index.php?editor=player&playerid=<?=$exp_mod['character_id']?>&zoneid=<?=$exp_mod['zone_id']?>&action=9"><img src="images/edit2.gif" width="13"></a>&nbsp;
+                              <a href="index.php?editor=player&playerid=<?=$exp_mod['character_id']?>&zoneid=<?=$exp_mod['zone_id']?>&action=11"><img src="images/delete.gif" width="13"></a>
+                            </td>
+                          </tr>
+<?  endforeach;?>
+                        </table>
+<?else:?>
+                        None
+<?endif;?>
+                    </fieldset>
+                  </td>
+                  <td width="50%">&nbsp;</td>
+                </tr>
+              </table>
+            </fieldset>
+          </td>
+        <tr>
       </table>
     </div>
   </div>
