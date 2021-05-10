@@ -21,7 +21,7 @@ For Linux users, note the following.
 
 3) Unzip or checkout the files into your public html directory (such as /htdocs/peqedit) or set up an alias outside that directory if you desire.
 
-4) From the sql directory, source schema.sql into your database. You should also source the expansions.sql into your database.
+4) From the sql directory, source schema.sql into your database. You should also source the expansions.sql into your database (current PEQ dumps will already have this data and you can skip this file or ignore any duplicate errors).
 
 5) Rename config.php.dist as config.php.  Then, open up config.php and edit the variables according to your database and needs.
 
