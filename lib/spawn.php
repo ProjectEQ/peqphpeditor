@@ -1225,7 +1225,7 @@ function spawnpoint_fromgrid() {
   $zid = getZoneID($z);
   $spid = intval($_GET['spid']);
 
-  $query = "SELECT spawngroupid AS sid FROM spawn2 WHERE id=\"$spid\" limit 1";
+  $query = "SELECT spawngroupid AS sid FROM spawn2 WHERE id=\"$spid\" LIMIT 1";
   $result = $mysql_content_db->query_assoc($query);
 
   return ($result['sid']);
@@ -1514,6 +1514,7 @@ function add_spawnpoint() {
   $respawntime = $_POST['respawntime'];
   $variance = $_POST['variance'];
   $pathgrid = $_POST['pathgrid'];
+  $path_when_zone_idle = $_POST['path_when_zone_idle'];
   $condition = $_POST['_condition'];
   $cond_value = $_POST['cond_value'];
   $enabled = $_POST['enabled'];
@@ -1523,7 +1524,7 @@ function add_spawnpoint() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
+  $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, path_when_zone_idle=$path_when_zone_idle, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
@@ -1877,6 +1878,7 @@ function copy_spawnpoint() {
   $respawntime = $original['respawntime'];
   $variance = $original['variance'];
   $pathgrid = $original['pathgrid'];
+  $path_when_zone_idle = $original['path_when_zone_idle'];
   $condition = $original['_condition'];
   $cond_value = $original['cond_value'];
   $enabled = $original['enabled'];
@@ -1886,7 +1888,7 @@ function copy_spawnpoint() {
   $content_flags = $original['content_flags'];
   $content_flags_disabled = $original['content_flags_disabled'];
 
-  $query2 = "INSERT INTO spawn2 SET id=$new_id, spawngroupID=\"$sgid\", zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
+  $query2 = "INSERT INTO spawn2 SET id=$new_id, spawngroupID=\"$sgid\", zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, path_when_zone_idle=$path_when_zone_idle, _condition=$condition, cond_value=$cond_value, version=$version, enabled=$enabled, animation=$animation, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query2);
 
   if ($content_flags != "") {

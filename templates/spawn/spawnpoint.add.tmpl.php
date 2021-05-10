@@ -63,6 +63,12 @@
               <input type="text" name="pathgrid" size="15" value="0">
             </td>
             <td>
+              <strong>Idle Zone Pathing</strong><br>
+              <select name="path_when_zone_idle">
+                <option value="0">No (0)</option>
+                <option value="1">Yes (1)</option>
+            </td>
+            <td>
               <strong>Enabled:</strong><br>
               <input type="text" name="enabled" size="15" value="1">
             </td>
@@ -70,7 +76,7 @@
               <strong>Animation:</strong><br>
               <select name="animation">
 <?foreach($animations as $k => $v):?>
-                <option value="<?=$k?>"><?=$v?></option>
+                <option value="<?=$k?>"><?=$v?> (<?=$k?>)</option>
 <?endforeach;?>
               </select>
             </td>

@@ -74,6 +74,9 @@
             <strong>Pathgrid:</strong> <?=$pathgrid?><?echo ($pathgrid > 0) ? " [<a href='index.php?editor=spawn&z=$currzone&zoneid=$currzoneid&npcid=$npcid&spid=$id&pathgrid=$pathgrid&action=20'>View</a>]" : "";?>
           </td>
           <td>
+            <strong>Idle Zone Pathing:</strong> <?echo ($path_when_zone_idle == 1) ? "Y" : "N";?>
+          </td>
+          <td>
             <strong>Enabled:</strong> <?echo ($enabled == 1) ? "Y" : "N";?>
           </td>
           <td align="left">
