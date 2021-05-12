@@ -1,4 +1,4 @@
-<?if($errors != ''):?>
+<?if(isset($errors) && $errors != ''):?>
   <?foreach($errors as $error):?>
     <div class='error'>
       <table width="100%">

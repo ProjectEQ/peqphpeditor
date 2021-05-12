@@ -1,4 +1,4 @@
-    <div class="edit_form" id="filter_box" style="width: 350px; display: <?echo ($filter['status'] == 'on') ? 'block' : 'none'?>">
+    <div class="edit_form" id="filter_box" style="width: 350px; display: <?echo (isset($filter) && $filter['status'] == 'on') ? 'block' : 'none'?>">
       <div class="edit_form_header">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
@@ -11,17 +11,17 @@
         <form name="filter" id="filter" method="get" action="index.php">
           <input type="hidden" name="editor" value="faction">
           <input type="hidden" name="action" value="9">
-<?echo (($sort != '') ? '<input type="hidden" name="sort" value="' . $sort . '">' : '')?>
+<?echo ((isset($sort) && $sort != '') ? '<input type="hidden" name="sort" value="' . $sort . '">' : '')?>
           <input type="hidden" name="filter" id="filter_status" value="on">
           <table class="table_content" width="100%">
             <tr>
               <td width="50%">
                 Character Name:<br>
-                <input type="text" name="filter1" id="filter1" value="<?=$filter['filter1']?>">
+                <input type="text" name="filter1" id="filter1" value="<?echo (isset($filter)) ? $filter['filter1'] : "";?>">
               </td>
               <td width="50%">
                 Faction ID:<br>
-                <input type="text" name="filter2" id="filter2" value="<?=$filter['filter2']?>">
+                <input type="text" name="filter2" id="filter2" value="<?echo (isset($filter)) ? $filter['filter2'] : "";?>">
               </td>
             </tr>
             <tr>

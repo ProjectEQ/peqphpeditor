@@ -59,7 +59,7 @@
                 Reward Method:<br>
                 <select name="rewardmethod" style="width: 180px;">
 <?foreach($rewardmethods as $key=>$value):?>
-                  <option value="<?=$key?>"<?echo ($key == $rewardmethod)? " selected" : "";?>><?=$key?>: <?=$value?></option>
+                  <option value="<?=$key?>"<?echo (isset($rewardmethod) && $key == $rewardmethod)? " selected" : "";?>><?=$key?>: <?=$value?></option>
 <?endforeach;?>
                 </select>
               </td>

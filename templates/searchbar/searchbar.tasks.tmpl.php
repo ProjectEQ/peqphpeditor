@@ -6,7 +6,7 @@
               &nbsp;<select OnChange="gotosite(this.options[this.selectedIndex].value)">
                 <option value="">Select a Task</option>
 <?php foreach ($tasks as $task): extract($task);?>
-                <option value="index.php?editor=<?=$curreditor?>&tskid=<?=$id?>"<?php if ($currtask == $id): ?> selected<?php endif;?>><?=$title?></option>
+                <option value="index.php?editor=<?=$curreditor?>&tskid=<?=$id?>"<?php if ($currtask == $id): ?> selected<?php endif;?>><?=$title?> (<?=$id?>)</option>
 <?php endforeach;?>
               </select>
             </td>

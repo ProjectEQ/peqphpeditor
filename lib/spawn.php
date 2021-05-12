@@ -1141,7 +1141,7 @@ function balance_spawns($sid) {
 function get_spawngroup_info() {
   global $mysql_content_db;
   $sid = $_GET['sid'];
-  $new_sid = $_POST['new_sid'];
+  $new_sid = ((isset($_POST['new_sid'])) ? $_POST['new_sid'] : 0);
 
   if ($new_sid > 0) {
     $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay, mindelay, despawn, despawn_timer, wp_spawns FROM spawngroup WHERE id=$new_sid";

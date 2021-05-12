@@ -49,11 +49,11 @@ switch ($action) {
       $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
       $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
       $body = new Template("templates/player/player.default.tmpl.php");
-      $page_stats = getPageInfo("character_data", FALSE, $curr_page, $curr_size, $_GET['sort']);
+      $page_stats = getPageInfo("character_data", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null));
       if ($page_stats['page']) {
         $players = get_players($page_stats['page'], $curr_size, $curr_sort);
       }
-      if ($players) {
+      if (isset($players)) {
         $body->set('players', $players);
         $body->set('classes', $classes);
         foreach ($page_stats as $key=>$value) {

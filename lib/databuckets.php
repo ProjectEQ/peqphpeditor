@@ -16,18 +16,18 @@ switch ($action) {
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
-    if ($_GET['filter'] == 'on') {
+    if (isset($_GET['filter']) && $_GET['filter'] == 'on') {
       $filter = build_filter();
     }
     $body = new Template("templates/databuckets/databuckets.tmpl.php");
-    $page_stats = getPageInfo("data_buckets", FALSE, $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
-    if ($filter) {
+    $page_stats = getPageInfo("data_buckets", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null), ((isset($filter)) ? $filter['sql'] : null));
+    if (isset($filter)) {
       $body->set('filter', $filter);
     }
     if ($page_stats['page']) {
       $databuckets = get_databuckets($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
     }
-    if ($databuckets) {
+    if (isset($databuckets)) {
       $body->set('databuckets', $databuckets);
       foreach ($page_stats as $key=>$value) {
         $body->set($key, $value);

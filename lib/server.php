@@ -556,7 +556,7 @@ switch ($action) {
       $body->set('classes', $classes);
       $body->set('deities', $deities);
       $body->set('zoneids', $zoneids);
-      $body->set('expansions', $expansions);
+      $body->set('expansions', $eqexpansions);
     }
     break;
   case 57: // View Character Base Data
@@ -1293,7 +1293,12 @@ function get_bannedips() {
       $array['banned'][$result['ip_address']] = array("ip_address"=>$result['ip_address'], "notes"=>$result['notes']);
     }
   }
-  return $array;
+  if (isset($array)) {
+    return $array;
+  }
+  else {
+    return null;
+  }
 }
 
 function add_bannedip() {

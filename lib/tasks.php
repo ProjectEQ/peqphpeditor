@@ -369,18 +369,18 @@ switch ($action) {
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
-    if ($_GET['filter'] == 'on') {
+    if (isset($_GET['filter']) && $_GET['filter'] == 'on') {
       $filter = build_filter();
     }
     $body = new Template("templates/tasks/tasks.activetasks.tmpl.php");
-    $page_stats = getPageInfo("character_tasks", FALSE, $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
-    if ($filter) {
+    $page_stats = getPageInfo("character_tasks", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null), ((isset($filter)) ? $filter['sql'] : null));
+    if (isset($filter)) {
       $body->set('filter', $filter);
     }
     if ($page_stats['page']) {
       $active_tasks = getActiveTasks($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
     }
-    if ($active_tasks) {
+    if (isset($active_tasks)) {
       $body->set('active_tasks', $active_tasks);
       foreach ($page_stats as $key=>$value) {
         $body->set($key, $value);
@@ -397,18 +397,18 @@ switch ($action) {
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
-    if ($_GET['filter'] == 'on') {
+    if (isset($_GET['filter']) && $_GET['filter'] == 'on') {
       $filter = build_filter();
     }
     $body = new Template("templates/tasks/tasks.completedtasks.tmpl.php");
-    $page_stats = getPageInfo("completed_tasks", FALSE, $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
-    if ($filter) {
+    $page_stats = getPageInfo("completed_tasks", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null), ((isset($filter)) ? $filter['sql'] : null));
+    if (isset($filter)) {
       $body->set('filter', $filter);
     }
     if ($page_stats['page']) {
       $completed_tasks = getCompletedTasks($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
     }
-    if ($completed_tasks) {
+    if (isset($completed_tasks)) {
       $body->set('completed_tasks', $completed_tasks);
       foreach ($page_stats as $key=>$value) {
         $body->set($key, $value);

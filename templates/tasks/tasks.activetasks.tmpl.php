@@ -1,4 +1,4 @@
-  <div class="edit_form" id="filter_box" style="width: 350px; display: <?echo ($filter['status'] == 'on') ? 'block' : 'none'?>">
+  <div class="edit_form" id="filter_box" style="width: 350px; display: <?echo (isset($filter) && $filter['status'] == 'on') ? 'block' : 'none'?>">
     <div class="edit_form_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
@@ -11,17 +11,17 @@
       <form name="filter" id="filter" method="get" action="index.php">
         <input type="hidden" name="editor" value="tasks">
         <input type="hidden" name="action" value="35">
-<?echo (($sort != '') ? '<input type="hidden" name="sort" value="' . $sort . '">' : '')?>
+<?echo ((isset($sort) && $sort != '') ? '<input type="hidden" name="sort" value="' . $sort . '">' : '')?>
         <input type="hidden" name="filter" id="filter_status" value="on">
         <table class="table_content" width="100%">
           <tr>
             <td width="50%">
               <strong>Task:</strong><br>
-              <input type="text" name="filter1" id="filter1" value="<?=$filter['filter1']?>">
+              <input type="text" name="filter1" id="filter1" value="<?echo (isset($filter)) ? $filter['filter1'] : "";?>">
             </td>
             <td width="50%">
               <strong>Character:</strong><br>
-              <input type="text" name="filter2" id="filter2" value="<?=$filter['filter2']?>">
+              <input type="text" name="filter2" id="filter2" value="<?echo (isset($filter)) ? $filter['filter2'] : "";?>">
             </td>
           </tr>
           <tr>
@@ -43,7 +43,7 @@
             <?echo ($page < $pages) ? "<a href='index.php?editor=tasks&action=35&page=" . ($page + 1) . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/next.gif' border='0' width='12' height='12' title='Next'></a>" : "<img src='images/next.gif' border='0' width='12' height='12'>";?>
             <?echo ($page < $pages) ? "<a href='index.php?editor=tasks&action=35&page=" . $pages . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/last.gif' border='0' width='12' height='12' title='Last'></a>" : "<img src='images/last.gif' border='0' width='12' height='12'>";?>
           </td>
-          <td align="right" width="33%"><a onClick="document.getElementById('filter_box').style.display='block';document.getElementById('filter_image').style.display='none';"><img id="filter_image" src="images/filter.jpg" border="0" height="13" width="13" title="Show filter" alt="Show filter"<?echo ($filter['status'] == 'on') ? ' style="display:none;"' : '';?>></a></td>
+          <td align="right" width="33%"><a onClick="document.getElementById('filter_box').style.display='block';document.getElementById('filter_image').style.display='none';"><img id="filter_image" src="images/filter.jpg" border="0" height="13" width="13" title="Show filter" alt="Show filter"<?echo (isset($filter) && $filter['status'] == 'on') ? ' style="display:none;"' : '';?>></a></td>
         </tr>
       </table>
     </div>

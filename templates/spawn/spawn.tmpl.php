@@ -113,6 +113,7 @@
           </tr>
 <?
   $x=0;
+  $chance_total = 0;
   foreach($npcs as $npc): extract($npc);
     $chance_total += $chance;
 ?>

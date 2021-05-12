@@ -1,4 +1,4 @@
-       <?$id=$_GET['npc'];?>
+       <?$id=((isset($_GET['npc'])) ? $_GET['npc'] : "");?>
        <form name="addnpc" method="post" action="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$sid?>&action=9">
        <table class="edit_form">
          <tr>

@@ -1,7 +1,7 @@
   <div class="table_container" style="width:400px;">
     <div class="table_header">Character Auras (Limit: 500)</div>
     <div class="table_content">
-<?if($char_auras != ''):?>
+<?if(isset($char_auras) && $char_auras != ''):?>
       <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
           <th>Character</th>
@@ -18,8 +18,7 @@
         </tr>
 <?endforeach;?>
       </table>
-<?endif;?>
-<?if($char_auras == ''):?>
+<?else:?>
       No character auras
 <?endif;?>
     </div>

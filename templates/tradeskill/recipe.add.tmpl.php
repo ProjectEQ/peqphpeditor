@@ -9,7 +9,7 @@
         <strong>Tradeskill Used:</strong><br>
         <select name='tradeskill'>
 <?foreach($tradeskills as $k=>$v):?>
-          <option value="<?=$k?>"<?echo ($k == $ts) ? ' selected' : '';?>><?=$v?></option>
+          <option value="<?=$k?>"<?echo (isset($ts) && $k == $ts) ? ' selected' : '';?>><?=$v?></option>
 <?endforeach;?>
         </select><br><br>
         <strong>Min Skill Needed:</strong><br>

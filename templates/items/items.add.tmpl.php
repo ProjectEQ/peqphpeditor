@@ -48,10 +48,9 @@
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-<?if($filename != ''):?>
+<?if(isset($filename) && $filename != ''):?>
               <td align="left" width="25%"><a href="index.php?editor=items&id=<?=$id?>&name=<?=$filename?>&action=3">File Name:<br><input type="text" name="filename" size="20" value=""></td>
-<?endif;?>
-<?if($filename == ''):?>
+<?else:?>
               <td align="left" width="33%">File Name:<br><input type="text" name="filename" size="20" value=""></td>
 <?endif;?>
               <td align="left" width="33%">
@@ -917,7 +916,7 @@
                 <td align="left" width="25%">Source:<br><input type="text" name="source" size="20" value="CUSTOM"></td>
               </tr>
               <tr>
-                <td align="left" width="25%">Comment:<br><input type="text" name="comment" size="20" value=""></td>
+                <td colspan="4">Comment:<br><input type="text" name="comment" size="114" value=""></td>
               </tr>
             </table>
           </center>

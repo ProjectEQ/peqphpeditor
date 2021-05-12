@@ -64,13 +64,13 @@ switch ($action) {
     }
 
     $player_count = $default_player_count;
-    if ($_GET['player_count'] > 0) {
+    if (isset($_GET['player_count']) && $_GET['player_count'] > 0) {
       $player_count = $_GET['player_count'];
     }
     $body->set('player_count', $player_count);
 
     $account_count = $default_account_count;
-    if ($_GET['account_count'] > 0) {
+    if (isset($_GET['account_count']) && $_GET['account_count'] > 0) {
       $account_count = $_GET['account_count'];
     }
     $body->set('account_count', $account_count);

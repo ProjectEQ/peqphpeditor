@@ -9,7 +9,7 @@
             <select onChange="gotosite(this.options[this.selectedIndex].value)">
               <option value="">Select an Aura</option>
 <?foreach ($auras as $aura):?>
-              <option value="index.php?editor=auras&type=<?=$aura['type']?>&action=2"<?echo ($aura['type'] == $_GET['type']) ? " selected" : "";?>><?=$aura['type']?> - <?=$aura['name']?></option>
+              <option value="index.php?editor=auras&type=<?=$aura['type']?>&action=2"<?echo (isset($_GET['type']) && $aura['type'] == $_GET['type']) ? " selected" : "";?>><?=$aura['type']?> - <?=$aura['name']?></option>
 <?endforeach;?>
             </select>
             or <strong>2.</strong> Search by <input type="text" name="name" size="22" value="Name" onFocus="clearField(document.forms[0].name);document.forms[0].npc.value='NPC ID';document.forms[0].spell.value='Spell ID';">

@@ -212,19 +212,19 @@ switch ($action) {
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
-    if ($_GET['filter'] == 'on') {
+    if (isset($_GET['filter']) && $_GET['filter'] == 'on') {
       $filter = build_filter();
     }
     $body = new Template("templates/expeditions/character.lockouts.view.tmpl.php");
     $breadcrumbs .= " >> View Character Lockouts";
-    $page_stats = getPageInfo("character_expedition_lockouts", FALSE, $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
-    if ($filter) {
+    $page_stats = getPageInfo("character_expedition_lockouts", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null), ((isset($filter)) ? $filter['sql'] : null));
+    if (isset($filter)) {
       $body->set('filter', $filter);
     }
     if ($page_stats['page']) {
       $character_lockouts = get_character_lockouts($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
     }
-    if ($character_lockouts) {
+    if (isset($character_lockouts)) {
       $body->set('character_lockouts', $character_lockouts);
       foreach ($page_stats as $key=>$value) {
         $body->set($key, $value);

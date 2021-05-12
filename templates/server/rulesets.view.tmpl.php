@@ -1,4 +1,4 @@
-<? if ($orphans): ?>
+<? if (isset($orphans)): ?>
       <div class="error">
         <table width="100%">
           <tr>

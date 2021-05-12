@@ -10,7 +10,7 @@
     </tr>
     <tr>
       <td class="edit_form_content" align="center">
-        <a href="index.php?editor=tradeskill&action=10<?echo ($selected_skill != '') ? '&ts=' . $ts : '';?>">Create a New <?echo ($selected_skill != '') ? $selected_skill . ' ' : '';?>Recipe</a><br>
+        <a href="index.php?editor=tradeskill&action=10<?echo (isset($selected_skill) && $selected_skill != '') ? '&ts=' . $ts : '';?>">Create a New <?echo (isset($selected_skill) && $selected_skill != '') ? $selected_skill . ' ' : '';?>Recipe</a><br>
         <a href="index.php?editor=tradeskill&action=13">View Learned Recipes</a>
       </td>
     </tr>

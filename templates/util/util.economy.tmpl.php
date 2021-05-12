@@ -46,6 +46,7 @@
                   <th>Shared Plat</th>
                 </tr>
 <?
+if (isset($richest) && $richest['players'] != ''):
   foreach ($richest['players'] as $players) {
 ?>
                 <tr>
@@ -57,6 +58,7 @@
                 </tr>
 <?
   }
+endif;
 ?>
               </table>
             </fieldset>
@@ -76,6 +78,7 @@
                   <th>Plat on Chars</th>
                 </tr>
 <?
+if (isset($richest) && $richest['accounts'] != ''):
   foreach ($richest['accounts'] as $accounts) {
 ?>
                 <tr>
@@ -86,6 +89,7 @@
                 </tr>
 <?
   }
+endif;
 ?>
               </table>
             </fieldset>

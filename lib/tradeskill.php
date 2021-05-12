@@ -23,7 +23,6 @@ switch ($action) {
       $body->set("yesno", $yesno);
       $body->set("ts", $ts);
       $body->set("rec", $rec);
-      $body->set("quest", $quest);
       $vars = recipe_info();
       if ($vars) {
         foreach ($vars as $key=>$value) {
@@ -57,7 +56,7 @@ switch ($action) {
     }
     else {
       $body = new Template("templates/tradeskill/tradeskill.default.tmpl.php");
-      if ($_GET['ts'] > 0) {
+      if (isset($_GET['ts']) && $_GET['ts'] > 0) {
         $body->set("ts", $_GET['ts']);
         $body->set("tradeskills", $tradeskills);
       }
@@ -70,7 +69,6 @@ switch ($action) {
     $body->set("tradeskills", $tradeskills);
     $body->set("ts", $ts);
     $body->set("rec", $rec);
-    $body->set("quest", $quest);
     $vars = recipe_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -145,7 +143,7 @@ switch ($action) {
     $body = new Template("templates/tradeskill/recipe.add.tmpl.php");
     $body->set("tradeskills", $tradeskills);
     $body->set("id", get_new_id());
-    if ($_GET['ts'] > 0)
+    if (isset($_GET['ts']) && $_GET['ts'] > 0)
       $body->set('ts', $_GET['ts']);
     break;
   case 11:  // Insert Recipe
@@ -167,11 +165,11 @@ switch ($action) {
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
     $body = new Template("templates/tradeskill/learned.tmpl.php");
-    $page_stats = getPageInfo("char_recipe_list", FALSE, $curr_page, $curr_size, $_GET['sort']);
+    $page_stats = getPageInfo("char_recipe_list", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null));
     if ($page_stats['page']) {
       $recipes = getLearnedRecipes($page_stats['page'], $curr_size, $curr_sort);
     }
-    if ($recipes) {
+    if (isset($recipes)) {
       $body->set('recipes', $recipes);
       foreach ($page_stats as $key=>$value) {
         $body->set($key, $value);

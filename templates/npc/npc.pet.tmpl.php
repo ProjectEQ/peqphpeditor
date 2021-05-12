@@ -20,16 +20,16 @@
   <div class="table_container" style="width: 350px">
     <div class="table_header">
       <div style="float:right">
-<?if($set_id > 0):?>
+<?if (isset($set_id) && $set_id > 0):?>
         <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&set_id=<?=$set_id?>&action=66"><img src="images/add.gif" border="0" title="Add equipementset entry"></a>
         <a onClick="return confirm('Really Remove Equipmentset <?=$set_id?> from Pet <?=$type?>?');" href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&set_id=<?=$set_id?>&action=63"><img src="images/minus2.gif" border="0" title="Remove Equipmentset from this pet"></a>
         <a onClick="return confirm('Really Delete Equipmentset <?=$set_id?> and all associated item entries?');" href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&set_id=<?=$set_id?>&action=62"><img src="images/remove3.gif" border="0" title="Delete Equipmentset and all entries"></a>
 <?endif;?>
       </div>
-<?if($set_id > 0):?>
+<?if (isset($set_id) && $set_id > 0):?>
        Equipmentset: <?=$setname?> <td align="center" width="5%"><a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=64">(<?=$set_id?>)</a>
 <?endif;?>
-<?if($set_id < 1):?>
+<?if (isset($set_id) && $set_id < 1):?>
        Equipmentset: <td align="center" width="5%"><a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=60">()</a>
 <?endif;?>
     </div>

@@ -30,11 +30,11 @@ switch ($action) {
       $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
       $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
       $body = new Template("templates/account/account.default.tmpl.php");
-      $page_stats = getPageInfo("account", FALSE, $curr_page, $curr_size, $_GET['sort']);
+      $page_stats = getPageInfo("account", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null));
       if ($page_stats['page']) {
         $accounts = get_accounts($page_stats['page'], $curr_size, $curr_sort);
       }
-      if ($accounts) {
+      if (isset($accounts)) {
         $body->set('accounts', $accounts);
         foreach ($page_stats as $key=>$value) {
           $body->set($key, $value);

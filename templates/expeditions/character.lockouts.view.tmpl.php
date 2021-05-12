@@ -1,4 +1,4 @@
-  <div class="edit_form" id="filter_box" style="width: 750px; display: <?echo ($filter['status'] == 'on') ? 'block' : 'none'?>">
+  <div class="edit_form" id="filter_box" style="width: 750px; display: <?echo (isset($filter) && $filter['status'] == 'on') ? 'block' : 'none'?>">
     <div class="edit_form_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
@@ -11,21 +11,21 @@
       <form name="filter" id="filter" method="get" action="index.php">
         <input type="hidden" name="editor" value="expeditions">
         <input type="hidden" name="action" value="25">
-<?echo (($sort != '') ? '<input type="hidden" name="sort" value="' . $sort . '">' : '')?>
+<?echo ((isset($sort) && $sort != '') ? '<input type="hidden" name="sort" value="' . $sort . '">' : '')?>
         <input type="hidden" name="filter" id="filter_status" value="on">
         <table class="table_content" width="100%">
           <tr>
             <td>
               Character:<br>
-              <input type="text" name="filter1" id="filter1" value="<?=$filter['filter1']?>">
+              <input type="text" name="filter1" id="filter1" value="<?echo (isset($filter)) ? $filter['filter1'] : "";?>">
             </td>
             <td>
               Expedition:<br>
-              <input type="text" name="filter2" id="filter2" value="<?=$filter['filter2']?>">
+              <input type="text" name="filter2" id="filter2" value="<?echo (isset($filter)) ? $filter['filter2'] : "";?>">
             </td>
             <td>
               Event:<br>
-              <input type="text" name="filter3" id="filter3" value="<?=$filter['filter3']?>">
+              <input type="text" name="filter3" id="filter3" value="<?echo (isset($filter)) ? $filter['filter3'] : "";?>">
             </td>
           </tr>
           <tr>
@@ -48,7 +48,7 @@
             <?echo ($page < $pages) ? "<a href='index.php?editor=expeditions&action=25&page=" . $pages . (($sort != "") ? "&sort=" . $sort : "") . (($filter['status'] == "on") ? $filter['url'] : "") . "'><img src='images/last.gif' border='0' width='12' height='12' title='Last' alt='Last'></a>" : "<img src='images/last.gif' border='0' width='12' height='12' alt='Last'>";?>
           </td>
           <td align="right" width="34%">
-            <a onClick="document.getElementById('filter_box').style.display='block';document.getElementById('filter_image').style.display='none';"><img id="filter_image" src="images/filter.jpg" border="0" height="13" width="13" title="Show filter" alt="Show filter"<?echo ($filter['status'] == 'on') ? ' style="display:none;"' : '';?>></a>&nbsp;
+            <a onClick="document.getElementById('filter_box').style.display='block';document.getElementById('filter_image').style.display='none';"><img id="filter_image" src="images/filter.jpg" border="0" height="13" width="13" title="Show filter" alt="Show filter"<?echo (isset($filter) && $filter['status'] == 'on') ? ' style="display:none;"' : '';?>></a>&nbsp;
             <a href="index.php?editor=expeditions&action=26"><img src="images/add.gif" border="0" title="Create New Character Lockout" alt="Create New Character Lockout"></a>
           </td>
         </tr>
