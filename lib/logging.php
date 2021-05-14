@@ -2,13 +2,10 @@
 
 function logSQL ($query) {
   global $log_file, $logging, $logs_dir;
-  $user = $_SESSION['login'];
+  $user = (isset($_SESSION['login'])) ? $_SESSION['login'] : "N/A";
 
   if (isset($_SESSION['guest']) && ($_SESSION['guest'] == 1)) {
     $user = 'Guest';
-  }
-  if ($user == '') {
-    $user = 'N/A';
   }
 
   if ($logging == 1) {

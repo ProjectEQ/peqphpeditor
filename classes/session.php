@@ -8,7 +8,11 @@ class session {
   
   public static function login($login, $pw) {
     global $mysql;
-    
+
+    if ($_SESSION['guest'] == 1) {
+      return;
+    }
+
     $query = "SELECT password FROM peq_admin WHERE login=\"$login\"";
     $result = $mysql->query_assoc($query);
     if ($result == '') {
