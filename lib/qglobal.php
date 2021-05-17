@@ -16,7 +16,7 @@ switch ($action) {
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns[$_GET['sort']] : $columns[$default_sort];
-    if (isset($filter) && $_GET['filter'] == 'on') {
+    if (isset($_GET['filter']) && $_GET['filter'] == 'on') {
       $filter = build_filter();
     }
     $body = new Template("templates/qglobal/qglobal.tmpl.php");
