@@ -134,7 +134,7 @@ switch ($action) {
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
     $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
     $curr_sort = (isset($_GET['sort'])) ? $columns1[$_GET['sort']] : $columns1[$default_sort];
-    if (isset($_GET['fliter']) && $_GET['filter'] == 'on') {
+    if (isset($_GET['filter']) && $_GET['filter'] == 'on') {
       $filter = build_filter();
     }
     $body = new Template("templates/server/hackers.tmpl.php");
