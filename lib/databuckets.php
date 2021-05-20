@@ -25,7 +25,7 @@ switch ($action) {
       $body->set('filter', $filter);
     }
     if ($page_stats['page']) {
-      $databuckets = get_databuckets($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
+      $databuckets = get_databuckets($page_stats['page'], $curr_size, $curr_sort, ((isset($filter)) ? $filter['sql'] : null));
     }
     if (isset($databuckets)) {
       $body->set('databuckets', $databuckets);

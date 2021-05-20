@@ -25,7 +25,7 @@ switch ($action) {
       $body->set('filter', $filter);
     }
     if ($page_stats['page']) {
-      $qglobals = get_qglobals($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
+      $qglobals = get_qglobals($page_stats['page'], $curr_size, $curr_sort, ((isset($filter)) ? $filter['sql'] : null));
     }
     if (isset($qglobals)) {
       $body->set('qglobals', $qglobals);

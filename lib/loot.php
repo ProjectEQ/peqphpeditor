@@ -4,7 +4,7 @@ $normalize_amount = 10;
 
 switch ($action) {
   case 0:  // View Loottable
-    if ($npcid || $_GET['npcid'] > 0) {
+    if ($npcid || (isset($_GET['npcid']) && $_GET['npcid'] > 0)) {
       $body = new Template("templates/loot/loottable.tmpl.php");
       if (!$npcid) {
         $npcid = $_GET['npcid'];
