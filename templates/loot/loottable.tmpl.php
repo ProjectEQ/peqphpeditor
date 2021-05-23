@@ -118,6 +118,7 @@
             <th width="13%">&nbsp;</th>
           </tr>
 <?
+  $chance_total = 0;
   foreach ($lootdrop['items'] as $item): extract($item);
     $total = (($chance/100) * ($lootdrop['probability']/100)) * 100;
     $chance_total += $chance;
