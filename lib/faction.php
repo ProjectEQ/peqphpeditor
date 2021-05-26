@@ -27,7 +27,6 @@ switch ($action) {
       }
       if ($faction_data['faction_mods']) {
         $body->set('faction_mods', $faction_data['faction_mods']);
-	 $body->set("fac_mods", $fac_mods);
       }
     }
     break;
@@ -99,7 +98,7 @@ switch ($action) {
       $body->set('filter', $filter);
     }
     if ($page_stats['page']) {
-      $player_factions = get_player_factions($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
+      $player_factions = get_player_factions($page_stats['page'], $curr_size, $curr_sort, ((isset($filter)) ? $filter['sql'] : null));
     }
     if (isset($player_factions)) {
       $body->set('player_factions', $player_factions);

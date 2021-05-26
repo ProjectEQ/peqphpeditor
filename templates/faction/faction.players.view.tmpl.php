@@ -50,8 +50,8 @@
           <table class="table_content2" width="100%">
 <?if (isset($player_factions)):?>
             <tr>
-              <td align="center" width="30%"><strong><?echo ($sort == 1) ? "Character <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=faction&action=9&sort=1" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Character <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Character'></a>";?></strong></td>
-              <td align="center" width="40%"><strong><?echo ($sort == 2) ? "Faction <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=faction&action=9&sort=2" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Faction <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Faction'></a>";?></strong></td>
+              <td align="center" width="30%"><strong><?echo ($sort == 1) ? "Character <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=faction&action=9&sort=1" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Character <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Character'></a>";?></strong></td>
+              <td align="center" width="40%"><strong><?echo ($sort == 2) ? "Faction <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=faction&action=9&sort=2" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Faction <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Faction'></a>";?></strong></td>
               <td align="center" width="20%"><strong>Value</strong></td>
               <td width="10%">&nbsp;</td>
             </tr>

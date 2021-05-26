@@ -1,13 +1,13 @@
   <div class="table_container" style="width: 500px;">
     <div class="table_header">
-      <table width="100%" cellpadding="0" cellspacing="0">
+      <table style="width:100%; padding:0px; border-spacing:0px;">
         <tr>
           <td>Content Flags</td>
           <td align="right"><a href="index.php?editor=content&action=1"><img src="images/add.gif" title="Add Content Flag"></a></td>
         </tr>
       </table>
     </div>
-    <table class="table_content2" width="100%">
+    <table class="table_content2" style="width:100%;">
 <?if (isset($content_flags)):?>
       <tr>
         <td align="center" width="15%"><strong>ID</strong></td>

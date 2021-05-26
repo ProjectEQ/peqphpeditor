@@ -5,7 +5,7 @@
         <div class="table_content">
 <?if($npcpri != ''):?>
   	<?foreach($npcpri as $npcpri): extract($npcpri);?>
-		<a href="index.php?editor=npc&npcid=<?=$npcid?>&z=<?=get_zone_by_npcid($npcid)?>&zoneid=<?=get_zoneid_by_npcid($npcid)?>"><?=$npcname?> - (<?=get_zone_by_npcid($npcid)?>) -- ((<?=$factionname?>))</a><br>
+		<a href="index.php?editor=npc&npcid=<?=$npcid?>&z=<?=get_zone_by_npcid($npcid)?>&zoneid=<?=get_zoneid_by_npcid($npcid)?>"><?=$npcname?> - (<?=get_zone_by_npcid($npcid)?>) -- [<?=$factionname?>]</a><br>
  	<?endforeach;?>
 <?endif;?>
 
