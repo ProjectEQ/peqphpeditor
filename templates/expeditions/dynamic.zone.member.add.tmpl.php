@@ -2,12 +2,12 @@
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-          <td>Create Expedition Member</td>
+          <td>Create Dynamic Zone Member</td>
         </tr>
       </table>
     </div>
     <div class="table_content">
-      <form name="add_expedition_member" method="post" action="index.php?editor=expeditions&action=21">
+      <form name="add_dynamic_zone_member" method="post" action="index.php?editor=expeditions&action=21">
         <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
             <td>
@@ -15,8 +15,8 @@
               <input type="text" name="id" size="10" value="<?=$suggest_id?>">
             </td>
             <td>
-              <strong>Expedition ID:</strong><br>
-              <input type="text" name="expedition_id" size="10" value="0">
+              <strong>Dynamic Zone ID:</strong><br>
+              <input type="text" name="dynamic_zone_id" size="10" value="0">
             </td>
             <td>
               <strong>Character ID:</strong><br>
@@ -32,7 +32,7 @@
           </tr>
         </table><br>
         <center>
-          <input type="submit" value="Add Expedition Member">&nbsp;&nbsp;
+          <input type="submit" value="Add Dynamic Zone Member">&nbsp;&nbsp;
           <input type="button" value="Cancel" onClick="history.back()">
         </center>
       </form>

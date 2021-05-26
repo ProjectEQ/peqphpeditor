@@ -59,9 +59,9 @@ switch ($action) {
     if ($expedition_lockout) {
       $body->set('expedition_lockout', $expedition_lockout);
     }
-    $expedition_members = get_expedition_members($_GET['id']);
-    if ($expedition_members) {
-      $body->set('expedition_members', $expedition_members);
+    $dynamic_zone_members = get_dynamic_zone_members($_GET['id']);
+    if ($dynamic_zone_members) {
+      $body->set('dynamic_zone_members', $dynamic_zone_members);
     }
     $dynamic_zone = get_dynamic_zone($expedition['dynamic_zone_id']);
     if ($dynamic_zone) {
@@ -162,44 +162,44 @@ switch ($action) {
     delete_dynamic_zone($_GET['id']);
     header("Location: index.php?editor=expeditions&action=13");
     exit;
-  case 19: // View Expedition Members
-    $body = new Template("templates/expeditions/expedition.members.view.tmpl.php");
-    $breadcrumbs .= " >> View Expedition Members";
+  case 19: // View Dynamic Zone Members
+    $body = new Template("templates/expeditions/dynamic.zone.members.view.tmpl.php");
+    $breadcrumbs .= " >> View Dynamic Zone Members";
     $body->set('yesno', $yesno);
-    $expedition_members = get_expedition_members();
-    if ($expedition_members) {
-      $body->set('expedition_members', $expedition_members);
+    $dynamic_zone_members = get_dynamic_zone_members();
+    if ($dynamic_zone_members) {
+      $body->set('dynamic_zone_members', $dynamic_zone_members);
     }
     break;
-  case 20: // Add Expedition Member
+  case 20: // Add Dynamic Zone Member
     check_authorization();
-    $body = new Template("templates/expeditions/expedition.member.add.tmpl.php");
-    $breadcrumbs .= " >> <a href=\"index.php?editor=expeditions&action=19\">View Expedition Members</a>" . " >> Add Expedition Member";
-    $body->set('suggest_id', suggest_expedition_member_id());
+    $body = new Template("templates/expeditions/dynamic.zone.member.add.tmpl.php");
+    $breadcrumbs .= " >> <a href=\"index.php?editor=expeditions&action=19\">View Dynamic Zone Members</a>" . " >> Add Dynamic Zone Member";
+    $body->set('suggest_id', suggest_dynamic_zone_member_id());
     break;
-  case 21: // Insert Expedition Member
+  case 21: // Insert Dynamic Zone Member
     check_authorization();
-    insert_expedition_member();
+    insert_dynamic_zone_member();
     $id = $_POST['id'];
     header("Location: index.php?editor=expeditions&action=19");
     exit;
-  case 22: // Edit Expedition Member
-    $body = new Template("templates/expeditions/expedition.member.edit.tmpl.php");
-    $breadcrumbs .= " >> <a href=\"index.php?editor=expeditions&action=19\">View Expedition Members</a>" . " >> Edit Expedition Member";
-    $expedition_member = get_expedition_member($_GET['id']);
-    if ($expedition_member) {
-      $body->set('expedition_member', $expedition_member);
+  case 22: // Edit Dynamic Zone Member
+    $body = new Template("templates/expeditions/dynamic.zone.member.edit.tmpl.php");
+    $breadcrumbs .= " >> <a href=\"index.php?editor=expeditions&action=19\">View Dynamic Zone Members</a>" . " >> Edit Dynamic Zone Member";
+    $dynamic_zone_member = get_dynamic_zone_member($_GET['id']);
+    if ($dynamic_zone_member) {
+      $body->set('dynamic_zone_member', $dynamic_zone_member);
     }
     break;
-  case 23: // Update Expedition Member
+  case 23: // Update Dynamic Zone Member
     check_authorization();
-    update_expedition_member();
+    update_dynamic_zone_member();
     $id = $_POST['id'];
     header("Location: index.php?editor=expeditions&action=19");
     exit;
-  case 24: // Delete Expedition Member
+  case 24: // Delete Dynamic Zone Member
     check_authorization();
-    delete_expedition_member($_GET['id']);
+    delete_dynamic_zone_member($_GET['id']);
     if ($_GET['return'] == 1) {
       $return_address = $_SERVER['HTTP_REFERER'];
       header("Location: $return_address");
@@ -512,15 +512,15 @@ function suggest_dynamic_zone_id() {
   return $result['id'] + 1;
 }
 
-function get_expedition_members($expedition_id = null) {
+function get_dynamic_zone_members($dynamic_zone_id = null) {
   global $mysql;
   $query = "";
 
-  if ($expedition_id) {
-    $query = "SELECT * FROM expedition_members WHERE expedition_id=$expedition_id";
+  if ($dynamic_zone_id) {
+    $query = "SELECT * FROM dynamic_zone_members WHERE dynamic_zone_id=$dynamic_zone_id";
   }
   else {
-    $query = "SELECT * FROM expedition_members";
+    $query = "SELECT * FROM dynamic_zone_members";
   }
   $results = $mysql->query_mult_assoc($query);
 
@@ -532,10 +532,10 @@ function get_expedition_members($expedition_id = null) {
   }
 }
 
-function get_expedition_member($id) {
+function get_dynamic_zone_member($id) {
   global $mysql;
 
-  $query = "SELECT * FROM expedition_members WHERE id=$id";
+  $query = "SELECT * FROM dynamic_zone_members WHERE id=$id";
   $result = $mysql->query_assoc($query);
 
   if ($result) {
@@ -546,41 +546,41 @@ function get_expedition_member($id) {
   }
 }
 
-function insert_expedition_member() {
+function insert_dynamic_zone_member() {
   global $mysql;
 
   $id = $_POST['id'];
-  $expedition_id = $_POST['expedition_id'];
+  $dynamic_zone_id = $_POST['dynamic_zone_id'];
   $character_id = $_POST['character_id'];
   $is_current_member = $_POST['is_current_member'];
 
-  $query = "INSERT INTO expedition_members SET id=$id, expedition_id=$expedition_id, character_id=$character_id, is_current_member=$is_current_member";
+  $query = "INSERT INTO dynamic_zone_members SET id=$id, dynamic_zone_id=$dynamic_zone_id, character_id=$character_id, is_current_member=$is_current_member";
   $mysql->query_no_result($query);
 }
 
-function update_expedition_member() {
+function update_dynamic_zone_member() {
   global $mysql;
 
   $id = $_POST['id'];
-  $expedition_id = $_POST['expedition_id'];
+  $dynamic_zone_id = $_POST['dynamic_zone_id'];
   $character_id = $_POST['character_id'];
   $is_current_member = $_POST['is_current_member'];
 
-  $query = "UPDATE expedition_members SET expedition_id=$expedition_id, character_id=$character_id, is_current_member=$is_current_member WHERE id=$id";
+  $query = "UPDATE dynamic_zone_members SET dynamic_zone_id=$dynamic_zone_id, character_id=$character_id, is_current_member=$is_current_member WHERE id=$id";
   $mysql->query_no_result($query);
 }
 
-function delete_expedition_member($id) {
+function delete_dynamic_zone_member($id) {
   global $mysql;
 
-  $query = "DELETE FROM expedition_members WHERE id=$id";
+  $query = "DELETE FROM dynamic_zone_members WHERE id=$id";
   $mysql->query_no_result($query);
 }
 
-function suggest_expedition_member_id() {
+function suggest_dynamic_zone_member_id() {
   global $mysql;
 
-  $query = "SELECT MAX(id) AS id FROM expedition_members";
+  $query = "SELECT MAX(id) AS id FROM dynamic_zone_members";
   $result = $mysql->query_assoc($query);
 
   return $result['id'] + 1;
