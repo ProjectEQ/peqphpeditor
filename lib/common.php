@@ -8,10 +8,10 @@ function getNPCName($npcid) {
   return $result['name'];
 }
 
-function getZoneLongName($short_name) {
+function getZoneLongName($short_name, $version=0) {
   global $mysql_content_db;
 
-  $query = "SELECT long_name FROM zone WHERE short_name=\"$short_name\"";
+  $query = "SELECT long_name FROM zone WHERE short_name=\"$short_name\" AND version=$version";
   $result = $mysql_content_db->query_assoc($query);
   return $result['long_name'];
 }

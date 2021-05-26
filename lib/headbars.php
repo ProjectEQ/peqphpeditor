@@ -192,7 +192,7 @@ switch ($editor) {
     break;
 }
 
-function build_tabs () {
+function build_tabs() {
   global $editor, $z, $zoneid, $npcid, $playerid, $acctid, $guildid;
 
   $tabstatus1 = "off";

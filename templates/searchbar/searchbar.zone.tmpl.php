@@ -7,7 +7,7 @@
                 <option value="">Select a Zone Shortname</option>
 <?php foreach ($zonelist as $zone): ?>
 <?php if ($zone['expansion'] <= $expansion_limit): ?>
-                <option value="index.php?editor=<?=$curreditor?>&z=<?=$zone['short_name']?>&zoneid=<?=$zone['id']?>"<?php if ($currzoneid == $zone['id']): ?> selected<?php endif;?>><?=$zone['short_name']?> (<?=$zone['version']?>)</option>
+                <option value="index.php?editor=<?=$curreditor?>&z=<?=$zone['short_name']?>&zoneid=<?=$zone['id']?>"<?echo ($currzoneid == $zone['id']) ? " selected" : "";?>><?=$zone['short_name']?> (<?=$zone['version']?>)</option>
 <?php endif;?>
 <?php endforeach;?>
               </select>
@@ -17,7 +17,7 @@
                 <option value="">Select a Zone Longname</option>
 <?php foreach ($zonelist2 as $zone): ?>
 <?php if ($zone['expansion'] <= $expansion_limit): ?>
-                <option value="index.php?editor=<?=$curreditor?>&z=<?=$zone['short_name']?>&zoneid=<?=$zone['id']?>"<?php if ($currzoneid == $zone['id']): ?> selected<?php endif;?>><?=$zone['long_name']?> (<?=$zone['version']?>)</option>
+                <option value="index.php?editor=<?=$curreditor?>&z=<?=$zone['short_name']?>&zoneid=<?=$zone['id']?>"<?echo ($currzoneid == $zone['id']) ? " selected" : "";?>><?=$zone['long_name']?> (<?=$zone['version']?>)</option>
 <?php endif;?>
 <?php endforeach;?>
               </select>
