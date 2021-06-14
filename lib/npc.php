@@ -956,6 +956,44 @@ switch ($action) {
       $body->set('pets', $pets);
     }
     break;
+  case 84: // View Beastlord Pets
+    $breadcrumbs .= " >> View Beastlord Pets";
+    $body = new Template("templates/npc/npc.beastlord.pets.view.tmpl.php");
+    $beastlord_pets = get_beastlord_pets();
+    if ($beastlord_pets) {
+      $body->set('beastlord_pets', $beastlord_pets);
+    }
+    $body->set('races', $races);
+    $body->set('genders', $genders);
+    break;
+  case 85: // Add Beastlord Pet
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=npc&action=84'>View Beastlord Pets</a> >> Add Beastlord Pet";
+    $body = new Template("templates/npc/npc.add.beastlord.pet.tmpl.php");
+    $body->set('races', $races);
+    $body->set('genders', $genders);
+    break;
+  case 86: // Edit Beastlord Pet
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=npc&action=84'>View Beastlord Pets</a> >> Edit Beastlord Pet";
+    $body = new Template("templates/npc/npc.edit.beastlord.pet.tmpl.php");
+    $beastlord_pet = get_beastlord_pet($_GET['player_race']);
+    if ($beastlord_pet) {
+      $body->set('beastlord_pet', $beastlord_pet);
+    }
+    $body->set('races', $races);
+    $body->set('genders', $genders);
+    break;
+  case 87: // Insert Beastlord Pet
+    check_authorization();
+    insert_beastlord_pet();
+    header("Location: index.php?editor=npc&action=84");
+    exit;
+  case 88: // Delete Beastlord Pet
+    check_authorization();
+    delete_beastlord_pet($_GET['player_race']);
+    header("Location: index.php?editor=npc&action=84");
+    exit;
 }
 
 function npc_info() {
@@ -2584,5 +2622,55 @@ function build_filter() {
   $filter_final['filter4'] = $filter4;
 
   return $filter_final;
+}
+
+function get_beastlord_pets() {
+  global $mysql_content_db;
+
+  $query = "SELECT * FROM pets_beastlord_data";
+  $results = $mysql_content_db->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function get_beastlord_pet($player_race) {
+  global $mysql_content_db;
+
+  $query = "SELECT * FROM pets_beastlord_data WHERE player_race=$player_race";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }  
+}
+
+function insert_beastlord_pet() {
+  global $mysql_content_db;
+
+  $player_race = $_POST['player_race'];
+  $pet_race = $_POST['pet_race'];
+  $texture = $_POST['texture'];
+  $helm_texture = $_POST['helm_texture'];
+  $gender = $_POST['gender'];
+  $size_modifier = $_POST['size_modifier'];
+  $face = $_POST['face'];
+
+  $query = "REPLACE INTO pets_beastlord_data SET player_race=$player_race, pet_race=$pet_race, texture=$texture, helm_texture=$helm_texture, gender=$gender, size_modifier=$size_modifier, face=$face";
+  $mysql_content_db->query_no_result($query);
+}
+
+function delete_beastlord_pet($player_race) {
+  global $mysql_content_db;
+
+  $query = "DELETE FROM pets_beastlord_data WHERE player_race=$player_race";
+  $mysql_content_db->query_no_result($query);
 }
 ?>
