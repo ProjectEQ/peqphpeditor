@@ -34,7 +34,13 @@ function getZoneIDByName($short_name) {
 
   $query = "SELECT id FROM zone WHERE short_name=\"$short_name\"";
   $result = $mysql_content_db->query_assoc($query);
-  return $result['id'];
+
+  if ($result) {
+    return $result['id'];
+  }
+  else {
+    return 0;
+  }
 }
 
 function getZoneName($zoneidnumber) {
