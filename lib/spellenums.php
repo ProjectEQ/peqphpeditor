@@ -1261,8 +1261,8 @@ $sp_fields = array(
     "pvpresistcalc",        //PVP_RESIST_PER_LEVEL
     "pvpresistcap",         //PVP_RESIST_CAP
     "spell_category",       //GLOBAL_GROUP
-    "field181",             //PVP_DURATION
-    "field182",             //PVP_DURATION_CAP
+    "pvp_duration",         //PVP_DURATION
+    "pvp_duration_cap",     //PVP_DURATION_CAP
     "pcnpc_only_flag",      //PCNPC_ONLY_FLAG
     "cast_not_standing",    //CAST_NOT_STANDING
     "can_mgb",              //CAN_MGB

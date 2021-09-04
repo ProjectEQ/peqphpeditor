@@ -323,9 +323,9 @@
                 <td width="17%">PVP Resist Base:<br><input type="text" name="pvpresistbase" value="<?=$pvpresistbase?>" size="5"></td>
                 <td width="17%">PVP Resist Calc:<br><input type="text" name="pvpresistcalc" value="<?=$pvpresistcalc?>" size="5"></td>
                 <td width="16%">PVP Resist Cap:<br><input type="text" name="pvpresistcap" value="<?=$pvpresistcap?>" size="5"></td>
+                <td width="17%">PVP Duration:<br><input type="text" name="pvp_duration" value="<?=$pvp_duration?>" size="5"></td>
+                <td width="16%">PVP Duration Cap:<br><input type="text" name="pvp_duration_cap" value="<?=$pvp_duration_cap?>" size="5"></td>
                 <td width="17%">Song Cap:<br><input type="text" name="songcap" value="<?=$songcap?>" size="5"></td>
-                <td width="17%">Min Resist:<br><input type="text" name="MinResist" value="<?=$MinResist?>" size="5"></td>
-                <td width="16%">Max Resist:<br><input type="text" name="MaxResist" value="<?=$MaxResist?>" size="5"></td>
               </tr>
               <tr>
                 <td width="17%">Cone Start Angle:<br><input type="text" name="ConeStartAngle" value="<?=$ConeStartAngle?>" size="5"></td>
@@ -333,7 +333,7 @@
                 <td width="16%">Rank:<br><input type="text" name="rank" value="<?=$rank?>" size="5"></td>
                 <td width="17%">Cast Restriction:<br><input type="text" name="CastRestriction" value="<?=$CastRestriction?>" size="5"></td>
                 <td width="17%">Max Targets:<br><input type="text" name="maxtargets" value="<?=$maxtargets?>" size="5"></td>
-                <td>AE Max Targets:<br><input type="text" name="aemaxtargets" size="5" value="<?=$aemaxtargets?>"></td>
+                <td width="16%">AE Max Targets:<br><input type="text" name="aemaxtargets" size="5" value="<?=$aemaxtargets?>"></td>
               </tr>
               <tr>
                 <td>Min Dist:<br><input type="text" name="min_dist" size="5" value="<?=$min_dist?>"></td>
@@ -347,8 +347,8 @@
                 <td>Viral Targets:<br><input type="text" name="viral_targets" size="5" value="<?=$viral_targets?>"></td>
                 <td>Viral Timer:<br><input type="text" name="viral_timer" size="5" value="<?=$viral_timer?>"></td>
                 <td>Viral Range:<br><input type="text" name="viral_range" size="5" value="<?=$viral_range?>"></td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td>Min Resist:<br><input type="text" name="MinResist" value="<?=$MinResist?>" size="5"></td>
+                <td>Max Resist:<br><input type="text" name="MaxResist" value="<?=$MaxResist?>" size="5"></td>
                 <td>&nbsp;</td>
               </tr>
             </table>
