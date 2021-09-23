@@ -9,14 +9,15 @@
           <input type="text" size="10" value="<?=$playerid?>" disabled><br><br>
           Zone:<br>
           <select name="zone_id">
+            <option value="0">Global</option>
 <? foreach ($zonelist as $zone): ?>
             <option value="<?=$zone['zoneidnumber']?>"><?=$zone['short_name']?></option>
 <? endforeach; ?>
           </select><br><br>
-          Exp Mod:</br>
-          <input type="text" name="exp_modifier" size="10" value="0"><br><br>
+          Base Exp Mod:</br>
+          <input type="text" name="exp_modifier" size="10" value="100"><br><br>
           AA Exp Mod:</br>
-          <input type="text" name="aa_modifier" size="10" value="0"><br><br>
+          <input type="text" name="aa_modifier" size="10" value="100"><br><br>
           <center>
             <input type="hidden" name="character_id" value="<?=$playerid?>">
             <input type="submit" value="Add">&nbsp;&nbsp;

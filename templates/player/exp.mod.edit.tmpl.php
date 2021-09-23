@@ -9,11 +9,12 @@
           <input type="text" size="10" value="<?=$playerid?>" disabled><br><br>
           Zone:<br>
           <select disabled>
+            <option value="0"<?echo $exp_mods['zone_id'] == 0 ? "selected" : "";?>>Global</option>
 <? foreach ($zonelist as $zone): ?>
             <option value="<?=$zone['zoneidnumber']?>"<?echo ($zone['zoneidnumber'] == $exp_mods['zone_id']) ? " selected" : "";?>><?=$zone['short_name']?></option>
 <? endforeach; ?>
           </select><br><br>
-          Exp Mod:</br>
+          Base Exp Mod:</br>
           <input type="text" name="exp_modifier" size="10" value="<?=$exp_mods['exp_modifier']?>"><br><br>
           AA Exp Mod:</br>
           <input type="text" name="aa_modifier" size="10" value="<?=$exp_mods['aa_modifier']?>"><br><br>
