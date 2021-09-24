@@ -578,7 +578,7 @@
                           </tr>
 <?  foreach ($exp_mods as $exp_mod):?>
                           <tr>
-                            <td align="center"><?=getZoneName($exp_mod['zone_id'])?> (<?=$exp_mod['zone_id']?>)</td>
+                            <td align="center"><?=$exp_mod['zone_id'] == 0 ? "Global" : getZoneName($exp_mod['zone_id'])?> (<?=$exp_mod['zone_id']?>)</td>
                             <td align="center"><?=$exp_mod['exp_modifier']?></td>
                             <td align="center"><?=$exp_mod['aa_modifier']?></td>
                             <td align="center">
