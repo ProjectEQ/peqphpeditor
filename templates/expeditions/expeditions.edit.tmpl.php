@@ -1,4 +1,4 @@
-  <div class="table_container" style="width: 650px;">
+  <div class="table_container" style="width: 450px;">
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
@@ -16,33 +16,9 @@
                 <strong>ID:</strong><br>
                 <input type="text" size="10" value="<?=$expedition['id']?>" disabled>
               </td>
-              <td colspan="2">
-                <strong>UUID:</strong><br>
-                <input type="text" name="uuid" size="60" value="<?=$expedition['uuid']?>">
-              </td>
               <td>
                 <strong>Dyn Zone ID:</strong><br>
                 <input type="text" name="dynamic_zone_id" size="10" value="<?=$expedition['dynamic_zone_id']?>">
-              </td>
-            </tr>
-            <tr>
-              <td colspan="3">
-                <strong>Expedition Name:</strong><br>
-                <input type="text" name="expedition_name" size="77" value="<?=$expedition['expedition_name']?>">
-              </td>
-              <td>
-                <strong>Leader ID:</strong><br>
-                <input type="text" name="leader_id" size="10" value="<?=$expedition['leader_id']?>">
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Min Players:</strong><br>
-                <input type="text" name="min_players" size="10" value="<?=$expedition['min_players']?>">
-              </td>
-              <td>
-                <strong>Max Players:</strong><br>
-                <input type="text" name="max_players" size="10" value="<?=$expedition['max_players']?>">
               </td>
               <td>
                 <strong>Replay on Join:</strong><br>
@@ -71,20 +47,44 @@
         <legend><strong>Dynamic Zone</strong> (<a href="index.php?editor=expeditions&id=<?=$dynamic_zone['id']?>&action=16">edit</a>)</legend>
         <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
-            <td width="1%">&nbsp;</td>
             <td width="30%">
               <strong>ID:</strong><br>
               <?=$dynamic_zone['id']?>
             </td>
-            <td width="30%">
+            <td width="35%">
               <strong>Instance:</strong><br>
               <?=$dynamic_zone['instance_id']?>
             </td>
-            <td width="30%">
+            <td width="35%">
               <strong>Type:</strong><br>
               <?=$dynamic_zone_type[$dynamic_zone['type']]?> (<?=$dynamic_zone['type']?>)
             </td>
-            <td width="9%">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <strong>Name:</strong><br>
+              <?=$dynamic_zone['name']?>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <strong>UUID:</strong><br>
+              <?=$dynamic_zone['uuid']?>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Leader ID:</strong><br>
+              <?=$dynamic_zone['leader_id']?>
+            </td>
+            <td>
+              <strong>Min Players:</strong><br>
+              <?=$dynamic_zone['min_players']?>
+            </td>
+            <td>
+              <strong>Max Players:</strong><br>
+              <?=$dynamic_zone['max_players']?>
+            </td>
           </tr>
           <tr>
             <td colspan="5">
@@ -231,16 +231,14 @@ if (isset($dynamic_zone_members)):
 ?>
         <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
-            <td width="50%"><strong>Character:</strong></td>
-            <td width="40%"><strong>Current Member:</strong></td>
+            <td width="90%"><strong>Character:</strong></td>
             <td width="10%" align="right">&nbsp;</td>
           </tr>
 <?
   foreach ($dynamic_zone_members as $dynamic_zone_member):
 ?>
           <tr>
-            <td><?=getPlayerName($dynamic_zone_member['character_id'])?> (<?=$dynamic_zone_member['character_id']?>)<?echo ($expedition['leader_id'] == $dynamic_zone_member['character_id']) ? " <strong>(LEADER)</strong>" : "";?></td>
-            <td><?=$yesno[$dynamic_zone_member['is_current_member']]?> (<?=$dynamic_zone_member['is_current_member']?>)</td>
+            <td><?=getPlayerName($dynamic_zone_member['character_id'])?> (<?=$dynamic_zone_member['character_id']?>)<?echo ($dynamic_zone['leader_id'] == $dynamic_zone_member['character_id']) ? " <strong>(LEADER)</strong>" : "";?></td>
             <td><a href="index.php?editor=expeditions&id=<?=$dynamic_zone_member['id']?>&action=22"><img src="images/edit2.gif" width="13" height="13" border="0" title="Edit Dynamic Zone Member" alt="Edit"></a>&nbsp;<a onClick="return confirm('Really delete dynamic zone member?');" href="index.php?editor=expeditions&id=<?=$dynamic_zone_member['id']?>&action=24&return=1"><img src="images/remove3.gif" border="0" title="Delete Dynamic Zone Member" alt="Delete"></a></td>
           </tr>
 <?

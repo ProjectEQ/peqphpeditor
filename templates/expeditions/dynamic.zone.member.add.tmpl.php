@@ -1,4 +1,4 @@
-  <div class="table_container" style="width: 600px;">
+  <div class="table_container" style="width: 450px;">
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
@@ -21,13 +21,6 @@
             <td>
               <strong>Character ID:</strong><br>
               <input type="text" name="character_id" size="10" value="0">
-            </td>
-            <td>
-              <strong>Current Member:</strong><br>
-              <select name="is_current_member">
-                <option value="0">No (0)</option>
-                <option value="1" selected>Yes (1)</option>
-              </select>
             </td>
           </tr>
         </table><br>

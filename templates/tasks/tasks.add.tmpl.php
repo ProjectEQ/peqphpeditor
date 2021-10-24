@@ -36,7 +36,14 @@
                   <option value="1" selected>Yes</option>
                 </select>
               </td>
-            </tr> 
+            </tr>
+            <tr>
+              <td align="left" width="20%">Level Spread:<br><input type="text" name="level_spread" size="7" value="0"></td>
+              <td align="left" width="20%">Min Players:<br><input type="text" name="min_players" size="7" value="0"></td>
+              <td align="left" width="20%">Max Players:<br><input type="text" name="max_players" size="7" value="0"></td>
+              <td align="left" width="20%">&nbsp;</td>
+              <td align="left" width="20%">&nbsp;</td>
+            </tr>
           </table>
         </fieldset><br>
         <fieldset>
@@ -69,6 +76,12 @@
               <td align="left" width="25%">Reward XP:<br><input type="text" name="xpreward" size="7" value="0"></td>
               <td align="left" width="25%">Reward Cash:<br><input type="text" name="cashreward" size="7" value="0"></td>
               <td align="left" width="25%">Reward Faction:<br><input type="text" name="faction_reward" size="7" value="0"></td>
+            </tr>
+            <tr>
+              <td align="left" width="25%">Radiant Crystals:<br><input type="text" name="reward_radiant_crystals" size="7" value="0"></td>
+              <td align="left" width="25%">Ebon Crystals:<br><input type="text" name="reward_ebon_crystals" size="7" value="0"></td>
+              <td align="left" width="25%">Replay Timer:<br><input type="text" name="replay_timer_seconds" size="7" value="0"></td>
+              <td align="left" width="25%">Request Timer:<br><input type="text" name="request_timer_seconds" size="7" value="0"></td>
             </tr>
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">

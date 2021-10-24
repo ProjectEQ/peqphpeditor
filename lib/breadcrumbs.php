@@ -99,6 +99,9 @@ switch ($editor) {
   case 'expeditions':
     $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Expeditions</a>";
     break;
+  case 'sharedtasks':
+    $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Shared Tasks</a>";
+    break;
 }
 
 if (isset($z) && $z != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&z=" . $z . "&zoneid=" . $zoneid . "'>" . getZoneLongName($z, getZoneVersion($zoneid)) . "</a>";

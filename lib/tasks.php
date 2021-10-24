@@ -574,16 +574,23 @@ function update_tasks() {
   $description = mysqli_real_escape_string($mysql_content_db, $_POST['description']); 
   $reward = mysqli_real_escape_string($mysql_content_db, $_POST['reward']);
   $completion_emote = mysqli_real_escape_string($mysql_content_db, $_POST['completion_emote']);
+  $replay_timer_seconds = $_POST['replay_timer_seconds'];
+  $request_timer_seconds = $_POST['request_timer_seconds'];
   $rewardid = $_POST['rewardid'];
   $cashreward = $_POST['cashreward'];
   $xpreward = $_POST['xpreward'];
-  $rewardmethod = $_POST['rewardmethod']; 
+  $rewardmethod = $_POST['rewardmethod'];
+  $reward_radiant_crystals = $_POST['reward_radiant_crystals'];
+  $reward_ebon_crystals = $_POST['reward_ebon_crystals'];
   $minlevel = $_POST['minlevel'];
   $maxlevel = $_POST['maxlevel'];
+  $level_spread = $_POST['level_spread'];
+  $min_players = $_POST['min_players'];
+  $max_players = $_POST['max_players'];
   $repeatable = $_POST['repeatable'];
   $faction_reward = $_POST['faction_reward'];
 
-  $query = "UPDATE tasks SET type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\" WHERE id=\"$id\"";
+  $query = "UPDATE tasks SET type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", reward_radiant_crystals=\"$reward_radiant_crystals\", reward_ebon_crystals=\"$reward_ebon_crystals\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_seconds=\"$request_timer_seconds\" WHERE id=\"$id\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -788,16 +795,23 @@ function add_tasks() {
   $description = mysqli_real_escape_string($mysql_content_db, $_POST['description']); 
   $reward = mysqli_real_escape_string($mysql_content_db, $_POST['reward']);
   $completion_emote = mysqli_real_escape_string($mysql_content_db, $_POST['completion_emote']);
+  $replay_timer_seconds = $_POST['replay_timer_seconds'];
+  $request_timer_seconds = $_POST['request_timer_seconds'];
   $rewardid = $_POST['rewardid'];
   $cashreward = $_POST['cashreward'];
   $xpreward = $_POST['xpreward'];
-  $rewardmethod = $_POST['rewardmethod']; 
+  $rewardmethod = $_POST['rewardmethod'];
+  $reward_radiant_crystals = $_POST['reward_radiant_crystals'];
+  $reward_ebon_crystals = $_POST['reward_ebon_crystals'];
   $minlevel = $_POST['minlevel'];
   $maxlevel = $_POST['maxlevel'];
+  $level_spread = $_POST['level_spread'];
+  $min_players = $_POST['min_players'];
+  $max_players = $_POST['max_players'];
   $repeatable = $_POST['repeatable'];
   $faction_reward = $_POST['faction_reward'];
 
-  $query = "INSERT INTO tasks SET id=\"$id\", type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\"";
+  $query = "INSERT INTO tasks SET id=\"$id\", type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", reward_radiant_crystals=\"$reward_radiant_crystals\", reward_ebon_crystals=\"$reward_ebon_crystals\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_seconds=\"$request_timer_seconds\"";
   $mysql_content_db->query_no_result($query);
 }
 

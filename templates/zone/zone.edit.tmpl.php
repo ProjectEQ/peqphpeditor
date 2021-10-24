@@ -63,6 +63,12 @@
                   <td align="left" width="25%">&nbsp;</td>
                 </tr>
                 <tr>
+                  <td align="left" width="25%">Lava Damage:<br><input type="text" name="lava_damage" size="7" value="<?=$lava_damage?>"</td>
+                  <td align="left" width="25%">Min Lava Damage:<br><input type="text" name="min_lava_damage" size="7" value="<?=$min_lava_damage?>"</td>
+                  <td align="left" width="25%">&nbsp;</td>
+                  <td align="left" width="25%">&nbsp;</td>
+                </tr>
+                <tr>
                   <td align="left" width="25%">
                     Suspend Buffs:<br>
                     <select name="suspendbuffs">

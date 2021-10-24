@@ -10,7 +10,6 @@
       <form name="edit_dynamic_zone" method="post" action="index.php?editor=expeditions&action=17">
         <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
-            <td width="15%">&nbsp;</td>
             <td width="25%">
               <strong>ID:</strong><br>
               <input type="text" size="10" value="<?=$dynamic_zone['id']?>" disabled>
@@ -30,10 +29,33 @@ foreach ($dynamic_zone_type as $k=>$v) {
 }
 ?>
             </td>
-            <td width="10%">&nbsp;</td>
+            <td width="25%">
+              <strong>Leader ID:</strong><br>
+              <input type="text" name="leader_id" size="10" value="<?=$dynamic_zone['leader_id']?>">
+            </td>
           </tr>
           <tr>
-            <td colspan="5">
+            <td colspan="3">
+              <strong>UUID:</strong><br>
+              <input type="text" name="uuid" size="77" value="<?=$dynamic_zone['uuid']?>">
+            </td>
+            <td>
+              <strong>Min Players:</strong><br>
+              <input type="text" name="min_players" size="10" value="<?=$dynamic_zone['min_players']?>">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <strong>Name:</strong><br>
+              <input type="text" name="name" size="77" value="<?=$dynamic_zone['name']?>">
+            </td>
+            <td>
+              <strong>Max Players:</strong><br>
+              <input type="text" name="max_players" size="10" value="<?=$dynamic_zone['max_players']?>">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">
               <fieldset>
                 <legend><strong>Compass</strong></legend>
                 <table width="100%" cellpadding="3" cellspacing="3">
@@ -69,7 +91,7 @@ foreach ($zoneids as $k=>$v) {
             </td>
           </tr>
           <tr>
-            <td colspan="5">
+            <td colspan="4">
               <fieldset>
                 <legend><strong>Safe Return</strong></legend>
                 <table width="100%" cellpadding="3" cellspacing="3">
@@ -108,7 +130,7 @@ foreach ($zoneids as $k=>$v) {
             </td>
           </tr>
           <tr>
-            <td colspan="5">
+            <td colspan="4">
               <fieldset>
                 <legend><strong>Zone In</strong></legend>
                 <table width="100%" cellpadding="3" cellspacing="3">

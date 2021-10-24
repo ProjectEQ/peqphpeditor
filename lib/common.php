@@ -540,6 +540,8 @@ function delete_player($playerid) {
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_inspect_messages WHERE id=$playerid";
   $mysql->query_no_result($query);
+  $query = "DELETE FROM character_instance_safereturns WHERE character_id=$playerid";
+  $mysql->query_no_result($query);
   //character_item_recast?
   $query = "DELETE FROM character_languages WHERE id=$playerid";
   $mysql->query_no_result($query);
@@ -559,6 +561,8 @@ function delete_player($playerid) {
   $query = "DELETE FROM character_skills WHERE id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_spells WHERE id=$playerid";
+  $mysql->query_no_result($query);
+  $query = "DELETE FROM character_task_timers WHERE character_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_tasks WHERE charid=$playerid";
   $mysql->query_no_result($query);

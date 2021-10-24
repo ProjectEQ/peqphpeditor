@@ -1,4 +1,4 @@
-  <div class="table_container" style="width: 600px;">
+  <div class="table_container" style="width: 450px;">
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
@@ -22,18 +22,11 @@
               <strong>Character ID:</strong><br>
               <input type="text" name="character_id" size="10" value="<?=$dynamic_zone_member['character_id']?>">
             </td>
-            <td>
-              <strong>Current Member:</strong><br>
-              <select name="is_current_member">
-                <option value="0"<?echo ($dynamic_zone_member['is_current_member'] == 0) ? " selected" : "";?>>No (0)</option>
-                <option value="1"<?echo ($dynamic_zone_member['is_current_member'] != 0) ? " selected" : "";?>>Yes (1)</option>
-              </select>
-            </td>
           </tr>
         </table><br>
         <center>
           <input type="hidden" name="id" value="<?=$dynamic_zone_member['id']?>">
-          <input type="submit" value="Add Dynamic Zone Member">&nbsp;&nbsp;
+          <input type="submit" value="Update Dynamic Zone Member">&nbsp;&nbsp;
           <input type="button" value="Cancel" onClick="history.back()">
         </center>
       </form>

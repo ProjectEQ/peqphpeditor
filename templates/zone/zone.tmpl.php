@@ -82,6 +82,11 @@
                     <td align="left" width="34%">&nbsp;</td>
                   </tr>
                   <tr>
+                    <td align="left" width="33%">Lava Damage: <?=$lava_damage?></td>
+                    <td align="left" width="33%">Min Lava Damage: <?=$min_lava_damage?></td>
+                    <td align="left" width="34%">&nbsp;</td>
+                  </tr>
+                  <tr>
                     <td align="left" width="100%" colspan="3">Note: <?echo ($note != "") ? $note : "None";?></td>
                   </tr>
                 </table>

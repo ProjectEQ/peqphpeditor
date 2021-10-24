@@ -300,16 +300,11 @@ function insert_expedition() {
   global $mysql;
 
   $id = $_POST['id'];
-  $uuid = $_POST['uuid'];
   $dynamic_zone_id = $_POST['dynamic_zone_id'];
-  $expedition_name = $_POST['expedition_name'];
-  $leader_id = $_POST['leader_id'];
-  $min_players = $_POST['min_players'];
-  $max_players = $_POST['max_players'];
   $add_replay_on_join = $_POST['add_replay_on_join'];
   $is_locked = $_POST['is_locked'];
 
-  $query = "INSERT INTO expeditions SET id=$id, uuid=\"$uuid\", dynamic_zone_id=$dynamic_zone_id, expedition_name=\"$expedition_name\", leader_id=$leader_id, min_players=$min_players, max_players=$max_players, add_replay_on_join=$add_replay_on_join, is_locked=$is_locked";
+  $query = "INSERT INTO expeditions SET id=$id, dynamic_zone_id=$dynamic_zone_id, add_replay_on_join=$add_replay_on_join, is_locked=$is_locked";
   $mysql->query_no_result($query);
 }
 
@@ -317,16 +312,11 @@ function update_expedition() {
   global $mysql;
 
   $id = $_POST['id'];
-  $uuid = $_POST['uuid'];
   $dynamic_zone_id = $_POST['dynamic_zone_id'];
-  $expedition_name = $_POST['expedition_name'];
-  $leader_id = $_POST['leader_id'];
-  $min_players = $_POST['min_players'];
-  $max_players = $_POST['max_players'];
   $add_replay_on_join = $_POST['add_replay_on_join'];
   $is_locked = $_POST['is_locked'];
 
-  $query = "UPDATE expeditions SET uuid=\"$uuid\", dynamic_zone_id=$dynamic_zone_id, expedition_name=\"$expedition_name\", leader_id=$leader_id, min_players=$min_players, max_players=$max_players, add_replay_on_join=$add_replay_on_join, is_locked=$is_locked WHERE id=$id";
+  $query = "UPDATE expeditions SET dynamic_zone_id=$dynamic_zone_id, add_replay_on_join=$add_replay_on_join, is_locked=$is_locked WHERE id=$id";
   $mysql->query_no_result($query);
 }
 
@@ -452,6 +442,11 @@ function insert_dynamic_zone() {
   $id = $_POST['id'];
   $instance_id = $_POST['instance_id'];
   $type = $_POST['type'];
+  $uuid = $_POST['uuid'];
+  $name = $_POST['name'];
+  $leader_id = $_POST['leader_id'];
+  $min_players = $_POST['min_players'];
+  $max_players = $_POST['max_players'];
   $compass_zone_id = $_POST['compass_zone_id'];
   $compass_x = $_POST['compass_x'];
   $compass_y = $_POST['compass_y'];
@@ -467,7 +462,7 @@ function insert_dynamic_zone() {
   $zone_in_heading = $_POST['zone_in_heading'];
   $has_zone_in = $_POST['has_zone_in'];
 
-  $query = "INSERT INTO dynamic_zones SET id=$id, instance_id=$instance_id, `type`=$type, compass_zone_id=$compass_zone_id, compass_x=$compass_x, compass_y=$compass_y, compass_z=$compass_z, safe_return_zone_id=$safe_return_zone_id, safe_return_x=$safe_return_x, safe_return_y=$safe_return_y, safe_return_z=$safe_return_z, safe_return_heading=$safe_return_heading, zone_in_x=$zone_in_x, zone_in_y=$zone_in_y, zone_in_z=$zone_in_z, zone_in_heading=$zone_in_heading, has_zone_in=$has_zone_in";
+  $query = "INSERT INTO dynamic_zones SET id=$id, instance_id=$instance_id, `type`=$type, uuid=\"$uuid\", name=\"$name\", leader_id=$leader_id, min_players=$min_players, max_players=$max_players, compass_zone_id=$compass_zone_id, compass_x=$compass_x, compass_y=$compass_y, compass_z=$compass_z, safe_return_zone_id=$safe_return_zone_id, safe_return_x=$safe_return_x, safe_return_y=$safe_return_y, safe_return_z=$safe_return_z, safe_return_heading=$safe_return_heading, zone_in_x=$zone_in_x, zone_in_y=$zone_in_y, zone_in_z=$zone_in_z, zone_in_heading=$zone_in_heading, has_zone_in=$has_zone_in";
   $mysql->query_no_result($query);
 }
 
@@ -477,6 +472,12 @@ function update_dynamic_zone() {
   $id = $_POST['id'];
   $instance_id = $_POST['instance_id'];
   $type = $_POST['type'];
+  $type = $_POST['type'];
+  $uuid = $_POST['uuid'];
+  $name = $_POST['name'];
+  $leader_id = $_POST['leader_id'];
+  $min_players = $_POST['min_players'];
+  $max_players = $_POST['max_players'];
   $compass_zone_id = $_POST['compass_zone_id'];
   $compass_x = $_POST['compass_x'];
   $compass_y = $_POST['compass_y'];
@@ -492,7 +493,7 @@ function update_dynamic_zone() {
   $zone_in_heading = $_POST['zone_in_heading'];
   $has_zone_in = $_POST['has_zone_in'];
 
-  $query = "UPDATE dynamic_zones SET instance_id=$instance_id, `type`=$type, compass_zone_id=$compass_zone_id, compass_x=$compass_x, compass_y=$compass_y, compass_z=$compass_z, safe_return_zone_id=$safe_return_zone_id, safe_return_x=$safe_return_x, safe_return_y=$safe_return_y, safe_return_z=$safe_return_z, safe_return_heading=$safe_return_heading, zone_in_x=$zone_in_x, zone_in_y=$zone_in_y, zone_in_z=$zone_in_z, zone_in_heading=$zone_in_heading, has_zone_in=$has_zone_in WHERE id=$id";
+  $query = "UPDATE dynamic_zones SET instance_id=$instance_id, `type`=$type, uuid=\"$uuid\", name=\"$name\", leader_id=$leader_id, min_players=$min_players, max_players=$max_players, compass_zone_id=$compass_zone_id, compass_x=$compass_x, compass_y=$compass_y, compass_z=$compass_z, safe_return_zone_id=$safe_return_zone_id, safe_return_x=$safe_return_x, safe_return_y=$safe_return_y, safe_return_z=$safe_return_z, safe_return_heading=$safe_return_heading, zone_in_x=$zone_in_x, zone_in_y=$zone_in_y, zone_in_z=$zone_in_z, zone_in_heading=$zone_in_heading, has_zone_in=$has_zone_in WHERE id=$id";
   $mysql->query_no_result($query);
 }
 
@@ -552,9 +553,8 @@ function insert_dynamic_zone_member() {
   $id = $_POST['id'];
   $dynamic_zone_id = $_POST['dynamic_zone_id'];
   $character_id = $_POST['character_id'];
-  $is_current_member = $_POST['is_current_member'];
 
-  $query = "INSERT INTO dynamic_zone_members SET id=$id, dynamic_zone_id=$dynamic_zone_id, character_id=$character_id, is_current_member=$is_current_member";
+  $query = "INSERT INTO dynamic_zone_members SET id=$id, dynamic_zone_id=$dynamic_zone_id, character_id=$character_id";
   $mysql->query_no_result($query);
 }
 
@@ -564,9 +564,8 @@ function update_dynamic_zone_member() {
   $id = $_POST['id'];
   $dynamic_zone_id = $_POST['dynamic_zone_id'];
   $character_id = $_POST['character_id'];
-  $is_current_member = $_POST['is_current_member'];
 
-  $query = "UPDATE dynamic_zone_members SET dynamic_zone_id=$dynamic_zone_id, character_id=$character_id, is_current_member=$is_current_member WHERE id=$id";
+  $query = "UPDATE dynamic_zone_members SET dynamic_zone_id=$dynamic_zone_id, character_id=$character_id WHERE id=$id";
   $mysql->query_no_result($query);
 }
 

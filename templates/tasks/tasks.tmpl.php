@@ -24,7 +24,14 @@
                   <td align="left" width="20%">Min Level: <?=$minlevel?></td>
                   <td align="left" width="20%">Max Level:  <?=$maxlevel?></td>              
                   <td align="left" width="20%">Repeatable: <?=$yesno[$repeatable]?></td>
-                </tr> 
+                </tr>
+                <tr>
+                  <td align="left" width="20%">Level Spread: <?=$level_spread?></td>
+                  <td align="left" width="20%">Min Players: <?=$min_players?></td>
+                  <td align="left" width="20%">Max Players: <?=$max_players?></td>
+                  <td align="left" width="20%">&nbsp;</td>
+                  <td align="left" width="20%">&nbsp;</td>
+                </tr>
               </table>
             </fieldset><br>
             <fieldset>
@@ -43,7 +50,7 @@
                   <td align="left" width="50%" colspan="2">Reward Method: <?=$rewardmethods[$rewardmethod]?></td>
                 </tr>
                 <tr>
-                  <td align="left" width="35%">
+                  <td align="left" width="25%">
                     Reward:
 <?if(($rewardmethod == 0 || $rewardmethod == 2) && $rewardid > 1000):?>
                     <a href="index.php?editor=items&tskid=<?=$id?>&id=<?=$rewardid?>&action=2"><?echo $rewardid . " - " . get_item_name($rewardid)?></a> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$rewardid?>" target="_blank">Lucy</a>]</span>
@@ -58,9 +65,15 @@
                     <a href="index.php?editor=tasks&tskid=<?=$id?>&action=12"><?=$rewardid?></a>
 <?endif;?>
                   </td>
-                  <td align="left" width="20%">Reward Cash: <?=$cashreward?></td>
-                  <td align="left" width="20%">Reward XP: <?=$xpreward?></td>
-                  <td align="left" width="20%">Reward Faction: <?=$faction_reward?></td>
+                  <td align="left" width="25%">Reward Cash: <?=$cashreward?></td>
+                  <td align="left" width="25%">Reward XP: <?=$xpreward?></td>
+                  <td align="left" width="25%">Reward Faction: <?=$faction_reward?></td>
+                </tr>
+                <tr>
+                  <td align="left" width="25%">Radiant Crystals: <?=$reward_radiant_crystals?></td>
+                  <td align="left" width="25%">Ebon Crystals: <?=$reward_ebon_crystals?></td>
+                  <td align="left" width="25%">Replay Timer: <?=$replay_timer_seconds?></td>
+                  <td align="left" width="25%">Request Timer: <?=$request_timer_seconds?></td>
                 </tr>
                 <tr>
                   <td align="left" width="100%" colspan="4">Completion Emote: "<?=$completion_emote?>"</td>

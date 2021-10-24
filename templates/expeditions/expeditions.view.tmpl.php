@@ -1,4 +1,4 @@
-  <div class="table_container" style="width: 750px;">
+  <div class="table_container" style="width: 350px;">
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
@@ -13,10 +13,7 @@
 <?if (isset($expeditions)):?>
       <tr>
         <td align="center"><strong>ID</strong></td>
-        <td align="center"><strong>Name</strong></td>
-        <td align="center"><strong>Leader</strong></td>
-        <td align="center"><strong>Min Players</strong></td>
-        <td align="center"><strong>Max Players</strong></td>
+        <td align="center"><strong>Dyn Zone ID</strong></td>
         <td align="center"><strong>Locked</strong></td>
         <td align="right">&nbsp;</td>
       </tr>
@@ -24,10 +21,7 @@
 foreach($expeditions as $expedition):?>
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
         <td align="center"><?=$expedition['id']?></td>
-        <td align="center"><?=$expedition['expedition_name']?></td>
-        <td align="center"><?=getPlayerName($expedition['leader_id'])?> (<?=$expedition['leader_id']?>)</td>
-        <td align="center"><?=$expedition['min_players']?></td>
-        <td align="center"><?=$expedition['max_players']?></td>
+        <td align="center"><?=$expedition['dynamic_zone_id']?></td>
         <td align="center"><?=$yesno[$expedition['is_locked']]?></td>
         <td align="right"><a href="index.php?editor=expeditions&id=<?=$expedition['id']?>&action=4"><img src="images/edit2.gif" width="13" height="13" border="0" title="Edit Expedition" alt="Edit"></a>&nbsp;<a onClick="return confirm('Really delete expedition?');" href="index.php?editor=expeditions&id=<?=$expedition['id']?>&action=6"><img src="images/remove3.gif" border="0" title="Delete Expedition" alt="Delete"></a></td>
       </tr>
