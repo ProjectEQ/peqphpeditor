@@ -1341,7 +1341,7 @@ function update_global_loot() {
     $query = "UPDATE global_loot SET content_flags=\"$content_flags\" WHERE id=$id";
     $mysql_content_db->query_no_result($query);
 
-    $query = "UPDATE loottable SET content_flags=\"$content_falgs\" WHERE id=$loottable_id";
+    $query = "UPDATE loottable SET content_flags=\"$content_flags\" WHERE id=$loottable_id";
     $mysql_content_db->query_no_result($query);
   }
 
