@@ -420,7 +420,8 @@ switch ($action) {
   case 53:  // Update Global Loot
     check_authorization();
     update_global_loot();
-    header("Location: index.php?editor=loot&action=49");
+    $id = $_POST['id'];
+    header("Location: index.php?editor=loot&id=$id&action=55");
     exit;
   case 54:  // Delete Global Loot
     check_authorization();
