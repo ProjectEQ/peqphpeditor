@@ -1298,6 +1298,9 @@ function update_global_loot() {
   $query = "UPDATE global_loot SET description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL, hot_zone=NULL, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 
+  $query = "UPDATE loottable SET min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$loottable_id";
+  $mysql_content_db->query_no_result($query);
+
   if ($rare != "") {
     $query = "UPDATE global_loot SET rare=$rare WHERE id=$id";
     $mysql_content_db->query_no_result($query);
@@ -1336,10 +1339,16 @@ function update_global_loot() {
   if ($content_flags != "") {
     $query = "UPDATE global_loot SET content_flags=\"$content_flags\" WHERE id=$id";
     $mysql_content_db->query_no_result($query);
+
+    $query = "UPDATE loottable SET content_flags=\"$content_falgs\" WHERE id=$loottable_id";
+    $mysql_content_db->query_no_result($query);
   }
 
   if ($content_flags_disabled != "") {
     $query = "UPDATE global_loot SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+
+    $query = "UPDATE loottable SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$loottable_id";
     $mysql_content_db->query_no_result($query);
   }
 }
