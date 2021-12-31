@@ -25,7 +25,7 @@
         <td align="center" width="15%"><?=$classes[$v['class']]?> (<?=$v['class']?>)</td>
         <td align="center" width="20%"><?=$deities[$v['deity']]?> (<?=$v['deity']?>)</td>
         <td align="center" width="22%"><?=$zoneids[$v['start_zone']]?> (<?=$v['start_zone']?>)</td>
-        <td align="center" width="20%"><?=$expansions[($v['expansions_req'] == 0) ? 0 : log($v['expansions_req'], 2)]?></td>
+        <td align="center" width="20%"><?=$expansions[($v['expansions_req'] == 0) ? 0 : log($v['expansions_req'], 2)]?> (<?=$v['expansions_req']?>)</td>
         <td>
           <a href="index.php?editor=server&race=<?=$v['race']?>&class=<?=$v['class']?>&deity=<?=$v['deity']?>&start_zone=<?=$v['start_zone']?>&action=72"><img src="images/edit2.gif"></a>&nbsp;<a onClick="return confirm('Really delete combo?');" href="index.php?editor=server&race=<?=$v['race']?>&class=<?=$v['class']?>&deity=<?=$v['deity']?>&start_zone=<?=$v['start_zone']?>&action=74"><img src="images/remove.gif"></a>
         </td>
