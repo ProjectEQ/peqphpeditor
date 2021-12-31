@@ -66,11 +66,7 @@ switch ($global_loot['hot_zone']) {
       Loottable: <?=$id?> - "<?=$name?>"
     </div>
     <div class="table_content">
-      <strong>Cash Loot:</strong><br>
-      <div style="padding: 5px 0px 0px 20px;">
-        <strong>Min Cash:</strong> <?=$mincash?><br>
-        <strong>Max Cash:</strong> <?=$maxcash?><br>
-      </div>
+      <strong>Cash Loot:</strong> N/A<br>
       <div style="padding: 5px 0px 0px 0px;">
         <strong>Lootdrops associated with this loottable:</strong> <?=$lootdrop_count?> <a href="index.php?editor=loot&id=<?=$global_loot['id']?>&ltid=<?=$id?>&action=60"><img src="images/add.gif" border="0" title="Add a Lootdrop to this Loottable"></a>
       </div>

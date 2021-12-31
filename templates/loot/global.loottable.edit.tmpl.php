@@ -22,11 +22,33 @@
           <tr>
             <td>
               <strong>Min. Cash:</strong><br>
-              <input type="text" name="mincash" size="5" value="<?=$mincash?>">
+              <input type="text" size="5" value="<?=$mincash?>" disabled>
             </td>
             <td>
               <strong>Max. Cash:</strong><br>
-              <input type="text" name="maxcash" size="5" value="<?=$maxcash?>">
+              <input type="text" size="5" value="<?=$maxcash?>" disabled>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Min Expansion</strong><br>
+              <input type="text" size="5" value="<?=$min_expansion?>" disabled>
+            </td>
+            <td>
+              <strong>Max Expansion</strong><br>
+              <input type="text" size="5" value="<?=$max_expansion?>" disabled>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Content Flags</strong><br>
+              <input type="text" size="36" value="<?=$content_flags?>" disabled>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Content Flags Disabled</strong><br>
+              <input type="text" size="36" value="<?=$content_flags_disabled?>" disabled>
             </td>
           </tr>
         </table><br>
@@ -34,6 +56,12 @@
           <input type="hidden" name="global_loot" value="<?=$global_loot?>">
           <input type="hidden" name="id" value="<?=$id?>">
           <input type="hidden" name="avgcoin" value="0">
+          <input type="hidden" name="mincash" value="0">
+          <input type="hidden" name="maxcash" value="0">
+          <input type="hidden" name="min_expansion" value="<?=$min_expansion?>">
+          <input type="hidden" name="max_expansion" value="<?=$max_expansion?>">
+          <input type="hidden" name="content_flags" value="<?=$content_flags?>">
+          <input type="hidden" name="content_flags_disabled" value="<?=$content_flags_disabled?>">
           <input type="submit" name="submit" value="Submit Changes">&nbsp;&nbsp;
           <input type="button" value="Cancel" onClick="history.back();">
         </center>
