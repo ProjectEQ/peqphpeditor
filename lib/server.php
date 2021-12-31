@@ -556,7 +556,7 @@ switch ($action) {
       $body->set('classes', $classes);
       $body->set('deities', $deities);
       $body->set('zoneids', $zoneids);
-      $body->set('expansions', $eqexpansions);
+      $body->set('expansions', $expansions2_short);
     }
     break;
   case 57: // View Character Base Data
@@ -646,6 +646,41 @@ switch ($action) {
     check_authorization();
     delete_scheduled_event($_GET['id']);
     header("Location: index.php?editor=server&action=64");
+    exit;
+  case 70: // Add Character Creation Combo
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=server&action=56'>Character Creation Combos</a> >> Add Combo";
+    $body = new Template("templates/server/charcreatecombo.edit.tmpl.php");
+      $body->set('combo', $combo);
+      $body->set('races', $races);
+      $body->set('classes', $classes);
+      $body->set('deities', $deities);
+      $body->set('zoneids', $zoneids);
+      $body->set('expansions', $expansions2_long);
+    break;
+  case 72: // Edit Character Creation Combo
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=server&action=56'>Character Creation Combos</a> >> Edit Combo";
+    $body = new Template("templates/server/charcreatecombo.edit.tmpl.php");
+    $combo = get_char_create_combo($_GET['race'], $_GET['class'], $_GET['deity'], $_GET['start_zone']);
+    if ($combo) {
+      $body->set('combo', $combo);
+      $body->set('races', $races);
+      $body->set('classes', $classes);
+      $body->set('deities', $deities);
+      $body->set('zoneids', $zoneids);
+      $body->set('expansions', $expansions2_long);
+   }
+    break;
+  case 73: // Update Character Creation Combo
+    check_authorization();
+    replace_char_create_combo();
+    header("Location: index.php?editor=server&action=56");
+    exit;
+  case 74: // Delete Character Creation Combo
+    check_authorization();
+    delete_char_create_combo($_GET['race'], $_GET['class'], $_GET['deity'], $_GET['start_zone']);
+    header("Location: index.php?editor=server&action=56");
     exit;
 }
 
@@ -1550,5 +1585,40 @@ function suggest_scheduled_event_id() {
   $result = $mysql->query_assoc($query);
 
   return $result['id'] + 1;
+}
+
+function get_char_create_combo($race, $class, $deity, $start_zone) {
+  global $mysql_content_db;
+
+  $query = "SELECT * FROM char_create_combinations WHERE race=$race AND class=$class AND deity=$deity AND start_zone=$start_zone";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+function replace_char_create_combo() {
+  global $mysql_content_db;
+
+  $allocation_id = $_POST['allocation_id'];
+  $race = $_POST['race'];
+  $class = $_POST['class'];
+  $deity = $_POST['deity'];
+  $start_zone = $_POST['start_zone'];
+  $expansions_req = $_POST['expansions_req'];
+
+  $query = "REPLACE INTO char_create_combinations SET allocation_id=$allocation_id, race=$race, class=$class, deity=$deity, start_zone=$start_zone, expansions_req=$expansions_req";
+  $mysql_content_db->query_no_result($query);
+}
+
+function delete_char_create_combo($race, $class, $deity, $start_zone) {
+  global $mysql_content_db;
+
+  $query = "DELETE FROM char_create_combinations WHERE race=$race AND class=$class AND deity=$deity AND start_zone=$start_zone";
+  $mysql_content_db->query_no_result($query);
 }
 ?>

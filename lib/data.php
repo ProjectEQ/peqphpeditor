@@ -1920,6 +1920,8 @@ $eqexpansions = array (
  23 => 'The Broken Mirror',
  24 => 'Empires of Kunark',
  25 => 'Ring of Scale',
+ 26 => 'The Burning Lands',
+ 27 => 'Torment of Velious',
  99 => 'Other'
 );
 
@@ -1961,4 +1963,63 @@ $langtypes = array (
  27 => "UNK"
 );
 
+$expansions2_long = array (
+ 0  => 'Original Everquest',
+ 1  => 'Ruins of Kunark',
+ 2  => 'Scars of Velious',
+ 3  => 'Shadows of Luclin',
+ 4  => 'Planes of Power',
+ 5  => 'Legacy of Ykesha',
+ 6  => 'Lost Dungeons of Norrath',
+ 7  => 'Gates of Discord',
+ 8  => 'Omens of War',
+ 9  => 'Dragons of Norrath',
+ 10 => 'Depths of Darkhollow',
+ 11 => 'Prophecy of Ro',
+ 12 => 'The Serpents Spine',
+ 13 => 'The Buried Sea',
+ 14 => 'Secrets of Faydwer',
+ 15 => 'Seeds of Destruction',
+ 16 => 'Underfoot',
+ 17 => 'House of Thule',
+ 18 => 'Veil of Alaris',
+ 19 => 'Rain of Fear',
+ 20 => 'Call of the Forsaken',
+ 21 => 'The Darkened Sea',
+ 22 => 'The Broken Mirror',
+ 23 => 'Empires of Kunark',
+ 24 => 'Ring of Scale',
+ 25 => 'The Burning Lands',
+ 26 => 'Torment of Velious'
+);
+
+$expansions2_short = array (
+ 0  => 'EQ',
+ 1  => 'RoK',
+ 2  => 'SoV',
+ 3  => 'SoL',
+ 4  => 'PoP',
+ 5  => 'LoY',
+ 6  => 'LDoN',
+ 7  => 'GoD',
+ 8  => 'OoW',
+ 9  => 'DoN',
+ 10 => 'DoD',
+ 11 => 'PoR',
+ 12 => 'TSS',
+ 13 => 'TBS',
+ 14 => 'SoF',
+ 15 => 'SoD',
+ 16 => 'UF',
+ 17 => 'HoT',
+ 18 => 'VoA',
+ 19 => 'RoF',
+ 20 => 'CotF',
+ 21 => 'TDS',
+ 22 => 'TBM',
+ 23 => 'EoK',
+ 24 => 'RoS',
+ 25 => 'TBL',
+ 26 => 'ToV'
+);
 ?>
