@@ -1529,12 +1529,12 @@ function create_empty_loottable($id) {
   }
 
   if ($content_flags != "") {
-    $query = "UPDATE loottable SET content_flags=\"$content_flags\" WHERE id=$id";
+    $query = "UPDATE loottable SET content_flags=\"$content_flags\" WHERE id=$loottable_id";
     $mysql_content_db->query_no_result($query);
   }
 
   if ($content_flags_disabled != "") {
-    $query = "UPDATE loottable SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id";
+    $query = "UPDATE loottable SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$loottable_id";
     $mysql_content_db->query_no_result($query);
   }
 
