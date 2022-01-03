@@ -107,9 +107,10 @@
       <div class="table_content2" style="padding: 0px;">
         <table width="100%" cellspacing="0">
           <tr bgcolor="#AAAAAA">
-            <th width="50%">NPC</th>
-            <th width="25%" align="center">Chance</th>
-            <th width="25%" align="center">&nbsp;</th>
+            <th width="40%">NPC</th>
+            <th width="30%" align="center">Chance</th>
+            <th width="15%" align="center">Content Flags</th>
+            <th width="15%" align="center">&nbsp;</th>
           </tr>
 <?
   $x=0;
@@ -122,6 +123,7 @@
               <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>"><?=$name?></a> (<?=$npcID?>)
             </td>
             <td align="center"><?=$chance?></td>
+            <td align="center"><?echo ($min_expansion > -1 || $max_expansion > -1 || $content_flags != "" || $content_flags_disabled != "") ? "Yes" : "No";?></td>
             <td align="right">
               <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&sgnpcid=<?=$npcID?>&action=1"><img src="images/edit2.gif" title="Edit this Spawngroup Member" border="0"></a>&nbsp;
               <a onClick="return confirm('Really delete this NPC from the spawngroup?');" href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&sgnpcid=<?=$npcID?>&action=71"><img src="images/table.gif" title="Remove this Spawngroup Member and Balance Group" border="0"></a>
@@ -133,7 +135,7 @@
   endforeach;
 ?>
           <tr bgcolor="#000000">
-            <td colspan="3" align="right">
+            <td colspan="4" align="right">
               <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=3" style="color:yellow;" title="Current: <?=$chance_total?>%">Balance Spawn Rates</a>
             </td>
           </tr>

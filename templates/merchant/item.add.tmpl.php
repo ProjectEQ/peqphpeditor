@@ -46,7 +46,7 @@
             <tr>
               <td>
                 <strong>Min Expansion:</strong><br>
-                <input id="min_expansion" type="text" size="10" name="min_expansion" value="0">
+                <input id="min_expansion" type="text" size="10" name="min_expansion" value="-1">
               </td>
               <td colspan="3">
                 <strong>Content Flags:</strong><br>
@@ -56,7 +56,7 @@
             <tr>
               <td>
                 <strong>Max Expansion:</strong><br>
-                <input id="max_expansion" type="text" size="10" name="max_expansion" value="0">
+                <input id="max_expansion" type="text" size="10" name="max_expansion" value="-1">
               </td>
               <td colspan="3">
                 <strong>Content Flags Disabled:</strong><br>

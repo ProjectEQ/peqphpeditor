@@ -102,11 +102,11 @@
             </td>
             <td>
               <strong><br>Min Expansion</strong><br>
-              <input type="text" size="7" name="min_expansion" value="0">
+              <input type="text" size="7" name="min_expansion" value="-1">
             </td>
             <td>
               <strong><br>Max Expansion</strong><br>
-              <input type="text" size="7" name="max_expansion" value="0">
+              <input type="text" size="7" name="max_expansion" value="-1">
             </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>

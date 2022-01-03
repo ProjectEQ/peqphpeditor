@@ -106,12 +106,12 @@
           <tr>
             <td>
               <strong>Min Expansion</strong><br>
-              <input type="text" size="15" name="min_expansion" value="0">
+              <input type="text" size="15" name="min_expansion" value="-1">
             </td>
             <td>&nbsp;</td>
             <td>
               <strong>Max Expansion</strong><br>
-              <input type="text" size="15" name="max_expansion" value="0">
+              <input type="text" size="15" name="max_expansion" value="-1">
             </td>
             <td>
               <strong>Content Flags</strong><br>

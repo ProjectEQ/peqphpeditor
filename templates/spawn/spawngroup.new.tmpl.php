@@ -27,6 +27,28 @@
           </tr>
           <tr>
             <td>
+              Min Expansion:<br>
+              <input type="text" name="min_expansion" size="10" value="-1">
+            </td>
+            <td>
+              Max Expansion:<br>
+              <input type="text" name="max_expansion" size="10" value="-1">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Content Flags:<br>
+              <input type="text" name="content_flags" size="26" value="">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Content Flags Disabled:<br>
+              <input type="text" name="content_flags_disabled" size="26" value="">
+            </td>
+          </tr>
+          <tr>
+            <td>
               spawn_limit:<br>
               <input type="text" name="spawn_limit" size="6" value="0">
             </td>

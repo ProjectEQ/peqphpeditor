@@ -70,11 +70,11 @@
             </td>
             <td>
               <strong>Min Expansion:</strong><br>
-              <input type="text" size="7" name="min_expansion" value="0">
+              <input type="text" size="7" name="min_expansion" value="-1">
             </td>
             <td>
               <strong>Max Expansion:</strong><br>
-              <input type="text" size="7" name="max_expansion" value="0">
+              <input type="text" size="7" name="max_expansion" value="-1">
             </td>
             <td colspan="2">
               <strong>Content Flags:</strong><br>

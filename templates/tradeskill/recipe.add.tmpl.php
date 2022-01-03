@@ -56,9 +56,9 @@
           <option value="1" selected>yes</option>
         </select><br><br>
         <strong>Min Expansion:</strong><br>
-        <input type="text" name="min_expansion" size="7" value="0"><br><br>
+        <input type="text" name="min_expansion" size="7" value="-1"><br><br>
         <strong>Max Expansion:</strong><br>
-        <input type="text" name="max_expansion" size="7" value="0"><br><br>
+        <input type="text" name="max_expansion" size="7" value="-1"><br><br>
         <strong>Content Flags:</strong><br>
         <input type="text" name="content_flags" size="41" value=""><br><br>
         <strong>Content Flags Disabled:</strong><br>

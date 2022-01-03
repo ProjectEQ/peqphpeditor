@@ -1964,7 +1964,7 @@ $langtypes = array (
 );
 
 $expansions2_long = array (
- 0  => 'Original Everquest',
+ 0  => 'Classic Everquest',
  1  => 'Ruins of Kunark',
  2  => 'Scars of Velious',
  3  => 'Shadows of Luclin',

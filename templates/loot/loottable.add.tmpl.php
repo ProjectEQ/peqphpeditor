@@ -26,11 +26,11 @@
           <tr>
             <td>
               <strong>Min Expansion:</strong><br>
-              <input type="text" name="min_expansion" size="7" value="0">
+              <input type="text" name="min_expansion" size="7" value="-1">
             </td>
             <td>
               <strong>Max Expansion:</strong><br>
-              <input type="text" name="max_expansion" size="7" value="0">
+              <input type="text" name="max_expansion" size="7" value="-1">
             </td>
           </tr>
           <tr>

@@ -14,7 +14,7 @@
             </td>
             <td>
               <strong>Min Expansion</strong><br>
-              <input type="text" name="min_expansion" size="18" value="0"><br><br>
+              <input type="text" name="min_expansion" size="18" value="-1"><br><br>
             </td>
           </tr>
           <tr>
@@ -24,7 +24,7 @@
             </td>
             <td>
               <strong>Max Expansion</strong><br>
-              <input type="text" name="max_expansion" size="18" value="0"><br><br>
+              <input type="text" name="max_expansion" size="18" value="-1"><br><br>
             </td>
           </tr>
           <tr>
