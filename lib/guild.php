@@ -113,7 +113,7 @@ function guild_info() {
   $guild_array['guild_ranks'] = $guild_ranks_array;
 
   //Load Guild Members
-  $query = "SELECT * FROM guild_members WHERE guild_id = $guildid ORDER BY rank DESC";
+  $query = "SELECT * FROM guild_members WHERE guild_id = $guildid ORDER BY `rank` DESC";
   $guild_members_array = $mysql->query_mult_assoc($query);
   $guild_array['guild_members'] = $guild_members_array;
 
@@ -143,7 +143,7 @@ function delete_guild() {
 function assign_guild_member($char_id) {
   global $mysql, $guildid;
 
-  $query = "REPLACE INTO guild_members SET char_id=$char_id, guild_id=$guildid, rank=0, public_note=''";
+  $query = "REPLACE INTO guild_members SET char_id=$char_id, guild_id=$guildid, `rank`=0, public_note=''";
   $mysql->query_no_result($query);
 }
 
@@ -167,7 +167,7 @@ function set_member_rank() {
   $previous_rank = $_POST['previous_rank'];
 
   if ($rank == 2) { // Change guild leadership
-    $query = "UPDATE guild_members SET rank=0 WHERE guild_id=$guildid AND rank=2";
+    $query = "UPDATE guild_members SET `rank`=0 WHERE guild_id=$guildid AND `rank`=2";
     $mysql->query_no_result($query);
 
     $query = "UPDATE guilds SET leader=$char_id WHERE id=$guildid";
@@ -179,7 +179,7 @@ function set_member_rank() {
     $mysql->query_no_result($query);
   }
 
-  $query = "UPDATE guild_members SET rank=$rank WHERE guild_id=$guildid AND char_id=$char_id";
+  $query = "UPDATE guild_members SET `rank`=$rank WHERE guild_id=$guildid AND char_id=$char_id";
   $mysql->query_no_result($query);
 }
 ?>

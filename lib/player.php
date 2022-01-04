@@ -277,7 +277,7 @@ function player_info() {
   $player_array['sharedplat'] = $result['sharedplat'];
 
   //Load guild details
-  $query = "SELECT guild_id, rank, banker FROM guild_members WHERE char_id = $playerid";
+  $query = "SELECT guild_id, `rank`, banker FROM guild_members WHERE char_id = $playerid";
   $result = $mysql->query_assoc($query);
   if ($result) {
     $player_array['guild_id'] = $result['guild_id'];
