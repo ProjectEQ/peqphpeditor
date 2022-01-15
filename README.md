@@ -7,7 +7,7 @@
 * PHP 7
 * MySQL 5 or MariaDB 10
 
-*For more help on getting Apache, PHP, or the Editor itself set up, visit us on Discord at https://discord.gg/SrbZrus*
+*For more help on getting Apache, PHP, or the Editor itself set up, visit us on Discord at https://discord.com/channels/212663220849213441/926285855457435658*
 
 For Linux users, note the following.
 * Permissions: If you choose to store these files outside of your normal html directory, ensure your symbolic link and physical folder have the same permissions. (Recommend 755 for folders and 644 for files)
