@@ -17,7 +17,7 @@ class session {
     $result = $mysql->query_assoc($query);
     if ($result == '') {
       $_SESSION['error'] = 1;
-      logSQL("Invalid login attempt. Bad username from IP: '" . getIP() . "'. Username: '$login' Password: '$pw'.");
+      logSQL("Invalid login attempt. Bad username from IP: '" . getIP() . "'. Username: '$login'");
       return;
     }
     extract($result);
@@ -28,7 +28,7 @@ class session {
     }
     else {
       $_SESSION['error'] = 1;
-      logSQL("Invalid login attempt. Bad password from IP: '" . getIP() . "'. Username: '$login' Password: '*****'.");
+      logSQL("Invalid login attempt. Bad password from IP: '" . getIP() . "'. Username: '$login'");
     }
   }
   
@@ -125,7 +125,7 @@ if (isset($_GET['login'])) {
   if ($enable_user_login != 1) {
   $login = $_POST['login'];
   $password = $_POST['password'];
-   logSQL("POSSIBLE HACK ATTEMPT. Person was from IP: '" . getIP() . "'. and used Username: '$login' Password: '$password'.");
+   logSQL("POSSIBLE HACK ATTEMPT. Person was from IP: '" . getIP() . "'. and used Username: '$login'");
    $_SESSION['error'] = 1;
   }
   else {

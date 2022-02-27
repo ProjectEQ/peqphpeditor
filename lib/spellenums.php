@@ -47,8 +47,8 @@ $sp_buffformulas = array(
     13   => "UNK Duration (13)",
     14   => "UNK Duration (14)",
     15   => "UNK Duration (15)",
-    50   => "72000 (5 Days)",
-    51   => "Permabuff",
+    50   => "Permanent",
+    51   => "Aura",
     3600 => "Duration if not 0, else 3600"
 );
 
