@@ -1,4 +1,4 @@
-## PHP PEQ Editor
+## PEQ PHP Editor
 
 #### IMPORTANT NOTE: Apache 2.2 and PHP 5.6 and earlier are deprecated. Support for these versions is no longer provided and all references will be removed in future updates.
 
@@ -17,7 +17,7 @@ For Linux users, note the following.
 
 1) Install Apache and PHP. You can get from www.apache.org and www.php.net or get an all-in-one package such as XAMPP from www.apachefriends.org.
 
-2) Configure Apache and PHP as needed, but make sure you allow short tags (short_open_tag = On). Also recommend you suppress STRICT, NOTICE, and DEPRECATED messages under error_reporting (E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED).
+2) Configure Apache and PHP as needed, but make sure you allow short tags (short_open_tag = On). Also recommend you suppress STRICT, NOTICE, and DEPRECATED messages under error_reporting (E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED). Also, ensure you have the php-mysql extension loaded.
 
 3) Unzip or checkout the files into your public html directory (such as /htdocs/peqedit) or set up an alias outside that directory if you desire.
 
