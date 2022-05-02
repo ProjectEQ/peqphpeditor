@@ -221,8 +221,8 @@ if ($loottable_id > 0) {
                   </tr>
                   <tr>
                     <td align="left" width="33%">HP Regen: <?=$hp_regen_rate?></td>
-                    <td align="left" width="33%">MP Regen: <?=$mana_regen_rate?></td>
-                    <td align="left" width="34%">&nbsp;</td>
+                    <td align="left" width="33%">HP Regen: <?=$hp_regen_per_second?>/sec</td>
+                    <td align="left" width="34%">MP Regen: <?=$mana_regen_rate?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Aggro: <?=$aggroradius?></td>
@@ -361,6 +361,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="herosforgemodel" value="<?=$herosforgemodel?>">
         <input type="hidden" name="size" value="<?=$size?>">
         <input type="hidden" name="hp_regen_rate" value="<?=$hp_regen_rate?>">
+        <input type="hidden" name="hp_regen_per_second" value="<?=$hp_regen_per_second?>">
         <input type="hidden" name="mana_regen_rate" value="<?=$mana_regen_rate?>">
         <input type="hidden" name="loottable_id" value="<?=$loottable_id?>">
         <input type="hidden" name="merchant_id" value="<?=$merchant_id?>">
