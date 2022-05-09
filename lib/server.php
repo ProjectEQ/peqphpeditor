@@ -1542,8 +1542,18 @@ function insert_scheduled_event() {
   $created_at = $_POST['created_at'];
   $deleted_at = $_POST['deleted_at'];
 
-  $query = "INSERT INTO server_scheduled_events SET id=$id, description='$description', event_type='$event_type', event_data='$event_data', minute_start=$minute_start, hour_start=$hour_start, day_start=$day_start, month_start=$month_start, year_start=$year_start, minute_end=$minute_end, hour_end=$hour_end, day_end=$day_end, month_end=$month_end, year_end=$year_end, cron_expression='$cron_expression', created_at='$created_at', deleted_at='$deleted_at'";
+  $query = "INSERT INTO server_scheduled_events SET id=$id, description='$description', event_type='$event_type', event_data='$event_data', minute_start=$minute_start, hour_start=$hour_start, day_start=$day_start, month_start=$month_start, year_start=$year_start, minute_end=$minute_end, hour_end=$hour_end, day_end=$day_end, month_end=$month_end, year_end=$year_end, cron_expression='$cron_expression', created_at=NULL, deleted_at=NULL";
   $mysql->query_no_result($query);
+
+  if ($created_at) {
+    $query = "UPDATE server_scheduled_events SET created_at='$created_at' WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
+
+  if ($deleted_at) {
+    $query = "UPDATE server_scheduled_events SET deleted_at='$deleted_at' WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
 }
 
 function update_scheduled_event() {
@@ -1567,8 +1577,18 @@ function update_scheduled_event() {
   $created_at = $_POST['created_at'];
   $deleted_at = $_POST['deleted_at'];
 
-  $query = "UPDATE server_scheduled_events SET description='$description', event_type='$event_type', event_data='$event_data', minute_start=$minute_start, hour_start=$hour_start, day_start=$day_start, month_start=$month_start, year_start=$year_start, minute_end=$minute_end, hour_end=$hour_end, day_end=$day_end, month_end=$month_end, year_end=$year_end, cron_expression='$cron_expression', created_at='$created_at', deleted_at='$deleted_at' WHERE id=$id";
+  $query = "UPDATE server_scheduled_events SET description='$description', event_type='$event_type', event_data='$event_data', minute_start=$minute_start, hour_start=$hour_start, day_start=$day_start, month_start=$month_start, year_start=$year_start, minute_end=$minute_end, hour_end=$hour_end, day_end=$day_end, month_end=$month_end, year_end=$year_end, cron_expression='$cron_expression', created_at=NULL, deleted_at=NULL WHERE id=$id";
   $mysql->query_no_result($query);
+
+  if ($created_at) {
+    $query = "UPDATE server_scheduled_events SET created_at='$created_at' WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
+
+  if ($deleted_at) {
+    $query = "UPDATE server_scheduled_events SET deleted_at='$deleted_at' WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
 }
 
 function delete_scheduled_event($id) {
