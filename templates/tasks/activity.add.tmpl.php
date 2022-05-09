@@ -49,8 +49,8 @@
           <legend><strong><font size="4">Goal</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="20%">Goal ID:<br><input type="text" name="goalid" size="7" value="0"></td>
-              <td align="left" width="20%">
+              <td align="left" width="25%">Goal ID:<br><input type="text" name="goalid" size="7" value="0"></td>
+              <td align="left" width="25%">
                 Goal Method:<br>
                 <select name="goalmethod" style="width: 100px;">
 <?foreach($rewardmethods as $key=>$value):?>
@@ -58,8 +58,11 @@
 <?endforeach;?>
                 </select>
               </td>
-              <td align="left" width="20%">Goal Count:<br><input type="text" name="goalcount" size="7" value="0"></td>
-              <td align="left" width="20%">Deliver to NPC:<br><input type="text" name="delivertonpc" size="7" value="0"></td>
+              <td align="left" width="25%">Goal Count:<br><input type="text" name="goalcount" size="7" value="0"></td>
+              <td align="left" width="25%">Deliver to NPC:<br><input type="text" name="delivertonpc" size="7" value="0"></td>
+            </tr>
+            <tr>
+              <td colspan="4" width="100%">Goal Match List:<br><textarea name="goal_match_list" rows="10" cols="100"></textarea></td>
             </tr>
           </table>
         </fieldset><br>

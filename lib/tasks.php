@@ -498,7 +498,7 @@ function get_activities() {
   $result = $mysql_content_db->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-      $array['activity'][$result['activityid']] = array("taskid"=>$result['taskid'], "activityid"=>$result['activityid'], "step"=>$result['step'], "activitytype"=>$result['activitytype'], "target_name"=>$result['target_name'], "item_list"=>$result['item_list'], "description_override"=>$result['description_override'], "skill_list"=>$result['skill_list'], "spell_list"=>$result['spell_list'], "goalid"=>$result['goalid'], "goalmethod"=>$result['goalmethod'], "goalcount"=>$result['goalcount'], "delivertonpc"=>$result['delivertonpc'], "optional"=>$result['optional']);
+      $array['activity'][$result['activityid']] = array("taskid"=>$result['taskid'], "activityid"=>$result['activityid'], "step"=>$result['step'], "activitytype"=>$result['activitytype'], "target_name"=>$result['target_name'], "item_list"=>$result['item_list'], "description_override"=>$result['description_override'], "skill_list"=>$result['skill_list'], "spell_list"=>$result['spell_list'], "goalid"=>$result['goalid'], "goal_match_list"=>$result['goal_match_list'], "goalmethod"=>$result['goalmethod'], "goalcount"=>$result['goalcount'], "delivertonpc"=>$result['delivertonpc'], "optional"=>$result['optional']);
     }
   }
   return $array;
@@ -609,6 +609,7 @@ function update_activity() {
   $spell_list = mysqli_real_escape_string($mysql_content_db, $_POST['spell_list']);
   $zones = mysqli_real_escape_string($mysql_content_db, $_POST['zones']);
   $goalid = $_POST['goalid'];
+  $goal_match_list = mysqli_real_escape_string($mysql_content_db, $_POST['goal_match_list']);
   $goalmethod = $_POST['goalmethod']; 
   $goalcount = $_POST['goalcount'];
   $delivertonpc = $_POST['delivertonpc'];
@@ -617,7 +618,7 @@ function update_activity() {
   $query = "DELETE FROM task_activities WHERE taskid=\"$taskid\" AND activityid=\"$activityid\"";
   $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$newactivityid\", activitytype=\"$activitytype\", target_name=\"$target_name\", item_list=\"$item_list\", description_override=\"$description_override\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", goalid=\"$goalid\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", optional=\"$optional\"";
+  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$newactivityid\", activitytype=\"$activitytype\", target_name=\"$target_name\", item_list=\"$item_list\", description_override=\"$description_override\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", goalid=\"$goalid\", goal_match_list=\"$goal_match_list\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", optional=\"$optional\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -829,13 +830,14 @@ function add_activity() {
   $spell_list = mysqli_real_escape_string($mysql_content_db, $_POST['spell_list']);
   $zones = mysqli_real_escape_string($mysql_content_db, $_POST['zones']);
   $goalid = $_POST['goalid'];
+  $goal_match_list = mysqli_real_escape_string($mysql_content_db, $_POST['goal_match_list']);
   $goalmethod = $_POST['goalmethod']; 
   $goalcount = $_POST['goalcount'];
   $delivertonpc = $_POST['delivertonpc'];
   $zoneid = $_POST['zoneid'];
   $optional = $_POST['optional'];
 
-  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$activityid\", activitytype=\"$activitytype\", target_name=\"$target_name\", item_list=\"$item_list\", description_override=\"$description_override\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", goalid=\"$goalid\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", optional=\"$optional\"";
+  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$activityid\", activitytype=\"$activitytype\", target_name=\"$target_name\", item_list=\"$item_list\", description_override=\"$description_override\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", goalid=\"$goalid\", goal_match_list=\"$goal_match_list\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", optional=\"$optional\"";
   $mysql_content_db->query_no_result($query);
 }
 
