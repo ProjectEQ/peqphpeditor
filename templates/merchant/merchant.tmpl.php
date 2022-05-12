@@ -31,6 +31,7 @@
           <th>Alt<br>Cur</th>
           <th>Class<br>Req</th>
           <th>Prob<br>Req</th>
+          <th>Bkt</th>
           <th>Expan<br>Flags</th>
           <th>Content<br>Flags</th>
           <th>&nbsp;</th>
@@ -105,6 +106,7 @@ $round_sells = round($sells,3);
           <td align="center"><?=$v['alt_currency_cost']?></td>
           <td align="center"><?echo ($v['classes_required'] == 65535) ? "N" : "Y";?></td>
           <td align="center"><?=$v['probability']?></td>
+          <td align="center"><?echo ($v['bucket_name'] != "") ? "Y" : "N";?></td>
           <td align="center"><?echo (($v['min_expansion'] > 0) || ($v['max_expansion'] > 0)) ? "Y" : "N";?></td>
           <td align="center"><?echo (($v['content_flags'] != "") || ($v['content_flags_disabled'] != "")) ? "Y" : "N";?></td>
           <td align="right" style="padding-right: 10px;">
