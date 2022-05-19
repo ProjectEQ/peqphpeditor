@@ -98,9 +98,9 @@
                                   <td><input type="checkbox" name="races[]" value="512" onChange="box_changed('races[]', 'all_races');">Ogre</td>
                                   <td><input type="checkbox" name="races[]" value="1024" onChange="box_changed('races[]', 'all_races');">Halfling</td>
                                   <td><input type="checkbox" name="races[]" value="2048" onChange="box_changed('races[]', 'all_races');">Gnome</td>
-                                  <td><input type="checkbox" name="races[]" value="4096" onChange="box_changed('races[]', 'all_races');">Froglok</td>
-                                  <td><input type="checkbox" name="races[]" value="8192" onChange="box_changed('races[]', 'all_races');">Iksar</td>
-                                  <td><input type="checkbox" name="races[]" value="16384" onChange="box_changed('races[]', 'all_races');">Vah Shir</td>
+                                  <td><input type="checkbox" name="races[]" value="16384" onChange="box_changed('races[]', 'all_races');">Froglok</td>
+                                  <td><input type="checkbox" name="races[]" value="4096" onChange="box_changed('races[]', 'all_races');">Iksar</td>
+                                  <td><input type="checkbox" name="races[]" value="8192" onChange="box_changed('races[]', 'all_races');">Vah Shir</td>
                                   <td><input type="checkbox" name="races[]" value="32768" onChange="box_changed('races[]', 'all_races');">Drakkin</td>
                                 </tr>
                                 <tr>
@@ -117,30 +117,30 @@
                               <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                   <td width="20%">
-                                    <input type="checkbox" name="deities[]" value="65536" onChange="box_changed('deities[]', 'all_deities');"> Agnostic<br>
-                                    <input type="checkbox" name="deities[]" value="1" onChange="box_changed('deities[]', 'all_deities');"> Bertoxxulous<br>
-                                    <input type="checkbox" name="deities[]" value="2" onChange="box_changed('deities[]', 'all_deities');"> Brell Serilis<br>
-                                    <input type="checkbox" name="deities[]" value="16" onChange="box_changed('deities[]', 'all_deities');"> Bristlebane<br>
+                                    <input type="checkbox" name="deities[]" value="1" onChange="box_changed('deities[]', 'all_deities');"> Agnostic<br>
+                                    <input type="checkbox" name="deities[]" value="2" onChange="box_changed('deities[]', 'all_deities');"> Bertoxxulous<br>
+                                    <input type="checkbox" name="deities[]" value="4" onChange="box_changed('deities[]', 'all_deities');"> Brell Serilis<br>
+                                    <input type="checkbox" name="deities[]" value="32" onChange="box_changed('deities[]', 'all_deities');"> Bristlebane<br>
                                   </td>
                                   <td width="20%">
-                                    <input type="checkbox" name="deities[]" value="4" onChange="box_changed('deities[]', 'all_deities');"> Cazic Thule<br>
-                                    <input type="checkbox" name="deities[]" value="8" onChange="box_changed('deities[]', 'all_deities');"> Erollisi Marr<br>
-                                    <input type="checkbox" name="deities[]" value="32" onChange="box_changed('deities[]', 'all_deities');"> Innoruuk<br>
-                                    <input type="checkbox" name="deities[]" value="64" onChange="box_changed('deities[]', 'all_deities');"> Karana<br>
+                                    <input type="checkbox" name="deities[]" value="8" onChange="box_changed('deities[]', 'all_deities');"> Cazic Thule<br>
+                                    <input type="checkbox" name="deities[]" value="16" onChange="box_changed('deities[]', 'all_deities');"> Erollisi Marr<br>
+                                    <input type="checkbox" name="deities[]" value="64" onChange="box_changed('deities[]', 'all_deities');"> Innoruuk<br>
+                                    <input type="checkbox" name="deities[]" value="128" onChange="box_changed('deities[]', 'all_deities');"> Karana<br>
                                   </td>
                                   <td width="20%">
-                                    <input type="checkbox" name="deities[]" value="128" onChange="box_changed('deities[]', 'all_deities');"> Mithaniel Marr<br>
-                                    <input type="checkbox" name="deities[]" value="256" onChange="box_changed('deities[]', 'all_deities');"> Prexus<br>
-                                    <input type="checkbox" name="deities[]" value="512" onChange="box_changed('deities[]', 'all_deities');"> Quellious<br>
-                                    <input type="checkbox" name="deities[]" value="1024" onChange="box_changed('deities[]', 'all_deities');"> Rallos Zek<br>
+                                    <input type="checkbox" name="deities[]" value="256" onChange="box_changed('deities[]', 'all_deities');"> Mithaniel Marr<br>
+                                    <input type="checkbox" name="deities[]" value="512" onChange="box_changed('deities[]', 'all_deities');"> Prexus<br>
+                                    <input type="checkbox" name="deities[]" value="1024" onChange="box_changed('deities[]', 'all_deities');"> Quellious<br>
+                                    <input type="checkbox" name="deities[]" value="2048" onChange="box_changed('deities[]', 'all_deities');"> Rallos Zek<br>
                                   </td>
                                   <td width="20%">
-                                    <input type="checkbox" name="deities[]" value="2048" onChange="box_changed('deities[]', 'all_deities');"> Rodcet Nife<br>
-                                    <input type="checkbox" name="deities[]" value="4096" onChange="box_changed('deities[]', 'all_deities');"> Solusek Ro<br>
-                                    <input type="checkbox" name="deities[]" value="8192" onChange="box_changed('deities[]', 'all_deities');"> The Tribunal<br>
-                                    <input type="checkbox" name="deities[]" value="16384" onChange="box_changed('deities[]', 'all_deities');"> Tunare<br>
+                                    <input type="checkbox" name="deities[]" value="4096" onChange="box_changed('deities[]', 'all_deities');"> Rodcet Nife<br>
+                                    <input type="checkbox" name="deities[]" value="8192" onChange="box_changed('deities[]', 'all_deities');"> Solusek Ro<br>
+                                    <input type="checkbox" name="deities[]" value="16384" onChange="box_changed('deities[]', 'all_deities');"> The Tribunal<br>
+                                    <input type="checkbox" name="deities[]" value="32768" onChange="box_changed('deities[]', 'all_deities');"> Tunare<br>
                                   </td>
-                                  <td width="20%"><input type="checkbox" name="deities[]" value="32768" onChange="box_changed('deities[]', 'all_deities');"> Veeshan</td>
+                                  <td width="20%"><input type="checkbox" name="deities[]" value="65536" onChange="box_changed('deities[]', 'all_deities');"> Veeshan</td>
                                 </tr>
                                 <tr>
                                   <td colspan="5" align="center"><br><input type="checkbox" id="all_deities" onChange="all_boxes_changed('deities[]', 'all_deities');">All Deities</td>
