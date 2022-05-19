@@ -98,9 +98,9 @@
                                   <td><input type="checkbox" name="races[]" value="512" onChange="box_changed('races[]', 'all_races');">Ogre</td>
                                   <td><input type="checkbox" name="races[]" value="1024" onChange="box_changed('races[]', 'all_races');">Halfling</td>
                                   <td><input type="checkbox" name="races[]" value="2048" onChange="box_changed('races[]', 'all_races');">Gnome</td>
-                                  <td><input type="checkbox" name="races[]" value="16384" onChange="box_changed('races[]', 'all_races');">Froglok</td>
                                   <td><input type="checkbox" name="races[]" value="4096" onChange="box_changed('races[]', 'all_races');">Iksar</td>
                                   <td><input type="checkbox" name="races[]" value="8192" onChange="box_changed('races[]', 'all_races');">Vah Shir</td>
+                                  <td><input type="checkbox" name="races[]" value="16384" onChange="box_changed('races[]', 'all_races');">Froglok</td>
                                   <td><input type="checkbox" name="races[]" value="32768" onChange="box_changed('races[]', 'all_races');">Drakkin</td>
                                 </tr>
                                 <tr>

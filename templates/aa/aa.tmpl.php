@@ -106,9 +106,9 @@
                                   <td><input type="checkbox" name="races[]" value="512" onChange="box_changed('races[]', 'all_races');"<?echo ($base['races'] &     512) ? " checked" : "";?>>Ogre</td>
                                   <td><input type="checkbox" name="races[]" value="1024" onChange="box_changed('races[]', 'all_races');"<?echo ($base['races'] &   1024) ? " checked" : "";?>>Halfling</td>
                                   <td><input type="checkbox" name="races[]" value="2048" onChange="box_changed('races[]', 'all_races');"<?echo ($base['races'] &   2048) ? " checked" : "";?>>Gnome</td>
-                                  <td><input type="checkbox" name="races[]" value="4096" onChange="box_changed('races[]', 'all_races');"<?echo ($base['races'] &   4096) ? " checked" : "";?>>Froglok</td>
-                                  <td><input type="checkbox" name="races[]" value="8192" onChange="box_changed('races[]', 'all_races');"<?echo ($base['races'] &   8192) ? " checked" : "";?>>Iksar</td>
-                                  <td><input type="checkbox" name="races[]" value="16384" onChange="box_changed('races[]', 'all_races');"<?echo ($base['races'] & 16384) ? " checked" : "";?>>Vah Shir</td>
+                                  <td><input type="checkbox" name="races[]" value="4096" onChange="box_changed('races[]', 'all_races');"<?echo ($base['races'] &   4096) ? " checked" : "";?>>Iksar</td>
+                                  <td><input type="checkbox" name="races[]" value="8192" onChange="box_changed('races[]', 'all_races');"<?echo ($base['races'] &   8192) ? " checked" : "";?>>Vah Shir</td>
+                                  <td><input type="checkbox" name="races[]" value="16384" onChange="box_changed('races[]', 'all_races');"<?echo ($base['races'] & 16384) ? " checked" : "";?>>Froglok</td>
                                   <td><input type="checkbox" name="races[]" value="32768" onChange="box_changed('races[]', 'all_races');"<?echo ($base['races'] & 32768) ? " checked" : "";?>>Drakkin</td>
                                 </tr>
                                 <tr>
@@ -125,30 +125,30 @@
                               <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                   <td width="20%">
-                                    <input type="checkbox" name="deities[]" value="65536" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] & 65536) ? " checked" : "";?>>Agnostic<br>
-                                    <input type="checkbox" name="deities[]" value="1" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &         1) ? " checked" : "";?>>Bertoxxulous<br>
-                                    <input type="checkbox" name="deities[]" value="2" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &         2) ? " checked" : "";?>>Brell Serilis<br>
-                                    <input type="checkbox" name="deities[]" value="16" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &       16) ? " checked" : "";?>>Bristlebane<br>
+                                    <input type="checkbox" name="deities[]" value="1" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   1) ? " checked" : "";?>>Agnostic<br>
+                                    <input type="checkbox" name="deities[]" value="2" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   2) ? " checked" : "";?>>Bertoxxulous<br>
+                                    <input type="checkbox" name="deities[]" value="4" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   4) ? " checked" : "";?>>Brell Serilis<br>
+                                    <input type="checkbox" name="deities[]" value="32" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] & 32) ? " checked" : "";?>>Bristlebane<br>
                                   </td>
                                   <td width="20%">
-                                    <input type="checkbox" name="deities[]" value="4" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   4) ? " checked" : "";?>>Cazic Thule<br>
-                                    <input type="checkbox" name="deities[]" value="8" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   8) ? " checked" : "";?>>Erollisi Marr<br>
-                                    <input type="checkbox" name="deities[]" value="32" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] & 32) ? " checked" : "";?>>Innoruuk<br>
-                                    <input type="checkbox" name="deities[]" value="64" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] & 64) ? " checked" : "";?>>Karana<br>
+                                    <input type="checkbox" name="deities[]" value="8" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &     8) ? " checked" : "";?>>Cazic Thule<br>
+                                    <input type="checkbox" name="deities[]" value="16" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   16) ? " checked" : "";?>>Erollisi Marr<br>
+                                    <input type="checkbox" name="deities[]" value="64" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   64) ? " checked" : "";?>>Innoruuk<br>
+                                    <input type="checkbox" name="deities[]" value="128" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] & 128) ? " checked" : "";?>>Karana<br>
                                   </td>
                                   <td width="20%">
-                                    <input type="checkbox" name="deities[]" value="128" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   128) ? " checked" : "";?>>Mithaniel Marr<br>
-                                    <input type="checkbox" name="deities[]" value="256" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   256) ? " checked" : "";?>>Prexus<br>
-                                    <input type="checkbox" name="deities[]" value="512" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   512) ? " checked" : "";?>>Quellious<br>
-                                    <input type="checkbox" name="deities[]" value="1024" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] & 1024) ? " checked" : "";?>>Rallos Zek<br>
+                                    <input type="checkbox" name="deities[]" value="256" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   256) ? " checked" : "";?>>Mithaniel Marr<br>
+                                    <input type="checkbox" name="deities[]" value="512" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   512) ? " checked" : "";?>>Prexus<br>
+                                    <input type="checkbox" name="deities[]" value="1024" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] & 1024) ? " checked" : "";?>>Quellious<br>
+                                    <input type="checkbox" name="deities[]" value="2048" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] & 2048) ? " checked" : "";?>>Rallos Zek<br>
                                   </td>
                                   <td width="20%">
-                                    <input type="checkbox" name="deities[]" value="2048" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   2048) ? " checked" : "";?>>Rodcet Nife<br>
-                                    <input type="checkbox" name="deities[]" value="4096" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   4096) ? " checked" : "";?>>Solusek Ro<br>
-                                    <input type="checkbox" name="deities[]" value="8192" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   8192) ? " checked" : "";?>>The Tribunal<br>
-                                    <input type="checkbox" name="deities[]" value="16384" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] & 16384) ? " checked" : "";?>>Tunare<br>
+                                    <input type="checkbox" name="deities[]" value="4096" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   4096) ? " checked" : "";?>>Rodcet Nife<br>
+                                    <input type="checkbox" name="deities[]" value="8192" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] &   8192) ? " checked" : "";?>>Solusek Ro<br>
+                                    <input type="checkbox" name="deities[]" value="16384" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] & 16384) ? " checked" : "";?>>The Tribunal<br>
+                                    <input type="checkbox" name="deities[]" value="32768" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] & 32768) ? " checked" : "";?>>Tunare<br>
                                   </td>
-                                  <td width="20%"><input type="checkbox" name="deities[]" value="32768" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] & 32768) ? " checked" : "";?>>Veeshan</td>
+                                  <td width="20%"><input type="checkbox" name="deities[]" value="65536" onChange="box_changed('deities[]', 'all_deities');"<?echo ($base['deities'] & 65536) ? " checked" : "";?>>Veeshan</td>
                                 </tr>
                                 <tr>
                                   <td colspan="5" align="center"><br><input type="checkbox" id="all_deities" onChange="all_boxes_changed('deities[]', 'all_deities');"<?echo ($base['deities'] == 131071) ? " checked" : "";?>>All Deities</td>
