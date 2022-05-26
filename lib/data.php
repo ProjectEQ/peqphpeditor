@@ -1227,7 +1227,8 @@ $itemmaterial= array(
  22 => "Ry`Gorr",
  23 => "Kael/Guardian",
  24 => "Velious Monk",
- 50 => "VS Commoner"
+ 50 => "VS Commoner",
+240 => "Velious Helm"
 );
 
 $itemtypes= array(
