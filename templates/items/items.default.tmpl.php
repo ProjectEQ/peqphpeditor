@@ -6,6 +6,7 @@
       <td class="edit_form_content">
         <center><a href="index.php?editor=items&action=8">Create an Item</a></center>
         <center><a href="index.php?editor=items&action=10">Starting Items</a></center>
+        <center><a href="index.php?editor=items&action=16">View Books</a></center>
       </td>
     </tr>
   </table>

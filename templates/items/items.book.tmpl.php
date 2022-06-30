@@ -9,15 +9,24 @@
     <div class="edit_form_content">
       <form name="booktext" method="post" action="index.php?editor=items&id=<?=$id?>&name=<?=$name?>&action=4">
         <table width="100%">
-            <tr>
-                <td><textarea name="txtfile" rows="20" cols="88"><?=$txtfile?></textarea></td>
-                <td align="right">&nbsp;</td>
-            </tr>
+          <tr>
+            <td><textarea name="txtfile" rows="20" cols="100"><?=$txtfile?></textarea></td>
+          </tr>
+          <tr>
+            <td>
+              <select name="language">
+<?foreach ($langtypes as $k=>$v):?>
+                <option value="<?=$k?>"<?echo ($language == $k) ? " selected" : "";?>><?echo $v . " (" . $k . ")";?></option>
+<?endforeach;?>
+              </select>
+            </td>
+          </tr>
         </table><br>
         <center>
           <input type="hidden" name="name" value="<?=$name?>">
           <input type="hidden" name="id" value="<?=$id?>">
-          <input type="submit" value="Submit Changes">
+          <input type="submit" value="Update Book">&nbsp;
+          <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </form>
     </div>
