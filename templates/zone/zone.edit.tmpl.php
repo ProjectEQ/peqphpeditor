@@ -84,14 +84,7 @@
 <?endforeach;?>
                     </select>
                   </td>
-                  <td align="left" width="25%">
-                    Expansion:<br>
-                    <select name="expansion">
-<?foreach($eqexpansions as $key=>$value):?>
-                      <option value="<?=$key?>"<?echo ($key == $expansion)? " selected" : "";?>> <?=$value?></option>
-<?endforeach;?>
-                    </select>
-                  </td>
+                  <td align="left" width="25%">&nbsp;</td>
                 </tr>
               </table>
             </fieldset><br>

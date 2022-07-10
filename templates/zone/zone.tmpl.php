@@ -23,7 +23,6 @@
                   <tr>
                     <td>
                       <center>
-                        <strong><?=$eqexpansions[$expansion]?></strong><br>
                         <strong><?=$zonetype[$type]?></strong><br><br>
                       </center>
                       <strong>Map:</strong> <?=$map_file_name?><br>
