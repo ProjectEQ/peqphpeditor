@@ -43,6 +43,9 @@
               <td align="left" width="33%">Spell List: (IDs separated by semi-colon)<br><input type="text" name="spell_list" size="30" value="0"></td>
               <td align="left" width="34%">Zones: (IDs separated by semi-colon)<br><input type="text" name="zones" size="30" value=""></td>           
             </tr>
+            <tr>
+              <td align="left" width="100%" colspan="3">Zone Version:<br><input type="text" name="zone_version" size="10" value="-1"></td>
+            </tr>
           </table>
         </fieldset><br>
         <fieldset>

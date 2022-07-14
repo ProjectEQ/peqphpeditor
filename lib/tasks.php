@@ -608,6 +608,7 @@ function update_activity() {
   $skill_list = mysqli_real_escape_string($mysql_content_db, $_POST['skill_list']);
   $spell_list = mysqli_real_escape_string($mysql_content_db, $_POST['spell_list']);
   $zones = mysqli_real_escape_string($mysql_content_db, $_POST['zones']);
+  $zone_version = $_POST['zone_version'];
   $goalid = $_POST['goalid'];
   $goal_match_list = mysqli_real_escape_string($mysql_content_db, $_POST['goal_match_list']);
   $goalmethod = $_POST['goalmethod']; 
@@ -618,7 +619,7 @@ function update_activity() {
   $query = "DELETE FROM task_activities WHERE taskid=\"$taskid\" AND activityid=\"$activityid\"";
   $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$newactivityid\", activitytype=\"$activitytype\", target_name=\"$target_name\", item_list=\"$item_list\", description_override=\"$description_override\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", goalid=\"$goalid\", goal_match_list=\"$goal_match_list\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", optional=\"$optional\"";
+  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$newactivityid\", activitytype=\"$activitytype\", target_name=\"$target_name\", item_list=\"$item_list\", description_override=\"$description_override\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", goalid=\"$goalid\", goal_match_list=\"$goal_match_list\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", optional=\"$optional\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -829,6 +830,7 @@ function add_activity() {
   $skill_list = mysqli_real_escape_string($mysql_content_db, $_POST['skill_list']);
   $spell_list = mysqli_real_escape_string($mysql_content_db, $_POST['spell_list']);
   $zones = mysqli_real_escape_string($mysql_content_db, $_POST['zones']);
+  $zone_version = $_POST['zone_version'];
   $goalid = $_POST['goalid'];
   $goal_match_list = mysqli_real_escape_string($mysql_content_db, $_POST['goal_match_list']);
   $goalmethod = $_POST['goalmethod']; 
@@ -837,7 +839,7 @@ function add_activity() {
   $zoneid = $_POST['zoneid'];
   $optional = $_POST['optional'];
 
-  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$activityid\", activitytype=\"$activitytype\", target_name=\"$target_name\", item_list=\"$item_list\", description_override=\"$description_override\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", goalid=\"$goalid\", goal_match_list=\"$goal_match_list\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", optional=\"$optional\"";
+  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$activityid\", activitytype=\"$activitytype\", target_name=\"$target_name\", item_list=\"$item_list\", description_override=\"$description_override\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", goalid=\"$goalid\", goal_match_list=\"$goal_match_list\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", optional=\"$optional\"";
   $mysql_content_db->query_no_result($query);
 }
 
