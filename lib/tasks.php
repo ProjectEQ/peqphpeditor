@@ -385,6 +385,7 @@ switch ($action) {
       foreach ($page_stats as $key=>$value) {
         $body->set($key, $value);
       }
+      $body->set('yesno', $yesno);
     }
     else {
       $body->set('page', 0);
