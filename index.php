@@ -1,7 +1,7 @@
 <?php
 
-$current_revision = "27 July 2022";
-$current_db_version = 9189;
+$current_revision = "30 July 2022";
+$current_db_version = 9190;
 
 require_once("config.php");
 require_once("lib/logging.php");

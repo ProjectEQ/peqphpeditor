@@ -70,8 +70,8 @@
                   <td align="left" width="25%">Reward Faction: <?=$faction_reward?></td>
                 </tr>
                 <tr>
-                  <td align="left" width="25%">Radiant Crystals: <?=$reward_radiant_crystals?></td>
-                  <td align="left" width="25%">Ebon Crystals: <?=$reward_ebon_crystals?></td>
+                  <td align="left" width="25%">Reward Points: <?=$reward_points?></td>
+                  <td align="left" width="25%">Reward Point Type: <?=$reward_point_types[$reward_point_type]?> (<?=$reward_point_type?>)</td>
                   <td align="left" width="25%">Replay Timer: <?=$replay_timer_seconds?></td>
                   <td align="left" width="25%">Request Timer: <?=$request_timer_seconds?></td>
                 </tr>

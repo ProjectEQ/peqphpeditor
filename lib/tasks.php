@@ -17,7 +17,7 @@ $duration_codes = array(
 $rewardmethods = array(
   0 => "Single ID",
   1 => "Goallist",
-  2 => "Perl"
+  2 => "Script"
 );
 
 $activitytypes = array(
@@ -65,6 +65,7 @@ switch ($action) {
         foreach ($vars as $key=>$value) {
           $body->set($key, $value);
         }
+        $body->set('reward_point_types', get_reward_point_types());
       }
       if ($activity) {
         foreach ($activity as $key=>$value) {
@@ -81,6 +82,7 @@ switch ($action) {
     $body->set('zoneids', $zoneids);
     $body->set('task_types', $task_types);
     $body->set('duration_codes', $duration_codes);
+    $body->set('reward_point_types', get_reward_point_types());
     $vars = tasks_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -107,6 +109,7 @@ switch ($action) {
     $body->set('suggestid', suggest_tasks_id());
     $body->set('task_types', $task_types);
     $body->set('duration_codes', $duration_codes);
+    $body->set('reward_point_types', get_reward_point_types());
     break;
   case 5: // Insert task
     check_authorization();
@@ -581,8 +584,8 @@ function update_tasks() {
   $cashreward = $_POST['cashreward'];
   $xpreward = $_POST['xpreward'];
   $rewardmethod = $_POST['rewardmethod'];
-  $reward_radiant_crystals = $_POST['reward_radiant_crystals'];
-  $reward_ebon_crystals = $_POST['reward_ebon_crystals'];
+  $reward_points = $_POST['reward_points'];
+  $reward_point_type = $_POST['reward_point_type'];
   $minlevel = $_POST['minlevel'];
   $maxlevel = $_POST['maxlevel'];
   $level_spread = $_POST['level_spread'];
@@ -591,7 +594,7 @@ function update_tasks() {
   $repeatable = $_POST['repeatable'];
   $faction_reward = $_POST['faction_reward'];
 
-  $query = "UPDATE tasks SET type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", reward_radiant_crystals=\"$reward_radiant_crystals\", reward_ebon_crystals=\"$reward_ebon_crystals\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_seconds=\"$request_timer_seconds\" WHERE id=\"$id\"";
+  $query = "UPDATE tasks SET type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", reward_points=\"$reward_points\", reward_point_type=\"$reward_point_type\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_seconds=\"$request_timer_seconds\" WHERE id=\"$id\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -804,8 +807,8 @@ function add_tasks() {
   $cashreward = $_POST['cashreward'];
   $xpreward = $_POST['xpreward'];
   $rewardmethod = $_POST['rewardmethod'];
-  $reward_radiant_crystals = $_POST['reward_radiant_crystals'];
-  $reward_ebon_crystals = $_POST['reward_ebon_crystals'];
+  $reward_points = $_POST['reward_points'];
+  $reward_point_type = $_POST['reward_point_type'];
   $minlevel = $_POST['minlevel'];
   $maxlevel = $_POST['maxlevel'];
   $level_spread = $_POST['level_spread'];
@@ -814,7 +817,7 @@ function add_tasks() {
   $repeatable = $_POST['repeatable'];
   $faction_reward = $_POST['faction_reward'];
 
-  $query = "INSERT INTO tasks SET id=\"$id\", type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", reward_radiant_crystals=\"$reward_radiant_crystals\", reward_ebon_crystals=\"$reward_ebon_crystals\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_seconds=\"$request_timer_seconds\"";
+  $query = "INSERT INTO tasks SET id=\"$id\", type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", reward_points=\"$reward_points\", reward_point_type=\"$reward_point_type\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_seconds=\"$request_timer_seconds\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -1007,5 +1010,23 @@ function build_filter() {
   $filter_final['filter2'] = $filter2;
 
   return $filter_final;
+}
+
+function get_reward_point_types() {
+  global $mysql_content_db;
+
+  $query = "SELECT ac.id AS id, i.name AS name FROM alternate_currency ac LEFT JOIN items i ON ac.item_id = i.id";
+  $results = $mysql_content_db->query_mult_assoc($query);
+
+  if ($results) {
+    $results_array = array(0=>"N/A");
+    foreach ($results as $result) {
+      $results_array[$result['id']] = $result['name'];
+    }
+    return $results_array;
+  }
+  else {
+    return null;
+  }
 }
 ?>
