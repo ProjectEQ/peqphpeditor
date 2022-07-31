@@ -85,14 +85,14 @@
 <?foreach ($reward_point_types as $key=>$value):?>
                   <option value="<?=$key?>"><?=$key?>: <?=$value?></option>
 <?endforeach;?>
-              <td align="left" width="25%">Replay Timer:<br><input type="text" name="replay_timer_seconds" size="7" value="0"></td>
-              <td align="left" width="25%">Request Timer:<br><input type="text" name="request_timer_seconds" size="7" value="0"></td>
-            </tr>
-            <tr>
               <td align="left" width="25%">Lock Activity ID:<br><input type="text" name="lock_activity_id" size="7" value="-1"></td>
               <td align="left" width="25%">&nbsp;</td>
-              <td align="left" width="25%">&nbsp;</td>
-              <td align="left" width="25%">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left" width="25%">Replay Timer Group:<br><input type="text" name="replay_timer_group" size="7" value="0"></td>
+              <td align="left" width="25%">Replay Timer:<br><input type="text" name="replay_timer_seconds" size="7" value="0"></td>
+              <td align="left" width="25%">Request Timer Group:<br><input type="text" name="request_timer_group" size="7" value="0"></td>
+              <td align="left" width="25%">Request Timer:<br><input type="text" name="request_timer_seconds" size="7" value="0"></td>
             </tr>
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">

@@ -87,14 +87,14 @@
 <?endforeach;?>
                 </select>
               </td>
-              <td align="left" width="25%">Replay Timer:<br><input type="text" name="replay_timer_seconds" size="7" value="<?=$replay_timer_seconds?>"></td>
-              <td align="left" width="25%">Request Timer:<br><input type="text" name="request_timer_seconds" size="7" value="<?=$request_timer_seconds?>"></td>
-            </tr>
-            <tr>
               <td align="left" width="25%">Lock Activity ID:<br><input type="text" name="lock_activity_id" size="7" value="<?=$lock_activity_id?>"></td>
               <td align="left" width="25%">&nbsp;</td>
-              <td align="left" width="25%">&nbsp;</td>
-              <td align="left" width="25%">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left" width="25%">Replay Timer Group:<br><input type="text" name="replay_timer_group" size="7" value="<?=$replay_timer_group?>"></td>
+              <td align="left" width="25%">Replay Timer:<br><input type="text" name="replay_timer_seconds" size="7" value="<?=$replay_timer_seconds?>"></td>
+              <td align="left" width="25%">Request Timer Group:<br><input type="text" name="request_timer_group" size="7" value="<?=$request_timer_group?>"></td>
+              <td align="left" width="25%">Request Timer:<br><input type="text" name="request_timer_seconds" size="7" value="<?=$request_timer_seconds?>"></td>
             </tr>
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
