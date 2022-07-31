@@ -28,6 +28,9 @@
                     Password: <?=$password?><br>
                     <a href="index.php?editor=account&acctid=<?=$id?>&action=7" title="Edit Account Status">Status</a>: <?=$status?><br>
                     GM Speed: <?=$yesno[$gmspeed]?><br>
+                    Invulnerable: <?=$yesno[$invulnerable]?><br>
+                    Fly Mode: <?=$flymode?><br>
+                    Ignore Tells: <?=$yesno[$ignore_tells]?><br>
                     Hide Me: <?=$yesno[$hideme]?><br>
                     Revoked: <?=$yesno[$revoked]?><br>
                     Karma: <?=$karma?><br>
