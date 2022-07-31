@@ -88,6 +88,12 @@
               <td align="left" width="25%">Replay Timer:<br><input type="text" name="replay_timer_seconds" size="7" value="0"></td>
               <td align="left" width="25%">Request Timer:<br><input type="text" name="request_timer_seconds" size="7" value="0"></td>
             </tr>
+            <tr>
+              <td align="left" width="25%">Lock Activity ID:<br><input type="text" name="lock_activity_id" size="7" value="-1"></td>
+              <td align="left" width="25%">&nbsp;</td>
+              <td align="left" width="25%">&nbsp;</td>
+              <td align="left" width="25%">&nbsp;</td>
+            </tr>
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>

@@ -76,6 +76,12 @@
                   <td align="left" width="25%">Request Timer: <?=$request_timer_seconds?></td>
                 </tr>
                 <tr>
+                  <td align="left" width="25%">Lock Activity ID: <?echo ($lock_activity_id > -1) ? $lock_activity_id . "*" : "None";?> (<?=$lock_activity_id?>)</td>
+                  <td align="left" width="25%">&nbsp;</td>
+                  <td align="left" width="25%">&nbsp;</td>
+                  <td align="left" width="25%">&nbsp;</td>
+                </tr>
+                <tr>
                   <td align="left" width="100%" colspan="4">Completion Emote: "<?=$completion_emote?>"</td>
                 </tr>
               </table>
@@ -114,7 +120,7 @@
       </tr>
 <?$x=0; foreach($activity as $activity=>$v):?>
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
-        <td align="center" width="5%"><?=$v['activityid']?></td>
+        <td align="center" width="5%"><?=$v['activityid']?><?echo ($lock_activity_id == $v['activityid']) ? "*" : "";?></td>
         <td align="center" width="5%"><?=$v['step']?></td>
         <td align="center" width="5%"><?=$activitytypes[$v['activitytype']]?></td>
         <td align="center" width="10%"><?=$v['target_name']?></td>  
