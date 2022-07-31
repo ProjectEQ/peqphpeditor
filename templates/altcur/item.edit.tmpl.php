@@ -8,7 +8,7 @@
           <tr>
             <td width="40%">
               ID:<br>
-              <input type="text" name="entry_id" value="<?=$altcur_item['id']?>" size="10" disabled="disabled">
+              <input type="text" name="new_id" value="<?=$altcur_item['id']?>" size="10">
             </td>
             <td width="60%">
               Item ID:<br>
@@ -17,7 +17,7 @@
           </tr>
         </table><br><br>
         <center>
-          <input type="hidden" name="id" value="<?=$altcur_item['id']?>">
+          <input type="hidden" name="old_id" value="<?=$altcur_item['id']?>">
           <input type="submit" value="Submit Changes">
           <input type="button" value="Cancel" onClick="history.back();">
         </center>

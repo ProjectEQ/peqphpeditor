@@ -8,7 +8,7 @@
           <tr>
             <td width="40%">
               ID:<br>
-              <input type="text" name="entry_id" value="<?=$id?>" size="10" disabled="disabled">
+              <input type="text" name="id" value="<?=$new_id?>" size="10">
             </td>
             <td width="60%">
               Item ID:<br>
@@ -17,7 +17,6 @@
           </tr>
         </table><br><br>
         <center>
-          <input type="hidden" name="id" value="<?=$id?>">
           <input type="submit" value="Add Entry">
           <input type="button" value="Cancel" onClick="history.back();">
         </center>

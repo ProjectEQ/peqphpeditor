@@ -16,8 +16,8 @@ switch ($action) {
     check_authorization();
     $breadcrumbs .= " >> <a href='index.php?editor=altcur&action=1'>Items</a> >> Add Item";
     $body = new Template("templates/altcur/item.add.tmpl.php");
-    $id = get_next_currid();
-    $body->set('id', $id);
+    $new_id = get_next_currid();
+    $body->set('new_id', $new_id);
     break;
   case 3: // Insert Item
     check_authorization();
@@ -160,16 +160,17 @@ function insert_altcur_item() {
   $id = $_POST['id'];
   $item_id = $_POST['item_id'];
 
-  $query = "INSERT INTO alternate_currency (id, item_id) VALUES ($id, $item_id)";
+  $query = "INSERT INTO alternate_currency SET id=$id, item_id=$item_id";
   $mysql_content_db->query_no_result($query);
 }
 
 function update_altcur_item() {
   global $mysql_content_db;
-  $id = $_POST['id'];
+  $old_id = $_POST['old_id'];
+  $new_id = $_POST['new_id'];
   $item_id = $_POST['item_id'];
 
-  $query = "UPDATE alternate_currency SET item_id=$item_id WHERE id=$id";
+  $query = "UPDATE alternate_currency SET id=$new_id, item_id=$item_id WHERE id=$old_id";
   $mysql_content_db->query_no_result($query);
 }
 
