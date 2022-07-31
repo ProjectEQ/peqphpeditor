@@ -664,7 +664,7 @@ function get_doors() {
     $result = $mysql_content_db->query_mult_assoc($query);
     if ($result) {
       foreach ($result as $result) {
-        $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask'], "disable_timer"=>$result['disable_timer'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
+        $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "dz_switch_id"=>$result['dz_switch_id'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask'], "disable_timer"=>$result['disable_timer'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
       }
     }
   }
@@ -673,7 +673,7 @@ function get_doors() {
     $result = $mysql_content_db->query_mult_assoc($query);
     if ($result) {
       foreach ($result as $result) {
-        $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask'], "disable_timer"=>$result['disable_timer'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
+        $array['doors'][$result['id']] = array("drid"=>$result['id'], "doorid"=>$result['doorid'], "name"=>$result['name'], "pos_x"=>$result['pos_x'], "pos_y"=>$result['pos_y'], "pos_z"=>$result['pos_z'], "heading"=>$result['heading'], "opentype"=>$result['opentype'], "guild"=>$result['guild'], "lockpick"=>$result['lockpick'], "keyitem"=>$result['keyitem'], "triggerdoor"=>$result['triggerdoor'], "triggertype"=>$result['triggertype'], "doorisopen"=>$result['doorisopen'], "door_param"=>$result['door_param'], "dest_zone"=>$result['dest_zone'], "dest_x"=>$result['dest_x'], "dest_y"=>$result['dest_y'], "dest_z"=>$result['dest_z'], "dest_heading"=>$result['dest_heading'], "invert_state"=>$result['invert_state'], "incline"=>$result['incline'], "size"=>$result['size'], "version"=>$result['version'], "is_ldon_door"=>$result['is_ldon_door'], "dz_switch_id"=>$result['dz_switch_id'], "nokeyring"=>$result['nokeyring'], "dest_instance"=>$result['dest_instance'], "client_version_mask"=>$result['client_version_mask'], "disable_timer"=>$result['disable_timer'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
       }
     }
   }
@@ -958,6 +958,7 @@ function update_doors() {
   $size = $_POST['size'];
   $version = $_POST['version'];
   $is_ldon_door = $_POST['is_ldon_door'];
+  $dz_switch_id = $_POST['dz_switch_id'];
   $nokeyring = $_POST['nokeyring'];
   $dest_instance = $_POST['dest_instance'];
   $client_version_mask = $_POST['client_version_mask'];
@@ -967,7 +968,7 @@ function update_doors() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE doors SET doorid=$doorid, name=\"$name\", pos_x=$pos_x, pos_y=$pos_y, pos_z=$pos_z, heading=$heading, opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=$dest_x, dest_y=$dest_y, dest_z=$dest_z, dest_heading=$dest_heading, invert_state=\"$invert_state\", incline=\"$incline\", size=$size, version=$version, is_ldon_door=\"$is_ldon_door\", nokeyring=\"$nokeyring\", dest_instance=\"$dest_instance\", client_version_mask=\"$client_version_mask\", disable_timer=\"$disable_timer\", min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$drid";
+  $query = "UPDATE doors SET doorid=$doorid, name=\"$name\", pos_x=$pos_x, pos_y=$pos_y, pos_z=$pos_z, heading=$heading, opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=$dest_x, dest_y=$dest_y, dest_z=$dest_z, dest_heading=$dest_heading, invert_state=\"$invert_state\", incline=\"$incline\", size=$size, version=$version, is_ldon_door=\"$is_ldon_door\", dz_switch_id=\"$dz_switch_id\", nokeyring=\"$nokeyring\", dest_instance=\"$dest_instance\", client_version_mask=\"$client_version_mask\", disable_timer=\"$disable_timer\", min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$drid";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
@@ -1322,6 +1323,7 @@ function add_doors() {
   $size = $_POST['size'];
   $version = $_POST['version'];
   $is_ldon_door = $_POST['is_ldon_door'];
+  $dz_switch_id = $_POST['dz_switch_id'];
   $nokeyring = $_POST['nokeyring'];
   $dest_instance = $_POST['dest_instance'];
   $client_version_mask = $_POST['client_version_mask'];
@@ -1331,7 +1333,7 @@ function add_doors() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO doors SET id=\"$drid\", zone=\"$z\", doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\", buffer=0, is_ldon_door=\"$is_ldon_door\", version=\"$version\", nokeyring=\"$nokeyring\", dest_instance=\"$dest_instance\", client_version_mask=\"$client_version_mask\", disable_timer=\"$disable_timer\", min_expansion=\"$min_expansion\", max_expansion=\"$max_expansion\", content_flags=NULL, content_flags_disabled=NULL";
+  $query = "INSERT INTO doors SET id=\"$drid\", zone=\"$z\", doorid=\"$doorid\", name=\"$name\", pos_x=\"$pos_x\", pos_y=\"$pos_y\", pos_z=\"$pos_z\", heading=\"$heading\", opentype=\"$opentype\", guild=\"$guild\", lockpick=\"$lockpick\", keyitem=\"$keyitem\", triggerdoor=\"$triggerdoor\", triggertype=\"$triggertype\", doorisopen=\"$doorisopen\", door_param=\"$door_param\", dest_zone=\"$dest_zone\", dest_x=\"$dest_x\", dest_y=\"$dest_y\", dest_z=\"$dest_z\", dest_heading=\"$dest_heading\", invert_state=\"$invert_state\", incline=\"$incline\", size=\"$size\", buffer=0, is_ldon_door=\"$is_ldon_door\", dz_switch_id=\"$dz_switch_id\", version=\"$version\", nokeyring=\"$nokeyring\", dest_instance=\"$dest_instance\", client_version_mask=\"$client_version_mask\", disable_timer=\"$disable_timer\", min_expansion=\"$min_expansion\", max_expansion=\"$max_expansion\", content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
@@ -1489,6 +1491,7 @@ function copy_doors() {
     `buffer` float DEFAULT 0,
     `client_version_mask` int(10) unsigned NOT NULL DEFAULT 4294967295,
     `is_ldon_door` smallint(6) NOT NULL DEFAULT 0,
+    `dz_switch_id` int(6) NOT NULL DEFAULT 0,
     `min_expansion` tinyint(4) unsigned NOT NULL DEFAULT 0,
     `max_expansion` tinyint(4) unsigned NOT NULL DEFAULT 0,
     `content_flags` varchar(100) DEFAULT NULL,
@@ -1499,22 +1502,22 @@ function copy_doors() {
    $mysql_content_db->query_no_result($query);
 
 
-   $query = "INSERT INTO doors_temp (id, doorid, zone, version, name, pos_y, pos_x, pos_z, heading, opentype, guild, lockpick, keyitem, nokeyring, triggerdoor, triggertype, disable_timer, doorisopen, door_param, dest_zone, dest_instance, dest_x, dest_y, dest_z, dest_heading, invert_state, incline, size, buffer, client_version_mask, is_ldon_door, min_expansion, max_expansion, content_flags, content_flags_disabled)
-             SELECT id, doorid, zone, version, name, pos_y, pos_x, pos_z, heading, opentype, guild, lockpick, keyitem, nokeyring, triggerdoor, triggertype, disable_timer, doorisopen, door_param, dest_zone, dest_instance, dest_x, dest_y, dest_z, dest_heading, invert_state, incline, size, buffer, client_version_mask, is_ldon_door, min_expansion, max_expansion, content_flags, content_flags_disabled FROM doors WHERE zone=\"$z\"";
+   $query = "INSERT INTO doors_temp (id, doorid, zone, version, name, pos_y, pos_x, pos_z, heading, opentype, guild, lockpick, keyitem, nokeyring, triggerdoor, triggertype, disable_timer, doorisopen, door_param, dest_zone, dest_instance, dest_x, dest_y, dest_z, dest_heading, invert_state, incline, size, buffer, client_version_mask, is_ldon_door, dz_switch_id, min_expansion, max_expansion, content_flags, content_flags_disabled)
+             SELECT id, doorid, zone, version, name, pos_y, pos_x, pos_z, heading, opentype, guild, lockpick, keyitem, nokeyring, triggerdoor, triggertype, disable_timer, doorisopen, door_param, dest_zone, dest_instance, dest_x, dest_y, dest_z, dest_heading, invert_state, incline, size, buffer, client_version_mask, is_ldon_door, dz_switch_id, min_expansion, max_expansion, content_flags, content_flags_disabled FROM doors WHERE zone=\"$z\"";
    $mysql_content_db->query_no_result($query);
 
    $query = "UPDATE doors SET version=$new_version WHERE version=$door_version AND zone=\"$z\"";
    $mysql_content_db->query_no_result($query);
 
-   $query = "INSERT INTO doors_temp (zone, version, name, pos_y, pos_x, pos_z, heading, opentype, guild, lockpick, keyitem, nokeyring, triggerdoor, triggertype, disable_timer, doorisopen, door_param, dest_zone, dest_instance, dest_x, dest_y, dest_z, dest_heading, invert_state, incline, size, buffer, client_version_mask, is_ldon_door, min_expansion, max_expansion, content_flags, content_flags_disabled)
-             SELECT zone, version, name, pos_y, pos_x, pos_z, heading, opentype, guild, lockpick, keyitem, nokeyring, triggerdoor, triggertype, disable_timer, doorisopen, door_param, dest_zone, dest_instance, dest_x, dest_y, dest_z, dest_heading, invert_state, incline, size, buffer, client_version_mask, is_ldon_door, min_expansion, max_expansion, content_flags, content_flags_disabled FROM doors WHERE zone=\"$z\" AND version=$new_version";
+   $query = "INSERT INTO doors_temp (zone, version, name, pos_y, pos_x, pos_z, heading, opentype, guild, lockpick, keyitem, nokeyring, triggerdoor, triggertype, disable_timer, doorisopen, door_param, dest_zone, dest_instance, dest_x, dest_y, dest_z, dest_heading, invert_state, incline, size, buffer, client_version_mask, is_ldon_door, dz_switch_id, min_expansion, max_expansion, content_flags, content_flags_disabled)
+             SELECT zone, version, name, pos_y, pos_x, pos_z, heading, opentype, guild, lockpick, keyitem, nokeyring, triggerdoor, triggertype, disable_timer, doorisopen, door_param, dest_zone, dest_instance, dest_x, dest_y, dest_z, dest_heading, invert_state, incline, size, buffer, client_version_mask, is_ldon_door, dz_switch_id, min_expansion, max_expansion, content_flags, content_flags_disabled FROM doors WHERE zone=\"$z\" AND version=$new_version";
    $mysql_content_db->query_no_result($query);
 
    $query = "UPDATE doors SET version=$door_version WHERE version=$new_version AND zone=\"$z\"";
    $mysql_content_db->query_no_result($query);
 
-   $query = "INSERT INTO doors (doorid, zone, version, name, pos_y, pos_x, pos_z, heading, opentype, guild, lockpick, keyitem, nokeyring, triggerdoor, triggertype, disable_timer, doorisopen, door_param, dest_zone, dest_instance, dest_x, dest_y, dest_z, dest_heading, invert_state, incline, size, buffer, client_version_mask, is_ldon_door, min_expansion, max_expansion, content_flags, content_flags_disabled)
-             SELECT doorid, zone, version, name, pos_y, pos_x, pos_z, heading, opentype, guild, lockpick, keyitem, nokeyring, triggerdoor, triggertype, disable_timer, doorisopen, door_param, dest_zone, dest_instance, dest_x, dest_y, dest_z, dest_heading, invert_state, incline, size, buffer, client_version_mask, is_ldon_door, min_expansion, max_expansion, content_flags, content_flags_disabled FROM doors_temp WHERE version=$new_version AND zone=\"$z\"";
+   $query = "INSERT INTO doors (doorid, zone, version, name, pos_y, pos_x, pos_z, heading, opentype, guild, lockpick, keyitem, nokeyring, triggerdoor, triggertype, disable_timer, doorisopen, door_param, dest_zone, dest_instance, dest_x, dest_y, dest_z, dest_heading, invert_state, incline, size, buffer, client_version_mask, is_ldon_door, dz_switch_id, min_expansion, max_expansion, content_flags, content_flags_disabled)
+             SELECT doorid, zone, version, name, pos_y, pos_x, pos_z, heading, opentype, guild, lockpick, keyitem, nokeyring, triggerdoor, triggertype, disable_timer, doorisopen, door_param, dest_zone, dest_instance, dest_x, dest_y, dest_z, dest_heading, invert_state, incline, size, buffer, client_version_mask, is_ldon_door, dz_switch_id, min_expansion, max_expansion, content_flags, content_flags_disabled FROM doors_temp WHERE version=$new_version AND zone=\"$z\"";
    $mysql_content_db->query_no_result($query);
 
    $query = "DROP table `doors_temp`";

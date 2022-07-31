@@ -55,6 +55,15 @@ foreach ($dynamic_zone_type as $k=>$v) {
             </td>
           </tr>
           <tr>
+            <td>
+              <strong>DZ Switch ID:</strong><br>
+              <input type="text" name="dz_switch_id" size="10" value="<?=$dynamic_zone['dz_switch_id']?>">
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
             <td colspan="4">
               <fieldset>
                 <legend><strong>Compass</strong></legend>

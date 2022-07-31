@@ -120,6 +120,10 @@
               </select>
             </td>
             <td>
+              <strong>DZ Switch ID</strong><br>
+              <input type="text" size="7" name="dz_switch_id" value="0">
+            </td>
+            <td>
               <strong>Keyitem</strong><br>
               <input type="text" size="7" name="keyitem" value="0">
             </td>
@@ -134,16 +138,23 @@
               <strong>Open Type</strong><br>
               <input type="text" size="7" name="opentype" value="0">
             </td>
+          </tr>
+          <tr>
             <td>
               <strong>Lockpick</strong><br>
               <input type="text" size="7" name="lockpick" value="0">
             </td>
-          </tr>
-          <tr>
             <td>
               <strong>Disable Timer</strong><br>
               <input type="text" size="7" name="disable_timer" value="0">
             </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
             <td>
               <strong>Min Expansion</strong><br>
               <input type="text" size="7" name="min_expansion" value="-1">
@@ -160,6 +171,7 @@
               <strong>Content Flags Disabled</strong><br>
               <input type="text" size="25" name="content_flags_disabled" value="0">
             </td>
+            <td>&nbsp;</td>
           </tr>
         </table><br><br>
         <center>
