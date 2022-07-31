@@ -72,14 +72,14 @@
                 <tr>
                   <td align="left" width="25%">Reward Points: <?=$reward_points?></td>
                   <td align="left" width="25%">Reward Point Type: <?=$reward_point_types[$reward_point_type]?> (<?=$reward_point_type?>)</td>
-                  <td align="left" width="25%">Replay Timer: <?=$replay_timer_seconds?></td>
-                  <td align="left" width="25%">Request Timer: <?=$request_timer_seconds?></td>
-                </tr>
-                <tr>
                   <td align="left" width="25%">Lock Activity ID: <?echo ($lock_activity_id > -1) ? $lock_activity_id . "*" : "None";?> (<?=$lock_activity_id?>)</td>
                   <td align="left" width="25%">&nbsp;</td>
-                  <td align="left" width="25%">&nbsp;</td>
-                  <td align="left" width="25%">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="left" width="25%">Replay Timer Group: <?=$replay_timer_group?></td>
+                  <td align="left" width="25%">Replay Timer: <?=$replay_timer_seconds?></td>
+                  <td align="left" width="25%">Request Timer Group: <?=$request_timer_group?></td>
+                  <td align="left" width="25%">Request Timer: <?=$request_timer_seconds?></td>
                 </tr>
                 <tr>
                   <td align="left" width="100%" colspan="4">Completion Emote: "<?=$completion_emote?>"</td>
