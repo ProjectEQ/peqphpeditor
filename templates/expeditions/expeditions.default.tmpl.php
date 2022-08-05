@@ -9,6 +9,7 @@
           <a href="index.php?editor=expeditions&action=7">View Expedition Lockouts</a><br>
           <a href="index.php?editor=expeditions&action=13">View Dynamic Zones</a><br>
           <a href="index.php?editor=expeditions&action=19">View Dynamic Zone Members</a><br>
+          <a href="index.php?editor=expeditions&action=31">View Dynamic Zone Templates</a><br>
           <a href="index.php?editor=expeditions&action=25">View Character Lockouts</a><br>
         </center> 
       </td>

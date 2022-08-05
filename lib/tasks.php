@@ -582,6 +582,7 @@ function update_tasks() {
   $replay_timer_seconds = $_POST['replay_timer_seconds'];
   $request_timer_group = $_POST['request_timer_group'];
   $request_timer_seconds = $_POST['request_timer_seconds'];
+  $dz_template_id = $_POST['dz_template_id'];
   $lock_activity_id = $_POST['lock_activity_id'];
   $rewardid = $_POST['rewardid'];
   $cashreward = $_POST['cashreward'];
@@ -597,7 +598,7 @@ function update_tasks() {
   $repeatable = $_POST['repeatable'];
   $faction_reward = $_POST['faction_reward'];
 
-  $query = "UPDATE tasks SET type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", reward_points=\"$reward_points\", reward_point_type=\"$reward_point_type\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_group=\"$replay_timer_group\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_group=\"$request_timer_group\", request_timer_seconds=\"$request_timer_seconds\", lock_activity_id=\"$lock_activity_id\" WHERE id=\"$id\"";
+  $query = "UPDATE tasks SET type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", reward_points=\"$reward_points\", reward_point_type=\"$reward_point_type\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_group=\"$replay_timer_group\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_group=\"$request_timer_group\", request_timer_seconds=\"$request_timer_seconds\", dz_template_id=\"$dz_template_id\", lock_activity_id=\"$lock_activity_id\" WHERE id=\"$id\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -808,6 +809,7 @@ function add_tasks() {
   $replay_timer_seconds = $_POST['replay_timer_seconds'];
   $request_timer_group = $_POST['request_timer_group'];
   $request_timer_seconds = $_POST['request_timer_seconds'];
+  $dz_template_id = $_POST['dz_template_id'];
   $lock_activity_id = $_POST['lock_activity_id'];
   $rewardid = $_POST['rewardid'];
   $cashreward = $_POST['cashreward'];
@@ -823,7 +825,7 @@ function add_tasks() {
   $repeatable = $_POST['repeatable'];
   $faction_reward = $_POST['faction_reward'];
 
-  $query = "INSERT INTO tasks SET id=\"$id\", type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", reward_points=\"$reward_points\", reward_point_type=\"$reward_point_type\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_group=\"$replay_timer_group\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_group=\"$request_timer_group\", request_timer_seconds=\"$request_timer_seconds\", lock_activity_id=\"$lock_activity_id\"";
+  $query = "INSERT INTO tasks SET id=\"$id\", type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", reward_points=\"$reward_points\", reward_point_type=\"$reward_point_type\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_group=\"$replay_timer_group\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_group=\"$request_timer_group\", request_timer_seconds=\"$request_timer_seconds\", dz_template_id=\"$dz_template_id\", lock_activity_id=\"$lock_activity_id\"";
   $mysql_content_db->query_no_result($query);
 }
 

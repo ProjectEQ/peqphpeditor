@@ -266,6 +266,45 @@ switch ($action) {
     delete_character_lockout($_GET['id']);
     header("Location: index.php?editor=expeditions&action=25");
     exit;
+  case 31: // View Dynamic Zone Templates
+    $body = new Template("templates/expeditions/dynamic.zone.templates.tmpl.php");
+    $breadcrumbs .= " >> Dynamic Zone Templates";
+    $dynamic_zone_templates = get_dynamic_zone_templates();
+    $body->set('zoneids', $zoneids);
+    if ($dynamic_zone_templates) {
+      $body->set('dynamic_zone_templates', $dynamic_zone_templates);
+    }
+    break;
+  case 32: // Add Dynamic Zone Templates
+    $body = new Template("templates/expeditions/dynamic.zone.template.add.tmpl.php");
+    $breadcrumbs .=  " >> <a href=\"index.php?editor=expeditions&action=31\">Dynamic Zone Templates</a>" . " >> Add Template";
+    $body->set('suggest_id', suggest_dynamic_zone_template_id());
+    $body->set('zoneids', $zoneids);
+    break;
+  case 33: // Insert Dynamic Zone Templates
+    check_authorization();
+    insert_dynamic_zone_template();
+    header("Location: index.php?editor=expeditions&action=31");
+    exit;
+  case 34: // Edit Dynamic Zone Templates
+    $body = new Template("templates/expeditions/dynamic.zone.template.edit.tmpl.php");
+    $breadcrumbs .=  " >> <a href=\"index.php?editor=expeditions&action=31\">Dynamic Zone Templates</a>" . " >> Edit Template";
+    $dynamic_zone_template = get_dynamic_zone_template($_GET['id']);
+    $body->set('zoneids', $zoneids);
+    if ($dynamic_zone_template) {
+      $body->set('dynamic_zone_template', $dynamic_zone_template);
+    }
+    break;
+  case 35: // Update Dynamic Zone Templates
+    check_authorization();
+    update_dynamic_zone_template();
+    header("Location: index.php?editor=expeditions&action=31");
+    exit;
+  case 36: // Delete Dynamic Zone Templates
+    check_authorization();
+    delete_dynamic_zone_template($_GET['id']);
+    header("Location: index.php?editor=expeditions&action=31");
+    exit;
 }
 
 function get_expeditions() {
@@ -582,6 +621,110 @@ function suggest_dynamic_zone_member_id() {
   global $mysql;
 
   $query = "SELECT MAX(id) AS id FROM dynamic_zone_members";
+  $result = $mysql->query_assoc($query);
+
+  return $result['id'] + 1;
+}
+
+function get_dynamic_zone_templates() {
+  global $mysql;
+
+  $query = "SELECT * FROM dynamic_zone_templates";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function get_dynamic_zone_template($id) {
+  global $mysql;
+
+  $query = "SELECT * FROM dynamic_zone_templates WHERE id=$id";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+function insert_dynamic_zone_template() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $zone_id = $_POST['zone_id'];
+  $zone_version = $_POST['zone_version'];
+  $name = $_POST['name'];
+  $min_players = $_POST['min_players'];
+  $max_players = $_POST['max_players'];
+  $duration_seconds = $_POST['duration_seconds'];
+  $dz_switch_id = $_POST['dz_switch_id'];
+  $compass_zone_id = $_POST['compass_zone_id'];
+  $compass_x = $_POST['compass_x'];
+  $compass_y = $_POST['compass_y'];
+  $compass_z = $_POST['compass_z'];
+  $return_zone_id = $_POST['return_zone_id'];
+  $return_x = $_POST['return_x'];
+  $return_y = $_POST['return_y'];
+  $return_z = $_POST['return_z'];
+  $return_h = $_POST['return_h'];
+  $override_zone_in = $_POST['override_zone_in'];
+  $zone_in_x = $_POST['zone_in_x'];
+  $zone_in_y = $_POST['zone_in_y'];
+  $zone_in_z = $_POST['zone_in_z'];
+  $zone_in_h = $_POST['zone_in_h'];
+
+  $query = "INSERT INTO dynamic_zone_templates SET id=$id, zone_id=$zone_id, zone_version=$zone_version, name=\"$name\", min_players=$min_players, max_players=$max_players, duration_seconds=$duration_seconds, dz_switch_id=$dz_switch_id, compass_zone_id=$compass_zone_id, compass_x=$compass_x, compass_y=$compass_y, compass_z=$compass_z, return_zone_id=$return_zone_id, return_x=$return_x, return_y=$return_y, return_z=$return_z, return_h=$return_h, override_zone_in=$override_zone_in, zone_in_x=$zone_in_x, zone_in_y=$zone_in_y, zone_in_z=$zone_in_z, zone_in_h=$zone_in_h";
+  $mysql->query_no_result($query);
+}
+
+function update_dynamic_zone_template() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $zone_id = $_POST['zone_id'];
+  $zone_version = $_POST['zone_version'];
+  $name = $_POST['name'];
+  $min_players = $_POST['min_players'];
+  $max_players = $_POST['max_players'];
+  $duration_seconds = $_POST['duration_seconds'];
+  $dz_switch_id = $_POST['dz_switch_id'];
+  $compass_zone_id = $_POST['compass_zone_id'];
+  $compass_x = $_POST['compass_x'];
+  $compass_y = $_POST['compass_y'];
+  $compass_z = $_POST['compass_z'];
+  $return_zone_id = $_POST['return_zone_id'];
+  $return_x = $_POST['return_x'];
+  $return_y = $_POST['return_y'];
+  $return_z = $_POST['return_z'];
+  $return_h = $_POST['return_h'];
+  $override_zone_in = $_POST['override_zone_in'];
+  $zone_in_x = $_POST['zone_in_x'];
+  $zone_in_y = $_POST['zone_in_y'];
+  $zone_in_z = $_POST['zone_in_z'];
+  $zone_in_h = $_POST['zone_in_h'];
+
+  $query = "UPDATE dynamic_zone_templates SET zone_id=$zone_id, zone_version=$zone_version, name=\"$name\", min_players=$min_players, max_players=$max_players, duration_seconds=$duration_seconds, dz_switch_id=$dz_switch_id, compass_zone_id=$compass_zone_id, compass_x=$compass_x, compass_y=$compass_y, compass_z=$compass_z, return_zone_id=$return_zone_id, return_x=$return_x, return_y=$return_y, return_z=$return_z, return_h=$return_h, override_zone_in=$override_zone_in, zone_in_x=$zone_in_x, zone_in_y=$zone_in_y, zone_in_z=$zone_in_z, zone_in_h=$zone_in_h WHERE id=$id";
+  $mysql->query_no_result($query);
+}
+
+function delete_dynamic_zone_template($id) {
+  global $mysql;
+
+  $query = "DELETE FROM dynamic_zone_templates WHERE id=$id";
+  $mysql->query_no_result($query);
+}
+
+function suggest_dynamic_zone_template_id() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS id FROM dynamic_zone_templates";
   $result = $mysql->query_assoc($query);
 
   return $result['id'] + 1;

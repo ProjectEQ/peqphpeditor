@@ -2,67 +2,60 @@
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-          <td>Create Dynamic Zone</td>
+          <td>Edit Template</td>
         </tr>
       </table>
     </div>
     <div class="table_content">
-      <form name="add_dynamic_zone" method="post" action="index.php?editor=expeditions&action=15">
+      <form name="edit_dynamic_zone_template" method="post" action="index.php?editor=expeditions&action=35">
         <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
             <td width="25%">
               <strong>ID:</strong><br>
-              <input type="text" name="id" size="10" value="<?=$suggest_id?>">
+              <input type="text" size="10" value="<?=$dynamic_zone_template['id']?>" disabled>
             </td>
             <td width="25%">
-              <strong>Instance:</strong><br>
-              <input type="text" name="instance_id" size="10" value="0">
-            </td>
-            <td width="25%">
-              <strong>Type:</strong><br>
-              <select name="type">
+              <strong>Zone:</strong><br>
+              <select name="zone_id">
 <?
-foreach ($dynamic_zone_type as $k=>$v) {
+foreach ($zoneids as $k=>$v) {
 ?>
-                <option value="<?=$k?>"><?=$v?> (<?=$k?>)</option>
+                <option value="<?=$k?>"<?echo ($dynamic_zone_template['zone_id'] == $k) ? " selected" : "";?>><?=$v?> (<?=$k?>)</option>
 <?
 }
 ?>
               </select>
             </td>
             <td width="25%">
-              <strong>Leader ID:</strong><br>
-              <input type="text" name="leader_id" size="10" value="0">
+              <strong>Version:</strong><br>
+              <input type="text" name="zone_version" size="10" value="<?=$dynamic_zone_template['zone_version']?>">
             </td>
-          </tr>
-          <tr>
-            <td colspan="3">
-              <strong>UUID:</strong><br>
-              <input type="text" name="uuid" size="77" value="">
-            </td>
-            <td>
-              <strong>Min Players:</strong><br>
-              <input type="text" name="min_players" size="10" value="0">
-            </td>
+            <td width="25%">&nbsp;</td>
           </tr>
           <tr>
             <td colspan="3">
               <strong>Name:</strong><br>
-              <input type="text" name="name" size="77" value="">
+              <input type="text" name="name" size="77" value="<?=$dynamic_zone_template['name']?>">
             </td>
-            <td>
-              <strong>Max Players:</strong><br>
-              <input type="text" name="max_players" size="10" value="0">
-            </td>
+            <td>&nbsp;</td>
           </tr>
           <tr>
             <td>
-              <strong>DZ Switch ID:</strong><br>
-              <input type="text" name="dz_switch_id" size="10" value="0">
+              <strong>Min Players:</strong><br>
+              <input type="text" name="min_players" size="10" value="<?=$dynamic_zone_template['min_players']?>">
             </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>
+              <strong>Max Players:</strong><br>
+              <input type="text" name="max_players" size="10" value="<?=$dynamic_zone_template['max_players']?>">
+            </td>
+            <td width="25%">
+              <strong>Duration:</strong><br>
+              <input type="text" name="duration_seconds" size="10" value="<?=$dynamic_zone_template['duration_seconds']?>">
+            </td>
+            <td>
+              <strong>DZ Switch ID:</strong><br>
+              <input type="text" name="dz_switch_id" size="10" value="<?=$dynamic_zone_template['dz_switch_id']?>">
+            </td>
           </tr>
           <tr>
             <td colspan="4">
@@ -76,7 +69,7 @@ foreach ($dynamic_zone_type as $k=>$v) {
 <?
 foreach ($zoneids as $k=>$v) {
 ?>
-                        <option value="<?=$k?>"><?=$v?> (<?=$k?>)</option>
+                        <option value="<?=$k?>"<?echo ($dynamic_zone_template['compass_zone_id'] == $k) ? " selected" : "";?>><?=$v?> (<?=$k?>)</option>
 <?
 }
 ?>
@@ -84,15 +77,15 @@ foreach ($zoneids as $k=>$v) {
                     </td>
                     <td width="17%">
                       <strong>X:</strong><br>
-                      <input type="text" name="compass_x" size="10" value="0">
+                      <input type="text" name="compass_x" size="10" value="<?=$dynamic_zone_template['compass_x']?>">
                     </td>
                     <td width="17%">
                       <strong>Y:</strong><br>
-                      <input type="text" name="compass_y" size="10" value="0">
+                      <input type="text" name="compass_y" size="10" value="<?=$dynamic_zone_template['compass_y']?>">
                     </td>
                     <td width="17%">
                       <strong>Z:</strong><br>
-                      <input type="text" name="compass_z" size="10" value="0">
+                      <input type="text" name="compass_z" size="10" value="<?=$dynamic_zone_template['compass_z']?>">
                     </td>
                     <td width="17%">&nbsp;</td>
                   </tr>
@@ -103,16 +96,16 @@ foreach ($zoneids as $k=>$v) {
           <tr>
             <td colspan="4">
               <fieldset>
-                <legend><strong>Safe Return</strong></legend>
+                <legend><strong>Return Zone</strong></legend>
                 <table width="100%" cellpadding="3" cellspacing="3">
                   <tr>
                     <td width="32%">
                       <strong>Zone:</strong><br>
-                      <select name="safe_return_zone_id">
+                      <select name="return_zone_id">
 <?
 foreach ($zoneids as $k=>$v) {
 ?>
-                        <option value="<?=$k?>"><?=$v?> (<?=$k?>)</option>
+                        <option value="<?=$k?>"<?echo ($dynamic_zone_template['return_zone_id'] == $k) ? " selected" : "";?>><?=$v?> (<?=$k?>)</option>
 <?
 }
 ?>
@@ -120,19 +113,19 @@ foreach ($zoneids as $k=>$v) {
                     </td>
                     <td width="17%">
                       <strong>X:</strong><br>
-                      <input type="text" name="safe_return_x" size="10" value="0">
+                      <input type="text" name="return_x" size="10" value="<?=$dynamic_zone_template['return_x']?>">
                     </td>
                     <td width="17%">
                       <strong>Y:</strong><br>
-                      <input type="text" name="safe_return_y" size="10" value="0">
+                      <input type="text" name="return_y" size="10" value="<?=$dynamic_zone_template['return_y']?>">
                     </td>
                     <td width="17%">
                       <strong>Z:</strong><br>
-                      <input type="text" name="safe_return_z" size="10" value="0">
+                      <input type="text" name="return_z" size="10" value="<?=$dynamic_zone_template['return_z']?>">
                     </td>
                     <td width="17%">
                       <strong>Heading:</strong><br>
-                      <input type="text" name="safe_return_heading" size="10" value="0">
+                      <input type="text" name="return_h" size="10" value="<?=$dynamic_zone_template['return_h']?>">
                     </td>
                   </tr>
                 </table>
@@ -146,27 +139,24 @@ foreach ($zoneids as $k=>$v) {
                 <table width="100%" cellpadding="3" cellspacing="3">
                   <tr>
                     <td width="32%">
-                      <strong>Has Zone In:</strong><br>
-                      <select name="has_zone_in">
-                        <option value="0">No (0)</option>
-                        <option value="1">Yes (1)</option>
-                      </select>
+                      <strong>Override:</strong><br>
+                      <input type="text" name="override_zone_in" size="10" value="<?=$dynamic_zone_template['override_zone_in']?>">
                     </td>
                     <td width="17%">
                       <strong>X:</strong><br>
-                      <input type="text" name="zone_in_x" size="10" value="0">
+                      <input type="text" name="zone_in_x" size="10" value="<?=$dynamic_zone_template['zone_in_x']?>">
                     </td>
                     <td width="17%">
                       <strong>Y:</strong><br>
-                      <input type="text" name="zone_in_y" size="10" value="0">
+                      <input type="text" name="zone_in_y" size="10" value="<?=$dynamic_zone_template['zone_in_y']?>">
                     </td>
                     <td width="17%">
                       <strong>Z:</strong><br>
-                      <input type="text" name="zone_in_z" size="10" value="0">
+                      <input type="text" name="zone_in_z" size="10" value="<?=$dynamic_zone_template['zone_in_z']?>">
                     </td>
                     <td width="17%">
                       <strong>Heading:</strong><br>
-                      <input type="text" name="zone_in_heading" size="10" value="0">
+                      <input type="text" name="zone_in_h" size="10" value="<?=$dynamic_zone_template['zone_in_h']?>">
                     </td>
                   </tr>
                 </table>
@@ -175,7 +165,8 @@ foreach ($zoneids as $k=>$v) {
           </tr>
         </table><br>
         <center>
-          <input type="submit" value="Add Dynamic Zone">&nbsp;&nbsp;
+          <input type="hidden" name="id" value="<?=$dynamic_zone_template['id']?>">
+          <input type="submit" value="Update Template">&nbsp;&nbsp;
           <input type="button" value="Cancel" onClick="history.back()">
         </center>
       </form>

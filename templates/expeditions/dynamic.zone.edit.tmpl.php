@@ -28,6 +28,7 @@ foreach ($dynamic_zone_type as $k=>$v) {
 <?
 }
 ?>
+              </select>
             </td>
             <td width="25%">
               <strong>Leader ID:</strong><br>
