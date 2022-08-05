@@ -215,12 +215,12 @@ function get_merchantlist() {
 }
 
 function get_merchantlist_temp() {
-  global $mysql_content_db;
+  global $mysql;
   $array = array();
 
   $npcid = $_GET['npcid'];
   $query = "SELECT npcid, slot, itemid, charges FROM merchantlist_temp WHERE npcid=$npcid";
-  $results = $mysql_content_db->query_mult_assoc($query);
+  $results = $mysql->query_mult_assoc($query);
   if ($results) {
         foreach ($results as $result) {
       $result['item_name'] = 'Item not in DB';
@@ -228,7 +228,7 @@ function get_merchantlist_temp() {
         }
   }
   $query = "SELECT m.npcid, m.slot, m.itemid, m.charges, i.price, i.sellrate FROM merchantlist_temp AS m, items AS i WHERE i.id=m.itemid and npcid=$npcid";
-  $results = $mysql_content_db->query_mult_assoc($query);
+  $results = $mysql->query_mult_assoc($query);
   if ($results) {
       foreach ($results as $result) {
     $result['item_name'] = get_item_name($result['itemid']);
@@ -281,7 +281,7 @@ function update_merchant_item() {
 
 function update_merchantlist_temp() {
   check_authorization();
-  global $mysql_content_db, $npcid;
+  global $mysql, $npcid;
 
   $count = $_POST['count'];
   $oldstats = get_merchantlist_temp();
@@ -291,7 +291,7 @@ function update_merchantlist_temp() {
     $i++;
     if (($slot != $_POST["newslot{$i}"]) || ($values['itemid'] != $_POST["itemid{$i}"]) || ($values['charges'] != $_POST["charges{$i}"])) {
       $query = "UPDATE merchantlist_temp SET itemid=\"" . $_POST["itemid{$i}"] . "\", slot=\"" . $_POST["newslot{$i}"] . "\", charges=\"" . $_POST["charges{$i}"] . "\" WHERE npcid=$npcid AND slot=" . $_POST["slot{$i}"];
-      $mysql_content_db->query_no_result($query);
+      $mysql->query_no_result($query);
     }
   }
 }
@@ -326,12 +326,12 @@ function delete_ware() {
 
 function delete_temp_ware() {
   check_authorization();
-  global $mysql_content_db, $npcid;
+  global $mysql, $npcid;
   $itemid = $_GET['itemid'];
   $slot = $_GET['slot'];
 
   $query = "DELETE FROM merchantlist_temp WHERE npcid=$npcid AND slot=$slot AND itemid=$itemid";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function add_merchant_item() {
@@ -375,7 +375,7 @@ function add_merchant_item() {
 
 function add_merchant_item_temp() {
   check_authorization();
-  global $mysql_content_db, $npcid;
+  global $mysql, $mysql_content_db, $npcid;
   $charges = $_POST['charges'];
   $itemid = $_POST['itemid'];
 
@@ -388,16 +388,16 @@ function add_merchant_item_temp() {
   $mslot = $result['mslot'] + 1;
 
   $query = "SELECT MAX(slot) AS tslot FROM merchantlist_temp WHERE npcid=$npcid";
-  $result = $mysql_content_db->query_assoc($query);
+  $result = $mysql->query_assoc($query);
   $tslot = $result['tslot'] + 1;
 
   if ($tslot < $mslot) {
     $query = "INSERT INTO merchantlist_temp SET npcid=$npcid, slot=$mslot, itemid=$itemid, charges=$charges";
-    $mysql_content_db->query_no_result($query);
+    $mysql->query_no_result($query);
   }
   if ($tslot > $mslot) {
     $query = "INSERT INTO merchantlist_temp SET npcid=$npcid, slot=$tslot, itemid=$itemid, charges=$charges";
-    $mysql_content_db->query_no_result($query);
+    $mysql->query_no_result($query);
   }
 }
 
@@ -423,18 +423,18 @@ function delete_merchantlist() {
 
 function delete_merchantlist_temp() {
   check_authorization();
-  global $mysql_content_db, $npcid;
+  global $mysql, $npcid;
 
   $query = "DELETE FROM merchantlist_temp WHERE npcid=$npcid";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function wipe_merchantlist_temp() {
   check_authorization();
-  global $mysql_content_db;
+  global $mysql;
 
   $query = "DELETE FROM merchantlist_temp";
-  $mysql_content_db->query_no_result($query);
+  $mysql->query_no_result($query);
 }
 
 function search_merchant_by_item() {
@@ -449,11 +449,11 @@ function search_merchant_by_item() {
 }
 
 function search_temp_merchant() {
-  global $mysql_content_db;
+  global $mysql;
   $search = $_GET['search1'];
 
   $query = "SELECT npc_types.id, npc_types.name FROM merchantlist_temp INNER JOIN npc_types ON npc_types.id=merchantlist_temp.npcid WHERE merchantlist_temp.slot < 81 and merchantlist_temp.itemid=\"$search\"";
-  $results = $mysql_content_db->query_mult_assoc($query);
+  $results = $mysql->query_mult_assoc($query);
   return $results;
 }
 
