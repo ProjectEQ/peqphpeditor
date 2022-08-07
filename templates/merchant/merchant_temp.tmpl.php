@@ -1,4 +1,4 @@
-  <div class="table_container" style="width: 500px;">
+  <div class="table_container" style="width: 700px;">
     <div class="table_header">
       <div style="float:right;">
         <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">Standard List</a>&nbsp;
@@ -8,13 +8,15 @@
         </div>
         <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=14" onClick="return confirm('Really delete this merchantlist?');"><img src="images/table.gif" border="0" title="Delete this Merchantlist"></a>
       </div>
-      Temp Merchant list for NPC <?=$npcid?>
+      Temp Merchant List
     </div>
     <div class="table_content" style="padding: 0px;">
 <? if (isset($slots)):?>
       <table width="100%">
         <tr bgcolor="#BBBBBB">
           <th align="center">Slot</th>
+          <th align="center">Zone</th>
+          <th align="center">Instance</th>
           <th align="center">Item ID</th>
           <th>Item Name</th>
           <th>&nbsp;</th>
@@ -53,9 +55,11 @@ foreach($slots as $slot=>$v):
 ?>
         <tr<? echo ($x % 2 == 1) ? " bgcolor=\"#BBBBBB\"" : "";?>>
           <td align="center"><?=$slot?></td>
+          <td align="center"><?=$zoneids[$v['zone_id']]?> (<?=$v['zone_id']?>)</td>
+          <td align="center"><?=$v['instance_id']?></td>
           <td align="center"><?=$v['itemid']?></td>
           <td><?=$v['item_name']?></td>
-          <td><a href="https://lucy.allakhazam.com/item.html?id=<?=$v['itemid']?>" target="_blank">Lucy</a></td>
+          <td>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$v['itemid']?>" target="_blank">Lucy</a>]</td>
           <td align="center"><?=$v['charges']?></td>
           <td align="center"><?=$cost?>
 <?if ($v['price'] > 999):?>
@@ -86,14 +90,14 @@ foreach($slots as $slot=>$v):
 <?endif;?>
           </td>
           <td align="right" style="padding-right: 10px;">
-            <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&slot=<?=$slot?>&itemid=<?=$v['itemid']?>&action=11" onClick="return confirm('Really remove this item from the merchant?');"><img src="images/remove.gif" border="0" title="Delete item from Merchantlist"></a>
+            <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&slot=<?=$slot?>&zone_id=<?=$v['zone_id']?>&instance_id=<?=$v['instance_id']?>&itemid=<?=$v['itemid']?>&action=11" onClick="return confirm('Really remove this item from the merchant?');"><img src="images/remove.gif" border="0" title="Delete item from Merchantlist"></a>
           </td>
         </tr>
 <?$x++;endforeach;?>
       </table>
 <?endif;?>
 <?if (!isset($slots)):?>
-      No Wares currently assigned
+      No temp wares
 <?endif;?>
     </div>
   </div>

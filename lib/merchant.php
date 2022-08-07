@@ -95,12 +95,13 @@ switch ($action) {
     }
     $body->set("results", $results);
     break;
-  case 8:  // View Temp Merchanlist
+  case 8:  // View Temp Merchantlist
     if ($npcid) {
       $body = new Template("templates/merchant/merchant_temp.tmpl.php");
       $body->set('currzone', $z);
       $body->set('currzoneid', $zoneid);
       $body->set('npcid', $npcid);
+      $body->set('zoneids', $zoneids);
       $vars = get_merchantlist_temp();
       if ($vars) {
         foreach ($vars as $key=>$value) {
@@ -115,6 +116,7 @@ switch ($action) {
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
+    $body->set('zoneids', $zoneids);
     $vars = get_merchantlist_temp();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -139,6 +141,7 @@ switch ($action) {
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
+    $body->set('zoneids', $zoneids);
     break;
   case 13: // Add item
     check_authorization();
@@ -219,21 +222,21 @@ function get_merchantlist_temp() {
   $array = array();
 
   $npcid = $_GET['npcid'];
-  $query = "SELECT npcid, slot, itemid, charges FROM merchantlist_temp WHERE npcid=$npcid";
+  $query = "SELECT npcid, slot, zone_id, instance_id, itemid, charges FROM merchantlist_temp WHERE npcid=$npcid";
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
-        foreach ($results as $result) {
+    foreach ($results as $result) {
       $result['item_name'] = 'Item not in DB';
-          $array['slots'][$result['slot']] = array("itemid"=>$result['itemid'], "charges"=>$result['charges'], "item_name"=>$result['item_name']);
-        }
+      $array['slots'][$result['slot']] = array("zone_id"=>$result['zone_id'], "instance_id"=>$result['instance_id'], "itemid"=>$result['itemid'], "charges"=>$result['charges'], "item_name"=>$result['item_name']);
+    }
   }
-  $query = "SELECT m.npcid, m.slot, m.itemid, m.charges, i.price, i.sellrate FROM merchantlist_temp AS m, items AS i WHERE i.id=m.itemid and npcid=$npcid";
+  $query = "SELECT m.npcid, m.slot, m.zone_id, m.instance_id, m.itemid, m.charges, i.price, i.sellrate FROM merchantlist_temp AS m, items AS i WHERE i.id=m.itemid and npcid=$npcid";
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
-      foreach ($results as $result) {
-    $result['item_name'] = get_item_name($result['itemid']);
-          $array['slots'][$result['slot']] = array("itemid"=>$result['itemid'], "charges"=>$result['charges'], "item_name"=>$result['item_name'], "price"=>$result['price'], "sellrate"=>$result['sellrate']);
-      }
+    foreach ($results as $result) {
+      $result['item_name'] = get_item_name($result['itemid']);
+      $array['slots'][$result['slot']] = array("zone_id"=>$result['zone_id'], "instance_id"=>$result['instance_id'], "itemid"=>$result['itemid'], "charges"=>$result['charges'], "item_name"=>$result['item_name'], "price"=>$result['price'], "sellrate"=>$result['sellrate']);
+    }
   }
 
   return $array;
@@ -289,8 +292,8 @@ function update_merchantlist_temp() {
 
   foreach ($oldstats['slots'] as $slot=>$values) {
     $i++;
-    if (($slot != $_POST["newslot{$i}"]) || ($values['itemid'] != $_POST["itemid{$i}"]) || ($values['charges'] != $_POST["charges{$i}"])) {
-      $query = "UPDATE merchantlist_temp SET itemid=\"" . $_POST["itemid{$i}"] . "\", slot=\"" . $_POST["newslot{$i}"] . "\", charges=\"" . $_POST["charges{$i}"] . "\" WHERE npcid=$npcid AND slot=" . $_POST["slot{$i}"];
+    if (($slot != $_POST["newslot{$i}"]) || ($values['zone_id'] != $_POST["zone_id{$i}"]) || ($values['instance_id'] != $_POST["instance_id{$i}"]) || ($values['itemid'] != $_POST["itemid{$i}"]) || ($values['charges'] != $_POST["charges{$i}"])) {
+      $query = "UPDATE merchantlist_temp SET slot=\"" . $_POST["newslot{$i}"] . "\", zone_id=\"" . $_POST["zone_id{$i}"] . "\", instance_id=\"" . $_POST["instance_id{$i}"] . "\", itemid=\"" . $_POST["itemid{$i}"] . "\", charges=\"" . $_POST["charges{$i}"] . "\" WHERE npcid=$npcid AND slot=" . $_POST["slot{$i}"];
       $mysql->query_no_result($query);
     }
   }
@@ -327,10 +330,13 @@ function delete_ware() {
 function delete_temp_ware() {
   check_authorization();
   global $mysql, $npcid;
+
+  $zone_id = $_GET['zone_id'];
+  $instance_id = $_GET['instance_id'];
   $itemid = $_GET['itemid'];
   $slot = $_GET['slot'];
 
-  $query = "DELETE FROM merchantlist_temp WHERE npcid=$npcid AND slot=$slot AND itemid=$itemid";
+  $query = "DELETE FROM merchantlist_temp WHERE npcid=$npcid AND slot=$slot AND zone_id=$zone_id AND instance_id=$instance_id AND itemid=$itemid";
   $mysql->query_no_result($query);
 }
 
@@ -376,8 +382,11 @@ function add_merchant_item() {
 function add_merchant_item_temp() {
   check_authorization();
   global $mysql, $mysql_content_db, $npcid;
-  $charges = $_POST['charges'];
+
+  $zone_id = $_POST['zone_id'];
+  $instance_id = $_POST['instance_id'];
   $itemid = $_POST['itemid'];
+  $charges = $_POST['charges'];
 
   $query = "SELECT merchant_id AS mid FROM npc_types WHERE id=$npcid";
   $result = $mysql_content_db->query_assoc($query);
@@ -392,11 +401,11 @@ function add_merchant_item_temp() {
   $tslot = $result['tslot'] + 1;
 
   if ($tslot < $mslot) {
-    $query = "INSERT INTO merchantlist_temp SET npcid=$npcid, slot=$mslot, itemid=$itemid, charges=$charges";
+    $query = "INSERT INTO merchantlist_temp SET npcid=$npcid, slot=$mslot, zone_id=$zone_id, instance_id=$instance_id, itemid=$itemid, charges=$charges";
     $mysql->query_no_result($query);
   }
   if ($tslot > $mslot) {
-    $query = "INSERT INTO merchantlist_temp SET npcid=$npcid, slot=$tslot, itemid=$itemid, charges=$charges";
+    $query = "INSERT INTO merchantlist_temp SET npcid=$npcid, slot=$tslot, zone_id=$zone_id, instance_id=$instance_id, itemid=$itemid, charges=$charges";
     $mysql->query_no_result($query);
   }
 }
