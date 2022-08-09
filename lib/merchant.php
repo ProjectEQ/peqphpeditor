@@ -218,24 +218,23 @@ function get_merchantlist() {
 }
 
 function get_merchantlist_temp() {
-  global $mysql;
-  $array = array();
+  global $mysql, $mysql_content_db;
 
+  $array = array();
   $npcid = $_GET['npcid'];
-  $query = "SELECT npcid, slot, zone_id, instance_id, itemid, charges FROM merchantlist_temp WHERE npcid=$npcid";
-  $results = $mysql->query_mult_assoc($query);
-  if ($results) {
-    foreach ($results as $result) {
-      $result['item_name'] = 'Item not in DB';
-      $array['slots'][$result['slot']] = array("zone_id"=>$result['zone_id'], "instance_id"=>$result['instance_id'], "itemid"=>$result['itemid'], "charges"=>$result['charges'], "item_name"=>$result['item_name']);
-    }
-  }
-  $query = "SELECT m.npcid, m.slot, m.zone_id, m.instance_id, m.itemid, m.charges, i.price, i.sellrate FROM merchantlist_temp AS m, items AS i WHERE i.id=m.itemid and npcid=$npcid";
-  $results = $mysql->query_mult_assoc($query);
-  if ($results) {
-    foreach ($results as $result) {
-      $result['item_name'] = get_item_name($result['itemid']);
-      $array['slots'][$result['slot']] = array("zone_id"=>$result['zone_id'], "instance_id"=>$result['instance_id'], "itemid"=>$result['itemid'], "charges"=>$result['charges'], "item_name"=>$result['item_name'], "price"=>$result['price'], "sellrate"=>$result['sellrate']);
+
+  $query = "SELECT slot, zone_id, instance_id, itemid, charges FROM merchantlist_temp WHERE npcid=$npcid";
+  $m_results = $mysql->query_mult_assoc($query);
+  if ($m_results) {
+    foreach ($m_results as $m_result) {
+      $query = "SELECT Name, price, sellrate FROM items WHERE id=" . $m_result['itemid'];
+      $i_result = $mysql_content_db->query_assoc($query);
+      if ($i_result) {
+        $array['slots'][$m_result['slot']] = array("zone_id"=>$m_result['zone_id'], "instance_id"=>$m_result['instance_id'], "itemid"=>$m_result['itemid'], "charges"=>$m_result['charges'], "item_name"=>$i_result['Name'], "price"=>$i_result['price'], "sellrate"=>$i_result['sellrate']);
+      }
+      else {
+        $array['slots'][$m_result['slot']] = array("zone_id"=>$m_result['zone_id'], "instance_id"=>$m_result['instance_id'], "itemid"=>$m_result['itemid'], "charges"=>$m_result['charges'], "item_name"=>"Item not in DB", "price"=>0, "sellrate"=>0);
+      }
     }
   }
 
