@@ -627,10 +627,10 @@ function suggest_dynamic_zone_member_id() {
 }
 
 function get_dynamic_zone_templates() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM dynamic_zone_templates";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   if ($results) {
     return $results;
@@ -641,10 +641,10 @@ function get_dynamic_zone_templates() {
 }
 
 function get_dynamic_zone_template($id) {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM dynamic_zone_templates WHERE id=$id";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   if ($result) {
     return $result;
@@ -655,7 +655,7 @@ function get_dynamic_zone_template($id) {
 }
 
 function insert_dynamic_zone_template() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $zone_id = $_POST['zone_id'];
@@ -681,11 +681,11 @@ function insert_dynamic_zone_template() {
   $zone_in_h = $_POST['zone_in_h'];
 
   $query = "INSERT INTO dynamic_zone_templates SET id=$id, zone_id=$zone_id, zone_version=$zone_version, name=\"$name\", min_players=$min_players, max_players=$max_players, duration_seconds=$duration_seconds, dz_switch_id=$dz_switch_id, compass_zone_id=$compass_zone_id, compass_x=$compass_x, compass_y=$compass_y, compass_z=$compass_z, return_zone_id=$return_zone_id, return_x=$return_x, return_y=$return_y, return_z=$return_z, return_h=$return_h, override_zone_in=$override_zone_in, zone_in_x=$zone_in_x, zone_in_y=$zone_in_y, zone_in_z=$zone_in_z, zone_in_h=$zone_in_h";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function update_dynamic_zone_template() {
-  global $mysql;
+  global $mysql_content_db;
 
   $id = $_POST['id'];
   $zone_id = $_POST['zone_id'];
@@ -711,21 +711,21 @@ function update_dynamic_zone_template() {
   $zone_in_h = $_POST['zone_in_h'];
 
   $query = "UPDATE dynamic_zone_templates SET zone_id=$zone_id, zone_version=$zone_version, name=\"$name\", min_players=$min_players, max_players=$max_players, duration_seconds=$duration_seconds, dz_switch_id=$dz_switch_id, compass_zone_id=$compass_zone_id, compass_x=$compass_x, compass_y=$compass_y, compass_z=$compass_z, return_zone_id=$return_zone_id, return_x=$return_x, return_y=$return_y, return_z=$return_z, return_h=$return_h, override_zone_in=$override_zone_in, zone_in_x=$zone_in_x, zone_in_y=$zone_in_y, zone_in_z=$zone_in_z, zone_in_h=$zone_in_h WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function delete_dynamic_zone_template($id) {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "DELETE FROM dynamic_zone_templates WHERE id=$id";
-  $mysql->query_no_result($query);
+  $mysql_content_db->query_no_result($query);
 }
 
 function suggest_dynamic_zone_template_id() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT MAX(id) AS id FROM dynamic_zone_templates";
-  $result = $mysql->query_assoc($query);
+  $result = $mysql_content_db->query_assoc($query);
 
   return $result['id'] + 1;
 }
