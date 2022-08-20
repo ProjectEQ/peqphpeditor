@@ -141,7 +141,7 @@ switch ($action) {
   case 9: // Edit Exp Modifier
     check_admin_authorization();
     $zonelist = get_zones();
-    $exp_mods = get_exp_modifiers($_GET['playerid'], $_GET['zoneid']);
+    $exp_mods = get_exp_modifiers($_GET['playerid'], $_GET['zoneid'], $_GET['instance_version']);
     $body = new Template("templates/player/exp.mod.edit.tmpl.php");
     $body->set('playerid', $playerid);
     $body->set('zonelist', $zonelist);
@@ -156,7 +156,8 @@ switch ($action) {
     check_admin_authorization();
     $playerid = $_GET['playerid'];
     $zoneid = $_GET['zoneid'];
-    delete_exp_modifier($playerid, $zoneid);
+    $instance_version = $_GET['instance_version'];
+    delete_exp_modifier($playerid, $zoneid, $instance_version);
     header("Location: index.php?editor=player&playerid=$playerid");
     exit;
 }
@@ -286,7 +287,7 @@ function player_info() {
   }
 
   //Load from character_exp_modifiers
-  $query = "SELECT * FROM character_exp_modifiers WHERE character_id = $playerid ORDER BY zone_id";
+  $query = "SELECT * FROM character_exp_modifiers WHERE character_id = $playerid ORDER BY zone_id, instance_version";
   $results = $mysql->query_mult_assoc($query);
   if ($results) {
     $player_array['exp_mods'] = $results;
@@ -362,10 +363,10 @@ function undelete_player($playerid) {
   $mysql->query_no_result($query);
 }
 
-function get_exp_modifiers($character_id, $zone_id) {
+function get_exp_modifiers($character_id, $zone_id, $instance_version) {
   global $mysql;
 
-  $query = "SELECT * FROM character_exp_modifiers WHERE character_id=$character_id AND zone_id=$zone_id";
+  $query = "SELECT * FROM character_exp_modifiers WHERE character_id=$character_id AND zone_id=$zone_id AND instance_version=$instance_version";
   $result = $mysql->query_assoc($query);
 
   if ($result) {
@@ -381,17 +382,18 @@ function modify_exp_modifier() {
 
   $character_id = $_POST['character_id'];
   $zone_id = $_POST['zone_id'];
+  $instance_version = $_POST['instance_version'];
   $exp_modifier = $_POST['exp_modifier'];
   $aa_modifier = $_POST['aa_modifier'];
 
-  $query = "REPLACE INTO character_exp_modifiers SET character_id=$character_id, zone_id=$zone_id, exp_modifier=$exp_modifier, aa_modifier=$aa_modifier";
+  $query = "REPLACE INTO character_exp_modifiers SET character_id=$character_id, zone_id=$zone_id, instance_version=$instance_version, exp_modifier=$exp_modifier, aa_modifier=$aa_modifier";
   $mysql->query_no_result($query);
 }
 
 function delete_exp_modifier($character_id, $zone_id) {
   global $mysql;
 
-  $query = "DELETE FROM character_exp_modifiers WHERE character_id=$character_id AND zone_id=$zone_id";
+  $query = "DELETE FROM character_exp_modifiers WHERE character_id=$character_id AND zone_id=$zone_id AND instance_version=$instance_version";
   $mysql->query_no_result($query);
 }
 ?>

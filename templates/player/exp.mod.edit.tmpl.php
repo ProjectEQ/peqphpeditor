@@ -14,9 +14,11 @@
             <option value="<?=$zone['zoneidnumber']?>"<?echo ($zone['zoneidnumber'] == $exp_mods['zone_id']) ? " selected" : "";?>><?=$zone['short_name']?></option>
 <? endforeach; ?>
           </select><br><br>
-          Base Exp Mod:</br>
+          Version:<br>
+          <input type="text" name="instance_version" size="10" value="<?=$exp_mods['instance_version']?>"><br><br>
+          Base Exp Mod:<br>
           <input type="text" name="exp_modifier" size="10" value="<?=$exp_mods['exp_modifier']?>"><br><br>
-          AA Exp Mod:</br>
+          AA Exp Mod:<br>
           <input type="text" name="aa_modifier" size="10" value="<?=$exp_mods['aa_modifier']?>"><br><br>
           <center>
             <input type="hidden" name="character_id" value="<?=$playerid?>">
