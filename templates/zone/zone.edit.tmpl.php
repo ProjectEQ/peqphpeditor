@@ -92,6 +92,13 @@
 <?endforeach;?>
                     </select>
                   </td>
+                  <td align="left" width="25%">
+                    Bypass Exp:<br>
+                    <select name="bypass_expansion_check">
+                      <option value="0"<?echo ($bypass_expansion_check == 0) ? " selected" : ""?>>No</option>
+                      <option value="1"<?echo ($bypass_expansion_check == 1) ? " selected" : ""?>>Yes</option>
+                    </select>
+                  </td>
                 </tr>
               </table>
             </fieldset><br>

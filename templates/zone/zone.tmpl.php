@@ -112,7 +112,7 @@
                   <tr>
                     <td align="left" width="33%">Expansion Flags: <?echo ($min_expansion > 0 || $max_expansion > 0) ? "Yes" : "No";?></td>
                     <td align="left" width="33%">Content Flags: <?echo ($content_flags != "" || $content_flags_disabled != "") ? "Yes" : "No";?>
-                    <td align="left" width="34%">&nbsp;</td>
+                    <td align="left" width="34%">Bypass Exp: <?echo ($bypass_expansion_check == 1) ? "Yes" : "No";?></td>
                   </tr>
                 </table>
               </fieldset>

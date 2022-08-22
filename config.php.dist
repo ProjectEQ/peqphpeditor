@@ -35,34 +35,40 @@ $content_db     = env('CONTENT_DB_NAME', 'remote_database_name');
 $content_dbport = env('CONTENT_DB_PORT', 3306);
 
 /**
- * Limit editor listings to a specified expansion
- *
- * 1  | EQ Classic
- * 2  | The Ruins of Kunark
- * 3  | The Scars of Velious
- * 4  | The Shadows of Luclin
- * 5  | The Planes of Power
- * 6  | The Legacy of Ykesha
- * 7  | Lost Dungeons of Norrath
- * 8  | Gates of Discord
- * 9  | Omens of War
- * 10 | Dragons of Norrath
- * 11 | Depths of Darkhollow
- * 12 | Prophecy of Ro
- * 13 | The Serpent's Spine
- * 14 | The Buried Sea
- * 15 | Secrets of Faydwer
- * 16 | Seeds of Destruction
- * 17 | Underfoot
- * 18 | House of Thule
- * 19 | Veil of Alaris
- * 20 | Rain of Fear
- * 21 | Call of the Forsaken
- * 22 | The Darkened Sea
- * 99 | Other
+  Limit editor listings to a specified expansion
+  ----------------------------------------------
+   -1 | All Expansions
+    0 | Classic Everquest
+    1 | Ruins of Kunark
+    2 | Scars of Velious
+    3 | Shadows of Luclin
+    4 | Planes of Power
+    5 | Legacy of Ykesha
+    6 | Lost Dungeons of Norrath
+    7 | Gates of Discord
+    8 | Omens of War
+    9 | Dragons of Norrath
+   10 | Depths of Darkhollow
+   11 | Prophecy of Ro
+   12 | The Serpents Spine
+   13 | The Buried Sea
+   14 | Secrets of Faydwer
+   15 | Seeds of Destruction
+   16 | Underfoot
+   17 | House of Thule
+   18 | Veil of Alaris
+   19 | Rain of Fear
+   20 | Call of the Forsaken
+   21 | The Darkened Sea
+   22 | The Broken Mirror
+   23 | Empires of Kunark
+   24 | Ring of Scale
+   25 | The Burning Lands
+   26 | Torment of Velious
+   99 | Other
  */
 
-$expansion_limit = env('EXPANSION_LIMIT', 22);
+$expansion_limit = env('EXPANSION_LIMIT', 26);
 
 /**
  * How NPCs are listed. 1 = by NPCID (zoneidnumber*1000), 2 = By spawn2 entry

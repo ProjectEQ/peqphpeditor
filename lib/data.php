@@ -1895,34 +1895,34 @@ $zoneids = array (
 );
 
 $eqexpansions = array (
- 0  => 'None Selected',
- 1  => 'Original EverQuest',
- 2  => 'Ruins of Kunark',
- 3  => 'Scars of Velious',
- 4  => 'Shadows of Luclin',
- 5  => 'Planes of Power',
- 6  => 'Legacy of Ykesha',
- 7  => 'Lost Dungeons of Norrath',
- 8  => 'Gates of Discord',
- 9  => 'Omens of War',
- 10 => 'Dragons of Norrath',
- 11 => 'Depths of Darkhollow',
- 12 => 'Prophecy of Ro',
- 13 => 'The Serpents Spine',
- 14 => 'The Buried Sea',
- 15 => 'Secrets of Faydwer',
- 16 => 'Seeds of Destruction',
- 17 => 'Underfoot',
- 18 => 'House of Thule',
- 19 => 'Veil of Alaris',
- 20 => 'Rain of Fear',
- 21 => 'Call of the Forsaken',
- 22 => 'The Darkened Sea',
- 23 => 'The Broken Mirror',
- 24 => 'Empires of Kunark',
- 25 => 'Ring of Scale',
- 26 => 'The Burning Lands',
- 27 => 'Torment of Velious',
+ -1 => 'All',
+  0 => 'Original EverQuest',
+  1 => 'Ruins of Kunark',
+  2 => 'Scars of Velious',
+  3 => 'Shadows of Luclin',
+  4 => 'Planes of Power',
+  5 => 'Legacy of Ykesha',
+  6 => 'Lost Dungeons of Norrath',
+  7 => 'Gates of Discord',
+  8 => 'Omens of War',
+  9 => 'Dragons of Norrath',
+ 10 => 'Depths of Darkhollow',
+ 11 => 'Prophecy of Ro',
+ 12 => 'The Serpents Spine',
+ 13 => 'The Buried Sea',
+ 14 => 'Secrets of Faydwer',
+ 15 => 'Seeds of Destruction',
+ 16 => 'Underfoot',
+ 17 => 'House of Thule',
+ 18 => 'Veil of Alaris',
+ 19 => 'Rain of Fear',
+ 20 => 'Call of the Forsaken',
+ 21 => 'The Darkened Sea',
+ 22 => 'The Broken Mirror',
+ 23 => 'Empires of Kunark',
+ 24 => 'Ring of Scale',
+ 25 => 'The Burning Lands',
+ 26 => 'Torment of Velious',
  99 => 'Other'
 );
 
@@ -1965,6 +1965,7 @@ $langtypes = array (
 );
 
 $expansions2_long = array (
+-1  => 'All Expansions',
  0  => 'Classic Everquest',
  1  => 'Ruins of Kunark',
  2  => 'Scars of Velious',
@@ -1995,6 +1996,7 @@ $expansions2_long = array (
 );
 
 $expansions2_short = array (
+-1  => 'All',
  0  => 'EQ',
  1  => 'RoK',
  2  => 'SoV',
