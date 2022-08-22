@@ -6,16 +6,17 @@
           <legend><strong><font size="4">General</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="20%">ID:<br><input type="text" name="newactivityid" size="5" value="<?=$activityid?>"></td>
-              <td align="left" width="20%">Step:<br><input type="text" name="step" size="5" value="<?=$step?>"></td>
-              <td align="left" width="20%">
+              <td align="left" width="18%">ID:<br><input type="text" name="newactivityid" size="5" value="<?=$activityid?>"></td>
+              <td align="left" width="18%">Req ID:<br><input type="text" name="req_activity_id" size="5" value="<?=$req_activity_id?>"></td>
+              <td align="left" width="18%">Step:<br><input type="text" name="step" size="5" value="<?=$step?>"></td>
+              <td align="left" width="16%">
                 Optional:<br>
                 <select name="optional">
                   <option value="0"<?echo ($optional == 0) ? " selected" : ""?>>No</option>
                   <option value="1"<?echo ($optional == 1) ? " selected" : ""?>>Yes</option>
                 </select>
               </td>
-              <td align="left" width="40%">
+              <td align="left" width="30%">
                 Type:<br>
                 <select name="activitytype" style="width: 180px;">
 <?foreach($activitytypes as $key=>$value):?>
