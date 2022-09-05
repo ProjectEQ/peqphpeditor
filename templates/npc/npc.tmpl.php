@@ -250,6 +250,11 @@ if ($loottable_id > 0) {
                     <td align="left" width="34%">NPC Aggro: <?=$npc_aggro?></td>
                   </tr>
                   <tr>
+                    <td align="left" width="33%">Heroic Strikethrough: <?=$heroic_strikethrough?></td>
+                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="34%">&nbsp;</td>
+                  </tr>
+                  <tr>
                     <td colspan="3">Special Abilities: <?echo ($new_special_abilities) ? $new_special_abilities : "None";?></td>
                   </tr>
                 </table>
@@ -456,6 +461,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="flymode" value="<?=$flymode?>">
         <input type="hidden" name="always_aggro" value="<?=$always_aggro?>">
         <input type="hidden" name="exp_mod" value="<?=$exp_mod?>">
+        <input type="hidden" name="heroic_strikethrough" value="<?=$heroic_strikethrough?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">

@@ -1457,6 +1457,7 @@ function update_npc() {
   if ($flymode != $_POST['flymode']) $fields .= "flymode=\"" . $_POST['flymode'] . "\", ";
   if ($always_aggro != $_POST['always_aggro']) $fields .= "always_aggro=\"" . $_POST['always_aggro'] . "\", ";
   if ($exp_mod != $_POST['exp_mod']) $fields .= "exp_mod=\"" . $_POST['exp_mod'] . "\", ";
+  if ($heroic_strikethrough != $_POST['heroic_strikethrough']) $fields .= "heroic_strikethrough=\"" . $_POST['heroic_strikethrough'] . "\", ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -1613,7 +1614,8 @@ function add_npc() {
   $fields .= "model=\"" .$_POST['model'] . "\", ";
   $fields .= "flymode=\"" .$_POST['flymode'] . "\", ";
   $fields .= "always_aggro=\"" .$_POST['always_aggro'] . "\", ";
-  $fields .= "exp_mod=\"" .$_POST['exp_mod'] . "\"";
+  $fields .= "exp_mod=\"" .$_POST['exp_mod'] . "\", ";
+  $fields .= "heroic_strikethrough=\"" .$_POST['heroic_strikethrough'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1749,7 +1751,8 @@ function copy_npc() {
   $fields .= "model=\"" . $_POST['model'] . "\", ";
   $fields .= "flymode=\"" . $_POST['flymode'] . "\", ";
   $fields .= "always_aggro=\"" . $_POST['always_aggro'] . "\", ";
-  $fields .= "exp_mod=\"" . $_POST['exp_mod'] . "\"";
+  $fields .= "exp_mod=\"" . $_POST['exp_mod'] . "\", ";
+  $fields .= "heroic_strikethrough=\"" . $_POST['heroic_strikethrough'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1924,7 +1927,7 @@ function get_npc_faction_id() {
   return $result['npc_faction_id'];
 }
 
-function update_npc_faction_id ($fid) {
+function update_npc_faction_id($fid) {
   check_authorization();
   global $mysql_content_db, $npcid;
 
@@ -1942,14 +1945,14 @@ function change_faction_byname() {
   $npcname = $_POST['npcname'];
   $updateall = $_POST['updateall'];
  
-  if($updateall == 0){
-  $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE name LIKE \"%$npcname%\" AND id > $min_id AND id < $max_id AND npc_faction_id = 0";
-  $mysql_content_db->query_no_result($query);
+  if ($updateall == 0) {
+    $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE name LIKE \"%$npcname%\" AND id > $min_id AND id < $max_id AND npc_faction_id = 0";
+    $mysql_content_db->query_no_result($query);
   }
 
-  if($updateall == 1){
-  $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE name LIKE \"%$npcname%\" AND id > $min_id AND id < $max_id";
-  $mysql_content_db->query_no_result($query);
+  if ($updateall == 1) {
+    $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE name LIKE \"%$npcname%\" AND id > $min_id AND id < $max_id";
+    $mysql_content_db->query_no_result($query);
   }
 }
 
@@ -1963,14 +1966,14 @@ function change_faction_byrace() {
   $npcrace = $_POST['npcrace'];
   $updateall = $_POST['updateall'];
  
-  if($updateall == 0){
-  $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE race=$npcrace AND id > $min_id AND id < $max_id AND npc_faction_id=0";
-  $mysql_content_db->query_no_result($query);
+  if ($updateall == 0) {
+    $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE race=$npcrace AND id > $min_id AND id < $max_id AND npc_faction_id=0";
+    $mysql_content_db->query_no_result($query);
   }
 
-  if($updateall == 1){
-  $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE race=$npcrace AND id > $min_id AND id < $max_id";
-  $mysql_content_db->query_no_result($query);
+  if ($updateall == 1) {
+    $query = "UPDATE npc_types SET npc_faction_id=$npcfid WHERE race=$npcrace AND id > $min_id AND id < $max_id";
+    $mysql_content_db->query_no_result($query);
   }
 }
 
