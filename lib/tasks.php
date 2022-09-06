@@ -789,10 +789,15 @@ function suggest_taskset_id() {
 function suggest_step() {
   global $mysql_content_db, $tskid;
 
-  $query = "SELECT MAX(step) AS stp FROM task_activities WHERE taskid=\"$tskid\"";
+  $query = "SELECT MAX(step) AS step FROM task_activities WHERE taskid=\"$tskid\"";
   $result = $mysql_content_db->query_assoc($query);
   
-  return ($result['stp'] + 1);
+  if ($result['step'] == NULL) {
+    return 0;
+      }
+  else {
+    return $result['step'] + 1;
+  }
 }
 
 function add_tasks() {
