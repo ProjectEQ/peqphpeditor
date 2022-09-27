@@ -46,7 +46,9 @@
               <td align="left" width="34%">Zones: (IDs separated by semi-colon)<br><input type="text" name="zones" size="30" value=""></td>           
             </tr>
             <tr>
-              <td align="left" width="100%" colspan="3">Zone Version:<br><input type="text" name="zone_version" size="10" value="-1"></td>
+              <td align="left" width="33%">Zone Version:<br><input type="text" name="zone_version" size="10" value="-1"></td>
+              <td align="left" width="33%">DZ Switch ID:<br><input type="text" name="dz_switch_id" size="10" value="0"></td>
+              <td align="left" width="34%">&nbsp;</td>
             </tr>
           </table>
         </fieldset><br>
@@ -54,7 +56,6 @@
           <legend><strong><font size="4">Goal</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="25%">Goal ID:<br><input type="text" name="goalid" size="7" value="0"></td>
               <td align="left" width="25%">
                 Goal Method:<br>
                 <select name="goalmethod" style="width: 100px;">
@@ -64,10 +65,33 @@
                 </select>
               </td>
               <td align="left" width="25%">Goal Count:<br><input type="text" name="goalcount" size="7" value="0"></td>
-              <td align="left" width="25%">Deliver to NPC:<br><input type="text" name="delivertonpc" size="7" value="0"></td>
+              <td align="left" width="25%">&nbsp;</td>
+              <td align="left" width="25%">&nbsp;</td>
             </tr>
             <tr>
-              <td colspan="4" width="100%">Goal Match List:<br><textarea name="goal_match_list" rows="10" cols="100"></textarea></td>
+              <td align="left" width="25%">NPC ID:<br><input type="text" name="npc_id" size="10" value="0"></td>
+              <td align="left" width="25%">NPC Goal ID:<br><input type="text" name="npc_goal_id" size="10" value="0"></td>
+              <td align="left" width="50%" colspan="2">NPC Match List:<br><input type="text" name="npc_match_list" size="50" value=""></td>
+            </tr>
+            <tr>
+              <td align="left" width="25%">Item ID:<br><input type="text" name="item_id" size="10" value="0"></td>
+              <td align="left" width="25%">Item Goal ID:<br><input type="text" name="item_goal_id" size="10" value="0"></td>
+              <td align="left" width="50%" colspan="2">Item ID List:<br><input type="text" name="item_id_list" size="50" value=""></td>
+            </tr>
+          </table>
+        </fieldset><br>
+        <fieldset>
+          <legend><strong><font size="4">Proximities</font></strong></legend>
+          <table width="100%" border="0" cellpadding="3" cellspacing="0">
+            <tr>
+              <td align="left" width="33%">Min X:<br><input type="text" name="min_x" size="10" value="0"></td>
+              <td align="left" width="33%">Min Y:<br><input type="text" name="min_y" size="10" value="0"></td>
+              <td align="left" width="34%">Min Z:<br><input type="text" name="min_z" size="10" value="0"></td>
+            </tr>
+            <tr>
+              <td align="left" width="33%">Max X:<br><input type="text" name="max_x" size="10" value="0"></td>
+              <td align="left" width="33%">Max Y:<br><input type="text" name="max_y" size="10" value="0"></td>
+              <td align="left" width="34%">Max Z:<br><input type="text" name="max_z" size="10" value="0"></td>
             </tr>
           </table>
         </fieldset><br>

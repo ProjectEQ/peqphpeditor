@@ -607,28 +607,38 @@ function update_activity() {
 
   $taskid = $_POST['taskid'];
   $activityid = $_POST['activityid'];
-  $req_activity_id = $_POST['req_activity_id'];
   $newactivityid = $_POST['newactivityid'];
+  $req_activity_id = $_POST['req_activity_id'];
   $step = $_POST['step'];
   $activitytype = $_POST['activitytype']; 
   $target_name = mysqli_real_escape_string($mysql_content_db, $_POST['target_name']);
-  $item_list = mysqli_real_escape_string($mysql_content_db, $_POST['item_list']);
+  $goalmethod = $_POST['goalmethod']; 
+  $goalcount = $_POST['goalcount'];
   $description_override = mysqli_real_escape_string($mysql_content_db, $_POST['description_override']);
+  $npc_id = $_POST['npc_id'];
+  $npc_goal_id = $_POST['npc_goal_id'];
+  $npc_match_list = mysqli_real_escape_string($mysql_content_db, $_POST['npc_match_list']);
+  $item_id = $_POST['item_id'];
+  $item_goal_id = $_POST['item_goal_id'];
+  $item_id_list = mysqli_real_escape_string($mysql_content_db, $_POST['item_id_list']);
+  $item_list = mysqli_real_escape_string($mysql_content_db, $_POST['item_list']);
+  $dz_switch_id = $_POST['dz_switch_id'];
+  $min_x = $_POST['min_x'];
+  $min_y = $_POST['min_y'];
+  $min_z = $_POST['min_z'];
+  $max_x = $_POST['max_x'];
+  $max_y = $_POST['max_y'];
+  $max_z = $_POST['max_z'];
   $skill_list = mysqli_real_escape_string($mysql_content_db, $_POST['skill_list']);
   $spell_list = mysqli_real_escape_string($mysql_content_db, $_POST['spell_list']);
   $zones = mysqli_real_escape_string($mysql_content_db, $_POST['zones']);
   $zone_version = $_POST['zone_version'];
-  $goalid = $_POST['goalid'];
-  $goal_match_list = mysqli_real_escape_string($mysql_content_db, $_POST['goal_match_list']);
-  $goalmethod = $_POST['goalmethod']; 
-  $goalcount = $_POST['goalcount'];
-  $delivertonpc = $_POST['delivertonpc'];
   $optional = $_POST['optional'];
 
   $query = "DELETE FROM task_activities WHERE taskid=\"$taskid\" AND activityid=\"$activityid\"";
   $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$newactivityid\", req_activity_id=\"$req_activity_id\", activitytype=\"$activitytype\", target_name=\"$target_name\", item_list=\"$item_list\", description_override=\"$description_override\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", goalid=\"$goalid\", goal_match_list=\"$goal_match_list\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", optional=\"$optional\"";
+  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", activityid=\"$newactivityid\", req_activity_id=\"$req_activity_id\", step=\"$step\", activitytype=\"$activitytype\", target_name=\"$target_name\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", description_override=\"$description_override\", npc_id=\"$npc_id\", npc_goal_id=\"$npc_goal_id\", npc_match_list=\"$npc_match_list\", item_goal_id=\"$item_goal_id\", item_id=\"$item_id\", item_id_list=\"$item_id_list\", item_list=\"$item_list\", dz_switch_id=\"$dz_switch_id\", min_x=\"$min_x\", min_y=\"$min_y\", min_z=\"$min_z\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", optional=\"$optional\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -844,21 +854,31 @@ function add_activity() {
   $step = $_POST['step'];
   $activitytype = $_POST['activitytype']; 
   $target_name = mysqli_real_escape_string($mysql_content_db, $_POST['target_name']);
-  $item_list = mysqli_real_escape_string($mysql_content_db, $_POST['item_list']);
+  $goalmethod = $_POST['goalmethod']; 
+  $goalcount = $_POST['goalcount'];
   $description_override = mysqli_real_escape_string($mysql_content_db, $_POST['description_override']);
+  $npc_id = $_POST['npc_id'];
+  $npc_goal_id = $_POST['npc_goal_id'];
+  $npc_match_list = mysqli_real_escape_string($mysql_content_db, $_POST['npc_match_list']);
+  $item_id = $_POST['item_id'];
+  $item_goal_id = $_POST['item_goal_id'];
+  $item_id_list = mysqli_real_escape_string($mysql_content_db, $_POST['item_id_list']);
+  $item_list = mysqli_real_escape_string($mysql_content_db, $_POST['item_list']);
+  $dz_switch_id = $_POST['dz_switch_id'];
+  $min_x = $_POST['min_x'];
+  $min_y = $_POST['min_y'];
+  $min_z = $_POST['min_z'];
+  $max_x = $_POST['max_x'];
+  $max_y = $_POST['max_y'];
+  $max_z = $_POST['max_z'];
   $skill_list = mysqli_real_escape_string($mysql_content_db, $_POST['skill_list']);
   $spell_list = mysqli_real_escape_string($mysql_content_db, $_POST['spell_list']);
   $zones = mysqli_real_escape_string($mysql_content_db, $_POST['zones']);
   $zone_version = $_POST['zone_version'];
-  $goalid = $_POST['goalid'];
-  $goal_match_list = mysqli_real_escape_string($mysql_content_db, $_POST['goal_match_list']);
-  $goalmethod = $_POST['goalmethod']; 
-  $goalcount = $_POST['goalcount'];
-  $delivertonpc = $_POST['delivertonpc'];
   $zoneid = $_POST['zoneid'];
   $optional = $_POST['optional'];
 
-  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", step=\"$step\", activityid=\"$activityid\", req_activity_id=\"$req_activity_id\", activitytype=\"$activitytype\", target_name=\"$target_name\", item_list=\"$item_list\", description_override=\"$description_override\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", goalid=\"$goalid\", goal_match_list=\"$goal_match_list\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", delivertonpc=\"$delivertonpc\", optional=\"$optional\"";
+  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", activityid=\"$activityid\", req_activity_id=\"$req_activity_id\", step=\"$step\", activitytype=\"$activitytype\", target_name=\"$target_name\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", description_override=\"$description_override\", npc_id=\"$npc_id\", npc_goal_id=\"$npc_goal_id\", npc_match_list=\"$npc_match_list\", item_goal_id=\"$item_goal_id\", item_id=\"$item_id\", item_id_list=\"$item_id_list\", item_list=\"$item_list\", dz_switch_id=\"$dz_switch_id\", min_x=\"$min_x\", min_y=\"$min_y\", min_z=\"$min_z\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", optional=\"$optional\"";
   $mysql_content_db->query_no_result($query);
 }
 
