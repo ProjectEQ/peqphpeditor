@@ -90,7 +90,7 @@ if ($loottable_id > 0) {
                 </table>
                 <div style="padding: 10px; border: 1px solid grey; margin-right: 10px;">
                   <b>NPC Faction ID</b>: <?=$npc_faction_id?> [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=3">edit</a>]
-                  [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npcfid=<?=$npc_faction_id?>&action=47">update</a>]<br>
+                  [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npcfid=<?=$npc_faction_id?>&action=47">update</a>]<br><br>
 <?if ($npc_faction_id > 0) {?>
                   "<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=10"><?=$factionname?></a>"<br><br>
 <?}?>
@@ -115,6 +115,7 @@ if ($loottable_id > 0) {
 <?} else {?>
                 None<br>
 <?}?>
+                  <br><b>Faction Amount: </b><?=$faction_amount?>
                 </div>
               </center>
             </td>
@@ -462,6 +463,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="always_aggro" value="<?=$always_aggro?>">
         <input type="hidden" name="exp_mod" value="<?=$exp_mod?>">
         <input type="hidden" name="heroic_strikethrough" value="<?=$heroic_strikethrough?>">
+        <input type="hidden" name="faction_amount" value="<?=$faction_amount?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">

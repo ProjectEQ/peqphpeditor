@@ -1458,6 +1458,7 @@ function update_npc() {
   if ($always_aggro != $_POST['always_aggro']) $fields .= "always_aggro=\"" . $_POST['always_aggro'] . "\", ";
   if ($exp_mod != $_POST['exp_mod']) $fields .= "exp_mod=\"" . $_POST['exp_mod'] . "\", ";
   if ($heroic_strikethrough != $_POST['heroic_strikethrough']) $fields .= "heroic_strikethrough=\"" . $_POST['heroic_strikethrough'] . "\", ";
+  if ($faction_amount != $_POST['faction_amount']) $fields .= "faction_amount=\"" . $_POST['faction_amount'] . "\", ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -1615,7 +1616,8 @@ function add_npc() {
   $fields .= "flymode=\"" .$_POST['flymode'] . "\", ";
   $fields .= "always_aggro=\"" .$_POST['always_aggro'] . "\", ";
   $fields .= "exp_mod=\"" .$_POST['exp_mod'] . "\", ";
-  $fields .= "heroic_strikethrough=\"" .$_POST['heroic_strikethrough'] . "\"";
+  $fields .= "heroic_strikethrough=\"" .$_POST['heroic_strikethrough'] . "\", ";
+  $fields .= "faction_amount=\"" .$_POST['faction_amount'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1752,7 +1754,8 @@ function copy_npc() {
   $fields .= "flymode=\"" . $_POST['flymode'] . "\", ";
   $fields .= "always_aggro=\"" . $_POST['always_aggro'] . "\", ";
   $fields .= "exp_mod=\"" . $_POST['exp_mod'] . "\", ";
-  $fields .= "heroic_strikethrough=\"" . $_POST['heroic_strikethrough'] . "\"";
+  $fields .= "heroic_strikethrough=\"" . $_POST['heroic_strikethrough'] . "\", ";
+  $fields .= "faction_amount=\"" . $_POST['faction_amount'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";

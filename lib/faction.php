@@ -216,6 +216,40 @@ switch ($action) {
     delete_faction_mod();
     header("Location: index.php?editor=faction&fid=$fid");
     exit;
+  case 25: // View faction associations
+    $body = new Template("templates/faction/faction.associations.view.tmpl.php");
+    $body->set('faction_associations', get_faction_associations());
+    $breadcrumbs .= " >> Faction Associations";
+    break;
+  case 26: // Add faction association
+    check_authorization();
+    $body = new Template("templates/faction/faction.association.add.tmpl.php");
+    $body->set('suggested_id', suggest_faction_association_id());
+    $body->set('factions', $factions);
+    $breadcrumbs .= " >> <a href='index.php?editor=faction&action=25'>Faction Associations</a> >> Add Faction Association";
+    break;
+  case 27: // Insert faction association
+    check_authorization();
+    insert_faction_association();
+    header("Location: index.php?editor=faction&action=25");
+    exit;
+  case 28: // Edit faction association
+    check_authorization();
+    $body = new Template("templates/faction/faction.association.edit.tmpl.php");
+    $body->set('faction_association', get_faction_association($_GET['id']));
+    $body->set('factions', $factions);
+    $breadcrumbs .= " >> <a href='index.php?editor=faction&action=25'>Faction Associations</a> >> Edit Faction Association";
+    break;
+  case 29: // Update faction association
+    check_authorization();
+    update_faction_association();
+    header("Location: index.php?editor=faction&action=25");
+    exit;
+  case 30: // Delete faction association
+    check_authorization();
+    delete_faction_association($_GET['id']);
+    header("Location: index.php?editor=faction&action=25");
+    exit;
 }
 
 function faction_info() {
@@ -532,6 +566,108 @@ function deconstruct_mod($mod_name) {
   }
 
   return $mod_type;
+}
+
+function get_faction_associations() {
+  global $mysql_content_db;
+
+  $query = "SELECT * FROM faction_association";
+  $results = $mysql_content_db->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function get_faction_association($id) {
+  global $mysql_content_db;
+
+  $query = "SELECT * FROM faction_association WHERE id=$id";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+function insert_faction_association() {
+  global $mysql_content_db;
+
+  $id = $_POST['id'];
+  $id_1 = $_POST['id_1'];
+  $mod_1 = $_POST['mod_1'];
+  $id_2 = $_POST['id_2'];
+  $mod_2 = $_POST['mod_2'];
+  $id_3 = $_POST['id_3'];
+  $mod_3 = $_POST['mod_3'];
+  $id_4 = $_POST['id_4'];
+  $mod_4 = $_POST['mod_4'];
+  $id_5 = $_POST['id_5'];
+  $mod_5 = $_POST['mod_5'];
+  $id_6 = $_POST['id_6'];
+  $mod_6 = $_POST['mod_6'];
+  $id_7 = $_POST['id_7'];
+  $mod_7 = $_POST['mod_7'];
+  $id_8 = $_POST['id_8'];
+  $mod_8 = $_POST['mod_8'];
+  $id_9 = $_POST['id_9'];
+  $mod_9 = $_POST['mod_9'];
+  $id_10 = $_POST['id_10'];
+  $mod_10 = $_POST['mod_10'];
+
+  $query = "INSERT INTO faction_association SET id=$id, id_1=$id_1, mod_1=$mod_1, id_2=$id_2, mod_2=$mod_2, id_3=$id_3, mod_3=$mod_3, id_4=$id_4, mod_4=$mod_4, id_5=$id_5, mod_5=$mod_5, id_6=$id_6, mod_6=$mod_6, id_7=$id_7, mod_7=$mod_7, id_8=$id_8, mod_8=$mod_8, id_9=$id_9, mod_9=$mod_9, id_10=$id_10, mod_10=$mod_10";
+  $mysql_content_db->query_no_result($query);
+}
+
+function update_faction_association() {
+  global $mysql_content_db;
+
+  $id = $_POST['id'];
+  $id_1 = $_POST['id_1'];
+  $mod_1 = $_POST['mod_1'];
+  $id_2 = $_POST['id_2'];
+  $mod_2 = $_POST['mod_2'];
+  $id_3 = $_POST['id_3'];
+  $mod_3 = $_POST['mod_3'];
+  $id_4 = $_POST['id_4'];
+  $mod_4 = $_POST['mod_4'];
+  $id_5 = $_POST['id_5'];
+  $mod_5 = $_POST['mod_5'];
+  $id_6 = $_POST['id_6'];
+  $mod_6 = $_POST['mod_6'];
+  $id_7 = $_POST['id_7'];
+  $mod_7 = $_POST['mod_7'];
+  $id_8 = $_POST['id_8'];
+  $mod_8 = $_POST['mod_8'];
+  $id_9 = $_POST['id_9'];
+  $mod_9 = $_POST['mod_9'];
+  $id_10 = $_POST['id_10'];
+  $mod_10 = $_POST['mod_10'];
+
+  $query = "UPDATE faction_association SET id_1=$id_1, mod_1=$mod_1, id_2=$id_2, mod_2=$mod_2, id_3=$id_3, mod_3=$mod_3, id_4=$id_4, mod_4=$mod_4, id_5=$id_5, mod_5=$mod_5, id_6=$id_6, mod_6=$mod_6, id_7=$id_7, mod_7=$mod_7, id_8=$id_8, mod_8=$mod_8, id_9=$id_9, mod_9=$mod_9, id_10=$id_10, mod_10=$mod_10 WHERE id=$id";
+  $mysql_content_db->query_no_result($query);
+}
+
+function delete_faction_association($id) {
+  global $mysql_content_db;
+
+  $query = "DELETE FROM faction_association WHERE id=$id";
+  $mysql_content_db->query_no_result($query);
+}
+
+function suggest_faction_association_id() {
+  global $mysql_content_db;
+
+  $query = "SELECT MAX(id) AS id FROM faction_association";
+  $result = $mysql_content_db->query_assoc($query);
+
+  return $result['id'] + 1;
 }
 
 ?>

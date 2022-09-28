@@ -47,7 +47,8 @@
               <table width="100%" border="0" cellpadding="3" cellspacing="0">
                 <tr>
                   <td align="left" width="50%" colspan="2">Reward Text: "<?=$reward?>"</td>
-                  <td align="left" width="50%" colspan="2">Reward Method: <?=$rewardmethods[$rewardmethod]?></td>
+                  <td align="left" width="25%">Reward Method: <?=$rewardmethods[$rewardmethod]?></td>
+                  <td align="left" width="25%">Reward Faction: <?=$faction_reward?></td>
                 </tr>
                 <tr>
                   <td align="left" width="25%">
@@ -67,7 +68,7 @@
                   </td>
                   <td align="left" width="25%">Reward Cash: <?=$cashreward?></td>
                   <td align="left" width="25%">Reward XP: <?=$xpreward?></td>
-                  <td align="left" width="25%">Reward Faction: <?=$faction_reward?></td>
+                  <td align="left" width="25%">Faction Amount: <?=$faction_amount?></td>
                 </tr>
                 <tr>
                   <td align="left" width="25%">Reward Points: <?=$reward_points?></td>
