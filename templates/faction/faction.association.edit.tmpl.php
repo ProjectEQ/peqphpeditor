@@ -5,7 +5,14 @@
         <div class="edit_form_content">
           <table width="100%" cellpadding="5" cellspacing="3">
             <tr>
-              <td width="100%" colspan="2"><strong>ID:</strong><br><input size="8" type="text" value="<?=$faction_association['id']?>" disabled></td>
+              <td width="100%" colspan="2">
+                <strong>ID:</strong><br>
+                <select name="new_id">
+<?foreach ($factions as $faction):?>
+                  <option value="<?=$faction['id']?>"<?echo ($faction['id'] == $faction_association['id']) ? " selected" : "";?>><?=$faction['name']?> (<?=$faction['id']?>)</option>
+<?endforeach;?>
+                </select>
+              </td>
             </tr>
             <tr>
               <td>
@@ -119,7 +126,7 @@
             </tr>
           </table><br>
           <center>
-            <input type="hidden" name="id" value="<?=$faction_association['id']?>">
+            <input type="hidden" name="old_id" value="<?=$faction_association['id']?>">
             <input type="submit" value="Submit">&nbsp;&nbsp;&nbsp;<input type="button" value="Cancel" onclick="history.back();">
           </center>
         </div>

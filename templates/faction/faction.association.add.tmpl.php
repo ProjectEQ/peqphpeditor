@@ -5,7 +5,14 @@
         <div class="edit_form_content">
           <table width="100%" cellpadding="5" cellspacing="3">
             <tr>
-              <td width="100%" colspan="2"><strong>ID:</strong><br><input size="8" type="text" name="id" value="<?=$suggested_id?>"></td>
+              <td width="100%" colspan="2">
+                <strong>ID:</strong><br>
+                <select name="id">
+<?foreach ($factions as $faction):?>
+                  <option value="<?=$faction['id']?>"<?echo ($faction['id'] == 0) ? " selected" : "";?>><?=$faction['name']?> (<?=$faction['id']?>)</option>
+<?endforeach;?>
+                </select>
+              </td>
             </tr>
             <tr>
               <td>
