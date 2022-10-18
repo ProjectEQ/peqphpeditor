@@ -27,8 +27,8 @@
                 </select>
               </td>
               <td align="left" width="20%">Duration:<br><input type="text" name="duration" size="7" value="<?=$duration?>"></td>
-              <td align="left" width="20%">Min Level:<br><input type="text" name="minlevel" size="7" value="<?=$minlevel?>"></td>
-              <td align="left" width="20%">Max Level:<br><input type="text" name="maxlevel" size="7" value="<?=$maxlevel?>"></td>
+              <td align="left" width="20%">Min Level:<br><input type="text" name="min_level" size="7" value="<?=$min_level?>"></td>
+              <td align="left" width="20%">Max Level:<br><input type="text" name="max_level" size="7" value="<?=$max_level?>"></td>
               <td align="left" width="20%">
                 Repeatable:<br>
                 <select name="repeatable">
@@ -61,20 +61,20 @@
           <legend><strong><font size="4">Completion</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="50%" colspan="2">Reward Text:<br><input type="text" name="reward" size="45" value="<?echo htmlentities($reward);?>"></td> 
+              <td align="left" width="50%" colspan="2">Reward Text:<br><input type="text" name="reward_text" size="45" value="<?echo htmlentities($reward);?>"></td> 
               <td align="left" width="50%" colspan="2">
                 Reward Method:<br>
-                <select name="rewardmethod" style="width: 180px;">
+                <select name="reward_method" style="width: 180px;">
 <?foreach ($rewardmethods as $key=>$value):?>
-                  <option value="<?=$key?>"<?echo ($key == $rewardmethod) ? " selected" : "";?>><?=$key?>: <?=$value?></option>
+                  <option value="<?=$key?>"<?echo ($key == $reward_method) ? " selected" : "";?>><?=$key?>: <?=$value?></option>
 <?endforeach;?>
                 </select>
               </td>
             </tr>
             <tr>
-              <td align="left" width="25%">Reward ID:<br><input type="text" name="rewardid" size="7" value="<?=$rewardid?>"></td>
-              <td align="left" width="25%">Reward XP:<br><input type="text" name="xpreward" size="7" value="<?=$xpreward?>"></td>
-              <td align="left" width="25%">Reward Cash:<br><input type="text" name="cashreward" size="7" value="<?=$cashreward?>"></td>
+              <td align="left" width="25%">Reward ID List: (|=delimiter)<br><input type="text" name="reward_id_list" size="20" value="<?=$reward_id_list?>"></td>
+              <td align="left" width="25%">Reward EXP:<br><input type="text" name="exp_reward" size="7" value="<?=$exp_reward?>"></td>
+              <td align="left" width="25%">Reward Cash:<br><input type="text" name="cash_reward" size="7" value="<?=$cash_reward?>"></td>
               <td align="left" width="25%">Reward Faction:<br><input type="text" name="faction_reward" size="7" value="<?=$faction_reward?>"></td>
             </tr>
             <tr>

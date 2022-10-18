@@ -21,8 +21,8 @@
                 <tr>
                   <td align="left" width="20%">Duration Code: <?=$duration_codes[$duration_code]?></td>
                   <td align="left" width="20%">Duration: <?=$duration?></td>
-                  <td align="left" width="20%">Min Level: <?=$minlevel?></td>
-                  <td align="left" width="20%">Max Level:  <?=$maxlevel?></td>              
+                  <td align="left" width="20%">Min Level: <?=$min_level?></td>
+                  <td align="left" width="20%">Max Level:  <?=$max_level?></td>              
                   <td align="left" width="20%">Repeatable: <?=$yesno[$repeatable]?></td>
                 </tr>
                 <tr>
@@ -46,28 +46,14 @@
               <legend><strong>Completion</font></strong></legend>
               <table width="100%" border="0" cellpadding="3" cellspacing="0">
                 <tr>
-                  <td align="left" width="50%" colspan="2">Reward Text: "<?=$reward?>"</td>
-                  <td align="left" width="25%">Reward Method: <?=$rewardmethods[$rewardmethod]?></td>
+                  <td align="left" width="50%" colspan="2">Reward Text: "<?=$reward_text?>"</td>
+                  <td align="left" width="25%">Reward Method: <?=$rewardmethods[$reward_method]?></td>
                   <td align="left" width="25%">Reward Faction: <?=$faction_reward?></td>
                 </tr>
                 <tr>
-                  <td align="left" width="25%">
-                    Reward:
-<?if(($rewardmethod == 0 || $rewardmethod == 2) && $rewardid > 1000):?>
-                    <a href="index.php?editor=items&tskid=<?=$id?>&id=<?=$rewardid?>&action=2"><?echo $rewardid . " - " . get_item_name($rewardid)?></a> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$rewardid?>" target="_blank">Lucy</a>]</span>
-<?endif;?> 
-<?if($rewardmethod == 2 && $rewardid < 1001):?>
-                    <?=$rewardid?>
-<?endif;?> 
-<?if($rewardmethod == 1 && $rewardid > 0 && $rewardid < 1001):?>
-                    <a href="index.php?editor=tasks&tskid=<?=$id?>&lid=<?=$rewardid?>&action=11"><?=$rewardid?></a>
-<?endif;?> 
-<?if($rewardmethod == 1 && $rewardid == 0):?>
-                    <a href="index.php?editor=tasks&tskid=<?=$id?>&action=12"><?=$rewardid?></a>
-<?endif;?>
-                  </td>
-                  <td align="left" width="25%">Reward Cash: <?=$cashreward?></td>
-                  <td align="left" width="25%">Reward XP: <?=$xpreward?></td>
+                  <td align="left" width="25%">Reward ID List: <?=$reward_id_list?></td>
+                  <td align="left" width="25%">Reward Cash: <?=$cash_reward?></td>
+                  <td align="left" width="25%">Reward EXP: <?=$exp_reward?></td>
                   <td align="left" width="25%">Faction Amount: <?=$faction_amount?></td>
                 </tr>
                 <tr>

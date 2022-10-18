@@ -59,19 +59,11 @@
 <?endforeach;?>
                 </select>
               </td>
+              <td align="left" width="75%">NPC Match List:<br><input type="text" name="npc_match_list" size="80" value="<?echo htmlentities($npc_match_list);?>"></td>
+            </tr>
+            <tr>
               <td align="left" width="25%">Goal Count:<br><input type="text" name="goalcount" size="7" value="<?=$goalcount?>"></td>
-              <td align="left" width="25%">&nbsp;</td>
-              <td align="left" width="25%">&nbsp;</td>
-            </tr>
-            <tr>
-              <td align="left" width="25%">NPC ID:<br><input type="text" name="npc_id" size="10" value="<?=$npc_id?>"></td>
-              <td align="left" width="25%">NPC Goal ID:<br><input type="text" name="npc_goal_id" size="10" value="<?=$npc_goal_id?>"></td>
-              <td align="left" width="50%" colspan="2">NPC Match List:<br><input type="text" name="npc_match_list" size="50" value="<?echo htmlentities($npc_match_list);?>"></td>
-            </tr>
-            <tr>
-              <td align="left" width="25%">Item ID:<br><input type="text" name="item_id" size="10" value="<?=$item_id?>"></td>
-              <td align="left" width="25%">Item Goal ID:<br><input type="text" name="item_goal_id" size="10" value="<?=$item_goal_id?>"></td>
-              <td align="left" width="50%" colspan="2">Item ID List:<br><input type="text" name="item_id_list" size="50" value="<?echo htmlentities($item_id_list);?>"></td>
+              <td align="left" width="75%">Item ID List:<br><input type="text" name="item_id_list" size="80" value="<?echo htmlentities($item_id_list);?>"></td>
             </tr>
           </table>
         </fieldset><br>

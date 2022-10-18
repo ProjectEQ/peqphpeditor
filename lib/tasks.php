@@ -159,52 +159,6 @@ switch ($action) {
     $tskid = $_POST['taskid'];
     header("Location: index.php?editor=tasks&tskid=$tskid");
     exit;
-  case 11:  // View goallist info
-    $body = new Template("templates/tasks/goallist.tmpl.php");
-    $body->set('tskid', $_GET['tskid']);
-    $body->set('lid', $_GET['lid']);
-    $body->set('atype', $_GET['atype']);
-    $vars = get_goallist();
-    if ($vars) {
-      foreach ($vars as $key=>$value) {
-        $body->set($key, $value);
-      }
-    }
-    break;
-  case 12: // Get goallist ID
-    check_authorization();
-    $javascript = new Template("templates/iframes/js.tmpl.php");
-    $body = new Template("templates/tasks/goallist.add.tmpl.php");
-    $body->set('tskid', $_GET['tskid']);
-    $body->set('suggestid', suggest_list_id());
-    break;
-  case 13: // Add goallist
-    check_authorization();
-    add_goallist();
-    $tskid = $_POST['taskid'];
-    $lid = $_POST['listid'];
-    header("Location: index.php?editor=tasks&tskid=$tskid&lid=$lid&action=11");
-    exit;
-  case 14: // Delete Goallist
-    check_authorization();
-    delete_goallist();
-    $tskid = $_GET['tskid'];
-    $lid = $_GET['lid'];
-    header("Location: index.php?editor=tasks&tskid=$tskid&lid=$lid&action=11");
-    exit;
-  case 15: // Add goallist ID
-    check_authorization();
-    $javascript = new Template("templates/iframes/js.tmpl.php");
-    $body = new Template("templates/tasks/goallist.addid.tmpl.php");
-    $body->set('tskid', $_GET['tskid']);
-    $body->set('lid', $_GET['lid']);
-    break;
-  case 16: // Delete Goallists
-    check_authorization();
-    delete_goallists();
-    $tskid = $_GET['tskid'];
-    header("Location: index.php?editor=tasks&tskid=$tskid");
-    exit;
   case 17:  // View proximity info
     $body = new Template("templates/tasks/proximity.tmpl.php");
     $body->set('tskid', $_GET['tskid']);
@@ -257,61 +211,6 @@ switch ($action) {
     $tskid = $_POST['tskid'];
     $eid = $_POST['exploreid'];
     header("Location: index.php?editor=tasks&tskid=$tskid&eid=$eid&action=17");
-    exit;
-  case 23: // Get goallist ID
-    check_authorization();
-    $javascript = new Template("templates/iframes/js.tmpl.php");
-    $body = new Template("templates/tasks/goallistact.add.tmpl.php");
-    $body->set('tskid', $_GET['tskid']);
-    $body->set('aid', $_GET['aid']);
-    $body->set('atype', $_GET['atype']);
-    $body->set('suggestid', suggest_list_id());
-    break;
-  case 24: // Add goallist
-    check_authorization();
-    add_goallist_act();
-    $tskid = $_POST['taskid'];
-    $lid = $_POST['listid'];
-    $aid = $_POST['aid'];
-    $atype = $_POST['atype'];
-    header("Location: index.php?editor=tasks&tskid=$tskid&lid=$lid&aid=$aid&atype=$atype&action=26");
-    exit;
-  case 25: // Delete Goallists
-    check_authorization();
-    delete_goallists_act();
-    $tskid = $_GET['tskid'];
-    header("Location: index.php?editor=tasks&tskid=$tskid");
-    exit;
-  case 26:  // View goallist info
-    $body = new Template("templates/tasks/goallistact.tmpl.php");
-    $body->set('tskid', $_GET['tskid']);
-    $body->set('lid', $_GET['lid']);
-    $body->set('aid', $_GET['aid']);
-    $body->set('atype', $_GET['atype']);
-    $vars = get_goallist();
-    if ($vars) {
-      foreach ($vars as $key=>$value) {
-        $body->set($key, $value);
-      }
-    }
-    break;
-  case 27: // Add goallist ID
-    check_authorization();
-    $javascript = new Template("templates/iframes/js.tmpl.php");
-    $body = new Template("templates/tasks/goallistact.addid.tmpl.php");
-    $body->set('tskid', $_GET['tskid']);
-    $body->set('lid', $_GET['lid']);
-    $body->set('aid', $_GET['aid']);
-    $body->set('atype', $_GET['atype']);
-    break;
-  case 28: // Delete Goallist
-    check_authorization();
-    delete_goallist();
-    $tskid = $_GET['tskid'];
-    $lid = $_GET['lid'];
-    $aid = $_GET['aid'];
-    $atype = $_GET['atype'];
-    header("Location: index.php?editor=tasks&tskid=$tskid&lid=$lid&aid=$aid&atype=$atype&action=26");
     exit;
   case 29:  // View Task Set info
     $body = new Template("templates/tasks/tasksets.tmpl.php");
@@ -457,17 +356,6 @@ function activity_info() {
   return $result;
 }
 
-function goallist_info() {
-  global $mysql_content_db;
-  
-  $listid = $_GET['listid'];
-
-  $query = "SELECT * FROM goallists WHERE listid=$listid";
-  $result = $mysql_content_db->query_assoc($query);
-  
-  return $result;
-}
-
 function taskset_info() {
   global $mysql_content_db;
   
@@ -503,22 +391,6 @@ function get_activities() {
   if ($result) {
     foreach ($result as $result) {
       $array['activity'][$result['activityid']] = array("taskid"=>$result['taskid'], "activityid"=>$result['activityid'], "req_activity_id"=>$result['req_activity_id'], "step"=>$result['step'], "activitytype"=>$result['activitytype'], "target_name"=>$result['target_name'], "item_list"=>$result['item_list'], "description_override"=>$result['description_override'], "skill_list"=>$result['skill_list'], "spell_list"=>$result['spell_list'], "goalid"=>$result['goalid'], "goal_match_list"=>$result['goal_match_list'], "goalmethod"=>$result['goalmethod'], "goalcount"=>$result['goalcount'], "delivertonpc"=>$result['delivertonpc'], "optional"=>$result['optional']);
-    }
-  }
-  return $array;
-}
-
-function get_goallist() {
-  global $mysql_content_db;
-  $array = array();
-  
-  $listid = $_GET['lid'];
-
-  $query = "SELECT * FROM goallists WHERE listid=\"$listid\"";
-  $result = $mysql_content_db->query_mult_assoc($query);
-  if ($result) {
-    foreach ($result as $result) {
-      $array['goallist'][$result['entry']] = array("listid"=>$result['listid'], "entry"=>$result['entry']);
     }
   }
   return $array;
@@ -576,7 +448,7 @@ function update_tasks() {
   $duration_code = $_POST['duration_code'];
   $title = mysqli_real_escape_string($mysql_content_db, $_POST['title']);
   $description = mysqli_real_escape_string($mysql_content_db, $_POST['description']); 
-  $reward = mysqli_real_escape_string($mysql_content_db, $_POST['reward']);
+  $reward_text = mysqli_real_escape_string($mysql_content_db, $_POST['reward_text']);
   $completion_emote = mysqli_real_escape_string($mysql_content_db, $_POST['completion_emote']);
   $replay_timer_group = $_POST['replay_timer_group'];
   $replay_timer_seconds = $_POST['replay_timer_seconds'];
@@ -584,14 +456,14 @@ function update_tasks() {
   $request_timer_seconds = $_POST['request_timer_seconds'];
   $dz_template_id = $_POST['dz_template_id'];
   $lock_activity_id = $_POST['lock_activity_id'];
-  $rewardid = $_POST['rewardid'];
-  $cashreward = $_POST['cashreward'];
-  $xpreward = $_POST['xpreward'];
-  $rewardmethod = $_POST['rewardmethod'];
+  $reward_id_list = $_POST['reward_id_list'];
+  $cash_reward = $_POST['cash_reward'];
+  $exp_reward = $_POST['exp_reward'];
+  $reward_method = $_POST['reward_method'];
   $reward_points = $_POST['reward_points'];
   $reward_point_type = $_POST['reward_point_type'];
-  $minlevel = $_POST['minlevel'];
-  $maxlevel = $_POST['maxlevel'];
+  $min_level = $_POST['min_level'];
+  $max_level = $_POST['max_level'];
   $level_spread = $_POST['level_spread'];
   $min_players = $_POST['min_players'];
   $max_players = $_POST['max_players'];
@@ -599,7 +471,7 @@ function update_tasks() {
   $faction_reward = $_POST['faction_reward'];
   $faction_amount = $_POST['faction_amount'];
 
-  $query = "UPDATE tasks SET type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", reward_points=\"$reward_points\", reward_point_type=\"$reward_point_type\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_group=\"$replay_timer_group\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_group=\"$request_timer_group\", request_timer_seconds=\"$request_timer_seconds\", dz_template_id=\"$dz_template_id\", lock_activity_id=\"$lock_activity_id\", faction_amount=\"$faction_amount\" WHERE id=\"$id\"";
+  $query = "UPDATE tasks SET type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward_text=\"$reward_text\", reward_id_list=\"$reward_id_list\", cash_reward=\"$cash_reward\", exp_reward=\"$exp_reward\", reward_method=\"$reward_method\", reward_points=\"$reward_points\", reward_point_type=\"$reward_point_type\", min_level=\"$min_level\", max_level=\"$max_level\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_group=\"$replay_timer_group\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_group=\"$request_timer_group\", request_timer_seconds=\"$request_timer_seconds\", dz_template_id=\"$dz_template_id\", lock_activity_id=\"$lock_activity_id\", faction_amount=\"$faction_amount\" WHERE id=\"$id\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -616,11 +488,7 @@ function update_activity() {
   $goalmethod = $_POST['goalmethod']; 
   $goalcount = $_POST['goalcount'];
   $description_override = mysqli_real_escape_string($mysql_content_db, $_POST['description_override']);
-  $npc_id = $_POST['npc_id'];
-  $npc_goal_id = $_POST['npc_goal_id'];
   $npc_match_list = mysqli_real_escape_string($mysql_content_db, $_POST['npc_match_list']);
-  $item_id = $_POST['item_id'];
-  $item_goal_id = $_POST['item_goal_id'];
   $item_id_list = mysqli_real_escape_string($mysql_content_db, $_POST['item_id_list']);
   $item_list = mysqli_real_escape_string($mysql_content_db, $_POST['item_list']);
   $dz_switch_id = $_POST['dz_switch_id'];
@@ -639,7 +507,7 @@ function update_activity() {
   $query = "DELETE FROM task_activities WHERE taskid=\"$taskid\" AND activityid=\"$activityid\"";
   $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", activityid=\"$newactivityid\", req_activity_id=\"$req_activity_id\", step=\"$step\", activitytype=\"$activitytype\", target_name=\"$target_name\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", description_override=\"$description_override\", npc_id=\"$npc_id\", npc_goal_id=\"$npc_goal_id\", npc_match_list=\"$npc_match_list\", item_goal_id=\"$item_goal_id\", item_id=\"$item_id\", item_id_list=\"$item_id_list\", item_list=\"$item_list\", dz_switch_id=\"$dz_switch_id\", min_x=\"$min_x\", min_y=\"$min_y\", min_z=\"$min_z\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", optional=\"$optional\"";
+  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", activityid=\"$newactivityid\", req_activity_id=\"$req_activity_id\", step=\"$step\", activitytype=\"$activitytype\", target_name=\"$target_name\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", description_override=\"$description_override\", npc_match_list=\"$npc_match_list\", item_id_list=\"$item_id_list\", item_list=\"$item_list\", dz_switch_id=\"$dz_switch_id\", min_x=\"$min_x\", min_y=\"$min_y\", min_z=\"$min_z\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", optional=\"$optional\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -669,17 +537,6 @@ function delete_tasks() {
   $mysql_content_db->query_no_result($query);
 }
 
-function delete_goallist() {
-  global $mysql_content_db;
-  
-  $listid = $_GET['lid'];
-  $entry = $_GET['entry'];
-
-  $query = "DELETE FROM goallists WHERE listid=\"$listid\" AND entry=\"$entry\"";
-  $mysql_content_db->query_no_result($query);
-
-}
-
 function delete_taskentry() {
   global $mysql_content_db;
   
@@ -688,7 +545,6 @@ function delete_taskentry() {
 
   $query = "DELETE FROM tasksets WHERE id=\"$id\" AND taskid=\"$taskid\"";
   $mysql_content_db->query_no_result($query);
-
 }
 
 function delete_taskset() {
@@ -698,36 +554,6 @@ function delete_taskset() {
 
   $query = "DELETE FROM tasksets WHERE id=\"$id\"";
   $mysql_content_db->query_no_result($query);
-
-}
-
-function delete_goallists() {
-  global $mysql_content_db;
-  
-  $listid = $_GET['lid'];
-  $tskid = $_GET['tskid'];
-
-  $query = "DELETE FROM goallists WHERE listid=\"$listid\"";
-  $mysql_content_db->query_no_result($query);
-
-  $query = "UPDATE tasks SET rewardid=0 WHERE id=\"$tskid\"";
-  $mysql_content_db->query_no_result($query);
-
-}
-
-function delete_goallists_act() {
-  global $mysql_content_db;
-  
-  $listid = $_GET['lid'];
-  $aid = $_GET['aid'];
-  $tskid = $_GET['tskid'];
-
-  $query = "DELETE FROM goallists WHERE listid=\"$listid\"";
-  $mysql_content_db->query_no_result($query);
-
-  $query = "UPDATE task_activities SET goalid=0 WHERE taskid=\"$tskid\" AND activityid=\"$aid\"";
-  $mysql_content_db->query_no_result($query);
-
 }
 
 function delete_proximity() {
@@ -742,7 +568,6 @@ function delete_proximity() {
 
   $query = "UPDATE task_activities SET goalid=0 WHERE taskid=\"$tskid\" AND activityid=\"$aid\"";
   $mysql_content_db->query_no_result($query);
-
 }
 
 function delete_activity() {
@@ -770,15 +595,6 @@ function suggest_activity_id() {
   $result = $mysql_content_db->query_assoc($query);
   
   return ($result['aid'] + 1);
-}
-
-function suggest_list_id() {
-  global $mysql_content_db;
-
-  $query = "SELECT MAX(listid) AS lid FROM goallists";
-  $result = $mysql_content_db->query_assoc($query);
-  
-  return ($result['lid'] + 1);
 }
 
 function suggest_explore_id() {
@@ -820,7 +636,7 @@ function add_tasks() {
   $duration_code = $_POST['duration_code'];
   $title = mysqli_real_escape_string($mysql_content_db, $_POST['title']);
   $description = mysqli_real_escape_string($mysql_content_db, $_POST['description']); 
-  $reward = mysqli_real_escape_string($mysql_content_db, $_POST['reward']);
+  $reward_text = mysqli_real_escape_string($mysql_content_db, $_POST['reward_text']);
   $completion_emote = mysqli_real_escape_string($mysql_content_db, $_POST['completion_emote']);
   $replay_timer_group = $_POST['replay_timer_group'];
   $replay_timer_seconds = $_POST['replay_timer_seconds'];
@@ -828,14 +644,14 @@ function add_tasks() {
   $request_timer_seconds = $_POST['request_timer_seconds'];
   $dz_template_id = $_POST['dz_template_id'];
   $lock_activity_id = $_POST['lock_activity_id'];
-  $rewardid = $_POST['rewardid'];
-  $cashreward = $_POST['cashreward'];
-  $xpreward = $_POST['xpreward'];
-  $rewardmethod = $_POST['rewardmethod'];
+  $reward_id_list = $_POST['reward_id_list'];
+  $cash_reward = $_POST['cash_reward'];
+  $exp_reward = $_POST['exp_reward'];
+  $reward_method = $_POST['reward_method'];
   $reward_points = $_POST['reward_points'];
   $reward_point_type = $_POST['reward_point_type'];
-  $minlevel = $_POST['minlevel'];
-  $maxlevel = $_POST['maxlevel'];
+  $min_level = $_POST['min_level'];
+  $max_level = $_POST['max_level'];
   $level_spread = $_POST['level_spread'];
   $min_players = $_POST['min_players'];
   $max_players = $_POST['max_players'];
@@ -843,7 +659,7 @@ function add_tasks() {
   $faction_reward = $_POST['faction_reward'];
   $faction_amount = $_POST['faction_amount'];
 
-  $query = "INSERT INTO tasks SET id=\"$id\", type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward=\"$reward\", rewardid=\"$rewardid\", cashreward=\"$cashreward\", xpreward=\"$xpreward\", rewardmethod=\"$rewardmethod\", reward_points=\"$reward_points\", reward_point_type=\"$reward_point_type\", minlevel=\"$minlevel\", maxlevel=\"$maxlevel\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_group=\"$replay_timer_group\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_group=\"$request_timer_group\", request_timer_seconds=\"$request_timer_seconds\", dz_template_id=\"$dz_template_id\", lock_activity_id=\"$lock_activity_id\", faction_amount=\"$faction_amount\"";
+  $query = "INSERT INTO tasks SET id=\"$id\", type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward_text=\"$reward_text\", reward_id_list=\"$reward_id_list\", cash_reward=\"$cash_reward\", exp_reward=\"$exp_reward\", reward_method=\"$reward_method\", reward_points=\"$reward_points\", reward_point_type=\"$reward_point_type\", min_level=\"$min_level\", max_level=\"$max_level\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_group=\"$replay_timer_group\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_group=\"$request_timer_group\", request_timer_seconds=\"$request_timer_seconds\", dz_template_id=\"$dz_template_id\", lock_activity_id=\"$lock_activity_id\", faction_amount=\"$faction_amount\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -859,11 +675,7 @@ function add_activity() {
   $goalmethod = $_POST['goalmethod']; 
   $goalcount = $_POST['goalcount'];
   $description_override = mysqli_real_escape_string($mysql_content_db, $_POST['description_override']);
-  $npc_id = $_POST['npc_id'];
-  $npc_goal_id = $_POST['npc_goal_id'];
   $npc_match_list = mysqli_real_escape_string($mysql_content_db, $_POST['npc_match_list']);
-  $item_id = $_POST['item_id'];
-  $item_goal_id = $_POST['item_goal_id'];
   $item_id_list = mysqli_real_escape_string($mysql_content_db, $_POST['item_id_list']);
   $item_list = mysqli_real_escape_string($mysql_content_db, $_POST['item_list']);
   $dz_switch_id = $_POST['dz_switch_id'];
@@ -880,36 +692,7 @@ function add_activity() {
   $zoneid = $_POST['zoneid'];
   $optional = $_POST['optional'];
 
-  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", activityid=\"$activityid\", req_activity_id=\"$req_activity_id\", step=\"$step\", activitytype=\"$activitytype\", target_name=\"$target_name\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", description_override=\"$description_override\", npc_id=\"$npc_id\", npc_goal_id=\"$npc_goal_id\", npc_match_list=\"$npc_match_list\", item_goal_id=\"$item_goal_id\", item_id=\"$item_id\", item_id_list=\"$item_id_list\", item_list=\"$item_list\", dz_switch_id=\"$dz_switch_id\", min_x=\"$min_x\", min_y=\"$min_y\", min_z=\"$min_z\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", optional=\"$optional\"";
-  $mysql_content_db->query_no_result($query);
-}
-
-function add_goallist() {
-  global $mysql_content_db;
-
-  $taskid = $_POST['taskid'];
-  $listid = $_POST['listid'];
-  $entry = $_POST['entry'];
-
-  $query = "INSERT INTO goallists SET listid=\"$listid\", entry=\"$entry\"";
-  $mysql_content_db->query_no_result($query);
-  
-  $query = "UPDATE tasks SET rewardid=\"$listid\" WHERE id=\"$taskid\"";
-  $mysql_content_db->query_no_result($query);
-}
-
-function add_goallist_act() {
-  global $mysql_content_db;
-
-  $taskid = $_POST['taskid'];
-  $listid = $_POST['listid'];
-  $entry = $_POST['entry'];
-  $aid = $_POST['aid'];
-
-  $query = "INSERT INTO goallists SET listid=\"$listid\", entry=\"$entry\"";
-  $mysql_content_db->query_no_result($query);
-  
-  $query = "UPDATE task_activities SET goalid=\"$listid\" WHERE taskid=\"$taskid\" AND activityid=\"$aid\"";
+  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", activityid=\"$activityid\", req_activity_id=\"$req_activity_id\", step=\"$step\", activitytype=\"$activitytype\", target_name=\"$target_name\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", description_override=\"$description_override\", npc_match_list=\"$npc_match_list\", item_id_list=\"$item_id_list\", item_list=\"$item_list\", dz_switch_id=\"$dz_switch_id\", min_x=\"$min_x\", min_y=\"$min_y\", min_z=\"$min_z\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", optional=\"$optional\"";
   $mysql_content_db->query_no_result($query);
 }
 
