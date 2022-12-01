@@ -6,12 +6,7 @@
           <legend><strong><font size="4">General</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-<?if($suggeststep > 1):?>
               <td align="left" width="18%">ID:<br><input type="text" name="activityid" size="5" value="<?=$suggestid?>"></td>
-<?endif;?> 
-<?if($suggestid == 1 && $suggeststep == 1):?>
-              <td align="left" width="18%">ID:<br><input type="text" name="activityid" size="5" value="0"></td>
-<?endif;?> 
               <td align="left" width="18%">Req ID:<br><input type="text" name="req_activity_id" size="5" value="-1"></td>
               <td align="left" width="18%">Step:<br><input type="text" name="step" size="5" value="<?=$suggeststep?>"></td>
               <td align="left" width="16%">

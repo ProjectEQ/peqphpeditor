@@ -131,7 +131,7 @@ switch ($action) {
       }
     }	
     break;
-  case 7: // Update activities
+  case 7: // Update activity
     check_authorization();
     update_activity();
     $tskid = $_POST['taskid'];
@@ -143,7 +143,7 @@ switch ($action) {
     $tskid = $_GET['tskid'];
     header("Location: index.php?editor=tasks&tskid=$tskid");
     exit;
-  case 9: // Get activity ID
+  case 9: // Add activity
     check_authorization();
     $body = new Template("templates/tasks/activity.add.tmpl.php");
     $body->set('tskid', $_GET['tskid']);
@@ -153,7 +153,7 @@ switch ($action) {
     $body->set('suggestid', suggest_activity_id());
     $body->set('suggeststep', suggest_step());
     break;
-  case 10: // Add activity
+  case 10: // Insert activity
     check_authorization();
     add_activity();
     $tskid = $_POST['taskid'];
@@ -593,8 +593,13 @@ function suggest_activity_id() {
 
   $query = "SELECT MAX(activityid) AS aid FROM task_activities WHERE taskid=\"$tskid\"";
   $result = $mysql_content_db->query_assoc($query);
-  
-  return ($result['aid'] + 1);
+
+  if ($result['aid'] == NULL) {
+    return 0;
+  }
+  else {
+    return $result['aid'] + 1;
+  }
 }
 
 function suggest_explore_id() {
@@ -620,8 +625,8 @@ function suggest_step() {
   $result = $mysql_content_db->query_assoc($query);
   
   if ($result['step'] == NULL) {
-    return 0;
-      }
+    return 1;
+  }
   else {
     return $result['step'] + 1;
   }
