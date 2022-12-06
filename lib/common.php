@@ -355,7 +355,13 @@ function getAccountName($acctid) {
   
   $query = "SELECT name FROM account WHERE id=$acctid";
   $result = $mysql->query_assoc($query);
-  return $result['name'];
+
+  if ($result) {
+    return $result['name'];
+  }
+  else {
+    return null;
+  }
 }
 
 function getAccountID($lsname) {

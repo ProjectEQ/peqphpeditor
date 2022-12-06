@@ -7,25 +7,6 @@ $bugstatus = array(
   3   => "Moved"
 );
 
-$flags = array(
-  0   => "None",
-  1   => "Duplicate",
-  2   => "Crash",
-  3   => "Duplicate/Crash",
-  4   => "Target",
-  5   => "Duplicate/Target",
-  6   => "Crash/Target",
-  7   => "Duplicate/Crash/Target",
-  8   => "Flags",
-  9   => "Duplicate/Flags",
-  10  => "Crash/Flags",
-  11  => "Duplicate/Crash/Flags",
-  12  => "Target/Flags",
-  13  => "Duplicate/Target/Flags",
-  14  => "Crash/Target/Flags",
-  15  => "Duplicate/Crash/Target/Flags"
-);
-
 $default_page = 1;
 $default_size = 50;
 $default_sort = 1;
@@ -63,11 +44,9 @@ switch ($action) {
     $body = new Template("templates/server/bugs.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $bugs = get_open_bugs($curr_page, $curr_size, $curr_sort);
-    $page_stats = getPageInfo("bugs", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null), "status = 0");
+    $page_stats = getPageInfo("bug_reports", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null), "bug_status=0");
     if ($bugs) {
-      foreach ($bugs as $key=>$value) {
-        $body->set($key, $value);
-      }
+      $body->set("bugs", $bugs);
       foreach ($page_stats as $key=>$value) {
         $body->set($key, $value);
       }
@@ -79,23 +58,23 @@ switch ($action) {
     break;
   case 2: // View Bug
     check_authorization();
-    $breadcrumbs .= " >> Bug Details";
+    $breadcrumbs .= " >> <a href='index.php?editor=server&action=1'>Bug Reports</a> >> Bug Details";
     $javascript = new Template("templates/server/js.tmpl.php");
-    $body = new Template("templates/server/bugs.view.tmpl.php");
+    $body = new Template("templates/server/bug.view.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $body->set("flags", $flags);
-    $bugs = view_bugs();
-    if ($bugs) {
-      foreach ($bugs as $key=>$value) {
+    $bug = get_bug($_GET['id']);
+    if ($bug) {
+      foreach ($bug as $key=>$value) {
         $body->set($key, $value);
       }
     }
     break;
    case 3: // Update Bug
     check_authorization();
-    update_bugs();
+    update_bug_status();
     if ($_POST['notify']) {
-      notify_status($bugstatus[$_POST['status']]);
+      notify_status($bugstatus[$_POST['bug_status']]);
     }
     header("Location: index.php?editor=server&action=1");
     exit;
@@ -108,11 +87,9 @@ switch ($action) {
     $body = new Template("templates/server/bugs.resolved.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $bugs = get_resolved_bugs($curr_page, $curr_size, $curr_sort);
-    $page_stats = getPageInfo("bugs", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null), "status != 0");
+    $page_stats = getPageInfo("bug_reports", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null), "bug_status != 0");
     if ($bugs) {
-      foreach ($bugs as $key=>$value) {
-        $body->set($key, $value);
-      }
+      $body->set("bugs", $bugs);
       foreach ($page_stats as $key=>$value) {
         $body->set($key, $value);
       }
@@ -124,7 +101,7 @@ switch ($action) {
     break;
    case 5: // Delete Bug
     check_authorization();
-    delete_bugs();
+    delete_bug($_GET['id']);
     header("Location: index.php?editor=server&action=4");
     exit;
    case 6: // Preview Hackers
@@ -682,21 +659,22 @@ switch ($action) {
     delete_char_create_combo($_GET['race'], $_GET['class'], $_GET['deity'], $_GET['start_zone']);
     header("Location: index.php?editor=server&action=56");
     exit;
+  case 75: // Add Bug Review
+    check_authorization();
+    $id = $_GET['id'];
+    add_bug_review();
+    header("Location: index.php?editor=server&id=$id&action=2");
 }
 
 function get_open_bugs($page_number, $results_per_page, $sort_by) {
   global $mysql;
   $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
 
-  $query = "SELECT id, zone, name, ui, x, y, z, type, flag, target, bug, date, status FROM bugs WHERE status = 0 ORDER BY $sort_by LIMIT $limit";
-  $result = $mysql->query_mult_assoc($query);
-  if ($result) {
-    foreach ($result as $result) {
-      $array['bugs'][$result['id']] = array("bid"=>$result['id'], "zone"=>$result['zone'], "name"=>$result['name'], "ui"=>$result['ui'], "x"=>$result['x'], "y"=>$result['y'], "z"=>$result['z'], "type"=>$result['type'], "flag"=>$result['flag'], "target"=>$result['target'], "bug"=>$result['bug'], "date"=>$result['date'], "status"=>$result['status']);
-    }
-  }
-  if (isset($array)) {
-    return $array;
+  $query = "SELECT * FROM bug_reports WHERE bug_status=0 ORDER BY $sort_by LIMIT $limit";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
   }
   else {
     return null;
@@ -707,15 +685,11 @@ function get_resolved_bugs($page_number, $results_per_page, $sort_by) {
   global $mysql;
   $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
 
-  $query = "SELECT id, zone, name, ui, x, y, z, type, flag, target, bug, date, status FROM bugs WHERE status != 0 ORDER BY $sort_by LIMIT $limit";
-  $result = $mysql->query_mult_assoc($query);
-  if ($result) {
-    foreach ($result as $result) {
-      $array['bugs'][$result['id']] = array("bid"=>$result['id'], "zone"=>$result['zone'], "name"=>$result['name'], "ui"=>$result['ui'], "x"=>$result['x'], "y"=>$result['y'], "z"=>$result['z'], "type"=>$result['type'], "flag"=>$result['flag'], "target"=>$result['target'], "bug"=>$result['bug'], "date"=>$result['date'], "status"=>$result['status']);
-    }
-  }
-  if (isset($array)) {
-    return $array;
+  $query = "SELECT * FROM bug_reports WHERE bug_status != 0 ORDER BY $sort_by LIMIT $limit";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
   }
   else {
     return null;
@@ -878,15 +852,18 @@ function get_variables() {
   return $array;
 }
 
-function view_bugs() {
+function get_bug($id) {
   global $mysql;
 
-  $bid = $_GET['bid'];
-
-  $query = "SELECT id AS bid, zone, name, ui, x, y, z, type, flag, target, bug, date, status FROM bugs where id = \"$bid\"";
+  $query = "SELECT * FROM bug_reports WHERE id=$id";
   $result = $mysql->query_assoc($query);
-  
-  return $result;
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
 }
 
 function view_hackers() {
@@ -988,13 +965,13 @@ function view_variable() {
   return $result;
 }
 
-function update_bugs() {
+function update_bug_status() {
   global $mysql;
 
-  $bid = $_POST['bid'];
-  $status = $_POST['status'];
+  $id = $_POST['id'];
+  $bug_status = $_POST['bug_status'];
 
-  $query = "UPDATE bugs SET status=\"$status\" WHERE id=\"$bid\"";
+  $query = "UPDATE bug_reports SET bug_status=$bug_status WHERE id=$id";
   $mysql->query_no_result($query);
 }
 
@@ -1074,12 +1051,10 @@ function update_variable() {
   $mysql->query_no_result($query);
 }
 
-function delete_bugs() {
+function delete_bug($id) {
   global $mysql;
 
-  $bid = $_GET['bid'];
-
-  $query = "DELETE FROM bugs WHERE id=\"$bid\"";
+  $query = "DELETE FROM bug_reports WHERE id=$id";
   $mysql->query_no_result($query);
 }
 
@@ -1248,20 +1223,20 @@ function suggest_launcher() {
 function notify_status($new_status) {
   global $mysql;
 
-  $bid = $_POST['bid'];
-  $bug_date = $_POST['bug_date'];
-  $bug = $_POST['bug'];
+  $id = $_POST['id'];
+  $report_datetime = $_POST['report_datetime'];
+  $bug_report = $_POST['bug_report'];
   $from = "SYSTEM";
-  $to = $_POST['name'];
-  $charid = getPlayerID($_POST['name']);
+  $to = $_POST['character_name'];
+  $character_id = $_POST['character_id'];
   $subject = "Bug Report Status Update";
   $note = $_POST['optional_note'];
-  $body = "This is a system generated message to notify you that the status of your bug report has changed.\nDo not reply to this message.\n\nBug ID: " . $bid . "\nNew Status: " . $new_status . "\nBug Date: " . $bug_date . "\nBug: " . $bug;
+  $body = "This is a system generated message to notify you that the status of your bug report has changed.\nDo not reply to this message.\n\nBug ID: " . $id . "\nNew Status: " . $new_status . "\nBug Date: " . $report_datetime . "\nBug: " . $bug_report;
   if ($note) {
     $body .= "\nAdmin Note: " . $note;
   }
 
-  $query = "INSERT INTO mail (`charid`,`timestamp`,`from`,`subject`,`body`,`to`,`status`) VALUES ($charid,UNIX_TIMESTAMP(NOW()),\"$from\",\"$subject\",\"$body\",\"$to\",1)";
+  $query = "INSERT INTO mail (`charid`, `timestamp`, `from`, `subject`, `body`, `to`, `status`) VALUES ($character_id, UNIX_TIMESTAMP(NOW()), \"$from\", \"$subject\", \"$body\", \"$to\", 1)";
   $mysql->query_no_result($query);
 }
 
@@ -1640,5 +1615,16 @@ function delete_char_create_combo($race, $class, $deity, $start_zone) {
 
   $query = "DELETE FROM char_create_combinations WHERE race=$race AND class=$class AND deity=$deity AND start_zone=$start_zone";
   $mysql_content_db->query_no_result($query);
+}
+
+function add_bug_review() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $new_reviewer = $_POST['new_reviewer'];
+  $new_review = $_POST['new_review'];
+
+  $query = "UPDATE bug_reports SET last_review=NOW(), last_reviewer=\"$new_reviewer\", reviewer_notes=\"$new_review\" WHERE id=$id";
+  $mysql->query_no_result($query);
 }
 ?>
