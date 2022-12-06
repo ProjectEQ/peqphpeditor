@@ -14,11 +14,11 @@ $default_sort = 1;
 $columns = array(
   1 => 'id',
   2 => 'zone',
-  3 => 'name',
-  4 => 'type',
-  5 => 'target',
-  6 => 'date',
-  7 => 'status'
+  3 => 'character_name',
+  4 => 'category_name',
+  5 => 'target_name',
+  6 => 'report_datetime',
+  7 => 'bug_status'
 );
 
 $columns1 = array(
