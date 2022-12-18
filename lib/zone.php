@@ -399,8 +399,8 @@ function update_zone() {
   if ($min_expansion != $_POST['min_expansion']) $fields .= "min_expansion=\"" . $_POST['min_expansion'] . "\", ";
   if ($max_expansion != $_POST['max_expansion']) $fields .= "max_expansion=\"" . $_POST['max_expansion'] . "\", ";
   if ($underworld_teleport_index != $_POST['underworld_teleport_index']) $fields .= "underworld_teleport_index=\"" . $_POST['underworld_teleport_index'] . "\", ";
-  if ($lava_damage != $_POST['lava_damage']) $fields .= "=\"lava_damage" . $_POST['lava_damage'] . "\", ";
-  if ($min_lava_damage != $_POST['min_lava_damage']) $fields .= "=\"min_lava_damage" . $_POST['min_lava_damage'] . "\", ";
+  if ($lava_damage != $_POST['lava_damage']) $fields .= "lava_damage=\"" . $_POST['lava_damage'] . "\", ";
+  if ($min_lava_damage != $_POST['min_lava_damage']) $fields .= "min_lava_damage=\"" . $_POST['min_lava_damage'] . "\", ";
 
   if ($content_flags != $_POST['content_flags']) {
     if ($_POST['content_flags'] == "") {
