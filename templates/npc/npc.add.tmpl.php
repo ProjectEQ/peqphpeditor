@@ -346,7 +346,10 @@
                 Faction Amt:<br>
                 <input type="text" size="10" name="faction_amount" value="0">
               </td>
-              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">
+                Keeps Sold Items:<br>
+                <input type="text" size="10" name="keeps_sold_items" value="1">
+              </td>
               <td align="left" width="17%">&nbsp;</td>
               <td align="left" width="16%">&nbsp;</td>
               <td align="left" width="16%">&nbsp;</td>

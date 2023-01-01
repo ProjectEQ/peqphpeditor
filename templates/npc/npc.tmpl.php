@@ -346,7 +346,7 @@ if ($loottable_id > 0) {
                   <tr>
                     <td align="left" width="33%">Flymode: <?=$flymodetype[$flymode]?></td>
                     <td align="left" width="33%">Stuck Behavior: <?=$stuck_behavior?></td>
-                    <td align="left" width="34%">&nbsp;</td>
+                    <td align="left" width="34%">Keeps Sold Items: <?=$keeps_sold_items?></td>
                   </tr>
                 </table>
               </fieldset>
@@ -464,6 +464,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="exp_mod" value="<?=$exp_mod?>">
         <input type="hidden" name="heroic_strikethrough" value="<?=$heroic_strikethrough?>">
         <input type="hidden" name="faction_amount" value="<?=$faction_amount?>">
+        <input type="hidden" name="keeps_sold_items" value="<?=$keeps_sold_items?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">
