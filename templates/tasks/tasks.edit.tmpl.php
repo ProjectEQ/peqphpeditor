@@ -61,7 +61,7 @@
           <legend><strong><font size="4">Completion</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="50%" colspan="2">Reward Text:<br><input type="text" name="reward_text" size="45" value="<?echo htmlentities($reward);?>"></td> 
+              <td align="left" width="50%" colspan="2">Reward Text:<br><input type="text" name="reward_text" size="45" value="<?echo (isset($reward)) ? htmlentities($reward) : "";?>"></td> 
               <td align="left" width="50%" colspan="2">
                 Reward Method:<br>
                 <select name="reward_method" style="width: 180px;">
