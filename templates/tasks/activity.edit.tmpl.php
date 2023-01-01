@@ -59,11 +59,11 @@
 <?endforeach;?>
                 </select>
               </td>
-              <td align="left" width="75%">NPC Match List:<br><input type="text" name="npc_match_list" size="80" value="<?echo htmlentities($npc_match_list);?>"></td>
+              <td align="left" width="75%">NPC Match List:<br><input type="text" name="npc_match_list" size="80" value="<?echo (isset($npc_match_list)) ? htmlentities($npc_match_list) : "";?>"></td>
             </tr>
             <tr>
               <td align="left" width="25%">Goal Count:<br><input type="text" name="goalcount" size="7" value="<?=$goalcount?>"></td>
-              <td align="left" width="75%">Item ID List:<br><input type="text" name="item_id_list" size="80" value="<?echo htmlentities($item_id_list);?>"></td>
+              <td align="left" width="75%">Item ID List:<br><input type="text" name="item_id_list" size="80" value="<?echo (isset($item_id_list)) ? htmlentities($item_id_list) : "";?>"></td>
             </tr>
           </table>
         </fieldset><br>
