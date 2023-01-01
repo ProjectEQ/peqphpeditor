@@ -73,7 +73,8 @@
                     LFP: <?=$yesno[$lfp]?><br>
                     Drunkness: <?=$intoxication?><br>
                     Toxicity: <?=$toxicity?><br>
-                    Autosplit: <?=$yesno[$autosplit_enabled]?>
+                    Autosplit: <?=$yesno[$autosplit_enabled]?><br>
+                    Exp Enabled: <?=$yesno[$exp_enabled]?> [<a href="index.php?editor=player&playerid=<?=$id?>&action=12">Change</a>]
                   </fieldset>
                 </td>
               </tr>

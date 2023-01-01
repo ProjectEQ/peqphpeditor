@@ -160,6 +160,12 @@ switch ($action) {
     delete_exp_modifier($playerid, $zoneid, $instance_version);
     header("Location: index.php?editor=player&playerid=$playerid");
     exit;
+  case 12: // Toggle Character Exp Enabled
+    check_admin_authorization();
+    $playerid = $_GET['playerid'];
+    toggle_exp_enabled($_GET['playerid']);
+    header("Location: index.php?editor=player&playerid=$playerid");
+    exit;
 }
 
 function get_players($page_number, $results_per_page, $sort_by) {
@@ -394,6 +400,21 @@ function delete_exp_modifier($character_id, $zone_id) {
   global $mysql;
 
   $query = "DELETE FROM character_exp_modifiers WHERE character_id=$character_id AND zone_id=$zone_id AND instance_version=$instance_version";
+  $mysql->query_no_result($query);
+}
+
+function toggle_exp_enabled($playerid) {
+  global $mysql;
+  $enabled = 0;
+
+  $query = "SELECT exp_enabled FROM character_data WHERE id=$playerid";
+  $result = $mysql->query_assoc($query);
+
+  if ($result['exp_enabled'] == 0) {
+    $enabled = 1;
+  }
+
+  $query = "UPDATE character_data SET exp_enabled=$enabled WHERE id=$playerid";
   $mysql->query_no_result($query);
 }
 ?>
