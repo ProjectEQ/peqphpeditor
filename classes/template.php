@@ -2,6 +2,7 @@
 
 class Template {
     var $vars; // Holds all the template variables
+    private $file; // Dynamic file template 
 
     /*
      * Constructor
