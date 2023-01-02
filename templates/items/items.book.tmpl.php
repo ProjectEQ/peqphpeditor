@@ -10,7 +10,7 @@
       <form name="booktext" method="post" action="index.php?editor=items&id=<?=$id?>&name=<?=$name?>&action=4">
         <table width="100%">
           <tr>
-            <td><textarea name="txtfile" rows="20" cols="100"><?=$txtfile?></textarea></td>
+            <td><textarea name="txtfile" rows="20" cols="88"><?=$txtfile?></textarea></td>
           </tr>
           <tr>
             <td>

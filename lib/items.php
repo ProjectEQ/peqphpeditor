@@ -135,7 +135,6 @@ switch ($action) {
   case 3: //Book Text
     $body = new Template("templates/items/items.book.tmpl.php");
     $breadcrumbs .= " >> Book Text";
-    $body->set('id', $_GET['id']);
     $body->set('name', $_GET['name']);
     $vars = book_info();
     if ($vars) {
