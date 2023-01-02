@@ -9,7 +9,7 @@ class session {
   public static function login($login, $pw) {
     global $mysql;
 
-    if ($_SESSION['guest'] == 1) {
+    if (isset($_SESSION['guest']) && $_SESSION['guest'] == 1) {
       return;
     }
 

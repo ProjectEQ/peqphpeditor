@@ -25,9 +25,9 @@
             <td align="left">
               <strong>Type</strong><br>
               <select name="type">
-                <option value="0"<?echo ($type == 0) ? " selected" : ""?>>Not Blocked</option>
-                <option value="1"<?echo ($type == 1) ? " selected" : ""?>>Zone Wide</option>
-                <option value="2"<?echo ($type == 2) ? " selected" : ""?>>Coords</option>
+                <option value="0">Not Blocked</option>
+                <option value="1">Zone Wide</option>
+                <option value="2">Coords</option>
               </select><br><br>
             </td>
           </tr>
@@ -58,7 +58,7 @@
           <tr>
             <td align="left" colspan="2">
               <strong>Description</strong><br>
-              <textarea name="description" cols="38" rows="2"><?=$description?></textarea><br><br>
+              <textarea name="description" cols="38" rows="2"></textarea><br><br>
             </td>
           </tr>
         </table>
