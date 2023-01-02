@@ -10,7 +10,7 @@
       <table class="table_content2" width="100%">
 <?
 $x = 0;
-if ($keys):
+if (isset($keys)):
 ?>
         <tr>
           <td align="center"><strong>Item</strong></td>

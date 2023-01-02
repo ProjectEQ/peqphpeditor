@@ -10,7 +10,7 @@
       <table class="table_content2" width="100%">
 <?
 $x = 0;
-if ($inventory || $shared_inventory):
+if (isset($inventory) || isset($shared_inventory)):
 ?>
         <tr>
           <td align="center"><strong>Slot</strong></td>
@@ -19,7 +19,7 @@ if ($inventory || $shared_inventory):
         </tr>
 <?
 endif;
-if ($inventory):
+if (isset($inventory)):
   foreach ($inventory as $inv):
     extract($inv);
 ?>
@@ -32,7 +32,7 @@ if ($inventory):
     $x++;
   endforeach;
 endif;
-if ($shared_inventory):
+if (isset($shared_inventory)):
   foreach ($shared_inventory as $s_inv):
     extract($s_inv);
 ?>

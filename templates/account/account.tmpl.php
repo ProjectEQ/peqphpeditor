@@ -2,7 +2,7 @@
     <div class="table_header">
       <div style="float:right">
         <a onClick="javascript:alert('Not yet!');"><img src="images/c_table.gif" border="0" title="Edit this Account"></a>
-<?if ($character_array) {
+<?if (isset($character_array)) {
     echo '<a onClick="javascript:alert(\'Unable to delete account yet. Delete all characters associated with this account first!\');"><img src="images/table.gif" border="0" title="Characters Still Exist on this Account!"></a>';
   }
   else {
@@ -13,7 +13,7 @@
       <?=$id?> - <?echo trim($name);?>
     </div>
     <div class="table_content">
-<?if ($online) echo "<h2><center><font color='red'>WARNING! THIS ACCOUNT IS ONLINE...</font></center></h2>";?>
+<?if (isset($online)) echo "<h2><center><font color='red'>WARNING! THIS ACCOUNT IS ONLINE...</font></center></h2>";?>
       <table cellspacing="0" border="0" width="100%">
         <tr>
           <td width="100%">
