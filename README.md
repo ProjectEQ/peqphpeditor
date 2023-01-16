@@ -2,7 +2,7 @@
 
 #### IMPORTANT NOTE: Apache 2.2 and PHP 5.6 and earlier are deprecated. Support for these versions is no longer provided and all references will be removed in future updates.
 
-### Requirements
+### Minimum Requirements
 * Apache 2.4
 * PHP 7
 * MySQL 5 or MariaDB 10
