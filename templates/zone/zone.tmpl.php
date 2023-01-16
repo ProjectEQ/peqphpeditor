@@ -96,23 +96,28 @@
                 <table width="100%" border="0" cellpadding="3" cellspacing="0">
                   <tr>
                     <td align="left" width="33%">Min Level: <?=$min_level?></td>
-                    <td align="left" width="33%">Min Status: <?=$min_status?></td>
-                    <td align="left" width="34%">Max Clients: <?=$maxclients?></td>
+                    <td align="left" width="33%">Max Level: <?=$max_level?></td>
+                    <td align="left" width="34%">Min Status: <?=$min_status?></td>
                   </tr>
                   <tr>
+                    <td align="left" width="33%">Max Clients: <?=$maxclients?></td>
                     <td align="left" width="33%">Flag: <?echo ($flag_needed != "") ? $flag_needed : "No";?></td>
-                    <td align="left" width="33%">Bind: <?=$bindallowed[$canbind]?></td>
-                    <td align="left" width="34%">Levitate: <?=$yesno[$canlevitate]?></td>
+                    <td align="left" width="34%">Bind: <?=$bindallowed[$canbind]?></td>
                   </tr>
                   <tr>
+                    <td align="left" width="33%">Levitate: <?=$yesno[$canlevitate]?></td>
                     <td align="left" width="33%">Outdoor: <?=$yesno[$castoutdoor]?></td>
-                    <td align="left" width="33%">Combat: <?=$yesno[$cancombat]?></td>
-                    <td align="left" width="34%">PEQZone: <?=$yesno[$peqzone]?></td>
+                    <td align="left" width="34%">Combat: <?=$yesno[$cancombat]?></td>
                   </tr>
                   <tr>
+                    <td align="left" width="33%">PEQZone: <?=$yesno[$peqzone]?></td>
                     <td align="left" width="33%">Expansion Flags: <?echo ($min_expansion > 0 || $max_expansion > 0) ? "Yes" : "No";?></td>
-                    <td align="left" width="33%">Content Flags: <?echo ($content_flags != "" || $content_flags_disabled != "") ? "Yes" : "No";?>
-                    <td align="left" width="34%">Bypass Exp: <?echo ($bypass_expansion_check == 1) ? "Yes" : "No";?></td>
+                    <td align="left" width="34%">Content Flags: <?echo ($content_flags != "" || $content_flags_disabled != "") ? "Yes" : "No";?></td>
+                  </tr>
+                    <td align="left" width="33%">Bypass Exp: <?echo ($bypass_expansion_check == 1) ? "Yes" : "No";?></td>
+                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="34%">&nbsp;</td>
+                  <tr>
                   </tr>
                 </table>
               </fieldset>

@@ -106,10 +106,11 @@
               <legend><strong><font size="3">Restrictions</font></strong></legend>
               <table width="100%" border="0" cellpadding="3" cellspacing="0">
                 <tr>
-                  <td align="left" width="20%">Level:<br><input type="text" name="min_level" size="7" value="<?=$min_level?>"></td>
-                  <td align="left" width="20%">Status:<br><input type="text" name="min_status" size="7" value="<?=$min_status?>"></td>
+                  <td align="left" width="20%">Min Level:<br><input type="text" name="min_level" size="7" value="<?=$min_level?>"></td>
+                  <td align="left" width="20%">Max Level:<br><input type="text" name="max_level" size="7" value="<?=$max_level?>"></td>
+                  <td align="left" width="20%">Min Status:<br><input type="text" name="min_status" size="7" value="<?=$min_status?>"></td>
                   <td align="left" width="20%">Max Clients:<br><input type="text" name="maxclients" size="7" value="<?=$maxclients?>"></td>
-                  <td align="left" width="20%" colspan="2">Flag:<br><input type="text" name="flag_needed" size="15" value="<?=$flag_needed?>"></td>
+                  <td align="left" width="20%">Flag:<br><input type="text" name="flag_needed" size="15" value="<?=$flag_needed?>"></td>
                 </tr>
                 <tr>
                   <td align="left" width="20%">
