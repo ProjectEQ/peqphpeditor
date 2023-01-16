@@ -7,9 +7,9 @@
 * PHP 7
 * MySQL 5 or MariaDB 10
 
-*For more help on getting Apache, PHP, or the Editor itself set up, visit us on Discord at https://discord.com/channels/212663220849213441/926285855457435658*
+*For more help on getting Apache, PHP, or the Editor itself set up, visit us on Discord at https://discord.com/channels/212663220849213441/1019660515523440701*
 
-For Linux users, note the following.
+For Linux users, note the following:
 * Permissions: If you choose to store these files outside of your normal html directory, ensure your symbolic link and physical folder have the same permissions. (Recommend 755 for folders and 644 for files)
 * AutoUpdate: You can set the AutoUpdate file with the execute flag and run to pull the latest from git and fix permissions if any were changed.
 
@@ -27,6 +27,6 @@ For Linux users, note the following.
 
 6) The default username/password for the editor is admin/password.  If you want to add a user other than the default user, you can do so via the "admin" link, by the "logout" link, after you log in.
 
-7) Open up index.php in your web browser and have fun!
+7) Navigate to index.php in your web browser and have fun!
 
 
