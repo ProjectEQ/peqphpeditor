@@ -12,7 +12,10 @@
                 <strong>Chance:</strong><br>
                 <input type="text" size="5" name="chance" value="<?=$chance?>">%
               </td>
-              <td>&nbsp;</td>
+              <td>
+                <strong>Condtion Value Filter:</strong><br>
+                <input type="text" size="5" name="condition_value_filter" value="<?=$condition_value_filter?>">
+              </td>
             </tr>
             <tr>
               <td>
@@ -38,7 +41,8 @@
           <center>
             <input type="hidden" name="sgnpcid" value="<?=$sgnpcid?>">
             <input type="hidden" name="spawngroupID" value="<?=$spawngroupID?>">
-            <input type="submit" name="submit" value="Submit Changes">
+            <input type="submit" name="submit" value="Submit Changes">&nbsp;
+            <input type="button" value="Cancel" onClick="history.back();">
           </center>
         </form>
       </div>
