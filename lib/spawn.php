@@ -1591,6 +1591,7 @@ function add_spawngroup() {
   $name = $_POST['name'];
   $npcID = $_POST['npcID'];
   $chance = ($_POST['chance'] >= 0 && $_POST['chance'] <= 100) ? $_POST['chance'] : 100;
+  $condition_value_filter = $_POST['condition_value_filter'];
   $min_expansion = $_POST['min_expansion'];
   $max_expansion = $_POST['max_expansion'];
   $content_flags = $_POST['content_flags'];
