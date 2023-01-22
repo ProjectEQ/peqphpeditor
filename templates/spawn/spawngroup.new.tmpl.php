@@ -27,6 +27,13 @@
           </tr>
           <tr>
             <td>
+              Condition Value Filter:<br>
+              <input type="text" name="condition_value_filter" size="5" value="1">
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>
               Min Expansion:<br>
               <input type="text" name="min_expansion" size="10" value="-1">
             </td>
