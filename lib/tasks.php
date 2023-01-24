@@ -21,7 +21,6 @@ $rewardmethods = array(
 );
 
 $activitytypes = array(
- -1   => "Unknown",
   0   => "None",
   1   => "Deliver",
   2   => "Kill",
