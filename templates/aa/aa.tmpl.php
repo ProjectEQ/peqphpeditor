@@ -298,7 +298,7 @@ if ($ranks) {
 <?
   foreach ($eqexpansions as $k => $v) {
 ?>
-                                <option value="<?=$k?>"<?echo ($rank['expansion'] + 1 == $k) ? " selected" : "";?>><?=$v?></option>
+                                <option value="<?=$k?>"<?echo ($rank['expansion'] == $k) ? " selected" : "";?>><?=$v?></option>
 <?
   }
 ?>

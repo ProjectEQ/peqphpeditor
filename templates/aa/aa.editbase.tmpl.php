@@ -171,18 +171,18 @@
                     <td>
                       Expansion:<br>
                       <select class="left" name="aa_expansion" style="width:150px;" onchange="updateRawExpansion(this.value);">
-<? for ($i=0; isset($eqexpansions[$i+1]); $i++) {?>
-                        <option value="<?=$i?>"<?if($aa_vars['aa_expansion'] == $i) echo " selected"?>><? echo "$i: {$eqexpansions[$i+1]}";?></option>
+<? for ($i=0; isset($eqexpansions[$i]); $i++) {?>
+                        <option value="<?=$i?>"<?if($aa_vars['aa_expansion'] == $i) echo " selected"?>><? echo "$i: {$eqexpansions[$i]}";?></option>
 <? } ?>
 <? foreach($aa_sof_expansion as $key => $val) {?>
                         <option value="<?=$key?>"<?if($aa_vars['aa_expansion'] == $key) echo " selected"?>><?echo "$val"?></option>
 <? } ?>
-                        <option value="useraw"<?if(!(($eqexpansions[$aa_vars['aa_expansion']+1]) || ($aa_sof_expansion[$aa_vars['aa_expansion']]))) echo " selected";?>>Use Raw</option>
+                        <option value="useraw"<?if(!(($eqexpansions[$aa_vars['aa_expansion']]) || ($aa_sof_expansion[$aa_vars['aa_expansion']]))) echo " selected";?>>Use Raw</option>
                       </select><br>
                     </td>
                     <td>
                       Raw:<br>
-                      <input type="text" name="raw_aa_expansion" size="5" value="<?echo "{$aa_vars['aa_expansion']}";?>"<?echo (($eqexpansions[$aa_vars['aa_expansion']+1]) || ($aa_sof_expansion[$aa_vars['aa_expansion']])) ? " disabled" : "";?>><br>
+                      <input type="text" name="raw_aa_expansion" size="5" value="<?echo "{$aa_vars['aa_expansion']}";?>"<?echo (($eqexpansions[$aa_vars['aa_expansion']]) || ($aa_sof_expansion[$aa_vars['aa_expansion']])) ? " disabled" : "";?>><br>
                     </td>
                   </tr>
                 </table><br>

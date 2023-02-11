@@ -410,7 +410,7 @@ function update_aa_rank() {
   $spell = $_POST['spell'];
   $spell_type = $_POST['spell_type'];
   $recast_time = $_POST['recast_time'];
-  $expansion = $_POST['expansion'] - 1;
+  $expansion = $_POST['expansion'];
   $prev_id = $_POST['prev_id'];
   $next_id = $_POST['next_id'];
 
