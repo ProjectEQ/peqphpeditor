@@ -15,8 +15,8 @@ $alarmtype = array(
 
 switch ($action) {
   case 0:
+    $body = new Template("templates/misc/misc.default.tmpl.php");
     if ($z) {
-      $body = new Template("templates/misc/misc.default.tmpl.php");
       $body->set('currzone', $z);
       $body->set('currzoneid', $zoneid);
     }
@@ -523,6 +523,68 @@ switch ($action) {
     check_authorization();
     delete_objects_ver();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=41");
+    exit;
+  case 63: // LDoN Traps
+    $breadcrumbs .= " >> LDoN Traps";
+    $body = new Template("templates/misc/ldon.traps.default.tmpl.php");
+    break;
+  case 64: // View LDoN Trap Templates
+    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=63'>LDoN Traps</a> >> LDoN Trap Templates";
+    $body = new Template("templates/misc/ldon.trap.templates.view.tmpl.php");
+    $templates = get_ldon_trap_templates();
+    if ($templates) {
+      $body->set('templates', $templates);
+      $body->set('yesno', $yesno);
+    }
+    break;
+  case 65: // Add LDoN Trap Template
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=63'>LDoN Traps</a> >> <a href='index.php?editor=misc&action=64'>LDoN Trap Templates</a> >> Add Template";
+    $body = new Template("templates/misc/ldon.trap.template.add.tmpl.php");
+    $body->set('suggest_id', suggest_ldon_trap_template_id());
+    break;
+  case 66: // Insert LDoN Trap Template
+    check_authorization();
+    insert_ldon_trap_template();
+    header("Location: index.php?editor=misc&action=64");
+    exit;
+  case 67: // Edit LDoN Trap Template
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=63'>LDoN Traps</a> >> <a href='index.php?editor=misc&action=64'>LDoN Trap Templates</a> >> Edit Template";
+    $body = new Template("templates/misc/ldon.trap.template.edit.tmpl.php");
+    $body->set('template', get_ldon_trap_template($_GET['id']));
+    break;
+  case 68: // Update LDoN Trap Template
+    check_authorization();
+    header("Location: index.php?editor=misc&action=64");
+    exit;
+  case 69: // Delete LDoN Trap Template
+    check_authorization();
+    delete_ldon_trap_template($_GET['id']);
+    header("Location: index.php?editor=misc&action=64");
+    exit;
+  case 70: // View LDoN Trap Entries
+    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=63'>LDoN Traps</a> >> LDoN Trap Entries";
+    $body = new Template("templates/misc/ldon.trap.entries.view.tmpl.php");
+    $entries = get_ldon_trap_entries();
+    if ($entries) {
+      $body->set('entries', $entries);
+    }
+    break;
+  case 71: // Add LDoN Trap Entry
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=63'>LDoN Traps</a> >> <a href='index.php?editor=misc&action=70'>LDoN Trap Entries</a> >> Add Entry";
+    $body = new Template("templates/misc/ldon.trap.entry.add.tmpl.php");
+    break;
+  case 72: // Insert LDoN Trap Entry
+    check_authorization();
+    insert_ldon_trap_entry();
+    header("Location: index.php?editor=misc&action=70");
+    exit;
+  case 73: // Delete LDoN Trap Entry
+    check_authorization();
+    delete_ldon_trap_entry($_GET['id'], $_GET['trap_id']);
+    header("Location: index.php?editor=misc&action=70");
     exit;
 }
 
@@ -1639,6 +1701,116 @@ function delete_objects_ver() {
   $object_version = $_POST['object_version'];
 
   $query = "DELETE FROM object WHERE version=\"$object_version\" AND zoneid=\"$zid\"";
+  $mysql_content_db->query_no_result($query);
+}
+
+function get_ldon_trap_templates() {
+  global $mysql_content_db;
+
+  $query = "SELECT * FROM ldon_trap_templates";
+  $results = $mysql_content_db->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function get_ldon_trap_template($id) {
+  global $mysql_content_db;
+
+  $query = "SELECT * FROM ldon_trap_templates WHERE id=$id";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+
+function insert_ldon_trap_template() {
+  global $mysql_content_db;
+
+  $id = $_POST['id'];
+  $type = $_POST['type'];
+  $spell_id = $_POST['spell_id'];
+  $skill = $_POST['skill'];
+  $locked = $_POST['locked'];
+
+  $query = "INSERT INTO ldon_trap_templates SET id=$id, type=$type, spell_id=$spell_id, skill=$skill, locked=$locked";
+  $mysql_content_db->query_no_result($query);
+}
+
+function update_ldon_trap_template() {
+  global $mysql_content_db;
+
+  $id = $_POST['id'];
+  $type = $_POST['type'];
+  $spell_id = $_POST['spell_id'];
+  $skill = $_POST['skill'];
+  $locked = $_POST['locked'];
+
+  $query = "UPDATE ldon_trap_templates SET type=$type, spell_id=$spell_id, skill=$skill, locked=$locked WHERE id=$id";
+  $mysql_content_db->query_no_result($query);
+}
+
+function delete_ldon_trap_template($id) {
+  global $mysql_content_db;
+
+  $query = "DELETE FROM ldon_trap_entries WHERE trap_id=$id";
+  $mysql_content_db->query_no_result($query);
+
+  $query = "DELETE FROM ldon_trap_templates WHERE id=$id";
+  $mysql_content_db->query_no_result($query);
+}
+
+function suggest_ldon_trap_template_id() {
+  global $mysql_content_db;
+
+  $query = "SELECT MAX(id) AS id FROM ldon_trap_templates";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result['id'] + 1;
+  }
+  else {
+    return 1;
+  }
+}
+
+function get_ldon_trap_entries() {
+  global $mysql_content_db;
+
+  $query = "SELECT * FROM ldon_trap_entries";
+  $results = $mysql_content_db->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function insert_ldon_trap_entry() {
+  global $mysql_content_db;
+
+  $id = $_POST['id'];
+  $trap_id = $_POST['trap_id'];
+
+  $query = "INSERT INTO ldon_trap_entries SET id=$id, trap_id=$trap_id";
+  $mysql_content_db->query_no_result($query);
+}
+
+function delete_ldon_trap_entry($id, $trap_id) {
+  global $mysql_content_db;
+
+  $query = "DELETE FROM ldon_trap_entries WHERE id=$id AND trap_id=$trap_id";
   $mysql_content_db->query_no_result($query);
 }
 ?>
