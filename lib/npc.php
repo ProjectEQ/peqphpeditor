@@ -1359,7 +1359,7 @@ function update_npc() {
   //npc_spells_effects_id
   //npc_faction_id
   //adventure_template_id
-  //trap_template
+  if ($trap_template != $_POST['trap_template']) $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
   if ($mindmg != $_POST['mindmg']) $fields .= "mindmg=\"" . $_POST['mindmg'] . "\", ";
   if ($maxdmg != $_POST['maxdmg']) $fields .= "maxdmg=\"" . $_POST['maxdmg'] . "\", ";
   if ($attack_count != $_POST['attack_count']) $fields .= "attack_count=\"" . $_POST['attack_count'] . "\", ";
@@ -1443,13 +1443,15 @@ function update_npc() {
   //unique_
   //fixed
   if ($ignore_despawn != $_POST['ignore_despawn']) $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\", ";
+  //show_name
+  //untargetable
   if ($charm_ac != $_POST['charm_ac']) $fields .= "charm_ac=\"" . $_POST['charm_ac'] . "\", ";
   if ($charm_min_dmg != $_POST['charm_min_dmg']) $fields .= "charm_min_dmg=\"" . $_POST['charm_min_dmg'] . "\", ";
   if ($charm_max_dmg != $_POST['charm_max_dmg']) $fields .= "charm_max_dmg=\"" . $_POST['charm_max_dmg'] . "\", ";
-  if ($charm_atk != $_POST['charm_atk']) $fields .= "charm_atk=\"" . $_POST['charm_atk'] . "\", ";
   if ($charm_attack_delay != $_POST['charm_attack_delay']) $fields .= "charm_attack_delay=\"" . $_POST['charm_attack_delay'] . "\", ";
   if ($charm_accuracy_rating != $_POST['charm_accuracy_rating']) $fields .= "charm_accuracy_rating=\"" . $_POST['charm_accuracy_rating'] . "\", ";
   if ($charm_avoidance_rating != $_POST['charm_avoidance_rating']) $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\", ";
+  if ($charm_atk != $_POST['charm_atk']) $fields .= "charm_atk=\"" . $_POST['charm_atk'] . "\", ";
   if ($skip_global_loot != $_POST['skip_global_loot']) $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
   if ($rare_spawn != $_POST['rare_spawn']) $fields .= "rare_spawn=\"" . $_POST['rare_spawn'] . "\", ";
   if ($stuck_behavior != $_POST['stuck_behavior']) $fields .= "stuck_behavior=\"" . $_POST['stuck_behavior'] . "\", ";
@@ -1519,7 +1521,7 @@ function add_npc() {
   //npc_spells_effects_id
   //npc_faction_id
   //adventure_template_id
-  //trap_template
+  $fields .= "trap_template=\"" . $_POST['trap_template'] . "\", ";
   $fields .= "mindmg=\"" . $_POST['mindmg'] . "\", ";
   $fields .= "maxdmg=\"" . $_POST['maxdmg'] . "\", ";
   $fields .= "attack_count=\"" . $_POST['attack_count'] . "\", ";
@@ -1603,13 +1605,15 @@ function add_npc() {
   //unique_
   //fixed
   $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\", ";
+  //show_name
+  //untargetable
   $fields .= "charm_ac=\"" . $_POST['charm_ac'] . "\", ";
   $fields .= "charm_min_dmg=\"" . $_POST['charm_min_dmg'] . "\", ";
   $fields .= "charm_max_dmg=\"" . $_POST['charm_max_dmg'] . "\", ";
-  $fields .= "charm_atk=\"" . $_POST['charm_atk'] . "\", ";
   $fields .= "charm_attack_delay=\"" . $_POST['charm_attack_delay'] . "\", ";
   $fields .= "charm_accuracy_rating=\"" . $_POST['charm_accuracy_rating'] . "\", ";
   $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\", ";
+  $fields .= "charm_atk=\"" . $_POST['charm_atk'] . "\", ";
   $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
   $fields .= "rare_spawn=\"" .$_POST['rare_spawn'] . "\", ";
   $fields .= "stuck_behavior=\"" .$_POST['stuck_behavior'] . "\", ";
@@ -1742,13 +1746,15 @@ function copy_npc() {
   //unique_
   //fixed
   $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\", ";
+  //show_name
+  //untargetable
   $fields .= "charm_ac=\"" . $_POST['charm_ac'] . "\", ";
   $fields .= "charm_min_dmg=\"" . $_POST['charm_min_dmg'] . "\", ";
   $fields .= "charm_max_dmg=\"" . $_POST['charm_max_dmg'] . "\", ";
-  $fields .= "charm_atk=\"" . $_POST['charm_atk'] . "\", ";
   $fields .= "charm_attack_delay=\"" . $_POST['charm_attack_delay'] . "\", ";
   $fields .= "charm_accuracy_rating=\"" . $_POST['charm_accuracy_rating'] . "\", ";
   $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\", ";
+  $fields .= "charm_atk=\"" . $_POST['charm_atk'] . "\", ";
   $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
   $fields .= "rare_spawn=\"" . $_POST['rare_spawn'] . "\", ";
   $fields .= "stuck_behavior=\"" . $_POST['stuck_behavior'] . "\", ";

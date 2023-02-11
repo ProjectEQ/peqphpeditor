@@ -360,7 +360,10 @@
                 Keeps Sold Items:<br>
                 <input type="text" size="10" name="keeps_sold_items" value="<?=$keeps_sold_items?>">
               </td>
-              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">
+                Trap Template:<br>
+                <input type="text" size="10" name="trap_template" value="<?=$trap_template?>">
+              </td>
               <td align="left" width="16%">&nbsp;</td>
               <td align="left" width="16%">&nbsp;</td>
             </tr>

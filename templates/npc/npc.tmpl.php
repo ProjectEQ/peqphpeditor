@@ -348,6 +348,11 @@ if ($loottable_id > 0) {
                     <td align="left" width="33%">Stuck Behavior: <?=$stuck_behavior?></td>
                     <td align="left" width="34%">Keeps Sold Items: <?=$keeps_sold_items?></td>
                   </tr>
+                  <tr>
+                    <td align="left" width="33%">Trap Template: <?=$trap_template?></td>
+                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="34%">&nbsp;</td>
+                  </tr>
                 </table>
               </fieldset>
             </td>
