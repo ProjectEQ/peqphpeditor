@@ -11,7 +11,7 @@ $genders = array(
  2 => "Neuter"
 );
 
-$bodytypes = array (
+$bodytypes = array(
  0   => 'Object', // Catapults, Tents, Practice Dummies, etc.
  1   => 'Humanoid',
  2   => 'Lycanthrope',
@@ -118,7 +118,7 @@ $bodytypes = array (
  103 => 'Property Suicide'
 );
 
-$races = array (
+$races = array(
  0   => 'Doug',
  1   => 'Human',
  2   => 'Barbarian',
@@ -847,7 +847,7 @@ $races = array (
  2250 => 'Interactive Object'
 );
 
-$classes = array (
+$classes = array(
  0  => 'Soldier',
  1  => 'Warrior',
  2  => 'Cleric',
@@ -1119,7 +1119,7 @@ $world_containers = array(
  255 => "TAANAN?"
 );
 
-$skilltypes = array (
+$skilltypes = array(
 -1  => 'None',
  0  => '1H Blunt',
  1  => '1H Slashing',
@@ -1305,7 +1305,7 @@ $itemtypes= array(
  70 => "Familiar"
 );
 
-$itemsaugrestrict = array (
+$itemsaugrestrict = array(
  0  => "None",
  1  => "Armor Only",
  2  => "Weapons Only",
@@ -1323,7 +1323,7 @@ $itemsaugrestrict = array (
  14 => "1H Slash, 1H Blunt, or Hand to Hand Only"
 );
 
-$deities = array (
+$deities = array(
  201 => "Bertoxxulous",
  202 => "Brell Serilis",
  203 => "Cazic-Thule",
@@ -1343,13 +1343,13 @@ $deities = array (
  396 => "Agnostic"
 );
 
-$anonymity = array (
+$anonymity = array(
  0 => "No",
  1 => "Anonymous",
  2 => "Roleplay"
 );
 
-$zoneids = array (
+$zoneids = array(
  0   => 'NONE',
  1   => 'qeynos',
  2   => 'qeynos2',
@@ -1894,7 +1894,7 @@ $zoneids = array (
  999 => 'apprentice'
 );
 
-$eqexpansions = array (
+$eqexpansions = array(
  -1 => 'All',
   0 => 'Original EverQuest',
   1 => 'Ruins of Kunark',
@@ -1926,14 +1926,14 @@ $eqexpansions = array (
  99 => 'Other'
 );
 
-$permissions = array (
+$permissions = array(
  0 => "Banker Only",
  1 => "Single Member",
  2 => "Public if Usable",
  3 => "Public"
 );
 
-$langtypes = array (
+$langtypes = array(
   0 => "Common Tongue",
   1 => "Barbarian",
   2 => "Erudian",
@@ -1964,7 +1964,7 @@ $langtypes = array (
  27 => "UNK"
 );
 
-$expansions2_long = array (
+$expansions2_long = array(
 -1  => 'All Expansions',
  0  => 'Classic Everquest',
  1  => 'Ruins of Kunark',
@@ -1995,7 +1995,7 @@ $expansions2_long = array (
  26 => 'Torment of Velious'
 );
 
-$expansions2_short = array (
+$expansions2_short = array(
 -1  => 'All',
  0  => 'EQ',
  1  => 'RoK',
@@ -2024,5 +2024,41 @@ $expansions2_short = array (
  24 => 'RoS',
  25 => 'TBL',
  26 => 'ToV'
+);
+
+$clients = array(
+ 0 => 'Unknown',
+ 1 => 'Client62',
+ 2 => 'Titanium',
+ 3 => 'SoF',
+ 4 => 'SoD',
+ 5 => 'UF',
+ 6 => 'RoF',
+ 7 => 'RoF2'
+);
+
+$spelltypes = array(
+  1   => "Nuke",
+  2   => "Heal",
+  4   => "Root",
+  8   => "Buff",
+  16  => "Escape",
+  32  => "Pet",
+  64  => "Lifetap",
+  128 => "Snare",
+  256 => "DOT",
+  512 => "Dispel",
+  1024 => "In-Combat Buff",
+  2048 => "Mez",
+  4096 => "Charm",
+  8192 => "Slow",
+  16384 => "Debuff",
+  32768 => "Cure",
+  65536 => "Resurrect",
+  131072 => "Hate Redux",
+  262144 => "In Combat Buff Song",
+  524288 => "Out of Combat Buff Song",
+  1048576 => "Pre-Combat Buff",
+  2097152 => "Pre-Combat Buff Song"
 );
 ?>
