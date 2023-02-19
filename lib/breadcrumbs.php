@@ -104,6 +104,10 @@ switch ($editor) {
     break;
   case 'mercs':
     $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Mercenaries</a>";
+    break;
+  case 'chat':
+    $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Chat Channels</a>";
+    break;
 }
 
 if (isset($z) && $z != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&z=" . $z . "&zoneid=" . $zoneid . "'>" . getZoneLongName($z, getZoneVersion($zoneid)) . "</a>";

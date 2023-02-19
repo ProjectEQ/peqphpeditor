@@ -1,7 +1,7 @@
 <?php
 
 $current_revision = "18 February 2023";
-$current_db_version = 9216;
+$current_db_version = 9217;
 
 require_once("config.php");
 require_once("lib/logging.php");
@@ -151,6 +151,9 @@ switch ($editor) {
     break;
   case 'mercs':
     require_once('lib/mercs.php');
+    break;
+  case 'chat':
+    require_once('lib/chat.php');
     break;
 }
 
