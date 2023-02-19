@@ -201,16 +201,16 @@ function get_merchantlist() {
   if ($results) {
     foreach ($results as $result) {
       $result['item_name'] = 'Item not in DB';
-      $array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name'], "faction_required"=>$result['faction_required'], "level_required"=>$result['level_required'], "alt_currency_cost"=>$result['alt_currency_cost'], "classes_required"=>$result['classes_required'], "probability"=>$result['probability'], "bucket_name"=>$result['bucket_name'], "bucket_value"=>$result['bucket_value'], "bucket_comparison"=>$result['bucket_comparison'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
+      $array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name'], "faction_required"=>$result['faction_required'], "level_required"=>$result['level_required'], "min_status"=>$result['min_status'], "max_status"=>$result['max_status'], "alt_currency_cost"=>$result['alt_currency_cost'], "classes_required"=>$result['classes_required'], "probability"=>$result['probability'], "bucket_name"=>$result['bucket_name'], "bucket_value"=>$result['bucket_value'], "bucket_comparison"=>$result['bucket_comparison'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
     }
   }
 
-  $query = "SELECT m.merchantid, m.slot, m.item, i.price, i.sellrate, m.faction_required, m.level_required, m.alt_currency_cost, m.classes_required, m.probability, m.bucket_name, m.bucket_value, m.bucket_comparison, m.min_expansion, m.max_expansion, m.content_flags, m.content_flags_disabled FROM merchantlist AS m, items AS i WHERE i.id=m.item AND merchantid=$mid";
+  $query = "SELECT m.merchantid, m.slot, m.item, i.price, i.sellrate, m.faction_required, m.level_required, m.min_status, m.max_status, m.alt_currency_cost, m.classes_required, m.probability, m.bucket_name, m.bucket_value, m.bucket_comparison, m.min_expansion, m.max_expansion, m.content_flags, m.content_flags_disabled FROM merchantlist AS m, items AS i WHERE i.id=m.item AND merchantid=$mid";
   $results = $mysql_content_db->query_mult_assoc($query);
   if ($results) {
       foreach ($results as $result) {
           $result['item_name'] = get_item_name($result['item']);
-          $array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name'], "price"=>$result['price'], "sellrate"=>$result['sellrate'], "faction_required"=>$result['faction_required'], "level_required"=>$result['level_required'], "alt_currency_cost"=>$result['alt_currency_cost'], "classes_required"=>$result['classes_required'], "probability"=>$result['probability'], "bucket_name"=>$result['bucket_name'], "bucket_value"=>$result['bucket_value'], "bucket_comparison"=>$result['bucket_comparison'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
+          $array['slots'][$result['slot']] = array("item"=>$result['item'], "item_name"=>$result['item_name'], "price"=>$result['price'], "sellrate"=>$result['sellrate'], "faction_required"=>$result['faction_required'], "level_required"=>$result['level_required'], "min_status"=>$result['min_status'], "max_status"=>$result['max_status'], "alt_currency_cost"=>$result['alt_currency_cost'], "classes_required"=>$result['classes_required'], "probability"=>$result['probability'], "bucket_name"=>$result['bucket_name'], "bucket_value"=>$result['bucket_value'], "bucket_comparison"=>$result['bucket_comparison'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
         }
   }
 
@@ -250,6 +250,8 @@ function update_merchant_item() {
   $item = $_POST['item'];
   $faction_required = $_POST['faction_required'];
   $level_required = $_POST['level_required'];
+  $min_status = $_POST['min_status'];
+  $max_status = $_POST['max_status'];
   $alt_currency_cost = $_POST['alt_currency_cost'];
   $classes_required = $_POST['classes_required'];
   $probability = $_POST['probability'];
@@ -267,7 +269,7 @@ function update_merchant_item() {
     $classes_value = $classes_value ^ $v;
   }
 
-  $query = "UPDATE merchantlist SET slot=$new_slot, item=$item, faction_required=$faction_required, level_required=$level_required, alt_currency_cost=$alt_currency_cost, classes_required=$classes_value, probability=$probability, bucket_name=\"$bucket_name\", bucket_value=\"$bucket_value\", bucket_comparison=$bucket_comparison, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE merchantid=$merchantid AND slot=$slot";
+  $query = "UPDATE merchantlist SET slot=$new_slot, item=$item, faction_required=$faction_required, level_required=$level_required, min_status=$min_status, max_status=$max_status, alt_currency_cost=$alt_currency_cost, classes_required=$classes_value, probability=$probability, bucket_name=\"$bucket_name\", bucket_value=\"$bucket_value\", bucket_comparison=$bucket_comparison, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE merchantid=$merchantid AND slot=$slot";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
@@ -348,6 +350,8 @@ function add_merchant_item() {
   $item = $_POST['itemid'];
   $faction_required = $_POST['faction_required'];
   $level_required = $_POST['level_required'];
+  $min_status = $_POST['min_status'];
+  $max_status = $_POST['max_status'];
   $alt_currency_cost = $_POST['alt_currency_cost'];
   $classes_required = $_POST['classes_required'];
   $probability = $_POST['probability'];
@@ -364,7 +368,7 @@ function add_merchant_item() {
     $classes_value = $classes_value ^ $v;
   }
 
-  $query = "INSERT INTO merchantlist SET merchantid=$mid, slot=$slot, item=$item, faction_required=$faction_required, level_required=$level_required, alt_currency_cost=$alt_currency_cost, classes_required=$classes_value, probability=$probability, bucket_name=\"$bucket_name\", bucket_value=\"$bucket_value\", bucket_comparison=$bucket_comparison, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
+  $query = "INSERT INTO merchantlist SET merchantid=$mid, slot=$slot, item=$item, faction_required=$faction_required, level_required=$level_required, min_status=$min_status, max_status=$max_status, alt_currency_cost=$alt_currency_cost, classes_required=$classes_value, probability=$probability, bucket_name=\"$bucket_name\", bucket_value=\"$bucket_value\", bucket_comparison=$bucket_comparison, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
@@ -495,7 +499,7 @@ function copy_merchantlist() {
   $query = "DELETE FROM merchantlist WHERE merchantid=0";
   $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO merchantlist (slot, item, faction_required, level_required, alt_currency_cost, classes_required, probability, bucket_name, bucket_value, bucket_comparison, min_expansion, max_expansion, content_flags, content_flags_disabled) SELECT slot, item, faction_required, level_required, alt_currency_cost, classes_required, probability, bucket_name, bucket_value, bucket_comparison, min_expansion, max_expansion, content_flags, content_flags_disabled FROM merchantlist WHERE merchantid=$mid";
+  $query = "INSERT INTO merchantlist (slot, item, faction_required, level_required, min_status, max_status, alt_currency_cost, classes_required, probability, bucket_name, bucket_value, bucket_comparison, min_expansion, max_expansion, content_flags, content_flags_disabled) SELECT slot, item, faction_required, level_required, min_status, max_status, alt_currency_cost, classes_required, probability, bucket_name, bucket_value, bucket_comparison, min_expansion, max_expansion, content_flags, content_flags_disabled FROM merchantlist WHERE merchantid=$mid";
   $mysql_content_db->query_no_result($query);
 
   $query = "UPDATE merchantlist SET merchantid=$nmid WHERE merchantid=0";

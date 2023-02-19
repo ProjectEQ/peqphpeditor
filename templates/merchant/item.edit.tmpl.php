@@ -34,13 +34,25 @@
                 <input id="level_required" type="text" size="10" name="level_required" value="<?=$level_required?>">
               </td>
               <td>
+                <strong>Min Status:</strong><br>
+                <input id="min_status" type="text" size="10" name="min_status" value="<?=$min_status?>">
+              </td>
+              <td>
+                <strong>Max Status:</strong><br>
+                <input id="max_status" type="text" size="10" name="max_status" value="<?=$max_status?>">
+              </td>
+              <td>
                 <strong>Alt Currency Cost:</strong><br>
                 <input id="alt_currency_cost" type="text" size="10" name="alt_currency_cost" value="<?=$alt_currency_cost?>">
               </td>
+            </tr>
+            <tr>
               <td>
                 <strong>Probability:</strong><br>
                 <input id="probability" type="text" size="10" name="probability" value="<?=$probability?>">
               </td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
               <td>&nbsp;</td>
             </tr>
             <tr>
