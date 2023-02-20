@@ -21,15 +21,6 @@ $columns = array(
   7 => 'bug_status'
 );
 
-$columns1 = array(
-  1 => 'id',
-  2 => 'account',
-  3 => 'name',
-  4 => 'zone',
-  5 => 'date',
-  6 => 'hacked'
-);
-
 switch ($action) {
   case 0:
     check_authorization();
@@ -70,7 +61,7 @@ switch ($action) {
       }
     }
     break;
-   case 3: // Update Bug
+  case 3: // Update Bug
     check_authorization();
     update_bug_status();
     if ($_POST['notify']) {
@@ -78,7 +69,7 @@ switch ($action) {
     }
     header("Location: index.php?editor=server&action=1");
     exit;
-   case 4: // View Resolved Bugs
+  case 4: // View Resolved Bugs
     check_authorization();
     $breadcrumbs .= " >> Resolved Bugs";
     $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
@@ -99,60 +90,35 @@ switch ($action) {
       $body->set('pages', 0);
     }
     break;
-   case 5: // Delete Bug
+  case 5: // Delete Bug
     check_authorization();
     delete_bug($_GET['id']);
     header("Location: index.php?editor=server&action=4");
     exit;
-   case 6: // Preview Hackers
-    check_admin_authorization();
-    $breadcrumbs .= " >> Hackers";
-    $javascript = new Template("templates/server/js.tmpl.php");
-    $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
-    $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
-    $curr_sort = (isset($_GET['sort'])) ? $columns1[$_GET['sort']] : $columns1[$default_sort];
-    if (isset($_GET['filter']) && $_GET['filter'] == 'on') {
-      $filter = build_filter();
-    }
-    $body = new Template("templates/server/hackers.tmpl.php");
-    $page_stats = getPageInfo("hackers", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null), ((isset($filter)) ? $filter['sql'] : null));
-    if (isset($filter)) {
-      $body->set('filter', $filter);
-    }
-    if ($page_stats['page']) {
-      $hackers = get_hackers($page_stats['page'], $curr_size, $curr_sort, ((isset($filter)) ? $filter['sql'] : null));
-    }
-    if (isset($hackers)) {
-      foreach ($hackers as $key=>$value) {
-        $body->set($key, $value);
-      }
-      foreach ($page_stats as $key=>$value) {
-        $body->set($key, $value);
-      }
-    }
-    else {
-      $body->set('page', 0);
-      $body->set('pages', 0);
+  case 6: // Event Logs
+    check_authorization();
+    $breadcrumbs .= " >> Player Event Logs";
+    $body = new Template("templates/server/player.events.view.tmpl.php");
+    $events = get_player_event_logs();
+    if ($events) {
+      $body->set('events', $events);
     }
     break;
-   case 7: // Delete Hacker
-    check_admin_authorization();
-    delete_hacker();
-    $return_address = $_SERVER['HTTP_REFERER'];
-    header("Location: $return_address");
+  case 7: // View Event
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=server&action=6'>Player Event Logs</a> >> Event";
+    $body = new Template("templates/server/player.event.view.tmpl.php");
+    $event = get_player_event($_GET['id']);
+    if ($event) {
+      $body->set('event', $event);
+    }
+    break;
+  case 8: // Delete Event
+    check_authorization();
+    delete_player_event($_GET['id']);
+    header("Location: index.php?editor=server&action=6");
     exit;
-   case 8: // View Hacker
-    check_admin_authorization();
-    $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=6'>" . "Hackers</a> >> Hacker Details";
-    $body = new Template("templates/server/hackers.view.tmpl.php");
-    $hackers = view_hackers();
-    if ($hackers) {
-      foreach ($hackers as $key=>$value) {
-        $body->set($key, $value);
-       }
-     }
-    break;
-   case 9: // Preview Reports
+  case 9: // Preview Reports
     check_authorization();
     $breadcrumbs .= " >> Reports";
     $body = new Template("templates/server/reports.tmpl.php");
@@ -163,12 +129,12 @@ switch ($action) {
       }
     }
     break;
-   case 10: // Delete Report
+  case 10: // Delete Report
     check_admin_authorization();
     delete_report();
     header("Location: index.php?editor=server&action=9");
     exit;
-   case 11: // View Report
+  case 11: // View Report
     check_authorization();
     $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=9'>" . "Reports</a> >> Report Details";
     $body = new Template("templates/server/reports.view.tmpl.php");
@@ -664,6 +630,47 @@ switch ($action) {
     $id = $_GET['id'];
     add_bug_review();
     header("Location: index.php?editor=server&id=$id&action=2");
+    exit;
+  case 76: // View Event Log Settings
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=server&action=6'>Player Event Logs</a> >> Settings";
+    $body = new Template("templates/server/player.event.log.settings.view.tmpl.php");
+    $settings = get_player_event_log_settings();
+    if ($settings) {
+      $body->set('settings', $settings);
+      $body->set('yesno', $yesno);
+    }
+    break;
+  case 77: // Add Event Log Setting
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=server&action=6'>Player Event Logs</a> >> <a href='index.php?editor=server&action=76'>Settings</a> >> Add Setting";
+    $body = new Template("templates/server/player.event.log.setting.add.tmpl.php");
+    $body->set('suggest_id', suggest_player_event_log_setting_id());
+    break;
+  case 78: // Insert Event Log Setting
+    check_authorization();
+    insert_player_event_log_setting();
+    header("Location: index.php?editor=server&action=76");
+    exit;
+  case 79: // Edit Event Log Setting
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=server&action=6'>Player Event Logs</a> >> <a href='index.php?editor=server&action=76'>Settings</a> >> Edit Setting";
+    $body = new Template("templates/server/player.event.log.setting.edit.tmpl.php");
+    $setting = get_player_event_log_setting($_GET['id']);
+    if ($setting) {
+      $body->set('setting', $setting);
+    }
+    break;
+  case 80: // Update Event Log Setting
+    check_authorization();
+    header("Location: index.php?editor=server&action=76");
+    update_player_event_log_setting();
+    exit;
+  case 81: // Delete Event Log Setting
+    check_authorization();
+    delete_player_event_log_setting($_GET['id']);
+    header("Location: index.php?editor=server&action=76");
+    exit;
 }
 
 function get_open_bugs($page_number, $results_per_page, $sort_by) {
@@ -690,29 +697,6 @@ function get_resolved_bugs($page_number, $results_per_page, $sort_by) {
 
   if ($results) {
     return $results;
-  }
-  else {
-    return null;
-  }
-}
-
-function get_hackers($page_number, $results_per_page, $sort_by, $where = "") {
-  global $mysql;
-  $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
-
-  $query = "SELECT id, account, name, hacked, zone, date FROM hackers";
-  if ($where) {
-    $query .= " WHERE $where";
-  }
-  $query .= " ORDER BY $sort_by LIMIT $limit";
-  $result = $mysql->query_mult_assoc($query);
-  if ($result) {
-    foreach ($result as $result) {
-      $array['hackers'][$result['id']] = array("hid"=>$result['id'], "account"=>$result['account'], "name"=>$result['name'], "hacked"=>$result['hacked'], "date"=>$result['date'], "zone"=>$result['zone']);
-    }
-  }
-  if (isset($array)) {
-    return $array;
   }
   else {
     return null;
@@ -864,17 +848,6 @@ function get_bug($id) {
   else {
     return null;
   }
-}
-
-function view_hackers() {
-  global $mysql;
-
-  $hid = $_GET['hid'];
-
-  $query = "SELECT id AS hid, account, name, hacked, zone, date FROM hackers where id = \"$hid\"";
-  $result = $mysql->query_assoc($query);
-  
-  return $result;
 }
 
 function view_reports() {
@@ -1058,15 +1031,6 @@ function delete_bug($id) {
   $mysql->query_no_result($query);
 }
 
-function delete_hacker() {
-  global $mysql;
-
-  $hid = $_GET['hid'];
-
-  $query = "DELETE FROM hackers WHERE id=\"$hid\"";
-  $mysql->query_no_result($query);
-}
-
 function delete_report() {
   global $mysql;
 
@@ -1238,59 +1202,6 @@ function notify_status($new_status) {
 
   $query = "INSERT INTO mail (`charid`, `timestamp`, `from`, `subject`, `body`, `to`, `status`) VALUES ($character_id, UNIX_TIMESTAMP(NOW()), \"$from\", \"$subject\", \"$body\", \"$to\", 1)";
   $mysql->query_no_result($query);
-}
-
-function build_filter() {
-  $filter1 = $_GET['filter1'];
-  $filter2 = $_GET['filter2'];
-  $filter3 = $_GET['filter3'];
-  $filter4 = $_GET['filter4'];
-  $filter_final = array();
-
-  if ($filter1) { // Filter by account
-    $filter_account = "account LIKE '%" . $filter1 . "%'";
-    $filter_final['sql'] = $filter_account;
-  }
-  if ($filter2) { // Filter by name
-    $filter_name = "name LIKE '%" . $filter2 . "%'";
-    if ($filter_final['sql']) {
-      $filter_final['sql'] .= " AND ";
-    }
-    $filter_final['sql'] .= $filter_name;
-  }
-  if ($filter3) { // Filter by zone
-    $filter_zone = "zone LIKE '%" . $filter3 . "%'";
-    if ($filter_final['sql']) {
-      $filter_final['sql'] .= " AND ";
-    }
-    $filter_final['sql'] .= $filter_zone;
-  }
-  if ($filter4) { // Filter by hack
-    $filter_hack = "hacked LIKE '%" . $filter4 . "%'";
-    if ($filter_final['sql']) {
-      $filter_final['sql'] .= " AND ";
-    }
-    $filter_final['sql'] .= $filter_hack;
-  }
-
-  $filter_final['url'] = "&filter=on&filter1=$filter1&filter2=$filter2&filter3=$filter3&filter4=$filter4";
-  $filter_final['status'] = "on";
-  $filter_final['filter1'] = $filter1;
-  $filter_final['filter2'] = $filter2;
-  $filter_final['filter3'] = $filter3;
-  $filter_final['filter4'] = $filter4;
-
-  return $filter_final;
-}
-
-function delete_multiple_hacks() {
-  global $mysql;
-  $hacks = $_POST['cb_delete'];
-
-  foreach ($hacks as $hack) {
-    $query = "DELETE FROM hackers WHERE id=$hack";
-    $mysql->query_no_result($query);
-  }
 }
 
 function get_bannedips() {
@@ -1626,5 +1537,110 @@ function add_bug_review() {
 
   $query = "UPDATE bug_reports SET last_review=NOW(), last_reviewer=\"$new_reviewer\", reviewer_notes=\"$new_review\" WHERE id=$id";
   $mysql->query_no_result($query);
+}
+
+function get_player_event_logs() {
+  global $mysql;
+
+  $query = "SELECT * FROM player_event_logs LIMIT 50";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function get_player_event($id) {
+  global $mysql;
+
+  $query = "SELECT * FROM player_event_logs WHERE id=$id";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+function delete_player_event($id) {
+  global $mysql;
+
+  $query = "DELETE FROM player_event_logs WHERE id=$id";
+  $mysql->query_no_result($query);
+}
+
+function get_player_event_log_settings() {
+  global $mysql;
+
+  $query = "SELECT * FROM player_event_log_settings";
+  $results = $mysql->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function get_player_event_log_setting($id) {
+  global $mysql;
+
+  $query = "SELECT * FROM player_event_log_settings WHERE id=$id";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+function insert_player_event_log_setting() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $event_name = $_POST['event_name'];
+  $event_enabled = $_POST['event_enabled'];
+  $retention_days = $_POST['retention_days'];
+  $discord_webhook_id = $_POST['discord_webhook_id'];
+
+  $query = "INSERT INTO player_event_log_settings SET id=$id, event_name=\"$event_name\", event_enabled=$event_enabled, retention_days=$retention_days, discord_webhook_id=$discord_webhook_id";
+  $mysql->query_no_result($query);
+}
+
+function update_player_event_log_setting() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $event_name = $_POST['event_name'];
+  $event_enabled = $_POST['event_enabled'];
+  $retention_days = $_POST['retention_days'];
+  $discord_webhook_id = $_POST['discord_webhook_id'];
+
+  $query = "UPDATE player_event_log_settings SET event_name=\"$event_name\", event_enabled=$event_enabled, retention_days=$retention_days, discord_webhook_id=$discord_webhook_id WHERE id=$id";
+  $mysql->query_no_result($query);
+}
+
+function delete_player_event_log_setting($id) {
+  global $mysql;
+
+  $query = "DELETE FROM player_event_log_settings WHERE id=$id";
+  $mysql->query_no_result($query);
+}
+
+function suggest_player_event_log_setting_id() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS id FROM player_event_log_settings";
+  $result = $mysql->query_assoc($query);
+
+  return ($result) ? $result['id'] + 1 : 1;
 }
 ?>
