@@ -21,6 +21,15 @@ $columns = array(
   7 => 'bug_status'
 );
 
+$columns1 = array(
+  1 => 'id',
+  2 => 'account_id',
+  3 => 'character_id',
+  4 => 'zone_id',
+  5 => 'event_type_name',
+  6 => 'created_at'
+);
+
 switch ($action) {
   case 0:
     check_authorization();
@@ -99,9 +108,31 @@ switch ($action) {
     check_authorization();
     $breadcrumbs .= " >> Player Event Logs";
     $body = new Template("templates/server/player.events.view.tmpl.php");
-    $events = get_player_event_logs();
-    if ($events) {
+
+    $curr_page = (isset($_GET['page'])) ? $_GET['page'] : $default_page;
+    $curr_size = (isset($_GET['size'])) ? $_GET['size'] : $default_size;
+    $curr_sort = (isset($_GET['sort'])) ? $columns1[$_GET['sort']] : $columns1[$default_sort];
+
+    if (isset($_GET['filter']) && $_GET['filter'] == 'on') {
+      $filter = build_filter();
+    }
+
+    $page_stats = getPageInfo("player_event_logs", FALSE, $curr_page, $curr_size, ((isset($_GET['sort'])) ? $_GET['sort'] : null), ((isset($filter)) ? $filter['sql'] : null));
+    if (isset($filter)) {
+      $body->set('filter', $filter);
+    }
+    if ($page_stats['page']) {
+      $events = get_player_event_logs($page_stats['page'], $curr_size, $curr_sort, ((isset($filter)) ? $filter['sql'] : null));
+    }
+    if (isset($events)) {
       $body->set('events', $events);
+      foreach ($page_stats as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    else {
+      $body->set('page', 0);
+      $body->set('pages', 0);
     }
     break;
   case 7: // View Event
@@ -1539,10 +1570,17 @@ function add_bug_review() {
   $mysql->query_no_result($query);
 }
 
-function get_player_event_logs() {
+function get_player_event_logs($page_number, $results_per_page, $sort_by, $where = "") {
   global $mysql;
 
-  $query = "SELECT * FROM player_event_logs LIMIT 50";
+  $limit = ($page_number - 1) * $results_per_page . "," . $results_per_page;
+
+  $query = "SELECT * FROM player_event_logs";
+  if ($where) {
+    $query .= " WHERE $where";
+  }
+  $query .= " ORDER BY $sort_by LIMIT $limit";
+
   $results = $mysql->query_mult_assoc($query);
 
   if ($results) {
@@ -1643,4 +1681,89 @@ function suggest_player_event_log_setting_id() {
 
   return ($result) ? $result['id'] + 1 : 1;
 }
+
+function build_filter() {
+  global $mysql;
+
+  $filter1 = $_GET['filter1'];
+  $filter2 = $_GET['filter2'];
+  $filter3 = $_GET['filter3'];
+  $filter4 = $_GET['filter4'];
+  $filter_final = array();
+  $filter_final['sql'] = "";
+
+  if ($filter1) { // Filter by account
+    $query = "SELECT id FROM account WHERE name LIKE \"%$filter1%\"";
+    $results = $mysql->query_mult_assoc($query);
+    $filter_account_id = "account_id IN (";
+    if ($results) {
+      foreach ($results as $result) {
+        $filter_account_id .= $result['id'] . ",";
+      }
+      $filter_account_id = rtrim($filter_account_id, ",");
+    }
+    else {
+      $filter_account_id .= "NULL";
+    }
+    $filter_account_id .= ")";
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_account_id;
+  }
+  if ($filter2) { // Filter by player
+    $query = "SELECT id FROM character_data WHERE name LIKE \"%$filter2%\"";
+    $results = $mysql->query_mult_assoc($query);
+    $filter_character_id = "character_id IN (";
+    if ($results) {
+      foreach ($results as $result) {
+        $filter_character_id .= $result['id'] . ",";
+      }
+      $filter_character_id = rtrim($filter_character_id, ",");
+    }
+    else {
+      $filter_character_id .= "NULL";
+    }
+    $filter_character_id .= ")";
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_character_id;
+  }
+  if ($filter3) { // Filter by zone
+    $query = "SELECT zoneidnumber FROM zone WHERE short_name LIKE \"%$filter3%\"";
+    $results = $mysql->query_mult_assoc($query);
+    $filter_zone_id = "zone_id IN (";
+    if ($results) {
+      foreach ($results as $result) {
+        $filter_zone_id .= $result['zoneidnumber'] . ",";
+      }
+      $filter_zone_id = rtrim($filter_zone_id, ",");
+    }
+    else {
+      $filter_zone_id .= "NULL";
+    }
+    $filter_zone_id .= ")";
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_zone_id;
+  }
+  if ($filter4) { // Filter by event type
+    $filter_event_type_name = "event_type_name LIKE '%" . $filter4 . "%'";
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_event_type_name;
+  }
+  $filter_final['url'] = "&filter=on&filter1=$filter1&filter2=$filter2&filter3=$filter3&filter4=$filter4";
+  $filter_final['status'] = "on";
+  $filter_final['filter1'] = $filter1;
+  $filter_final['filter2'] = $filter2;
+  $filter_final['filter3'] = $filter3;
+  $filter_final['filter4'] = $filter4;
+
+  return $filter_final;
+}
+
 ?>
