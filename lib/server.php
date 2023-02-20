@@ -1683,7 +1683,7 @@ function suggest_player_event_log_setting_id() {
 }
 
 function build_filter() {
-  global $mysql;
+  global $mysql, $mysql_content_db;
 
   $filter1 = $_GET['filter1'];
   $filter2 = $_GET['filter2'];
@@ -1732,7 +1732,7 @@ function build_filter() {
   }
   if ($filter3) { // Filter by zone
     $query = "SELECT zoneidnumber FROM zone WHERE short_name LIKE \"%$filter3%\"";
-    $results = $mysql->query_mult_assoc($query);
+    $results = $mysql_content_db->query_mult_assoc($query);
     $filter_zone_id = "zone_id IN (";
     if ($results) {
       foreach ($results as $result) {
