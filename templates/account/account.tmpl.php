@@ -53,7 +53,7 @@
                         <td width="40%"><center>Last Login</center></td>
                       </tr>
 <?
-  if ($ips) {
+  if (isset($ips)) {
     foreach ($ips as $ip_address) {
       echo '<tr>';
       echo '<td width="40%"><center><a href="index.php?editor=account&ip=' . $ip_address['ip'] . '&action=9">' . $ip_address['ip'] . '</a></center></td>';
@@ -72,7 +72,7 @@
                   <fieldset>
                     <legend><strong>Characters</strong></legend>
 <?
-  if ($characters) {
+  if (isset($characters)) {
     $count = 0;
     echo '<table cellspacing="0" border="0" width="100%">';
     foreach ($characters as $character) {
