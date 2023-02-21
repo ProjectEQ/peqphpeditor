@@ -1,7 +1,7 @@
         <div class="edit_form" style="width: 600px">
           <div class="edit_form_header">Player Event</div>
           <div class="edit_form_content">
-            <table width="100%" cellpadding="3" cellspacing="3">
+            <table width="100%" cellpadding="5" cellspacing="5">
               <tr>
                 <td>
                   <b>ID:</b><br>
@@ -57,11 +57,25 @@
                 </td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="6">
-                  <b>Event Data:</b><br>
-                  <?=$event['event_data']?>
+                  <fieldset>
+                    <legend><b>Event Data</b></legend>
+<?
+if ($event['event_data'] != "") {
+  $elements = json_decode($event['event_data']);
+  foreach ($elements as $k=>$v) {
+    print "<strong>" . $k . "</strong>: " . $v . "<br>";
+  }
+}
+else {
+  print("N/A");
+}
+?>
+                  </fieldset>
                 </td>
               </tr>
             </table>
