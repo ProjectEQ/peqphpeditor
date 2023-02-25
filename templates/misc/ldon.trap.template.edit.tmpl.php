@@ -1,3 +1,7 @@
+  <center>
+    <iframe id='searchframe' src='templates/iframes/spellsearch.php'></iframe>
+    <input id="button" type="button" value='Hide Spell Search' onclick='hideSearch();' style='display:none; margin-bottom: 20px;'>
+  </center>
   <div class="table_container" style="width: 500px;">
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
@@ -19,8 +23,8 @@
               <input type="text" name="type" size="10" value="<?=$template['type']?>">
             </td>
             <td>
-              <strong>Spell:</strong><br>
-              <input type="text" name="spell_id" size="10" value="<?=$template['spell_id']?>">
+              <strong>Spell:</strong> (<a href="javascript:showSearch();">search</a>)<br>
+              <input type="text" id="id" name="spell_id" size="10" value="<?=$template['spell_id']?>">
             </td>
             <td>
               <strong>Skill:</strong><br>

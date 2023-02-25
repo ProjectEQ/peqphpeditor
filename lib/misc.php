@@ -526,65 +526,68 @@ switch ($action) {
     exit;
   case 63: // LDoN Traps
     $breadcrumbs .= " >> LDoN Traps";
-    $body = new Template("templates/misc/ldon.traps.default.tmpl.php");
-    break;
-  case 64: // View LDoN Trap Templates
-    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=63'>LDoN Traps</a> >> LDoN Trap Templates";
-    $body = new Template("templates/misc/ldon.trap.templates.view.tmpl.php");
+    $body = new Template("templates/misc/ldon.traps.view.tmpl.php");
     $templates = get_ldon_trap_templates();
     if ($templates) {
       $body->set('templates', $templates);
       $body->set('yesno', $yesno);
     }
     break;
+  case 64: // View LDoN Trap Template
+    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=63'>LDoN Traps</a> >> Trap";
+    $body = new Template("templates/misc/ldon.trap.view.tmpl.php");
+    $template = get_ldon_trap_template($_GET['id']);
+    if ($template) {
+      $body->set('template', $template);
+      $body->set('yesno', $yesno);
+    }
+    $traps = get_ldon_trap_entries($_GET['id']);
+    if ($traps) {
+      $body->set('traps', $traps);
+    }
+    break;
   case 65: // Add LDoN Trap Template
     check_authorization();
-    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=63'>LDoN Traps</a> >> <a href='index.php?editor=misc&action=64'>LDoN Trap Templates</a> >> Add Template";
+    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=63'>LDoN Traps</a> >> Add Template";
+    $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/ldon.trap.template.add.tmpl.php");
     $body->set('suggest_id', suggest_ldon_trap_template_id());
     break;
   case 66: // Insert LDoN Trap Template
     check_authorization();
+    $id = $_POST['id'];
     insert_ldon_trap_template();
-    header("Location: index.php?editor=misc&action=64");
+    header("Location: index.php?editor=misc&id=$id&action=64");
     exit;
   case 67: // Edit LDoN Trap Template
     check_authorization();
-    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=63'>LDoN Traps</a> >> <a href='index.php?editor=misc&action=64'>LDoN Trap Templates</a> >> Edit Template";
+    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=63'>LDoN Traps</a> >> Edit Template";
+    $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/misc/ldon.trap.template.edit.tmpl.php");
     $body->set('template', get_ldon_trap_template($_GET['id']));
     break;
   case 68: // Update LDoN Trap Template
     check_authorization();
-    header("Location: index.php?editor=misc&action=64");
+    $id = $_POST['id'];
+    update_ldon_trap_template();
+    header("Location: index.php?editor=misc&id=$id&action=64");
     exit;
   case 69: // Delete LDoN Trap Template
     check_authorization();
     delete_ldon_trap_template($_GET['id']);
-    header("Location: index.php?editor=misc&action=64");
+    header("Location: index.php?editor=misc&action=63");
     exit;
-  case 70: // View LDoN Trap Entries
-    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=63'>LDoN Traps</a> >> LDoN Trap Entries";
-    $body = new Template("templates/misc/ldon.trap.entries.view.tmpl.php");
-    $entries = get_ldon_trap_entries();
-    if ($entries) {
-      $body->set('entries', $entries);
-    }
-    break;
-  case 71: // Add LDoN Trap Entry
+  case 71: // Add/Insert LDoN Trap Entry
     check_authorization();
-    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=63'>LDoN Traps</a> >> <a href='index.php?editor=misc&action=70'>LDoN Trap Entries</a> >> Add Entry";
-    $body = new Template("templates/misc/ldon.trap.entry.add.tmpl.php");
-    break;
-  case 72: // Insert LDoN Trap Entry
-    check_authorization();
-    insert_ldon_trap_entry();
-    header("Location: index.php?editor=misc&action=70");
+    $id = $_GET['template_id'];
+    insert_ldon_trap_entry($id);
+    header("Location: index.php?editor=misc&id=$id&action=64");
     exit;
   case 73: // Delete LDoN Trap Entry
     check_authorization();
-    delete_ldon_trap_entry($_GET['id'], $_GET['trap_id']);
-    header("Location: index.php?editor=misc&action=70");
+    $template_id = $_GET['template_id'];
+    delete_ldon_trap_entry($_GET['id'], $template_id);
+    header("Location: index.php?editor=misc&id=$template_id&action=64");
     exit;
 }
 
@@ -1783,10 +1786,10 @@ function suggest_ldon_trap_template_id() {
   }
 }
 
-function get_ldon_trap_entries() {
+function get_ldon_trap_entries($trap_id) {
   global $mysql_content_db;
 
-  $query = "SELECT * FROM ldon_trap_entries";
+  $query = "SELECT * FROM ldon_trap_entries WHERE trap_id=$trap_id";
   $results = $mysql_content_db->query_mult_assoc($query);
 
   if ($results) {
@@ -1797,13 +1800,14 @@ function get_ldon_trap_entries() {
   }
 }
 
-function insert_ldon_trap_entry() {
+function insert_ldon_trap_entry($trap_id) {
   global $mysql_content_db;
 
-  $id = $_POST['id'];
-  $trap_id = $_POST['trap_id'];
+  $query = "SELECT MAX(id) AS id FROM ldon_trap_entries WHERE trap_id=$trap_id";
+  $result = $mysql_content_db->query_assoc($query);
+  $next_id = ($result) ? $result['id'] + 1 : 1;
 
-  $query = "INSERT INTO ldon_trap_entries SET id=$id, trap_id=$trap_id";
+  $query = "INSERT INTO ldon_trap_entries SET id=$next_id, trap_id=$trap_id";
   $mysql_content_db->query_no_result($query);
 }
 

@@ -1,4 +1,4 @@
-  <div class="table_container" style="width: 600px;">
+  <div class="table_container" style="width: 650px;">
     <div class="table_header">
       <table style="width:100%; padding:0px; border-spacing:0px;">
         <tr>
@@ -9,8 +9,8 @@
     <table class="table_content2" style="width:100%;">
 <?if (isset($templates)):?>
       <tr>
-        <td align="center" width="10%"><strong>ID</strong></td>
-        <td align="center" width="20%"><strong>Type</strong></td>
+        <td align="center" width="12%"><strong>Template ID</strong></td>
+        <td align="center" width="18%"><strong>Type</strong></td>
         <td align="center" width="25%"><strong>Spell</strong></td>
         <td align="center" width="25%"><strong>Skill</strong></td>
         <td align="center" width="10%"><strong>Locked?</strong></td>
@@ -25,8 +25,8 @@ foreach($templates as $template):?>
         <td align="center" width="25%"><?=$template['skill']?></td>
         <td align="center" width="10%"><?=$yesno[$template['locked']]?></td>
         <td align="right" width="10%">
-          <a href="index.php?editor=misc&id=<?=$template['id']?>&action=67"><img src="images/edit2.gif" width="13" height="13" border="0" title="Edit Trap Template"></a>&nbsp;
-          <a href="index.php?editor=misc&id=<?=$template['id']?>&action=69" onClick="return confirm('Really delete trap template?');"><img src="images/remove.gif" width="13" height="13" border="0" title="Delete Trap Template"></a>
+          <a href="index.php?editor=misc&id=<?=$template['id']?>&action=64"><img src="images/view_all.gif" width="13" height="13" border="0" title="View Trap"></a>&nbsp;
+          <a href="index.php?editor=misc&id=<?=$template['id']?>&action=69" onClick="return confirm('Really delete trap template and associated entries?');"><img src="images/remove.gif" width="13" height="13" border="0" title="Delete Trap Template"></a>
         </td>
       </tr>
 <?$x++;
