@@ -1,4 +1,4 @@
-  <form name="edit_merc_stat" method="post" action="index.php?editor=mercs&action=59">
+  <form name="edit_npc_scale" method="post" action="index.php?editor=npc&action=93">
     <div class="edit_form">
       <div class="edit_form_header">&nbsp;</div>
       <div class="edit_form_content">
@@ -6,9 +6,24 @@
           <legend><strong><font size="4">General</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="33%">NPC Type ID: <br><input type="text" size="10" value="<?=$stat['merc_npc_type_id']?>" disabled></td>
-              <td align="left" width="33%">Client Level:<br><input type="text" size="10" value="<?=$stat['clientlevel']?>" disabled></td>
-              <td align="left" width="33%">Merc Level:  <br><input type="text" name="level" size="10" value="<?=$stat['level']?>"></td>
+              <td align="left" width="20%">
+                Type:<br>
+                <select name="type">
+<?foreach ($npc_scaling_types as $k=>$v):?>
+                  <option value="<?=$k?>"<?echo ($scale['type'] == $k) ? " selected" : "";?>><?=$v?> (<?=$k?>)</option>
+<?endforeach;?>
+                </select>
+              </td>
+              <td align="left" width="20%">Level:<br><input type="text" name="level" size="10" value="<?=$scale['level']?>"></td>
+              <td align="left" width="40%">
+                Zone:<br>
+                <select name="zone_id">
+<?foreach ($zoneids as $k=>$v):?>
+                  <option value="<?=$k?>"<?echo ($scale['zone_id'] == $k) ? " selected" : "";?>><?=$v?> (<?=$k?>)</option>
+<?endforeach;?>
+                </select>
+              </td>
+              <td align="left" width="20%">Instance:<br><input type="text" name="instance_version" size="10" value="<?=$scale['instance_version']?>"></td>
             </tr>
           </table>
         </fieldset><br>
@@ -16,12 +31,11 @@
           <legend><strong><font size="4">Vitals</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="17%">HP:      <br><input type="text" name="hp" size="10" value="<?=$stat['hp']?>"></td>
-              <td align="left" width="17%">Mana:    <br><input type="text" name="mana" size="10" value="<?=$stat['mana']?>"></td>
-              <td align="left" width="17%">AC:      <br><input type="text" name="AC" size="10" value="<?=$stat['AC']?>"></td>
-              <td align="left" width="17%">Runspeed:<br><input type="text" name="runspeed" size="10" value="<?=$stat['runspeed']?>"></td>
-              <td align="left" width="16%">ATK:     <br><input type="text" name="ATK" size="10" value="<?=$stat['ATK']?>"></td>
-              <td align="left" width="16%">Accuracy:<br><input type="text" name="Accuracy" size="10" value="<?=$stat['Accuracy']?>"></td>
+              <td align="left" width="20%">HP:             <br><input type="text" name="hp" size="10" value="<?=$scale['hp']?>"></td>
+              <td align="left" width="20%">AC:             <br><input type="text" name="ac" size="10" value="<?=$scale['ac']?>"></td>
+              <td align="left" width="20%">Attack:         <br><input type="text" name="attack" size="10" value="<?=$scale['attack']?>"></td>
+              <td align="left" width="20%">Accuracy:       <br><input type="text" name="accuracy" size="10" value="<?=$scale['accuracy']?>"></td>
+              <td align="left" width="20%">Slow Mitigation:<br><input type="text" name="slow_mitigation" size="10" value="<?=$scale['slow_mitigation']?>"></td>
             </tr>
           </table>
         </fieldset><br>
@@ -29,13 +43,13 @@
           <legend><strong><font size="4">Stats</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="15%">STR:<br><input type="text" name="STR" size="5" value="<?=$stat['STR']?>"></td>
-              <td align="left" width="15%">STA:<br><input type="text" name="STA" size="5" value="<?=$stat['STA']?>"></td>
-              <td align="left" width="14%">DEX:<br><input type="text" name="DEX" size="5" value="<?=$stat['DEX']?>"></td>
-              <td align="left" width="14%">AGI:<br><input type="text" name="AGI" size="5" value="<?=$stat['AGI']?>"></td>
-              <td align="left" width="14%">INT:<br><input type="text" name="_INT" size="5" value="<?=$stat['_INT']?>"></td>
-              <td align="left" width="14%">WIS:<br><input type="text" name="WIS" size="5" value="<?=$stat['WIS']?>"></td>
-              <td align="left" width="14%">CHA:<br><input type="text" name="CHA" size="5" value="<?=$stat['CHA']?>"></td>
+              <td align="left" width="15%">STR:<br><input type="text" name="strength" size="5" value="<?=$scale['strength']?>"></td>
+              <td align="left" width="15%">STA:<br><input type="text" name="stamina" size="5" value="<?=$scale['stamina']?>"></td>
+              <td align="left" width="14%">DEX:<br><input type="text" name="dexterity" size="5" value="<?=$scale['dexterity']?>"></td>
+              <td align="left" width="14%">AGI:<br><input type="text" name="agility" size="5" value="<?=$scale['agility']?>"></td>
+              <td align="left" width="14%">INT:<br><input type="text" name="intelligence" size="5" value="<?=$scale['intelligence']?>"></td>
+              <td align="left" width="14%">WIS:<br><input type="text" name="wisdom" size="5" value="<?=$scale['wisdom']?>"></td>
+              <td align="left" width="14%">CHA:<br><input type="text" name="charisma" size="5" value="<?=$scale['charisma']?>"></td>
             </tr>
           </table>
         </fieldset><br>
@@ -46,12 +60,13 @@
                 <td colspan="6">1 Resist = 0.5%<br>250 Resist = 100%</td>
               </tr>
               <tr>
-                <td align="left" width="13%">MR:    <br><input type="text" name="MR" size="5" value="<?=$stat['MR']?>"></td>
-                <td align="left" width="13%">CR:    <br><input type="text" name="CR" size="5" value="<?=$stat['CR']?>"></td>
-                <td align="left" width="13%">DR:    <br><input type="text" name="DR" size="5" value="<?=$stat['DR']?>"></td>
-                <td align="left" width="13%">FR:    <br><input type="text" name="FR" size="5" value="<?=$stat['FR']?>"></td>
-                <td align="left" width="13%">PR:    <br><input type="text" name="PR" size="5" value="<?=$stat['PR']?>"></td>
-                <td align="left" width="14%">Corrup:<br><input type="text" name="Corrup" size="5" value="<?=$stat['Corrup']?>"></td>
+                <td align="left" width="15%">Magic:     <br><input type="text" name="magic_resist" size="5" value="<?=$scale['magic_resist']?>"></td>
+                <td align="left" width="15%">Cold:      <br><input type="text" name="cold_resist" size="5" value="<?=$scale['cold_resist']?>"></td>
+                <td align="left" width="14%">Fire:      <br><input type="text" name="fire_resist" size="5" value="<?=$scale['fire_resist']?>"></td>
+                <td align="left" width="14%">Poison:    <br><input type="text" name="poison_resist" size="5" value="<?=$scale['poison_resist']?>"></td>
+                <td align="left" width="14%">Disease:   <br><input type="text" name="disease_resist" size="5" value="<?=$scale['disease_resist']?>"></td>
+                <td align="left" width="14%">Corruption:<br><input type="text" name="corruption_resist" size="5" value="<?=$scale['corruption_resist']?>"></td>
+                <td align="left" width="14%">Physical:  <br><input type="text" name="physical_resist" size="5" value="<?=$scale['physical_resist']?>"></td>
               </tr>
             </table>
         </fieldset><br>
@@ -59,18 +74,12 @@
           <legend><strong><font size="4">Combat</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="20%">Min Dmg:     <br><input type="text" name="mindmg" size="5" value="<?=$stat['mindmg']?>"></td>
-              <td align="left" width="20%">HP Regen:    <br><input type="text" name="hp_regen_rate" size="5" value="<?=$stat['hp_regen_rate']?>"></td>
-              <td align="left" width="20%">Attack Count:<br><input type="text" name="attack_count" size="5" value="<?=$stat['attack_count']?>"></td>
-              <td align="left" width="20%">Atk Delay:   <br><input type="text" name="attack_delay" size="5" value="<?=$stat['attack_delay']?>"></td>
-              <td align="left" width="20%">Spell Scale: <br><input type="text" name="spellscale" size="5" value="<?=$stat['spellscale']?>">%</td>
-            </tr>
-            <tr>
-              <td align="left" width="20%">Max Dmg:     <br><input type="text" name="maxdmg" size="5" value="<?=$stat['maxdmg']?>"></td>
-              <td align="left" width="20%">MP Regen:    <br><input type="text" name="mana_regen_rate" size="5" value="<?=$stat['mana_regen_rate']?>"></td>
-              <td align="left" width="20%">Attack Speed:<br><input type="text" name="attack_speed" size="5" value="<?=$stat['attack_speed']?>"></td>
-              <td align="left" width="20%">Stat Scale:  <br><input type="text" name="statscale" size="5" value="<?=$stat['statscale']?>">%</td>
-              <td align="left" width="20%">Heal Scale:  <br><input type="text" name="healscale" size="5" value="<?=$stat['healscale']?>">%</td>
+              <td align="left" width="17%">Min Dmg:     <br><input type="text" name="min_dmg" size="5" value="<?=$scale['min_dmg']?>"></td>
+              <td align="left" width="17%">Max Dmg:     <br><input type="text" name="max_dmg" size="5" value="<?=$scale['max_dmg']?>"></td>
+              <td align="left" width="17%">HP Regen:    <br><input type="text" name="hp_regen_rate" size="5" value="<?=$scale['hp_regen_rate']?>"></td>
+              <td align="left" width="17%">Attack Delay:<br><input type="text" name="attack_delay" size="5" value="<?=$scale['attack_delay']?>"></td>
+              <td align="left" width="16%">Spell Scale: <br><input type="text" name="spell_scale" size="5" value="<?=$scale['spell_scale']?>">%</td>
+              <td align="left" width="16%">Heal Scale:  <br><input type="text" name="heal_scale" size="5" value="<?=$scale['heal_scale']?>">%</td>
             </tr>
           </table>
           <center>
@@ -81,29 +90,29 @@
   $specabilcont = array();
 
   for ($i = 1; $i <= $special_abilities_max; $i++) {
-    if (preg_match("/^$i,/", $stat['special_abilities']) == 1) {
+    if (preg_match("/^$i,/", $scale['special_abilities']) == 1) {
       $specabil[$i] = 1;
       // Leading special ability
-      if (preg_match("/^$i,.+?\^/", $stat['special_abilities'], $match) == 1) {
+      if (preg_match("/^$i,.+?\^/", $scale['special_abilities'], $match) == 1) {
         $specabilcont[$i] = $match[0];
         $specabilcont[$i] = rtrim($specabilcont[$i], "^");
       }
       // Only special ability
       else {
-        preg_match("/^$i,.+?\$/", $stat['special_abilities'], $match);
+        preg_match("/^$i,.+?\$/", $scale['special_abilities'], $match);
         $specabilcont[$i] = $match[0];
       }  
     }
-    elseif (preg_match("/\^$i,/", $stat['special_abilities']) == 1) {
+    elseif (preg_match("/\^$i,/", $scale['special_abilities']) == 1) {
       $specabil[$i] = 1;
       // Middle special ability
-      if (preg_match("/\^$i,.+?\^/", $stat['special_abilities'], $match) == 1) {
+      if (preg_match("/\^$i,.+?\^/", $scale['special_abilities'], $match) == 1) {
         $specabilcont[$i] = $match[0];
         $specabilcont[$i] = trim($specabilcont[$i], "^");
       }
       // Trailing special ability
       else {
-        preg_match("/\^$i,.+?\$/", $stat['special_abilities'], $match);
+        preg_match("/\^$i,.+?\$/", $scale['special_abilities'], $match);
         $specabilcont[$i] = $match[0];  
         $specabilcont[$i] = ltrim($specabilcont[$i], "^");
       }
@@ -178,9 +187,11 @@
           </center>
         </fieldset><br>
         <center>
-          <input type="hidden" name="merc_npc_type_id" value="<?=$stat['merc_npc_type_id']?>">
-          <input type="hidden" name="clientlevel" value="<?=$stat['clientlevel']?>">
-          <input type="submit" value="Update Stat">&nbsp;&nbsp;
+          <input type="hidden" name="old_type" value="<?=$scale['type']?>">
+          <input type="hidden" name="old_level" value="<?=$scale['level']?>">
+          <input type="hidden" name="old_zone_id" value="<?=$scale['zone_id']?>">
+          <input type="hidden" name="old_instance_version" value="<?=$scale['instance_version']?>">
+          <input type="submit" value="Update Scale">&nbsp;&nbsp;
           <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </div>

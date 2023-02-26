@@ -9,7 +9,8 @@
           <a href="index.php?editor=npc&action=78">View Emotes</a><br>
           <a href="index.php?editor=npc&action=83">View Pets</a><br>
           <a href="index.php?editor=auras&action=1">View Auras</a><br>
-          <a href="index.php?editor=npc&action=84">View Beastlord Pets</a>
+          <a href="index.php?editor=npc&action=84">View Beastlord Pets</a><br>
+          <a href="index.php?editor=npc&action=89">NPC Scaling</a>
         </center>
       </td>
     </tr>

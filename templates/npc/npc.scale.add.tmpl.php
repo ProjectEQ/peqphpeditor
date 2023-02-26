@@ -1,4 +1,4 @@
-  <form name="add_merc_stat" method="post" action="index.php?editor=mercs&merc_npc_type_id=<?=$merc_npc_type_id?>&action=57">
+  <form name="add_npc_scale" method="post" action="index.php?editor=npc&action=91">
     <div class="edit_form">
       <div class="edit_form_header">&nbsp;</div>
       <div class="edit_form_content">
@@ -6,9 +6,24 @@
           <legend><strong><font size="4">General</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="33%">NPC Type ID: <br><input type="text" size="10" value="<?=$merc_npc_type_id?>" disabled></td>
-              <td align="left" width="33%">Client Level:<br><input type="text" id="clientlevel" name="clientlevel" size="10" value="<?=$suggest_level?>"></td>
-              <td align="left" width="33%">Merc Level:  <br><input type="text" name="level" size="10" value="1"></td>
+              <td align="left" width="20%">
+                Type:<br>
+                <select name="type">
+<?foreach ($npc_scaling_types as $k=>$v):?>
+                  <option value="<?=$k?>"><?=$v?> (<?=$k?>)</option>
+<?endforeach;?>
+                </select>
+              </td>
+              <td align="left" width="20%">Level:<br><input type="text" name="level" size="10" value=""></td>
+              <td align="left" width="40%">
+                Zone:<br>
+                <select name="zone_id">
+<?foreach ($zoneids as $k=>$v):?>
+                  <option value="<?=$k?>"><?=$v?> (<?=$k?>)</option>
+<?endforeach;?>
+                </select>
+              </td>
+              <td align="left" width="20%">Instance:<br><input type="text" name="instance_version" size="10" value=""></td>
             </tr>
           </table>
         </fieldset><br>
@@ -16,12 +31,11 @@
           <legend><strong><font size="4">Vitals</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="17%">HP:      <br><input type="text" name="hp" size="10" value="1"></td>
-              <td align="left" width="17%">Mana:    <br><input type="text" name="mana" size="10" value="0"></td>
-              <td align="left" width="17%">AC:      <br><input type="text" name="AC" size="10" value="1"></td>
-              <td align="left" width="17%">Runspeed:<br><input type="text" name="runspeed" size="10" value="0"></td>
-              <td align="left" width="16%">ATK:     <br><input type="text" name="ATK" size="10" value="1"></td>
-              <td align="left" width="16%">Accuracy:<br><input type="text" name="Accuracy" size="10" value="0"></td>
+              <td align="left" width="20%">HP:             <br><input type="text" name="hp" size="10" value="0"></td>
+              <td align="left" width="20%">AC:             <br><input type="text" name="ac" size="10" value="0"></td>
+              <td align="left" width="20%">Attack:         <br><input type="text" name="attack" size="10" value="0"></td>
+              <td align="left" width="20%">Accuracy:       <br><input type="text" name="accuracy" size="10" value="0"></td>
+              <td align="left" width="20%">Slow Mitigation:<br><input type="text" name="slow_mitigation" size="10" value="0"></td>
             </tr>
           </table>
         </fieldset><br>
@@ -29,13 +43,13 @@
           <legend><strong><font size="4">Stats</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="15%">STR:<br><input type="text" name="STR" size="5" value="75"></td>
-              <td align="left" width="15%">STA:<br><input type="text" name="STA" size="5" value="75"></td>
-              <td align="left" width="14%">DEX:<br><input type="text" name="DEX" size="5" value="75"></td>
-              <td align="left" width="14%">AGI:<br><input type="text" name="AGI" size="5" value="75"></td>
-              <td align="left" width="14%">INT:<br><input type="text" name="_INT" size="5" value="80"></td>
-              <td align="left" width="14%">WIS:<br><input type="text" name="WIS" size="5" value="80"></td>
-              <td align="left" width="14%">CHA:<br><input type="text" name="CHA" size="5" value="75"></td>
+              <td align="left" width="15%">STR:<br><input type="text" name="strength" size="5" value="0"></td>
+              <td align="left" width="15%">STA:<br><input type="text" name="stamina" size="5" value="0"></td>
+              <td align="left" width="14%">DEX:<br><input type="text" name="dexterity" size="5" value="0"></td>
+              <td align="left" width="14%">AGI:<br><input type="text" name="agility" size="5" value="0"></td>
+              <td align="left" width="14%">INT:<br><input type="text" name="intelligence" size="5" value="0"></td>
+              <td align="left" width="14%">WIS:<br><input type="text" name="wisdom" size="5" value="0"></td>
+              <td align="left" width="14%">CHA:<br><input type="text" name="charisma" size="5" value="0"></td>
             </tr>
           </table>
         </fieldset><br>
@@ -46,12 +60,13 @@
                 <td colspan="6">1 Resist = 0.5%<br>250 Resist = 100%</td>
               </tr>
               <tr>
-                <td align="left" width="13%">MR:    <br><input type="text" name="MR" size="5" value="15"></td>
-                <td align="left" width="13%">CR:    <br><input type="text" name="CR" size="5" value="15"></td>
-                <td align="left" width="13%">DR:    <br><input type="text" name="DR" size="5" value="15"></td>
-                <td align="left" width="13%">FR:    <br><input type="text" name="FR" size="5" value="15"></td>
-                <td align="left" width="13%">PR:    <br><input type="text" name="PR" size="5" value="15"></td>
-                <td align="left" width="14%">Corrup:<br><input type="text" name="Corrup" size="5" value="15"></td>
+                <td align="left" width="15%">Magic:     <br><input type="text" name="magic_resist" size="5" value="0"></td>
+                <td align="left" width="15%">Cold:      <br><input type="text" name="cold_resist" size="5" value="0"></td>
+                <td align="left" width="14%">Fire:      <br><input type="text" name="fire_resist" size="5" value="0"></td>
+                <td align="left" width="14%">Poison:    <br><input type="text" name="poison_resist" size="5" value="0"></td>
+                <td align="left" width="14%">Disease:   <br><input type="text" name="disease_resist" size="5" value="0"></td>
+                <td align="left" width="14%">Corruption:<br><input type="text" name="corruption_resist" size="5" value="0"></td>
+                <td align="left" width="14%">Physical:  <br><input type="text" name="physical_resist" size="5" value="0"></td>
               </tr>
             </table>
         </fieldset><br>
@@ -59,18 +74,12 @@
           <legend><strong><font size="4">Combat</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="20%">Min Dmg:     <br><input type="text" name="mindmg" size="5" value="1"></td>
-              <td align="left" width="20%">HP Regen:    <br><input type="text" name="hp_regen_rate" size="5" value="1"></td>
-              <td align="left" width="20%">Attack Count:<br><input type="text" name="attack_count" size="5" value="0"></td>
-              <td align="left" width="20%">Atk Delay:   <br><input type="text" name="attack_delay" size="5" value="30"></td>
-              <td align="left" width="20%">Spell Scale: <br><input type="text" name="spellscale" size="5" value="100">%</td>
-            </tr>
-            <tr>
-              <td align="left" width="20%">Max Dmg:     <br><input type="text" name="maxdmg" size="5" value="1"></td>
-              <td align="left" width="20%">MP Regen:    <br><input type="text" name="mana_regen_rate" size="5" value="1"></td>
-              <td align="left" width="20%">Attack Speed:<br><input type="text" name="attack_speed" size="5" value="0"></td>
-              <td align="left" width="20%">Stat Scale:  <br><input type="text" name="statscale" size="5" value="100">%</td>
-              <td align="left" width="20%">Heal Scale:  <br><input type="text" name="healscale" size="5" value="100">%</td>
+              <td align="left" width="17%">Min Dmg:     <br><input type="text" name="min_dmg" size="5" value="1"></td>
+              <td align="left" width="17%">Max Dmg:     <br><input type="text" name="max_dmg" size="5" value="1"></td>
+              <td align="left" width="17%">HP Regen:    <br><input type="text" name="hp_regen_rate" size="5" value="1"></td>
+              <td align="left" width="17%">Attack Delay:<br><input type="text" name="attack_delay" size="5" value="30"></td>
+              <td align="left" width="16%">Spell Scale: <br><input type="text" name="spell_scale" size="5" value="100">%</td>
+              <td align="left" width="16%">Heal Scale:  <br><input type="text" name="heal_scale" size="5" value="100">%</td>
             </tr>
           </table>
           <center>
@@ -141,8 +150,7 @@
           </center>
         </fieldset><br>
         <center>
-          <input type="hidden" name="merc_npc_type_id" value="<?=$merc_npc_type_id?>">
-          <input type="submit" value="Insert Stat">&nbsp;&nbsp;
+          <input type="submit" value="Insert Scale">&nbsp;&nbsp;
           <input type="button" value="Cancel" onClick="history.back();">
         </center>
       </div>

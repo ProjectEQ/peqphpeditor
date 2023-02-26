@@ -128,6 +128,12 @@ $stuck = array(
   3 => 'Evade Combat'
 );
 
+$npc_scaling_types = array(
+  0 => 'Trash',
+  1 => 'Named',
+  2 => 'Raid'
+);
+
 switch ($action) {
   case 0:
     if ($npcid) {  // View NPC
@@ -993,6 +999,50 @@ switch ($action) {
     check_authorization();
     delete_beastlord_pet($_GET['player_race']);
     header("Location: index.php?editor=npc&action=84");
+    exit;
+  case 89: // View NPC Scaling
+    $breadcrumbs .= " >> NPC Scaling";
+    $body = new Template("templates/npc/npc.scaling.view.tmpl.php");
+    $scaling = get_npc_scaling();
+    if ($scaling) {
+      $body->set('scaling', $scaling);
+      $body->set('npc_scaling_types', $npc_scaling_types);
+    }
+    break;
+  case 90: // Add NPC Scale
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=npc&action=89'>NPC Scaling</a> >> Add Scale";
+    $body = new Template("templates/npc/npc.scale.add.tmpl.php");
+    $body->set('npc_scaling_types', $npc_scaling_types);
+    $body->set('zoneids', $zoneids);
+    break;
+  case 91: // Insert NPC Scale
+    check_authorization();
+    insert_npc_scale();
+    header("Location: index.php?editor=npc&action=89");
+    exit;
+  case 92: // Edit NPC Scale
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=npc&action=89'>NPC Scaling</a> >> Edit Scale";
+    $body = new Template("templates/npc/npc.scale.edit.tmpl.php");
+    $scale = get_npc_scale($_GET['type'], $_GET['level'], $_GET['zone_id'], $_GET['instance_version']);
+    if ($scale) {
+      $body->set('scale', $scale);
+      $body->set('npc_scaling_types', $npc_scaling_types);
+      $body->set('zoneids', $zoneids);
+      $body->set('special_abilities_max', $special_abilities_max);
+      $body->set('specialattacks', $specialattacks);
+    }
+    break;
+  case 93: // Update NPC Scale
+    check_authorization();
+    update_npc_scale();
+    header("Location: index.php?editor=npc&action=89");
+    exit;
+  case 94: // Delete NPC Scale
+    check_authorization();
+    delete_npc_scale($_GET['type'], $_GET['level'], $_GET['zone_id'], $_GET['instance_version']);
+    header("Location: index.php?editor=npc&action=89");
     exit;
 }
 
@@ -2689,6 +2739,143 @@ function delete_beastlord_pet($player_race) {
   global $mysql_content_db;
 
   $query = "DELETE FROM pets_beastlord_data WHERE player_race=$player_race";
+  $mysql_content_db->query_no_result($query);
+}
+
+function get_npc_scaling() {
+  global $mysql_content_db;
+
+  $query = "SELECT * FROM npc_scale_global_base ORDER BY type, level";
+  $results = $mysql_content_db->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function get_npc_scale($type, $level, $zone_id, $instance_version) {
+  global $mysql_content_db;
+
+  $query = "SELECT * FROM npc_scale_global_base WHERE type=$type AND level=$level AND zone_id=$zone_id AND instance_version=$instance_version";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+function insert_npc_scale() {
+  global $mysql_content_db, $specialattacks;
+
+  $special = "";
+  foreach ($specialattacks as $k => $v) {
+    if (isset($_POST["$k"])) {
+      if (SUBSTR($_POST["$k"], -1) != '^' && $_POST["$k"] != '') {
+        $_POST["$k"].= '^';
+      }
+      $special .= $_POST["$k"];
+    }
+  }
+  rtrim($special, '^');
+
+  $type = $_POST['type'];
+  $level = $_POST['level'];
+  $zone_id = $_POST['zone_id'];
+  $instance_version = $_POST['instance_version'];
+  $ac = $_POST['ac'];
+  $hp = $_POST['hp'];
+  $accuracy = $_POST['accuracy'];
+  $slow_mitigation = $_POST['slow_mitigation'];
+  $attack = $_POST['attack'];
+  $strength = $_POST['strength'];
+  $stamina = $_POST['stamina'];
+  $dexterity = $_POST['dexterity'];
+  $agility = $_POST['agility'];
+  $intelligence = $_POST['intelligence'];
+  $wisdom = $_POST['wisdom'];
+  $charisma = $_POST['charisma'];
+  $magic_resist = $_POST['magic_resist'];
+  $cold_resist = $_POST['cold_resist'];
+  $fire_resist = $_POST['fire_resist'];
+  $poison_resist = $_POST['poison_resist'];
+  $disease_resist = $_POST['disease_resist'];
+  $corruption_resist = $_POST['corruption_resist'];
+  $physical_resist = $_POST['physical_resist'];
+  $min_dmg = $_POST['min_dmg'];
+  $max_dmg = $_POST['max_dmg'];
+  $hp_regen_rate = $_POST['hp_regen_rate'];
+  $attack_delay = $_POST['attack_delay'];
+  $spell_scale = $_POST['spell_scale'];
+  $heal_scale = $_POST['heal_scale'];
+  $special_abilities = $special;
+
+  $query = "INSERT INTO npc_scale_global_base SET type=$type, level=$level, zone_id=$zone_id, instance_version=$instance_version, ac=$ac, hp=$hp, accuracy=$accuracy, slow_mitigation=$slow_mitigation, attack=$attack, strength=$strength, stamina=$stamina, dexterity=$dexterity, agility=$agility, intelligence=$intelligence, wisdom=$wisdom, charisma=$charisma, magic_resist=$magic_resist, cold_resist=$cold_resist, fire_resist=$fire_resist, poison_resist=$poison_resist, disease_resist=$disease_resist, corruption_resist=$corruption_resist, physical_resist=$physical_resist, min_dmg=$min_dmg, max_dmg=$max_dmg, hp_regen_rate=$hp_regen_rate, attack_delay=$attack_delay, spell_scale=$spell_scale, heal_scale=$heal_scale, special_abilities=\"$special_abilities\"";
+  $mysql_content_db->query_no_result($query);
+}
+
+function update_npc_scale() {
+  global $mysql_content_db, $specialattacks;
+
+  $special = "";
+  foreach ($specialattacks as $k=>$v) {
+    if (isset($_POST["$k"])) {
+      if (SUBSTR($_POST["$k"], -1) != '^' && $_POST["$k"] != '') {
+        $_POST["$k"].= '^';
+      }
+      $special .= $_POST["$k"];
+    }
+  }
+  rtrim($special, '^');
+
+  $old_type = $_POST['old_type'];
+  $old_level = $_POST['old_level'];
+  $old_zone_id = $_POST['old_zone_id'];
+  $old_instance_version = $_POST['old_instance_version'];
+  $type = $_POST['type'];
+  $level = $_POST['level'];
+  $zone_id = $_POST['zone_id'];
+  $instance_version = $_POST['instance_version'];
+  $ac = $_POST['ac'];
+  $hp = $_POST['hp'];
+  $accuracy = $_POST['accuracy'];
+  $slow_mitigation = $_POST['slow_mitigation'];
+  $attack = $_POST['attack'];
+  $strength = $_POST['strength'];
+  $stamina = $_POST['stamina'];
+  $dexterity = $_POST['dexterity'];
+  $agility = $_POST['agility'];
+  $intelligence = $_POST['intelligence'];
+  $wisdom = $_POST['wisdom'];
+  $charisma = $_POST['charisma'];
+  $magic_resist = $_POST['magic_resist'];
+  $cold_resist = $_POST['cold_resist'];
+  $fire_resist = $_POST['fire_resist'];
+  $poison_resist = $_POST['poison_resist'];
+  $disease_resist = $_POST['disease_resist'];
+  $corruption_resist = $_POST['corruption_resist'];
+  $physical_resist = $_POST['physical_resist'];
+  $min_dmg = $_POST['min_dmg'];
+  $max_dmg = $_POST['max_dmg'];
+  $hp_regen_rate = $_POST['hp_regen_rate'];
+  $attack_delay = $_POST['attack_delay'];
+  $spell_scale = $_POST['spell_scale'];
+  $heal_scale = $_POST['heal_scale'];
+  $special_abilities = $special;
+
+  $query = "UPDATE npc_scale_global_base SET type=$type, level=$level, zone_id=$zone_id, instance_version=$instance_version, ac=$ac, hp=$hp, accuracy=$accuracy, slow_mitigation=$slow_mitigation, attack=$attack, strength=$strength, stamina=$stamina, dexterity=$dexterity, agility=$agility, intelligence=$intelligence, wisdom=$wisdom, charisma=$charisma, magic_resist=$magic_resist, cold_resist=$cold_resist, fire_resist=$fire_resist, poison_resist=$poison_resist, disease_resist=$disease_resist, corruption_resist=$corruption_resist, physical_resist=$physical_resist, min_dmg=$min_dmg, max_dmg=$max_dmg, hp_regen_rate=$hp_regen_rate, attack_delay=$attack_delay, spell_scale=$spell_scale, heal_scale=$heal_scale, special_abilities=\"$special_abilities\" WHERE type=$old_type AND level=$old_level AND zone_id=$old_zone_id AND instance_version=$old_instance_version";
+  $mysql_content_db->query_no_result($query);
+}
+
+function delete_npc_scale($type, $level, $zone_id, $instance_version) {
+  global $mysql_content_db;
+
+  $query = "DELETE FROM npc_scale_global_base WHERE type=$type AND level=$level AND zone_id=$zone_id AND instance_version=$instance_version";
   $mysql_content_db->query_no_result($query);
 }
 ?>
