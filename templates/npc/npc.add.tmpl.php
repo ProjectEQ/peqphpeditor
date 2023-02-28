@@ -191,15 +191,7 @@
                   Flee Percent (37):<br><input type="text" name="37" size="10"><br>
                   Chase Distance (40):<br><input type="text" name="40" size="10"><br>
                   Casting Resist Diff (43):<br><input type="text" name="43" size="10"><br>
-                  Counter Avoid Damage (44):<br>
-                    <select name="44">
-                      <option value="">None</option>
-                      <option value="44,0^">All (44,0)</option>
-                      <option value="44,1^">Riposte (44,1)</option>
-                      <option value="44,2^">Block (44,2)</option>
-                      <option value="44,3^">Parry (44,3)</option>
-                      <option value="44,4^">Dodge (44,4)</option>
-                    </select><br>
+                  Counter Avoid Damage (44):<br><input type="text" name="44" size="10"><br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="6" value="6,1^"> Triple Attack (6)<br>

@@ -134,15 +134,7 @@
                   Flee Percent (37):<br><input type="text" name="37" size="10" value="<?echo (isset($specabilcont[37])) ? $specabilcont[37] : "";?>"><br>
                   Chase Distance (40):<br><input type="text" name="40" size="10" value="<?echo (isset($specabilcont[40])) ? $specabilcont[40] : "";?>"><br>
                   Casting Resist Diff (43):<br><input type="text" name="43" size="10" value="<?echo (isset($specabilcont[43])) ? $specabilcont[43] : "";?>"><br>
-                  Counter Avoid Damage (44):<br>
-                    <select name="44">
-                      <option value=""<?echo (isset($specabilcont[44]) && $specabilcont[44] == '') ? ' selected' : '';?>>None</option>
-                      <option value="44,0^"<?echo (isset($specabilcont[44]) && $specabilcont[44] == '44,0') ? ' selected' : '';?>>All (44,0)</option>
-                      <option value="44,1^"<?echo (isset($specabilcont[44]) && $specabilcont[44] == '44,1') ? ' selected' : '';?>>Riposte (44,1)</option>
-                      <option value="44,2^"<?echo (isset($specabilcont[44]) && $specabilcont[44] == '44,2') ? ' selected' : '';?>>Block (44,2)</option>
-                      <option value="44,3^"<?echo (isset($specabilcont[44]) && $specabilcont[44] == '44,3') ? ' selected' : '';?>>Parry (44,3)</option>
-                      <option value="44,4^"<?echo (isset($specabilcont[44]) && $specabilcont[44] == '44,4') ? ' selected' : '';?>>Dodge (44,4)</option>
-                    </select><br>
+                  Counter Avoid Damage (44):<br><input type="text" name="44" size="10" value="<?echo (isset($specabilcont[44])) ? $specabilcont[44] : "";?>"><br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="6" value="6,1^"<?echo ($specabil[6] == 1) ? " checked" : "";?>> Triple Attack (6)<br>
