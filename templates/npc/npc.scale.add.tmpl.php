@@ -14,16 +14,9 @@
 <?endforeach;?>
                 </select>
               </td>
-              <td align="left" width="20%">Level:<br><input type="text" name="level" size="10" value=""></td>
-              <td align="left" width="40%">
-                Zone:<br>
-                <select name="zone_id">
-<?foreach ($zoneids as $k=>$v):?>
-                  <option value="<?=$k?>"><?=$v?> (<?=$k?>)</option>
-<?endforeach;?>
-                </select>
-              </td>
-              <td align="left" width="20%">Instance:<br><input type="text" name="instance_version" size="10" value=""></td>
+              <td align="left" width="20%">Level:                    <br><input type="text" name="level" size="10" value=""></td>
+              <td align="left" width="40%">Zones: (| = Delimiter)    <br><input type="text" name="zone_id_list" size="10" value="0"></td>
+              <td align="left" width="20%">Instances: (| = Delimiter)<br><input type="text" name="instance_version_list" size="10" value="0"></td>
             </tr>
           </table>
         </fieldset><br>

@@ -14,16 +14,9 @@
 <?endforeach;?>
                 </select>
               </td>
-              <td align="left" width="20%">Level:<br><input type="text" name="level" size="10" value="<?=$scale['level']?>"></td>
-              <td align="left" width="40%">
-                Zone:<br>
-                <select name="zone_id">
-<?foreach ($zoneids as $k=>$v):?>
-                  <option value="<?=$k?>"<?echo ($scale['zone_id'] == $k) ? " selected" : "";?>><?=$v?> (<?=$k?>)</option>
-<?endforeach;?>
-                </select>
-              </td>
-              <td align="left" width="20%">Instance:<br><input type="text" name="instance_version" size="10" value="<?=$scale['instance_version']?>"></td>
+              <td align="left" width="20%">Level:                    <br><input type="text" name="level" size="10" value="<?=$scale['level']?>"></td>
+              <td align="left" width="40%">Zones: (| = Delimiter)    <br><input type="text" name="zone_id_list" size="10" value="<?=$scale['zone_id_list']?>"></td>
+              <td align="left" width="20%">Instances: (| = Delimiter)<br><input type="text" name="instance_version_list" size="10" value="<?=$scale['instance_version_list']?>"></td>
             </tr>
           </table>
         </fieldset><br>
@@ -181,8 +174,8 @@
         <center>
           <input type="hidden" name="old_type" value="<?=$scale['type']?>">
           <input type="hidden" name="old_level" value="<?=$scale['level']?>">
-          <input type="hidden" name="old_zone_id" value="<?=$scale['zone_id']?>">
-          <input type="hidden" name="old_instance_version" value="<?=$scale['instance_version']?>">
+          <input type="hidden" name="old_zone_id_list" value="<?=$scale['zone_id_list']?>">
+          <input type="hidden" name="old_instance_version_list" value="<?=$scale['instance_version_list']?>">
           <input type="submit" value="Update Scale">&nbsp;&nbsp;
           <input type="button" value="Cancel" onClick="history.back();">
         </center>
