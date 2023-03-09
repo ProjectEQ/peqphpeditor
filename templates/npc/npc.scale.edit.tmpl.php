@@ -74,6 +74,14 @@
               <td align="left" width="16%">Spell Scale: <br><input type="text" name="spell_scale" size="5" value="<?=$scale['spell_scale']?>">%</td>
               <td align="left" width="16%">Heal Scale:  <br><input type="text" name="heal_scale" size="5" value="<?=$scale['heal_scale']?>">%</td>
             </tr>
+            <tr>
+              <td align="left" width="17%">Heroic Strikethrough:<br><input type="text" name="heroic_strikethrough" size="5" value="<?=$scale['heroic_strikethrough']?>"></td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="16%">&nbsp;</td>
+              <td align="left" width="16%">&nbsp;</td>
+            </tr>
           </table>
           <center>
             <table cellpadding="20px">

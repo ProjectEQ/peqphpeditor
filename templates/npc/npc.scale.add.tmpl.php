@@ -67,12 +67,20 @@
           <legend><strong><font size="4">Combat</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="17%">Min Dmg:     <br><input type="text" name="min_dmg" size="5" value="1"></td>
-              <td align="left" width="17%">Max Dmg:     <br><input type="text" name="max_dmg" size="5" value="1"></td>
-              <td align="left" width="17%">HP Regen:    <br><input type="text" name="hp_regen_rate" size="5" value="1"></td>
-              <td align="left" width="17%">Attack Delay:<br><input type="text" name="attack_delay" size="5" value="30"></td>
+              <td align="left" width="17%">Min Dmg:     <br><input type="text" name="min_dmg" size="5" value="0"></td>
+              <td align="left" width="17%">Max Dmg:     <br><input type="text" name="max_dmg" size="5" value="0"></td>
+              <td align="left" width="17%">HP Regen:    <br><input type="text" name="hp_regen_rate" size="5" value="0"></td>
+              <td align="left" width="17%">Attack Delay:<br><input type="text" name="attack_delay" size="5" value="0"></td>
               <td align="left" width="16%">Spell Scale: <br><input type="text" name="spell_scale" size="5" value="100">%</td>
               <td align="left" width="16%">Heal Scale:  <br><input type="text" name="heal_scale" size="5" value="100">%</td>
+            </tr>
+            <tr>
+              <td align="left" width="17%">Heroic Strikethrough:<br><input type="text" name="heroic_strikethrough" size="5" value="0"></td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="16%">&nbsp;</td>
+              <td align="left" width="16%">&nbsp;</td>
             </tr>
           </table>
           <center>
