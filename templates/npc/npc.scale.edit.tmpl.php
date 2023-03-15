@@ -15,8 +15,8 @@
                 </select>
               </td>
               <td align="left" width="20%">Level:                    <br><input type="text" name="level" size="10" value="<?=$scale['level']?>"></td>
-              <td align="left" width="40%">Zones: (| = Delimiter)    <br><input type="text" name="zone_id_list" size="10" value="<?=$scale['zone_id_list']?>"></td>
-              <td align="left" width="20%">Instances: (| = Delimiter)<br><input type="text" name="instance_version_list" size="10" value="<?=$scale['instance_version_list']?>"></td>
+              <td align="left" width="30%">Zones: (| = Delimiter)    <br><input type="text" name="zone_id_list" size="25" value="<?=$scale['zone_id_list']?>"></td>
+              <td align="left" width="30%">Instances: (| = Delimiter)<br><input type="text" name="instance_version_list" size="25" value="<?=$scale['instance_version_list']?>"></td>
             </tr>
           </table>
         </fieldset><br>
@@ -24,11 +24,12 @@
           <legend><strong><font size="4">Vitals</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="20%">HP:             <br><input type="text" name="hp" size="10" value="<?=$scale['hp']?>"></td>
-              <td align="left" width="20%">AC:             <br><input type="text" name="ac" size="10" value="<?=$scale['ac']?>"></td>
-              <td align="left" width="20%">Attack:         <br><input type="text" name="attack" size="10" value="<?=$scale['attack']?>"></td>
-              <td align="left" width="20%">Accuracy:       <br><input type="text" name="accuracy" size="10" value="<?=$scale['accuracy']?>"></td>
-              <td align="left" width="20%">Slow Mitigation:<br><input type="text" name="slow_mitigation" size="10" value="<?=$scale['slow_mitigation']?>"></td>
+              <td align="left" width="17%">HP:             <br><input type="text" name="hp" size="10" value="<?=$scale['hp']?>"></td>
+              <td align="left" width="17%">AC:             <br><input type="text" name="ac" size="10" value="<?=$scale['ac']?>"></td>
+              <td align="left" width="17%">Attack:         <br><input type="text" name="attack" size="10" value="<?=$scale['attack']?>"></td>
+              <td align="left" width="17%">Accuracy:       <br><input type="text" name="accuracy" size="10" value="<?=$scale['accuracy']?>"></td>
+              <td align="left" width="16%">Slow Mitigation:<br><input type="text" name="slow_mitigation" size="10" value="<?=$scale['slow_mitigation']?>"></td>
+              <td align="left" width="16%">Avoidance:      <br><input type="text" name="avoidance" size="10" value="<?=$scale['avoidance']?>"></td>
             </tr>
           </table>
         </fieldset><br>
@@ -67,20 +68,18 @@
           <legend><strong><font size="4">Combat</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="17%">Min Dmg:     <br><input type="text" name="min_dmg" size="5" value="<?=$scale['min_dmg']?>"></td>
-              <td align="left" width="17%">Max Dmg:     <br><input type="text" name="max_dmg" size="5" value="<?=$scale['max_dmg']?>"></td>
-              <td align="left" width="17%">HP Regen:    <br><input type="text" name="hp_regen_rate" size="5" value="<?=$scale['hp_regen_rate']?>"></td>
-              <td align="left" width="17%">Attack Delay:<br><input type="text" name="attack_delay" size="5" value="<?=$scale['attack_delay']?>"></td>
-              <td align="left" width="16%">Spell Scale: <br><input type="text" name="spell_scale" size="5" value="<?=$scale['spell_scale']?>">%</td>
-              <td align="left" width="16%">Heal Scale:  <br><input type="text" name="heal_scale" size="5" value="<?=$scale['heal_scale']?>">%</td>
+              <td align="left" width="20%">Min Dmg:     <br><input type="text" name="min_dmg" size="5" value="<?=$scale['min_dmg']?>"></td>
+              <td align="left" width="20%">HP Regen:    <br><input type="text" name="hp_regen_rate" size="5" value="<?=$scale['hp_regen_rate']?>"></td>
+              <td align="left" width="20%">Attack Delay:<br><input type="text" name="attack_delay" size="5" value="<?=$scale['attack_delay']?>"></td>
+              <td align="left" width="20%">Spell Scale: <br><input type="text" name="spell_scale" size="5" value="<?=$scale['spell_scale']?>">%</td>
+              <td align="left" width="20%">Heal Scale:  <br><input type="text" name="heal_scale" size="5" value="<?=$scale['heal_scale']?>">%</td>
             </tr>
             <tr>
-              <td align="left" width="17%">Heroic Strikethrough:<br><input type="text" name="heroic_strikethrough" size="5" value="<?=$scale['heroic_strikethrough']?>"></td>
-              <td align="left" width="17%">&nbsp;</td>
-              <td align="left" width="17%">&nbsp;</td>
-              <td align="left" width="17%">&nbsp;</td>
-              <td align="left" width="16%">&nbsp;</td>
-              <td align="left" width="16%">&nbsp;</td>
+              <td align="left" width="20%">Max Dmg:             <br><input type="text" name="max_dmg" size="5" value="<?=$scale['max_dmg']?>"></td>
+              <td align="left" width="20%">HP Regen (/sec):     <br><input type="text" name="hp_regen_per_second" size="5" value="<?=$scale['hp_regen_per_second']?>"></td>
+              <td align="left" width="20%">Heroic Strikethrough:<br><input type="text" name="heroic_strikethrough" size="5" value="<?=$scale['heroic_strikethrough']?>"></td>
+              <td align="left" width="20%">&nbsp;</td>
+              <td align="left" width="20%">&nbsp;</td>
             </tr>
           </table>
           <center>
