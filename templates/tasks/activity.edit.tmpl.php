@@ -71,14 +71,14 @@
           <legend><strong><font size="4">Proximities</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="33%">Min X:<br><input type="text" name="min_x" size="10" value="0"></td>
-              <td align="left" width="33%">Min Y:<br><input type="text" name="min_y" size="10" value="0"></td>
-              <td align="left" width="34%">Min Z:<br><input type="text" name="min_z" size="10" value="0"></td>
+              <td align="left" width="33%">Min X:<br><input type="text" name="min_x" size="10" value="<?=$min_x?>"></td>
+              <td align="left" width="33%">Min Y:<br><input type="text" name="min_y" size="10" value="<?=$min_y?>"></td>
+              <td align="left" width="34%">Min Z:<br><input type="text" name="min_z" size="10" value="<?=$min_z?>"></td>
             </tr>
             <tr>
-              <td align="left" width="33%">Max X:<br><input type="text" name="max_x" size="10" value="0"></td>
-              <td align="left" width="33%">Max Y:<br><input type="text" name="max_y" size="10" value="0"></td>
-              <td align="left" width="34%">Max Z:<br><input type="text" name="max_z" size="10" value="0"></td>
+              <td align="left" width="33%">Max X:<br><input type="text" name="max_x" size="10" value="<?=$max_x?>"></td>
+              <td align="left" width="33%">Max Y:<br><input type="text" name="max_y" size="10" value="<?=$max_y?>"></td>
+              <td align="left" width="34%">Max Z:<br><input type="text" name="max_z" size="10" value="<?=$max_z?>"></td>
             </tr>
           </table>
         </fieldset><br>
