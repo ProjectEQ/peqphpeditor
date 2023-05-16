@@ -2,7 +2,7 @@
     <iframe id='searchframe' src='templates/iframes/itemsearch.php'></iframe>
     <input id="button" type="button" value='Hide Item Search' onclick='hideSearch();' style='display:none; margin-bottom: 20px;'>
   </center>
-  <form method="post" action="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&action=8">
+  <form name="component"method="post" action="index.php?editor=tradeskill&ts=<?=$ts?>&rec=<?=$rec?>&action=8">
     <div class="edit_form" style="width: 250px;">
       <div class="edit_form_header">Add Recipe Component</div>
       <div class="edit_form_content">
@@ -11,8 +11,7 @@
         <strong>Item is a:</strong><br>
         <select class="indented" name="type" id="type" onChange="toggleComponentType()">
           <option value="0">Combine Container</option>
-          <option value="1">Component</option>
-          <option value="2">Product</option>
+          <option value="1">Component/Product</option>
         </select><br><br>
         <table width="100%">
           <tr>

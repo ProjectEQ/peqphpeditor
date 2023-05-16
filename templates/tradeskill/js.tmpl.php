@@ -16,14 +16,11 @@
       document.forms[1].componentcount.disabled=true;
       document.forms[1].componentcount.value=0;
 
-      if (document.getElementById("ContainerTable").style.display == "none") {
-        toggleContainer();
-      }
     }
-    else if (x == 1) {
+    else {
       document.forms[1].iscontainer.value=0;
 
-      document.forms[1].successcount.disabled=true;
+      document.forms[1].successcount.disabled=false;
       document.forms[1].successcount.value=0;
 
       document.forms[1].failcount.disabled=false;
@@ -34,25 +31,6 @@
 
       document.forms[1].componentcount.disabled=false;
       document.forms[1].componentcount.value=1;
-
-      if (document.getElementById("ContainerTable").style.display == "block") {
-        toggleContainer();
-      }
-    }
-    else {
-      document.forms[1].iscontainer.value=0;
-
-      document.forms[1].failcount.disabled=true;
-      document.forms[1].failcount.value=0;
-
-      document.forms[1].componentcount.disabled=true;
-      document.forms[1].componentcount.value=0;
-
-      document.forms[1].salvagecount.disabled=true;
-      document.forms[1].salvagecount.value=0;
-
-      document.forms[1].successcount.disabled=false;
-      document.forms[1].successcount.value=1;
 
       if (document.getElementById("ContainerTable").style.display == "block") {
         toggleContainer();

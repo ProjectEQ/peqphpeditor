@@ -213,12 +213,22 @@ function recipe_info() {
   $results = $mysql_content_db->query_mult_assoc($query);
   
   if ($results != '') {
-    foreach($results as $r) {
-      if (isset($world_containers[$r['item_id']])) $r['name'] = $world_containers[$r['item_id']];
-      else $r['name'] = get_item_name($r['item_id']);
-      if ($r['iscontainer'] == 1) $array['containers'][] = $r;
-      elseif ($r['successcount'] > 0) $array['products'][] = $r;
-      else $array['components'][] = $r;
+    foreach ($results as $r) {
+      if (isset($world_containers[$r['item_id']])) {
+        $r['name'] = $world_containers[$r['item_id']];
+      }
+      else {
+        $r['name'] = get_item_name($r['item_id']);
+      }
+      if ($r['iscontainer'] == 1) {
+        $array['containers'][] = $r;
+      }
+      if ($r['successcount'] > 0) {
+        $array['products'][] = $r;
+      }
+      if ($r['failcount'] > 0 || $r['componentcount'] > 0 || $r['salvagecount'] > 0) {
+        $array['components'][] = $r;
+      }
     }
   }
   return $array;
