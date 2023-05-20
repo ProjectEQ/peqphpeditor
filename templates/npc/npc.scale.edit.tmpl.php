@@ -68,14 +68,14 @@
           <legend><strong><font size="4">Combat</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="20%">Min Dmg:     <br><input type="text" name="min_dmg" size="5" value="<?=$scale['min_dmg']?>"></td>
+              <td align="left" width="20%">Min Dmg:     <br><input type="text" name="min_dmg" size="5" value="<?=$scale['min_dmg']?>" onChange="damageCheck();"></td>
               <td align="left" width="20%">HP Regen:    <br><input type="text" name="hp_regen_rate" size="5" value="<?=$scale['hp_regen_rate']?>"></td>
               <td align="left" width="20%">Attack Delay:<br><input type="text" name="attack_delay" size="5" value="<?=$scale['attack_delay']?>"></td>
               <td align="left" width="20%">Spell Scale: <br><input type="text" name="spell_scale" size="5" value="<?=$scale['spell_scale']?>">%</td>
               <td align="left" width="20%">Heal Scale:  <br><input type="text" name="heal_scale" size="5" value="<?=$scale['heal_scale']?>">%</td>
             </tr>
             <tr>
-              <td align="left" width="20%">Max Dmg:             <br><input type="text" name="max_dmg" size="5" value="<?=$scale['max_dmg']?>"></td>
+              <td align="left" width="20%">Max Dmg:             <br><input type="text" name="max_dmg" size="5" value="<?=$scale['max_dmg']?>" onChange="damageCheck();"></td>
               <td align="left" width="20%">HP Regen (/sec):     <br><input type="text" name="hp_regen_per_second" size="5" value="<?=$scale['hp_regen_per_second']?>"></td>
               <td align="left" width="20%">Heroic Strikethrough:<br><input type="text" name="heroic_strikethrough" size="5" value="<?=$scale['heroic_strikethrough']?>"></td>
               <td align="left" width="20%">&nbsp;</td>

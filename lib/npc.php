@@ -1011,6 +1011,7 @@ switch ($action) {
     break;
   case 90: // Add NPC Scale
     check_authorization();
+    $javascript = new Template("templates/npc/js.tmpl.php");
     $breadcrumbs .= " >> <a href='index.php?editor=npc&action=89'>NPC Scaling</a> >> Add Scale";
     $body = new Template("templates/npc/npc.scale.add.tmpl.php");
     $body->set('npc_scaling_types', $npc_scaling_types);
@@ -1023,6 +1024,7 @@ switch ($action) {
     exit;
   case 92: // Edit NPC Scale
     check_authorization();
+    $javascript = new Template("templates/npc/js.tmpl.php");
     $breadcrumbs .= " >> <a href='index.php?editor=npc&action=89'>NPC Scaling</a> >> Edit Scale";
     $body = new Template("templates/npc/npc.scale.edit.tmpl.php");
     $scale = get_npc_scale($_GET['type'], $_GET['level'], $_GET['zone_id_list'], $_GET['instance_version_list']);

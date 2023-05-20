@@ -30,4 +30,39 @@
       alert("Warning: This NPC should not be TRACKABLE or FINDABLE!");
     }
   }
+
+  function damageCheck() { /* damage sanity check (scaling editor) */
+    var min_damage = document.forms[1].min_dmg.value;
+    var max_damage = document.forms[1].max_dmg.value;
+
+    if (min_damage > max_damage) {
+      document.forms[1].min_dmg.style.backgroundColor = "red";
+      document.forms[1].max_dmg.style.backgroundColor = "red";
+      alert("Min Dmg is greater than Max Dmg");
+    }
+    else {
+      document.forms[1].min_dmg.style.backgroundColor = "white";
+      document.forms[1].max_dmg.style.backgroundColor = "white";
+    }
+  }
+
+  function sdamageCheck() { /* scaling and damage sanity check (standard editor) */
+    var min_damage = document.forms[1].mindmg.value;
+    var max_damage = document.forms[1].maxdmg.value;
+
+    if (((min_damage == 0) && (max_damage != 0)) || ((max_damage == 0) && (min_damage != 0))) {
+      document.forms[1].mindmg.style.backgroundColor = "red";
+      document.forms[1].maxdmg.style.backgroundColor = "red";
+      alert("For autoscaling, you should set both Min Dmg and Max Dmg 0");
+    }
+    else if (min_damage > max_damage) {
+      document.forms[1].mindmg.style.backgroundColor = "red";
+      document.forms[1].maxdmg.style.backgroundColor = "red";
+      alert("Min Dmg is greater than Max Dmg");
+    }
+    else {
+      document.forms[1].mindmg.style.backgroundColor = "white";
+      document.forms[1].maxdmg.style.backgroundColor = "white";
+    }
+  }
 </script>
