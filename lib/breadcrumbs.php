@@ -73,7 +73,7 @@ switch ($editor) {
     $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Alternate Currency</a>";
     break;
   case 'quest':
-    $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Quest Editor</a>";
+    $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Quest Viewer</a>";
     break;
   case 'inv':
     $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Player Inventory</a>";

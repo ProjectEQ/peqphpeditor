@@ -13,7 +13,7 @@
 <?
   if ($filename) {
 ?>
-      <p style="text-align: center; font-weight: bold; font-size: 14px;">Filename: <?=$filename?></p><br>
+      <p style="text-align: center; font-weight: bold; font-size: 14px;">Filename: <?=$filename?> (READ ONLY)</p><br>
       <table width="100%">
         <tr>
           <td>
