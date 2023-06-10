@@ -104,20 +104,20 @@
         <fieldset>
           <legend><strong><font size="-1">Components:</font></strong></legend>
           Qty Required:<br>
-          <input class="indented" type="text" name="componentcount" size="7" value="<?=$componentcount?>" disabled><br><br>
+          <input class="indented" type="text" name="componentcount" size="7" value="<?=$componentcount?>"<?echo ($iscontainer == 1) ? " disabled" : "";?>><br><br>
           Qty Returned on Fail:<br>
-          <input class="indented" type="text" name="failcount" size="7" value="<?=$failcount?>" disabled><br><br>
+          <input class="indented" type="text" name="failcount" size="7" value="<?=$failcount?>"<?echo ($iscontainer == 1) ? " disabled" : "";?>><br><br>
           Qty Returned on Salvage:<br>
-          <input class="indented" type="text" name="salvagecount" size="7" value="<?=$salvagecount?>" disabled>
+          <input class="indented" type="text" name="salvagecount" size="7" value="<?=$salvagecount?>"<?echo ($iscontainer == 1) ? " disabled" : "";?>>
         </fieldset><br><br>
         <fieldset>
           <legend><strong><font size="-1">Products:</font></strong></legend>
           Qty Produced: <br>
-          <input class="indented" type="text" name="successcount" size="7" value="<?=$successcount?>" disabled>
+          <input class="indented" type="text" name="successcount" size="7" value="<?=$successcount?>"<?echo ($iscontainer == 1) ? " disabled" : "";?>>
         </fieldset><br>
         <center>
           <input type="hidden" name="id" value="<?=$id?>">
-	  <input type="hidden" name='iscontainer' value="1">
+          <input type="hidden" name='iscontainer' value="<?=$iscontainer?>">
           <input type="hidden" name="recipe_id" value="<?=$recipe_id?>">
           <input type="submit" name="submit" value="Update Component" onClick="enable();">&nbsp;&nbsp;
           <input type="button" value="Cancel" onClick="history.back();">
