@@ -253,7 +253,7 @@ function player_info() {
   $player_array['material'] = $result;
 
   //Load from character_tribute
-  $query = "SELECT * FROM character_tribute WHERE id = $playerid";
+  $query = "SELECT * FROM character_tribute WHERE character_id = $playerid";
   $result = $mysql->query_mult_assoc($query);
   $player_array['tribute'] = $result;
 
