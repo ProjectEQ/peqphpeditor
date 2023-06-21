@@ -52,6 +52,10 @@ switch ($action) {
           }
         }
       }
+      $duplicate = check_duplicate_tradeskill_entries($rec);
+      if ($duplicate) {
+        array_push($errors, "This recipe has duplicate item entries ($duplicate). <a href='index.php?editor=tradeskill&ts=$ts&rec=$rec&item_id=$duplicate&action=15'>-=MERGE=-</a>");
+      }
       $body->set("errors", $errors);
     }
     else {
@@ -186,6 +190,14 @@ switch ($action) {
     $return_address = $_SERVER['HTTP_REFERER'];
     header("Location: $return_address");
     exit;
+  case 15: // Merge Duplicate Entries
+    check_authorization();
+    $tradeskill = $_GET['ts'];
+    $recipe_id = $_GET['rec'];
+    $item_id = $_GET['item_id'];
+    merge_duplicate_tradeskill_entries($recipe_id, $item_id);
+    header("Location: index.php?editor=tradeskill&ts=$tradeskill&rec=$recipe_id&action=0");
+    exit();
 }
 
 function getRecipeTradeskill() {
@@ -193,6 +205,7 @@ function getRecipeTradeskill() {
   
   $query = "SELECT tradeskill FROM tradeskill_recipe WHERE id=$rec";
   $result = $mysql_content_db->query_assoc($query);
+
   return $result['tradeskill'];
 }
 
@@ -596,5 +609,52 @@ function extract_learn_flags($learn_value) {
   $learn_flags = array("l_method" => $l_method, "l_message" => $l_message, "l_search" => $l_search);
 
   return $learn_flags;
+}
+
+function check_duplicate_tradeskill_entries($recipe_id) {
+  global $mysql_content_db;
+
+  $query = "SELECT recipe_id, item_id FROM tradeskill_recipe_entries WHERE recipe_id=$recipe_id GROUP BY item_id HAVING COUNT(item_id) > 1 LIMIT 1";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result['item_id'];
+  }
+  else {
+    return null;
+  }
+}
+
+function merge_duplicate_tradeskill_entries($recipe_id, $item_id) {
+  global $mysql_content_db;
+
+  $success = 0;
+  $fail = 0;
+  $component = 0;
+  $salvage = 0;
+  $entry_ids = array();
+
+  $query = "SELECT * FROM tradeskill_recipe_entries WHERE recipe_id=$recipe_id AND item_id=$item_id";
+  $results = $mysql_content_db->query_mult_assoc($query);
+
+  foreach ($results as $result) {
+    if ($result['iscontainer']) {
+      return;
+    }
+    array_push($entry_ids, $result['id']);
+    $success += $result['successcount'];
+    $fail += $result['failcount'];
+    $component += $result['componentcount'];
+    $salvage += $result['salvagecount'];
+  }
+
+  $id = array_shift($entry_ids);
+  $query = "UPDATE tradeskill_recipe_entries SET successcount=$success, failcount=$fail, componentcount=$component, salvagecount=$salvage WHERE id=$id";
+  $mysql_content_db->query_no_result($query);
+
+  foreach ($entry_ids as $id) {
+    $query = "DELETE FROM tradeskill_recipe_entries WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
 }
 ?>
