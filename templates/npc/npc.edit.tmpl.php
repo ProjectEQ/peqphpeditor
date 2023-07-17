@@ -59,10 +59,7 @@
             <tr>
               <td align="left">
                 See Invis:<br>
-                <select name="see_invis">
-                  <option value="0"<?echo ($see_invis == 0) ? " selected" : "";?>>No</option>
-                  <option value="1"<?echo ($see_invis == 1) ? " selected" : "";?>>Yes</option>
-                </select>
+                <input type="text" name="see_invis" size="5" value="<?=$see_invis?>">
               </td>
               <td align="left">
                 See ITU:<br>

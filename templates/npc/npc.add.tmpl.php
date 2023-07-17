@@ -59,10 +59,7 @@
             <tr>
               <td align="left">
                 See Invis:<br>
-                <select name="see_invis">
-                  <option value="0">No</option>
-                  <option value="1">Yes</option>
-                </select>
+                <input type="text" name="see_invis" size="5" value="0">
               </td>
               <td align="left">
                 See ITU:<br>
