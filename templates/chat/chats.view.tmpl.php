@@ -2,7 +2,10 @@
     <div class="table_header">
       <table style="width:100%; padding:0px; border-spacing:0px;">
         <tr>
-          <td align="right"><a href="index.php?editor=chat&action=1"><img src="images/add.gif" title="Add Chat Channel"></a></td>
+          <td align="right">
+            <a href="index.php?editor=chat&action=6"><img src="images/user.gif" title="Reserved Names"></a>&nbsp;
+            <a href="index.php?editor=chat&action=1"><img src="images/add.gif" title="Add Chat Channel"></a>
+          </td>
         </tr>
       </table>
     </div>
