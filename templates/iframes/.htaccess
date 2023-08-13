@@ -14,6 +14,10 @@
   Require all granted
 </Files>
 
+<Files npcsearch.php>
+  Require all granted
+</Files>
+
 <Files playersearch.php>
   Require all granted
 </Files>

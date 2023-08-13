@@ -294,11 +294,11 @@ function getPlayerName($playerid) {
       return $result['name'];
     }
     else {
-      return "";
+      return "N/A";
     }
   }
   else {
-    return "";
+    return "N/A";
   }
 }
 

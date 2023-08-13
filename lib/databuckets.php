@@ -46,6 +46,7 @@ switch ($action) {
     check_authorization();
     $breadcrumbs .= " >> Create Databucket";
     $body = new Template("templates/databuckets/databucket.add.tmpl.php");
+    $javascript = new Template("templates/databuckets/js.tmpl.php");
     $suggest_id = suggest_id();
     $body->set('suggest_id', $suggest_id);
     break;
@@ -56,19 +57,16 @@ switch ($action) {
     exit;
   case 4: //Edit Databucket
     check_authorization();
-    $databucket = view_databucket($_GET['id'], $_GET['key'], $_GET['value'], $_GET['expires']);
+    $breadcrumbs .= " >> Edit Databucket";
+    $body = new Template("templates/databuckets/databucket.edit.tmpl.php");
+    $javascript = new Template("templates/databuckets/js.tmpl.php");
+    $databucket = view_databucket($_GET['id']);
     if ($databucket) {
-      $breadcrumbs .= " >> Edit Databucket";
-      $body = new Template("templates/databuckets/databucket.edit.tmpl.php");
       foreach ($databucket as $key=>$value) {
         $body->set($key, $value);
       }
-      break;
     }
-    else {
-      header("Location: index.php?editor=databuckets");
-      exit;
-    }
+    break;
   case 5: //Update Databucket
     check_authorization();
     update_databucket();
@@ -77,7 +75,7 @@ switch ($action) {
     exit;
   case 6: //Delete Databucket
     check_authorization();
-    delete_databucket();
+    delete_databucket($_GET['id']);
     $return_address = $_SERVER['HTTP_REFERER'];
     header("Location: $return_address");
     exit;
@@ -97,10 +95,10 @@ function get_databuckets($page_number, $results_per_page, $sort_by, $where = "")
   return $results;
 }
 
-function view_databucket($id, $key, $value, $expires) {
+function view_databucket($id) {
   global $mysql;
 
-  $query = "SELECT * FROM data_buckets WHERE id=\"$id\" AND `key`=\"$key\" AND value=\"$value\" AND expires=\"$expires\"";
+  $query = "SELECT * FROM data_buckets WHERE id=\"$id\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -113,7 +111,10 @@ function insert_databucket() {
   $fields .= "id=\"" . $_POST['id'] . "\", ";
   $fields .= "`key`=\"" . $_POST['key'] . "\", ";
   $fields .= "value=\"" . $_POST['value'] . "\", ";
-  $fields .= "expires=\"" . $_POST['expires'] . "\"";
+  $fields .= "expires=\"" . $_POST['expires'] . "\", ";
+  $fields .= "character_id=\"" . $_POST['character_id'] . "\", ";
+  $fields .= "npc_id=\"" . $_POST['npc_id'] . "\", ";
+  $fields .= "bot_id=\"" . $_POST['bot_id'] . "\"";
 
   $query = "INSERT INTO data_buckets SET $fields";
   $mysql->query_no_result($query);
@@ -121,38 +122,41 @@ function insert_databucket() {
 
 function update_databucket() {
   global $mysql;
-  $old_id = $_POST['old_id'];
+  $id = $_POST['id'];
   $old_key = $_POST['old_key'];
   $old_value = $_POST['old_value'];
   $old_expires = $_POST['old_expires'];
-  $new_id = $_POST['id'];
+  $old_character_id = $_POST['old_character_id'];
+  $old_npc_id = $_POST['old_npc_id'];
+  $old_bot_id = $_POST['old_bot_id'];
   $new_key = $_POST['key'];
   $new_value = $_POST['value'];
   $new_expires = $_POST['expires'];
-  $databucket = view_databucket($old_id, $old_key, $old_value, $old_expires);
+  $new_character_id = $_POST['character_id'];
+  $new_npc_id = $_POST['npc_id'];
+  $new_bot_id = $_POST['bot_id'];
+  $databucket = view_databucket($id);
   $fields = '';
   extract($databucket);
 
-  if ($id != $new_id) $fields .= "id=\"" . $new_id . "\", ";
   if ($key != $new_key) $fields .= "`key`=\"" . $new_key . "\", ";
   if ($value != $new_value) $fields .= "value=\"" . $new_value . "\", ";
-  if ($expires != $new_expires) $fields .= "expires=\"" . $new_expires . "\"";
+  if ($expires != $new_expires) $fields .= "expires=\"" . $new_expires . "\", ";
+  if ($character_id != $new_character_id) $fields .= "character_id=\"" . $new_character_id . "\", ";
+  if ($npc_id != $new_npc_id) $fields .= "npc_id=\"" . $new_npc_id . "\", ";
+  if ($bot_id != $new_bot_id) $fields .= "bot_id=\"" . $new_bot_id . "\"";
 
   $fields =  rtrim($fields, ", ");
   if ($fields != '') {
-    $query = "UPDATE data_buckets SET $fields WHERE id=\"$old_id\" AND `key`=\"$old_key\" AND value=\"$old_value\" AND expires=\"$old_expires\"";
+    $query = "UPDATE data_buckets SET $fields WHERE id=\"$id\"";
     $mysql->query_no_result($query);
   }
 }
 
-function delete_databucket() {
+function delete_databucket($id) {
   global $mysql;
-  $id = $_GET['id'];
-  $key = $_GET['key'];
-  $value = $_GET['value'];
-  $expires = $_GET['expires'];
 
-  $query = "DELETE FROM data_buckets WHERE id=\"$id\" AND `key`=\"$key\" AND value=\"$value\" AND expires=\"$expires\"";
+  $query = "DELETE FROM data_buckets WHERE id=\"$id\"";
   $mysql->query_no_result($query);
 }
 
@@ -166,9 +170,14 @@ function suggest_id() {
 }
 
 function build_filter() {
+  global $mysql, $mysql_content_db;
+
   $filter1 = $_GET['filter1'];
   $filter2 = $_GET['filter2'];
-  $filter_final = array();
+  $filter3 = $_GET['filter3'];
+  $filter4 = $_GET['filter4'];
+  $filter5 = $_GET['filter5'];
+  $filter_final = array('sql'=>'');
 
   if ($filter1) { // Filter by key
     $filter_key = "`key` LIKE '%" . $filter1 . "%'";
@@ -181,11 +190,59 @@ function build_filter() {
     $filter_value = "`value` LIKE '%" . $filter2 . "%'";
     $filter_final['sql'] .= $filter_value;
   }
+  if ($filter3) { // Filter by character
+    $query = "SELECT id FROM character_data WHERE name LIKE \"%$filter3%\"";
+    $results = $mysql->query_mult_assoc($query);
+    $filter_character_id = "character_id IN (";
+    if ($results) {
+      foreach ($results as $result) {
+        $filter_character_id .= $result['id'] . ",";
+      }
+      $filter_character_id = rtrim($filter_character_id, ",");
+    }
+    else {
+      $filter_character_id .= "NULL";
+    }
+    $filter_character_id .= ")";
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_character_id;
+  }
+  if ($filter4) { // Filter by npc
+    $query = "SELECT id FROM npc_types WHERE name LIKE \"%$filter4%\"";
+    $results = $mysql_content_db->query_mult_assoc($query);
+    $filter_npc_id = "npc_id IN (";
+    if ($results) {
+      foreach ($results as $result) {
+        $filter_npc_id .= $result['id'] . ",";
+      }
+      $filter_npc_id = rtrim($filter_npc_id, ",");
+    }
+    else {
+      $filter_npc_id .= "NULL";
+    }
+    $filter_npc_id .= ")";
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_final['sql'] .= $filter_npc_id;
+  }
+  if ($filter5) { // Filter by bot_id
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_value = "`bot_id` LIKE '%" . $filter5 . "%'";
+    $filter_final['sql'] .= $filter_value;
+  }
 
-  $filter_final['url'] = "&filter=on&filter1=$filter1&filter2=$filter2";
+  $filter_final['url'] = "&filter=on&filter1=$filter1&filter2=$filter2&filter3=$filter3&filter4=$filter4&filter5=$filter5";
   $filter_final['status'] = "on";
   $filter_final['filter1'] = $filter1;
   $filter_final['filter2'] = $filter2;
+  $filter_final['filter3'] = $filter3;
+  $filter_final['filter4'] = $filter4;
+  $filter_final['filter5'] = $filter5;
 
   return $filter_final;
 }
