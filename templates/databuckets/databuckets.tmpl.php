@@ -79,7 +79,7 @@ foreach($databuckets as $databucket):?>
           <td align="center"><?=$databucket['id']?></td>
           <td align="center"><?=$databucket['key']?></td>
           <td align="center"><?=$databucket['value']?></td>
-          <td align="center"><?=$databucket['expires']?></td>
+          <td align="center"><?echo ($databucket['expires'] > 0) ? get_real_time($databucket['expires']) : "N/A";?></td>
           <td align="center"><?=getPlayerName($databucket['character_id'])?> (<?=$databucket['character_id']?>)</td>
           <td align="center"><?=getNPCName($databucket['npc_id'])?> (<?=$databucket['npc_id']?>)</td>
           <td align="center"><?echo ($databucket['bot_id'] > 0) ? $databucket['bot_id'] : "N/A (0)";?></td>
