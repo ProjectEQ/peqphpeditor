@@ -166,7 +166,7 @@ function build_filter() {
   $filter2 = $_GET['filter2'];
   $filter3 = $_GET['filter3'];
   $filter4 = $_GET['filter4'];
-  $filter_final = array();
+  $filter_final = array('sql'=>'');
 
   if ($filter1) { // Filter by name
     $filter_name = "name LIKE '%" . $filter1 . "%'";
