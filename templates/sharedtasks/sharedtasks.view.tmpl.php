@@ -25,7 +25,7 @@ foreach($sharedtasks as $sharedtask):?>
         <td align="center"><?=$sharedtask['id']?></td>
         <td align="center"><?=getTaskTitle($sharedtask['task_id'])?> (<?=$sharedtask['task_id']?>)</td>
         <td align="center"><?=$yesno[$sharedtask['is_locked']]?></td>
-        <td align="right"><a href="index.php?editor=sharedtasks&id=<?=$sharedtask['id']?>&action=2"><img src="images/view_all.gif" width="13" height="13" border="0" title="View Shared Task" alt="View"></a></td>
+        <td align="right"><a href="index.php?editor=sharedtasks&id=<?=$sharedtask['id']?>&action=<?echo ($_GET['action'] == 1) ? "2" : "4";?>"><img src="images/view_all.gif" width="13" height="13" border="0" title="View Shared Task" alt="View"></a></td>
       </tr>
 <?$x++;
 endforeach;
