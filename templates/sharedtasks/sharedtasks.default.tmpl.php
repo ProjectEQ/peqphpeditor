@@ -1,6 +1,6 @@
   <table class="edit_form">
     <tr>
-      <td class="edit_form_header">Shared Tasks Options</td>
+      <td class="edit_form_header">&nbsp;</td>
     </tr>
     <tr>
       <td class="edit_form_content">

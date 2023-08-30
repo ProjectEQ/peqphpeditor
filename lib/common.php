@@ -154,9 +154,16 @@ function get_faction_standing($value) {
 
 function getTaskTitle($tskid) {
   global $mysql_content_db;
+
   $query = "SELECT title FROM tasks WHERE id=$tskid";
   $result = $mysql_content_db->query_assoc($query);
-  return $result['title'];
+
+  if ($result) {
+    return $result['title'];
+  }
+  else {
+    return "UNK";
+  }
 }
 
 function getRecipeName($id) {
