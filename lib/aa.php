@@ -280,6 +280,7 @@ function insertAA() {
   $charges = $_POST['charges'];
   $drakkin_heritage = $_POST['drakkin_heritage'];
   $reset_on_death = $_POST['reset_on_death'];
+  $auto_grant_enabled = $_POST['auto_grant_enabled'];
 
   $classes_value = 0;
   foreach ($classes as $v) {
@@ -296,7 +297,7 @@ function insertAA() {
     $deities_value = $deities_value ^ $v;
   }
 
-  $query = "INSERT INTO aa_ability SET id=$id, name=\"$name\", category=$category, type=$type, classes=$classes_value, races=$races_value, deities=$deities_value, enabled=$enabled, first_rank_id=$first_rank_id, grant_only=$grant_only, status=$status, charges=$charges, drakkin_heritage=$drakkin_heritage, reset_on_death=$reset_on_death";
+  $query = "INSERT INTO aa_ability SET id=$id, name=\"$name\", category=$category, type=$type, classes=$classes_value, races=$races_value, deities=$deities_value, enabled=$enabled, first_rank_id=$first_rank_id, grant_only=$grant_only, status=$status, charges=$charges, drakkin_heritage=$drakkin_heritage, reset_on_death=$reset_on_death, auto_grant_enabled=$auto_grant_enabled";
   $mysql_content_db->query_no_result($query);
 
   return;
@@ -319,6 +320,7 @@ function updateAA() {
   $charges = $_POST['charges'];
   $drakkin_heritage = $_POST['drakkin_heritage'];
   $reset_on_death = $_POST['reset_on_death'];
+  $auto_grant_enabled = $_POST['auto_grant_enabled'];
 
   $classes_value = 0;
   foreach ($classes as $v) {
@@ -335,7 +337,7 @@ function updateAA() {
     $deities_value = $deities_value ^ $v;
   }
 
-  $query = "UPDATE aa_ability SET name=\"$name\", category=$category, type=$type, classes=$classes_value, races=$races_value, deities=$deities_value, enabled=$enabled, first_rank_id=$first_rank_id, grant_only=$grant_only, status=$status, charges=$charges, drakkin_heritage=$drakkin_heritage, reset_on_death=$reset_on_death WHERE id=$id";
+  $query = "UPDATE aa_ability SET name=\"$name\", category=$category, type=$type, classes=$classes_value, races=$races_value, deities=$deities_value, enabled=$enabled, first_rank_id=$first_rank_id, grant_only=$grant_only, status=$status, charges=$charges, drakkin_heritage=$drakkin_heritage, reset_on_death=$reset_on_death, auto_grant_enabled=$auto_grant_enabled WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 
   return;

@@ -157,6 +157,8 @@
                             </fieldset><br>
                           </td>
                         </tr>
+                      </table>
+                      <table cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                           <td>
                             <b>Enabled:</b><br>
@@ -203,6 +205,13 @@
                             <select name="reset_on_death">
                               <option value="0"<?echo ($base['reset_on_death'] == 0) ? " selected" : "";?>>No</option>
                               <option value="1"<?echo ($base['reset_on_death'] == 1) ? " selected" : "";?>>Yes</option>
+                            </select>
+                          </td>
+                          <td>
+                            <b>Auto Grant:</b><br>
+                            <select name="auto_grant_enabled">
+                              <option value="0"<?echo ($base['auto_grant_enabled'] == 0) ? " selected" : "";?>>No</option>
+                              <option value="1"<?echo ($base['auto_grant_enabled'] == 1) ? " selected" : "";?>>Yes</option>
                             </select>
                           </td>
                         </tr>
