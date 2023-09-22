@@ -2,7 +2,7 @@
     <table width="100%">
       <tr>
         <td valign="middle" width="30px"><img src="images/caution.gif"></td>
-        <td style="padding:0px 5px;">Editing data buckets directly while server running may have unintended consequences due to caching.</td>
+        <td style="padding:0px 5px;">Editing data buckets directly while server is running may have unintended consequences due to caching.</td>
       </tr>
     </table>
   </div>

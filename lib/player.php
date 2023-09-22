@@ -166,6 +166,29 @@ switch ($action) {
     toggle_exp_enabled($_GET['playerid']);
     header("Location: index.php?editor=player&playerid=$playerid");
     exit;
+  case 13: // Character Stats Record
+    check_admin_authorization();
+    $breadcrumbs .= " >> Stats Record";
+    $body = new Template("templates/player/player.stats.record.tmpl.php");
+    $body->set('playerid', $playerid);
+    $body->set('classes', $classes);
+    $body->set('genders', $genders);
+    $body->set('bodytypes', $bodytypes);
+    $body->set('races', $races);
+    $body->set('yesno', $yesno);
+    $body->set('skilltypes', $skilltypes);
+    $body->set('langtypes', $langtypes);
+    $body->set('player_name', getPlayerName($playerid));
+    $body->set('deities', $deities);
+    $body->set('anonymity', $anonymity);
+    $body->set('bind_slots', $bind_slots);
+    $stats = character_stats_record();
+    if ($stats) {
+      foreach ($stats as $key=>$value) {
+        $body->set($key, $value);
+      }
+    }
+    break;
 }
 
 function get_players($page_number, $results_per_page, $sort_by) {
@@ -396,7 +419,7 @@ function modify_exp_modifier() {
   $mysql->query_no_result($query);
 }
 
-function delete_exp_modifier($character_id, $zone_id) {
+function delete_exp_modifier($character_id, $zone_id, $instance_version) {
   global $mysql;
 
   $query = "DELETE FROM character_exp_modifiers WHERE character_id=$character_id AND zone_id=$zone_id AND instance_version=$instance_version";
@@ -416,5 +439,19 @@ function toggle_exp_enabled($playerid) {
 
   $query = "UPDATE character_data SET exp_enabled=$enabled WHERE id=$playerid";
   $mysql->query_no_result($query);
+}
+
+function character_stats_record() {
+  global $mysql, $playerid;
+
+  $query = "SELECT * FROM character_stats_record WHERE character_id=$playerid";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
 }
 ?>
