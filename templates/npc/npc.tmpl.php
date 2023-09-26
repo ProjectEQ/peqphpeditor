@@ -303,6 +303,11 @@ if ($loottable_id > 0) {
                    <td align="left" width="33%">Melee2 Type: <?=$sec_melee_type?></td>
                    <td align="left" width="34%">Model: <?echo ($model != 0) ? $model : "None";?></td>
                   </tr>
+                  <tr>
+                   <td align="left" width="33%">Show Name: <?=$yesno[$show_name]?></td>
+                   <td align="left" width="33%">&nbsp;</td>
+                   <td align="left" width="34%">&nbsp;</td>
+                  </tr>
                 </table>
               </fieldset>
               <fieldset>
@@ -453,6 +458,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="raid_target" value="<?=$raid_target?>">
         <input type="hidden" name="light" value="<?=$light?>">
         <input type="hidden" name="ignore_despawn" value="<?=$ignore_despawn?>">
+        <input type="hidden" name="show_name" value="<?=$show_name?>">
         <input type="hidden" name="charm_ac" value="<?=$charm_ac?>">
         <input type="hidden" name="charm_min_dmg" value="<?=$charm_min_dmg?>">
         <input type="hidden" name="charm_max_dmg" value="<?=$charm_max_dmg?>">

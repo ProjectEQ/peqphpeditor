@@ -1495,7 +1495,7 @@ function update_npc() {
   //unique_
   //fixed
   if ($ignore_despawn != $_POST['ignore_despawn']) $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\", ";
-  //show_name
+  if ($show_name != $_POST['show_name']) $fields .= "show_name=\"" . $_POST['show_name'] . "\", ";
   //untargetable
   if ($charm_ac != $_POST['charm_ac']) $fields .= "charm_ac=\"" . $_POST['charm_ac'] . "\", ";
   if ($charm_min_dmg != $_POST['charm_min_dmg']) $fields .= "charm_min_dmg=\"" . $_POST['charm_min_dmg'] . "\", ";
@@ -1657,7 +1657,7 @@ function add_npc() {
   //unique_
   //fixed
   $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\", ";
-  //show_name
+  $fields .= "show_name=\"" . $_POST['show_name'] . "\", ";
   //untargetable
   $fields .= "charm_ac=\"" . $_POST['charm_ac'] . "\", ";
   $fields .= "charm_min_dmg=\"" . $_POST['charm_min_dmg'] . "\", ";
@@ -1798,7 +1798,7 @@ function copy_npc() {
   //unique_
   //fixed
   $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\", ";
-  //show_name
+  $fields .= "show_name=\"" . $_POST['show_name'] . "\", ";
   //untargetable
   $fields .= "charm_ac=\"" . $_POST['charm_ac'] . "\", ";
   $fields .= "charm_min_dmg=\"" . $_POST['charm_min_dmg'] . "\", ";
