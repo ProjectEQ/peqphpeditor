@@ -65,10 +65,27 @@
                   <fieldset>
                     <legend><b>Event Data</b></legend>
 <?
+function display_array($in_array) {
+  foreach ($in_array as $key=>$value) {
+    if (is_array($value)) {
+      display_array($value);
+    }
+    else {
+      print "&nbsp;&nbsp;-&nbsp;<strong>" . $key . "</strong>: " . (($value != "") ? $value : "false") . "<br>";
+    }
+  }
+}
+
 if ($event['event_data'] != "") {
-  $elements = json_decode($event['event_data']);
-  foreach ($elements as $k=>$v) {
-    print "<strong>" . $k . "</strong>: " . $v . "<br>";
+  $event_data = json_decode($event['event_data'], true);
+  foreach ($event_data as $key=>$value) {
+    if (is_array($value)) {
+      print "<strong>" . $key . "</strong>: " . ((count($value) > 0) ? "" : " N/A") . "<br>";
+      display_array($value);
+    }
+    else {
+      print "<strong>" . $key . "</strong>: " . (($value != "") ? $value : "false") . "<br>";
+    }
   }
 }
 else {
