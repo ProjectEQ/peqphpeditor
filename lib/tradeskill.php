@@ -56,6 +56,10 @@ switch ($action) {
       if ($duplicate) {
         array_push($errors, "This recipe has duplicate item entries ($duplicate). <a href='index.php?editor=tradeskill&ts=$ts&rec=$rec&item_id=$duplicate&action=15'>-=MERGE=-</a>");
       }
+      $salvage = check_salvage_redundancy($rec);
+      if ($salvage) {
+        array_push($errors, "This recipe will return extra items on fail ($salvage).");
+      }
       $body->set("errors", $errors);
     }
     else {
@@ -655,6 +659,20 @@ function merge_duplicate_tradeskill_entries($recipe_id, $item_id) {
   foreach ($entry_ids as $id) {
     $query = "DELETE FROM tradeskill_recipe_entries WHERE id=$id";
     $mysql_content_db->query_no_result($query);
+  }
+}
+
+function check_salvage_redundancy($recipe_id) {
+  global $mysql_content_db;
+
+  $query = "SELECT recipe_id, item_id FROM tradeskill_recipe_entries WHERE recipe_id=$recipe_id AND failcount > 0 AND salvagecount > 1 LIMIT 1";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result['item_id'];
+  }
+  else {
+    return null;
   }
 }
 ?>
