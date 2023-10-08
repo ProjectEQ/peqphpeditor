@@ -665,7 +665,7 @@ function merge_duplicate_tradeskill_entries($recipe_id, $item_id) {
 function check_salvage_redundancy($recipe_id) {
   global $mysql_content_db;
 
-  $query = "SELECT recipe_id, item_id FROM tradeskill_recipe_entries WHERE recipe_id=$recipe_id AND failcount > 0 AND salvagecount > 1 LIMIT 1";
+  $query = "SELECT recipe_id, item_id FROM tradeskill_recipe_entries WHERE recipe_id=$recipe_id AND failcount > 0 AND salvagecount > 0 LIMIT 1";
   $result = $mysql_content_db->query_assoc($query);
 
   if ($result) {
