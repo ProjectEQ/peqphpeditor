@@ -498,9 +498,23 @@ function update_blockedspell() {
   $z_diff = $_POST['z_diff'];
   $message = $mysql_content_db->real_escape_string($_POST['message']); 
   $description = $_POST['description'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE blocked_spells SET spellid=\"$spellid\", type=\"$type\", x=\"$x_coord\", y=\"$y_coord\", z=\"$z_coord\", x_diff=\"$x_diff\", y_diff=\"$y_diff\", z_diff=\"$z_diff\", message=\"$message\", description=\"$description\" WHERE id=\"$bsid\"";
+  $query = "UPDATE blocked_spells SET spellid=\"$spellid\", type=\"$type\", x=\"$x_coord\", y=\"$y_coord\", z=\"$z_coord\", x_diff=\"$x_diff\", y_diff=\"$y_diff\", z_diff=\"$z_diff\", message=\"$message\", description=\"$description\", min_expansion=\"$min_expansion\", max_expansion=\"$max_expansion\", content_flags=NULL, content_flags_disabled=NULL WHERE id=\"$bsid\"";
   $mysql_content_db->query_no_result($query);
+
+  if ($content_flags != "") {
+    $query = "UPDATE blocked_spells SET content_flags=\"$content_flags\" WHERE id=\"$bsid\"";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE blocked_spells SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=\"$bsid\"";
+    $mysql_content_db->query_no_result($query);
+  }
 }
 
 function delete_graveyard() {
@@ -642,9 +656,23 @@ function add_blockedspell() {
   $z_diff = $_POST['z_diff'];
   $message = $mysql_content_db->real_escape_string($_POST['message']); 
   $description = $_POST['description'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO blocked_spells SET id=\"$bsid\", zoneid=\"$zoneid\", spellid=\"$spellid\", type=\"$type\", x=\"$x_coord\", y=\"$y_coord\", z=\"$z_coord\", x_diff=\"$x_diff\", y_diff=\"$y_diff\", z_diff=\"$z_diff\", message=\"$message\", description=\"$description\"";
+  $query = "INSERT INTO blocked_spells SET id=\"$bsid\", zoneid=\"$zoneid\", spellid=\"$spellid\", type=\"$type\", x=\"$x_coord\", y=\"$y_coord\", z=\"$z_coord\", x_diff=\"$x_diff\", y_diff=\"$y_diff\", z_diff=\"$z_diff\", message=\"$message\", description=\"$description\", min_expansion=\"$min_expansion\", max_expansion=\"$max_expansion\", content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
+
+  if ($content_flags != "") {
+    $query = "UPDATE blocked_spells SET content_flags=\"$content_flags\" WHERE id=\"$bsid\"";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE blocked_spells SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=\"$bsid\"";
+    $mysql_content_db->query_no_result($query);
+  }
 }
 
 function graveyard_info() {
@@ -690,7 +718,7 @@ function blockedspell_info() {
   $result = $mysql_content_db->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-      $array['blockedspell'][$result['id']] = array("bsid"=>$result['id'], "spellid"=>$result['spellid'], "type"=>$result['type'], "zoneid"=>$result['zoneid'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "x_diff"=>$result['x_diff'], "y_diff"=>$result['y_diff'], "z_diff"=>$result['z_diff'], "message"=>$result['message'], "description"=>$result['description']);
+      $array['blockedspell'][$result['id']] = array("bsid"=>$result['id'], "spellid"=>$result['spellid'], "type"=>$result['type'], "zoneid"=>$result['zoneid'], "x_coord"=>$result['x'], "y_coord"=>$result['y'], "z_coord"=>$result['z'], "x_diff"=>$result['x_diff'], "y_diff"=>$result['y_diff'], "z_diff"=>$result['z_diff'], "message"=>$result['message'], "description"=>$result['description'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
     }
   }
   return $array;

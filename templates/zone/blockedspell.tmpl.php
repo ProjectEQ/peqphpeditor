@@ -15,12 +15,8 @@
         <td align="center" width="5%"><strong>ID</strong></td>
         <td align="center" width="14%"><strong>Spell</strong></td>
         <td align="center" width="8%"><strong>Type</strong></td>
-        <td align="center" width="5%"><strong>X</strong></td>
-        <td align="center" width="5%"><strong>Y</strong></td>
-        <td align="center" width="5%"><strong>Z</strong></td>
-        <td align="center" width="6%"><strong>X Diff</strong></td>
-        <td align="center" width="6%"><strong>Y Diff</strong></td>
-        <td align="center" width="6%"><strong>Z Diff</strong></td>
+        <td align="center" width="17%"><strong>Expansion Flags</strong></td>
+        <td align="center" width="17%"><strong>Content Flags</strong></td>
         <td align="center" width="25%"><strong>Message</strong></td>
         <td align="center" width="10%"><strong>Description</strong></td>
         <td width="5%">&nbsp;</td>
@@ -30,12 +26,8 @@
         <td align="center" width="5%"><?=$v['bsid']?></td>
         <td align="center" width="14%"><?=getSpellName($v['spellid'])?> <span>[<a href="https://lucy.allakhazam.com/spell.html?id=<?=$v['spellid']?>" target="_blank">Lucy</a>]</span></td>
         <td align="center" width="8%"><?=$blockedtype[$v['type']]?></td>
-        <td align="center" width="5%"><?=$v['x_coord']?></td> 
-        <td align="center" width="5%"><?=$v['y_coord']?></td>
-        <td align="center" width="5%"><?=$v['z_coord']?></td>
-        <td align="center" width="6%"><?=$v['x_diff']?></td>
-        <td align="center" width="6%"><?=$v['y_diff']?></td>
-        <td align="center" width="6%"><?=$v['z_diff']?></td>
+        <td align="center" width="17%"><?echo ($v['min_expansion'] != -1 || $v['max_expansion'] != -1) ? "Yes" : "No";?></td> 
+        <td align="center" width="17%"><?echo ($v['content_flags'] != "" || $v['content_flags_disabled'] != "") ? "Yes" : "No";?></td> 
         <td align="center" width="25%"><?=$v['message']?></td> 
         <td align="center" width="10%"><?=$v['description']?></td>
         <td align="right" width="5%">      

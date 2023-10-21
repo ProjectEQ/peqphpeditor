@@ -40,6 +40,28 @@
             </td>
           </tr>
           <tr>
+            <td>
+              <strong>Min Expansion</strong><br>
+              <input type="text" name="min_expansion" size="7" value="<?=$min_expansion?>">
+            </td>
+            <td>
+              <strong>Max Expansion</strong><br>
+              <input type="text" name="max_expansion" size="7" value="<?=$max_expansion?>">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Content Flags</strong><br>
+              <input type="text" name="content_flags" size="15" value="<?=$content_flags?>">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Content Flags Disabled</strong><br>
+              <input type="text" name="content_flags_disabled" size="15" value="<?=$content_flags_disabled?>">
+            </td>
+          </tr>
+          <tr>
             <td align="left" colspan="2">
               <strong>Message</strong><br>
               <textarea name="message" cols="38" rows="3"><?=$message?></textarea><br><br>
