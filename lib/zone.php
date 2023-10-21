@@ -296,7 +296,7 @@ function get_blockedspell() {
 
   $bsid = $_GET['bsid'];
 
-  $query = "SELECT id AS bsid, spellid, type, zoneid AS bszoneid, x AS x_coord, y AS y_coord, z AS z_coord, x_diff, y_diff, z_diff, message, description, mix_expansion, max_expansion, content_flags, content_flags_disabled FROM blocked_spells WHERE id=\"$bsid\"";
+  $query = "SELECT id AS bsid, spellid, type, zoneid AS bszoneid, x AS x_coord, y AS y_coord, z AS z_coord, x_diff, y_diff, z_diff, message, description, min_expansion, max_expansion, content_flags, content_flags_disabled FROM blocked_spells WHERE id=\"$bsid\"";
   $result = $mysql_content_db->query_assoc($query);
 
   return $result;
