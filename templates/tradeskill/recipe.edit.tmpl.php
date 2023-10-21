@@ -50,7 +50,7 @@
             <option value="32"<?echo ($l_search == 32) ? " selected" : "";?>>No</option>
           </select><br><br>
           <strong>Learn Item ID:</strong><br>
-          <input type="text" name="learned_by_item_id" size="10" value="$learned_by_item_id">
+          <input type="text" name="learned_by_item_id" size="10" value="<?=$learned_by_item_id?>">
         </fieldset><br>
         <strong>Enabled:</strong><br>
         <select name="enabled">

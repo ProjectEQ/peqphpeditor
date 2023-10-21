@@ -52,23 +52,23 @@
           <tr>
             <td>
               <strong>Min Expansion</strong><br>
-              <input type="text" name="min_expansion" size="7" value="-1">
+              <input type="text" name="min_expansion" size="7" value="-1"><br><br>
             </td>
             <td>
               <strong>Max Expansion</strong><br>
-              <input type="text" name="max_expansion" size="7" value="-1">
+              <input type="text" name="max_expansion" size="7" value="-1"><br><br>
             </td>
           </tr>
           <tr>
             <td colspan="2">
               <strong>Content Flags</strong><br>
-              <input type="text" name="content_flags" size="15" value="">
+              <input type="text" name="content_flags" size="38" value=""><br><br>
             </td>
           </tr>
           <tr>
             <td colspan="2">
               <strong>Content Flags Disabled</strong><br>
-              <input type="text" name="content_flags_disabled" size="15" value="">
+              <input type="text" name="content_flags_disabled" size="38" value=""><br><br>
             </td>
           </tr>
           <tr>
