@@ -433,19 +433,16 @@ switch ($action) {
     $body = new Template("templates/server/variables.tmpl.php");
     $variables = get_variables();
     if ($variables) {
-      foreach ($variables as $key=>$value) {
-        $body->set($key, $value);
-      }
+      $body->set('variables', $variables);
     }
     break;
   case 44: // Edit Variable
     check_admin_authorization();
     $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=43'>" . "Variables</a> >> Variable Editor";
     $body = new Template("templates/server/variables.edit.tmpl.php");
-    $body->set('varname', $_GET['varname']);
-    $variables = view_variable();
-    if ($variables) {
-      foreach ($variables as $key=>$value) {
+    $variable = view_variable($_GET['id']);
+    if ($variable) {
+      foreach ($variable as $key=>$value) {
         $body->set($key, $value);
       }
     }
@@ -455,20 +452,20 @@ switch ($action) {
     update_variable();
     header("Location: index.php?editor=server&action=43");
     exit;    
-  case 46: // Create Variable
+  case 46: // Add Variable
     check_admin_authorization();
     $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=43'>" . "Variables</a> >> Create Variable";
     $body = new Template("templates/server/variables.add.tmpl.php");
+    $body->set('id', suggest_variable_id());
     break;
-  case 47: // Add Variable
+  case 47: // Insert Variable
     check_admin_authorization();
     add_variable();
     header("Location: index.php?editor=server&action=43");
     exit;
   case 48: // Delete Variable
     check_admin_authorization();
-    delete_variable();
-    $varname = $_GET['varname'];
+    delete_variable($_GET['id']);
     header("Location: index.php?editor=server&action=43");
     exit;
   case 49: // Delete Multiple Hacks
@@ -856,15 +853,15 @@ function get_launchers() {
 function get_variables() {
   global $mysql;
 
-  $query = "SELECT varname, value FROM variables";
+  $query = "SELECT * FROM variables";
   $results = $mysql->query_mult_assoc($query);
 
   if ($results) {
-    foreach ($results as $result) {
-      $array['variables'][$result['varname']] = array("varname"=>$result['varname'], "value"=>$result['value']);
-    }
+    return $results;
   }
-  return $array;
+  else {
+    return null;
+  }
 }
 
 function get_bug($id) {
@@ -958,15 +955,18 @@ function view_launcher() {
   return $result;
 }
 
-function view_variable() {
+function view_variable($id) {
   global $mysql;
 
-  $varname = $_GET['varname'];
-
-  $query = "SELECT * FROM variables WHERE varname=\"$varname\"";
+  $query = "SELECT * FROM variables WHERE id=$id";
   $result = $mysql->query_assoc($query);
   
-  return $result;
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
 }
 
 function update_bug_status() {
@@ -1046,12 +1046,13 @@ function update_launcher() {
 function update_variable() {
   global $mysql;
 
+  $id = $_POST['id'];
   $varname = $_POST['varname'];
   $value = $mysql->real_escape_string($_POST['value']); 
-  $information = $_POST['information'];
+  $information = $mysql->real_escape_string($_POST['information']);
   $ts = $_POST['ts'];
 
-  $query = "UPDATE variables SET varname=\"$varname\", value=\"$value\", information=\"$information\", ts=\"$ts\" WHERE varname=\"$varname\"";
+  $query = "UPDATE variables SET varname=\"$varname\", value=\"$value\", information=\"$information\", ts=\"$ts\" WHERE id=$id";
   $mysql->query_no_result($query);
 }
 
@@ -1119,12 +1120,10 @@ function delete_launcher() {
   $mysql->query_no_result($query);
 }
 
-function delete_variable() {
+function delete_variable($id) {
   global $mysql;
 
-  $varname = $_GET['varname'];
-
-  $query = "DELETE FROM variables WHERE varname=\"$varname\"";
+  $query = "DELETE FROM variables WHERE id=$id";
   $mysql->query_no_result($query);
 }
 
@@ -1174,12 +1173,13 @@ function add_launcher() {
 function add_variable() {
   global $mysql;
 
+  $id = $_POST['id'];
   $varname = $_POST['varname'];
   $value = $mysql->real_escape_string($_POST['value']); 
-  $information = $_POST['information'];
+  $information = $mysql->real_escape_string($_POST['information']);
   $ts = $_POST['ts'];
 
-  $query = "INSERT INTO variables SET varname=\"$varname\", value=\"$value\", information=\"$information\", ts=\"$ts\"";
+  $query = "INSERT INTO variables SET id=$id, varname=\"$varname\", value=\"$value\", information=\"$information\", ts=\"$ts\"";
   $mysql->query_no_result($query);
 }
 
@@ -1213,6 +1213,20 @@ function suggest_launcher() {
   $result = $mysql->query_assoc($query);
   
   return $result['name'];
+}
+
+function suggest_variable_id() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS id FROM variables;";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    return $result['id'] + 1;
+  }
+  else {
+    return 1;
+  }
 }
 
 function notify_status($new_status) {
