@@ -70,7 +70,10 @@
             </td>
             <td>
               <strong>Enabled:</strong><br>
-              <input type="text" name="enabled" size="15" value="1">
+              <select name="disabled">
+                <option value="1">No</option>
+                <option value="0" selected>Yes</option>
+              </select>
             </td>
             <td align="left">
               <strong>Animation:</strong><br>

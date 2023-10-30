@@ -77,7 +77,7 @@
             <strong>Idle Zone Pathing:</strong> <?echo ($path_when_zone_idle == 1) ? "Y" : "N";?>
           </td>
           <td>
-            <strong>Enabled:</strong> <?echo ($enabled == 1) ? "Y" : "N";?>
+            <strong>Enabled:</strong> <?echo ($disabled == 0) ? "Y" : "N";?>
           </td>
           <td align="left">
             <strong>Animation:</strong> <?=$animations[$animation]?>
