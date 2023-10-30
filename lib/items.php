@@ -136,6 +136,7 @@ switch ($action) {
     $body = new Template("templates/items/items.book.tmpl.php");
     $breadcrumbs .= " >> Book Text";
     $body->set('name', $_GET['name']);
+    $body->set('item_id', $_GET['id']);
     $vars = book_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -147,9 +148,9 @@ switch ($action) {
   case 4: //Update Book Text
     check_authorization();
     update_book();
-    $id = $_POST['id'];
-    if ($id) {
-      header("Location: index.php?editor=items&id=$id&action=2");
+    $item_id = $_POST['item_id'];
+    if ($item_id) {
+      header("Location: index.php?editor=items&id=$item_id&action=2");
     }
     else {
       header("Location: index.php?editor=items&action=16");
