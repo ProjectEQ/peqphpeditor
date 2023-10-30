@@ -24,7 +24,7 @@
         </table><br>
         <center>
           <input type="hidden" name="name" value="<?=$name?>">
-          <input type="hidden" name="id" value="<?=$item_id?>">
+          <input type="hidden" name="item_id" value="<?=$item_id?>">
           <input type="submit" value="Update Book">&nbsp;
           <input type="button" value="Cancel" onClick="history.back();">
         </center>
