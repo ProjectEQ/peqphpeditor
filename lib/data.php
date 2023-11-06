@@ -1805,6 +1805,50 @@ $zoneids = array(
  493 => 'weddingchapel',
  494 => 'weddingchapeldark',
  495 => 'dragoncrypt',
+/*
+ 502^North Qeynos^0^0
+ 503^Firiona Vie^0^0
+ 504^The Spell of the Undead^0^0
+ 505^The Castle of Mistmoore^0^0
+ 506^Kithicor Forest^0^0
+ 507^Kithicor Forest^0^0
+ 508^Veeshan's Peak^0^0
+ 510^Reinforced Clan Crushbone^0^0
+ 512^Rejuvenating Plains of Karana^0^0
+ 513^The Northern Plains of Karana^0^0
+ 515^The Graveyard of the Dead^0^0
+ 517^Reinforced Blackburrow^0^0
+ 518^The Invaded Lair of the Splitpaw^0^0
+ 525^Nektulos Forest^0^0
+ 526^The Plane of Mischief^0^0
+ 530^Everfrost- Unseasonably Warm^0^0
+ 531^Everfrost Peaks^0^0
+ 534^The Feast of Tishe Virm^0^0
+ 537^The Oasis of Marr^0^0
+ 539^The Hole^0^0
+ 548^Accursed Temple of Cazic-Thule^0^0
+ 549^Reinforced Temple of Cazic-Thule^0^0
+ 550^The Nightfall Haunting^0^0
+ 551^The Rathe Mountains^0^0
+ 557^The Lesser Faydark^0^0
+ 563^The Reinforced Estate of Unrest^0^0
+ 566^The Reinforced Ruins of Old Guk^0^0
+ 569^The Ocean of Tears^0^0
+ 572^The Plane of Fear^0^0
+ 576^The Testing Grounds^0^0
+ 581^The Temple of Droga^0^0
+ 586^The Plane of Hate^0^0
+ 596^Timorous Deep^0^0
+ 598^Erud's Crossing^0^0
+ 607^The Mines of Nurga^0^0
+ 615^The City of Thurgadin^0^0
+ 616^Eastern Wastes^0^0
+ 618^The Great Divide^0^0
+ 626^The Plane of Mischief^0^0
+ 628^The Sleeper's Tomb^0^0
+ 629^Icewell Keep^0^0
+ 666^Hollowshade Moor^0^0
+*/
  700 => 'feerrott2',
  701 => 'thulehouse1',
  702 => 'thulehouse2',
@@ -1826,6 +1870,10 @@ $zoneids = array(
  718 => 'phinterior1a2',
  719 => 'phinterior1a3',
  720 => 'phinterior1b1',
+/*
+ 721^One Room House Interior^0^0
+ 722^One Room House Interior^0^0
+*/
  723 => 'phinterior1d1',
  724 => 'argath',
  725 => 'arelis',
@@ -1890,7 +1938,98 @@ $zoneids = array(
  784 => 'degmar',
  785 => 'tempesttemple',
  786 => 'plhpirateshipint',
+ 787 => 'gnomemtn',
+ 788 => 'drogab',
+ 789 => 'charasisb',
+ 790 => 'scorchedwoods',
+ 791 => 'frontiermtnsb',
+ 792 => 'gorowyn',
+ 793 => 'korshaext',
+ 794 => 'lceanium',
+ 795 => 'cosul',
+ 796 => 'codecayb',
+ 797 => 'exaltedb',
+ 798 => 'pohealth',
+ 799 => 'korshaint',
+ 800 => 'chardoktwo',
+/*
+ 801^The Sleeper's Tomb^0^0
+ 802^Kerafyrm's Lair^0^0
+ 803^Skyshrine^0^0
+ 804^Permafrost Keep^0^0
+ 805^Reinforced Permafrost Keep^0^0
+ 806^Gukta, Outpost of Marr^0^0
+ 807^Innothule Swamp^0^0
+ 808^Neriak - Foreign Quarter^0^0
+ 809^Grimling Forest^0^0
+ 810^The Reinforced Castle of Mistmoore^0^0
+ 811^Reinforced Nagafen's Lair^0^0
+ 812^The Reinforced Ruins of Sebilis^0^0
+*/
+ 813 => 'charasistwo',
+ 814 => 'skyfiretwo',
+ 815 => 'overtheretwo',
+ 816 => 'veeshantwo',
+ 817 => 'trialsofsmoke',
+ 818 => 'stratos',
+ 819 => 'aalishai',
+ 820 => 'empyr',
+ 821 => 'esianti',
+ 822 => 'mearatas',
+ 823 => 'chamberoftears',
+ 824 => 'eastwastestwo',
+ 825 => 'frozenshadowtwo',
+ 826 => 'crystaltwoa',
+ 827 => 'greatdividetwo',
+ 828 => 'velketortwo',
+ 829 => 'kaeltwo',
+ 830 => 'crystaltwob',
+ 831 => 'sleepertwo',
+ 832 => 'necropolistwo',
+ 833 => 'cobaltscartwo',
+ 834 => 'westwastestwo',
+ 835 => 'skyshrinetwo',
+ 836 => 'templeveeshantwo',
+/*
+837^Winter^0^0
+838^Anniversary^0^0
+839^Spring^0^0
+840^Autumn^0^0
+841^Frostfell^0^0
+842^April Fools^0^0
+*/
+ 843 => 'maidentwo',
+ 844 => 'umbraltwo',
+ 845 => 'akhevatwo',
+ 846 => 'vexthaltwo',
+ 847 => 'shadowvalley',
+ 848 => 'basilica',
+ 849 => 'bloodfalls',
+ 850 => 'maidenhouseint',
+ 851 => 'shadowhaventwo',
+ 852 => 'sharvahltwo',
+ 853 => 'paludaltwo',
+ 854 => 'shadeweavertwo',
+ 855 => 'darklightcaverns',
+ 856 => 'deepshade',
+ 857 => 'firefallpass',
+ 858 => 'hollowshadetwo',
+/*
+Ankexfen Keep=ankexfen
+Laurion's Inn=laurioninn
+Moors of Nokk=moorsofnokk
+Pal'Lomen=pallomen
+The Hero's Forge=herosforge
+Timorous Falls=timorousfalls
+Unkempt Woods=unkemptwoods
+*/
+/*
+ 904^Qeynos Hills^0^0
+*/
  996 => 'arttest',
+/*
+ 997^CODE PH solo^0^0
+*/
  998 => 'fhalls',
  999 => 'apprentice'
 );
