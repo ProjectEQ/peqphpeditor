@@ -9,7 +9,7 @@
       <tr><td align="right">-100 to -1</td><td>&nbsp;</td><td align="left">Apprehensive</td></tr>
       <tr><td align="right">-500 to -101</td><td>&nbsp;</td><td align="left">Dubious</td></tr>
       <tr><td align="right">-750 to -501</td><td>&nbsp;</td><td align="left">Threatening</td></tr>
-      <tr><td align="right">-751 and Below</td><td>&nbsp;</td><td align="left">KOS</td></tr>
+      <tr><td align="right">-751 and Below</td><td>&nbsp;</td><td align="left">Scowls</td></tr>
     </table><br><br>
   </center>
   <div style="width: 500px; margin: auto;">
@@ -21,19 +21,26 @@
         <div class="edit_form_content">
           <fieldset>
             <legend><strong>Faction Info</strong></legend>
-            <table width="100%">
+            <table width="100%" cellpadding="3" cellspacing="3">
               <tr>
-                <td width="25%">ID:<br><input size="8" type="text" name="new_id" value="<?=$faction_info['id']?>"></td>
-                <td width="50%">Name:<br><input size="30" type="text" name="new_name" value="<?=$faction_info['name']?>"></td>
-                <td width="25%">Base:<br><input size="8" type="text" name="new_base" value="<?=$faction_info['base']?>"></td>
+                <td width="34%"><strong>ID:</strong><br><input size="8" type="text" value="<?=$faction_info['id']?>" disabled></td>
+                <td width="66%" colspan="2"><strong>Name:</strong><br><input size="30" type="text" name="name" value="<?=$faction_info['name']?>"></td>
+              </tr>
+              <tr>
+                <td width="34%"><strong>Base:</strong><br><input size="8" type="text" name="base" value="<?=$faction_info['base']?>"></td>
+                <td width="33%"><strong>Min:</strong><br><input size="8" type="text" name="min" value="<?echo (isset($faction_base)) ? $faction_base['min'] : "";?>"></td>
+                <td width="33%"><strong>Max:</strong><br><input size="8" type="text" name="max" value="<?echo (isset($faction_base)) ? $faction_base['max'] : "";?>"></td>
+              </tr>
+              <tr>
+                <td width="34%"><strong>Hero1:</strong><br><input size="8" type="text" name="unk_hero1" value="<?echo (isset($faction_base)) ? $faction_base['unk_hero1'] : "";?>"></td>
+                <td width="33%"><strong>Hero2:</strong><br><input size="8" type="text" name="unk_hero2" value="<?echo (isset($faction_base)) ? $faction_base['unk_hero2'] : "";?>"></td>
+                <td width="33%"><strong>Hero3:</strong><br><input size="8" type="text" name="unk_hero3" value="<?echo (isset($faction_base)) ? $faction_base['unk_hero3'] : "";?>"></td>
               </tr>
             </table>
           </fieldset><br>
           <center>
-            <input type="hidden" name="old_id" value="<?=$faction_info['id']?>">
-            <input type="hidden" name="old_name" value="<?=$faction_info['name']?>">
-            <input type="hidden" name="old_base" value="<?=$faction_info['base']?>">
-            <input type="submit" value="Submit Changes">&nbsp;<input type="button" value="Cancel Changes" onclick="history.back()">
+            <input type="hidden" name="id" value="<?=$faction_info['id']?>">
+            <input type="submit" value="Submit Changes">&nbsp;&nbsp;<input type="button" value="Cancel Changes" onclick="history.back()">
           </center>
         </div>
       </div>

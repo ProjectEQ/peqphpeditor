@@ -9,7 +9,7 @@
       <tr><td align="right">-100 to -1</td><td>&nbsp;</td><td align="left">Apprehensive</td></tr>
       <tr><td align="right">-500 to -101</td><td>&nbsp;</td><td align="left">Dubious</td></tr>
       <tr><td align="right">-750 to -501</td><td>&nbsp;</td><td align="left">Threatening</td></tr>
-      <tr><td align="right">-751 and Below</td><td>&nbsp;</td><td align="left">KOS</td></tr>
+      <tr><td align="right">-751 and Below</td><td>&nbsp;</td><td align="left">Scowls</td></tr>
     </table><br><br>
   </center>
   <div style="width: 500px; margin: auto;">
@@ -21,11 +21,20 @@
         <div class="edit_form_content">
           <fieldset>
             <legend><strong>Faction Info</strong></legend>
-            <table width="100%">
+            <table width="100%" cellpadding="3" cellspacing="3">
               <tr>
-                <td width="25%">ID:<br><input size="8" type="text" name="id" value="<?=$suggested_id?>"></td>
-                <td width="50%">Name:<br><input size="30" type="text" name="name" value=""></td>
-                <td width="25%">Base:<br><input size="8" type="text" name="base" value="0"></td>
+                <td width="34%"><strong>ID:</strong><br><input size="8" type="text" name="id" value="<?=$suggested_id?>"></td>
+                <td width="66%" colspan="2"><strong>Name:</strong><br><input size="30" type="text" name="name" value=""></td>
+              </tr>
+              <tr>
+                <td width="34%"><strong>Base:</strong><br><input size="8" type="text" name="base" value="0"></td>
+                <td width="33%"><strong>Min:</strong><br><input size="8" type="text" name="min" value="-2000"></td>
+                <td width="33%"><strong>Max:</strong><br><input size="8" type="text" name="max" value="2000"></td>
+              </tr>
+              <tr>
+                <td width="34%"><strong>Hero1:</strong><br><input size="8" type="text" name="unk_hero1" value=""></td>
+                <td width="33%"><strong>Hero2:</strong><br><input size="8" type="text" name="unk_hero2" value=""></td>
+                <td width="33%"><strong>Hero3:</strong><br><input size="8" type="text" name="unk_hero3" value=""></td>
               </tr>
             </table>
           </fieldset><br>

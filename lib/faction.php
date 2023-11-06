@@ -22,6 +22,9 @@ switch ($action) {
     else {
       $body = new Template("templates/faction/faction.tmpl.php");
       $faction_data = faction_info();
+      if ($faction_data['faction_base']) {
+        $body->set('faction_base', $faction_data['faction_base']);
+      }
       if ($faction_data['faction_info']) {
         $body->set('faction_info', $faction_data['faction_info']);
       }
@@ -34,6 +37,9 @@ switch ($action) {
     check_authorization();
     $body = new Template("templates/faction/faction.edit.tmpl.php");
     $faction_data = faction_info();
+    if ($faction_data['faction_base']) {
+      $body->set('faction_base', $faction_data['faction_base']);
+    }
     if ($faction_data['faction_info']) {
       $body->set('faction_info', $faction_data['faction_info']);
     }
@@ -254,8 +260,12 @@ switch ($action) {
 function faction_info() {
   global $mysql_content_db, $fid;
   $faction_array = array();
+  $faction_base = array();
   $faction_info = array();
   $faction_mods = array();
+
+  $query = "SELECT * FROM faction_base_data WHERE client_faction_id=$fid";
+  $faction_base = $mysql_content_db->query_assoc($query);
 
   $query = "SELECT * FROM faction_list WHERE id=$fid";
   $faction_info = $mysql_content_db->query_assoc($query);
@@ -263,6 +273,7 @@ function faction_info() {
   $query = "SELECT * FROM faction_list_mod WHERE faction_id=$fid ORDER BY id";
   $faction_mods = $mysql_content_db->query_mult_assoc($query);
 
+  $faction_array['faction_base'] = $faction_base;
   $faction_array['faction_info'] = $faction_info;
   $faction_array['faction_mods'] = $faction_mods;
 
@@ -315,35 +326,103 @@ function add_faction() {
   $id = $_POST['id'];
   $name = $_POST['name'];
   $base = $_POST['base'];
+  $min = $_POST['min'];
+  $max = $_POST['max'];
+  $unk_hero1 = $_POST['unk_hero1'];
+  $unk_hero2 = $_POST['unk_hero2'];
+  $unk_hero3 = $_POST['unk_hero3'];
 
   $query = "INSERT INTO faction_list SET id=$id, `name`=\"$name\", base=$base";
   $mysql_content_db->query_no_result($query);
+
+  if ($min || $max || $unk_hero1 || $unk_hero2 || $unk_hero3) {
+    $query = "INSERT INTO faction_base_data SET client_faction_id=$id, ";
+    if ($min != NULL) {
+      $query .= "min=$min, ";
+    }
+    else {
+      $query .= "min=NULL, ";
+    }
+    if ($max != NULL) {
+      $query .= "max=$max, ";
+    }
+    else {
+      $query .= "max=NULL, ";
+    }
+    if ($unk_hero1 != NULL) {
+      $query .= "unk_hero1=$unk_hero1, ";
+    }
+    else {
+      $query .= "unk_hero1=NULL, ";
+    }
+    if ($unk_hero2 != NULL) {
+      $query .= "unk_hero2=$unk_hero2, ";
+    }
+    else {
+      $query .= "unk_hero2=NULL, ";
+    }
+    if ($unk_hero3 != NULL) {
+      $query .= "unk_hero3=$unk_hero3";
+    }
+    else {
+      $query .= "unk_hero3=NULL";
+    }
+    $mysql_content_db->query_no_result($query);
+  }
 }
 
 function update_faction() {
   global $mysql_content_db, $fid;
 
-  $old_id = $fid;
-  $old_name = $_POST['old_name'];
-  $old_base = $_POST['old_base'];
-  $new_id = $_POST['new_id'];
-  $new_name = $_POST['new_name'];
-  $new_base = $_POST['new_base'];
-  $fields = '';
+  $id = $_POST['id'];
+  $name = $_POST['name'];
+  $base = $_POST['base'];
+  $min = $_POST['min'];
+  $max = $_POST['max'];
+  $unk_hero1 = $_POST['unk_hero1'];
+  $unk_hero2 = $_POST['unk_hero2'];
+  $unk_hero3 = $_POST['unk_hero3'];
 
-  $fields .= ($old_id != $new_id) ? "id=$new_id" . ", " : '';
-  $fields .= ($old_name != $new_name) ? "`name`=\"$new_name\"" . ", " : '';
-  $fields .= ($old_base != $new_base) ? "base=$new_base" . ", " : '';
-  $fields = rtrim($fields, ", ");
+  $query = "UPDATE faction_list SET name=\"$name\", base=$base WHERE id=$id";
+  $mysql_content_db->query_no_result($query);
 
-  if ($fields != '') {
-    $query = "UPDATE faction_list SET $fields WHERE id=$old_id";
+  if ($min || $max || $unk_hero1 || $unk_hero2 || $unk_hero3) {
+    $query = "REPLACE INTO faction_base_data SET client_faction_id=$id, ";
+    if ($min != NULL) {
+      $query .= "min=$min, ";
+    }
+    else {
+      $query .= "min=NULL, ";
+    }
+    if ($max != NULL) {
+      $query .= "max=$max, ";
+    }
+    else {
+      $query .= "max=NULL, ";
+    }
+    if ($unk_hero1 != NULL) {
+      $query .= "unk_hero1=$unk_hero1, ";
+    }
+    else {
+      $query .= "unk_hero1=NULL, ";
+    }
+    if ($unk_hero2 != NULL) {
+      $query .= "unk_hero2=$unk_hero2, ";
+    }
+    else {
+      $query .= "unk_hero2=NULL, ";
+    }
+    if ($unk_hero3 != NULL) {
+      $query .= "unk_hero3=$unk_hero3";
+    }
+    else {
+      $query .= "unk_hero3=NULL";
+    }
     $mysql_content_db->query_no_result($query);
   }
-  if ($old_id != $new_id) {
-    $query = "UPDATE faction_list_mod SET faction_id=$new_id WHERE faction_id=$old_id";
+  else {
+    $query = "DELETE FROM faction_base_data WHERE client_faction_id=$id";
     $mysql_content_db->query_no_result($query);
-    $fid = $new_id;
   }
 }
 
@@ -354,6 +433,9 @@ function delete_faction() {
   $mysql_content_db->query_no_result($query);
 
   $query = "DELETE FROM faction_list_mod WHERE faction_id=$fid";
+  $mysql_content_db->query_no_result($query);
+
+  $query = "DELETE FROM faction_base_data WHERE client_faction_id=$fid";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -552,15 +634,15 @@ function deconstruct_mod($mod_name) {
   switch ($category) {
     case 'r':
       $mod_type['category'] = 'Race';
-      $mod_type['name'] = $races[$cat_index];
+      $mod_type['name'] = $races[$cat_index] . " ($cat_index)";
       break;
     case 'c':
       $mod_type['category'] = 'Class';
-      $mod_type['name'] = $classes[$cat_index];
+      $mod_type['name'] = $classes[$cat_index] . " ($cat_index)";
       break;
     case 'd':
       $mod_type['category'] = 'Deity';
-      $mod_type['name'] = $deities[$cat_index];
+      $mod_type['name'] = $deities[$cat_index] . " ($cat_index)";
       break;
   }
 
