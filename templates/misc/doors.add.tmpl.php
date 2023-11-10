@@ -165,11 +165,11 @@
             </td>
             <td colspan="2">
               <strong>Content Flags</strong><br>
-              <input type="text" size="25" name="content_flags" value="0">
+              <input type="text" size="25" name="content_flags" value="">
             </td>
             <td colspan="2">
               <strong>Content Flags Disabled</strong><br>
-              <input type="text" size="25" name="content_flags_disabled" value="0">
+              <input type="text" size="25" name="content_flags_disabled" value="">
             </td>
             <td>&nbsp;</td>
           </tr>
