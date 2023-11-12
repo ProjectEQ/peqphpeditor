@@ -146,7 +146,7 @@ function get_faction_standing($value) {
     case $value >= -750:
       return "Threatening";
     case $value < -750:
-      return "KOS";
+      return "Scowls";
     default:
       return "UNK";
   }
