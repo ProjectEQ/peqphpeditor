@@ -2066,6 +2066,7 @@ $eqexpansions = array(
  27 => 'Claws of Veeshan',
  28 => 'Terror of Luclin',
  29 => 'Night of Shadows',
+ 30 => 'Laurion\'s Song',
  99 => 'Other'
 );
 
@@ -2138,7 +2139,8 @@ $expansions2_long = array(
  26 => 'Torment of Velious',
  27 => 'Claws of Veeshan',
  28 => 'Terror of Luclin',
- 29 => 'Night of Shadows'
+ 29 => 'Night of Shadows',
+ 30 => 'Laurion\'s Song'
 );
 
 $expansions2_short = array(
@@ -2172,7 +2174,8 @@ $expansions2_short = array(
  26 => 'ToV',
  27 => 'CoV',
  28 => 'ToL',
- 29 => 'NoS'
+ 29 => 'NoS',
+ 30 => 'LS'
 );
 
 $clients = array(

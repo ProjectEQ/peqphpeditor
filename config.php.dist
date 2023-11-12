@@ -65,6 +65,10 @@ $content_dbport = env('CONTENT_DB_PORT', 3306);
    24 | Ring of Scale
    25 | The Burning Lands
    26 | Torment of Velious
+   27 | Claws of Veeshan
+   28 | Terror of Luclin
+   29 | Night of Shadows
+   30 | Laurion's Song
    99 | Other
  */
 
