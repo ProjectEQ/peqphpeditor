@@ -19,6 +19,16 @@
             </tr>
             <tr>
               <td>
+                <strong>Min Time:</strong><br>
+                <input type="text" size="5" name="min_time" value="<?=$min_time?>">
+              </td>
+              <td>
+                <strong>Max Time:</strong><br>
+                <input type="text" size="5" name="max_time" value="<?=$max_time?>">
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <strong>Min Expansion:</strong><br>
                 <input type="text" name="min_expansion" value="<?=$min_expansion?>">
               </td>

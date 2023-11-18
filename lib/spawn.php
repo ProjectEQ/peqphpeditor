@@ -954,6 +954,8 @@ function add_spawngroup_member() {
   $balance = $_REQUEST['balance'];
   $chance = ($balance == "on") ? 0 : $_REQUEST['chance'];
   $condition_value_filter = $_REQUEST['condition_value_filter'];
+  $min_time = $_REQUEST['min_time'];
+  $max_time = $_REQUEST['max_time'];
   $min_expansion = $_REQUEST['min_expansion'];
   $max_expansion = $_REQUEST['max_expansion'];
   $content_flags = $_REQUEST['content_flags'];
@@ -974,7 +976,7 @@ function add_spawngroup_member() {
     $mysql_content_db->query_no_result($query);
   }
 
-  $query = "INSERT INTO spawnentry SET spawngroupID=$sid, npcID=$npc, chance=$chance, condition_value_filter=$condition_value_filter, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
+  $query = "INSERT INTO spawnentry SET spawngroupID=$sid, npcID=$npc, chance=$chance, condition_value_filter=$condition_value_filter, min_time=$min_time, max_time=$max_time, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
@@ -1006,6 +1008,8 @@ function add_multiple_spawngroup_member() {
   $balance = $_REQUEST['balance'];
   $chance = ($balance == "on") ? 0 : $_REQUEST['chance'];
   $condition_value_filter = $_REQUEST['condition_value_filter'];
+  $min_time = $_REQUEST['min_time'];
+  $max_time = $_REQUEST['max_time'];
   $min_expansion = $_REQUEST['min_expansion'];
   $max_expansion = $_REQUEST['max_expansion'];
   $content_flags = $_REQUEST['content_flags'];
@@ -1043,7 +1047,7 @@ function add_multiple_spawngroup_member() {
       $mysql_content_db->query_no_result($query);
     }
 
-    $query = "REPLACE INTO spawnentry SET spawngroupID=$sid, npcID=$npc, chance=$chance, condition_value_filter=$condition_value_filter, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
+    $query = "REPLACE INTO spawnentry SET spawngroupID=$sid, npcID=$npc, chance=$chance, condition_value_filter=$condition_value_filter, min_time=$min_time, max_time=$max_time, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
     $mysql_content_db->query_no_result($query);
 
     if ($content_flags != "") {
@@ -1070,12 +1074,14 @@ function update_spawngroup_member() {
   $npc = $_POST['sgnpcid'];
   $chance = $_POST['chance'];
   $condition_value_filter = $_POST['condition_value_filter'];
+  $min_time = $_POST['min_time'];
+  $max_time = $_POST['max_time'];
   $min_expansion = $_POST['min_expansion'];
   $max_expansion = $_POST['max_expansion'];
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE spawnentry SET chance=$chance, condition_value_filter=$condition_value_filter, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE spawngroupID=$spawngroupID AND npcID=$npc";
+  $query = "UPDATE spawnentry SET chance=$chance, condition_value_filter=$condition_value_filter, min_time=$min_time, max_time=$max_time, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE spawngroupID=$spawngroupID AND npcID=$npc";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
@@ -1621,6 +1627,8 @@ function add_spawngroup() {
   $npcID = $_POST['npcID'];
   $chance = ($_POST['chance'] >= 0 && $_POST['chance'] <= 100) ? $_POST['chance'] : 100;
   $condition_value_filter = $_POST['condition_value_filter'];
+  $min_time = $_POST['min_time'];
+  $max_time = $_POST['max_time'];
   $min_expansion = $_POST['min_expansion'];
   $max_expansion = $_POST['max_expansion'];
   $content_flags = $_POST['content_flags'];
@@ -1640,7 +1648,7 @@ function add_spawngroup() {
   $query = "INSERT INTO spawngroup VALUES($id, \"$name\", \"$spawn_limit\", \"$dist\", \"$max_x\", \"$min_x\", \"$max_y\", \"$min_y\", \"$delay\", \"$mindelay\", \"$despawn\", \"$despawn_timer\", \"$wp_spawns\")";
   $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO spawnentry SET spawngroupID=$id, npcID=$npcID, chance=$chance, condition_value_filter=$condition_value_filter, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
+  $query = "INSERT INTO spawnentry SET spawngroupID=$id, npcID=$npcID, chance=$chance, condition_value_filter=$condition_value_filter, min_time=$min_time, max_time=$max_time, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
