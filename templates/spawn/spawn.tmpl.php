@@ -107,9 +107,11 @@
       <div class="table_content2" style="padding: 0px;">
         <table width="100%" cellspacing="0">
           <tr bgcolor="#AAAAAA">
-            <th width="40%">NPC</th>
-            <th width="30%" align="center">Chance</th>
-            <th width="15%" align="center">Content Flags</th>
+            <th width="30%">NPC</th>
+            <th width="10%" align="center">Chance</th>
+            <th width="15%" align="center">Min Time</th>
+            <th width="15%" align="center">Max Time</th>
+            <th width="15%" align="center">Flags</th>
             <th width="15%" align="center">&nbsp;</th>
           </tr>
 <?
@@ -123,6 +125,8 @@
               <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>"><?=$name?></a> (<?=$npcID?>)
             </td>
             <td align="center"><?=$chance?></td>
+            <td align="center"><?=$min_time?></td>
+            <td align="center"><?=$max_time?></td>
             <td align="center"><?echo ($min_expansion > -1 || $max_expansion > -1 || $content_flags != "" || $content_flags_disabled != "") ? "Yes" : "No";?></td>
             <td align="right">
               <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&sgnpcid=<?=$npcID?>&action=1"><img src="images/edit2.gif" title="Edit this Spawngroup Member" border="0"></a>&nbsp;
@@ -135,7 +139,7 @@
   endforeach;
 ?>
           <tr bgcolor="#000000">
-            <td colspan="4" align="right">
+            <td colspan="6" align="right">
               <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&sid=<?=$spawngroupID?>&action=3" style="color:yellow;" title="Current: <?=$chance_total?>%">Balance Spawn Rates</a>
             </td>
           </tr>
