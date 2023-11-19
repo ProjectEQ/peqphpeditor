@@ -19,7 +19,7 @@
             <td><input type="text" size="7" name="x_coord" value="<?echo ($x_coord) ? $x_coord : 0;?>"></td>
             <td><input type="text" size="7" name="y_coord" value="<?echo ($y_coord) ? $y_coord : 0;?>"></td>
             <td><input type="text" size="7" name="z_coord" value="<?echo ($z_coord) ? $z_coord : 0;?>"></td>
-            <td><input type="text" size="7" name="heading" value="<?echo ($heading) ? $heading : -1;?>"></td>
+            <td><input type="text" size="7" name="heading" value="<?echo ($heading) ? $heading : 0;?>"></td>
             <td><input type="text" size="7" name="pause" value="<?echo ($pause) ? $pause : 0;?>"></td>
             <td><input type="text" size="7" name="centerpoint" value="<?echo ($centerpoint) ? $centerpoint : 0;?>"></td>
           </tr>

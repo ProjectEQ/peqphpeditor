@@ -705,7 +705,7 @@ switch ($action) {
     $body->set('x_coord', $_GET['x_coord']);
     $body->set('y_coord', $_GET['y_coord']);
     $body->set('z_coord', $_GET['z_coord']);
-    $body->set('heading', $_GET['h_coord']);
+    $body->set('heading', $_GET['heading']);
     $body->set('pause', $_GET['pause']);
     $body->set('centerpoint', $_GET['centerpoint']);
     break;
