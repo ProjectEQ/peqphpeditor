@@ -351,7 +351,7 @@ function get_player_location() {
 }
 
 function update_player_location() {
-  global $mysql;
+  global $mysql, $mysql_content_db;
   $playerid = $_POST['playerid'];
   $zoneid_token = strtok($_POST['zoneid'], ".");
   $zoneid = $zoneid_token;
@@ -364,7 +364,7 @@ function update_player_location() {
 
   if ($safe) {
     $query = "SELECT safe_x, safe_y, safe_z FROM zone WHERE zoneidnumber=$zoneid AND version=$version";
-    $result = $mysql->query_assoc($query);
+    $result = $mysql_content_db->query_assoc($query);
     $new_x = $result['safe_x'];
     $new_y = $result['safe_y'];
     $new_z = $result['safe_z'];
