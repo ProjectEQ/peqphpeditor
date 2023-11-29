@@ -1256,11 +1256,21 @@ function search_npc_types($search) {
 function get_spawnpoints() {
   global $mysql_content_db;
   $sid = $_GET['sid'];
+  $spawnpoints = array();
 
-  $query = "SELECT * FROM spawn2 WHERE spawngroupID=$sid ORDER BY id";
+  //$query = "SELECT * FROM spawn2 WHERE spawngroupID=$sid ORDER BY id";
+  //$results = $mysql_content_db->query_mult_assoc($query);
+
+  $query = "SELECT id FROM spawn2 WHERE spawngroupID=$sid";
   $results = $mysql_content_db->query_mult_assoc($query);
 
-  return $results;
+  if ($results) {
+    foreach ($results as $result) {
+      array_push($spawnpoints, spawnpoint_info($result['id']));
+    }
+  }
+
+  return $spawnpoints;
 }
 
 function grid_info() {
@@ -1421,15 +1431,23 @@ function spawnpoint_info($id) {
   $query = "SELECT * FROM spawn2 WHERE id=$id";
   $result = $mysql_content_db->query_assoc($query);
 
-  $query2 = "SELECT disabled FROM spawn2_disabled WHERE spawn2_id=$id";
-  $result2 = $mysql->query_assoc($query2);
+  if ($result) {
+    $query2 = "SELECT * FROM spawn2_disabled WHERE spawn2_id=$id";
+    $result2 = $mysql->query_assoc($query2);
 
-  if ($result2 && $result2['disabled'] == 1) {
-    $result['disabled'] = 1;
+    if ($result2 && $result2['disabled'] == 1) {
+      $result['disabled'] = 1;
+      $result['instance_id'] = $result2['instance_id'];
+    }
+    else {
+      $result['disabled'] = 0;
+      $result['instance_id'] = 0;
+    }
   }
   else {
-    $result['disabled'] = 0;
+    return NULL;
   }
+  return $result;
 }
 
 function update_spawnpoint() {
@@ -1456,8 +1474,9 @@ function update_spawnpoint() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
   $disabled = $_POST['disabled'];
+  $instance_id = $_POST['instance_id'];
 
-  $query = "UPDATE spawn2 SET spawngroupID=$spawngroupID, zone=\"$zone\", version=$version, x=$x, y=$y, z=$z, heading=$heading, respawntime=respawntime, variance=$variance, pathgrid=$pathgrid, path_when_zone_idle=$path_when_zone_idle, _condition=$_condition, cond_value=$cond_value, animation=$animation, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id";
+  $query = "UPDATE spawn2 SET spawngroupID=$spawngroupID, zone=\"$zone\", version=$version, x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, path_when_zone_idle=$path_when_zone_idle, _condition=$_condition, cond_value=$cond_value, animation=$animation, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 
   if ($_POST['content_flags'] != "") {
@@ -1473,7 +1492,7 @@ function update_spawnpoint() {
   }
 
   if ($disabled == 1) {
-    $query = "REPLACE INTO spawn2_disabled SET spawn2_id=$id, disabled=1";
+    $query = "REPLACE INTO spawn2_disabled SET spawn2_id=$id, instance_id=$instance_id, disabled=1";
     $mysql->query_no_result($query);
   }
   else {
@@ -1598,6 +1617,7 @@ function add_spawnpoint() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
   $disabled = $_POST['disabled'];
+  $instance_id = $_POST['instance_id'];
 
   $query = "INSERT INTO spawn2 SET id=$id, spawngroupID=$spawngroupID, zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, path_when_zone_idle=$path_when_zone_idle, _condition=$condition, cond_value=$cond_value, version=$version, animation=$animation, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
@@ -1613,7 +1633,7 @@ function add_spawnpoint() {
   }
 
   if ($disabled == 1) {
-    $query = "REPLACE INTO spawn2_disabled SET spawn2_id=$id, disabled=1";
+    $query = "REPLACE INTO spawn2_disabled SET spawn2_id=$id, instance_id=$instance_id, disabled=1";
     $mysql->query_no_result($query);
   }
 }
@@ -1966,13 +1986,15 @@ function copy_spawnpoint() {
   $query1 = "SELECT * FROM spawn2 WHERE id=$id";
   $original = $mysql_content_db->query_assoc($query1);
 
-  $query2 = "SELECT disabled FROM spawn2_disabled WHERE spawn2_id=$id";
+  $query2 = "SELECT * FROM spawn2_disabled WHERE spawn2_id=$id";
   $result = $mysql->query_assoc($query2);
   if ($result && $result['disabled'] == 1) {
     $original['disabled'] = 1;
+    $original['instance_id'] = $result['instance_id'];
   }
   else {
     $original['disabled'] = 0;
+    $original['instance_id'] = 0;
   }
 
   $zone = $original['zone'];
@@ -1993,6 +2015,7 @@ function copy_spawnpoint() {
   $content_flags = $original['content_flags'];
   $content_flags_disabled = $original['content_flags_disabled'];
   $disabled = $original['disabled'];
+  $instance_id = $original['instance_id'];
 
   $query = "INSERT INTO spawn2 SET id=$new_id, spawngroupID=\"$sgid\", zone=\"$zone\", x=$x, y=$y, z=$z, heading=$heading, respawntime=$respawntime, variance=$variance, pathgrid=$pathgrid, path_when_zone_idle=$path_when_zone_idle, _condition=$condition, cond_value=$cond_value, version=$version, animation=$animation, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
@@ -2008,7 +2031,7 @@ function copy_spawnpoint() {
   }
 
   if ($disabled == 1) {
-    $query = "REPLACE INTO spawn2_disabled SET spawn2_id=$new_id, disabled=1";
+    $query = "REPLACE INTO spawn2_disabled SET spawn2_id=$new_id, instance_id=$instance_id, disabled=1";
     $mysql->query_no_result($query);
   }
 }

@@ -93,6 +93,11 @@
               <strong>Max Expansion:</strong><br>
               <input type="text" name="max_expansion" size="15" value="-1">
             </td>
+            <td>
+              <strong>Disabled Instance:</strong><br>
+              <input type="text" name="instance_id" size="15" value="0">
+            </td>
+            <td>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="2">
