@@ -1258,9 +1258,6 @@ function get_spawnpoints() {
   $sid = $_GET['sid'];
   $spawnpoints = array();
 
-  //$query = "SELECT * FROM spawn2 WHERE spawngroupID=$sid ORDER BY id";
-  //$results = $mysql_content_db->query_mult_assoc($query);
-
   $query = "SELECT id FROM spawn2 WHERE spawngroupID=$sid";
   $results = $mysql_content_db->query_mult_assoc($query);
 
