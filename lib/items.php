@@ -276,6 +276,24 @@ switch ($action) {
     }
     $body->set("langtypes", $langtypes);
     break;
+  case 17: //Import Items Compare
+    $body = new Template("templates/items/items.compare.tmpl.php");
+    $breadcrumbs .= " >> Item Import Comparison";
+    $columns = get_item_compare_fields();
+    if ($columns) {
+      $body->set("columns", $columns);
+    }
+    break;
+  case 18: //Items Diff
+    $body = new Template("templates/items/items.diff.tmpl.php");
+    $column = $_GET['column'];
+    $breadcrumbs .= " >> Item Import Comparison >> Items Diff (" . $column . ")";
+    $body->set("column", $column);
+    $diff = get_items_diff($column);
+    if ($diff) {
+      $body->set("diff", $diff);
+    }
+    break;
 }
 
 function item_info() {
@@ -1110,4 +1128,37 @@ function delete_starting_item() {
   $mysql_content_db->query_no_result($query);
 }
 
+function get_item_compare_fields() {
+  global $mysql_content_db;
+  $columns = array();
+
+  try {
+    $query = "SHOW COLUMNS FROM items_new";
+    $results = $mysql_content_db->query_mult_assoc($query);
+
+    if ($results) {
+      foreach ($results as $result) {
+        array_push($columns, $result['Field']);
+      }
+    }
+  } catch (Exception $e) {
+    logSQL("Item comparison request: " . $e->getMessage());
+  }
+
+  return $columns;
+}
+
+function get_items_diff($column) {
+  global $mysql_content_db;
+
+  $query = "SELECT oi.id AS id, oi.Name AS Name, oi.$column AS old_$column, ni.$column AS new_$column FROM items oi JOIN items_new ni ON oi.id=ni.id WHERE oi.$column != ni.$column ORDER BY oi.id";
+  $results = $mysql_content_db->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return NULL;
+  }
+}
 ?>
