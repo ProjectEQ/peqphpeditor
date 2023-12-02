@@ -572,7 +572,7 @@ switch ($action) {
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
-    $spawnpoint = spawnpoint_info();
+    $spawnpoint = spawnpoint_info($_GET['id']);
     if ($spawnpoint) {
       foreach ($spawnpoint as $key=>$value) {
         $body->set($key, $value);
@@ -591,7 +591,7 @@ switch ($action) {
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
-    $spawnpoint = spawnpoint_info();
+    $spawnpoint = spawnpoint_info($_GET['id']);
     if ($spawnpoint) {
       foreach ($spawnpoint as $key=>$value) {
         $body->set($key, $value);
