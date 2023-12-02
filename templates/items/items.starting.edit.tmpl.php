@@ -25,21 +25,21 @@
             <tr>
               <td colspan="2">
                 <strong>Races:</strong> (| = Delimiter)(0 = ALL)<br>
-                <input type="text" name="race_list" size="10" value="<?=$item['race_list']?>">
+                <input type="text" name="race_list" size="40" value="<?=$item['race_list']?>">
               </td>
               <td colspan="2">
                 <strong>Classes:</strong> (| = Delimiter)(0 = ALL)<br>
-                <input type="text" name="class_list" size="10" value="<?=$item['class_list']?>">
+                <input type="text" name="class_list" size="40" value="<?=$item['class_list']?>">
               </td>
             </tr>
             <tr>
               <td colspan="2">
                 <strong>Deities:</strong> (| = Delimiter)(0 = ALL)<br>
-                <input type="text" name="deity_list" size="10" value="<?=$item['deity_list']?>">
+                <input type="text" name="deity_list" size="40" value="<?=$item['deity_list']?>">
               </td>
               <td colspan="2">
                 <strong>Zones:</strong> (| = Delimiter)(0 = ALL)<br>
-                <input type="text" name="zone_id_list" size="10" value="<?=$item['zone_id_list']?>">
+                <input type="text" name="zone_id_list" size="40" value="<?=$item['zone_id_list']?>">
               </td>
             </tr>
             <tr>

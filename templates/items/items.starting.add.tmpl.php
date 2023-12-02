@@ -25,21 +25,21 @@
             <tr>
               <td colspan="2">
                 <strong>Races:</strong> (| = Delimiter)(0 = ALL)<br>
-                <input type="text" name="race_list" size="10" value="0">
+                <input type="text" name="race_list" size="40" value="0">
               </td>
               <td colspan="2">
                 <strong>Classes:</strong> (| = Delimiter)(0 = ALL)<br>
-                <input type="text" name="class_list" size="10" value="0">
+                <input type="text" name="class_list" size="40" value="0">
               </td>
             </tr>
             <tr>
               <td colspan="2">
                 <strong>Deities:</strong> (| = Delimiter)(0 = ALL)<br>
-                <input type="text" name="deity_list" size="10" value="0">
+                <input type="text" name="deity_list" size="40" value="0">
               </td>
               <td colspan="2">
                 <strong>Zones:</strong> (| = Delimiter)(0 = ALL)<br>
-                <input type="text" name="zone_id_list" size="10" value="0">
+                <input type="text" name="zone_id_list" size="40" value="0">
               </td>
             </tr>
             <tr>
