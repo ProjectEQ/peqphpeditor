@@ -13,48 +13,33 @@
                 <strong>ID:</strong><br>
                 <input type="text" size="7" value="<?=$item['id']?>" disabled>
               </td>
-              <td colspan="2">
-                <strong>Race:</strong><br>
-                <select disabled>
-<?foreach ($races as $k=>$v):?>
-                  <option value="<?=$k?>"<?echo ($k == $item['race']) ? " selected" : "";?>><?echo ($k == 0) ? "ALL" : $v;?></option>
-<?endforeach;?>
-                </select>
-              </td>
-              <td>
-                <strong>Class:</strong><br>
-                <select name="class">
-<?foreach ($classes as $k=>$v):?>
-                  <option value="<?=$k?>"<?echo ($k == $item['class']) ? " selected" : "";?>><?echo ($k == 0) ? "ALL" : $v;?></option>
-<?endforeach;?>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Deity:</strong><br>
-                <select name="deityid">
-                  <option value="0">ALL</option>
-<?foreach ($deities as $k=>$v):?>
-                  <option value="<?=$k?>"<?echo ($k == $item['deityid']) ? " selected" : "";?>><?=$v?></option>
-<?endforeach;?>
-                </select>
-              </td>
-              <td>
-                <strong>Zone:</strong><br>
-                <select name="zoneid">
-<?foreach ($zones as $k=>$v):?>
-                  <option value="<?=$k?>"<?echo ($k == $item['zoneid']) ? " selected" : "";?>><?echo ($k == 0) ? "ALL" : $v;?></option>
-<?endforeach;?>
-                </select>
-              </td>
               <td>
                 <strong>GM:</strong><br>
                 <input type="text" name="gm" size="5" value="<?=$item['gm']?>">
               </td>
-              <td>
+              <td colspan="2">
                 <strong>Item ID:</strong> (<a href="javascript:showSearch();">search</a>)<br>
-                <input type="text" name="itemid" size="7" id="id" value="<?=$item['itemid']?>">
+                <input type="text" name="item_id" size="7" id="id" value="<?=$item['item_id']?>">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <strong>Races:</strong> (| = Delimiter)(0 = ALL)<br>
+                <input type="text" name="race_list" size="10" value="<?=$item['race_list']?>">
+              </td>
+              <td colspan="2">
+                <strong>Classes:</strong> (| = Delimiter)(0 = ALL)<br>
+                <input type="text" name="class_list" size="10" value="<?=$item['class_list']?>">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <strong>Deities:</strong> (| = Delimiter)(0 = ALL)<br>
+                <input type="text" name="deity_list" size="10" value="<?=$item['deity_list']?>">
+              </td>
+              <td colspan="2">
+                <strong>Zones:</strong> (| = Delimiter)(0 = ALL)<br>
+                <input type="text" name="zone_list" size="10" value="<?=$item['zone_list']?>">
               </td>
             </tr>
             <tr>
@@ -88,7 +73,6 @@
           </table><br><br>
           <center>
             <input type="hidden" name="id" value="<?=$item['id']?>">
-            <input type="hidden" name="race" value="<?=$item['race']?>">
             <input type="submit" value="Edit Item">&nbsp;&nbsp;
             <input type="button" value="Cancel" onClick="history.back();">
           </center>

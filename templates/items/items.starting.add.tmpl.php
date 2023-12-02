@@ -13,48 +13,33 @@
                 <strong>ID:</strong><br>
                 <input type="text" name="id" size="7" value="<?=$nextid?>">
               </td>
-              <td colspan="2">
-                <strong>Race:</strong><br>
-                <select name="race">
-<?foreach ($races as $k=>$v):?>
-                  <option value="<?=$k?>"><?echo ($k == 0) ? "ALL" : $v;?></option>
-<?endforeach;?>
-                </select>
-              </td>
-              <td>
-                <strong>Class:</strong><br>
-                <select name="class">
-<?foreach ($classes as $k=>$v):?>
-                  <option value="<?=$k?>"><?echo ($k == 0) ? "ALL" : $v;?></option>
-<?endforeach;?>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Deity:</strong><br>
-                <select name="deityid">
-                  <option value="0">ALL</option>
-<?foreach ($deities as $k=>$v):?>
-                  <option value="<?=$k?>"><?=$v?></option>
-<?endforeach;?>
-                </select>
-              </td>
-              <td>
-                <strong>Zone:</strong><br>
-                <select name="zoneid">
-<?foreach ($zones as $k=>$v):?>
-                  <option value="<?=$k?>"><?echo ($k == 0) ? "ALL" : $v;?></option>
-<?endforeach;?>
-                </select>
-              </td>
               <td>
                 <strong>GM:</strong><br>
                 <input type="text" name="gm" size="5" value="0">
               </td>
-              <td>
+              <td colspan="2">
                 <strong>Item ID:</strong> (<a href="javascript:showSearch();">search</a>)<br>
-                <input type="text" name="itemid" size="7" id="id" value="0">
+                <input type="text" name="item_id" size="7" id="id" value="0">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <strong>Races:</strong> (| = Delimiter)(0 = ALL)<br>
+                <input type="text" name="race_list" size="10" value="0">
+              </td>
+              <td colspan="2">
+                <strong>Classes:</strong> (| = Delimiter)(0 = ALL)<br>
+                <input type="text" name="class_list" size="10" value="0">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <strong>Deities:</strong> (| = Delimiter)(0 = ALL)<br>
+                <input type="text" name="deity_list" size="10" value="0">
+              </td>
+              <td colspan="2">
+                <strong>Zones:</strong> (| = Delimiter)(0 = ALL)<br>
+                <input type="text" name="zone_list" size="10" value="0">
               </td>
             </tr>
             <tr>
