@@ -1049,7 +1049,7 @@ function update_starting_item() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE starting_items SET race_list=\"$race_list\", class_list=\"$class_list\", deity_list=\"$deity_list\", zone_id_list=\"$zone_id_list\", item_id=$item_id, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id;
+  $query = "UPDATE starting_items SET race_list=\"$race_list\", class_list=\"$class_list\", deity_list=\"$deity_list\", zone_id_list=\"$zone_id_list\", item_id=$item_id, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
