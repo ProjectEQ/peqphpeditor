@@ -39,7 +39,7 @@
               </td>
               <td colspan="2">
                 <strong>Zones:</strong> (| = Delimiter)(0 = ALL)<br>
-                <input type="text" name="zone_list" size="10" value="<?=$item['zone_list']?>">
+                <input type="text" name="zone_id_list" size="10" value="<?=$item['zone_id_list']?>">
               </td>
             </tr>
             <tr>
