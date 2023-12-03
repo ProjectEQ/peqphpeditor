@@ -19,7 +19,7 @@
 foreach($diff as $item):?>
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
         <td align="center" width="5%"><?=$item['id']?></td>
-        <td align="center" width="35%"><?=$item['Name']?></td>
+        <td align="center" width="35%"><?=$item['Name']?> (<a href="https://lucy.allakhazam.com/item.html?id=<?=$item['id']?>" target="_blank">Lucy</a>)</td>
         <td align="center" width="30%"><?=$item['old_' . $column]?></td>
         <td align="center" width="30%"><?=$item['new_' . $column]?></td>
       </tr>
