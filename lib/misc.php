@@ -761,7 +761,7 @@ function get_objects() {
 
   if ($result) {
     foreach ($result as $result) {
-      $array['objects'][$result['id']] = array("objid"=>$result['id'], "objectname"=>$result['objectname'], "xpos"=>$result['xpos'], "ypos"=>$result['ypos'], "zpos"=>$result['zpos'], "heading"=>$result['heading'], "itemid"=>$result['itemid'], "charges"=>$result['charges'], "type"=>$result['type'], "icon"=>$result['icon'], "version"=>$result['version'], "tilt_x"=>$result['tilt_x'], "tilt_y"=>$result['tilt_y'], "size"=>$result['size'], "display_name"=>$result['display_name'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
+      $array['objects'][$result['id']] = array("objid"=>$result['id'], "version"=>$result['version'], "xpos"=>$result['xpos'], "ypos"=>$result['ypos'], "zpos"=>$result['zpos'], "heading"=>$result['heading'], "itemid"=>$result['itemid'], "charges"=>$result['charges'], "objectname"=>$result['objectname'], "type"=>$result['type'], "icon"=>$result['icon'], "size_percentage"=>$result['size_percentage'], "solid_type"=>$result['solid_type'], "incline"=>$result['incline'], "size"=>$result['size'], "tilt_x"=>$result['tilt_x'], "tilt_y"=>$result['tilt_y'], "display_name"=>$result['display_name'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']                                               );
     }
   }
 
@@ -1051,26 +1051,29 @@ function update_object() {
   global $mysql_content_db;
 
   $id = $_POST['id'];
-  $objectname = $_POST['objectname'];
+  $version = $_POST['version'];
   $xpos = $_POST['xpos'];
   $ypos = $_POST['ypos'];
   $zpos = $_POST['zpos'];
   $heading = $_POST['heading'];
   $itemid = $_POST['itemid'];
   $charges = $_POST['charges'];
+  $objectname = $_POST['objectname'];
   $type = $_POST['type'];
   $icon = $_POST['icon'];
-  $version = $_POST['version'];
+  $size_percentage = $_POST['size_percentage'];
+  $solid_type = $_POST['solid_type'];
+  $incline = $_POST['incline'];
+  $size = $_POST['size'];
   $tilt_x = $_POST['tilt_x'];
   $tilt_y = $_POST['tilt_y'];
-  $size = $_POST['size'];
   $display_name = $_POST['display_name'];
   $min_expansion = $_POST['min_expansion'];
   $max_expansion = $_POST['max_expansion'];
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE object SET objectname=\"$objectname\", xpos=$xpos, ypos=$ypos, zpos=$zpos, heading=$heading, itemid=$itemid, charges=$charges, type=\"$type\", icon=\"$icon\", version=$version, tilt_x=$tilt_x, tilt_y=$tilt_y, size=$size, display_name=\"$display_name\", min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id";
+  $query = "UPDATE object SET version=$version, xpos=$xpos, ypos=$ypos, zpos=$zpos, heading=$heading, itemid=$itemid, charges=$charges, objectname=\"$objectname\", type=\"$type\", icon=\"$icon\", size_percentage=$size_percentage, solid_type=$solid_type, incline=$incline, size=$size, tilt_x=$tilt_x, tilt_y=$tilt_y, display_name=\"$display_name\", min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
@@ -1415,25 +1418,32 @@ function add_doors() {
 function add_objects() {
   global $mysql_content_db, $z;
 
-  $zid = getZoneID($z);
   $objid = $_POST['objid'];
+  $zid = getZoneID($z);
   $zoneid = $_POST['zoneid'];
-  $objectname = $_POST['objectname'];
+  $version = $_POST['version'];
   $xpos = $_POST['xpos'];
   $ypos = $_POST['ypos'];
   $zpos = $_POST['zpos'];
   $heading = $_POST['heading'];
   $itemid = $_POST['itemid'];
   $charges = $_POST['charges'];
+  $objectname = $_POST['objectname'];
   $type = $_POST['type'];
   $icon = $_POST['icon'];
-  $version = $_POST['version'];
+  $size_percentage = $_POST['size_percentage'];
+  $solid_type = $_POST['solid_type'];
+  $incline = $_POST['incline'];
+  $size = $_POST['size'];
+  $tilt_x = $_POST['tilt_x'];
+  $tilt_y = $_POST['tilt_y'];
+  $display_name = $_POST['display_name'];
   $min_expansion = $_POST['min_expansion'];
   $max_expansion = $_POST['max_expansion'];
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO object SET id=\"$objid\", zoneid=\"$zid\", objectname=\"$objectname\", xpos=\"$xpos\", ypos=\"$ypos\", zpos=\"$zpos\", heading=\"$heading\", itemid=\"$itemid\", charges=\"$charges\", type=\"$type\", icon=\"$icon\", version=\"$version\", min_expansion=\"$min_expansion\", max_expansion=\"$max_expansion\", content_flags=NULL, content_flags_disabled=NULL";
+  $query = "INSERT INTO object SET id=\"$objid\", zoneid=\"$zid\", version=\"$version\", xpos=\"$xpos\", ypos=\"$ypos\", zpos=\"$zpos\", heading=\"$heading\", itemid=\"$itemid\", charges=\"$charges\", objectname=\"$objectname\", type=\"$type\", icon=\"$icon\", size_percentage=\"$size_percentage\", solid_type=\"$solid_type\", incline=\"$incline\", size=\"$size\", tilt_x=\"$tilt_x\", tilt_y=\"$tilt_y\", display_name=\"$display_name\", min_expansion=\"$min_expansion\", max_expansion=\"$max_expansion\", content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
@@ -1655,8 +1665,8 @@ function copy_objects() {
    $query = "UPDATE object SET version=9999 WHERE version=0 AND zoneid=\"$zid\"";
    $mysql_content_db->query_no_result($query);
 
-   $query = "INSERT INTO object (zoneid, xpos, ypos, zpos, heading, itemid, charges, objectname, type, icon, unknown08, unknown10, unknown20, unknown24, unknown60, unknown64, unknown68, unknown72, unknown76, unknown84, size, tilt_x, tilt_y, display_name, min_expansion, max_expansion, content_flags, content_flags_disabled)
-            SELECT zoneid, xpos, ypos, zpos, heading, itemid, charges, objectname, type, icon, unknown08, unknown10, unknown20, unknown24, unknown60, unknown64, unknown68, unknown72, unknown76, unknown84, size, tilt_x, tilt_y, display_name, min_expansion, max_expansion, content_flags, content_flags_disabled FROM object WHERE zoneid=\"$zid\" AND version=10000";
+   $query = "INSERT INTO object (zoneid, xpos, ypos, zpos, heading, itemid, charges, objectname, type, icon, size_percentage, solid_type, incline, unknown24, unknown60, unknown64, unknown68, unknown72, unknown76, unknown84, size, tilt_x, tilt_y, display_name, min_expansion, max_expansion, content_flags, content_flags_disabled)
+            SELECT zoneid, xpos, ypos, zpos, heading, itemid, charges, objectname, type, icon, size_percentage, solid_type, incline, unknown24, unknown60, unknown64, unknown68, unknown72, unknown76, unknown84, size, tilt_x, tilt_y, display_name, min_expansion, max_expansion, content_flags, content_flags_disabled FROM object WHERE zoneid=\"$zid\" AND version=10000";
    $mysql_content_db->query_no_result($query);
 
    $query = "UPDATE object SET version=$new_version WHERE version=0 AND zoneid=\"$zid\"";

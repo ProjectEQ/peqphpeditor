@@ -60,7 +60,10 @@
                 <strong>Size</strong><br>
                 <input type="text" size="7" name="size" value="100">
               </td>
-              <td>&nbsp;</td>
+              <td>
+                <strong>Size Percentage</strong><br>
+                <input type="text" size="7" name="size" value="0">
+              </td>
               <td colspan="2">
                 <strong>Type</strong><br>
                 <select class="left" name="type">
@@ -79,8 +82,14 @@
                 <strong>Icon</strong><br>
                 <input type="text" size="7" name="icon" value="0">
               </td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td>
+                <strong>Solid Type</strong><br>
+                <input type="text" size="7" name="size" value="0">
+              </td>
+              <td>
+                <strong>Incline</strong><br>
+                <input type="text" size="7" name="size" value="0">
+              </td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
             </tr>
