@@ -51,9 +51,9 @@ switch ($action) {
     break;
   case 4: //Add item to keyring
     check_admin_authorization();
-    $playerid = $_GET['playerid'];
     $body = new Template("templates/keys/keys.add.tmpl.php");
-    $body->set("playerid", $playerid);
+    $body->set("playerid", $_GET['playerid']);
+    $body->set("suggest_id", suggest_id());
     break;
   case 5: //Insert item into keyring
     check_admin_authorization();
@@ -63,7 +63,7 @@ switch ($action) {
     exit;
   case 6: //Edit item in keyring
     check_admin_authorization();
-    $key_item = key_item_details($_GET['playerid'], $_GET['item_id']);
+    $key_item = key_item_details($_GET['id']);
     $body = new Template("templates/keys/keys.edit.tmpl.php");
     $body->set("key_item", $key_item);
     break;
@@ -76,7 +76,7 @@ switch ($action) {
   case 8: //Delete item from keyring
     check_admin_authorization();
     $playerid = $_GET['playerid'];
-    delete_key_item($playerid, $_GET['item_id']);
+    delete_key_item($_GET['id']);
     header("Location: index.php?editor=keys&playerid=$playerid&action=1");
     exit;
 }
@@ -84,16 +84,16 @@ switch ($action) {
 function player_keys($player_id) {
   global $mysql;
 
-  $query = "SELECT char_id, item_id FROM keyring WHERE char_id=$player_id";
+  $query = "SELECT * FROM keyring WHERE char_id=$player_id";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;
 }
 
-function key_item_details($player_id, $item_id) {
+function key_item_details($id) {
   global $mysql;
 
-  $query = "SELECT * FROM keyring WHERE char_id=$player_id AND item_id=$item_id";
+  $query = "SELECT * FROM keyring WHERE id=$id";
   $results = $mysql->query_assoc($query);
 
   return $results;
@@ -126,31 +126,45 @@ function search_by_itemid($item_id, $list_limit) {
   return $results;
 }
 
-function delete_key_item($player_id, $item_id) {
+function delete_key_item($id) {
   global $mysql;
 
-  $query = "DELETE FROM keyring WHERE char_id=$player_id AND item_id=$item_id";
+  $query = "DELETE FROM keyring WHERE id=$id";
   $mysql->query_no_result($query);
 }
 
 function update_key_item() {
   global $mysql;
 
-  $char_id = $_POST['char_id'];
+  $id = $_POST['id'];
   $item_id = $_POST['item_id'];
-  $old_item = $_POST['old_item'];
 
-  $query = "UPDATE keyring SET item_id=$item_id WHERE char_id=$char_id AND item_id=$old_item";
+  $query = "UPDATE keyring SET item_id=$item_id WHERE id=$id";
   $mysql->query_no_result($query);
 }
 
 function insert_key_item() {
   global $mysql;
 
+  $id = $_POST['id'];
   $char_id = $_POST['char_id'];
   $item_id = $_POST['item_id'];
 
   $query = "INSERT INTO keyring SET char_id=$char_id, item_id=$item_id";
   $mysql->query_no_result($query);
+}
+
+function suggest_id() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS id FROM keyring";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    return $result + 1;
+  }
+  else {
+    return 1;
+  }
 }
 ?>
