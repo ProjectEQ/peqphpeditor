@@ -32,8 +32,8 @@
   }
 
   function damageCheck() { /* damage sanity check (scaling editor) */
-    var min_damage = document.forms[1].min_dmg.value;
-    var max_damage = document.forms[1].max_dmg.value;
+    var min_damage = parseInt(document.forms[1].min_dmg.value);
+    var max_damage = parseInt(document.forms[1].max_dmg.value);
 
     if (min_damage > max_damage) {
       document.forms[1].min_dmg.style.backgroundColor = "red";
@@ -47,8 +47,8 @@
   }
 
   function sdamageCheck() { /* scaling and damage sanity check (standard editor) */
-    var min_damage = document.forms[1].mindmg.value;
-    var max_damage = document.forms[1].maxdmg.value;
+    var min_damage = parseInt(document.forms[1].mindmg.value);
+    var max_damage = parseInt(document.forms[1].maxdmg.value);
 
     if (((min_damage == 0) && (max_damage != 0)) || ((max_damage == 0) && (min_damage != 0))) {
       document.forms[1].mindmg.style.backgroundColor = "red";
