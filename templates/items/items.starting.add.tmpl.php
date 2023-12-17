@@ -14,8 +14,8 @@
                 <input type="text" name="id" size="7" value="<?=$nextid?>">
               </td>
               <td>
-                <strong>GM:</strong><br>
-                <input type="text" name="gm" size="5" value="0">
+                <strong>Status:</strong><br>
+                <input type="text" name="status" size="5" value="0">
               </td>
               <td colspan="2">
                 <strong>Item ID:</strong> (<a href="javascript:showSearch();">search</a>)<br>
@@ -24,12 +24,12 @@
             </tr>
             <tr>
               <td colspan="2">
-                <strong>Races:</strong> (| = Delimiter)(0 = ALL)<br>
-                <input type="text" name="race_list" size="40" value="0">
-              </td>
-              <td colspan="2">
                 <strong>Classes:</strong> (| = Delimiter)(0 = ALL)<br>
                 <input type="text" name="class_list" size="40" value="0">
+              </td>
+              <td colspan="2">
+                <strong>Races:</strong> (| = Delimiter)(0 = ALL)<br>
+                <input type="text" name="race_list" size="40" value="0">
               </td>
             </tr>
             <tr>
@@ -48,8 +48,8 @@
                 <input type="text" name="item_charges" size="5" value="1">
               </td>
               <td>
-                <strong>Slot:</strong><br>
-                <input type="text" name="slot" size="5" value="-1">
+                <strong>Inventory Slot:</strong><br>
+                <input type="text" name="inventory_slot" size="5" value="-1">
               </td>
               <td>
                 <strong>Min Expansion:</strong><br>

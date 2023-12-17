@@ -15,8 +15,8 @@
 <?if (isset($items)):?>
       <tr>
         <td align="center" width="5%"><strong>ID</strong></td>
-        <td align="center" width="12%"><strong>Races</strong></td>
         <td align="center" width="12%"><strong>Classes</strong></td>
+        <td align="center" width="12%"><strong>Races</strong></td>
         <td align="center" width="12%"><strong>Deities</strong></td>
         <td align="center" width="12%"><strong>Zones</strong></td>
         <td align="center" width="40%"><strong>Item</strong></td>
@@ -26,8 +26,8 @@
 foreach($items as $item):?>
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
         <td align="center" width="5%"><?=$item['id']?></td>
-        <td align="center" width="12%"><?echo ($item['race_list'] == 0) ? "ALL" : ((strlen($item['race_list']) > 10) ? substr($item['race_list'], 0, 8) . "..." : $item['race_list']);?></td>
         <td align="center" width="12%"><?echo ($item['class_list'] == 0) ? "ALL" : ((strlen($item['class_list']) > 10) ? substr($item['class_list'], 0, 8) . "..." : $item['class_list']);?></td>
+        <td align="center" width="12%"><?echo ($item['race_list'] == 0) ? "ALL" : ((strlen($item['race_list']) > 10) ? substr($item['race_list'], 0, 8) . "..." : $item['race_list']);?></td>
         <td align="center" width="12%"><?echo ($item['deity_list'] == 0) ? "ALL" : ((strlen($item['deity_list']) > 10) ? substr($item['deity_list'], 0, 8) . "..." : $item['deity_list']);?></td>
         <td align="center" width="12%"><?echo ($item['zone_id_list'] == 0) ? "ALL" : ((strlen($item['zone_id_list']) > 10) ? substr($item['zone_id_list'], 0, 8) . "..." : $item['zone_id_list']);?></td>
         <td align="center" width="40%"><?=get_item_name($item['item_id'])?> (<?=$item['item_id']?>) - [<a href="https://lucy.allakhazam.com/item.html?id=<?=$item['item_id']?>" target="_blank">Lucy</a>]</td>

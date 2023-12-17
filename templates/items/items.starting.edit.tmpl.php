@@ -14,8 +14,8 @@
                 <input type="text" size="7" value="<?=$item['id']?>" disabled>
               </td>
               <td>
-                <strong>GM:</strong><br>
-                <input type="text" name="gm" size="5" value="<?=$item['gm']?>">
+                <strong>Status:</strong><br>
+                <input type="text" name="status" size="5" value="<?=$item['status']?>">
               </td>
               <td colspan="2">
                 <strong>Item ID:</strong> (<a href="javascript:showSearch();">search</a>)<br>
@@ -24,12 +24,12 @@
             </tr>
             <tr>
               <td colspan="2">
-                <strong>Races:</strong> (| = Delimiter)(0 = ALL)<br>
-                <input type="text" name="race_list" size="40" value="<?=$item['race_list']?>">
-              </td>
-              <td colspan="2">
                 <strong>Classes:</strong> (| = Delimiter)(0 = ALL)<br>
                 <input type="text" name="class_list" size="40" value="<?=$item['class_list']?>">
+              </td>
+              <td colspan="2">
+                <strong>Races:</strong> (| = Delimiter)(0 = ALL)<br>
+                <input type="text" name="race_list" size="40" value="<?=$item['race_list']?>">
               </td>
             </tr>
             <tr>
@@ -48,8 +48,8 @@
                 <input type="text" name="item_charges" size="5" value="<?=$item['item_charges']?>">
               </td>
               <td>
-                <strong>Slot:</strong><br>
-                <input type="text" name="slot" size="5" value="<?=$item['slot']?>">
+                <strong>Inventory Slot:</strong><br>
+                <input type="text" name="inventory_slot" size="5" value="<?=$item['inventory_slot']?>">
               </td>
               <td>
                 <strong>Min Expansion:</strong><br>
