@@ -10,7 +10,7 @@
       <form name="flavor" method="post" action="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=6">
         <table width="100%">
           <tr>
-            <td><textarea name="text" rows="6" cols="70"><?=$text?></textarea></td>
+            <td><textarea name="text" rows="6" cols="70"><?echo (isset($text)) ? $text : "";?></textarea></td>
             <td align="right"></td>
           </tr>
         </table><br>

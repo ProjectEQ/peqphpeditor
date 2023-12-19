@@ -1,4 +1,4 @@
-  <div class="edit_form" style="width: 350px">
+  <div class="edit_form" style="width: 350px;">
     <div class="edit_form_header">
       Add NPC
     </div>
@@ -8,7 +8,7 @@
           <tr>
             <td width="40%">
               NPC ID:<br>
-              <input type="text" name="npcid" value="<?=$npcid?>" size="10">
+              <input type="text" name="npcid" value="<?echo (isset($npcid)) ? $npcid : "";?>" size="10">
             </td>
             <td width="60%">
               Currency:<br>

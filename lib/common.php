@@ -661,10 +661,15 @@ function delete_account($acctid) {
 function get_currency_name($curr_id) {
   global $mysql_content_db;
 
-  $query = "SELECT a.item_id, i.name FROM alternate_currency a, items i WHERE a.item_id=i.id AND a.id=$curr_id";
+  $query = "SELECT a.item_id AS id, i.name AS `name` FROM alternate_currency a, items i WHERE a.item_id=i.id AND a.id=$curr_id LIMIT 1";
   $result = $mysql_content_db->query_assoc($query);
 
-  return $result['name'];
+  if ($result) {
+    return $result['name'];
+  }
+  else {
+    return "Item not in DB";
+  }
 }
 
 function factions_array() {

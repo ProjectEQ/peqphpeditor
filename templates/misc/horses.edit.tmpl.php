@@ -1,7 +1,7 @@
   <div class="edit_form" style="width: 500px;">
     <div class="edit_form_header">Edit Horse <?=$filename?></div>
     <div class="edit_form_content">
-      <form name="horses" method="post" action="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=31">
+      <form name="horse_edit" method="post" action="index.php?editor=misc&z=<?echo (isset($currzone)) ? $currzone : "";?>&zoneid=<?echo (isset($currzoneid)) ? $currzoneid : "";?>&action=31">
         <table width="100%">
           <tr>
             <th>Filename</th>
@@ -38,7 +38,7 @@
         </table><br><br>
         <center>
           <input type="hidden" name="filename" value="<?=$filename?>">
-          <input type="submit" value="Submit Changes">
+          <input type="submit" value="Submit Changes">&nbsp;&nbsp;<input type="button" value="Cancel" onClick="history.back();">
         </center>
       </form>
     </div>

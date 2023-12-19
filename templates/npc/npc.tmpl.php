@@ -57,7 +57,7 @@ if ($loottable_id > 0) {
                 <table style="font-size: 12px; margin-bottom: 80px;">
                   <tr>
                     <td>
-<?if($isquest == 1) {?>
+<?if ($isquest == 1) {?>
                       <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=71"><center><strong>Is Quest NPC</strong></center><br> </a>
 <?}?>
                       <strong>Race:</strong> <?echo "<a title='Race: " . $race . "'>" . $races[$race] . "</a>";?><br>
@@ -65,9 +65,21 @@ if ($loottable_id > 0) {
                       <strong>Level:</strong> <?=$level?><br>
                       <strong>Max Level:</strong> <?=$maxlevel?><br>
                       <strong>Body Type:</strong> <?echo "<a title='Body Type: " . $bodytype . "'>" . $bodytypes[$bodytype] . "</a>";?><br>
-                      <strong>Vendor:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=22" title="View/Change"><?echo ($merchant_id != 0 ? $merchant_id : "no");?></a><br>
-                      <strong>Alt Currency:</strong> <a href="index.php?editor=altcur&npcid=<?=$id?>&action=<?echo ($alt_currency_id != 0) ? '10">' . get_currency_name($alt_currency_id) : '8">no';?></a><br>
-                      <strong>Adventure:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=29" title="View/Change"><?echo ($adventure_template_id != 0 ? $adventure_template_id : "no");?></a><br>
+<?if ($merchant_id != 0):?>
+                      <strong>Vendor:</strong> <a href="index.php?editor=merchant&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>" title="View"><?=$merchant_id?></a><br>
+<?else:?>
+                      <strong>Vendor:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=22" title="Change">no</a><br>
+<?endif;?>
+<?if ($alt_currency_id != 0):?>
+                      <strong>Alt Currency:</strong> <a href="index.php?editor=altcur&npcid=<?=$id?>&action=10" title="View"><?echo get_currency_name($alt_currency_id);?></a><br>
+<?else:?>
+                      <strong>Alt Currency:</strong> <a href="index.php?editor=altcur&npcid=<?=$id?>&action=8" title="Change">no</a><br>
+<?endif;?>
+<?if ($adventure_template_id != 0):?>
+                      <strong>Adventure:</strong> <a href="index.php?editor=adventures&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>" title="View"><?=$adventure_template_id?></a><br>
+<?else:?>
+                      <strong>Adventure:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=29" title="Change">no</a><br>
+<?endif;?>
                       <strong>Trap:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=31" title="View/Change"><?echo ($trap_template != 0 ? $trap_template : "no");?></a><br>
 <?if($armortint_id > 0) {?>
                       <strong>Tint:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&tint_id=<?=$armortint_id?>&action=33"><?=$armortint_id?></a><br>

@@ -4,7 +4,7 @@
         <tr>
           <td>Horses</td>
           <td align="right">    
-            <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=33"><img src="images/add.gif" border="0" title="Add an entry to this zone"></a>
+            <a href="index.php?editor=misc&z=<?echo (isset($currzone)) ? $currzone : "";?>&zoneid=<?echo (isset($currzoneid)) ? $currzoneid : "";?>&action=33"><img src="images/add.gif" border="0" title="Add an entry"></a>
           </td>
         </tr>        
       </table>
@@ -29,8 +29,8 @@
         <td align="center" width="8%"><?=$v['mountspeed']?></td>
         <td align="center" width="12%"><?=$v['notes']?></td>
         <td align="right">      
-          <a href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&filename=<?=$v['filename']?>&action=30"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
-          <a onClick="return confirm('Really Delete Horse <?=$v['filename']?>?');" href="index.php?editor=misc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&filename=<?=$v['filename']?>&action=32"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
+          <a href="index.php?editor=misc&z=<?echo (isset($currzone)) ? $currzone : "";?>&zoneid=<?echo (isset($currzoneid)) ? $currzoneid : "";?>&filename=<?=$v['filename']?>&action=30"><img src="images/edit2.gif" border="0" title="Edit Entry"></a>          
+          <a onClick="return confirm('Really Delete Horse <?=$v['filename']?>?');" href="index.php?editor=misc&z=<?echo (isset($currzone)) ? $currzone : "";?>&zoneid=<?echo (isset($currzoneid)) ? $currzoneid : "";?>&filename=<?=$v['filename']?>&action=32"><img src="images/remove3.gif" border="0" title="Delete this entry"></a>
         </td>
       </tr>
 <?$x++; endforeach;?>
