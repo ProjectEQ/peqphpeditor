@@ -12,9 +12,9 @@
             </td>
             <td>
               Event:<br>
-              <select name="event_"<?echo (count($eventtype) == count($existing)) ? " disabled" : "";?>>
+              <select name="event_">
 <?foreach($eventtype as $key=>$value):?>
-                <option value="<?=$key?>"<?echo (in_array($key, $existing)) ? " disabled" : "";?>><?=$key?>: <?=$value?></option>
+                <option value="<?=$key?>"><?=$key?>: <?=$value?></option>
 <?endforeach;?>
               </select>
             </td>
@@ -34,7 +34,7 @@
             </td>
           </tr>
           <tr>
-            <td colspan="3" align="center"><input type="submit" value="Add Emote"<?echo (count($eventtype) == count($existing)) ? " disabled" : "";?>>&nbsp;<input type="button" value="Cancel" onClick="history.back();"></td>
+            <td colspan="3" align="center"><input type="submit" value="Add Emote">&nbsp;<input type="button" value="Cancel" onClick="history.back();"></td>
           </tr>
         </table>
       </div>

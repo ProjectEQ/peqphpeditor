@@ -14,7 +14,7 @@
               Event:<br>
               <select name="event_">
 <?foreach($eventtype as $key=>$value):?>
-                <option value="<?=$key?>"<?echo ($key == $event_) ? " selected" : ((in_array($key, $existing)) ? " disabled" : "");?>><?=$key?>: <?=$value?></option>
+                <option value="<?=$key?>"<?echo ($key == $event_) ? " selected" : "";?>><?=$key?>: <?=$value?></option>
 <?endforeach;?>
               </select>
             </td>
