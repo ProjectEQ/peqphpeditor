@@ -42,7 +42,13 @@
               <td align="left" width="20%">Min Players:<br><input type="text" name="min_players" size="7" value="<?=$min_players?>"></td>
               <td align="left" width="20%">Max Players:<br><input type="text" name="max_players" size="7" value="<?=$max_players?>"></td>
               <td align="left" width="20%">DZ Template ID:<br><input type="text" name="dz_template_id" size="7" value="<?=$dz_template_id?>"></td>
-              <td align="left" width="20%">&nbsp;</td>
+              <td align="left" width="20%">
+                Enabled:<br>
+                <select name="enabled">
+                  <option value="0"<?echo ($enabled == 0) ? " selected" : "";?>>No (0)</option>
+                  <option value="1"<?echo ($enabled == 1) ? " selected" : "";?>>Yes (1)</option>
+                </select>
+              </td>
             </tr>
           </table>
         </fieldset><br>

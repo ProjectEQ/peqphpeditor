@@ -30,7 +30,7 @@
                   <td align="left" width="20%">Min Players: <?=$min_players?></td>
                   <td align="left" width="20%">Max Players: <?=$max_players?></td>
                   <td align="left" width="20%">DZ Template ID: <?echo ($dz_template_id > 0) ? "<a href='index.php?editor=expeditions&id=" . $dz_template_id . "&action=34'>" . $dz_template_id . "</a>" : $dz_template_id;?></td>
-                  <td align="left" width="20%">&nbsp;</td>
+                  <td align="left" width="20%">Enabled: <?echo ($enabled == 1) ? "Yes" : "No";?></td>
                 </tr>
               </table>
             </fieldset><br>
