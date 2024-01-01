@@ -496,7 +496,7 @@ function copy_tradeskill() {
   $query = "DELETE FROM tradeskill_recipe_entries WHERE recipe_id=0";
   $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO tradeskill_recipe (id, name, tradeskill, skillneeded, trivial, nofail, replace_container, notes, must_learn, learned_by_item_id, quest, enabled, min_expansion, max_expansion, content_flags, content_flags_disabled) VALUES ($newid, \"$name\", $tradeskill, $skillneeded, $trivial, $nofail, $replace_container, \"$notes\", $must_learn, $quest, $enabled, $min_expansion, $max_expansion, NULL, NULL)";
+  $query = "INSERT INTO tradeskill_recipe (id, name, tradeskill, skillneeded, trivial, nofail, replace_container, notes, must_learn, learned_by_item_id, quest, enabled, min_expansion, max_expansion, content_flags, content_flags_disabled) VALUES ($newid, \"$name\", $tradeskill, $skillneeded, $trivial, $nofail, $replace_container, \"$notes\", $must_learn, $learned_by_item_id, $quest, $enabled, $min_expansion, $max_expansion, NULL, NULL)";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
