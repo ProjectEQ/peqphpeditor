@@ -1,3 +1,13 @@
+  <script>
+    function toggleCharges() {
+      if (document.getElementById("max_charges").checked == true) {
+        document.getElementById("item_charges").setAttribute("disabled", true);
+      }
+      else {
+        document.getElementById("item_charges").removeAttribute("disabled");
+      }
+    }
+  </script>
   <form name="lootdrop_item" method="POST" action="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=6&npcid=<?=$npcid?>&ldid=<?=$ldid?>&itemid=<?=$itemid?>">
     <div class="edit_form" style="width: 400px;">
       <div class="edit_form_header">Edit Lootdrop Item</div>
@@ -6,15 +16,16 @@
           <tr>
             <td>
               <strong>Lootdrop ID:</strong><br>
-              <input type="text" size="5" value="<?=$ldid?>" disabled>
+              <input type="text" size="7" value="<?=$ldid?>" disabled>
             </td>
             <td>
               <strong>Item ID:</strong><br>
-              <input id="id" type="text" size="5" value="<?=$itemid?>" disabled>
+              <input id="id" type="text" size="7" value="<?=$itemid?>" disabled>
             </td>
             <td>
-              <strong>Charges:</strong><br>
-              <input type="text" size="5" name="item_charges" value="<?=$item_charges?>">
+              <strong>Charges:</strong>&nbsp;&nbsp;&nbsp;<strong>Max:</strong><br>
+              <input type="text" size="5" name="item_charges" id="item_charges" value="<?=$item_charges?>">&nbsp;
+              <input type="checkbox" name="max_charges" id="max_charges" onChange="toggleCharges();">
             </td>
           </tr>
         </table><br>

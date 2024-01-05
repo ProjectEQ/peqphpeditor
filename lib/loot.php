@@ -177,7 +177,7 @@ switch ($action) {
     exit;
   case 20:  // Add lootdrop item
     check_authorization();
-    $javascript .= file_get_contents("templates/iframes/js.tmpl.php");
+    $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/loot/lootdrop.add.item.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -191,6 +191,7 @@ switch ($action) {
     exit;
   case 22:  // Change lootdrop
     check_authorization();
+    $javascript .= "templates/loot/js.tmpl.php";
     $body = new Template("templates/loot/lootdrop.change.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -786,10 +787,11 @@ function lootdrop_info() {
 
 function update_lootdrop_item() {
   global $mysql_content_db;
+
   $ldid = $_POST['ldid'];
   $itemid = $_POST['itemid'];
   $equip_item = $_POST['equip_item'];
-  $item_charges = $_POST['item_charges'];
+  $item_charges = (isset($_POST['item_charges']) ? $_POST['item_charges'] : "1");
   $chance = $_POST['chance'];
   $disabled_chance = $_POST['disabled_chance'];
   $trivial_min_level = $_POST['trivial_min_level'];
@@ -797,6 +799,15 @@ function update_lootdrop_item() {
   $multiplier = $_POST['multiplier'];
   $npc_min_level = $_POST['npc_min_level'];
   $npc_max_level = $_POST['npc_max_level'];
+
+  if (isset($_POST['max_charges'])) {
+    $query = "SELECT maxcharges FROM items WHERE id=$itemid";
+    $result = $mysql_content_db->query_assoc($query);
+
+    if ($result && $result['maxcharges'] != $item_charges) {
+      $item_charges = $result['maxcharges'];
+    }
+  }
 
   $query = "UPDATE lootdrop_entries SET equip_item=$equip_item, item_charges=$item_charges, chance=$chance, disabled_chance=$disabled_chance, trivial_min_level=$trivial_min_level, trivial_max_level=$trivial_max_level, multiplier=$multiplier, npc_min_level=$npc_min_level, npc_max_level=$npc_max_level WHERE lootdrop_id=$ldid AND item_id=$itemid";
   $mysql_content_db->query_no_result($query);
@@ -952,8 +963,9 @@ function remove_lootdrop_from_loottable() {
 
 function add_lootdrop_item($itemid) {
   global $mysql_content_db;
+
   $ldid = $_GET['ldid'];
-  $item_charges = $_POST['item_charges'];
+  $item_charges = (isset($_POST['item_charges']) ? $_POST['item_charges'] : "1");
   $multiplier = $_POST['multiplier'];
   $chance= $_POST['chance'];
   $equip_item = $_POST['equip_item'];
@@ -961,6 +973,15 @@ function add_lootdrop_item($itemid) {
   $trivial_max_level = $_POST['trivial_max_level'];
   $npc_min_level = $_POST['npc_min_level'];
   $npc_max_level = $_POST['npc_max_level'];
+
+  if (isset($_POST['max_charges'])) {
+    $query = "SELECT maxcharges FROM items WHERE id=$itemid";
+    $result = $mysql_content_db->query_assoc($query);
+
+    if ($result && $result['maxcharges'] != $item_charges) {
+      $item_charges = $result['maxcharges'];
+    }
+  }
 
   $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$ldid, item_id=$itemid, equip_item=$equip_item, item_charges=$item_charges, multiplier=$multiplier, chance=$chance, trivial_min_level=$trivial_min_level, trivial_max_level=$trivial_max_level, npc_min_level=$npc_min_level, npc_max_level=$npc_max_level";
   $mysql_content_db->query_no_result($query);
@@ -1163,6 +1184,7 @@ function magelo_import() {
 
 function move_copy_lootdrop_item() {
   global $mysql_content_db;
+
   $ldid = $_GET['ldid'];
   $itemid = $_GET['itemid'];
   $equip_item = $_POST['equip_item'];
@@ -1625,9 +1647,10 @@ function delete_global_lootdrop() {
 
 function insert_global_lootdrop_item() {
   global $mysql_content_db;
+
   $ldid = $_POST['ldid'];
   $itemid = $_POST['itemid'];
-  $item_charges = $_POST['item_charges'];
+  $item_charges = (isset($_POST['item_charges']) ? $_POST['item_charges'] : "1");
   $multiplier = $_POST['multiplier'];
   $chance = $_POST['chance'];
   $equip_item = $_POST['equip_item'];
@@ -1635,6 +1658,15 @@ function insert_global_lootdrop_item() {
   $trivial_max_level = $_POST['trivial_max_level'];
   $npc_min_level = $_POST['npc_min_level'];
   $npc_max_level = $_POST['npc_max_level'];
+
+  if (isset($_POST['max_charges'])) {
+    $query = "SELECT maxcharges FROM items WHERE id=$itemid";
+    $result = $mysql_content_db->query_assoc($query);
+
+    if ($result && $result['maxcharges'] != $item_charges) {
+      $item_charges = $result['maxcharges'];
+    }
+  }
 
   $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$ldid, item_id=$itemid, equip_item=$equip_item, item_charges=$item_charges, multiplier=$multiplier, chance=$chance, trivial_min_level=$trivial_min_level, trivial_max_level=$trivial_max_level, npc_min_level=$npc_min_level, npc_max_level=$npc_max_level";
   $mysql_content_db->query_no_result($query);

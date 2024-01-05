@@ -1,3 +1,13 @@
+  <script>
+    function toggleCharges() {
+      if (document.getElementById("max_charges").checked == true) {
+        document.getElementById("item_charges").setAttribute("disabled", true);
+      }
+      else {
+        document.getElementById("item_charges").removeAttribute("disabled");
+      }
+    }
+  </script>
   <center>
     <iframe id='searchframe' src='templates/iframes/itemsearch.php'></iframe>
     <input id="button" type="button" value='Hide Item Search' onclick='hideSearch("searchframe");' style='display:none; margin-bottom: 20px;'>
@@ -10,15 +20,16 @@
           <tr>
             <td>
               <strong>Lootdrop ID:</strong><br>
-              <input type="text" size="5" value="<?=$ldid?>" disabled>
+              <input type="text" size="7" value="<?=$ldid?>" disabled>
             </td>
             <td>
               <strong>Item ID:</strong> (<a href="javascript:showSearch('searchframe');">search</a>)<br>
-              <input id="id" type="text" size="5" name="itemid">
+              <input id="id" type="text" size="7" name="itemid">
             </td>
             <td>
-              <strong>Charges:</strong><br>
-              <input type="text" size="5" name="item_charges" value="1">
+              <strong>Charges:</strong>&nbsp;&nbsp;&nbsp;<strong>Max:</strong><br>
+              <input type="text" size="5" name="item_charges" id="item_charges" value="1">&nbsp;
+              <input type="checkbox" name="max_charges" id="max_charges" onChange="toggleCharges();">
             </td>
           </tr>
         </table><br>
