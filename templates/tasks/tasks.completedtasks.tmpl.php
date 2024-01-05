@@ -50,8 +50,8 @@
     <table class="table_content2" width="100%">
 <?if (isset($completed_tasks)):?>
       <tr>
-        <td align="center"><strong><?echo ($sort == 1) ? "Character <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=tasks&action=36&sort=1" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Character <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Character'></a>";?></strong></td>
-        <td align="center"><strong><?echo ($sort == 2) ? "Task <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=tasks&action=36&sort=2" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Task <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Task'></a>";?></strong></td>
+        <td align="center"><strong><?echo ($sort == 1) ? "Character <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=tasks&action=36&sort=1" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Character <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Character'></a>";?></strong></td>
+        <td align="center"><strong><?echo ($sort == 2) ? "Task <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=tasks&action=36&sort=2" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Task <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Task'></a>";?></strong></td>
         <td align="center"><strong>Activity ID</strong></td>
         <td align="center"><strong>Completed Time</strong></td>
         <td width="5%">&nbsp;</td>

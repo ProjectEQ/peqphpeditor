@@ -282,7 +282,7 @@ switch ($action) {
       $body->set('filter', $filter);
     }
     if ($page_stats['page']) {
-      $active_tasks = getActiveTasks($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
+      $active_tasks = getActiveTasks($page_stats['page'], $curr_size, $curr_sort, ((isset($filter)) ? $filter['sql'] : null));
     }
     if (isset($active_tasks)) {
       $body->set('active_tasks', $active_tasks);
@@ -311,7 +311,7 @@ switch ($action) {
       $body->set('filter', $filter);
     }
     if ($page_stats['page']) {
-      $completed_tasks = getCompletedTasks($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
+      $completed_tasks = getCompletedTasks($page_stats['page'], $curr_size, $curr_sort, ((isset($filter)) ? $filter['sql'] : null));
     }
     if (isset($completed_tasks)) {
       $body->set('completed_tasks', $completed_tasks);
@@ -795,7 +795,7 @@ function build_filter() {
   global $mysql, $mysql_content_db;
   $filter1 = $_GET['filter1'];
   $filter2 = $_GET['filter2'];
-  $filter_final = array();
+  $filter_final = array('sql'=>'');
 
   if ($filter1) { // Filter by task title
     $query = "SELECT id FROM tasks WHERE title LIKE \"%$filter1%\"";
