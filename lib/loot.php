@@ -191,7 +191,6 @@ switch ($action) {
     exit;
   case 22:  // Change lootdrop
     check_authorization();
-    $javascript .= "templates/loot/js.tmpl.php";
     $body = new Template("templates/loot/lootdrop.change.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
