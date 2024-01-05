@@ -804,7 +804,7 @@ function update_lootdrop_item() {
     $query = "SELECT maxcharges FROM items WHERE id=$itemid";
     $result = $mysql_content_db->query_assoc($query);
 
-    if ($result && $result['maxcharges'] != $item_charges) {
+    if ($result && $result['maxcharges'] >= 0) {
       $item_charges = $result['maxcharges'];
     }
   }
@@ -978,7 +978,7 @@ function add_lootdrop_item($itemid) {
     $query = "SELECT maxcharges FROM items WHERE id=$itemid";
     $result = $mysql_content_db->query_assoc($query);
 
-    if ($result && $result['maxcharges'] != $item_charges) {
+    if ($result && $result['maxcharges'] >= 0) {
       $item_charges = $result['maxcharges'];
     }
   }
@@ -1663,7 +1663,7 @@ function insert_global_lootdrop_item() {
     $query = "SELECT maxcharges FROM items WHERE id=$itemid";
     $result = $mysql_content_db->query_assoc($query);
 
-    if ($result && $result['maxcharges'] != $item_charges) {
+    if ($result && $result['maxcharges'] >= 0) {
       $item_charges = $result['maxcharges'];
     }
   }
