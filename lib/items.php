@@ -136,7 +136,9 @@ switch ($action) {
     $body = new Template("templates/items/items.book.tmpl.php");
     $breadcrumbs .= " >> Book Text";
     $body->set('name', $_GET['name']);
-    $body->set('item_id', $_GET['id']);
+    if (isset($_GET['id'])) {
+      $body->set('item_id', $_GET['id']);
+    }
     $vars = book_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -325,7 +327,7 @@ function update_book() {
   global $mysql_content_db;
 
   $name = $_POST['name'];
-  $txtfile = $_POST['txtfile'];
+  $txtfile = mysqli_real_escape_string($mysql_content_db, $_POST['txtfile']);
   $language = $_POST['language'];
 
   $query = "REPLACE INTO books SET txtfile=\"$txtfile\", name=\"$name\", language=$language";
