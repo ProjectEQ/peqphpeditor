@@ -147,7 +147,7 @@ if ($loottable_id > 0) {
                   </tr>
                   <tr>
                     <td align="left" width="34%">ATK: <?=$ATK?></td>
-                    <td align="left" width="33%">See Invis: <?=$see_invis?></td>
+                    <td align="left" width="33%">See Invis: <?echo ($see_invis > 0) ? "Yes (" . $see_invis . ")": "No";?></td>
                     <td align="left" width="34%">See ITU: <?=$yesno[$see_invis_undead]?></td>
                   </tr>
                   <tr>
