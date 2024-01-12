@@ -506,11 +506,12 @@ function update_activity() {
   $zones = mysqli_real_escape_string($mysql_content_db, $_POST['zones']);
   $zone_version = $_POST['zone_version'];
   $optional = $_POST['optional'];
+  $list_group = $_POST['list_group'];
 
   $query = "DELETE FROM task_activities WHERE taskid=\"$taskid\" AND activityid=\"$activityid\"";
   $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", activityid=\"$newactivityid\", req_activity_id=\"$req_activity_id\", step=\"$step\", activitytype=\"$activitytype\", target_name=\"$target_name\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", description_override=\"$description_override\", npc_match_list=\"$npc_match_list\", item_id_list=\"$item_id_list\", item_list=\"$item_list\", dz_switch_id=\"$dz_switch_id\", min_x=\"$min_x\", min_y=\"$min_y\", min_z=\"$min_z\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", optional=\"$optional\"";
+  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", activityid=\"$newactivityid\", req_activity_id=\"$req_activity_id\", step=\"$step\", activitytype=\"$activitytype\", target_name=\"$target_name\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", description_override=\"$description_override\", npc_match_list=\"$npc_match_list\", item_id_list=\"$item_id_list\", item_list=\"$item_list\", dz_switch_id=\"$dz_switch_id\", min_x=\"$min_x\", min_y=\"$min_y\", min_z=\"$min_z\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", optional=\"$optional\", list_group=\"$list_group\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -700,8 +701,9 @@ function add_activity() {
   $zone_version = $_POST['zone_version'];
   $zoneid = $_POST['zoneid'];
   $optional = $_POST['optional'];
+  $list_group = $_POST['list_group'];
 
-  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", activityid=\"$activityid\", req_activity_id=\"$req_activity_id\", step=\"$step\", activitytype=\"$activitytype\", target_name=\"$target_name\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", description_override=\"$description_override\", npc_match_list=\"$npc_match_list\", item_id_list=\"$item_id_list\", item_list=\"$item_list\", dz_switch_id=\"$dz_switch_id\", min_x=\"$min_x\", min_y=\"$min_y\", min_z=\"$min_z\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", optional=\"$optional\"";
+  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", activityid=\"$activityid\", req_activity_id=\"$req_activity_id\", step=\"$step\", activitytype=\"$activitytype\", target_name=\"$target_name\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", description_override=\"$description_override\", npc_match_list=\"$npc_match_list\", item_id_list=\"$item_id_list\", item_list=\"$item_list\", dz_switch_id=\"$dz_switch_id\", min_x=\"$min_x\", min_y=\"$min_y\", min_z=\"$min_z\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", optional=\"$optional\", list_group=\"$list_group\"";
   $mysql_content_db->query_no_result($query);
 }
 

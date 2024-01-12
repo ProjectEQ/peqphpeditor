@@ -24,7 +24,14 @@
 <?endforeach;?>
                 </select>
               </td>
-            </tr> 
+            </tr>
+            <tr>
+              <td align="left" width="18%">List Group:<br><input type="text" name="list_group" size="5" value="<?=$list_group?>"></td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
           </table>
         </fieldset><br>
         <fieldset>
