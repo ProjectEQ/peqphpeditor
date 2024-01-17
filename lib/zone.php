@@ -779,7 +779,7 @@ function get_isglobal() {
 }
 
 function update_global() {
-  global $mysql_content_db, $z, $zoneid;
+  global $mysql, $mysql_content_db, $z, $zoneid;
 
   $zid = getZoneID($z);
 
@@ -791,7 +791,7 @@ function update_global() {
   $result2 = $mysql->query_assoc($query2);
   $currid = $result2['currid'];
 
-  $query = "REPLACE INTO instance_list SET id=$currid, zone=$zid, version=$zversion, is_global=1, never_expires=1";
+  $query = "REPLACE INTO instance_list SET id=$currid, zone=$zid, version=$zversion, is_global=1, never_expires=1, notes=\"\"";
   $mysql->query_no_result($query);
 }
 
