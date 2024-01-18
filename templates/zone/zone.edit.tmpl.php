@@ -65,8 +65,14 @@
                 <tr>
                   <td align="left" width="25%">Lava Damage:<br><input type="text" name="lava_damage" size="7" value="<?=$lava_damage?>"</td>
                   <td align="left" width="25%">Min Lava Damage:<br><input type="text" name="min_lava_damage" size="7" value="<?=$min_lava_damage?>"</td>
-                  <td align="left" width="25%">&nbsp;</td>
-                  <td align="left" width="25%">&nbsp;</td>
+                  <td align="left" width="25%">
+                    Idle When Empty:<br>
+                    <select name="idle_when_empty">
+                      <option value="0"<?echo ($idle_when_empty == 0) ? " selected" : ""?>>No (0)</option>
+                      <option value="1"<?echo ($idle_when_empty == 1) ? " selected" : ""?>>Yes (1)</option>
+                    </select>
+                  </td>
+                  <td align="left" width="25%">Seconds Before Idle:<br><input type="text" name="seconds_before_idle" size="7" value="<?=$seconds_before_idle?>"></td>
                 </tr>
                 <tr>
                   <td align="left" width="25%">
