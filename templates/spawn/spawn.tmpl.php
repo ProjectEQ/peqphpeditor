@@ -36,16 +36,13 @@
       <div class="table_header">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
-            <td>
+            <td width="60%">
               Spawngroup: <?=$name?> - "<a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$spawngroupID?></a>"
             </td>
-            <td>
-              spawn_limit: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$spawn_limit?></a>
-            </td>
-            <td>
+            <td width="35%">
               <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=10">View Spawnpoints (<?=$count?>) for this Spawngroup</a>
             </td>
-            <td align="right">
+            <td width="5%" align="right">
               <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=8"><img src="images/add.gif" border="0" title="Add an NPC to this Spawngroup"></a>&nbsp;
               <a onClick="return confirm('Really delete this spawngroup?\n  THIS WILL DELETE ALL OF THIS SPAWNGROUP\'S SPAWNPOINTS, AS WELL!');" href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=6"><img src="images/remove2.gif" border="0" title="Delete this Spawngroup"></a>
             </td>
@@ -95,9 +92,11 @@
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
             <td width="25%">
+              spawn_limit: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$spawn_limit?></a>
+            </td>
+            <td width="25%">
               wp_spawns: <a href="index.php?editor=spawn&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>&sid=<?=$spawngroupID?>&action=4"><?=$wp_spawns?></a>
             </td>
-            <td width="25%">&nbsp;</td>
             <td width="25%">&nbsp;</td>
             <td width="25%">&nbsp;</td>
           </tr>
