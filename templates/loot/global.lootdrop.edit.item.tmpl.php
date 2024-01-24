@@ -8,7 +8,7 @@
       }
     }
   </script>
-  <form name="lootdrop_item" method="POST" action="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=6&npcid=<?=$npcid?>&ldid=<?=$ldid?>&itemid=<?=$itemid?>">
+  <form name="lootdrop_item" method="POST" action="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=68&npcid=<?=$npcid?>&ldid=<?=$ldid?>&itemid=<?=$itemid?>">
     <div class="edit_form" style="width: 400px;">
       <div class="edit_form_header">Edit Global Lootdrop Item</div>
       <div class="edit_form_content">

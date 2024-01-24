@@ -425,14 +425,19 @@ function npcs() {
   $zid = "___";
   $results = array();
 
-  if($z) {
+  if ($z) {
     $zid = getZoneID($z) . "___";
     if ($zoneid == "") {
       $zoneid = getZoneID($z);
     }
     $query = "SELECT version FROM zone WHERE id=\"$zoneid\"";
     $result = $mysql_content_db->query_assoc($query);
-    $version = $result['version'];
+    if ($result) {
+      $version = $result['version'];
+    }
+    else {
+      $version = 0;
+    }
   }
 
   if($npc_list == 1) {

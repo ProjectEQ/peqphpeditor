@@ -76,7 +76,12 @@ function getZoneVersion($zoneid) {
   $query = "SELECT version FROM zone WHERE id = \"$zoneid\"";
   $result = $mysql_content_db->query_assoc($query);
 
-  return $result['version'];
+  if ($result) {
+    return $result['version'];
+  }
+  else {
+    return 0;
+  }
 }
 
 function searchItems($search) {
