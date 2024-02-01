@@ -63,6 +63,13 @@
           </tr>
           <tr>
             <td>
+              <strong>Fix Z</strong><br>
+              <select name="fix_z">
+                <option value="0"<?echo ($fix_z == 0) ? " selected" : "";?>>No (0)</option>
+                <option value="1"<?echo ($fix_z == 1) ? " selected" : "";?>>Yes (1)</option>
+              </select>
+            </td>
+            <td>
               <strong>Min Expansion</strong><br>
               <input type="text" name="min_expansion" size="7" value="<?=$min_expansion?>">
             </td>
@@ -70,7 +77,6 @@
               <strong>Max Expansion</strong><br>
               <input type="text" name="max_expansion" size="7" value="<?=$max_expansion?>">
             </td>
-            <td>&nbsp;</td>
             <td>&nbsp;</td>
           </tr>
           <tr>

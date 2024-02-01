@@ -640,8 +640,8 @@ function get_gspawn() {
   $result = $mysql_content_db->query_assoc($query);
   $zversion = $result['zversion'];
 
-  if($zversion == 0) {
-    $query = "SELECT ground_spawns.id, zoneid, max_x, max_y, max_z, min_x, min_y, heading, max_allowed, respawn_timer, version, item AS giid, items.name AS name, min_expansion, max_expansion, content_flags, content_flags_disabled
+  if ($zversion == 0) {
+    $query = "SELECT ground_spawns.id, zoneid, max_x, max_y, max_z, min_x, min_y, heading, max_allowed, respawn_timer, fix_z, version, item AS giid, items.name AS name, min_expansion, max_expansion, content_flags, content_flags_disabled
                 FROM ground_spawns, items
                 WHERE ground_spawns.zoneid=$zid
                 AND ground_spawns.item=items.id
@@ -650,12 +650,12 @@ function get_gspawn() {
     $result = $mysql_content_db->query_mult_assoc($query);
     if ($result) {
       foreach ($result as $result) {
-        $array['gspawn'][$result['id']] = array("gsid"=>$result['id'], "giid"=>$result['giid'], "zoneid"=>$result['zoneid'], "max_x"=>$result['max_x'], "max_y"=>$result['max_y'], "max_z"=>$result['max_z'], "min_x"=>$result['min_x'], "min_y"=>$result['min_y'], "heading"=>$result['heading'], "gname"=>$result['gname'], "max_allowed"=>$result['max_allowed'], "comment"=>$result['comment'], "respawn_timer"=>$result['respawn_timer'], "iname"=>$result['name'], "version"=>$result['version'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
+        $array['gspawn'][$result['id']] = array("gsid"=>$result['id'], "giid"=>$result['giid'], "zoneid"=>$result['zoneid'], "max_x"=>$result['max_x'], "max_y"=>$result['max_y'], "max_z"=>$result['max_z'], "min_x"=>$result['min_x'], "min_y"=>$result['min_y'], "heading"=>$result['heading'], "gname"=>$result['gname'], "max_allowed"=>$result['max_allowed'], "comment"=>$result['comment'], "respawn_timer"=>$result['respawn_timer'], "fix_z"=>$result['fix_z'], "iname"=>$result['name'], "version"=>$result['version'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
       }
     }
   }
-  elseif($zversion > 0) {
-    $query = "SELECT ground_spawns.id, zoneid, max_x, max_y, max_z, min_x, min_y, heading, max_allowed, respawn_timer, version, item AS giid, items.name AS name, min_expansion, max_expansion, content_flags, content_flags_disabled
+  elseif ($zversion > 0) {
+    $query = "SELECT ground_spawns.id, zoneid, max_x, max_y, max_z, min_x, min_y, heading, max_allowed, respawn_timer, fix_z, version, item AS giid, items.name AS name, min_expansion, max_expansion, content_flags, content_flags_disabled
                 FROM ground_spawns, items
                 WHERE ground_spawns.zoneid=$zid
                 AND ground_spawns.version=$zversion
@@ -665,7 +665,7 @@ function get_gspawn() {
     $result = $mysql_content_db->query_mult_assoc($query);
     if ($result) {
       foreach ($result as $result) {
-        $array['gspawn'][$result['id']] = array("gsid"=>$result['id'], "giid"=>$result['giid'], "zoneid"=>$result['zoneid'], "max_x"=>$result['max_x'], "max_y"=>$result['max_y'], "max_z"=>$result['max_z'], "min_x"=>$result['min_x'], "min_y"=>$result['min_y'], "heading"=>$result['heading'], "gname"=>$result['gname'], "max_allowed"=>$result['max_allowed'], "comment"=>$result['comment'], "respawn_timer"=>$result['respawn_timer'], "iname"=>$result['name'], "version"=>$result['version'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
+        $array['gspawn'][$result['id']] = array("gsid"=>$result['id'], "giid"=>$result['giid'], "zoneid"=>$result['zoneid'], "max_x"=>$result['max_x'], "max_y"=>$result['max_y'], "max_z"=>$result['max_z'], "min_x"=>$result['min_x'], "min_y"=>$result['min_y'], "heading"=>$result['heading'], "gname"=>$result['gname'], "max_allowed"=>$result['max_allowed'], "comment"=>$result['comment'], "respawn_timer"=>$result['respawn_timer'], "fix_z"=>$result['fix_z'], "iname"=>$result['name'], "version"=>$result['version'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
       }
     }
   }
@@ -795,7 +795,7 @@ function gspawn_info() {
 
   $gsid = $_GET['gsid'];
 
-  $query = "SELECT id AS gsid, zoneid, max_x, max_y, max_z, min_x, min_y, heading, name, version, item AS giid, max_allowed, comment, respawn_timer, min_expansion, max_expansion, content_flags, content_flags_disabled FROM ground_spawns WHERE id=\"$gsid\"";
+  $query = "SELECT id AS gsid, zoneid, max_x, max_y, max_z, min_x, min_y, heading, name, version, item AS giid, max_allowed, comment, respawn_timer, fix_z, min_expansion, max_expansion, content_flags, content_flags_disabled FROM ground_spawns WHERE id=\"$gsid\"";
   $result = $mysql_content_db->query_assoc($query);
 
   return $result;
@@ -930,6 +930,7 @@ function update_gspawn() {
   $heading = $_POST['heading'];
   $max_allowed = $_POST['max_allowed'];
   $respawn_timer = $_POST['respawn_timer'];
+  $fix_z = $_POST['fix_z'];
   $name = $_POST['name'];
   $comment = $_POST['comment'];
   $version = $_POST['version'];
@@ -938,7 +939,7 @@ function update_gspawn() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE ground_spawns SET item=$giid, zoneid=$zoneid, max_x=$max_x, max_y=$max_y, max_z=$max_z, min_x=$min_x, min_y=$min_y, heading=$heading, max_allowed=$max_allowed, respawn_timer=$respawn_timer, name=\"$name\", comment=\"$comment\", version=$version, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$gsid";
+  $query = "UPDATE ground_spawns SET item=$giid, zoneid=$zoneid, max_x=$max_x, max_y=$max_y, max_z=$max_z, min_x=$min_x, min_y=$min_y, heading=$heading, max_allowed=$max_allowed, respawn_timer=$respawn_timer, fix_z=$fix_z, name=\"$name\", comment=\"$comment\", version=$version, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$gsid";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
@@ -1284,6 +1285,7 @@ function add_gspawn() {
   $heading = $_POST['heading'];
   $max_allowed = $_POST['max_allowed'];
   $respawn_timer = $_POST['respawn_timer'];
+  $fix_z = $_POST['fix_z'];
   $name = $_POST['name'];
   $comment = $_POST['comment'];
   $version = $_POST['version'];
@@ -1292,7 +1294,7 @@ function add_gspawn() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO ground_spawns SET id=\"$gsid\", item=\"$giid\", zoneid=\"$zoneid\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", min_x=\"$min_x\", min_y=\"$min_y\", heading=\"$heading\", max_allowed=\"$max_allowed\", respawn_timer=\"$respawn_timer\", name=\"$name\", comment=\"$comment\", version=\"$version\", min_expansion=\"$min_expansion\", max_expansion=\"$max_expansion\", content_flags=NULL, content_flags_disabled=NULL";
+  $query = "INSERT INTO ground_spawns SET id=\"$gsid\", item=\"$giid\", zoneid=\"$zoneid\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", min_x=\"$min_x\", min_y=\"$min_y\", heading=\"$heading\", max_allowed=\"$max_allowed\", respawn_timer=\"$respawn_timer\", fix_z=\"$fix_z\", name=\"$name\", comment=\"$comment\", version=\"$version\", min_expansion=\"$min_expansion\", max_expansion=\"$max_expansion\", content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
@@ -1612,8 +1614,8 @@ function copy_groundspawns() {
    $query = "UPDATE ground_spawns SET version=9999 WHERE version=0 AND zoneid=\"$zid\"";
    $mysql_content_db->query_no_result($query);
 
-   $query = "INSERT INTO ground_spawns (zoneid, max_x, max_y, max_z, min_x, min_y, heading, name, item, max_allowed, comment, respawn_timer, min_expansion, max_expansion, content_flags, content_flags_disabled)
-            SELECT zoneid, max_x, max_y, max_z, min_x, min_y, heading, name, item, max_allowed, comment, respawn_timer, min_expansion, max_expansion, content_flags, content_flags_disabled FROM ground_spawns WHERE zoneid=\"$zid\" AND version=10000";
+   $query = "INSERT INTO ground_spawns (zoneid, max_x, max_y, max_z, min_x, min_y, heading, name, item, max_allowed, comment, respawn_timer, fix_z, min_expansion, max_expansion, content_flags, content_flags_disabled)
+            SELECT zoneid, max_x, max_y, max_z, min_x, min_y, heading, name, item, max_allowed, comment, respawn_timer, fix_z, min_expansion, max_expansion, content_flags, content_flags_disabled FROM ground_spawns WHERE zoneid=\"$zid\" AND version=10000";
    $mysql_content_db->query_no_result($query);
 
    $query = "UPDATE ground_spawns SET version=$new_version WHERE version=0 AND zoneid=\"$zid\"";
