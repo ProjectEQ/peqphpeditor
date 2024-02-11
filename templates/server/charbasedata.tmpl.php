@@ -27,8 +27,8 @@
         <td align="center"><?=$v['hp']?></td>
         <td align="center"><?=$v['mana']?></td>
         <td align="center"><?=$v['end']?></td>
-        <td align="center"><?=$v['unk1']?></td>
-        <td align="center"><?=$v['unk2']?></td>
+        <td align="center"><?=$v['hp_regen']?></td>
+        <td align="center"><?=$v['end_regen']?></td>
         <td align="center"><?=$v['hp_fac']?></td>
         <td align="center"><?=$v['mana_fac']?></td>
         <td align="center"><?=$v['end_fac']?></td>
