@@ -146,7 +146,9 @@ switch ($action) {
       $body->set('currzone', $z);
       $body->set('currzoneid', $zoneid);
       $body->set('npcid', $npcid);
-      $body->set('sid', $_GET['sid']);
+      if (isset($_GET['sid']) && $_GET['sid'] > 0) {
+        $body->set('sid', $_GET['sid']);
+      }
       $results = search_npc_types($_POST['search']);
       $body->set('results', $results);
     }
@@ -642,11 +644,11 @@ switch ($action) {
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
-    if($_POST['new_sid'] > 0){
-      $body->set('sid', $_POST['new_sid']);
-    }
-    else {
+    if (isset($_GET['sid']) && $_GET['sid'] > 0) {
       $body->set('sid', $_GET['sid']);
+    }
+    if (isset($_POST['new_sid']) && $_POST['new_sid'] > 0) {
+      $body->set('sid', $_POST['new_sid']);
     }
     $vars = get_spawngroup_info();
     if ($vars) {
@@ -953,13 +955,13 @@ function add_spawngroup_member() {
   $npc = $_REQUEST['npc'];
   $balance = $_REQUEST['balance'];
   $chance = ($balance == "on") ? 0 : $_REQUEST['chance'];
-  $condition_value_filter = $_REQUEST['condition_value_filter'];
-  $min_time = $_REQUEST['min_time'];
-  $max_time = $_REQUEST['max_time'];
-  $min_expansion = $_REQUEST['min_expansion'];
-  $max_expansion = $_REQUEST['max_expansion'];
-  $content_flags = $_REQUEST['content_flags'];
-  $content_flags_disabled = $_REQUEST['content_flags_disabled'];
+  $condition_value_filter = (isset($_REQUEST['condition_value_filter'])) ? $_REQUEST['condition_value_filter'] : 1;
+  $min_time = (isset($_REQUEST['min_time'])) ? $_REQUEST['min_time'] : 0;
+  $max_time = (isset($_REQUEST['max_time'])) ? $_REQUEST['max_time'] : 0;
+  $min_expansion = (isset($_REQUEST['min_expansion'])) ? $_REQUEST['min_expansion'] : -1;
+  $max_expansion = (isset($_REQUEST['max_expansion'])) ? $_REQUEST['max_expansion'] : -1;
+  $content_flags = (isset($_REQUEST['content_flags'])) ? $_REQUEST['content_flags'] : null;
+  $content_flags_disabled = (isset($_REQUEST['content_flags_disabled'])) ? $_REQUEST['content_flags_disabled'] : null;
 
   $query = "SELECT MAX(chance) AS chance FROM spawnentry WHERE spawngroupID=$sid limit 1";
   $result = $mysql_content_db->query_assoc($query);
@@ -1191,18 +1193,16 @@ function balance_spawns($sid) {
 
 function get_spawngroup_info() {
   global $mysql_content_db;
-  $sid = $_GET['sid'];
   $new_sid = ((isset($_POST['new_sid'])) ? $_POST['new_sid'] : 0);
 
   if ($new_sid > 0) {
-    $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay, mindelay, despawn, despawn_timer, wp_spawns FROM spawngroup WHERE id=$new_sid";
+    $query = "SELECT * FROM spawngroup WHERE id=$new_sid";
+    $result = $mysql_content_db->query_assoc($query);
+    if ($result) {
+      return $result;
+    }
   }
-  else {
-    $query = "SELECT name, spawn_limit, dist, max_x, min_x, max_y, min_y, delay, mindelay, despawn, despawn_timer, wp_spawns FROM spawngroup WHERE id=$sid";
-  }
-  $result = $mysql_content_db->query_assoc($query);
-
-  return $result;
+  return null;
 }
 
 function update_spawngroup_name() {
