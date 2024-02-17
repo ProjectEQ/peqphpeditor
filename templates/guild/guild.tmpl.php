@@ -42,18 +42,18 @@
                     </tr>
                     <tr>
                       <td align="center">1</td>
-                      <td align="center"><?echo $guild_tributes['tribute_id_1_tier'] + 1;?></td>
-                      <td><?=get_tribute_name($guild_tributes['tribute_id_1'])?> (<?=$guild_tributes['tribute_id_1']?>)</td>
+                      <td align="center"><?echo isset($guild_tributes['tribute_id_1_tier']) ? $guild_tributes['tribute_id_1_tier'] + 1 : "N/A";?></td>
+                      <td><?echo isset($guild_tributes['tribute_id_1']) ? get_tribute_name($guild_tributes['tribute_id_1']) . "  (" . $guild_tributes['tribute_id_1'] . ")" : "N/A";?></td>
                       <td>&nbsp;</td>
-<?$cost1 = get_tribute_cost_by_tier($guild_tributes['tribute_id_1'], $guild_tributes['tribute_id_1_tier']);?>
+<?$cost1 = (isset($guild_tributes['tribute_id_1'])) ? get_tribute_cost_by_tier($guild_tributes['tribute_id_1'], $guild_tributes['tribute_id_1_tier']) : "N/A";?>
                       <td align="center"><?=$cost1?></td>
                     </tr>
                     <tr>
                       <td align="center">2</td>
-                      <td align="center"><?echo $guild_tributes['tribute_id_2_tier'] + 1;?></td>
-                      <td><?=get_tribute_name($guild_tributes['tribute_id_2'])?> (<?=$guild_tributes['tribute_id_2']?>)</td>
+                      <td align="center"><?echo isset($guild_tributes['tribute_id_2_tier']) ? $guild_tributes['tribute_id_2_tier'] + 1 : "N/A";?></td>
+                      <td><?echo isset($guild_tributes['tribute_id_2']) ? get_tribute_name($guild_tributes['tribute_id_2']) . "  (" . $guild_tributes['tribute_id_2'] . ")" : "N/A";?></td>
                       <td>&nbsp;</td>
-<?$cost2 = get_tribute_cost_by_tier($guild_tributes['tribute_id_2'], $guild_tributes['tribute_id_2_tier']);?>
+<?$cost2 = (isset($guild_tributes['tribute_id_2'])) ? get_tribute_cost_by_tier($guild_tributes['tribute_id_2'], $guild_tributes['tribute_id_2_tier']) : "N/A";?>
                       <td align="center"><?=$cost2?></td>
                     </tr>
                     <tr>
@@ -64,10 +64,10 @@
                       <td>&nbsp;</td>
                     </tr>
                     <tr>
-                      <td colspan="2" align="left"><strong>Enabled:</strong> <?=$yesno[$guild_tributes['enabled']]?></td>
-                      <td align="left"><strong>Time Remaining:</strong> <?=$guild_tributes['time_remaining']?></td>
+                      <td colspan="2" align="left"><strong>Enabled:</strong> <?echo (isset($guild_tributes['enabled'])) ? $yesno[$guild_tributes['enabled']] : "N/A";?></td>
+                      <td align="left"><strong>Time Remaining:</strong> <?echo (isset($guild_tributes['time_remaining'])) ? $guild_tributes['time_remaining'] : "N/A";?></td>
                       <td align="right"><strong>Total Upkeep:</strong></td>
-                      <td align="center"><?echo $cost1 + $cost2;?></td>
+                      <td align="center"><?echo (is_numeric($cost1) ? $cost1 : 0) + (is_numeric($cost2) ? $cost2 : 0);?></td>
                     </tr>
                   </table><br><br>
                 </fieldset>
