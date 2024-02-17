@@ -1,10 +1,7 @@
 <div class="table_container">
   <div class="table_header">
-    <div style="float:right">
-      <a onClick="javascript:alert('Not yet!');"><img src="images/c_table.gif" border="0" title="Edit this Guild"></a>
-      <a onClick="javascript:alert('Not yet!');"><img src="images/table.gif" border="0" title="Delete this Guild"></a>
-    </div>
-    <?=$id?> - <?echo trim($name)?>
+    Guild Management
+    <div style="float:right">&nbsp;</div>
   </div>
   <div class="table_content">
     <table cellspacing="0" border="0" width="100%">
@@ -15,20 +12,73 @@
               <td width="35%">
                 <fieldset>
                   <legend><strong>Guild Info</strong></legend>
-                  Name: <?=$name?><br>
-                  Guild ID: <?=$id?><br>
-                  Leader: <?echo ($leader > 0) ? getPlayerName($leader) : "None";?><br>
-                  Min Status: <?=$minstatus?><br>
-                  URL: <?=$url?><br>
-                  Tribute: <?=$tribute?><br>
-                  Channel: <?=$channel?><br>
+                  <strong>Name:</strong> <?=$name?><br>
+                  <strong>Guild ID:</strong> <?=$id?><br>
+                  <strong>Leader:</strong> <?echo ($leader > 0) ? getPlayerName($leader) : "None";?><br>
+                  <strong>Min Status:</strong> <?=$minstatus?><br>
+                  <strong>Tribute:</strong> <?=$tribute?><br>
+                  <strong>Favor:</strong> <?=$favor?><br>
+                  <strong>Channel:</strong> <?echo ($channel != "") ? $channel : "N/A";?><br>
+                  <strong>URL:</strong> <?echo ($url != "") ? $url : "N/A";?><br>
                 </fieldset>
               </td>
               <td width="65%">
                 <fieldset>
+                  <legend><strong>Tributes</strong></legend>
+                  <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td align="center"><strong>Slot</strong></td>
+                      <td align="center"><strong>Tier</strong></td>
+                      <td><strong>Name</strong></td>
+                      <td>&nbsp;</td>
+                      <td align="center"><strong>Cost</strong></td>
+                    </tr>
+                    <tr>
+                      <td align="center">1</td>
+                      <td align="center"><?echo $guild_tributes['tribute_id_1_tier'] + 1;?></td>
+                      <td><?=get_tribute_name($guild_tributes['tribute_id_1'])?> (<?=$guild_tributes['tribute_id_1']?>)</td>
+                      <td>&nbsp;</td>
+<?$cost1 = get_tribute_cost_by_tier($guild_tributes['tribute_id_1'], $guild_tributes['tribute_id_1_tier']);?>
+                      <td align="center"><?=$cost1?></td>
+                    </tr>
+                    <tr>
+                      <td align="center">2</td>
+                      <td align="center"><?echo $guild_tributes['tribute_id_2_tier'] + 1;?></td>
+                      <td><?=get_tribute_name($guild_tributes['tribute_id_2'])?> (<?=$guild_tributes['tribute_id_2']?>)</td>
+                      <td>&nbsp;</td>
+<?$cost2 = get_tribute_cost_by_tier($guild_tributes['tribute_id_2'], $guild_tributes['tribute_id_2_tier']);?>
+                      <td align="center"><?=$cost2?></td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" align="left"><strong>Enabled:</strong> <?=$yesno[$guild_tributes['enabled']]?></td>
+                      <td align="left"><strong>Time Remaining:</strong> <?=$guild_tributes['time_remaining']?></td>
+                      <td align="right"><strong>Total Upkeep:</strong></td>
+                      <td align="center"><?echo $cost1 + $cost2;?></td>
+                    </tr>
+                  </table><br><br>
+                </fieldset>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <fieldset>
                   <legend><strong>Message of the Day</strong></legend>
-                  Set By: <?=$motd_setter?><br>
-                  Message: <?=$motd?><br>
+                  <strong>Set By:</strong> <?=$motd_setter?><br>
+                  <strong>Message:</strong> <?echo ($motd != "") ? $motd : "N/A";?><br>
                 </fieldset>
               </td>
             </tr>
@@ -38,35 +88,30 @@
       <tr>
         <td>
           <fieldset>
-            <legend><strong>Guild Ranks</strong></legend>
-            <table cellspacing="0" border="0" width="100%">
+            <legend><strong>Guild Permissions</strong></legend>
+            <table cellspacing="0" border="1" width="100%">
               <tr>
-                <td align="center">Rank</td>
-                <td>Title</td>
-                <td align="center">Hear</td>
-                <td align="center">Speak</td>
-                <td align="center">Invite</td>
-                <td align="center">Remove</td>
-                <td align="center">Promote</td>
-                <td align="center">Demote</td>
-                <td align="center">MOTD</td>
-                <td align="center">War/Peace</td>
+                <td width="36%">&nbsp;</td>
+<?foreach ($guild_ranks as $guild_rank):?>
+                <td width="8%" align="center"><img src="images/rank<?=$guild_rank['rank']?>.gif" title="<?=$guild_rank['title']?> (<?=$guild_rank['rank']?>)"></td>
+<?endforeach;?>
               </tr>
 <?
-  foreach ($guild_ranks as $guild_rank) {
-    echo '<tr>';
-    echo '<td align="center">' . $guild_rank['rank'] . '</td>';
-    echo '<td>' . $guild_rank['title'] . '</td>';
-    echo '<td align="center">' . $yesno[$guild_rank['can_hear']] . '</td>';
-    echo '<td align="center">' . $yesno[$guild_rank['can_speak']] . '</td>';
-    echo '<td align="center">' . $yesno[$guild_rank['can_invite']] . '</td>';
-    echo '<td align="center">' . $yesno[$guild_rank['can_remove']] . '</td>';
-    echo '<td align="center">' . $yesno[$guild_rank['can_promote']] . '</td>';
-    echo '<td align="center">' . $yesno[$guild_rank['can_demote']] . '</td>';
-    echo '<td align="center">' . $yesno[$guild_rank['can_motd']] . '</td>';
-    echo '<td align="center">' . $yesno[$guild_rank['can_warpeace']] . '</td>';
-    echo '</tr>';
-  }
+for ($index = 0; $index < 30; $index++):
+?>
+              <tr>
+                <td><strong><?echo $index + 1;?></strong> - <?=$permissions[$index + 1]?></td>
+                <td align="center"><?echo ($guild_permissions[$index]['permission'] & 128) ? "<img src='images/remove2.gif' width='9'>" : "&nbsp;";?></td>
+                <td align="center"><?echo ($guild_permissions[$index]['permission'] &  64) ? "<img src='images/remove2.gif' width='9'>" : "&nbsp;";?></td>
+                <td align="center"><?echo ($guild_permissions[$index]['permission'] &  32) ? "<img src='images/remove2.gif' width='9'>" : "&nbsp;";?></td>
+                <td align="center"><?echo ($guild_permissions[$index]['permission'] &  16) ? "<img src='images/remove2.gif' width='9'>" : "&nbsp;";?></td>
+                <td align="center"><?echo ($guild_permissions[$index]['permission'] &   8) ? "<img src='images/remove2.gif' width='9'>" : "&nbsp;";?></td>
+                <td align="center"><?echo ($guild_permissions[$index]['permission'] &   4) ? "<img src='images/remove2.gif' width='9'>" : "&nbsp;";?></td>
+                <td align="center"><?echo ($guild_permissions[$index]['permission'] &   2) ? "<img src='images/remove2.gif' width='9'>" : "&nbsp;";?></td>
+                <td align="center"><?echo ($guild_permissions[$index]['permission'] &   1) ? "<img src='images/remove2.gif' width='9'>" : "&nbsp;";?></td>
+              </tr>
+<?
+endfor;
 ?>
             </table>
           </fieldset>
@@ -78,14 +123,15 @@
             <legend><strong>Guild Members</strong> (<a href="index.php?editor=guild&guildid=<?=$id?>&action=6">Add Member</a>)</legend>
             <table cellspacing="0" border="0" width="100%">
               <tr>
-                <td align="center">Rank</td>
-                <td>Name</td>
-                <td align="center">Total Tribute</td>
-                <td align="center">Last Donation</td>
-                <td align="center">Tribute Active</td>
-                <td align="center">Banker</td>
-                <td align="center">Alt</td>
-                <td align="center">Public Note</td>
+                <td align="center"><strong>Rank</strong></td>
+                <td><strong>Name</strong></td>
+                <td align="center"><strong>Total Tribute</strong></td>
+                <td align="center"><strong>Last Donation</strong></td>
+                <td align="center"><strong>Tribute Active</strong></td>
+                <td align="center"><strong>Banker</strong></td>
+                <td align="center"><strong>Alt</strong></td>
+                <td align="center"><strong>Public Note</strong></td>
+                <td align="center"><strong>Status</strong></td>
                 <td align="center">&nbsp;</td>
               </tr>
 <?
@@ -104,7 +150,7 @@
 <?
     foreach ($guild_ranks as $guild_rank) {
 ?>
-              <option value="<?=$guild_rank['rank']?>"<?echo ($guild_rank['rank'] == $guild_member['rank']) ? " selected" : "";?>><?=$guild_rank['rank']?></option>
+              <option value="<?=$guild_rank['rank']?>"<?echo ($guild_rank['rank'] == $guild_member['rank']) ? " selected" : "";?>><?=$guild_rank['rank']?> - <?=$guild_rank['title']?></option>
 <?
     }
 ?>
@@ -116,11 +162,12 @@
       </td>
       <td><a href="index.php?editor=player&playerid=<?=$guild_member['char_id']?>"><?=getPlayerName($guild_member['char_id'])?></a></td>
       <td align="center"><?=$guild_member['total_tribute']?></td>
-      <td align="center"><?=$guild_member['last_tribute']?></td>
+      <td align="center"><?echo ($guild_member['last_tribute'] > 0) ? get_real_time($guild_member['last_tribute']) : "N/A";?></td>
       <td align="center"><?=$yesno[$guild_member['tribute_enable']]?></td>
       <td align="center"><?=$yesno[$guild_member['banker']]?></td>
       <td align="center"><?=$yesno[$guild_member['alt']]?></td>
-      <td align="center"><img src="images\note.gif" title="<?echo ($guild_member['public_note'] != '') ? $guild_member['public_note'] : 'No Public Note';?>"></td>
+      <td align="center"><img src="images\note.gif" title="<?echo ($guild_member['public_note'] != '') ? $guild_member['public_note'] : 'N/A';?>"></td>
+      <td align="center"><img src="images\<?echo ($guild_member['online'] == 1) ? 'green' : 'red';?>.gif" width="13" title="<?echo ($guild_member['online'] == 1) ? 'Online' : 'Offline';?>"></td>
       <td align="center"><a href="index.php?editor=guild&guildid=<?=$id?>&char_id=<?=$guild_member['char_id']?>&leader=<?echo ($guild_member['rank'] == 2) ? "1" : "0";?>&action=8"><img src="images\delete.gif" width="13" title="Remove from guild"></a></td>
     </tr>
 <?
@@ -140,13 +187,13 @@
   if ($guild_items) {
 ?>
               <tr>
-                <td align="center">Area</td>
-                <td align="center">Slot</td>
-                <td align="center">Item</td>
-                <td align="center">Qty</td>
-                <td align="center">Permissions</td>
-                <td align="center">Donated By</td>
-                <td align="center">Intended For</td>
+                <td align="center"><strong>Area</strong></td>
+                <td align="center"><strong>Slot</strong></td>
+                <td align="center"><strong>Item</strong></td>
+                <td align="center"><strong>Qty</strong></td>
+                <td align="center"><strong>Permissions</strong></td>
+                <td align="center"><strong>Donated By</strong></td>
+                <td align="center"><strong>Intended For</strong></td>
               </tr>
 <?
     foreach ($guild_items as $guild_item) {
@@ -155,7 +202,7 @@
       echo '<td align="center">' . $guild_item['slot'] . '</td>';
       echo '<td align="center">' . get_item_name($guild_item['itemid']) . ' <a href="index.php?editor=items&id=' . $guild_item['itemid'] . '&action=2">' . $guild_item['itemid'] . '</a> [<a href="https://lucy.allakhazam.com/item.html?id=' . $guild_item['itemid'] . '" target="_blank">Lucy</a>]</td>';
       echo '<td align="center">' . $guild_item['qty'] . '</td>';
-      echo '<td align="center">' . $permissions[$guild_item['permissions']] . '</td>';
+      echo '<td align="center">' . $bank_permissions[$guild_item['permissions']] . '</td>';
       echo '<td align="center">' . $guild_item['donator'] . '</td>';
       echo '<td align="center">' . $guild_item['whofor'] . '</td>';
       echo '</tr>';

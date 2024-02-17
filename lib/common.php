@@ -825,4 +825,32 @@ function isValidLoot($loottable_id) {
   }
 }
 
+function get_tribute_name($id) {
+  global $mysql_content_db;
+
+  $query = "SELECT `name` FROM tributes WHERE id=$id";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result['name'];
+  }
+  else {
+    return null;
+  }
+}
+
+function get_tribute_cost_by_tier($id, $tier) {
+  global $mysql_content_db;
+
+  $query = "SELECT cost FROM tribute_levels WHERE tribute_id=$id ORDER BY level, cost";
+  $result = $mysql_content_db->query_mult_assoc($query);
+
+  if ($result) {
+    return $result[$tier]['cost'];
+  }
+  else {
+    return null;
+  }
+}
+
 ?>
