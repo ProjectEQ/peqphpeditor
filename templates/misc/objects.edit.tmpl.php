@@ -84,11 +84,11 @@
               </td>
               <td>
                 <strong>Solid Type</strong><br>
-                <input type="text" size="7" name="size" value="<?=$solid_type?>">
+                <input type="text" size="7" name="solid_type" value="<?=$solid_type?>">
               </td>
               <td>
                 <strong>Incline</strong><br>
-                <input type="text" size="7" name="size" value="<?=$incline?>">
+                <input type="text" size="7" name="incline" value="<?=$incline?>">
               </td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>

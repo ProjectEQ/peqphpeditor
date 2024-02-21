@@ -84,11 +84,11 @@
               </td>
               <td>
                 <strong>Solid Type</strong><br>
-                <input type="text" size="7" name="size" value="0">
+                <input type="text" size="7" name="solid_type" value="0">
               </td>
               <td>
                 <strong>Incline</strong><br>
-                <input type="text" size="7" name="size" value="0">
+                <input type="text" size="7" name="incline" value="0">
               </td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
