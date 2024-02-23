@@ -19,18 +19,18 @@
                   <td align="left" width="23%">Safe Heading:<br><input type="text" name="safe_heading" size="7" value="<?=$safe_heading?>"></td>
                   <td align="left" width="23%">Timezone:<br><input type="text" name="timezone" size="7" value="<?=$timezone?>"></td>
                   <td align="left" width="24%">Time Type:<br><input type="text" name="time_type" size="7" value="<?=$time_type?>"></td>
-                </tr> 
+                </tr>
                 <tr>
-                  <td align="left" width="30%">Note:<br><input type="text" name="note" size="20" value="<?=$note?>"></td>
+                  <td align="left" width="30%">Map:<br><input type="text" name="map_file_name" size="20" value="<?=$map_file_name?>"></td>
                   <td align="left" width="23%">Shutdown:<br><input type="text" name="shutdowndelay" size="7" value="<?=$shutdowndelay?>"></td>
                   <td align="left" width="23%">Graveyard:<br><input type="text" name="graveyard_id" size="7" value="<?=$graveyard_id?>"></td>
                   <td align="left" width="24%">Zone Type:<br><input type="text" name="ztype" size="7" value="<?=$ztype?>"></td>
                 </tr>
                 <tr>
-                  <td align="left" width="30%">Map:<br><input type="text" name="map_file_name" size="20" value="<?=$map_file_name?>"></td>
-                  <td align="left" width="23%">Ruleset:<br><input type="text" name="ruleset" size="7" value="<?=$ruleset?>"></td>
                   <td align="left" width="23%">Version:<br><input type="text" name="version" size="7" value="<?=$version?>"></td>
+                  <td align="left" width="23%">Ruleset:<br><input type="text" name="ruleset" size="7" value="<?=$ruleset?>"></td>
                   <td align="left" width="25%">Exp Multiplier:<br><input type="text" name="zone_exp_multiplier" size="7" value="<?=$zone_exp_multiplier?>"></td>
+                  <td align="left" width="30%">&nbsp;</td>
                 </tr>
                 <tr>
                   <td align="left" width="25%">Walkspeed:<br><input type="text" name="walkspeed" size="7" value="<?=$walkspeed?>"></td>
@@ -106,6 +106,9 @@
                     </select>
                   </td>
                 </tr>
+                <tr>
+                  <td colspan="4" align="left" width="100%">Note:<br><input type="text" name="note" size="98" value="<?=$note?>"></td>
+                </tr>
               </table>
             </fieldset><br>
             <fieldset>
@@ -116,7 +119,7 @@
                   <td align="left" width="20%">Max Level:<br><input type="text" name="max_level" size="7" value="<?=$max_level?>"></td>
                   <td align="left" width="20%">Min Status:<br><input type="text" name="min_status" size="7" value="<?=$min_status?>"></td>
                   <td align="left" width="20%">Max Clients:<br><input type="text" name="maxclients" size="7" value="<?=$maxclients?>"></td>
-                  <td align="left" width="20%">Flag:<br><input type="text" name="flag_needed" size="15" value="<?=$flag_needed?>"></td>
+                  <td align="left" width="20%">Flag:<br><input type="text" name="flag_needed" size="14" value="<?=$flag_needed?>"></td>
                 </tr>
                 <tr>
                   <td align="left" width="20%">
@@ -161,19 +164,19 @@
                 <tr>
                   <td>
                     Min Expansion:<br>
-                    <input type="text" name="min_expansion" size="8" value="<?=$min_expansion?>">
+                    <input type="text" name="min_expansion" size="10" value="<?=$min_expansion?>">
                   </td>
                   <td>
                     Max Expansion:<br>
-                    <input type="text" name="max_expansion" size="8" value="<?=$max_expansion?>">
+                    <input type="text" name="max_expansion" size="10" value="<?=$max_expansion?>">
                   </td>
                   <td>
                     Content Flags:<br>
-                    <input type="text" name="content_flags" size="35" value="<?=$content_flags?>">
+                    <input type="text" name="content_flags" size="30" value="<?=$content_flags?>">
                   </td>
                   <td>
                     Content Flags Disabled:<br>
-                    <input type="text" name="content_flags_disabled" size="35" value="<?=$content_flags_disabled?>">
+                    <input type="text" name="content_flags_disabled" size="30" value="<?=$content_flags_disabled?>">
                   </td>
                 </tr>
               </table>
