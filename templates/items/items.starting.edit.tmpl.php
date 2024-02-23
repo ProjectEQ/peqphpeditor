@@ -61,6 +61,36 @@
               </td>
             </tr>
             <tr>
+              <td>
+                <strong>Augment 1:</strong><br>
+                <input type="text" name="augment_one" size="10" value="<?=$item['augment_one']?>">
+              </td>
+              <td>
+                <strong>Augment 2:</strong><br>
+                <input type="text" name="augment_two" size="10" value="<?=$item['augment_two']?>">
+              </td>
+              <td>
+                <strong>Augment 3:</strong><br>
+                <input type="text" name="augment_three" size="10" value="<?=$item['augment_three']?>">
+              </td>
+              <td>
+                <strong>Augment 4:</strong><br>
+                <input type="text" name="augment_four" size="10" value="<?=$item['augment_four']?>">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Augment 5:</strong><br>
+                <input type="text" name="augment_five" size="10" value="<?=$item['augment_five']?>">
+              </td>
+              <td>
+                <strong>Augment 6:</strong><br>
+                <input type="text" name="augment_six" size="10" value="<?=$item['augment_six']?>">
+              </td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
               <td colspan="2">
                 <strong>Content Flags:</strong><br>
                 <input type="text" name="content_flags" size="40" value="<?=$item['content_flags']?>">
