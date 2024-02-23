@@ -356,7 +356,7 @@ switch ($action) {
     magelo_import();
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
-  case 47:  //Move Lootdrop Item page
+  case 47:  // Move Lootdrop Item
     check_authorization();
     $body = new Template("templates/loot/lootdrop.move.item.tmpl.php");
     $body->set('currzone', $z);
@@ -1187,25 +1187,34 @@ function move_copy_lootdrop_item() {
   $ldid = $_GET['ldid'];
   $itemid = $_GET['itemid'];
   $equip_item = $_POST['equip_item'];
-  $charges = $_POST['charges'];
+  $item_charges = (isset($_POST['item_charges']) ? $_POST['item_charges'] : "1");
   $chance = $_POST['chance'];
   $trivial_min_level = $_POST['trivial_min_level'];
   $trivial_max_level = $_POST['trivial_max_level'];
   $multiplier = $_POST['multiplier'];
   $npc_min_level = $_POST['npc_min_level'];
   $npc_max_level = $_POST['npc_max_level'];
-  $new_ldid = $_POST['movetolootdrop'];
+  $new_ldid = $_POST['new_ldid'];
   $move_copy_item = $_POST['move_copy_item'];
 
+  if (isset($_POST['max_charges'])) {
+    $query = "SELECT maxcharges FROM items WHERE id=$itemid";
+    $result = $mysql_content_db->query_assoc($query);
+
+    if ($result && $result['maxcharges'] >= 0) {
+      $item_charges = $result['maxcharges'];
+    }
+  }
+
   if ($move_copy_item == 0) {
-    $query1 = "DELETE FROM lootdrop_entries WHERE lootdrop_id=$ldid AND item_id=$itemid";
+    $query1 = "INSERT INTO lootdrop_entries SET lootdrop_id=$new_ldid, item_id=$itemid, equip_item=$equip_item, item_charges=$item_charges, chance=$chance, trivial_min_level=$trivial_min_level, trivial_max_level=$trivial_max_level, multiplier=$multiplier, npc_min_level=$npc_min_level, npc_max_level=$npc_max_level";
     $mysql_content_db->query_no_result($query1);
-    
-    $query2 = "INSERT INTO lootdrop_entries SET lootdrop_id=$new_ldid, item_id=$itemid, equip_item=$equip_item, item_charges=$charges, chance=$chance, trivial_min_level=$trivial_min_level, trivial_max_level=$trivial_max_level, multiplier=$multiplier, npc_min_level=$npc_min_level, npc_max_level=$npc_max_level";
+
+    $query2 = "DELETE FROM lootdrop_entries WHERE lootdrop_id=$ldid AND item_id=$itemid";
     $mysql_content_db->query_no_result($query2);
   }
-  if ($move_copy_item == 1) {
-    $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$new_ldid, item_id=$itemid, equip_item=$equip_item, item_charges=$charges, chance=$chance, trivial_min_level=$trivial_min_level, trivial_max_level=$trivial_max_level, multiplier=$multiplier, npc_min_level=$npc_min_level, npc_max_level=$npc_max_level";
+  else if ($move_copy_item == 1) {
+    $query = "INSERT INTO lootdrop_entries SET lootdrop_id=$new_ldid, item_id=$itemid, equip_item=$equip_item, item_charges=$item_charges, chance=$chance, trivial_min_level=$trivial_min_level, trivial_max_level=$trivial_max_level, multiplier=$multiplier, npc_min_level=$npc_min_level, npc_max_level=$npc_max_level";
     $mysql_content_db->query_no_result($query);
   }
 }
