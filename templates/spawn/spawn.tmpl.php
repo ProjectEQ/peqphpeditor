@@ -120,9 +120,13 @@
     $chance_total += $chance;
 ?>
           <tr bgcolor="#<? echo ($x % 2 == 1) ? "AAAAAA" : "BBBBBB";?>">
+<?if ($name != "N/A"):?>
             <td>
               <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcID?>"><?=$name?></a> (<?=$npcID?>)
             </td>
+<?else:?>
+            <td>N/A (<?=$npcID?>)</td>
+<?endif;?>
             <td align="center"><?=$chance?></td>
             <td align="center"><?=$min_time?></td>
             <td align="center"><?=$max_time?></td>
