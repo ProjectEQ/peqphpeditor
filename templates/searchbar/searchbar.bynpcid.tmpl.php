@@ -29,7 +29,7 @@
               <form action="index.php" method="GET">
                 <input type="hidden" name="editor" value="npc">
                 <input type="hidden" name="action" value="27">
-                <input type="text" name="npcid" size="5" value="ID" onFocus="clearField(document.forms[0].npcid);document.forms[0].search.value='Enter a NPC';"> or <input type="text" name="search" size="12" value="Enter a NPC" onFocus="clearField(document.forms[0].search);document.forms[0].npcid.value='ID';">
+                <input type="text" name="npc_id" size="5" value="ID" onFocus="clearField(document.forms[0].npc_id);document.forms[0].search.value='Enter a NPC';"> or <input type="text" name="search" size="12" value="Enter a NPC" onFocus="clearField(document.forms[0].search);document.forms[0].npc_id.value='ID';">
                 <input type="submit" value=" GO ">
               </form>
             </td>

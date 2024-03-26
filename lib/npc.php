@@ -411,7 +411,7 @@ switch ($action) {
     exit;
   case 27: // Search npcs
     $body = new Template("templates/npc/npc.searchresults.tmpl.php");
-    if (isset($_GET['npcid']) && $_GET['npcid'] != "ID") {
+    if (isset($_GET['npc_id']) && $_GET['npc_id'] != "ID") {
       $results = search_npc_by_id();
     }
     else {

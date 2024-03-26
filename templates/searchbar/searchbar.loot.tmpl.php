@@ -25,7 +25,7 @@
             <input type="hidden" name="action" value="0">
             <input type="hidden" name="z" value="<?=$currzone?>">
             <input type="hidden" name="zoneid" value="<?=$currzoneid?>">
-            <input type="text" name="npcid" size="5" value="NPCID" onFocus="clearField(document.forms[0].npcid);document.forms[1].search.value='Enter Item ID';">
+            <input type="text" name="npc_id" size="5" value="NPCID" onFocus="clearField(document.forms[0].npc_id);document.forms[1].search.value='Enter Item ID';">
             <input type="submit" value=" GO ">
           </form>
         </td>
@@ -33,7 +33,7 @@
           <form action="index.php" method="GET">
             <input type="hidden" name="editor" value="loot">
             <input type="hidden" name="action" value="32">
-            <input type="text" name="search" size="12" value="Enter Item ID" onFocus="clearField(document.forms[1].search);document.forms[0].npcid.value='NPCID';">
+            <input type="text" name="search" size="12" value="Enter Item ID" onFocus="clearField(document.forms[1].search);document.forms[0].npc_id.value='NPCID';">
             <input type="submit" value=" GO ">
           </form>
         </td>

@@ -1,4 +1,15 @@
-<?if (!isset($loottable_id) || !isset($loottable_name)){?>
+<?if (!isset($_GET['z']) || ($_GET['zoneid'] == 0)) {?>
+    <div class="table_container" style="width: 350px;">
+      <div class="table_header">
+        No Assigned or Valid Loottable
+      </div>
+      <div class="table_content">
+        <center>
+          No Valid Loottable Currently Assigned<br><br>
+        </center>
+      </div>
+    </div>
+<?} elseif (!isset($loottable_id) || !isset($loottable_name)){?>
     <div class="table_container" style="width: 350px;">
       <div class="table_header">
         <div style="float: right;">
