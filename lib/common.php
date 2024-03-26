@@ -614,7 +614,7 @@ function delete_player($playerid) {
   $mysql->query_no_result($query);
   $query = "DELETE FROM friends WHERE charid=$playerid";
   $mysql->query_no_result($query);
-  $query = "DELETE FROM group_id WHERE charid=$playerid";
+  $query = "DELETE FROM group_id WHERE character_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM guild_members WHERE char_id=$playerid";
   $mysql->query_no_result($query);
