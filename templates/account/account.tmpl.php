@@ -93,6 +93,7 @@
   echo '<br>';
 ?>
                     Last Character Used: <?echo ($charname != '') ? $charname : 'Never Logged a Character';?><br>
+                    Auto-Login Character: <?echo ($auto_login_charname != '') ? $auto_login_charname : 'None';?>
                   </fieldset>
                 </td>
               </tr>
