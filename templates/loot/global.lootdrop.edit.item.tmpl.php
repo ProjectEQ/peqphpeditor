@@ -70,6 +70,28 @@
               <input type="text" size="5" name="npc_max_level" value="<?=$npc_max_level?>">
             </td>
           </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Min Expansion:</strong><br>
+              <input type="text" size="18" name="min_expansion" value="<?=$min_expansion?>">
+            </td>
+            <td colspan="2">
+              <strong>Max Expansion:</strong><br>
+              <input type="text" size="18" name="max_expansion" value="<?=$max_expansion?>">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <strong>Content Flags:</strong><br>
+              <input type="text" size="51" name="content_flags" value="<?=$content_flags?>">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <strong>Content Flags Disabled:</strong><br>
+              <input type="text" size="51" name="content_flags_disabled" value="<?=$content_flags_disabled?>">
+            </td>
+          </tr>
         </table><br><br>
         <center>
           <input type="hidden" name="global_loot" value="<?=$global_loot?>">
