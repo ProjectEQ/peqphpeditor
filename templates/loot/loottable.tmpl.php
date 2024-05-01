@@ -122,10 +122,10 @@
             <th align="center" width="36%">Item Name</th>
             <th align="center" width="7%">Equip</th>
             <th align="center" width="7%">Charges</th>
-            <th align="center" width="7%">Trivial<br>Min</th>
-            <th align="center" width="7%">Trivial<br>Max</th>
-            <th align="center" width="8%">Mult</th>
+            <th align="center" width="8%">Trivial<br>Min/Max</th>
+            <th align="center" width="7%">Mult</th>
             <th align="center" width="8%">Chance</th>
+            <th align="center" width="7%">Flags</th>
             <th width="13%">&nbsp;</th>
           </tr>
 <?
@@ -145,10 +145,10 @@
             <td align="center"><?echo (get_item_name($item_id) != "") ? get_item_name($item_id) : "<a title='Item not in database!'>UNKNOWN</a>";?> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$item_id?>" target="_blank">Lucy</a>]</span></td>
             <td align="center" width="100"><? echo (($equip_item == 0)) ? "No" : "Yes"; ?></td>
             <td align="center"><?=$item_charges?></td>
-            <td align="center"><?=$trivial_min_level?></td>
-            <td align="center"><?=$trivial_max_level?></td>
+            <td align="center"><?=$trivial_min_level?>/<?=$trivial_max_level?></td>
             <td align="center"><?=$multiplier?></td>
             <td align="center"><?=$chance?></td>
+            <td align="center"><?echo ($min_expansion != -1 || $max_expansion != -1 || $content_flags != "" || $content_flags_disabled != "") ? "Yes" : "No";?></td>
             <td align="right">
               <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=47"><img src="images/minus.gif" border="0" title="Move Lootdrop Item"></a>
               <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=5"><img src="images/edit2.gif" border="0" title="Edit Lootdrop Item"></a>
