@@ -196,6 +196,8 @@ switch ($editor) {
     break;
   case 'chat':
     break;
+  case 'parcels':
+    break;
 }
 
 function build_tabs() {
@@ -234,6 +236,7 @@ function build_tabs() {
   $tabstatus31 = "off";
   $tabstatus32 = "off";
   $tabstatus33 = "off";
+  $tabstatus34 = "off";
 
   $zoneurl = "";
   $npcurl = "";
@@ -348,6 +351,9 @@ function build_tabs() {
     case 'chat':
       $tabstatus33 = "on";
       break;
+    case 'parcels':
+      $tabstatus34 = "on";
+      break;
   }
 
   $admin = '';
@@ -391,6 +397,7 @@ function build_tabs() {
         <div class=\"$tabstatus31\"><a href=\"index.php?editor=sharedtasks\">Shared Tasks</a></div>
         <div class=\"$tabstatus32\"><a href=\"index.php?editor=mercs\">Mercs</a></div>
         <div class=\"$tabstatus33\"><a href=\"index.php?editor=chat\">Chat</a></div><br><br>
+        <div class=\"$tabstatus34\"><a href=\"index.php?editor=parcels\">Parcels</a></div>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br><br>
       </div>
 ";

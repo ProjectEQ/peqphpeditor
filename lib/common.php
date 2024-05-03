@@ -587,6 +587,8 @@ function delete_player($playerid) {
   //character_material?
   $query = "DELETE FROM character_memmed_spells WHERE id=$playerid";
   $mysql->query_no_result($query);
+  $query = "DELETE FROM character_parcels WHERE char_id=$playerid";
+  $mysql->query_no_result($query);
   $query = "DELETE FROM character_pet_buffs WHERE char_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_pet_info WHERE char_id=$playerid";
