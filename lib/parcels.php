@@ -65,13 +65,19 @@ function insert_parcel() {
   $id = $_POST['id'];
   $char_id = $_POST['char_id'];
   $item_id = $_POST['item_id'];
+  $aug_slot_1 = $_POST['aug_slot_1'];
+  $aug_slot_2 = $_POST['aug_slot_2'];
+  $aug_slot_3 = $_POST['aug_slot_3'];
+  $aug_slot_4 = $_POST['aug_slot_4'];
+  $aug_slot_5 = $_POST['aug_slot_5'];
+  $aug_slot_6 = $_POST['aug_slot_6'];
   $slot_id = $_POST['slot_id'];
   $quantity = $_POST['quantity'];
   $from_name = $_POST['from_name'];
   $note = $_POST['note'];
   //$sent_date = $_POST['sent_date']; // Using now() function
 
-  $query = "INSERT INTO character_parcels SET id=$id, char_id=$char_id, item_id=$item_id, slot_id=$slot_id, quantity=$quantity, from_name=\"$from_name\", note=\"$note\", sent_date=NOW()";
+  $query = "INSERT INTO character_parcels SET id=$id, char_id=$char_id, item_id=$item_id, aug_slot_1=$aug_slot_1, aug_slot_2=$aug_slot_2, aug_slot_3=$aug_slot_3, aug_slot_4=$aug_slot_4, aug_slot_5=$aug_slot_5, aug_slot_6=$aug_slot_6, slot_id=$slot_id, quantity=$quantity, from_name=\"$from_name\", note=\"$note\", sent_date=NOW()";
   $mysql->query_no_result($query);
 }
 
@@ -81,13 +87,19 @@ function update_parcel() {
   $id = $_POST['id'];
   $char_id = $_POST['char_id'];
   $item_id = $_POST['item_id'];
+  $aug_slot_1 = $_POST['aug_slot_1'];
+  $aug_slot_2 = $_POST['aug_slot_2'];
+  $aug_slot_3 = $_POST['aug_slot_3'];
+  $aug_slot_4 = $_POST['aug_slot_4'];
+  $aug_slot_5 = $_POST['aug_slot_5'];
+  $aug_slot_6 = $_POST['aug_slot_6'];
   $slot_id = $_POST['slot_id'];
   $quantity = $_POST['quantity'];
   $from_name = $_POST['from_name'];
   $note = $_POST['note'];
   //$sent_date = $_POST['sent_date']; // Using now() function
 
-  $query = "UPDATE character_parcels SET char_id=$char_id, item_id=$item_id, slot_id=$slot_id, quantity=$quantity, from_name=\"$from_name\", note=\"$note\", sent_date=NOW() WHERE id=$id";
+  $query = "UPDATE character_parcels SET char_id=$char_id, item_id=$item_id, aug_slot_1=$aug_slot_1, aug_slot_2=$aug_slot_2, aug_slot_3=$aug_slot_3, aug_slot_4=$aug_slot_4, aug_slot_5=$aug_slot_5, aug_slot_6=$aug_slot_6, slot_id=$slot_id, quantity=$quantity, from_name=\"$from_name\", note=\"$note\", sent_date=NOW() WHERE id=$id";
   $mysql->query_no_result($query);
 }
 
