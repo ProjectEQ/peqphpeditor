@@ -347,7 +347,13 @@
                 Trap Template:<br>
                 <input type="text" size="10" name="trap_template" value="0">
               </td>
-              <td align="left" width="16%">&nbsp;</td>
+              <td align="left" width="16%">
+                Parcel Merchant:<br>
+                <select name="is_parcel_merchant">
+                  <option value="0" selected>No (0)</option>
+                  <option value="1">Yes (1)</option>
+                </select>
+              </td>
               <td align="left" width="16%">&nbsp;</td>
             </tr>
           </table><br>

@@ -384,7 +384,13 @@
                 Trap Template:<br>
                 <input type="text" size="10" name="trap_template" value="<?=$trap_template?>">
               </td>
-              <td align="left" width="16%">&nbsp;</td>
+              <td align="left" width="16%">
+                Parcel Merchant:<br>
+                <select name="is_parcel_merchant">
+                  <option value="0"<?echo ($is_parcel_merchant == 0) ? " selected" : ""?>>No (0)</option>
+                  <option value="1"<?echo ($is_parcel_merchant == 1) ? " selected" : ""?>>Yes (1)</option>
+                </select>
+              </td>
               <td align="left" width="16%">&nbsp;</td>
             </tr>
           </table><br>
