@@ -120,6 +120,10 @@
               </select>
             </td>
             <td>
+              <strong>Close Timer</strong><br>
+              <input type="text" size="7" name="close_timer_ms" value="5000">
+            </td>
+            <td>
               <strong>DZ Switch ID</strong><br>
               <input type="text" size="7" name="dz_switch_id" value="0">
             </td>
@@ -134,12 +138,12 @@
                 <option value="1">Yes</option>
               </select>
             </td>
+          </tr>
+          <tr>
             <td>
               <strong>Open Type</strong><br>
               <input type="text" size="7" name="opentype" value="0">
             </td>
-          </tr>
-          <tr>
             <td>
               <strong>Lockpick</strong><br>
               <input type="text" size="7" name="lockpick" value="0">
@@ -148,7 +152,6 @@
               <strong>Disable Timer</strong><br>
               <input type="text" size="7" name="disable_timer" value="0">
             </td>
-            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
