@@ -1,6 +1,6 @@
 <?php
 
-$current_revision = "2 May 2024";
+$current_revision = "7 May 2024";
 $current_db_version = 9274;
 
 require_once("config.php");

@@ -119,8 +119,7 @@
                         </tr>
                         <tr>
                           <td align="left" width="33%">CHA: <?=$cha?></td>
-                          <td align="left" width="33%">&nbsp;</td>
-                          <td align="left" width="34%">&nbsp;</td>
+                          <td align="left" width="67%" colspan="2">Extra Haste: <?=$extra_haste?></td>
                         </tr>
                       </table>
                   </fieldset>
