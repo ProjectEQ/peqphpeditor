@@ -3,16 +3,11 @@
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <td>Edit Parcel</td>
-          <td>
-            <div style="float:right">
-              <a href="index.php?editor=parcels&parcels_id=<?=$parcel['id']?>&action=6"><img src="images/contents.png" border="0" title="Container Parcels"></a>
-            </div>
-          </td>
         </tr>
       </table>
     </div>
     <div class="table_content">
-      <form name="edit_parcel" method="post" action="index.php?editor=parcels&action=4">
+      <form name="edit_container_parcel" method="post" action="index.php?editor=parcels&action=10">
         <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
             <td>
@@ -20,8 +15,8 @@
               <input type="text" size="11" value="<?=$parcel['id']?>" disabled>
             </td>
             <td>
-              <strong>Character ID:</strong><br>
-              <input type="text" name="char_id" size="15" value="<?=$parcel['char_id']?>">
+              <strong>Parcels ID:</strong><br>
+              <input type="text" size="15" value="<?=$parcel['parcels_id']?>" disabled>
             </td>
             <td>
               <strong>Item ID:</strong><br>
@@ -29,7 +24,7 @@
             </td>
             <td>
               <strong>Slot ID:</strong><br>
-              <input type="text" name="slot_id" size="10" value="<?=$parcel['slot_id']?>">
+              <input type="text" name="slot_id" size="10" value="<?=$parcel['slot_id']?>" disabled>
             </td>
             <td>
               <strong>Quantity:</strong><br>
@@ -64,25 +59,11 @@
               <input type="text" name="aug_slot_6" size="10" value="<?=$parcel['aug_slot_6']?>">
             </td>
           </tr>
-          <tr>
-            <td colspan="3">
-              <strong>From:</strong><br>
-              <input type="text" name="from_name" size="30" value="<?=$parcel['from_name']?>">
-            </td>
-            <td colspan="3">
-              <strong>Sent:</strong><br>
-              <input type="text" size="30" value="<?=$parcel['sent_date']?>" disabled>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="6">
-              <strong>Note:</strong><br>
-              <input type="text" name="note" size="90" value="<?=$parcel['note']?>">
-            </td>
-          </tr>
         </table><br>
         <center>
           <input type="hidden" name="id" value="<?=$parcel['id']?>">
+          <input type="hidden" name="parcels_id" value="<?=$parcel['parcels_id']?>">
+          <input type="hidden" name="slot_id" value="<?=$parcel['slot_id']?>">
           <input type="submit" value="Update Parcel">&nbsp;&nbsp;
           <input type="button" value="Cancel" onClick="history.back()">
         </center>
