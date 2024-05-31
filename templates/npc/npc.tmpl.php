@@ -70,6 +70,7 @@ if ($loottable_id > 0) {
 <?else:?>
                       <strong>Vendor:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=22" title="Change">no</a><br>
 <?endif;?>
+                      <strong>Greed:</strong> <?=$greed?><br>
 <?if ($alt_currency_id != 0):?>
                       <strong>Alt Currency:</strong> <a href="index.php?editor=altcur&npcid=<?=$id?>&action=10" title="View"><?echo get_currency_name($alt_currency_id);?></a><br>
 <?else:?>
@@ -393,6 +394,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="mana_regen_rate" value="<?=$mana_regen_rate?>">
         <input type="hidden" name="loottable_id" value="<?=$loottable_id?>">
         <input type="hidden" name="merchant_id" value="<?=$merchant_id?>">
+        <input type="hidden" name="greed" value="<?=$greed?>">
         <input type="hidden" name="alt_currency_id" value="<?=$alt_currency_id?>">
         <input type="hidden" name="npc_spells_id" value="<?=$npc_spells_id?>">
         <input type="hidden" name="npc_spells_effects_id" value="<?=$npc_spells_effects_id?>">

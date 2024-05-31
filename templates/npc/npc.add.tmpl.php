@@ -356,6 +356,20 @@
               </td>
               <td align="left" width="16%">&nbsp;</td>
             </tr>
+            <tr>
+              <td align="left" width="17%">
+                Merchant ID:<br>
+                <input type="text" size="10" name="marchant_id" value="0">
+              </td>
+              <td align="left" width="17%">
+                Greed:<br>
+                <input type="text" size="10" name="greed" value="0">
+              </td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="16%">&nbsp;</td>
+              <td align="left" width="16%">&nbsp;</td>
+            </tr>
           </table><br>
           <center>
             <table cellpadding="20px">

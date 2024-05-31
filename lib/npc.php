@@ -1406,6 +1406,7 @@ function update_npc() {
   if ($mana_regen_rate != $_POST['mana_regen_rate']) $fields .= "mana_regen_rate=\"" . $_POST['mana_regen_rate'] . "\", ";
   if ($loottable_id != $_POST['loottable_id']) $fields .= "loottable_id=\"" . $_POST['loottable_id'] . "\", ";
   //merchant_id
+  if ($greed != $_POST['greed']) $fields .= "greed=\"" . $_POST['greed'] . "\", ";
   //alt_currency_id
   if ($npc_spells_id != $_POST['npc_spells_id']) $fields .= "npc_spells_id=\"" . $_POST['npc_spells_id'] . "\", ";
   //npc_spells_effects_id
@@ -1569,6 +1570,7 @@ function add_npc() {
   $fields .= "mana_regen_rate=\"" . $_POST['mana_regen_rate'] . "\", ";
   $fields .= "loottable_id=\"" . $_POST['loottable_id'] . "\", ";
   //merchant_id
+  $fields .= "greed=\"" . $_POST['greed'] . "\", ";
   //alt_currency_id
   $fields .= "npc_spells_id=\"" . $_POST['npc_spells_id'] . "\", ";
   //npc_spells_effects_id
@@ -1711,6 +1713,7 @@ function copy_npc() {
   $fields .= "mana_regen_rate=\"" . $_POST['mana_regen_rate'] . "\", ";
   $fields .= "loottable_id=\"" . $_POST['loottable_id'] . "\", ";
   $fields .= "merchant_id=\"" . $_POST['merchant_id'] . "\", ";
+  $fields .= "greed=\"" . $_POST['greed'] . "\", ";
   $fields .= "alt_currency_id=\"" . $_POST['alt_currency_id'] . "\", ";
   $fields .= "npc_spells_id=\"" . $_POST['npc_spells_id'] . "\", ";
   //npc_spells_effects_id
