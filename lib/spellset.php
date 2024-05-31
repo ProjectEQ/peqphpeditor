@@ -47,6 +47,7 @@ switch($action) {
     $body->set('npcid', $npcid);
     $body->set('spelltypes', $spelltypes);
     $body->set('npc_spells_id', $_GET['id']);
+    $body->set('suggest_id', suggest_npc_spells_id());
     break;
   case 4:
     check_authorization();
@@ -213,7 +214,6 @@ function spells_info() {
       $array['spells'][] = $result;
     }
   }
-  else $array['spells'] = '';
 
   if (isset($array['parent_list']) && ($array['parent_list'] != 0)) {
     $query = "SELECT * FROM npc_spells WHERE id={$array['parent_list']}";
@@ -268,6 +268,7 @@ function add_spell() {
   check_authorization();
   global $mysql_content_db;
 
+  $id = $_POST['id'];
   $npc_spells_id = $_POST['npc_spells_id'];
   $spellid = $_POST['spellid'];
   $type = $_POST['type'];
@@ -275,16 +276,30 @@ function add_spell() {
   $maxlevel = $_POST['maxlevel'];
   $manacost = $_POST['manacost'];
   $recast_delay = $_POST['recast_delay'];
+  $priority = $_POST['priority'];
   $resist_adjust = $_POST['resist_adjust'];
   $min_hp = $_POST['min_hp'];
   $max_hp = $_POST['max_hp'];
-  $priority = $_POST['priority'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO npc_spells_entries SET npc_spells_id=$npc_spells_id, spellid=$spellid, type=$type, minlevel=$minlevel, maxlevel=$maxlevel, manacost=$manacost, recast_delay=$recast_delay, priority=$priority, resist_adjust=NULL, min_hp=$min_hp, max_hp=$max_hp";
+  $query = "INSERT INTO npc_spells_entries SET id=$id, npc_spells_id=$npc_spells_id, spellid=$spellid, type=$type, minlevel=$minlevel, maxlevel=$maxlevel, manacost=$manacost, recast_delay=$recast_delay, priority=$priority, resist_adjust=NULL, min_hp=$min_hp, max_hp=$max_hp, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
 
   if ($resist_adjust != "") {
     $query = "UPDATE npc_spells_entries SET resist_adjust=\"$resist_adjust\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags != "") {
+    $query = "UPDATE npc_spells_entries SET content_flags=\"$content_flags\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE npc_spells_entries SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id";
     $mysql_content_db->query_no_result($query);
   }
 }
@@ -331,22 +346,37 @@ function update_spell() {
   global $mysql_content_db;
 
   $id = $_POST['id'];
+  $npc_spells_id = $_POST['npc_spells_id'];
   $spellid = $_POST['spellid'];
   $type = $_POST['type'];
   $minlevel = $_POST['minlevel'];
   $maxlevel = $_POST['maxlevel'];
   $manacost = $_POST['manacost'];
   $recast_delay = $_POST['recast_delay'];
+  $priority = $_POST['priority'];
   $resist_adjust = $_POST['resist_adjust'];
   $min_hp = $_POST['min_hp'];
   $max_hp = $_POST['max_hp'];
-  $priority = $_POST['priority'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE npc_spells_entries SET spellid=$spellid, type=$type, minlevel=$minlevel, maxlevel=$maxlevel, manacost=$manacost, recast_delay=$recast_delay, priority=$priority, resist_adjust=NULL, min_hp=$min_hp, max_hp=$max_hp WHERE id=$id";
+  $query = "UPDATE npc_spells_entries SET spellid=$spellid, type=$type, minlevel=$minlevel, maxlevel=$maxlevel, manacost=$manacost, recast_delay=$recast_delay, priority=$priority, resist_adjust=NULL, min_hp=$min_hp, max_hp=$max_hp, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 
   if ($resist_adjust != "") {
     $query = "UPDATE npc_spells_entries SET resist_adjust=\"$resist_adjust\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags != "") {
+    $query = "UPDATE npc_spells_entries SET content_flags=\"$content_flags\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE npc_spells_entries SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id";
     $mysql_content_db->query_no_result($query);
   }
 }
@@ -512,6 +542,21 @@ function change_spellset_byclass() {
   if($updateall == 1){
   $query = "UPDATE npc_types SET npc_spells_id=$id WHERE class = $npcclass AND id > $min_id AND id < $max_id";
   $mysql_content_db->query_no_result($query);
+  }
+}
+
+function suggest_npc_spells_id() {
+  check_authorization();
+  global $mysql_content_db;
+
+  $query = "SELECT MAX(id) AS id FROM npc_spells_entries";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result['id'] + 1;
+  }
+  else {
+    return 1;
   }
 }
 ?>
