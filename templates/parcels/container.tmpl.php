@@ -1,4 +1,4 @@
-  <div class="table_container" style="width: 600px;">
+  <div class="table_container" style="width: 800px;">
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
