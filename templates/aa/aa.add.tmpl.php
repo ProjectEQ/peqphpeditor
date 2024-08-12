@@ -198,6 +198,13 @@
                               <option value="1">Yes</option>
                             </select>
                           </td>
+                          <td>
+                            <b>Auto Grant:</b><br>
+                            <select name="auto_grant_enabled">
+                              <option value="0" selected>No</option>
+                              <option value="1">Yes</option>
+                            </select>
+                          </td>
                         </tr>
                       </table>
                       <center>
