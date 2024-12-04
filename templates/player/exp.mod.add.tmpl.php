@@ -17,9 +17,9 @@
           Version:<br>
           <input type="text" name="instance_version" size="10" value="-1"><br><br>
           Base Exp Mod:<br>
-          <input type="text" name="exp_modifier" size="10" value="100"><br><br>
+          <input type="text" name="exp_modifier" size="10" value="1.0"><br><br>
           AA Exp Mod:<br>
-          <input type="text" name="aa_modifier" size="10" value="100"><br><br>
+          <input type="text" name="aa_modifier" size="10" value="1.0"><br><br>
           <center>
             <input type="hidden" name="character_id" value="<?=$playerid?>">
             <input type="submit" value="Add">&nbsp;&nbsp;
