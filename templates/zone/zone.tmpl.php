@@ -87,6 +87,11 @@
                     <td align="left" width="34%">Seconds Before Idle: <?=$seconds_before_idle?></td>
                   </tr>
                   <tr>
+                    <td align="left" width="33%">Shard: <?=$shard_at_player_count?></td>
+                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="34%">&nbsp;</td>
+                  </tr>
+                  <tr>
                     <td align="left" width="100%" colspan="3">Note: <?echo ($note != "") ? $note : "None";?></td>
                   </tr>
                 </table>

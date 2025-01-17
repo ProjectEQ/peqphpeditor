@@ -75,6 +75,12 @@
                   <td align="left" width="25%">Seconds Before Idle:<br><input type="text" name="seconds_before_idle" size="7" value="<?=$seconds_before_idle?>"></td>
                 </tr>
                 <tr>
+                  <td align="left" width="25%">Shard at Player Count:<br><input type="text" name="shard_at_player_count" size="7" value="<?=$shard_at_player_count?>"></td>
+                  <td align="left" width="25%">&nbsp;</td>
+                  <td align="left" width="25%">&nbsp;</td>
+                  <td align="left" width="25%">&nbsp;</td>
+                </tr>
+                <tr>
                   <td align="left" width="25%">
                     Suspend Buffs:<br>
                     <select name="suspendbuffs">
