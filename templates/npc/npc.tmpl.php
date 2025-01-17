@@ -143,18 +143,23 @@ if ($loottable_id > 0) {
                   </tr>
                   <tr>
                     <td align="left" width="33%">Run: <?=$runspeed?></td>
-                    <td align="left" width="33%">Avoidance: <?=$Avoidance?></td>
+                    <td align="left" width="33%">Walk: <?=$walkspeed?></td>
+                    <td align="left" width="34%">Avoidance: <?=$Avoidance?></td>
+                  </tr>
+                  <tr>
                     <td align="left" width="34%">Accuracy: <?=$Accuracy?></td>
+                    <td align="left" width="33%">ATK: <?=$ATK?></td>
+                    <td align="left" width="34%">See Invis: <?echo ($see_invis > 0) ? "Yes (" . $see_invis . ")": "No";?></td>
                   </tr>
                   <tr>
-                    <td align="left" width="34%">ATK: <?=$ATK?></td>
-                    <td align="left" width="33%">See Invis: <?echo ($see_invis > 0) ? "Yes (" . $see_invis . ")": "No";?></td>
-                    <td align="left" width="34%">See ITU: <?=$yesno[$see_invis_undead]?></td>
-                  </tr>
-                  <tr>
+                    <td align="left" width="33%">See ITU: <?=$yesno[$see_invis_undead]?></td>
                     <td align="left" width="33%">See Hide: <?=$yesno[$see_hide]?></td>
-                    <td align="left" width="33%">See Imp Hide: <?=$yesno[$see_improved_hide]?></td>
-                    <td align="left" width="34%">Scalerate: <?=$scalerate?></td>
+                    <td align="left" width="34%">See Imp Hide: <?=$yesno[$see_improved_hide]?></td>
+                  </tr>
+                  <tr>
+                    <td align="left" width="33%">Scalerate: <?=$scalerate?></td>
+                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="34%">&nbsp;</td>
                   </tr>
                 </table>
               </fieldset>

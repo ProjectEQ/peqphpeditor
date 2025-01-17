@@ -49,14 +49,15 @@
           <legend><strong><font size="4">Vitals</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="17%">HP:       <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
-              <td align="left" width="17%">Mana:     <br><input type="text" name="mana" size="10" value="<?=$mana?>"></td>
-              <td align="left" width="17%">AC:       <br><input type="text" name="AC" size="10" value="<?=$AC?>"></td>
-              <td align="left" width="17%">Runspeed: <br><input type="text" name="runspeed" size="10" value="1.25"></td>
-              <td align="left" width="16%">ATK:      <br><input type="text" name="ATK" size="10" value="0"></td>
-              <td align="left" width="16%">Accuracy: <br><input type="text" name="Accuracy" size="10" value="0"></td>
+              <td align="left" width="17%">HP:        <br><input type="text" name="hp" size="10" value="<?=$hp?>"></td>
+              <td align="left" width="17%">Mana:      <br><input type="text" name="mana" size="10" value="<?=$mana?>"></td>
+              <td align="left" width="17%">AC:        <br><input type="text" name="AC" size="10" value="<?=$AC?>"></td>
+              <td align="left" width="17%">Runspeed:  <br><input type="text" name="runspeed" size="10" value="1.25"></td>
+              <td align="left" width="16%">Walkspeed: <br><input type="text" name="walkspeed" size="10" value="0.0"></td>
+              <td align="left" width="16%">ATK:       <br><input type="text" name="ATK" size="10" value="0"></td>
             </tr>
             <tr>
+              <td align="left">Accuracy: <br><input type="text" name="Accuracy" size="10" value="0"></td>
               <td align="left">
                 See Invis:<br>
                 <input type="text" name="see_invis" size="5" value="0">
@@ -83,7 +84,14 @@
                 </select>
               </td>
               <td align="left">Avoidance:<br><input type="text" name="Avoidance" size="10" value="0"></td>
+            </tr>
+            <tr>
               <td align="left">Scalerate:<br><input type="text" name="scalerate" size="10" value="100"></td>
+              <td align="left">&nbsp;</td>
+              <td align="left">&nbsp;</td>
+              <td align="left">&nbsp;</td>
+              <td align="left">&nbsp;</td>
+              <td align="left">&nbsp;</td>
             </tr>
           </table>
         </fieldset><br>

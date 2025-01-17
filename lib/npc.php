@@ -1491,7 +1491,7 @@ function update_npc() {
   //legtexture
   //feettexture
   if ($light != $_POST['light']) $fields .= "light=\"" . $_POST['light'] . "\", ";
-  //walkspeed
+  if ($walkspeed != $_POST['walkspeed']) $fields .= "walkspeed=\"" . $_POST['walkspeed'] . "\", ";
   //peqid
   //unique_
   //fixed
@@ -1655,7 +1655,7 @@ function add_npc() {
   //legtexture
   //feettexture
   $fields .= "light=\"" . $_POST['light'] . "\", ";
-  //walkspeed
+  $fields .= "walkspeed=\"" . $_POST['walkspeed'] . "\", ";
   //peqid
   //unique_
   //fixed
@@ -1798,7 +1798,7 @@ function copy_npc() {
   //legtexture
   //feettexture
   $fields .= "light=\"" . $_POST['light'] . "\", ";
-  //walkspeed
+  $fields .= "walkspeed=\"" . $_POST['walkspeed'] . "\", ";
   //peqid
   //unique_
   //fixed
