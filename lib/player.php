@@ -189,6 +189,17 @@ switch ($action) {
       }
     }
     break;
+  case 14: // Character Evolving Items
+    check_admin_authorization();
+    $breadcrumbs .= " >> Evolving Items";
+    $body = new Template("templates/player/player.evolving.items.tmpl.php");
+    $evolving = get_evolving_items($_GET['playerid']);
+    $body->set('playerid', $_GET['playerid']);
+    $body->set('yesno', $yesno);
+    if ($evolving) {
+      $body->set('evolving', $evolving);
+    }
+    break;
 }
 
 function get_players($page_number, $results_per_page, $sort_by) {
@@ -449,6 +460,32 @@ function character_stats_record() {
 
   if ($result) {
     return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+function get_evolving_items($playerid) {
+  global $mysql;
+  $evolving_items = array();
+
+  $query1 = "SELECT * FROM character_evolving_items WHERE character_id = $playerid AND deleted_at IS NULL";
+  $results1 = $mysql->query_mult_assoc($query1);
+
+  if ($results1) {
+    $evolving_items['current'] = $results1;
+  }
+
+  $query2 = "SELECT * FROM character_evolving_items WHERE character_id = $playerid AND deleted_at IS NOT NULL";
+  $results2 = $mysql->query_mult_assoc($query2);
+
+  if ($results2) {
+    $evolving_items['history'] = $results2;
+  }
+
+  if ($results1 || $results2) {
+    return $evolving_items;
   }
   else {
     return null;

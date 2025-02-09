@@ -571,6 +571,8 @@ function delete_player($playerid) {
   //character_disciplines?
   $query = "DELETE FROM character_enabledtasks WHERE charid=$playerid";
   $mysql->query_no_result($query);
+  $query = "DELETE FROM character_evolving_items WHERE character_id=$playerid";
+  $mysql->query_no_result($query);
   $query = "DELETE FROM character_expedition_lockouts WHERE character_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_exp_modifiers WHERE character_id=$playerid";

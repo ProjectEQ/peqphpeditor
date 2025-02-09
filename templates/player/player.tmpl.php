@@ -3,6 +3,7 @@
       <div style="float:right">
         <a href="index.php?editor=player&playerid=<?=$playerid?>&action=13"><img src="images/view_all.gif" style="border: 0" title="View Stats Record" alt="View Stats Record"></a>&nbsp;
         <a href="index.php?editor=inv&playerid=<?=$playerid?>&action=1"><img src="images/contents.png" style="border: 0;" title="View Inventory" alt="View Inventory"></a>&nbsp;
+        <a href="index.php?editor=player&playerid=<?=$playerid?>&action=14"><img src="images/evolve.gif" style="border: 0;" title="View Evolving Items" alt="View Evolving Items"></a>&nbsp;
         <a href="index.php?editor=keys&playerid=<?=$playerid?>&action=1"><img src="images/key.png" style="border: 0;" title="View Keyring" alt="View Keyring"></a>&nbsp;
         <a onClick="javascript:alert('Not yet!');"><img src="images/c_table.gif" style="border: 0;" title="Edit this Player" alt="Edit this Player"></a>&nbsp;
         <a onClick="return confirm('Really delete player <?=trim($name)?> (<?=$playerid?>)?');" href="index.php?editor=player&playerid=<?=$playerid?>&action=4"><img src="images/table.gif" style="border: 0;" title="Delete this Player" alt="Delete this Player"></a>
@@ -566,7 +567,7 @@
               <legend><strong>Modifiers</strong></legend>
               <table width="100%">
                 <tr>
-                  <td width="50%">
+                  <td width="60%">
                     <fieldset>
                       <legend><strong>Experience Mods</strong> (<a href="index.php?editor=player&playerid=<?=$playerid?>&action=8">Add</a>)</legend>
 <?if (isset($exp_mods)):?>
@@ -597,7 +598,7 @@
 <?endif;?>
                     </fieldset>
                   </td>
-                  <td width="50%">&nbsp;</td>
+                  <td width="40%">&nbsp;</td>
                 </tr>
               </table>
             </fieldset>
