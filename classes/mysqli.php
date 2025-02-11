@@ -119,7 +119,7 @@ else {
 function quote_smart($value) {
 
   // Deter UNION SQL Injection
-  if (stripos($value, 'union all') || stripos($value, 'union select')) {
+  if (stripos($value, 'union all') || stripos($value, 'union select') || stripos($value, 'extractvalue') || stripos($value, 'concat_ws')) {
     logSQL("Possible attempt at SQL injection monitored by user at IP: '" . getIP() . "' using the query: '" . $value . "'.");
     header("Location: index.php");
     exit;
