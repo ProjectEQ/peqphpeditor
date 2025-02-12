@@ -13,7 +13,6 @@ class session {
       return;
     }
 
-    $query = "SELECT password FROM peq_admin WHERE login=\"$login\"";
     $stmt = $mysql->prepare("SELECT password FROM peq_admin WHERE login=?");
     $stmt->bind_param('s', $login);
     $stmt->execute();
