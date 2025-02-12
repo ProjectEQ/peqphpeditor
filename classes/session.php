@@ -14,13 +14,17 @@ class session {
     }
 
     $query = "SELECT password FROM peq_admin WHERE login=\"$login\"";
-    $result = $mysql->query_assoc($query);
-    if ($result == '') {
+    $stmt = $mysql->prepare("SELECT password FROM peq_admin WHERE login=?");
+    $stmt->bind_param('s', $login);
+    $stmt->execute();
+    $stmt->bind_result($password);
+    $stmt->fetch();
+
+    if (!$password) {
       $_SESSION['error'] = 1;
       logSQL("Invalid login attempt. Bad username from IP: '" . getIP() . "'. Username: '$login'");
       return;
     }
-    extract($result);
     
     if ($password == md5($pw)) {
       $_SESSION['login'] = $login;
