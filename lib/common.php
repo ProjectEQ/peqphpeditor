@@ -391,7 +391,7 @@ function getAccountName($acctid) {
     return $result['name'];
   }
   else {
-    return null;
+    return "N/A";
   }
 }
 

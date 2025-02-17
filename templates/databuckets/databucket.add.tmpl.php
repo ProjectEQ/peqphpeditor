@@ -1,4 +1,5 @@
   <center>
+    <iframe id="a_searchframe" src="templates/iframes/accountidsearch.php" style="display:none;"></iframe>
     <iframe id="searchframe" src="templates/iframes/playersearch.php" style="display:none;"></iframe>
     <iframe id="n_searchframe" src="templates/iframes/npcsearch.php" style="display:none;"></iframe>
     <input id="button" type="button" value="Hide Search" onclick="javascript:hideSearch();" style="display:none;">
@@ -15,37 +16,39 @@
       <form name="databuckets" method="post" action="index.php?editor=databuckets&action=3">
         <table width="100%" cellpadding="3" cellspacing="3">
           <tr>
-            <td width="33%">
+            <td width="25%">
               ID:<br>
-              <input type="text" name="id" value="<?=$suggest_id?>">
+              <input type="text" name="id" size="5" value="<?=$suggest_id?>">
             </td>
-            <td width="33%">
+            <td width="25%">
               Key:<br>
-              <input type="text" name="key" value="">
+              <input type="text" size="15" name="key" value="">
             </td>
-            <td width="33%">
+            <td width="25%">
               Value:<br>
-              <input type="text" name="value" value="">
+              <input type="text" size="5" name="value" value="">
             </td>
-          </tr>
-          <tr>
-            <td width="33%">
+            <td width="25%">
               Expires:<br>
-              <input type="text" name="expires" value="0">
+              <input type="text" size="10" name="expires" value="0">
             </td>
           </tr>
           <tr>
-            <td width="33%">
-              Character ID: (<a href="javascript:showSearch();">search</a>)<br>
-              <input type="text" id="player" name="character_id" value="0">
+            <td width="25%">
+              Account ID: (<a href="javascript:showSearch('a_searchframe');">search</a>)<br>
+              <input type="text" id="account" name="account_id" size="10" value="0">
             </td>
-            <td width="33%">
-              NPC ID: (<a href="javascript:showSearch();">search</a>)<br>
-              <input type="text" id="npc" name="npc_id" value="0">
+            <td width="25%">
+              Character ID: (<a href="javascript:showSearch('searchframe');">search</a>)<br>
+              <input type="text" id="player" name="character_id" size="10" value="0">
             </td>
-            <td width="33%">
+            <td width="25%">
+              NPC ID: (<a href="javascript:showSearch('n_searchframe');">search</a>)<br>
+              <input type="text" id="npc" name="npc_id" size="10" value="0">
+            </td>
+            <td width="25%">
               Bot ID:<br>
-              <input type="text" name="bot_id" value="0">
+              <input type="text" name="bot_id" size="10" value="0">
             </td>
           </tr>
           <tr>

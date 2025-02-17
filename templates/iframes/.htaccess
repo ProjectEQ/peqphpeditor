@@ -6,6 +6,10 @@
   Require all granted
 </Files>
 
+<Files accountidsearch.php>
+  Require all granted
+</Files>
+
 <Files itemsearch.php>
   Require all granted
 </Files>

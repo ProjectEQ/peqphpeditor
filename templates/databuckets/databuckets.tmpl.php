@@ -16,27 +16,31 @@
             <tr>
               <td width="28%">
                 <strong>Key:</strong><br>
-                <input type="text" size="23" name="filter1" id="filter1" value="<?echo (isset($filter)) ? $filter['filter1'] : "";?>">
+                <input type="text" size="20" name="filter1" id="filter1" value="<?echo (isset($filter)) ? $filter['filter1'] : "";?>">
               </td>
               <td width="12%">
                 <strong>Value:</strong><br>
-                <input type="text" size="7"  name="filter2" id="filter2" value="<?echo (isset($filter)) ? $filter['filter2'] : "";?>">
+                <input type="text" size="5"  name="filter2" id="filter2" value="<?echo (isset($filter)) ? $filter['filter2'] : "";?>">
               </td>
-              <td width="20%">
+              <td width="15%">
+                <strong>Account:</strong><br>
+                <input type="text" size="10"  name="filter3" id="filter3" value="<?echo (isset($filter)) ? $filter['filter3'] : "";?>">
+              </td>
+              <td width="15%">
                 <strong>Character:</strong><br>
-                <input type="text" size="15"  name="filter3" id="filter3" value="<?echo (isset($filter)) ? $filter['filter3'] : "";?>">
+                <input type="text" size="10"  name="filter4" id="filter4" value="<?echo (isset($filter)) ? $filter['filter4'] : "";?>">
               </td>
-              <td width="20%">
+              <td width="15%">
                 <strong>NPC:</strong><br>
-                <input type="text" size="15"  name="filter4" id="filter4" value="<?echo (isset($filter)) ? $filter['filter4'] : "";?>">
+                <input type="text" size="10"  name="filter5" id="filter5" value="<?echo (isset($filter)) ? $filter['filter5'] : "";?>">
               </td>
-              <td width="20%">
+              <td width="15%">
                 <strong>Bot ID:</strong><br>
-                <input type="text" size="15"  name="filter5" id="filter5" value="<?echo (isset($filter)) ? $filter['filter5'] : "";?>">
+                <input type="text" size="10"  name="filter6" id="filter6" value="<?echo (isset($filter)) ? $filter['filter6'] : "";?>">
               </td>
             </tr>
             <tr>
-              <td colspan="5" align="center"><br><input type="submit" value="Apply Filters">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Remove Filters" onClick="document.getElementById('filter1').value='';document.getElementById('filter2').value='';document.getElementById('filter3').value='';document.getElementById('filter4').value='';document.getElementById('filter5').value='';document.getElementById('filter_status').value='';"></td>
+              <td colspan="6" align="center"><br><input type="submit" value="Apply Filters">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Remove Filters" onClick="document.getElementById('filter1').value='';document.getElementById('filter2').value='';document.getElementById('filter3').value='';document.getElementById('filter4').value='';document.getElementById('filter5').value='';document.getElementById('filter6').value='';document.getElementById('filter_status').value='';"></td>
             </tr>
           </table>
         </form>
@@ -64,13 +68,14 @@
       <table class="table_content2" width="100%">
 <?if (isset($databuckets)):?>
         <tr>
-          <td align="center" width="10%"><strong><?echo ($sort == 1) ? "ID <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=1" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>ID <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by ID' alt='Sort'></a>";?></strong></td>
-          <td align="center" width="20%"><strong><?echo ($sort == 2) ? "Key <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=2" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Key <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Key' alt='Sort'></a>";?></strong></td>
-          <td align="center" width="10%"><strong><?echo ($sort == 3) ? "Value <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=3" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Value <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Value' alt='Sort'></a>";?></strong></td>
-          <td align="center" width="10%"><strong><?echo ($sort == 4) ? "Expires <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=4" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Expires <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Expires' alt='Sort'></a>";?></strong></td>
-          <td align="center" width="15%"><strong><?echo ($sort == 5) ? "Character <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=5" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Character <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Character' alt='Sort'></a>";?></strong></td>
-          <td align="center" width="15%"><strong><?echo ($sort == 6) ? "NPC <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=6" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>NPC <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by NPC' alt='Sort'></a>";?></strong></td>
-          <td align="center" width="15%"><strong><?echo ($sort == 7) ? "Bot <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=7" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Bot <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Bot' alt='Sort'></a>";?></strong></td>
+          <td align="center" width="9%"><strong><?echo ($sort == 1) ? "ID <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=1" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>ID <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by ID' alt='Sort'></a>";?></strong></td>
+          <td align="center" width="16%"><strong><?echo ($sort == 2) ? "Key <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=2" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Key <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Key' alt='Sort'></a>";?></strong></td>
+          <td align="center" width="9%"><strong><?echo ($sort == 3) ? "Value <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=3" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Value <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Value' alt='Sort'></a>";?></strong></td>
+          <td align="center" width="9%"><strong><?echo ($sort == 4) ? "Expires <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=4" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Expires <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Expires' alt='Sort'></a>";?></strong></td>
+          <td align="center" width="13%"><strong><?echo ($sort == 5) ? "Account <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=5" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Account <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Account' alt='Sort'></a>";?></strong></td>
+          <td align="center" width="13%"><strong><?echo ($sort == 6) ? "Character <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=6" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Character <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Character' alt='Sort'></a>";?></strong></td>
+          <td align="center" width="13%"><strong><?echo ($sort == 7) ? "NPC <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=7" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>NPC <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by NPC' alt='Sort'></a>";?></strong></td>
+          <td align="center" width="13%"><strong><?echo ($sort == 8) ? "Bot <img src='images/sort_red.bmp' border='0' width='8' height='8' alt='Sort'>" : "<a href='index.php?editor=databuckets&sort=8" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Bot <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Bot' alt='Sort'></a>";?></strong></td>
           <td width="5%">&nbsp;</td>
         </tr>
 <?$x=0;
@@ -80,6 +85,7 @@ foreach($databuckets as $databucket):?>
           <td align="center"><?=$databucket['key']?></td>
           <td align="center"><?=$databucket['value']?></td>
           <td align="center"><?echo ($databucket['expires'] > 0) ? get_real_time($databucket['expires']) : "N/A (0)";?></td>
+          <td align="center"><?=getAccountName($databucket['account_id'])?> (<?=$databucket['account_id']?>)</td>
           <td align="center"><?=getPlayerName($databucket['character_id'])?> (<?=$databucket['character_id']?>)</td>
           <td align="center"><?=getNPCName($databucket['npc_id'])?> (<?=$databucket['npc_id']?>)</td>
           <td align="center"><?echo ($databucket['bot_id'] > 0) ? $databucket['bot_id'] : "N/A (0)";?></td>
