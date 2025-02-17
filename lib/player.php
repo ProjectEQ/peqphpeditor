@@ -200,6 +200,25 @@ switch ($action) {
       $body->set('evolving', $evolving);
     }
     break;
+  case 15: // Edit Custom Pet Name
+    check_admin_authorization();
+    $body = new Template("templates/player/player.pet.name.tmpl.php");
+    $breadcrumbs .= " >> Custom Pet Name";
+    $body->set('playerid', $_GET['playerid']);
+    $body->set('name', get_pet_name($_GET['playerid']));
+    break;
+  case 16: // Update Custom Pet Name
+    check_admin_authorization();
+    update_pet_name();
+    $playerid = $_POST['playerid'];
+    header("Location: index.php?editor=player&playerid=$playerid");
+    exit();
+  case 17: // Delete Custom Pet Name
+    check_admin_authorization();
+    $playerid = $_GET['playerid'];
+    delete_pet_name($playerid);
+    header("Location: index.php?editor=player&playerid=$playerid");
+    exit();
 }
 
 function get_players($page_number, $results_per_page, $sort_by) {
@@ -332,6 +351,9 @@ function player_info() {
   if ($results) {
     $player_array['exp_mods'] = $results;
   }
+
+  //Load custom pet name
+  $player_array['pet_name'] = get_pet_name($playerid);
 
   return $player_array;
 }
@@ -490,5 +512,36 @@ function get_evolving_items($playerid) {
   else {
     return null;
   }
+}
+
+function get_pet_name($character_id) {
+  global $mysql;
+
+  $query = "SELECT `name` FROM character_pet_name WHERE character_id=$character_id";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    return $result['name'];
+  }
+  else {
+    return "N/A";
+  }
+}
+
+function update_pet_name() {
+  global $mysql;
+
+  $playerid = $_POST['playerid'];
+  $name = $_POST['name'];
+
+  $query = "REPLACE INTO character_pet_name SET character_id=$playerid, `name`='$name'";
+  $mysql->query_no_result($query);
+}
+
+function delete_pet_name($character_id) {
+  global $mysql;
+
+  $query = "DELETE FROM character_pet_name WHERE character_id=$character_id";
+  $mysql->query_no_result($query);
 }
 ?>
