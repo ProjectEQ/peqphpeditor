@@ -559,6 +559,33 @@
           </fieldset><br>
         </fieldset><br>
         <fieldset>
+          <legend><strong><font size="4">Evolving Item Details</font></strong></legend>
+          <table width="100%" border="0" cellpadding="3" cellspacing="3">
+            <tr>
+              <td width="25%">
+                <strong>Evolving:</strong><br>
+                <select name="evoitem">
+                  <option value="0" selected>No</option>
+                  <option value="1">Yes</option>
+                </select>
+              </td>
+              <td width="25%">
+                <strong>Evolution ID:</strong><br>
+                <input type="text" name="evoid" size="10" value="0">
+              </td>
+              <td width="25%">
+                <strong>Level:</strong><br>
+                <input type="text" name="evolvinglevel" size="5" value="0">
+              </td>
+              <td width="25%">
+                <strong>Max Level:</strong><br>
+                <input type="text" name="evomax" size="5" value="0">
+              </td>
+            </tr>
+          </table><br>
+
+        </fieldset><br>
+        <fieldset>
           <legend><strong><font size="4">Costs</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>

@@ -1,6 +1,6 @@
 <?php
 
-$itemsize= array(
+$itemsize = array(
   0   => "Tiny",
   1   => "Small",
   2   => "Medium",
@@ -9,7 +9,7 @@ $itemsize= array(
   5   => "Giant - No Container"
 );
 
-$itembagsize= array(
+$itembagsize = array(
   0   => "Non-Bag",
   1   => "Small",
   2   => "Medium",
@@ -18,7 +18,7 @@ $itembagsize= array(
   5   => "Giant - Assembly Kit"
 );
 
-$itemldontheme= array(
+$itemldontheme = array(
   0   => "None",
   1   => "GUK",
   2   => "MIR",
@@ -28,7 +28,7 @@ $itemldontheme= array(
   31  => "ALL"
 );
 
-$itembardtype= array(
+$itembardtype = array(
   0   => "None",
   23  => "Wind",
   24  => "String",
@@ -38,7 +38,7 @@ $itembardtype= array(
   51  => "ALL"
 );
 
-$itempointtype= array(
+$itempointtype = array(
   0   => "None",
   1   => "LDoN",
   2   => "Discord Merchant",
@@ -46,7 +46,7 @@ $itempointtype= array(
   5   => "Dark Reign"
 );
 
-$itemcasttype= array(
+$itemcasttype = array(
   0 => "None",
   1 => "Click from inventory w/Lvl",
   3 => "Expendable",
@@ -54,23 +54,38 @@ $itemcasttype= array(
   5 => "Click from inventory w/Lvl/Class/Race"
 );
 
-$proccasttype= array(
+$proccasttype = array(
   0   => "None/Proc"
 );
 
-$worncasttype= array(
+$worncasttype = array(
   0   => "None",
   2   => "Worn"
 );
 
-$focuscasttype= array(
+$focuscasttype = array(
   0   => "None",
   6   => "Focus"
 );
 
-$scrollcasttype= array(
+$scrollcasttype = array(
   0   => "None",
   7   => "Scroll"
+);
+
+$evolving_type = array(
+  1 => "Experience", //Experience based evolution
+  2 => "Kills", //Number of Kills
+  3 => "Race", //Specific Mob Race
+  4 => "Zone", //Specific Zone ID
+ 99 => "UNK"
+);
+
+$evolving_subtype_1 = array(
+  0 => "All EXP", //use all experience
+  1 => "Solo EXP", //use only solo experience
+  2 => "Group EXP", //use only group experience
+  3 => "Raid EXP" //use only raid experience
 );
 
 switch ($action) {
@@ -88,6 +103,7 @@ switch ($action) {
   case 2: //Edit Item
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/items/items.edit.tmpl.php");
+    $breadcrumbs .= " >> Edit Item";
     $body->set("itemsize", $itemsize);
     $body->set("itemmaterial", $itemmaterial);
     $body->set("itemtypes", $itemtypes);
@@ -106,6 +122,8 @@ switch ($action) {
     $body->set("focuscasttype", $focuscasttype);
     $body->set("scrollcasttype", $scrollcasttype);
     $body->set("factions", factions_array());
+    $body->set('evolving_type', $evolving_type);
+    $body->set('evolving_subtype_1', $evolving_subtype_1);
     $vars = item_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -117,6 +135,10 @@ switch ($action) {
       foreach ($date_vars as $key=>$value) {
         $body->set($key, $value);
       }
+    }
+    $evolving_details = get_evolving_details($_GET['id']);
+    if ($evolving_details) {
+      $body->set('evolving_details', $evolving_details);
     }
     $errors = array();
     if (($vars['stackable'] == 0) && ($vars['stacksize'] > 1)) {
@@ -281,6 +303,56 @@ switch ($action) {
       $body->set("diff", $diff);
     }
     break;
+  case 19: //View Evolving Items
+    $body = new Template("templates/items/items.evolving.tmpl.php");
+    $breadcrumbs .= " >> Evolving Items";
+    $body->set('evolving_type', $evolving_type);
+    $body->set("itemraces", $races);
+    $body->set('evolving_subtype_1', $evolving_subtype_1);
+    $items = get_evolving_items();
+    if ($items) {
+      $body->set('items', $items);
+    }
+    break;
+  case 20: //Add Evolving Item - New Evolution, First Item
+    check_authorization();
+    $body = new Template("templates/items/items.evolving.add.tmpl.php");
+    $breadcrumbs .= " >> <a href='index.php?editor=items&action=19'>Evolving Items</a> >> Add Evolving Item";
+    $body->set('suggest_id', suggest_evo_details_id());
+    $body->set('suggest_evo_id', suggest_evo_id());
+    $body->set('evolving_type', $evolving_type);
+    break;
+  case 21: //Insert Evolution
+    check_authorization();
+    insert_evolving_item();
+    header("Location: index.php?editor=items&action=19");
+    exit;
+  case 22: //Add Evolving Item - Existing Evolution, Additional Item
+    check_authorization();
+    $body = new Template("templates/items/items.evolving.add.tmpl.php");
+    $breadcrumbs .= " >> <a href='index.php?editor=items&action=19'>Evolving Items</a> >> Add Evolving Item";
+    $body->set('suggest_id', suggest_evo_details_id());
+    $body->set('suggest_evo_id', $_GET['id']);
+    $body->set('suggest_evo_level', suggest_evo_level($_GET['id']));
+    $body->set('evolving_type', $evolving_type);
+    break;
+  case 26: //Edit Evolving Item
+    check_authorization();
+    $body = new Template("templates/items/items.evolving.edit.tmpl.php");
+    $breadcrumbs .= " >> <a href='index.php?editor=items&action=19'>Evolving Items</a> >> Edit Evolving Item";
+    $body->set('details', get_evolving_item($_GET['id']));
+    $body->set('evolving_type', $evolving_type);
+    break;
+  case 27: //Update Evolving Item
+    check_authorization();
+    update_evolving_item();
+    header("Location: index.php?editor=items&action=19");
+    exit;
+  case 29: //Delete Evolving Item
+    check_authorization();
+    delete_evolving_item($_GET['id']);
+    header("Location: index.php?editor=items&action=19");
+    exit;
 }
 
 function item_info() {
@@ -291,8 +363,8 @@ function item_info() {
   $query = "SELECT Name AS itemname FROM items WHERE id=$id";
   $result = $mysql_content_db->query_assoc($query);
 
-  $query = "SELECT * FROM items WHERE id=$id";
-  $result2 = $mysql_content_db->query_assoc($query);
+  $query2 = "SELECT * FROM items WHERE id=$id";
+  $result2 = $mysql_content_db->query_assoc($query2);
 
   $result = $result+$result2;
   return $result;
@@ -531,6 +603,10 @@ function update_item() {
   if ($item['haste'] != $_POST['haste']) $fields .= "haste=\"" . $_POST['haste'] . "\", ";
   if ($item['avoidance'] != $_POST['avoidance']) $fields .= "avoidance=\"" . $_POST['avoidance'] . "\", ";
   if ($item['purity'] != $_POST['purity']) $fields .= "purity=\"" . $_POST['purity'] . "\", ";
+  if ($item['evoitem'] != $_POST['evoitem']) $fields .= "evoitem=\"" . $_POST['evoitem'] . "\", ";
+  if ($item['evoid'] != $_POST['evoid']) $fields .= "evoid=\"" . $_POST['evoid'] . "\", ";
+  if ($item['evolvinglevel'] != $_POST['evolvinglevel']) $fields .= "evolvinglevel=\"" . $_POST['evolvinglevel'] . "\", ";
+  if ($item['evomax'] != $_POST['evomax']) $fields .= "evomax=\"" . $_POST['evomax'] . "\", ";
   if ($item['combateffects'] != $_POST['combateffects']) $fields .= "combateffects=\"" . $_POST['combateffects'] . "\", ";
   if ($item['aagi'] != $_POST['aagi']) $fields .= "aagi=\"" . $_POST['aagi'] . "\", ";
   if ($item['acha'] != $_POST['acha']) $fields .= "acha=\"" . $_POST['acha'] . "\", ";
@@ -670,8 +746,8 @@ function copy_item() {
    $query = "DELETE FROM items WHERE id=0";
    $mysql_content_db->query_no_result($query);
 
-   $query2 = "INSERT INTO items (minstatus, Name, aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, skillmodmax, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evolvinglevel, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4,bardunk5, bardname, bardunk7, UNK214, heirloom, placeable, epicitem)
-              SELECT minstatus, concat(Name, ' - Copy'), aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, skillmodmax, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evolvinglevel, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4, bardunk5, bardname, bardunk7, UNK214, heirloom, placeable, epicitem FROM items WHERE id=$id";
+   $query2 = "INSERT INTO items (minstatus, Name, aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, skillmodmax, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evoitem, evoid, evolvinglevel, evomax, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4,bardunk5, bardname, bardunk7, UNK214, heirloom, placeable, epicitem)
+              SELECT minstatus, concat(Name, ' - Copy'), aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, skillmodmax, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evoitem, evoid, evolvinglevel, evomax, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4, bardunk5, bardname, bardunk7, UNK214, heirloom, placeable, epicitem FROM items WHERE id=$id";
    $mysql_content_db->query_no_result($query2);
 
    $query3 = "SELECT MAX(id) AS iid FROM items"; 
@@ -878,6 +954,10 @@ function add_item() {
   $fields .= "haste=\"" . $_POST['haste'] . "\", ";
   $fields .= "avoidance=\"" . $_POST['avoidance'] . "\", ";
   $fields .= "purity=\"" . $_POST['purity'] . "\", ";
+  $fields .= "evoitem=\"" . $_POST['evoitem'] . "\", ";
+  $fields .= "evoid=\"" . $_POST['evoid'] . "\", ";
+  $fields .= "evolvinglevel=\"" . $_POST['evolvinglevel'] . "\", ";
+  $fields .= "evomax=\"" . $_POST['evomax'] . "\", ";
   $fields .= "combateffects=\"" . $_POST['combateffects'] . "\", ";
   $fields .= "aagi=\"" . $_POST['aagi'] . "\", ";
   $fields .= "acha=\"" . $_POST['acha'] . "\", ";
@@ -1155,6 +1235,156 @@ function get_items_diff($column) {
   }
   else {
     return NULL;
+  }
+}
+
+function get_evolving_items() {
+  global $mysql_content_db;
+
+  $query = "SELECT * FROM items_evolving_details ORDER BY item_evo_id, item_evolve_level";
+  $results = $mysql_content_db->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function get_evolving_item($id) {
+  global $mysql_content_db;
+
+  $query = "SELECT * FROM items_evolving_details WHERE id = $id";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+function get_evolving_details($item_id) {
+  global $mysql_content_db;
+
+  $item_evo_id = get_evolving_id($item_id);
+  if ($item_evo_id) {
+    $query = "SELECT * FROM items_evolving_details WHERE item_evo_id = $item_evo_id ORDER BY item_evo_id, item_evolve_level";
+    $results = $mysql_content_db->query_mult_assoc($query);
+
+    if ($results) {
+      return $results;
+    }
+  }
+  return null;
+}
+
+function get_evolving_id($item_id) {
+  global $mysql_content_db;
+
+  $query = "SELECT item_evo_id FROM items_evolving_details WHERE item_id = $item_id LIMIT 1";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result['item_evo_id'];
+  }
+  else {
+    return null;
+  }
+}
+
+function get_evolving_item_id($id) {
+  global $mysql_content_db;
+
+  $query = "SELECT item_id FROM items_evolving_details WHERE id = $id LIMIT 1";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result['item_id'];
+  }
+  else {
+    return 0;
+  }
+}
+
+function insert_evolving_item() {
+  global $mysql_content_db;
+
+  $id = $_POST['id'];
+  $item_evo_id = $_POST['item_evo_id'];
+  $item_evolve_level = $_POST['item_evolve_level'];
+  $item_id = $_POST['item_id'];
+  $type = $_POST['type'];
+  $sub_type = $_POST['sub_type'];
+  $required_amount = $_POST['required_amount'];
+
+  $query = "INSERT INTO items_evolving_details SET id=$id, item_evo_id=$item_evo_id, item_evolve_level=$item_evolve_level, item_id=$item_id, `type`=$type, sub_type=$sub_type, required_amount=$required_amount";
+  $mysql_content_db->query_no_result($query);
+}
+
+function update_evolving_item() {
+  global $mysql_content_db;
+
+  $id = $_POST['id'];
+  $item_evo_id = $_POST['item_evo_id'];
+  $item_evolve_level = $_POST['item_evolve_level'];
+  $item_id = $_POST['item_id'];
+  $type = $_POST['type'];
+  $sub_type = $_POST['sub_type'];
+  $required_amount = $_POST['required_amount'];
+
+  $query = "UPDATE items_evolving_details SET item_evo_id=$item_evo_id, item_evolve_level=$item_evolve_level, item_id=$item_id, `type`=$type, sub_type=$sub_type, required_amount=$required_amount WHERE id=$id";
+  $mysql_content_db->query_no_result($query);
+}
+
+function delete_evolving_item($id) {
+  global $mysql_content_db;
+
+  $query = "DELETE FROM items_evolving_details WHERE id=$id";
+  $mysql_content_db->query_no_result($query);
+}
+
+function suggest_evo_details_id() {
+  global $mysql_content_db;
+
+  $query = "SELECT MAX(id) AS id FROM items_evolving_details";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result['id'] + 1;
+  }
+  else {
+    return 1;
+  }
+}
+
+function suggest_evo_id() {
+  global $mysql_content_db;
+
+  $query = "SELECT MAX(item_evo_id) AS id FROM items_evolving_details";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result['id'] + 1;
+  }
+  else {
+    return 1;
+  }
+}
+
+function suggest_evo_level($item_evo_id) {
+  global $mysql_content_db;
+
+  $query = "SELECT MAX(item_evolve_level) AS level FROM items_evolving_details WHERE item_evo_id=$item_evo_id";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result['level'] + 1;
+  }
+  else {
+    return 1;
   }
 }
 ?>

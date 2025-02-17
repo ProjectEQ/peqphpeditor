@@ -20,7 +20,7 @@
         Edit Item - <?=$id?> (<a href="https://lucy.allakhazam.com/item.html?id=<?=$id?>" target="_blank">Lucy</a>)
         <div style="float:right">
           <a href="index.php?editor=items&action=8"><img src="images/add.gif" border="0" title="Add an Item"></a>
-          <a href="index.php?editor=items&id=<?=$id?>&action=7" onClick="return confirm('Really Copy Item <?=$id?>?');"><img src="images/last.gif" border="0" title="Copy this Item"></a>
+          <a href="index.php?editor=items&id=<?=$id?>&action=7" onClick="return confirm('Really Copy Item <?=$id?>?');"><img src="images/last.gif" border="0" title="Copy this Item"></a>&nbsp;
           <a href="index.php?editor=items&id=<?=$id?>&action=5" onClick="return confirm('Really delete Item <?=$id?>?');"><img src="images/table.gif" border="0" title="Delete this Item"></a>
         </div>
       </div>
@@ -518,6 +518,104 @@
               </tr>
             </table>
           </fieldset><br>
+        </fieldset><br>
+        <fieldset>
+          <legend><strong><font size="4">Evolving Item Details</font></strong></legend>
+<?
+$flag = 0;
+if ($evoitem && !isset($evolving_details)) {
+  $flag = 1;
+}
+?>
+          <table width="100%" border="0" cellpadding="3" cellspacing="3">
+            <tr>
+              <td width="25%">
+                <strong>Evolving:</strong><br>
+                <select name="evoitem">
+                  <option value="0"<?echo ($evoitem == 0) ? " selected" : "";?>>No</option>
+                  <option value="1"<?echo ($evoitem == 1) ? " selected" : "";?>>Yes</option>
+                </select>
+              </td>
+              <td width="25%">
+                <strong>Evolution ID:</strong><br>
+                <input type="text" name="evoid" size="10" value="<?=$evoid?>">
+              </td>
+              <td width="25%">
+                <strong>Level:</strong><br>
+                <input type="text" name="evolvinglevel" size="5" value="<?=$evolvinglevel?>">
+              </td>
+              <td width="25%">
+                <strong>Max Level:</strong><br>
+                <input type="text" name="evomax" size="5" value="<?=$evomax?>">
+              </td>
+            </tr>
+          </table><br>
+<?
+if (isset($evolving_details)):
+?>
+          <table width="100%" border="0" cellpadding="3" cellspacing="0">
+            <tr>
+              <td align="center"><strong>Evolution ID</strong></td>
+              <td align="center"><strong>Level</strong></td>
+              <td align="center"><strong>Item</strong></td>
+              <td align="center"><strong>Type</strong></td>
+              <td align="center"><strong>Subtype</strong></td>
+              <td align="center"><strong>Required Amt</strong></td>
+            <tr>
+<?
+  foreach ($evolving_details as $detail):
+    if (!$evoitem || !$evoid || !$evolving_level) {
+      $flag = 1;
+    }
+?>
+            <tr>
+              <td align="center"><a href="index.php?editor=items&id=<?=$detail['id']?>&action=26" title="Edit Evolution"><?=$detail['item_evo_id']?></a></td>
+              <td align="center"><?echo ($detail['item_id'] == $id) ? "<strong>=> " : null;?><?=$detail['item_evolve_level']?><?echo ($detail['item_id'] == $id) ? " <=</strong>" : null;?></td>
+              <td align="center"><a href="index.php?editor=items&id=<?=$detail['item_id']?>&action=2" title="<?=$detail['item_id']?>"><?=get_item_name($detail['item_id'])?></a> [<a href="https://lucy.allakhazam.com/item.html?id=<?=$detail['item_id']?>" target="_blank">Lucy</a>]</td>
+              <td align="center"><?=$evolving_type[$detail['type']]?> (<?=$detail['type']?>)</td>
+              <td align="center">
+<?
+      switch ($detail['type']) {
+        case 1: // Experience-based Evolution
+          echo $evolving_subtype_1[$detail['sub_type']] . " (" . $detail['sub_type'] . ")";
+          break;
+        case 2: // Number of Kills
+          echo "N/A";
+          break;
+        case 3: // Specific Mob Race
+          echo $itemraces[$detail['sub_type']] . " (" . $detail['sub_type'] . ")";
+          break;
+        case 4: // Specific Zone ID
+          echo getZoneName($detail['sub_type']) . " (" . $detail['sub_type'] . ")";
+          break;
+        default:
+          echo "UNK (" . $detail['sub_type'] . ")";
+          break;
+      }
+?>
+              </td>
+              <td align="center"><?=$detail['required_amount']?></td>
+            </tr>
+<?
+  endforeach;
+?>
+          </table>
+<?
+endif;
+?>
+<?
+if ($flag == 1):
+?>
+          <table width="100%" cellpadding="3" cellspacing="3">
+            <tr>
+              <td align="center">
+                <a title="Misconfigured Evolution"><img src="images/caution.gif" width="20"></a>&nbsp;
+              </td>
+            </tr>
+          </table>
+<?
+endif;
+?>
         </fieldset><br>
         <fieldset>
           <legend><strong><font size="4">Costs</font></strong></legend>
