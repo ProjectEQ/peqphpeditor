@@ -57,7 +57,7 @@
                   <td align="left" width="25%">NPC Max Aggro:<br><input type="text" name="npc_max_aggro_dist" size="7" value="<?=$npc_max_aggro_dist?>"></td>
                 </tr>
                 <tr>
-                  <td align="left" width="25%">Max Movement Update:<br><input type="text" name="max_movement_update_range" size="7" value="<?=$max_movement_update_range?>"></td>
+                  <td align="left" width="25%">Client Update Range:<br><input type="text" name="client_update_range" size="7" value="<?=$client_update_range?>"></td>
                   <td align="left" width="25%">Underworld:<br><input type="text" name="underworld" size="7" value="<?=$underworld?>"></td>
                   <td align="left" width="25%">Underworld Teleport Index:<br><input type="text" name="underworld_teleport_index" size="7" value="<?=$underworld_teleport_index?>"></td>
                   <td align="left" width="25%">&nbsp;</td>

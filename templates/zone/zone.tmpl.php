@@ -77,7 +77,7 @@
                     <td align="left" width="34%">Fast Regen Endurance: <?=$fast_regen_endurance?></td>
                   </tr>
                   <tr>
-                    <td align="left" width="33%">Max Movement Update: <?=$max_movement_update_range?></td>
+                    <td align="left" width="33%">Client Update Range: <?=$client_update_range?></td>
                     <td align="left" width="33%">Underworld Teleport Index: <?=$underworld_teleport_index?></td>
                     <td align="left" width="34%">Idle When Empty: <?=$yesno[$idle_when_empty]?></td>
                   </tr>
