@@ -564,7 +564,7 @@ if (isset($evolving_details)):
             <tr>
 <?
   foreach ($evolving_details as $detail):
-    if (!$evoitem || !$evoid || !$evolving_level) {
+    if (!$evoitem || !$evoid || !$evolvinglevel) {
       $flag = 1;
     }
 ?>
