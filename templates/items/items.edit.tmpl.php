@@ -552,6 +552,9 @@ if ($evoitem && !isset($evolving_details)) {
           </table><br>
 <?
 if (isset($evolving_details)):
+  if ($evomax != count($evolving_details)) {
+    $flag = 1;
+  }
 ?>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
