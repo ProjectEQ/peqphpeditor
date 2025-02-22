@@ -76,7 +76,8 @@
                     Drunkness: <?=$intoxication?><br>
                     Toxicity: <?=$toxicity?><br>
                     Autosplit: <?=$yesno[$autosplit_enabled]?><br>
-                    Exp Enabled: <?=$yesno[$exp_enabled]?> [<a href="index.php?editor=player&playerid=<?=$id?>&action=12">Change</a>]
+                    Exp Enabled: <?=$yesno[$exp_enabled]?> [<a href="index.php?editor=player&playerid=<?=$id?>&action=12">Change</a>]<br>
+                    Illusion Block: <?=$illusion_block?>
                   </fieldset>
                 </td>
               </tr>
