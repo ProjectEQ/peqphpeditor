@@ -374,7 +374,7 @@ if ($loottable_id > 0) {
                   <tr>
                     <td align="left" width="33%">Trap Template: <?=$trap_template?></td>
                     <td align="left" width="33%">Parcel Merchant: <?=$yesno[$is_parcel_merchant]?></td>
-                    <td align="left" width="34%">&nbsp;</td>
+                    <td align="left" width="34%">Multiquest: <?=$yesno[$multiquest_enabled]?></td>
                   </tr>
                 </table>
               </fieldset>
@@ -496,6 +496,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="faction_amount" value="<?=$faction_amount?>">
         <input type="hidden" name="keeps_sold_items" value="<?=$keeps_sold_items?>">
         <input type="hidden" name="is_parcel_merchant" value="<?=$is_parcel_merchant?>">
+        <input type="hidden" name="multiquest_enabled" value="<?=$multiquest_enabled?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">

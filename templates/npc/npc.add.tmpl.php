@@ -362,12 +362,18 @@
                   <option value="1">Yes (1)</option>
                 </select>
               </td>
-              <td align="left" width="16%">&nbsp;</td>
+              <td align="left" width="16%">
+                Multiquest:<br>
+                <select name="multiquest_enabled">
+                  <option value="0" selected>No (0)</option>
+                  <option value="1">Yes (1)</option>
+                </select>
+              </td>
             </tr>
             <tr>
               <td align="left" width="17%">
                 Merchant ID:<br>
-                <input type="text" size="10" name="marchant_id" value="0">
+                <input type="text" size="10" name="merchant_id" value="0">
               </td>
               <td align="left" width="17%">
                 Greed:<br>

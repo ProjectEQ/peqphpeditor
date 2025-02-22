@@ -399,12 +399,18 @@
                   <option value="1"<?echo ($is_parcel_merchant == 1) ? " selected" : ""?>>Yes (1)</option>
                 </select>
               </td>
-              <td align="left" width="16%">&nbsp;</td>
+              <td align="left" width="16%">
+                Multiquest:<br>
+                <select name="multiquest_enabled">
+                  <option value="0"<?echo ($multiquest_enabled == 0) ? " selected" : ""?>>No (0)</option>
+                  <option value="1"<?echo ($multiquest_enabled == 1) ? " selected" : ""?>>Yes (1)</option>
+                </select>
+              </td>
             </tr>
             <tr>
               <td align="left" width="17%">
                 Merchant ID:<br>
-                <input type="text" size="10" name="marchant_id" value="<?=$merchant_id?>">
+                <input type="text" size="10" name="merchant_id" value="<?=$merchant_id?>">
               </td>
               <td align="left" width="17%">
                 Greed:<br>

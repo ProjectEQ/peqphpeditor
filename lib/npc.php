@@ -1516,7 +1516,7 @@ function update_npc() {
   if ($faction_amount != $_POST['faction_amount']) $fields .= "faction_amount=\"" . $_POST['faction_amount'] . "\", ";
   if ($keeps_sold_items != $_POST['keeps_sold_items']) $fields .= "keeps_sold_items=\"" . $_POST['keeps_sold_items'] . "\", ";
   if ($is_parcel_merchant != $_POST['is_parcel_merchant']) $fields .= "is_parcel_merchant=\"" . $_POST['is_parcel_merchant'] . "\", ";
-
+  if ($multiquest_enabled != $_POST['multiquest_enabled']) $fields .= "multiquest_enabled=\"" . $_POST['multiquest_enabled'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -1670,16 +1670,17 @@ function add_npc() {
   $fields .= "charm_avoidance_rating=\"" . $_POST['charm_avoidance_rating'] . "\", ";
   $fields .= "charm_atk=\"" . $_POST['charm_atk'] . "\", ";
   $fields .= "skip_global_loot=\"" . $_POST['skip_global_loot'] . "\", ";
-  $fields .= "rare_spawn=\"" .$_POST['rare_spawn'] . "\", ";
-  $fields .= "stuck_behavior=\"" .$_POST['stuck_behavior'] . "\", ";
-  $fields .= "model=\"" .$_POST['model'] . "\", ";
-  $fields .= "flymode=\"" .$_POST['flymode'] . "\", ";
-  $fields .= "always_aggro=\"" .$_POST['always_aggro'] . "\", ";
-  $fields .= "exp_mod=\"" .$_POST['exp_mod'] . "\", ";
-  $fields .= "heroic_strikethrough=\"" .$_POST['heroic_strikethrough'] . "\", ";
-  $fields .= "faction_amount=\"" .$_POST['faction_amount'] . "\", ";
-  $fields .= "keeps_sold_items=\"" .$_POST['keeps_sold_items'] . "\", ";
-  $fields .= "is_parcel_merchant=\"" .$_POST['is_parcel_merchant'] . "\"";
+  $fields .= "rare_spawn=\"" . $_POST['rare_spawn'] . "\", ";
+  $fields .= "stuck_behavior=\"" . $_POST['stuck_behavior'] . "\", ";
+  $fields .= "model=\"" . $_POST['model'] . "\", ";
+  $fields .= "flymode=\"" . $_POST['flymode'] . "\", ";
+  $fields .= "always_aggro=\"" . $_POST['always_aggro'] . "\", ";
+  $fields .= "exp_mod=\"" . $_POST['exp_mod'] . "\", ";
+  $fields .= "heroic_strikethrough=\"" . $_POST['heroic_strikethrough'] . "\", ";
+  $fields .= "faction_amount=\"" . $_POST['faction_amount'] . "\", ";
+  $fields .= "keeps_sold_items=\"" . $_POST['keeps_sold_items'] . "\", ";
+  $fields .= "is_parcel_merchant=\"" . $_POST['is_parcel_merchant'] . "\", ";
+  $fields .= "multiquest_enabled=\"" . $_POST['multiquest_enabled'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1822,8 +1823,8 @@ function copy_npc() {
   $fields .= "heroic_strikethrough=\"" . $_POST['heroic_strikethrough'] . "\", ";
   $fields .= "faction_amount=\"" . $_POST['faction_amount'] . "\", ";
   $fields .= "keeps_sold_items=\"" . $_POST['keeps_sold_items'] . "\", ";
-  $fields .= "is_parcel_merchant=\"" . $_POST['is_parcel_merchant'] . "\"";
-
+  $fields .= "is_parcel_merchant=\"" . $_POST['is_parcel_merchant'] . "\", ";
+  $fields .= "multiquest_enabled=\"" . $_POST['multiquest_enabled'] . "\"";
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
     $query2 = "UPDATE npc_types SET special_abilities = TRIM(TRAILING '^' FROM special_abilities)";
