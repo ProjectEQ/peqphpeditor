@@ -191,20 +191,22 @@ endfor;
                 <td align="center"><strong>Slot</strong></td>
                 <td align="center"><strong>Item</strong></td>
                 <td align="center"><strong>Qty</strong></td>
+                <td align="center"><strong>Augs</strong></td>
                 <td align="center"><strong>Permissions</strong></td>
-                <td align="center"><strong>Donated By</strong></td>
-                <td align="center"><strong>Intended For</strong></td>
+                <td align="center"><strong>Donor</strong></td>
+                <td align="center"><strong>For</strong></td>
               </tr>
 <?
     foreach ($guild_items as $guild_item) {
       echo '<tr>';
       echo '<td align="center">' . (($guild_item['area'] == 0) ? 'Deposit' : 'Bank') . '</td>';
       echo '<td align="center">' . $guild_item['slot'] . '</td>';
-      echo '<td align="center">' . get_item_name($guild_item['itemid']) . ' <a href="index.php?editor=items&id=' . $guild_item['itemid'] . '&action=2">' . $guild_item['itemid'] . '</a> [<a href="https://lucy.allakhazam.com/item.html?id=' . $guild_item['itemid'] . '" target="_blank">Lucy</a>]</td>';
-      echo '<td align="center">' . $guild_item['qty'] . '</td>';
+      echo '<td align="center">' . get_item_name($guild_item['item_id']) . ' <a href="index.php?editor=items&id=' . $guild_item['item_id'] . '&action=2">' . $guild_item['item_id'] . '</a> [<a href="https://lucy.allakhazam.com/item.html?id=' . $guild_item['item_id'] . '" target="_blank">Lucy</a>]</td>';
+      echo '<td align="center">' . $guild_item['quantity'] . '</td>';
+      echo '<td align="center">' . (($guild_item['augment_one_id'] || $guild_item['augment_two_id'] || $guild_item['augment_three_id'] || $guild_item['augment_four_id'] || $guild_item['augment_five_id'] || $guild_item['augment_six_id']) ? "Yes" : "No") . '</td>';
       echo '<td align="center">' . $bank_permissions[$guild_item['permissions']] . '</td>';
       echo '<td align="center">' . $guild_item['donator'] . '</td>';
-      echo '<td align="center">' . $guild_item['whofor'] . '</td>';
+      echo '<td align="center">' . $guild_item['who_for'] . '</td>';
       echo '</tr>';
     }
   }
