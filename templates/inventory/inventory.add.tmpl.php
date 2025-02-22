@@ -11,15 +11,15 @@
                 <tr>
                   <td>
                     Player ID:<br>
-                    <input type="text" size="5" name="charid" value="<?=$playerid?>" readonly="true">
+                    <input type="text" size="5" value="<?=$playerid?>" disabled>
                   </td>
                   <td>
-                    <a title="22-29: Main Inventory Slots">Slot ID:</a><br>
-                    <input type="text" size="3" name="slotid" value="">
+                    Slot ID:<br>
+                    <input type="text" size="3" name="slot_id" value="">
                   </td>
                   <td>
                     Item ID:<br>
-                    <input type="text" size="5" name="itemid" value="">
+                    <input type="text" size="5" name="item_id" value="">
                   </td>
                 </tr>
                 <tr>
@@ -34,28 +34,34 @@
                 </tr>
                 <tr>
                   <td>
-                    Aug Slot 1:<br>
-                    <input type="text" size="3" name="augslot1" value="0">
+                    Augment 1:<br>
+                    <input type="text" size="3" name="augment_one" value="0">
                   </td>
                   <td>
-                    Aug Slot 2:<br>
-                    <input type="text" size="3" name="augslot2" value="0">
+                    Augment 2:<br>
+                    <input type="text" size="3" name="augment_two" value="0">
                   </td>
                   <td>
-                    Aug Slot 3:<br>
-                    <input type="text" size="3" name="augslot3" value="0">
+                    Augment 3:<br>
+                    <input type="text" size="3" name="augment_three" value="0">
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Aug Slot 4:<br>
-                    <input type="text" size="3" name="augslot4" value="0">
+                    Augment 4:<br>
+                    <input type="text" size="3" name="augment_four" value="0">
                   </td>
                   <td>
-                    Aug Slot 5:<br>
-                    <input type="text" size="3" name="augslot5" value="0">
+                    Augment 5:<br>
+                    <input type="text" size="3" name="augment_five" value="0">
                   </td>
                   <td>
+                    Augment 6:<br>
+                    <input type="text" size="3" name="augment_six" value="0">
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
                     Inst NoDrop:<br>
                     <input type="checkbox" name="instnodrop">
                   </td>
@@ -66,11 +72,26 @@
                     <input type="text" size="37" name="custom_data" value="">
                   </td>
                 </tr>
-                <tr><td>&nbsp;</td></tr>
+                <tr>
+                  <td>
+                    Ornament Icon:<br>
+                    <input type="text" size="3" name="ornament_icon" value="<?=$inv_item['ornament_icon']?>">
+                  </td>
+                  <td>
+                    Ornament idfile:<br>
+                    <input type="text" size="3" name="ornament_idfile" value="<?=$inv_item['ornament_idfile']?>">
+                  </td>
+                  <td>
+                    Ornament Hero Model:<br>
+                    <input type="text" size="3" name="ornament_hero_model" value="<?=$inv_item['ornament_hero_model']?>">
+                  </td>
+                </tr>
                 <tr>
                   <td colspan="3">
                     <center>
-                      <input type="submit" name="submit" value="Add Item">&nbsp;&nbsp;<input type="button" name="cancel" value="Cancel" onClick="history.back();">
+                      <input type="hidden" name="character_id" value="<?=$playerid?>">
+                      <input type="submit" name="submit" value="Add Item">&nbsp;&nbsp;
+                      <input type="button" name="cancel" value="Cancel" onClick="history.back();">
                     </center>
                   </td>
                 </tr>

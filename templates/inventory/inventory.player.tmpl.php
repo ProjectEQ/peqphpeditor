@@ -24,9 +24,9 @@ if (isset($inventory)):
     extract($inv);
 ?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
-          <td>&nbsp;&nbsp;&nbsp;<?=$inv['slotid']?> - <?=$slots[$inv['slotid']]?></td>
-          <td align="center"><?=get_item_name($inv['itemid'])?> (<?=$inv['itemid']?>) - [<a href="https://lucy.allakhazam.com/item.html?id=<?=$inv['itemid']?>" target="_blank">Lucy</a>]</td>
-          <td align="right"><a href="index.php?editor=inv&playerid=<?=$inv['charid']?>&slotid=<?=$inv['slotid']?>&action=6"><img src="images/edit2.gif" width="13" height="13" border="0" title="View/Edit Entry" alt="View/Edit Entry"></a>&nbsp;<a onClick="return confirm('Really delete this entry?');" href="index.php?editor=inv&playerid=<?=$inv['charid']?>&slotid=<?=$inv['slotid']?>&action=8"><img src="images/remove3.gif" border="0" title="Delete Entry" alt="Delete Entry"></a></td>
+          <td>&nbsp;&nbsp;&nbsp;<?=$inv['slot_id']?> - <?=get_slot_name($inv['slot_id'])?></td>
+          <td align="center"><?=get_item_name($inv['item_id'])?> (<?=$inv['item_id']?>) - [<a href="https://lucy.allakhazam.com/item.html?id=<?=$inv['item_id']?>" target="_blank">Lucy</a>]</td>
+          <td align="right"><a href="index.php?editor=inv&playerid=<?=$inv['character_id']?>&slot_id=<?=$inv['slot_id']?>&action=6"><img src="images/edit2.gif" width="13" height="13" border="0" title="View/Edit Entry" alt="View/Edit Entry"></a>&nbsp;<a onClick="return confirm('Really delete this entry?');" href="index.php?editor=inv&playerid=<?=$inv['character_id']?>&slot_id=<?=$inv['slot_id']?>&action=8"><img src="images/remove3.gif" border="0" title="Delete Entry" alt="Delete Entry"></a></td>
         </tr>
 <?
     $x++;
@@ -37,8 +37,8 @@ if (isset($shared_inventory)):
     extract($s_inv);
 ?>
         <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
-          <td>&nbsp;&nbsp;&nbsp;<?=$s_inv['slotid']?> - <?=$slots[$s_inv['slotid']]?></td>
-          <td align="center"><?=get_item_name($s_inv['itemid'])?> (<?=$s_inv['itemid']?>) - [<a href="https://lucy.allakhazam.com/item.html?id=<?=$s_inv['itemid']?>" target="_blank">Lucy</a>]</td>
+          <td>&nbsp;&nbsp;&nbsp;<?=$s_inv['slot_id']?> - <?=get_slot_name($s_inv['slot_id'])?></td>
+          <td align="center"><?=get_item_name($s_inv['item_id'])?> (<?=$s_inv['item_id']?>) - [<a href="https://lucy.allakhazam.com/item.html?id=<?=$s_inv['item_id']?>" target="_blank">Lucy</a>]</td>
           <td align="right">&nbsp;</td>
         </tr>
 <?

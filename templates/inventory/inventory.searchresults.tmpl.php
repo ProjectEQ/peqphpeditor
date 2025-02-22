@@ -7,7 +7,7 @@ if($search_results != ''):
   foreach ($search_results as $result):
     extract($result);
 ?>
-      <a href="index.php?editor=inv&action=1&playerid=<?=$result['charid']?>"><?=getPlayerName($result['charid'])?> - (<?=$result['charid']?>)</a><br>
+      <a href="index.php?editor=inv&action=1&playerid=<?=$result['character_id']?>"><?=getPlayerName($result['character_id'])?> - (<?=$result['character_id']?>)</a><br>
 <?
     $x++;
   endforeach;
