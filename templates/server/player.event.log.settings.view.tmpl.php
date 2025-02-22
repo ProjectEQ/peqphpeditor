@@ -14,7 +14,7 @@
       <tr>
         <td align="center" width="15%"><strong>ID</strong></td>
         <td align="center" width="45%"><strong>Event Name</strong></td>
-        <td align="center" width="15%"><strong>Enabled?</strong></td>
+        <td align="center" width="15%"><strong>Enabled</strong></td>
         <td align="center" width="15%"><strong>Retention</strong></td>
         <td width="10%"></td>
       </tr>

@@ -1,4 +1,4 @@
-  <div class="table_container" style="width: 500px;">
+  <div class="table_container" style="width: 600px;">
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
@@ -14,10 +14,12 @@
               <strong>ID:</strong><br>
               <input type="text" name="id" size="10" value="<?=$suggest_id?>">
             </td>
-            <td>
+            <td colspan="3">
               <strong>Event Name:</strong><br>
-              <input type="text" name="event_name" size="40" value="">
+              <input type="text" name="event_name" size="60" value="">
             </td>
+          </tr>
+          <tr>
             <td>
               <strong>Enabled:</strong><br>
               <select name="event_enabled">
@@ -25,8 +27,6 @@
                 <option value="1" selected>Yes (1)</option>
               </select>
             </td>
-          </tr>
-          <tr>
             <td>
               <strong>Retention Days:</strong><br>
               <input type="text" name="retention_days" size="10" value="0">
@@ -35,7 +35,13 @@
               <strong>Discord Webhook:</strong><br>
               <input type="text" name="discord_webhook_id" size="10" value="0">
             </td>
-            <td>&nbsp;</td>
+            <td>
+              <strong>ETL Enabled:</strong><br>
+              <select name="etl_enabled">
+                <option value="0">No (0)</option>
+                <option value="1">Yes (1)</option>
+              </select>
+            </td>
           </tr>
         </table><br>
         <center>

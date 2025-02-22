@@ -1662,8 +1662,9 @@ function insert_player_event_log_setting() {
   $event_enabled = $_POST['event_enabled'];
   $retention_days = $_POST['retention_days'];
   $discord_webhook_id = $_POST['discord_webhook_id'];
+  $etl_enabled = $_POST['etl_enabled'];
 
-  $query = "INSERT INTO player_event_log_settings SET id=$id, event_name=\"$event_name\", event_enabled=$event_enabled, retention_days=$retention_days, discord_webhook_id=$discord_webhook_id";
+  $query = "INSERT INTO player_event_log_settings SET id=$id, event_name=\"$event_name\", event_enabled=$event_enabled, retention_days=$retention_days, discord_webhook_id=$discord_webhook_id, etl_enabled=$etl_enabled";
   $mysql->query_no_result($query);
 }
 
@@ -1675,8 +1676,9 @@ function update_player_event_log_setting() {
   $event_enabled = $_POST['event_enabled'];
   $retention_days = $_POST['retention_days'];
   $discord_webhook_id = $_POST['discord_webhook_id'];
+  $etl_enabled = $_POST['etl_enabled'];
 
-  $query = "UPDATE player_event_log_settings SET event_name=\"$event_name\", event_enabled=$event_enabled, retention_days=$retention_days, discord_webhook_id=$discord_webhook_id WHERE id=$id";
+  $query = "UPDATE player_event_log_settings SET event_name=\"$event_name\", event_enabled=$event_enabled, retention_days=$retention_days, discord_webhook_id=$discord_webhook_id, etl_enabled=$etl_enabled WHERE id=$id";
   $mysql->query_no_result($query);
 }
 
