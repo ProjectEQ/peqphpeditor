@@ -288,7 +288,7 @@
                 </td>
                 <td colspan="2"><a title="player_1">ID File:</a><br><input type="text" name="player_1" size="26" value="<?=$player_1?>"></td>
                 <td>Spellgroup:<br><input type="text" name="spellgroup" size="8" value="<?=$spellgroup?>"></td>
-                <td>&nbsp;</td>
+                <td>No Remove:<br><input type="text" name="field232" size="8" value="<?=$field232?>"></td>
               </tr>
             </table>
           </fieldset><br>
