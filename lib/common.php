@@ -665,7 +665,7 @@ function delete_account($acctid) {
   $mysql->query_no_result($query);
   $query = "DELETE FROM gm_ips WHERE account_id=$acctid";
   $mysql->query_no_result($query);
-  $query = "DELETE FROM sharedbank WHERE acctid=$acctid";
+  $query = "DELETE FROM sharedbank WHERE account_id=$acctid";
   $mysql->query_no_result($query);
 }
 
