@@ -52,7 +52,22 @@
             </td>
           </tr>
           <tr>
-            <td colspan="3">&nbsp;</td>
+            <td colspan="2">
+              Zone:<br>
+              <select name="zone_id">
+<?foreach ($zoneids as $k=>$v):?>
+                <option value="<?=$k?>"><?=$v?> (<?=$k?>)</option>
+<?endforeach;?>
+              </select>
+            </td>
+            <td>
+              Instance:<br>
+              <input type="text" name="instance_id" size="10" value="0">
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="4">&nbsp;</td>
           </tr>
         </table>
         <center>

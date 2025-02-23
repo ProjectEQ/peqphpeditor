@@ -7,7 +7,12 @@ $columns = array(
   1 => 'id',
   2 => '`key`',
   3 => 'value',
-  4 => 'expires'
+  4 => 'expires',
+  5 => 'account_id',
+  6 => 'character_id',
+  7 => 'npc_id',
+  8 => 'bot_id',
+  9 => 'zone_id'
 );
 
 switch ($action) {
@@ -49,6 +54,7 @@ switch ($action) {
     $javascript = new Template("templates/databuckets/js.tmpl.php");
     $suggest_id = suggest_id();
     $body->set('suggest_id', $suggest_id);
+    $body->set('zoneids', $zoneids);
     break;
   case 3: //Insert Databucket
     check_authorization();
@@ -61,6 +67,7 @@ switch ($action) {
     $body = new Template("templates/databuckets/databucket.edit.tmpl.php");
     $javascript = new Template("templates/databuckets/js.tmpl.php");
     $databucket = view_databucket($_GET['id']);
+    $body->set('zoneids', $zoneids);
     if ($databucket) {
       foreach ($databucket as $key=>$value) {
         $body->set($key, $value);
@@ -115,7 +122,9 @@ function insert_databucket() {
   $fields .= "account_id=\"" . $_POST['account_id'] . "\", ";
   $fields .= "character_id=\"" . $_POST['character_id'] . "\", ";
   $fields .= "npc_id=\"" . $_POST['npc_id'] . "\", ";
-  $fields .= "bot_id=\"" . $_POST['bot_id'] . "\"";
+  $fields .= "bot_id=\"" . $_POST['bot_id'] . "\", ";
+  $fields .= "zone_id=\"" . $_POST['zone_id'] . "\", ";
+  $fields .= "instance_id=\"" . $_POST['instance_id'] . "\"";
 
   $query = "INSERT INTO data_buckets SET $fields";
   $mysql->query_no_result($query);
@@ -131,6 +140,8 @@ function update_databucket() {
   $old_character_id = $_POST['old_character_id'];
   $old_npc_id = $_POST['old_npc_id'];
   $old_bot_id = $_POST['old_bot_id'];
+  $old_zone_id = $_POST['old_zone_id'];
+  $old_instance_id = $_POST['old_instance_id'];
   $new_key = $_POST['key'];
   $new_value = $_POST['value'];
   $new_expires = $_POST['expires'];
@@ -138,6 +149,8 @@ function update_databucket() {
   $new_character_id = $_POST['character_id'];
   $new_npc_id = $_POST['npc_id'];
   $new_bot_id = $_POST['bot_id'];
+  $new_zone_id = $_POST['zone_id'];
+  $new_instance_id = $_POST['instance_id'];
   $databucket = view_databucket($id);
   $fields = '';
   extract($databucket);
@@ -148,7 +161,9 @@ function update_databucket() {
   if ($account_id != $new_account_id) $fields .= "account_id=\"" . $new_account_id . "\", ";
   if ($character_id != $new_character_id) $fields .= "character_id=\"" . $new_character_id . "\", ";
   if ($npc_id != $new_npc_id) $fields .= "npc_id=\"" . $new_npc_id . "\", ";
-  if ($bot_id != $new_bot_id) $fields .= "bot_id=\"" . $new_bot_id . "\"";
+  if ($bot_id != $new_bot_id) $fields .= "bot_id=\"" . $new_bot_id . "\", ";
+  if ($zone_id != $new_zone_id) $fields .= "zone_id=\"" . $new_zone_id . "\", ";
+  if ($instance_id != $new_instance_id) $fields .= "instance_id=\"" . $new_instance_id . "\"";
 
   $fields =  rtrim($fields, ", ");
   if ($fields != '') {
@@ -182,6 +197,7 @@ function build_filter() {
   $filter4 = $_GET['filter4'];
   $filter5 = $_GET['filter5'];
   $filter6 = $_GET['filter6'];
+  $filter7 = $_GET['filter7'];
   $filter_final = array('sql'=>'');
 
   if ($filter1) { // Filter by key
@@ -259,8 +275,15 @@ function build_filter() {
     $filter_value = "`bot_id` LIKE '%" . $filter6 . "%'";
     $filter_final['sql'] .= $filter_value;
   }
+  if ($filter7) { // Filter by zone_id
+    if ($filter_final['sql']) {
+      $filter_final['sql'] .= " AND ";
+    }
+    $filter_value = "`zone_id` LIKE '%" . $filter7 . "%'";
+    $filter_final['sql'] .= $filter_value;
+  }
 
-  $filter_final['url'] = "&filter=on&filter1=$filter1&filter2=$filter2&filter3=$filter3&filter4=$filter4&filter5=$filter5&filter6=$filter6";
+  $filter_final['url'] = "&filter=on&filter1=$filter1&filter2=$filter2&filter3=$filter3&filter4=$filter4&filter5=$filter5&filter6=$filter6&filter7=$filter7";
   $filter_final['status'] = "on";
   $filter_final['filter1'] = $filter1;
   $filter_final['filter2'] = $filter2;
@@ -268,6 +291,7 @@ function build_filter() {
   $filter_final['filter4'] = $filter4;
   $filter_final['filter5'] = $filter5;
   $filter_final['filter6'] = $filter6;
+  $filter_final['filter7'] = $filter7;
 
   return $filter_final;
 }

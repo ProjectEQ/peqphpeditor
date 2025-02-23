@@ -374,9 +374,9 @@ function build_tabs() {
         <div class=\"$tabstatus8\"><a href=\"index.php?editor=zone$zoneurl\">Zones</a></div>
         <div class=\"$tabstatus9\"><a href=\"index.php?editor=misc$zoneurl\">Misc</a></div>
         <div class=\"$tabstatus10\"><a href=\"index.php?editor=server\">Server</a></div>
-        <div class=\"$tabstatus11\"><a href=\"index.php?editor=adventures$zoneurl$npcurl\">Adventures</a></div><br><br>
+        <div class=\"$tabstatus11\"><a href=\"index.php?editor=adventures$zoneurl$npcurl\">Adventures</a></div>
         <div class=\"$tabstatus12\"><a href=\"index.php?editor=tasks\">Tasks</a></div>
-        <div class=\"$tabstatus13\"><a href=\"index.php?editor=items\">Items</a></div>
+        <div class=\"$tabstatus13\"><a href=\"index.php?editor=items\">Items</a></div><br><br>
         <div class=\"$tabstatus14\"><a href=\"index.php?editor=player\">Players</a></div>
         <div class=\"$tabstatus15\"><a href=\"index.php?editor=account\">Accounts</a></div>
         <div class=\"$tabstatus16\"><a href=\"index.php?editor=guild\">Guilds</a></div>
@@ -386,17 +386,17 @@ function build_tabs() {
         <div class=\"$tabstatus20\"><a href=\"index.php?editor=util\">Utilities</a></div>
         <div class=\"$tabstatus21\"><a href=\"index.php?editor=altcur\">Alt Curr</a></div>
         <div class=\"$tabstatus22\"><a href=\"index.php?editor=inv\">Inventory</a></div>
-        <div class=\"$tabstatus23\"><a href=\"index.php?editor=keys\">Keys</a></div><br><br>
+        <div class=\"$tabstatus23\"><a href=\"index.php?editor=keys\">Keys</a></div>
         <div class=\"$tabstatus24\"><a href=\"index.php?editor=quest\">Quests</a></div>
         <div class=\"$tabstatus25\"><a href=\"index.php?editor=titles\">Titles</a></div>
         <div class=\"$tabstatus26\"><a href=\"index.php?editor=auras\">Auras</a></div>
-        <div class=\"$tabstatus27\"><a href=\"index.php?editor=pvp\">PVP</a></div>
+        <div class=\"$tabstatus27\"><a href=\"index.php?editor=pvp\">PVP</a></div><br><br>
         <div class=\"$tabstatus28\"><a href=\"index.php?editor=databuckets\">Data Buckets</a></div>
         <div class=\"$tabstatus29\"><a href=\"index.php?editor=content\">Content Flags</a></div>
         <div class=\"$tabstatus30\"><a href=\"index.php?editor=expeditions\">Expeditions</a></div>
         <div class=\"$tabstatus31\"><a href=\"index.php?editor=sharedtasks\">Shared Tasks</a></div>
         <div class=\"$tabstatus32\"><a href=\"index.php?editor=mercs\">Mercs</a></div>
-        <div class=\"$tabstatus33\"><a href=\"index.php?editor=chat\">Chat</a></div><br><br>
+        <div class=\"$tabstatus33\"><a href=\"index.php?editor=chat\">Chat</a></div>
         <div class=\"$tabstatus34\"><a href=\"index.php?editor=parcels\">Parcels</a></div>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br><br>
       </div>

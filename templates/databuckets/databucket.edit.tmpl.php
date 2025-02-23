@@ -60,7 +60,22 @@
             </td>
           </tr>
           <tr>
-            <td colspan="3">&nbsp;</td>
+            <td colspan="2">
+              Zone:<br>
+              <select name="zone_id">
+<?foreach ($zoneids as $k=>$v):?>
+                <option value="<?=$k?>"<?echo ($k == $zone_id) ? " selected" : "";?>><?=$v?> (<?=$k?>)</option>
+<?endforeach;?>
+              </select>
+            </td>
+            <td>
+              Instance:<br>
+              <input type="text" name="instance_id" size="10" value="<?=$instance_id?>">
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="4">&nbsp;</td>
           </tr>
         </table>
         <center>
@@ -72,6 +87,8 @@
           <input type="hidden" name="old_character_id" value="<?=$character_id?>">
           <input type="hidden" name="old_npc_id" value="<?=$npc_id?>">
           <input type="hidden" name="old_bot_id" value="<?=$bot_id?>">
+          <input type="hidden" name="old_zone_id" value="<?=$zone_id?>">
+          <input type="hidden" name="old_instance_id" value="<?=$instance_id?>">
           <input type="hidden" name="referer" value="<?echo $_SERVER["HTTP_REFERER"];?>">
           <input type="submit" value="Update Data Bucket">&nbsp;&nbsp;
           <input type="button" value="Cancel Changes" onClick="history.back()">

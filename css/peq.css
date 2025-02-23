@@ -45,19 +45,19 @@ table {
   padding-bottom: 20px;
   min-height: 100%;
   margin: auto;
-  width: 767px;
+  width: 900px;
 }
 
 #header {
-  width: 767px;
+  width: 900px;
   text-align: center;
 }
 
 #menubar {
+  width: 890px;
   position: relative;
   margin-top: 5px;
   display: block;
-  float: left;
   padding: 3px 0 0 10px;
   text-align: left;
   font-size: 12px;
@@ -121,7 +121,7 @@ table {
   top: -1px;
   left: 0px;
   clear: both;
-  width: 765px;
+  width: 865px;
   padding: 5px 0 5px 0;
   font-size: 12px;
   background-color: #CCC;
@@ -149,7 +149,7 @@ table {
 
 #content {
   clear: both;
-  width: 767px;
+  width: 900px;
   text-align: left;
   font-size: 10px;
 }
