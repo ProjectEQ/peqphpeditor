@@ -77,7 +77,7 @@ switch ($action) {
     exit;
   case 4: // Delete Account
     check_admin_authorization();
-    delete_account($acctid);
+    delete_account($_GET['acctid']);
     header("Location: index.php?editor=account");
     exit;
   case 5: // Character Transfer Selection
