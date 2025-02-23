@@ -1,13 +1,13 @@
-  <div class="table_container" style="width: 650px;">
+  <div class="table_container" style="width: 750px;">
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-          <td>Create Expedition Lockout</td>
+          <td>Create Lockout</td>
         </tr>
       </table>
     </div>
     <div class="table_content">
-      <form name="add_expedition_lockout" method="post" action="index.php?editor=expeditions&action=9">
+      <form name="add_lockout" method="post" action="index.php?editor=expeditions&action=9">
         <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
             <td>
@@ -15,11 +15,11 @@
               <input type="text" name="id" size="10" value="<?=$suggest_id?>">
             </td>
             <td>
-              <strong>Expedition ID:</strong><br>
-              <input type="text" name="expedition_id" size="10" value="0">
+              <strong>Dynamic Zone ID:</strong><br>
+              <input type="text" name="dynamic_zone_id" size="10" value="0">
             </td>
             <td colspan="2">
-              <strong>Expedition UUID:</strong><br>
+              <strong>UUID:</strong><br>
               <input type="text" name="from_expedition_uuid" size="60" value="0">
             </td>
           </tr>
@@ -42,7 +42,7 @@
           </tr>
         </table><br>
         <center>
-          <input type="submit" value="Add Expedition Lockout">&nbsp;&nbsp;
+          <input type="submit" value="Add Lockout">&nbsp;&nbsp;
           <input type="button" value="Cancel" onClick="history.back()">
         </center>
       </form>

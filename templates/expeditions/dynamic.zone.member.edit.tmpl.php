@@ -2,12 +2,12 @@
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-          <td>Edit Dynamic Zone Member</td>
+          <td>Edit Member</td>
         </tr>
       </table>
     </div>
     <div class="table_content">
-      <form name="edit_dynamic_zone_member" method="post" action="index.php?editor=expeditions&action=23">
+      <form name="edit_member" method="post" action="index.php?editor=expeditions&action=23">
         <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
             <td>
@@ -26,7 +26,7 @@
         </table><br>
         <center>
           <input type="hidden" name="id" value="<?=$dynamic_zone_member['id']?>">
-          <input type="submit" value="Update Dynamic Zone Member">&nbsp;&nbsp;
+          <input type="submit" value="Update Member">&nbsp;&nbsp;
           <input type="button" value="Cancel" onClick="history.back()">
         </center>
       </form>

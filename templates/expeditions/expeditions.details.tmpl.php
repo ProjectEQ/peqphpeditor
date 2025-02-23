@@ -8,42 +8,6 @@
     </div>
     <div class="table_content">
       <fieldset>
-        <legend><strong>Expedition</strong></legend>
-        <form name="edit_expedition" method="post" action="index.php?editor=expeditions&action=5">
-          <table width="100%" cellpadding="5" cellspacing="5">
-            <tr>
-              <td>
-                <strong>ID:</strong><br>
-                <input type="text" size="10" value="<?=$expedition['id']?>" disabled>
-              </td>
-              <td>
-                <strong>Dyn Zone ID:</strong><br>
-                <input type="text" name="dynamic_zone_id" size="10" value="<?=$expedition['dynamic_zone_id']?>">
-              </td>
-              <td>
-                <strong>Replay on Join:</strong><br>
-                <select name="add_replay_on_join">
-                  <option value="0"<?echo ($expedition['add_replay_on_join'] == 0) ? " selected" : "";?>>No (0)</option>
-                  <option value="1"<?echo ($expedition['add_replay_on_join'] != 0) ? " selected" : "";?>>Yes (1)</option>
-                </select>
-              </td>
-              <td>
-                <strong>Locked:</strong><br>
-                <select name="is_locked">
-                  <option value="0"<?echo ($expedition['is_locked'] == 0) ? " selected" : "";?>>No (0)</option>
-                  <option value="1"<?echo ($expedition['is_locked'] != 0) ? " selected" : "";?>>Yes (1)</option>
-                </select>
-              </td>
-            </tr>
-          </table><br>
-          <center>
-            <input type="hidden" name="id" value="<?=$expedition['id']?>">
-            <input type="submit" value="Update Expedition">&nbsp;&nbsp;
-            <input type="button" value="Cancel" onClick="history.back()">
-          </center>
-        </form>
-      </fieldset><br>
-      <fieldset>
         <legend><strong>Dynamic Zone</strong> (<a href="index.php?editor=expeditions&id=<?=$dynamic_zone['id']?>&action=16">edit</a>)</legend>
         <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
@@ -84,6 +48,20 @@
             <td>
               <strong>Max Players:</strong><br>
               <?=$dynamic_zone['max_players']?>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>DZ Switch ID:</strong><br>
+              <?=$dynamic_zone['dz_switch_id']?>
+            </td>
+            <td>
+              <strong>Add Replay:</strong><br>
+              <?=$yesno[$dynamic_zone['add_replay']]?>
+            </td>
+            <td>
+              <strong>Locked:</strong><br>
+              <?=$yesno[$dynamic_zone['max_players']]?>
             </td>
           </tr>
           <tr>
@@ -179,39 +157,39 @@
         </table>
       </fieldset><br>
       <fieldset>
-        <legend><strong>Lockout</strong><?echo ($expedition['is_locked']) ? " (<a href=\"index.php?editor=expeditions&id=" . $expedition_lockout['id'] . "&action=10\">edit</a>)" : "";?></legend>
+        <legend><strong>Lockout</strong><?echo ($dynamic_zone['is_locked']) ? " (<a href=\"index.php?editor=expeditions&id=" . $dynamic_zone_lockout['id'] . "&action=10\">edit</a>)" : "";?></legend>
 <?
-if ($expedition['is_locked']):
+if ($dynamic_zone['is_locked']):
 ?>
         <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
             <td>
               <strong>ID:</strong><br>
-              <?=$expedition_lockout['id']?>
+              <?=$dynamic_zone_lockout['id']?>
             </td>
             <td>
-              <strong>Expedition ID:</strong><br>
-              <?=$expedition_lockout['expedition_id']?>
+              <strong>Dynamic Zone ID:</strong><br>
+              <?=$dynamic_zone_lockout['dynamic_zone_id']?>
             </td>
             <td colspan="2">
-              <strong>Expedition UUID:</strong><br>
-              <?=$expedition_lockout['from_expedition_uuid']?>
+              <strong>UUID:</strong><br>
+              <?=$dynamic_zone_lockout['from_expedition_uuid']?>
             </td>
           </tr>
           <tr>
             <td colspan="4">
               <strong>Event Name:</strong><br>
-              <?=$expedition_lockout['event_name']?>
+              <?=$dynamic_zone_lockout['event_name']?>
             </td>
           </tr>
           <tr>
             <td colspan="2">
               <strong>Expire Time:</strong>&nbsp;<img src="images/info.gif" width="13" title="(YYYY-MM-DD HH:MM:SS)" alt="(YYYY-MM-DD HH:MM:SS)"><br>
-              <?=$expedition_lockout['expire_time']?>
+              <?=$dynamic_zone_lockout['expire_time']?>
             </td>
             <td>
               <strong>Duration:</strong><br>
-              <?=$expedition_lockout['duration']?>
+              <?=$dynamic_zone_lockout['duration']?>
             </td>
             <td>&nbsp;</td>
           </tr>
@@ -219,7 +197,7 @@ if ($expedition['is_locked']):
 <?
 else:
 ?>
-        Expedition Not Locked
+        Dynamic Zone Not Locked
 <?
 endif;
 ?>

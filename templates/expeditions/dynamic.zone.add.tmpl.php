@@ -1,4 +1,4 @@
-  <div class="table_container" style="width: 650px;">
+  <div class="table_container" style="width: 725px;">
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
@@ -60,8 +60,20 @@ foreach ($dynamic_zone_type as $k=>$v) {
               <strong>DZ Switch ID:</strong><br>
               <input type="text" name="dz_switch_id" size="10" value="0">
             </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>
+              <strong>Locked:</strong><br>
+              <select name="is_locked">
+                <option value="0">No (0)</option>
+                <option value="1">Yes (1)</option>
+              </select>
+            </td>
+            <td>
+              <strong>Add Replay:</strong><br>
+              <select name="add_replay">
+                <option value="0">No (0)</option>
+                <option value="1" selected>Yes (1)</option>
+              </select>
+            </td>
             <td>&nbsp;</td>
           </tr>
           <tr>

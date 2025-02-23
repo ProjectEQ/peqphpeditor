@@ -25,7 +25,11 @@ foreach($dynamic_zones as $dynamic_zone):?>
         <td align="center"><?=$dynamic_zone['name']?></td>
         <td align="center"><?=$dynamic_zone['instance_id']?></td>
         <td align="center"><?=$dynamic_zone_type[$dynamic_zone['type']]?></td>
-        <td align="right"><a href="index.php?editor=expeditions&id=<?=$dynamic_zone['id']?>&action=16"><img src="images/edit2.gif" width="13" height="13" border="0" title="Edit Dynamic Zone" alt="Edit"></a>&nbsp;<a onClick="return confirm('Really delete dynamic zone?');" href="index.php?editor=expeditions&id=<?=$dynamic_zone['id']?>&action=18"><img src="images/remove3.gif" border="0" title="Delete Dynamic Zone" alt="Delete"></a></td>
+        <td align="right">
+          <a href="index.php?editor=expeditions&id=<?=$dynamic_zone['id']?>&action=4"><img src="images/view_all.gif" width="13" height="13" border="0" title="View Dynamic Zone Details" alt="View"></a>&nbsp;
+          <a href="index.php?editor=expeditions&id=<?=$dynamic_zone['id']?>&action=16"><img src="images/edit2.gif" width="13" height="13" border="0" title="Edit Dynamic Zone" alt="Edit"></a>&nbsp;
+          <a onClick="return confirm('Really delete dynamic zone?');" href="index.php?editor=expeditions&id=<?=$dynamic_zone['id']?>&action=18"><img src="images/remove3.gif" border="0" title="Delete Dynamic Zone" alt="Delete"></a>
+        </td>
       </tr>
 <?$x++;
 endforeach;

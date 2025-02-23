@@ -4,7 +4,7 @@
         <tr>
           <td align="left">Dynamic Zone Members</td>
           <td align="right">
-            <a href="index.php?editor=expeditions&action=20"><img src="images/add.gif" border="0" title="Create New Dynamic Zone Member" alt="Create New Dynamic Zone Member"></a>
+            <a href="index.php?editor=expeditions&action=20"><img src="images/add.gif" border="0" title="Create New Member" alt="Create New Member"></a>
           </td>
         </tr>
       </table>
@@ -29,7 +29,7 @@ foreach($dynamic_zone_members as $dynamic_zone_member):?>
 endforeach;
 else:?>
       <tr>
-        <td align="left" width="100" style="padding: 10px;">No Dynamic Zone Members</td>
+        <td align="left" width="100" style="padding: 10px;">No Members</td>
       </tr>
 <?endif;?>
     </table>
