@@ -1970,21 +1970,21 @@ $zoneids = array(
  814 => 'skyfiretwo',
  815 => 'overtheretwo',
  816 => 'veeshantwo',
- 817 => 'trialsofsmoke',
+ 817 => 'trialsofsmoke', // TBL
  818 => 'stratos',
  819 => 'aalishai',
  820 => 'empyr',
  821 => 'esianti',
  822 => 'mearatas',
  823 => 'chamberoftears',
- 824 => 'eastwastestwo',
+ 824 => 'eastwastestwo', // ToV
  825 => 'frozenshadowtwo',
  826 => 'crystaltwoa',
  827 => 'greatdividetwo',
  828 => 'velketortwo',
  829 => 'kaeltwo',
  830 => 'crystaltwob',
- 831 => 'sleepertwo',
+ 831 => 'sleepertwo', // CoV
  832 => 'necropolistwo',
  833 => 'cobaltscartwo',
  834 => 'westwastestwo',
@@ -1998,7 +1998,7 @@ $zoneids = array(
 841^Frostfell^0^0
 842^April Fools^0^0
 */
- 843 => 'maidentwo',
+ 843 => 'maidentwo', // ToL
  844 => 'umbraltwo',
  845 => 'akhevatwo',
  846 => 'vexthaltwo',
@@ -2006,7 +2006,7 @@ $zoneids = array(
  848 => 'basilica',
  849 => 'bloodfalls',
  850 => 'maidenhouseint',
- 851 => 'shadowhaventwo',
+ 851 => 'shadowhaventwo', // NoS
  852 => 'sharvahltwo',
  853 => 'paludaltwo',
  854 => 'shadeweavertwo',
@@ -2014,7 +2014,7 @@ $zoneids = array(
  856 => 'deepshade',
  857 => 'firefallpass',
  858 => 'hollowshadetwo',
-/*
+/* LS
 Ankexfen Keep=ankexfen
 Laurion's Inn=laurioninn
 Moors of Nokk=moorsofnokk
@@ -2022,6 +2022,15 @@ Pal'Lomen=pallomen
 The Hero's Forge=herosforge
 Timorous Falls=timorousfalls
 Unkempt Woods=unkemptwoods
+Tides of Time=anniversarytower
+*/
+/* TOB
+Aureate Covert=aureatecovert
+Hodstock Hills=hodstock
+The Chambers of Puissance=puissance
+The Gilded Spire=gildedspire
+The Harbinger's Cradle=harbingerscradle
+The Theater of Eternity=toe
 */
 /*
  904^Qeynos Hills^0^0
@@ -2067,6 +2076,7 @@ $eqexpansions = array(
  28 => 'Terror of Luclin',
  29 => 'Night of Shadows',
  30 => 'Laurion\'s Song',
+ 31 => 'The Outer Brood',
  99 => 'Other'
 );
 
@@ -2133,7 +2143,8 @@ $expansions2_long = array(
  27 => 'Claws of Veeshan',
  28 => 'Terror of Luclin',
  29 => 'Night of Shadows',
- 30 => 'Laurion\'s Song'
+ 30 => 'Laurion\'s Song',
+ 31 => 'The Outer Brood'
 );
 
 $expansions2_short = array(
@@ -2168,7 +2179,8 @@ $expansions2_short = array(
  27 => 'CoV',
  28 => 'ToL',
  29 => 'NoS',
- 30 => 'LS'
+ 30 => 'LS',
+ 31 => 'TOB'
 );
 
 $clients = array(
