@@ -287,7 +287,7 @@
                     <legend><strong>PVP Info</strong></legend>
                     <table width="100%" border="0" cellpadding="3" cellspacing="0">
                       <tr>
-                        <td>PVP: <?=$yesno[$pvp_status]?></td>
+                        <td>PVP: <a href="index.php?editor=player&playerid=<?=$id?>&action=18" title="Toggle PVP Status"><?=$yesno[$pvp_status]?></a></td>
                         <td>PVP2: <?=$yesno[$pvp2]?></td>
                         <td>PVP Kills: <?=$pvp_kills?></td>
                         <td>PVP Deaths: <?=$pvp_deaths?></td>

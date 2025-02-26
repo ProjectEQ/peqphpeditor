@@ -219,6 +219,12 @@ switch ($action) {
     delete_pet_name($playerid);
     header("Location: index.php?editor=player&playerid=$playerid");
     exit();
+  case 18: // Toggle Character PVP
+    check_admin_authorization();
+    $playerid = $_GET['playerid'];
+    toggle_pvp_status($_GET['playerid']);
+    header("Location: index.php?editor=player&playerid=$playerid");
+    exit;
 }
 
 function get_players($page_number, $results_per_page, $sort_by) {
@@ -542,6 +548,21 @@ function delete_pet_name($character_id) {
   global $mysql;
 
   $query = "DELETE FROM character_pet_name WHERE character_id=$character_id";
+  $mysql->query_no_result($query);
+}
+
+function toggle_pvp_status($playerid) {
+  global $mysql;
+  $enabled = 0;
+
+  $query = "SELECT pvp_status FROM character_data WHERE id=$playerid";
+  $result = $mysql->query_assoc($query);
+
+  if ($result['pvp_status'] == 0) {
+    $enabled = 1;
+  }
+
+  $query = "UPDATE character_data SET pvp_status=$enabled WHERE id=$playerid";
   $mysql->query_no_result($query);
 }
 ?>
