@@ -284,37 +284,33 @@ switch ($action) {
     $body->set("races", $races);
     $body->set("genders", $genders);
     if ($horses) {
-      foreach ($horses as $key=>$value) {
-        $body->set($key, $value);
-      }
+      $body->set('horses', $horses);
     }
     break;
-   case 30: // Edit horses
+   case 30: // Edit horse
     check_authorization();
-    $breadcrumbs .= " >> Horses";
+    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=29'>Horses</a> >> Edit Horse";
     $body = new Template("templates/misc/horses.edit.tmpl.php");
     $body->set("races", $races);
     $body->set("genders", $genders);
-    $horses = horses_info();
-    if ($horses) {
-      foreach ($horses as $key=>$value) {
-        $body->set($key, $value);
-      }
+    $horse = get_horse($_GET['filename']);
+    if ($horse) {
+      $body->set('horse', $horse);
     }
     break;
-   case 31: // Update horses
+   case 31: // Update horse
     check_authorization();
     update_horses();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=29");
     exit;
-   case 32: // Delete horses
+   case 32: // Delete horse
     check_authorization();
     delete_horses();
     header("Location: index.php?editor=misc&z=$z&zoneid=$zoneid&action=29");
     exit;
-   case 33: // Add horses
+   case 33: // Add horse
     check_authorization();
-    $breadcrumbs .= " >> Horses";
+    $breadcrumbs .= " >> <a href='index.php?editor=misc&action=29'>Horses</a> >> Add Horse";
     $body = new Template("templates/misc/horses.add.tmpl.php");
     $body->set("races", $races);
     $body->set("genders", $genders);
@@ -706,13 +702,13 @@ function get_horses() {
   $array = array();
 
   $query = "SELECT * FROM horses";
-  $result = $mysql_content_db->query_mult_assoc($query);
-  if ($result) {
-    foreach ($result as $result) {
-      $array['horses'][$result['filename']] = array("filename"=>$result['filename'], "race"=>$result['race'], "gender"=>$result['gender'], "texture"=>$result['texture'], "mountspeed"=>$result['mountspeed'], "notes"=>$result['notes']);
-    }
+  $results = $mysql_content_db->query_mult_assoc($query);
+  if ($results) {
+    return $results;
   }
-  return $array;
+  else {
+    return null;
+  }
 }
 
 function get_doors() {
@@ -812,15 +808,18 @@ function traps_info() {
   return $result;
 }
 
-function horses_info() {
+function get_horse($filename) {
   global $mysql_content_db;
-
-  $filename = $_GET['filename'];
 
   $query = "SELECT * FROM horses WHERE filename=\"$filename\"";
   $result = $mysql_content_db->query_assoc($query);
 
-  return $result;
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
 }
 
 function doors_info() {
