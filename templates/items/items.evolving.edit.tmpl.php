@@ -18,9 +18,8 @@
 <?endforeach;?>
               </select>
             </td>
-            <td align="left"><strong>Subtype:</strong><br><input type="text" name="sub_type" size="10" value="<?=$details['sub_type']?>"></td>
+            <td align="left" colspan="2"><strong>Subtype:</strong> (Delimiter: ".")<br><input type="text" name="sub_type" size="29" value="<?=$details['sub_type']?>"></td>
             <td align="left"><strong>Required Amt:</strong><br><input type="text" name="required_amount" size="10" value="<?=$details['required_amount']?>"></td>
-            <td align="left">&nbsp;</td>
           </tr>
         </table><br>
         <center>

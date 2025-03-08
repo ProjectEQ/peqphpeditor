@@ -82,10 +82,10 @@ $evolving_type = array(
 );
 
 $evolving_subtype_1 = array(
-  0 => "All EXP", //use all experience
-  1 => "Solo EXP", //use only solo experience
-  2 => "Group EXP", //use only group experience
-  3 => "Raid EXP" //use only raid experience
+  "0" => "All EXP", //use all experience
+  "1" => "Solo EXP", //use only solo experience
+  "2" => "Group EXP", //use only group experience
+  "3" => "Raid EXP" //use only raid experience
 );
 
 switch ($action) {
@@ -1320,7 +1320,7 @@ function insert_evolving_item() {
   $sub_type = $_POST['sub_type'];
   $required_amount = $_POST['required_amount'];
 
-  $query = "INSERT INTO items_evolving_details SET id=$id, item_evo_id=$item_evo_id, item_evolve_level=$item_evolve_level, item_id=$item_id, `type`=$type, sub_type=$sub_type, required_amount=$required_amount";
+  $query = "INSERT INTO items_evolving_details SET id=$id, item_evo_id=$item_evo_id, item_evolve_level=$item_evolve_level, item_id=$item_id, `type`=$type, sub_type=\"$sub_type\", required_amount=$required_amount";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -1335,7 +1335,7 @@ function update_evolving_item() {
   $sub_type = $_POST['sub_type'];
   $required_amount = $_POST['required_amount'];
 
-  $query = "UPDATE items_evolving_details SET item_evo_id=$item_evo_id, item_evolve_level=$item_evolve_level, item_id=$item_id, `type`=$type, sub_type=$sub_type, required_amount=$required_amount WHERE id=$id";
+  $query = "UPDATE items_evolving_details SET item_evo_id=$item_evo_id, item_evolve_level=$item_evolve_level, item_id=$item_id, `type`=$type, sub_type=\"$sub_type\", required_amount=$required_amount WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 }
 
