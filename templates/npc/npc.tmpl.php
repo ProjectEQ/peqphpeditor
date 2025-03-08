@@ -433,6 +433,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="sec_melee_type" value="<?=$sec_melee_type?>">
         <input type="hidden" name="ranged_type" value="<?=$ranged_type?>">
         <input type="hidden" name="runspeed" value="<?=$runspeed?>">
+        <input type="hidden" name="walkspeed" value="<?=$walkspeed?>">
         <input type="hidden" name="MR" value="<?=$MR?>">
         <input type="hidden" name="CR" value="<?=$CR?>">
         <input type="hidden" name="DR" value="<?=$DR?>">
