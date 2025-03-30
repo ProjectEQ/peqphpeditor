@@ -1754,7 +1754,7 @@ function is_spawned() {
   $result = $mysql->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-      $array['spawned'][$result['id']] = array("start"=>$result['start'], "duration"=>$result['duration'], "instance_id"=>$result['instance_id']);
+      $array['spawned'][$result['id']] = array("start"=>$result['start'], "duration"=>$result['duration'], "expire_at"=>$result['expire_at'], "instance_id"=>$result['instance_id']);
     }
   }
 
@@ -1916,8 +1916,10 @@ function update_spawntimer() {
   $rid = $_POST['rid'];
   $start = $_POST['start'];
   $duration = $_POST['duration'];
+  $expire_at = $_POST['expire_at'];
+  $instance_id = $_POST['instance_id'];
 
-  $query = "UPDATE respawn_times SET start=\"$start\", duration=\"$duration\" WHERE id=\"$rid\"";
+  $query = "UPDATE respawn_times SET start=\"$start\", duration=\"$duration\", expire_at=\"$expire_at\", instance_id=\"$instance_id\" WHERE id=\"$rid\"";
   $mysql->query_no_result($query);
 }
 

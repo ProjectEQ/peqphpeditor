@@ -1,4 +1,4 @@
-  <div class="edit_form" style="width: 250px">
+  <div class="edit_form" style="width: 350px">
     <div class="edit_form_header">
       Respawn Time: <?=$id?>
     </div>
@@ -8,10 +8,14 @@
           <tr>
             <th>Start:</th>
             <th>Duration:</th>
+            <th>Expire At:</th>
+            <th>Instance ID:</th>
           </tr>
           <tr>
             <td><input type="text" size="10" name="start" value="<?=$start?>"></td>
             <td><input type="text" size="10" name="duration" value="<?=$duration?>"></td>
+            <td><input type="text" size="10" name="expire_at" value="<?=$expire_at?>"></td>
+            <td><input type="text" size="10" name="instance_id" value="<?=$instance_id?>"></td>
           </tr>
         </table><br><br>
         <center>
