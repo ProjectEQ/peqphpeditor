@@ -10,14 +10,14 @@
           <table class="table_content2" width="100%" cellpadding="2" cellspacing="0">
 <?if (isset($rules)):?>
             <tr>
-              <td align="center" width="60%"><strong>Name</strong></td>
-              <td align="center" width="30%"><strong>Value</strong></td>
+              <td align="center" width="45%"><strong>Name</strong></td>
+              <td align="center" width="45%"><strong>Value</strong></td>
               <td width="10%" align="right">&nbsp;</td>
             </tr>
 <?$x=0; foreach($rules as $rules=>$v):?>
             <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
-              <td align="center" width="60%"><?=$v['rule_name']?></td>
-              <td align="center" width="30%"><?=$v['rule_value']?></td>
+              <td align="center" width="45%"><?=$v['rule_name']?></td>
+              <td align="center" width="45%" style="text-align: center; word-wrap: break-word;"><?=$v['rule_value']?></td>
               <td width="10%" align="right"><a href="index.php?editor=server&rule_name=<?=$v['rule_name']?>&ruleset_id=<?=$v['ruleset_id']?>&action=17"><img src="images/edit2.gif" border="0" title="Edit ruleset"></a>&nbsp;<a onClick="return confirm('Really Delete this Rule?');" href="index.php?editor=server&rule_name=<?=$v['rule_name']?>&ruleset_id=<?=$v['ruleset_id']?>&action=21"><img src="images/remove3.gif" border="0" title="Delete this rule"></a></td>
             </tr>
 <?$x++; endforeach;?>
