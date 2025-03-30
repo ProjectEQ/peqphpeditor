@@ -17,7 +17,7 @@
 <?$x=0; foreach($rules as $rules=>$v):?>
             <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
               <td align="center" width="45%"><?=$v['rule_name']?></td>
-              <td align="center" width="45%" style="text-align: center; word-wrap: break-word;"><?=$v['rule_value']?></td>
+              <td width="45%" style="text-align: center; word-wrap: break-word; word-break: break-all; overflow-wrap: break-word;"><?=$v['rule_value']?></td>
               <td width="10%" align="right"><a href="index.php?editor=server&rule_name=<?=$v['rule_name']?>&ruleset_id=<?=$v['ruleset_id']?>&action=17"><img src="images/edit2.gif" border="0" title="Edit ruleset"></a>&nbsp;<a onClick="return confirm('Really Delete this Rule?');" href="index.php?editor=server&rule_name=<?=$v['rule_name']?>&ruleset_id=<?=$v['ruleset_id']?>&action=21"><img src="images/remove3.gif" border="0" title="Delete this rule"></a></td>
             </tr>
 <?$x++; endforeach;?>
