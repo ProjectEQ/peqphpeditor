@@ -1611,6 +1611,89 @@ function get_player_event($id) {
   $query = "SELECT * FROM player_event_logs WHERE id=$id";
   $result = $mysql->query_assoc($query);
 
+  if ($result && $result['etl_table_id'] > 0) {
+    switch($result['event_type_id']) {
+      case 4:
+        $query2 = "SELECT * FROM player_event_aa_purchase WHERE id=" . $result['etl_table_id'];
+        $result2 = $mysql->query_assoc($query2);
+        if ($result2) {
+          $result['event_data'] = $result2;
+        }
+        break;
+      case 14:
+        $query2 = "SELECT * FROM player_event_loot_items WHERE id=" . $result['etl_table_id'];
+        $result2 = $mysql->query_assoc($query2);
+        if ($result2) {
+          $result['event_data'] = $result2;
+        }
+        break;
+      case 15:
+        $query2 = "SELECT * FROM player_event_merchant_purchase WHERE id=" . $result['etl_table_id'];
+        $result2 = $mysql->query_assoc($query2);
+        if ($result2) {
+          $result['event_data'] = $result2;
+        }
+        break;
+      case 16:
+        $query2 = "SELECT * FROM player_event_merchant_sell WHERE id=" . $result['etl_table_id'];
+        $result2 = $mysql->query_assoc($query2);
+        if ($result2) {
+          $result['event_data'] = $result2;
+        }
+        break;
+      case 22:
+        $query2 = "SELECT * FROM player_event_npc_handin WHERE id=" . $result['etl_table_id'];
+        $result2 = $mysql->query_assoc($query2);
+        if ($result2) {
+          $result['event_data'] = $result2;
+          $query3 = "SELECT * FROM player_event_npc_handin_entries WHERE player_event_npc_handin_id =" . $result2['id'];
+          $result3 = $mysql->query_mult_assoc($query3);
+          if ($result3) {
+            $result['event_data_extra'] = $result3;
+          }
+        }
+        break;
+      case 27:
+        $query2 = "SELECT * FROM player_event_trade WHERE id=" . $result['etl_table_id'];
+        $result2 = $mysql->query_assoc($query2);
+        if ($result2) {
+          $result['event_data'] = $result2;
+        }
+        break;
+      case 44:
+        $query2 = "SELECT * FROM player_event_killed_npc WHERE id=" . $result['etl_table_id'];
+        $result2 = $mysql->query_assoc($query2);
+        if ($result2) {
+          $result['event_data'] = $result2;
+        }
+        break;
+      case 45:
+        $query2 = "SELECT * FROM player_event_killed_named_npc WHERE id=" . $result['etl_table_id'];
+        $result2 = $mysql->query_assoc($query2);
+        if ($result2) {
+          $result['event_data'] = $result2;
+        }
+        break;
+      case 46:
+        $query2 = "SELECT * FROM player_event_killed_raid_npc WHERE id=" . $result['etl_table_id'];
+        $result2 = $mysql->query_assoc($query2);
+        if ($result2) {
+          $result['event_data'] = $result2;
+        }
+        break;
+      case 54:
+        $query2 = "SELECT * FROM player_event_speech WHERE id=" . $result['etl_table_id'];
+        $result2 = $mysql->query_assoc($query2);
+        if ($result2) {
+          $result['event_data'] = $result2;
+        }
+        break;
+      default:
+        $result['event_data'] = null;
+        break;
+    }
+  }
+
   if ($result) {
     return $result;
   }

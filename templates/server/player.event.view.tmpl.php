@@ -77,7 +77,35 @@ function display_array($in_array) {
   }
 }
 
-if ($event['event_data'] != "") {
+if ($event['etl_table_id'] > 0) {
+  if ($event['event_data'] != "") {
+    foreach ($event['event_data'] as $key=>$value) {
+      if (is_array($value)) {
+        print "<strong>" . $key . "</strong>: " . ((count($value) > 0) ? "" : " N/A") . "<br>";
+        display_array($value);
+      }
+      else {
+        print "<strong>" . $key . "</strong>: " . (($value != "") ? $value : "false") . "<br>";
+      }
+    }
+  }
+  if ($event['event_data_extra']) {
+    print("<br>");
+    foreach ($event['event_data_extra'] as $extra_data) {
+      print("<br>");
+      foreach ($extra_data as $key=>$value) {
+        if (is_array($value)) {
+          print "<strong>" . $key . "</strong>: " . ((count($value) > 0) ? "" : " N/A") . "<br>";
+          display_array($value);
+        }
+        else {
+          print "<strong>" . $key . "</strong>: " . (($value != "") ? $value : "false") . "<br>";
+        }
+      }
+    }
+  }
+}
+else if ($event['event_data'] != "") {
   $event_data = json_decode($event['event_data'], true);
   foreach ($event_data as $key=>$value) {
     if (is_array($value)) {
