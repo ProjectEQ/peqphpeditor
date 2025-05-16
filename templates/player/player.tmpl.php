@@ -30,6 +30,8 @@
                     Character ID: <?=$id?><br>
                     LS Name: <a href="index.php?editor=account&acctid=<?=$account_id?>"><?=$lsname?></a><br>
                     LS ID: <?=$lsaccount?><br>
+                    First Login: <?=$get_real_time($first_login)?><br>
+                    In-Game: <?=$yesno[$ingame]?><br>
                     Last On: <?=get_real_time($last_login)?><br>
                     Time Played: <?=$time_played?> minutes<br>
                     GM: <?=$yesno[$gm]?><br>
