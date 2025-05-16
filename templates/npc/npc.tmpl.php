@@ -323,7 +323,7 @@ if ($loottable_id > 0) {
                   </tr>
                   <tr>
                    <td align="left" width="33%">Show Name: <?=$yesno[$show_name]?></td>
-                   <td align="left" width="33%">&nbsp;</td>
+                   <td align="left" width="33%">NPC Tint ID: <?=$npc_tint_id?></td>
                    <td align="left" width="34%">&nbsp;</td>
                   </tr>
                 </table>
@@ -498,6 +498,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="keeps_sold_items" value="<?=$keeps_sold_items?>">
         <input type="hidden" name="is_parcel_merchant" value="<?=$is_parcel_merchant?>">
         <input type="hidden" name="multiquest_enabled" value="<?=$multiquest_enabled?>">
+        <input type="hidden" name="npc_tint_id" value="<?=$npc_tint_id?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">

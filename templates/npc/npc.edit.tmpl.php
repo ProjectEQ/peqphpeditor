@@ -313,7 +313,7 @@
                   <option value="1"<?echo ($show_name == 1) ? " selected" : "";?>>Yes (1)</option>
                 </select>
               </td>
-              <td align="left" width="16%">&nbsp;</td>
+              <td align="left" width="16%">NPC Tint ID:<br><input type="text" name="npc_tint_id" size="10" value="<?=$npc_tint_id?>"></td>
               <td align="left" width="16%">&nbsp;</td>
             </tr>
           </table>

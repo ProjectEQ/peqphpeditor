@@ -1517,6 +1517,7 @@ function update_npc() {
   if ($keeps_sold_items != $_POST['keeps_sold_items']) $fields .= "keeps_sold_items=\"" . $_POST['keeps_sold_items'] . "\", ";
   if ($is_parcel_merchant != $_POST['is_parcel_merchant']) $fields .= "is_parcel_merchant=\"" . $_POST['is_parcel_merchant'] . "\", ";
   if ($multiquest_enabled != $_POST['multiquest_enabled']) $fields .= "multiquest_enabled=\"" . $_POST['multiquest_enabled'] . "\", ";
+  if ($npc_tint_id != $_POST['npc_tint_id']) $fields .= "npc_tint_id=\"" . $_POST['npc_tint_id'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -1680,7 +1681,8 @@ function add_npc() {
   $fields .= "faction_amount=\"" . $_POST['faction_amount'] . "\", ";
   $fields .= "keeps_sold_items=\"" . $_POST['keeps_sold_items'] . "\", ";
   $fields .= "is_parcel_merchant=\"" . $_POST['is_parcel_merchant'] . "\", ";
-  $fields .= "multiquest_enabled=\"" . $_POST['multiquest_enabled'] . "\"";
+  $fields .= "multiquest_enabled=\"" . $_POST['multiquest_enabled'] . "\", ";
+  $fields .= "npc_tint_id=\"" . $_POST['npc_tint_id'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1824,7 +1826,8 @@ function copy_npc() {
   $fields .= "faction_amount=\"" . $_POST['faction_amount'] . "\", ";
   $fields .= "keeps_sold_items=\"" . $_POST['keeps_sold_items'] . "\", ";
   $fields .= "is_parcel_merchant=\"" . $_POST['is_parcel_merchant'] . "\", ";
-  $fields .= "multiquest_enabled=\"" . $_POST['multiquest_enabled'] . "\"";
+  $fields .= "multiquest_enabled=\"" . $_POST['multiquest_enabled'] . "\", ";
+  $fields .= "npc_tint_id=\"" . $_POST['npc_tint_id'] . "\"";
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
     $query2 = "UPDATE npc_types SET special_abilities = TRIM(TRAILING '^' FROM special_abilities)";
