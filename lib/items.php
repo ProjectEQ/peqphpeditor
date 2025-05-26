@@ -91,6 +91,10 @@ $evolving_subtype_1 = array(
 switch ($action) {
   case 0: //Default
     $body = new Template("templates/items/items.default.tmpl.php");
+
+    $latestItems = get_latest_updated_items();
+    $body->set("itemtypes", $itemtypes);
+    $body->set('latest_items', $latestItems);
     break;
   case 1: //Search Items
     $body = new Template("templates/items/items.searchresults.tmpl.php");
@@ -1386,5 +1390,18 @@ function suggest_evo_level($item_evo_id) {
   else {
     return 1;
   }
+}
+
+function get_latest_updated_items() {
+  global $mysql_content_db;
+
+  $query = "SELECT id,name,itemtype,created,updated FROM items order by updated DESC LIMIT 25";
+  $result = $mysql_content_db->query_mult_assoc($query);
+
+  if (!$result) {
+    return 0;
+  }
+
+  return $result;
 }
 ?>
