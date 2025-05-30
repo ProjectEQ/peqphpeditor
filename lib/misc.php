@@ -757,7 +757,7 @@ function get_objects() {
 
   if ($result) {
     foreach ($result as $result) {
-      $array['objects'][$result['id']] = array("objid"=>$result['id'], "version"=>$result['version'], "xpos"=>$result['xpos'], "ypos"=>$result['ypos'], "zpos"=>$result['zpos'], "heading"=>$result['heading'], "itemid"=>$result['itemid'], "charges"=>$result['charges'], "objectname"=>$result['objectname'], "type"=>$result['type'], "icon"=>$result['icon'], "size_percentage"=>$result['size_percentage'], "solid_type"=>$result['solid_type'], "incline"=>$result['incline'], "size"=>$result['size'], "tilt_x"=>$result['tilt_x'], "tilt_y"=>$result['tilt_y'], "display_name"=>$result['display_name'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']                                               );
+      $array['objects'][$result['id']] = array("objid"=>$result['id'], "version"=>$result['version'], "xpos"=>$result['xpos'], "ypos"=>$result['ypos'], "zpos"=>$result['zpos'], "heading"=>$result['heading'], "itemid"=>$result['itemid'], "charges"=>$result['charges'], "objectname"=>$result['objectname'], "type"=>$result['type'], "icon"=>$result['icon'], "size_percentage"=>$result['size_percentage'], "solid_type"=>$result['solid_type'], "incline"=>$result['incline'], "size"=>$result['size'], "tilt_x"=>$result['tilt_x'], "tilt_y"=>$result['tilt_y'], "display_name"=>$result['display_name'], "min_expansion"=>$result['min_expansion'], "max_expansion"=>$result['max_expansion'], "content_flags"=>$result['content_flags'], "content_flags_disabled"=>$result['content_flags_disabled']);
     }
   }
 

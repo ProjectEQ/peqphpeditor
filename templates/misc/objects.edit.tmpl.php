@@ -62,7 +62,7 @@
               </td>
               <td>
                 <strong>Size Percentage</strong><br>
-                <input type="text" size="7" name="size" value="<?=$size_percentage?>">
+                <input type="text" size="7" name="size_percentage" value="<?=$size_percentage?>">
               </td>
               <td colspan="2">
                 <strong>Type</strong><br>
