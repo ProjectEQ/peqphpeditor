@@ -1130,7 +1130,7 @@ function update_starting_item() {
   $augment_four = $_POST['augment_four'];
   $augment_five = $_POST['augment_five'];
   $augment_six = $_POST['augment_six'];
-  $stauts = $_POST['status'];
+  $status = $_POST['status'];
   $inventory_slot = $_POST['inventory_slot'];
   $min_expansion = $_POST['min_expansion'];
   $max_expansion = $_POST['max_expansion'];
