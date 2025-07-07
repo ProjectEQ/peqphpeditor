@@ -8,14 +8,17 @@
           Character:<br>
           <input type="text" size="10" value="<?=$playerid?>" disabled><br><br>
           Zone:<br>
-          <select disabled>
+          <select disabled id="zoneid">
             <option value="0"<?echo $exp_mods['zone_id'] == 0 ? "selected" : "";?>>Global</option>
 <? foreach ($zonelist as $zone): ?>
             <option value="<?=$zone['zoneidnumber']?>"<?echo ($zone['zoneidnumber'] == $exp_mods['zone_id']) ? " selected" : "";?>><?=$zone['short_name']?></option>
 <? endforeach; ?>
           </select><br><br>
           Version:<br>
-          <input type="text" name="instance_version" size="10" value="<?=$exp_mods['instance_version']?>"><br><br>
+          <select name="instance_version" id="zoneversion" style="width: 75px;">
+            <option value="-1">-1</option>
+          </select>
+          <br><br>
           Base Exp Mod:<br>
           <input type="text" name="exp_modifier" size="10" value="<?=$exp_mods['exp_modifier']?>"><br><br>
           AA Exp Mod:<br>

@@ -14,12 +14,11 @@ switch ($editor) {
     $searchbar->set('curreditor', $editor);
     $searchbar->set('currzone', $z);
     $searchbar->set('currzoneid', $zoneid);
-    $searchbar->set('zonelist', $zonelist['zones']);
+    $searchbar->set('zonelist', $zonelist);
     $searchbar->set('expansion_limit', $expansion_limit);
     $searchbar->set('npcs', $npcs);
     $searchbar->set('currnpc', $npcid);
     $searchbar->set('currentversion', $zoneVersions);
-    $searchbar->set('all_zone_versions', $zonelist['versions']);
     break;
   case 'loot':
     $zonelist = zones();
@@ -29,12 +28,11 @@ switch ($editor) {
     $searchbar->set('curreditor', $editor);
     $searchbar->set('currzone', $z);
     $searchbar->set('currzoneid', $zoneid);
-    $searchbar->set('zonelist', $zonelist['zones']);
+    $searchbar->set('zonelist', $zonelist);
     $searchbar->set('expansion_limit', $expansion_limit);
     $searchbar->set('npcs', $npcs);
     $searchbar->set('currnpc', $npcid);
     $searchbar->set('currentversion', $zoneVersions);
-    $searchbar->set('all_zone_versions', $zonelist['versions']);
     break;
   case 'merchant':
     $zonelist = zones();
@@ -44,12 +42,11 @@ switch ($editor) {
     $searchbar->set('curreditor', $editor);
     $searchbar->set('currzone', $z);
     $searchbar->set('currzoneid', $zoneid);
-    $searchbar->set('zonelist', $zonelist['zones']);
+    $searchbar->set('zonelist', $zonelist);
     $searchbar->set('expansion_limit', $expansion_limit);
     $searchbar->set('npcs', $npcs);
     $searchbar->set('currnpc', $npcid);
     $searchbar->set('currentversion', $zoneVersions);
-    $searchbar->set('all_zone_versions', $zonelist['versions']);
     break;
   case 'faction':
     $factions = factions();
@@ -66,12 +63,11 @@ switch ($editor) {
     $searchbar->set('curreditor', $editor);
     $searchbar->set('currzone', $z);
     $searchbar->set('currzoneid', $zoneid);
-    $searchbar->set('zonelist', $zonelist['zones']);
+    $searchbar->set('zonelist', $zonelist);
     $searchbar->set('expansion_limit', $expansion_limit);
     $searchbar->set('npcs', $npcs);
     $searchbar->set('currnpc', $npcid);
     $searchbar->set('currentversion', $zoneVersions);
-    $searchbar->set('all_zone_versions', $zonelist['versions']);
     break;
   case 'tradeskill':
     $searchbar = new Template("templates/searchbar/searchbar.tradeskill.tmpl.php");
@@ -92,12 +88,11 @@ switch ($editor) {
     $searchbar->set('spellsets', spellsets());
     $searchbar->set('currzone', $z);
     $searchbar->set('currzoneid', $zoneid);
-    $searchbar->set('zonelist', $zonelist['zones']);
+    $searchbar->set('zonelist', $zonelist);
     $searchbar->set('expansion_limit', $expansion_limit);
     $searchbar->set('npcs', $npcs);
     $searchbar->set('currnpc', $npcid);
     $searchbar->set('currentversion', $zoneVersions);
-    $searchbar->set('all_zone_versions', $zonelist['versions']);
     break;
   case 'spells':
     $zones = zones();
@@ -112,11 +107,10 @@ switch ($editor) {
     $searchbar->set('curreditor', $editor);
     $searchbar->set('currzone', $z);
     $searchbar->set('currzoneid', $zoneid);
-    $searchbar->set('zonelist', $zonelist['zones']);
+    $searchbar->set('zonelist', $zonelist);
     $searchbar->set('zonelist2', $zonelist2);
     $searchbar->set('expansion_limit', $expansion_limit);
     $searchbar->set('currentversion', $zoneVersions);
-    $searchbar->set('all_zone_versions', $zonelist['versions']);
     break;
   case 'misc':
     $zonelist = zones();
@@ -125,10 +119,9 @@ switch ($editor) {
     $searchbar->set('curreditor', $editor);
     $searchbar->set('currzone', $z);
     $searchbar->set('currzoneid', $zoneid);
-    $searchbar->set('zonelist', $zonelist['zones']);
+    $searchbar->set('zonelist', $zonelist);
     $searchbar->set('expansion_limit', $expansion_limit);
     $searchbar->set('currentversion', $zoneVersions);
-    $searchbar->set('all_zone_versions', $zonelist['versions']);
     break;
   case 'server':
     break;
@@ -185,12 +178,11 @@ switch ($editor) {
     $searchbar->set('curreditor', $editor);
     $searchbar->set('currzone', $z);
     $searchbar->set('currzoneid', $zoneid);
-    $searchbar->set('zonelist', $zonelist['zones']);
+    $searchbar->set('zonelist', $zonelist);
     $searchbar->set('expansion_limit', $expansion_limit);
     $searchbar->set('npcs', $npcs);
     $searchbar->set('currnpc', $npcid);
     $searchbar->set('currentversion', $zoneVersions);
-    $searchbar->set('all_zone_versions', $zonelist['versions']);
     break;
   case 'inv':
     $searchbar = new Template("templates/searchbar/searchbar.inventory.tmpl.php");
@@ -435,21 +427,19 @@ function build_tabs() {
 function zones() {
   global $mysql_content_db;
 
-  $query = "SELECT id, short_name, version, expansion FROM zone GROUP BY short_name ORDER BY short_name, version ASC";
+  $query = "
+    SELECT id, short_name, version, expansion 
+    FROM zone z 
+    JOIN (
+      SELECT short_name as min_short_name, min(version) as min_v 
+      FROM zone 
+      GROUP BY min_short_name
+    ) zone_min ON z.short_name = zone_min.min_short_name AND z.version = zone_min.min_v 
+    ORDER BY z.short_name, z.version ASC
+  ";
   $results = $mysql_content_db->query_mult_assoc($query);
 
-  $versionQuery = "SELECT id, short_name, version FROM zone ORDER BY short_name ASC, version ASC";
-  $versions = $mysql_content_db->query_mult_assoc($versionQuery);
-
-  $zoneVersions = [];
-  foreach ($versions as $version) {
-    $zoneVersions[$version['short_name']][] = $version['version'];
-  }
-
-  return [
-    'zones' => $results, 
-    'versions' => $zoneVersions
-  ];
+  return $results;
 }
 
 function zoneVersions($zone_short) {

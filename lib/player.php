@@ -118,7 +118,8 @@ switch ($action) {
     $javascript = new Template("templates/player/js.tmpl.php");
     $body->set('playerid', $playerid);
     $body->set('cur_loc', $cur_loc);
-    $body->set('zonelist', $zonelist);
+    $body->set('zonelist', $zonelist['zones']);
+    $javascript->set('zoneVersions', $zonelist['versions']);
     break;
   case 6: // Update Player Location
     check_admin_authorization();
@@ -135,17 +136,22 @@ switch ($action) {
     check_admin_authorization();
     $zonelist = get_zones();
     $body = new Template("templates/player/exp.mod.add.tmpl.php");
+    $javascript = new Template("templates/player/js.exp.mod.add.tmpl.php");
     $body->set('playerid', $playerid);
-    $body->set('zonelist', $zonelist);
+    $body->set('zonelist', $zonelist['zones']);
+    $javascript->set('zoneVersions', $zonelist['versions']);
     break;
   case 9: // Edit Exp Modifier
     check_admin_authorization();
     $zonelist = get_zones();
     $exp_mods = get_exp_modifiers($_GET['playerid'], $_GET['zoneid'], $_GET['instance_version']);
     $body = new Template("templates/player/exp.mod.edit.tmpl.php");
+    $javascript = new Template("templates/player/js.exp.mod.edit.tmpl.php");
     $body->set('playerid', $playerid);
-    $body->set('zonelist', $zonelist);
+    $body->set('zonelist', $zonelist['zones']);
     $body->set('exp_mods', $exp_mods);
+    $javascript->set('zoneVersions', $zonelist['versions']);
+    $javascript->set('exp_mods', $exp_mods);
     break;
   case 10: // Modify Exp Modifier
     check_admin_authorization();
@@ -416,10 +422,30 @@ function update_player_location() {
 function get_zones() {
   global $mysql_content_db;
 
-  $query = "SELECT zoneidnumber, short_name, version FROM zone ORDER BY short_name ASC";
+  $query = "
+    SELECT id, zoneidnumber, short_name, version, expansion 
+    FROM zone z 
+    JOIN (
+      SELECT short_name as min_short_name, min(version) as min_v 
+      FROM zone 
+      GROUP BY min_short_name
+    ) zone_min ON z.short_name = zone_min.min_short_name AND z.version = zone_min.min_v 
+    ORDER BY z.short_name, z.version ASC
+  ";
   $results = $mysql_content_db->query_mult_assoc($query);
 
-  return $results;
+  $versionQuery = "SELECT id, zoneidnumber, short_name, version FROM zone ORDER BY short_name ASC, version ASC";
+  $versions = $mysql_content_db->query_mult_assoc($versionQuery);
+
+  $zoneVersions = [];
+  foreach ($versions as $version) {
+    $zoneVersions[$version['zoneidnumber']][] = $version['version'];
+  }
+
+  return [
+    'zones' => $results, 
+    'versions' => $zoneVersions
+  ];
 }
 
 function undelete_player($playerid) {
