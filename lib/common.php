@@ -235,6 +235,7 @@ function search_npcs() {
   global $mysql_content_db;
   $search = $_GET['search'];
   $search = str_replace(' ', '_', $search);
+  $search = str_replace('`', '-', $search);
 
   $query = "SELECT id, name FROM npc_types WHERE name RLIKE \"$search\"";
   $results = $mysql_content_db->query_mult_assoc($query);
