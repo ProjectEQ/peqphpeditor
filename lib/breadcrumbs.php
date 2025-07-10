@@ -113,7 +113,7 @@ switch ($editor) {
     break;
 }
 
-if (isset($z) && $z != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&z=" . $z . "&zoneid=" . $zoneid . "'>" . getZoneLongName($z, getZoneVersion($zoneid)) . " v" . getZoneVersion($zoneid) . "</a>";
+if (isset($z) && $z != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&z=" . $z . "&zoneid=" . $zoneid . "'>" . getZoneLongName($z, getZoneVersion($zoneid)) . "</a>";
 if (isset($npcid) && intval($npcid) > 0 && $editor != 'altcur' && $editor != 'qglobal') $breadcrumbs .= " >> " . getNPCName($npcid) . " ($npcid)";
 if (isset($fid) && intval($fid) > 0) $breadcrumbs .= " >> " . getFactionName($fid);
 if (isset($tskid) && intval($tskid) > 0) $breadcrumbs .= " >> " . getTaskTitle($tskid);

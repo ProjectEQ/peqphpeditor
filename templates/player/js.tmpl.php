@@ -30,7 +30,7 @@
         zone_versions[currentZone].forEach (v => {
           const opt = document.createElement('option');
           opt.value = v;
-          opt.textContent = v;
+          opt.textContent = `v${v}`;
           zoneVersionsSel.appendChild(opt);
         });
 
