@@ -131,7 +131,9 @@ switch ($action) {
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
-    $body->set('sid', $_GET['sid']);
+    if (isset($_GET['sid'])) {
+      $body->set('sid', $_GET['sid']);
+    }
     $vars = get_spawngroup_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -620,7 +622,9 @@ switch ($action) {
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
-    $body->set('sid', $_GET['sid']);
+    if (isset($_GET['sid'])) {
+      $body->set('sid', $_GET['sid']);
+    }
     break;
   case 56: // Add spawngroup by id
     check_authorization();
@@ -1193,10 +1197,18 @@ function balance_spawns($sid) {
 
 function get_spawngroup_info() {
   global $mysql_content_db;
+  $sid = $_GET['sid'];
   $new_sid = ((isset($_POST['new_sid'])) ? $_POST['new_sid'] : 0);
 
   if ($new_sid > 0) {
     $query = "SELECT * FROM spawngroup WHERE id=$new_sid";
+    $result = $mysql_content_db->query_assoc($query);
+    if ($result) {
+      return $result;
+    }
+  }
+  elseif ($sid > 0) {
+    $query = "SELECT * FROM spawngroup WHERE id=$sid";
     $result = $mysql_content_db->query_assoc($query);
     if ($result) {
       return $result;
