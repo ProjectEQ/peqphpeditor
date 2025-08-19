@@ -140,12 +140,12 @@
                       <tr>
                         <td align="left" width="25%"><strong>Shielding:</strong> <?=$shielding?></td>
                         <td align="left" width="25%"><strong>Spell Damage:</strong> <?=$spell_damage?></td>
+                        <td align="left" width="25%"><strong>Heal Amount:</strong> <?=$heal_amount?></td>
                         <td align="left" width="25%"><strong>Spell Shielding:</strong> <?=$spell_shielding?></td>
-                        <td align="left" width="25%"><strong>Strikethrough:</strong> <?=$strikethrough?></td>
                       </tr>
                       <tr>
+                        <td align="left" width="25%"><strong>Strikethrough:</strong> <?=$strikethrough?></td>
                         <td align="left" width="25%"><strong>Stun Resist:</strong> <?=$stun_resist?></td>
-                        <td align="left" width="25%">&nbsp;</td>
                         <td align="left" width="25%">&nbsp;</td>
                         <td align="left" width="25%">&nbsp;</td>
                       </tr>
