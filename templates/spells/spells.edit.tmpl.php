@@ -203,6 +203,16 @@
                   </select>
                 </td>
                 <td>
+                  Feedbackable:<br>
+                  <select name="feedbackable" style="width:80px;">
+                    <option value="-1"<?echo ($feedbackable == -1) ? " selected" : "";?>>-1</option>
+                    <option value="0"<?echo ($feedbackable == 0) ? " selected" : "";?>>0</option>
+                    <option value="1"<?echo ($feedbackable == 1) ? " selected" : "";?>>1</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
                   Reflectable:<br>
                   <select name="reflectable" style="width:80px;">
                     <option value="-1"<?echo ($reflectable == -1) ? " selected" : "";?>>-1</option>
@@ -210,8 +220,6 @@
                     <option value="1"<?echo ($reflectable == 1) ? " selected" : "";?>>1</option>
                   </select>
                 </td>
-              </tr>
-              <tr>
                 <td>
                   Is Discipline:<br>
                   <select name="IsDiscipline" style="width:80px;">
@@ -260,6 +268,8 @@
                     <option value="1"<?echo ($InCombat == 1) ? " selected" : "";?>>1</option>
                   </select>
                 </td>
+              </tr>
+              <tr>
                 <td>
                   Persist Death:<br>
                   <select name="persistdeath" style="width:80px;">
@@ -268,8 +278,6 @@
                     <option value="1"<?echo ($persistdeath == 1) ? " selected" : "";?>>1</option>
                   </select>
                 </td>
-              </tr>
-              <tr>
                 <td colspan="2">
                   PC/NPC Only Flag:<br>
                   <select name="pcnpc_only_flag" style="width:195px;">
@@ -288,7 +296,29 @@
                 </td>
                 <td colspan="2"><a title="player_1">ID File:</a><br><input type="text" name="player_1" size="26" value="<?=$player_1?>"></td>
                 <td>Spellgroup:<br><input type="text" name="spellgroup" size="8" value="<?=$spellgroup?>"></td>
-                <td>No Remove:<br><input type="text" name="field232" size="8" value="<?=$field232?>"></td>
+              </tr>
+              <tr>
+                <td>
+                  No Remove:<br>
+                  <select name="no_remove" style="width:80px;">
+                    <option value="-1"<?echo ($no_remove == -1) ? " selected" : "";?>>-1</option>
+                    <option value="0"<?echo ($no_remove == 0) ? " selected" : "";?>>0</option>
+                    <option value="1"<?echo ($no_remove == 1) ? " selected" : "";?>>1</option>
+                  </select>
+                </td>
+                <td>
+                  No Resist:<br>
+                  <select name="no_resist" style="width:80px;">
+                    <option value="-1"<?echo ($no_resist == -1) ? " selected" : "";?>>-1</option>
+                    <option value="0"<?echo ($no_resist == 0) ? " selected" : "";?>>0</option>
+                    <option value="1"<?echo ($no_resist == 1) ? " selected" : "";?>>1</option>
+                  </select>
+                </td>
+                <td>Override Crit:<br><input type="text" name="override_crit_chance" value="<?=$override_crit_chance?>" size="8"></td>
+                <td>No Heal Dmg Item:<br><input type="text" name="no_heal_damage_item_mod" value="<?=$no_heal_damage_item_mod?>" size="8"></td>
+                <td>Caster Reqmt ID:<br><input type="text" name="caster_requirement_id" value="<?=$caster_requirement_id?>" size="8"></td>
+                <td>Spell Class:<br><input type="text" name="spell_class" value="<?=$spell_class?>" size="8"></td>
+                <td>Spell Subclass:<br><input type="text" name="spell_subclass" value="<?=$spell_subclass?>" size="8"></td>
               </tr>
             </table>
           </fieldset><br>
@@ -332,8 +362,8 @@
                 <td width="17%">Cone Stop Angle:<br><input type="text" name="ConeStopAngle" value="<?=$ConeStopAngle?>" size="5"></td>
                 <td width="16%">Rank:<br><input type="text" name="rank" value="<?=$rank?>" size="5"></td>
                 <td width="17%">Cast Restriction:<br><input type="text" name="CastRestriction" value="<?=$CastRestriction?>" size="5"></td>
-                <td width="17%">Max Targets:<br><input type="text" name="maxtargets" value="<?=$maxtargets?>" size="5"></td>
-                <td width="16%">AE Max Targets:<br><input type="text" name="aemaxtargets" size="5" value="<?=$aemaxtargets?>"></td>
+                <td width="16%">Max Targets:<br><input type="text" name="maxtargets" value="<?=$maxtargets?>" size="5"></td>
+                <td width="17%">AE Max Targets:<br><input type="text" name="aemaxtargets" size="5" value="<?=$aemaxtargets?>"></td>
               </tr>
               <tr>
                 <td>Min Dist:<br><input type="text" name="min_dist" size="5" value="<?=$min_dist?>"></td>
