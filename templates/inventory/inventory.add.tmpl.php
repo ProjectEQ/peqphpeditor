@@ -75,15 +75,15 @@
                 <tr>
                   <td>
                     Ornament Icon:<br>
-                    <input type="text" size="3" name="ornament_icon" value="<?=$inv_item['ornament_icon']?>">
+                    <input type="text" size="3" name="ornament_icon" value="0">
                   </td>
                   <td>
                     Ornament idfile:<br>
-                    <input type="text" size="3" name="ornament_idfile" value="<?=$inv_item['ornament_idfile']?>">
+                    <input type="text" size="3" name="ornament_idfile" value="0">
                   </td>
                   <td>
                     Ornament Hero Model:<br>
-                    <input type="text" size="3" name="ornament_hero_model" value="<?=$inv_item['ornament_hero_model']?>">
+                    <input type="text" size="3" name="ornament_hero_model" value="0">
                   </td>
                 </tr>
                 <tr>
