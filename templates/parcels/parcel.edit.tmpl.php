@@ -36,6 +36,17 @@
               <input type="text" name="quantity" size="10" value="<?=$parcel['quantity']?>">
             </td>
           </tr>
+          <tr>
+            <td>
+              <strong>Evolve Amt:</strong><br>
+              <input type="text" name="evolve_amount" size="10" value="<?=$parcel['evolve_amount']?>">
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
         </table>
         <table width="100%" cellpadding="5" cellspacing="5">
           <tr>
