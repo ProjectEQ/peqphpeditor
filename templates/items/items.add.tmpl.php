@@ -237,9 +237,7 @@
               <td align="left" width="16%">
                 Rec Skill:<br><input type="text" name="recskill" size="5" value="0">
               </td>
-              <td align="left" width="16%">
-                Evolving Level:<br><input type="text" name="evolvinglevel" size="5" value="0">
-              </td>
+              <td align="left" width="16%">&nbsp;</td>
             </tr>
           </table>
           <table cellpadding="20px">

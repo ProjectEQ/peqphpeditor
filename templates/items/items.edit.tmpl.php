@@ -226,7 +226,7 @@
               <td align="left" width="16%">Req Level:<br><input type="text" name="reqlevel" size="5" value="<?=$reqlevel?>"></td>
               <td align="left" width="16%">Rec Level:<br><input type="text" name="reclevel" size="5" value="<?=$reclevel?>"></td>
               <td align="left" width="16%">Rec Skill:<br><input type="text" name="recskill" size="5" value="<?=$recskill?>"></td>
-              <td align="left" width="16%">Evolving Level:<br><input type="text" name="evolvinglevel" size="5" value="<?=$evolvinglevel?>"></td>
+              <td align="left" width="16%">&nbsp;</td>
             </tr>
           </table>
           <table cellpadding="20px">

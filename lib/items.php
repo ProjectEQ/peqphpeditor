@@ -582,7 +582,6 @@ function update_item() {
   if ($item['reqlevel'] != $_POST['reqlevel']) $fields .= "reqlevel=\"" . $_POST['reqlevel'] . "\", ";
   if ($item['reclevel'] != $_POST['reclevel']) $fields .= "reclevel=\"" . $_POST['reclevel'] . "\", ";
   if ($item['recskill'] != $_POST['recskill']) $fields .= "recskill=\"" . $_POST['recskill'] . "\", ";
-  if ($item['evolvinglevel'] != $_POST['evolvinglevel']) $fields .= "evolvinglevel=\"" . $_POST['evolvinglevel'] . "\", ";
   if ($item['damage'] != $_POST['damage']) $fields .= "damage=\"" . $_POST['damage'] . "\", ";
   if ($item['delay'] != $_POST['delay']) $fields .= "delay=\"" . $_POST['delay'] . "\", ";
   if ($item['range'] != $_POST['range']) $fields .= "`range`=\"" . $_POST['range'] . "\", ";
@@ -933,7 +932,6 @@ function add_item() {
   $fields .= "reqlevel=\"" . $_POST['reqlevel'] . "\", ";
   $fields .= "reclevel=\"" . $_POST['reclevel'] . "\", ";
   $fields .= "recskill=\"" . $_POST['recskill'] . "\", ";
-  $fields .= "evolvinglevel=\"" . $_POST['evolvinglevel'] . "\", ";
   $fields .= "damage=\"" . $_POST['damage'] . "\", ";
   $fields .= "delay=\"" . $_POST['delay'] . "\", ";
   $fields .= "`range`=\"" . $_POST['range'] . "\", ";
