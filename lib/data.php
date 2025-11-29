@@ -1808,48 +1808,48 @@ $zoneids = array(
  494 => 'weddingchapeldark',
  495 => 'dragoncrypt',
 /*
- 502^North Qeynos^0^0
- 503^Firiona Vie^0^0
- 504^The Spell of the Undead^0^0
- 505^The Castle of Mistmoore^0^0
- 506^Kithicor Forest^0^0
- 507^Kithicor Forest^0^0
- 508^Veeshan's Peak^0^0
- 510^Reinforced Clan Crushbone^0^0
- 512^Rejuvenating Plains of Karana^0^0
- 513^The Northern Plains of Karana^0^0
- 515^The Graveyard of the Dead^0^0
- 517^Reinforced Blackburrow^0^0
- 518^The Invaded Lair of the Splitpaw^0^0
- 525^Nektulos Forest^0^0
- 526^The Plane of Mischief^0^0
- 530^Everfrost- Unseasonably Warm^0^0
- 531^Everfrost Peaks^0^0
- 534^The Feast of Tishe Virm^0^0
- 537^The Oasis of Marr^0^0
- 539^The Hole^0^0
- 548^Accursed Temple of Cazic-Thule^0^0
- 549^Reinforced Temple of Cazic-Thule^0^0
- 550^The Nightfall Haunting^0^0
- 551^The Rathe Mountains^0^0
- 557^The Lesser Faydark^0^0
- 563^The Reinforced Estate of Unrest^0^0
- 566^The Reinforced Ruins of Old Guk^0^0
- 569^The Ocean of Tears^0^0
- 572^The Plane of Fear^0^0
- 576^The Testing Grounds^0^0
- 581^The Temple of Droga^0^0
- 586^The Plane of Hate^0^0
- 596^Timorous Deep^0^0
- 598^Erud's Crossing^0^0
- 607^The Mines of Nurga^0^0
- 615^The City of Thurgadin^0^0
- 616^Eastern Wastes^0^0
- 618^The Great Divide^0^0
- 626^The Plane of Mischief^0^0
- 628^The Sleeper's Tomb^0^0
- 629^Icewell Keep^0^0
- 666^Hollowshade Moor^0^0
+ 502 => '',                    //North Qeynos
+ 503 => '',                    //Firiona Vie
+ 504 => '',                    //The Spell of the Undead
+ 505 => '',                    //The Castle of Mistmoore
+ 506 => '',                    //Kithicor Forest
+ 507 => '',                    //Kithicor Forest
+ 508 => '',                    //Veeshan's Peak
+ 510 => '',                    //Reinforced Clan Crushbone
+ 512 => '',                    //Rejuvenating Plains of Karana
+ 513 => '',                    //The Northern Plains of Karana
+ 515 => '',                    //The Graveyard of the Dead
+ 517 => '',                    //Reinforced Blackburrow
+ 518 => '',                    //The Invaded Lair of the Splitpaw
+ 525 => '',                    //Nektulos Forest
+ 526 => '',                    //The Plane of Mischief
+ 530 => '',                    //Everfrost- Unseasonably Warm
+ 531 => '',                    //Everfrost Peaks
+ 534 => '',                    //The Feast of Tishe Virm
+ 537 => '',                    //The Oasis of Marr
+ 539 => '',                    //The Hole
+ 548 => '',                    //Accursed Temple of Cazic-Thule
+ 549 => '',                    //Reinforced Temple of Cazic-Thule
+ 550 => '',                    //The Nightfall Haunting
+ 551 => '',                    //The Rathe Mountains
+ 557 => '',                    //The Lesser Faydark
+ 563 => '',                    //The Reinforced Estate of Unrest
+ 566 => '',                    //The Reinforced Ruins of Old Guk
+ 569 => '',                    //The Ocean of Tears
+ 572 => '',                    //The Plane of Fear
+ 576 => '',                    //The Testing Grounds
+ 581 => '',                    //The Temple of Droga
+ 586 => '',                    //The Plane of Hate
+ 596 => '',                    //Timorous Deep
+ 598 => '',                    //Erud's Crossing
+ 607 => '',                    //The Mines of Nurga
+ 615 => '',                    //The City of Thurgadin
+ 616 => '',                    //Eastern Wastes
+ 618 => '',                    //The Great Divide
+ 626 => '',                    //The Plane of Mischief
+ 628 => '',                    //The Sleeper's Tomb
+ 629 => '',                    //Icewell Keep
+ 666 => '',                    //Hollowshade Moor
 */
  700 => 'feerrott2',
  701 => 'thulehouse1',
@@ -1873,8 +1873,8 @@ $zoneids = array(
  719 => 'phinterior1a3',
  720 => 'phinterior1b1',
 /*
- 721^One Room House Interior^0^0
- 722^One Room House Interior^0^0
+ 721 => '',                    //One Room House Interior
+ 722 => '',                    //One Room House Interior
 */
  723 => 'phinterior1d1',
  724 => 'argath',
@@ -1955,52 +1955,50 @@ $zoneids = array(
  799 => 'korshaint',
  800 => 'chardoktwo',
 /*
- 801^The Sleeper's Tomb^0^0
- 802^Kerafyrm's Lair^0^0
- 803^Skyshrine^0^0
- 804^Permafrost Keep^0^0
- 805^Reinforced Permafrost Keep^0^0
- 806^Gukta, Outpost of Marr^0^0
- 807^Innothule Swamp^0^0
- 808^Neriak - Foreign Quarter^0^0
- 809^Grimling Forest^0^0
- 810^The Reinforced Castle of Mistmoore^0^0
- 811^Reinforced Nagafen's Lair^0^0
- 812^The Reinforced Ruins of Sebilis^0^0
+ 801 => '',                    //The Sleeper's Tomb
+ 802 => '',                    //Kerafyrm's Lair
+ 803 => '',                    //Skyshrine
+ 804 => '',                    //Permafrost Keep
+ 805 => '',                    //Reinforced Permafrost Keep
+ 806 => '',                    //Gukta, Outpost of Marr
+ 807 => '',                    //Innothule Swamp
+ 808 => '',                    //Neriak - Foreign Quarter
+ 809 => '',                    //Grimling Forest
+ 810 => '',                    //The Reinforced Castle of Mistmoore
+ 811 => '',                    //Reinforced Nagafen's Lair
+ 812 => '',                    //The Reinforced Ruins of Sebilis
 */
  813 => 'charasistwo',
  814 => 'skyfiretwo',
  815 => 'overtheretwo',
  816 => 'veeshantwo',
- 817 => 'trialsofsmoke', // TBL
+ 817 => 'trialsofsmoke',       // (TBL)
  818 => 'stratos',
  819 => 'aalishai',
  820 => 'empyr',
  821 => 'esianti',
  822 => 'mearatas',
  823 => 'chamberoftears',
- 824 => 'eastwastestwo', // ToV
+ 824 => 'eastwastestwo',       // (ToV)
  825 => 'frozenshadowtwo',
  826 => 'crystaltwoa',
  827 => 'greatdividetwo',
  828 => 'velketortwo',
  829 => 'kaeltwo',
  830 => 'crystaltwob',
- 831 => 'sleepertwo', // CoV
+ 831 => 'sleepertwo',          // (CoV)
  832 => 'necropolistwo',
  833 => 'cobaltscartwo',
  834 => 'westwastestwo',
  835 => 'skyshrinetwo',
  836 => 'templeveeshantwo',
-/*
-837^Winter^0^0
-838^Anniversary^0^0
-839^Spring^0^0
-840^Autumn^0^0
-841^Frostfell^0^0
-842^April Fools^0^0
-*/
- 843 => 'maidentwo', // ToL
+ 837 => 'clz-winter',          //Winter
+ 838 => 'clz-anniversary',     //Anniversary
+ 839 => 'clz-spring',          //Spring
+ 840 => 'clz-autumn',          //Autumn
+ 841 => 'clz-frostfell',       //Frostfell
+ 842 => 'clz-af',              //April Fools
+ 843 => 'maidentwo',           // (ToL)
  844 => 'umbraltwo',
  845 => 'akhevatwo',
  846 => 'vexthaltwo',
@@ -2008,7 +2006,7 @@ $zoneids = array(
  848 => 'basilica',
  849 => 'bloodfalls',
  850 => 'maidenhouseint',
- 851 => 'shadowhaventwo', // NoS
+ 851 => 'shadowhaventwo',      // (NoS)
  852 => 'sharvahltwo',
  853 => 'paludaltwo',
  854 => 'shadeweavertwo',
@@ -2016,32 +2014,43 @@ $zoneids = array(
  856 => 'deepshade',
  857 => 'firefallpass',
  858 => 'hollowshadetwo',
-/* LS
-Ankexfen Keep=ankexfen
-Laurion's Inn=laurioninn
-Moors of Nokk=moorsofnokk
-Pal'Lomen=pallomen
-The Hero's Forge=herosforge
-Timorous Falls=timorousfalls
-Unkempt Woods=unkemptwoods
-Tides of Time=anniversarytower
-*/
-/* TOB
-Aureate Covert=aureatecovert
-Hodstock Hills=hodstock
-The Chambers of Puissance=puissance
-The Gilded Spire=gildedspire
-The Harbinger's Cradle=harbingerscradle
-The Theater of Eternity=toe
-*/
+ 859 => 'laurioninn',          //Laurion Inn (LS)
+ 860 => 'ankexfen',            //Ankexfen Keep
+ 861 => 'pallomen',            //Pal'Lomen
+ 862 => 'herosforge',          //The Hero's Forge
+ 863 => 'moorsofnokk',         //Moors of Nokk
+ 864 => 'unkemptwoods',        //Unkempt Woods
+ 865 => 'timorousfalls',       //Timorous Falls
+ 866 => 'clz-tempest',         //Tempest Festival
+ 867 => 'clz-stomplesday',     //Stomples Day
+ 868 => 'clz-scorchedskies',   //Scorched Skies
+ 869 => 'anniversarytower',    //Tides of Time
+ 870 => 'hodstock',            //Hodstock Hills (TOB)
+ 871 => 'toe',                 //The Theater of Eternity
+ 872 => 'aureatecovert',       //Aureate Covert
+ 873 => 'harbingerscradle',    //The Harbinger's Cradle
+ 874 => 'puissance',           //The Chambers of Puissance
+ 875 => 'gildedspire',         //The Gilded Spire
+ 876 => 'clz-25anniversary',   //Anniversary
+ 877 => 'dragonhouseintb',     //Aureate Chalet Three Room
+ 878 => 'dragonhouseintb',     //Aureate Chalet One Room
+ 879 => 'candlemakers',        //Candlemaker's Workshop (SoR)
+ 880 => 'embattledpogrowth',   //Scarred Grove
+ 881 => 'arcstoneruins',       //Arcstone, Shattered Isles
+ 882 => 'ruinedrelic',         //Ruined Relic
+ 883 => 'vortex',              //The Vortex
+ 884 => 'spite',               //Labyrinth of Spite
+ 885 => 'guildhallsng',        //Grand Guild Hall
+ 886 => 'giftygiver',          //The Gifty Giver
+ 887 => 'clz-brewday',         //Brew Day
 /*
- 904^Qeynos Hills^0^0
+ 904 => '',                    //Qeynos Hills
 */
- 996 => 'arttest',
+ 996 => 'arttest',             //The Pit of Rathpher
 /*
- 997^CODE PH solo^0^0
+ 997 => '',                    //CODE PH solo
 */
- 998 => 'fhalls',
+ 998 => 'fhalls',              //The Forgotten Halls
  999 => 'apprentice'
 );
 
@@ -2079,6 +2088,7 @@ $eqexpansions = array(
  29 => 'Night of Shadows',
  30 => 'Laurion\'s Song',
  31 => 'The Outer Brood',
+ 32 => 'Shattering of Ro',
  99 => 'Other'
 );
 
@@ -2146,7 +2156,8 @@ $expansions2_long = array(
  28 => 'Terror of Luclin',
  29 => 'Night of Shadows',
  30 => 'Laurion\'s Song',
- 31 => 'The Outer Brood'
+ 31 => 'The Outer Brood',
+ 32 => 'Shattering of Ro'
 );
 
 $expansions2_short = array(
@@ -2182,7 +2193,8 @@ $expansions2_short = array(
  28 => 'ToL',
  29 => 'NoS',
  30 => 'LS',
- 31 => 'TOB'
+ 31 => 'TOB',
+ 32 => 'SoR'
 );
 
 $clients = array(
