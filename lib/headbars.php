@@ -134,6 +134,9 @@ switch ($editor) {
     $searchbar->set('currtask', $tskid);
     $searchbar->set('tasks', $tasks);
     break;
+  case 'achievements':
+    // Achievement pages provide their own search and section navigation.
+    break;
   case 'items':
     $npcs = npcs();
     $searchbar = new Template("templates/searchbar/searchbar.items.tmpl.php");
@@ -253,6 +256,7 @@ function build_tabs() {
   $tabstatus32 = "off";
   $tabstatus33 = "off";
   $tabstatus34 = "off";
+  $tabstatus35 = "off";
 
   $zoneurl = "";
   $npcurl = "";
@@ -303,6 +307,9 @@ function build_tabs() {
       break;
     case 'tasks':
       $tabstatus12 = "on";
+      break;
+    case 'achievements':
+      $tabstatus35 = "on";
       break;
     case 'items':
       $tabstatus13 = "on";
@@ -407,6 +414,7 @@ function build_tabs() {
         <div class=\"$tabstatus25\"><a href=\"index.php?editor=titles\">Titles</a></div>
         <div class=\"$tabstatus26\"><a href=\"index.php?editor=auras\">Auras</a></div>
         <div class=\"$tabstatus27\"><a href=\"index.php?editor=pvp\">PVP</a></div><br><br>
+        <div class=\"$tabstatus35\"><a href=\"index.php?editor=achievements\">Achievements</a></div>
         <div class=\"$tabstatus28\"><a href=\"index.php?editor=databuckets\">Data Buckets</a></div>
         <div class=\"$tabstatus29\"><a href=\"index.php?editor=content\">Content Flags</a></div>
         <div class=\"$tabstatus30\"><a href=\"index.php?editor=expeditions\">Expeditions</a></div>
