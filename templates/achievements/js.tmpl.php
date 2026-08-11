@@ -18,7 +18,7 @@
     if (!form) return;
 
     var graph = clone(INITIAL_DEFINITION || {});
-    var initialVersion = stringValue(graph.definition_version || 1);
+    var initialVersion = stringValue(graph.version);
     var initialAchievementId = IS_CREATE ? '' : stringValue(graph.id || '');
     var initialRewardSetId = IS_CREATE ? '' : stringValue(PERSISTED_REWARD_SET_ID);
     var initialComponents = list(PERSISTED_COMPONENT_KEYS).map(stringValue);
@@ -588,7 +588,7 @@
               onChange: key === 'component_id' ? renderComponents : null
             })));
         });
-        ['description', 'description_2'].forEach(function (key) {
+        ['name', 'description'].forEach(function (key) {
           var info = metaField('achievement_components', key);
           grid.appendChild(field(info.label, info.help, inputFor(component, key, {}), true));
         });
@@ -611,6 +611,7 @@
       if (integer(previous, type) !== type) reward.reward_data_id = 0;
       if (type === 2 || type === 3) reward.reward_data_id = 0;
       if (integer(reward.amount, 0) < 1) reward.amount = 1;
+      if (type === 5) reward.amount = 1;
     }
 
     function rewardDataControl(reward) {
@@ -661,32 +662,32 @@
           }, 'Remove this new unsaved grant'));
         }
         var grid = element('div', 'achievement-form-grid');
-        var idMeta = metaField('achievement_rewards', 'reward_id');
+        var idMeta = metaField('rewards', 'reward_id');
         grid.appendChild(field(idMeta.label, idMeta.help,
           inputFor(reward, 'reward_id', { inputmode: 'numeric', pattern: '[0-9]+', readonly: true, placeholder: 'Allocated on save' })));
-        var sequenceMeta = metaField('achievement_rewards', 'sequence');
+        var sequenceMeta = metaField('rewards', 'sequence');
         grid.appendChild(field(sequenceMeta.label, sequenceMeta.help,
           inputFor(reward, 'sequence', { inputmode: 'numeric', pattern: '[0-9]+' })));
         var oldType = reward.reward_type;
-        var typeMeta = metaField('achievement_rewards', 'reward_type');
+        var typeMeta = metaField('rewards', 'reward_type');
         grid.appendChild(field(typeMeta.label, typeMeta.help,
           selectFor(reward, 'reward_type', enumEntries('reward_types'), { onChange: function () {
             applyRewardTypeDefaults(reward, oldType);
             renderRewards();
           }})));
         var rewardType = (METADATA.reward_types || {})[stringValue(reward.reward_type)] || {};
-        var dataMeta = metaField('achievement_rewards', 'reward_data_id');
-        grid.appendChild(field(rewardType.data_label || dataMeta.label, rewardType.help || dataMeta.help, rewardDataControl(reward)));
-        var amountMeta = metaField('achievement_rewards', 'amount');
-        grid.appendChild(field(amountMeta.label, amountMeta.help,
+        var dataMeta = metaField('rewards', 'reward_data_id');
+        grid.appendChild(field(rewardType.data_label || dataMeta.label, rewardType.data_help || rewardType.help || dataMeta.help, rewardDataControl(reward)));
+        var amountMeta = metaField('rewards', 'amount');
+        grid.appendChild(field(amountMeta.label, rewardType.amount_help || amountMeta.help,
           inputFor(reward, 'amount', { inputmode: 'numeric', pattern: '[0-9]+' })));
-        var enabledMeta = metaField('achievement_rewards', 'enabled');
+        var enabledMeta = metaField('rewards', 'enabled');
         grid.appendChild(field(enabledMeta.label, enabledMeta.help,
           selectFor(reward, 'enabled', [{ value: 1, label: 'Enabled (1)' }, { value: 0, label: 'Disabled (0)' }])));
-        var optionMeta = metaField('achievement_rewards', 'option_id');
+        var optionMeta = metaField('rewards', 'option_id');
         grid.appendChild(field(optionMeta.label, optionMeta.help,
           selectFor(reward, 'option_id', optionEntries(), { blank: 'Automatic on completion' })));
-        var descMeta = metaField('achievement_rewards', 'description');
+        var descMeta = metaField('rewards', 'description');
         grid.appendChild(field(descMeta.label, descMeta.help,
           inputFor(reward, 'description', { maxlength: 255 }), true));
         parts.card.appendChild(grid);
@@ -736,20 +737,23 @@
       }
       graph.reward_set.options = list(graph.reward_set.options);
       var setGrid = element('div', 'achievement-form-grid');
-      var setIdMeta = metaField('achievement_reward_sets', 'reward_set_id');
+      var setIdMeta = metaField('reward_sets', 'reward_set_id');
       setGrid.appendChild(field(setIdMeta.label, setIdMeta.help,
         inputFor(graph.reward_set, 'reward_set_id', { inputmode: 'numeric', pattern: '[0-9]+', readonly: initialRewardSetId !== '', placeholder: 'Allocated on save' })));
-      var titleMeta = metaField('achievement_reward_sets', 'title');
+      var titleMeta = metaField('reward_sets', 'title');
       setGrid.appendChild(field(titleMeta.label, titleMeta.help,
         inputFor(graph.reward_set, 'title', { maxlength: 255 })));
-      var setEnabledMeta = metaField('achievement_reward_sets', 'enabled');
+      var setEnabledMeta = metaField('reward_sets', 'enabled');
       setGrid.appendChild(field(setEnabledMeta.label, setEnabledMeta.help,
         selectFor(graph.reward_set, 'enabled', [{ value: 1, label: 'Enabled (1)' }, { value: 0, label: 'Disabled (0)' }])));
+      var sourceEnabledMeta = metaField('reward_sources', 'enabled');
+      setGrid.appendChild(field(sourceEnabledMeta.label, sourceEnabledMeta.help,
+        selectFor(graph.reward_set, 'source_enabled', [{ value: 1, label: 'Enabled (1)' }, { value: 0, label: 'Disabled (0)' }])));
       target.appendChild(setGrid);
       var optionHeading = element('div', 'achievement-panel-heading');
       var copy = element('div');
       copy.appendChild(element('h4', '', 'Options'));
-      copy.appendChild(element('p', '', 'Every enabled option needs at least one enabled mapped grant. Common options accompany one selected non-common choice.'));
+      copy.appendChild(element('p', '', 'When the definition, achievement source, and shared catalog set are all enabled, every enabled option needs an enabled mapped grant. Disable the source to stage incomplete work safely. Common options accompany one selected non-common choice.'));
       optionHeading.appendChild(copy);
       optionHeading.appendChild(button('+ Add option', 'achievement-button is-small', 'Add a common or selectable reward option', function () {
         graph.reward_set.options.push({
@@ -775,7 +779,7 @@
         }
         var grid = element('div', 'achievement-form-grid');
         ['option_id', 'sequence', 'flags'].forEach(function (key) {
-          var info = metaField('achievement_reward_options', key);
+          var info = metaField('reward_options', key);
           grid.appendChild(field(info.label, info.help,
             inputFor(option, key, {
               inputmode: 'numeric', pattern: '[0-9]+',
@@ -783,10 +787,10 @@
               onChange: key === 'option_id' ? function () { renderRewardSet(); renderRewards(); } : null
             })));
         });
-        var labelMeta = metaField('achievement_reward_options', 'label');
+        var labelMeta = metaField('reward_options', 'label');
         grid.appendChild(field(labelMeta.label, labelMeta.help, inputFor(option, 'label', { maxlength: 255 }), true));
         ['common_to_all', 'enabled'].forEach(function (key) {
-          var info = metaField('achievement_reward_options', key);
+          var info = metaField('reward_options', key);
           grid.appendChild(field(info.label, info.help,
             selectFor(option, key, [{ value: 1, label: 'Enabled (1)' }, { value: 0, label: 'Disabled (0)' }], {
               onChange: function () { if (key === 'common_to_all') renderRewardSet(); }
@@ -819,10 +823,10 @@
           changed();
         }));
         var grid = element('div', 'achievement-form-grid');
-        var idMeta = metaField('achievement_cast_restrictions', 'restriction_id');
+        var idMeta = metaField('achievement_cast_requirements', 'restriction_id');
         grid.appendChild(field(idMeta.label, idMeta.help,
           inputFor(restriction, 'restriction_id', { inputmode: 'numeric', pattern: '[0-9]+' })));
-        var stateMeta = metaField('achievement_cast_restrictions', 'requires_completed');
+        var stateMeta = metaField('achievement_cast_requirements', 'requires_completed');
         grid.appendChild(field(stateMeta.label, stateMeta.help,
           selectFor(restriction, 'requires_completed', [
             { value: 1, label: 'Achievement must be completed (1)' },
@@ -848,6 +852,36 @@
       return compare(text, min) >= 0 && compare(text, max) <= 0;
     }
 
+    function rewardConstraintAccepts(value, values, minimum, maximum) {
+      if (Array.isArray(values)) {
+        return values.some(function (allowed) {
+          return isUnsigned(value, stringValue(allowed), stringValue(allowed));
+        });
+      }
+      return isUnsigned(value, stringValue(minimum), stringValue(maximum));
+    }
+
+    function validateRuntimeRewardSemantics(reward, type, path, issues) {
+      var constraints = (METADATA.reward_types || {})[stringValue(type)] || null;
+      if (!constraints) return;
+      if (!rewardConstraintAccepts(
+        reward.reward_data_id,
+        constraints.data_values,
+        constraints.data_min,
+        constraints.data_max
+      )) {
+        addIssue(issues, 'error', path + '.reward_data_id', constraints.data_help || 'Referenced data is outside the runtime delivery range.');
+      }
+      if (!rewardConstraintAccepts(
+        reward.amount,
+        constraints.amount_values,
+        constraints.amount_min,
+        constraints.amount_max
+      )) {
+        addIssue(issues, 'error', path + '.amount', constraints.amount_help || 'Amount is outside the runtime delivery range.');
+      }
+    }
+
     function validateGraph() {
       var issues = [];
       var uint32 = '4294967295';
@@ -855,7 +889,7 @@
       if (initialAchievementId && stringValue(graph.id) !== initialAchievementId) addIssue(issues, 'error', 'id', 'The stable achievement ID cannot change after creation.');
       if (!stringValue(graph.name).trim()) addIssue(issues, 'error', 'name', 'Name is required.');
       if (stringValue(graph.name).length > 255) addIssue(issues, 'error', 'name', 'Name cannot exceed 255 characters.');
-      [['icon_id', '0', uint32], ['points', '0', uint32], ['reward_display', '0', uint32], ['world_display_flag', '0', '255'], ['definition_version', '1', uint32]].forEach(function (rule) {
+      [['icon_id', '0', uint32], ['points', '0', uint32], ['has_reward', '0', '1'], ['client_flag', '0', '255'], ['version', '0', uint32]].forEach(function (rule) {
         if (!isUnsigned(graph[rule[0]], rule[1], rule[2])) addIssue(issues, 'error', rule[0], rule[0].replace(/_/g, ' ') + ' is outside its allowed unsigned range.');
       });
 
@@ -957,7 +991,8 @@
       if (enabled(graph.enabled) && hasEnabledCriterion && !hasRequiredCriterion) addIssue(issues, 'warning', 'components', 'No enabled Required criterion can complete this achievement automatically.');
 
       var rewardIds = {};
-      var rewardSequences = {};
+      var automaticRewardSequences = {};
+      var optionRewardSequences = {};
       var optionIds = {};
       var optionEnabled = {};
       var optionCommon = {};
@@ -993,24 +1028,46 @@
         }
         var sequence = stringValue(reward.sequence);
         if (!isUnsigned(sequence, '0', uint32)) addIssue(issues, 'error', path + '.sequence', 'Reward order must be unsigned.');
-        if (rewardSequences[sequence]) addIssue(issues, 'error', path + '.sequence', 'Reward order must be unique.');
-        rewardSequences[sequence] = true;
         var type = integer(reward.reward_type, -1);
         if (type < 0 || type > 5) addIssue(issues, 'error', path + '.reward_type', 'Reward type must be 0 through 5.');
         if (!isUnsigned(reward.reward_data_id, '0', uint32)) addIssue(issues, 'error', path + '.reward_data_id', 'Referenced data must be unsigned.');
         if (!isUnsigned(reward.amount, '1', '18446744073709551615')) addIssue(issues, 'error', path + '.amount', 'Amount must be positive.');
         if (stringValue(reward.description).length > 255) addIssue(issues, 'error', path + '.description', 'Reward description cannot exceed 255 characters.');
-        if (enabled(reward.enabled) && [0, 4, 5].indexOf(type) !== -1 && integer(reward.reward_data_id, 0) === 0) addIssue(issues, 'error', path + '.reward_data_id', 'This enabled reward type requires a nonzero referenced data ID.');
-        if (type === 1 && integer(reward.reward_data_id, 0) > 1) addIssue(issues, 'error', path + '.reward_data_id', 'Experience mode must be 0 or 1.');
         var optionId = stringValue(reward.option_id);
         if (optionId) {
           if (!graph.reward_set) addIssue(issues, 'error', path + '.option_id', 'Mapped grants require a selectable reward set.');
           else if (!optionIds[optionId]) addIssue(issues, 'error', path + '.option_id', 'The mapped option does not exist.');
           if (enabled(reward.enabled)) enabledGrantsByOption[optionId] = (enabledGrantsByOption[optionId] || 0) + 1;
           if (enabled(reward.enabled) && optionIds[optionId] && !optionEnabled[optionId]) addIssue(issues, 'warning', path + '.option_id', 'This enabled grant is mapped to a disabled option and will not deliver automatically.');
+          var optionSequenceKey = optionId + ':' + sequence;
+          if (optionRewardSequences[optionSequenceKey]) addIssue(issues, 'warning', path + '.sequence', 'Another grant in this option uses the same display order.');
+          optionRewardSequences[optionSequenceKey] = true;
+        } else {
+          if (automaticRewardSequences[sequence]) addIssue(issues, 'error', path + '.sequence', 'Automatic reward order must be unique within this achievement source.');
+          automaticRewardSequences[sequence] = true;
+        }
+        var runtimeReachable = enabled(graph.enabled) && enabled(reward.enabled);
+        if (optionId) {
+          runtimeReachable = runtimeReachable && !!graph.reward_set
+            && enabled(graph.reward_set.source_enabled)
+            && enabled(graph.reward_set.enabled)
+            && !!optionIds[optionId]
+            && !!optionEnabled[optionId];
+        }
+        if (runtimeReachable && type >= 0 && type <= 5) {
+          validateRuntimeRewardSemantics(reward, type, path, issues);
         }
       });
-      if (graph.reward_set && enabled(graph.reward_set.enabled)) {
+      if (graph.reward_set && enabled(graph.reward_set.enabled) && !enabled(graph.reward_set.source_enabled)) {
+        addIssue(issues, 'warning', 'reward_set.source_enabled', 'This achievement-to-set source is disabled, so the selectable catalog is staged and inactive.');
+      }
+      if (graph.reward_set && enabled(graph.reward_set.source_enabled) && !enabled(graph.reward_set.enabled)) {
+        addIssue(issues, 'warning', 'reward_set.enabled', 'This source is enabled but the shared reward-set catalog row is disabled, so the selectable rewards are staged and inactive.');
+      }
+      if (graph.reward_set && !enabled(graph.enabled) && enabled(graph.reward_set.source_enabled) && enabled(graph.reward_set.enabled)) {
+        addIssue(issues, 'warning', 'enabled', 'The selectable reward path is authored and enabled, but unreachable while this achievement is disabled.');
+      }
+      if (graph.reward_set && enabled(graph.enabled) && enabled(graph.reward_set.source_enabled) && enabled(graph.reward_set.enabled)) {
         var selectable = false;
         Object.keys(optionIds).forEach(function (id) {
           if (!optionEnabled[id]) return;
@@ -1029,7 +1086,7 @@
         restrictions[id] = true;
       });
       if (!enabled(graph.enabled) && graph.restrictions.length) addIssue(issues, 'warning', 'restrictions', 'Cast restrictions are inactive while this definition is disabled.');
-      if (stringValue(graph.definition_version) !== initialVersion && enabled(graph.reset_on_version_change)) addIssue(issues, 'warning', 'definition_version', 'Version changed with reset enabled; character completion, progress, reward, and selection state will be rebuilt.');
+      if (stringValue(graph.version) !== initialVersion && enabled(graph.reset_on_version_change)) addIssue(issues, 'warning', 'version', 'Version changed with reset enabled; character completion, progress, reward, and selection state will be rebuilt.');
       return issues;
     }
 
@@ -1070,7 +1127,7 @@
         if (node) node.textContent = String(counts[key]);
       });
       var summary = form.querySelector('[data-achievement-save-summary]');
-      if (summary) summary.textContent = (enabled(graph.enabled) ? 'Enabled' : 'Disabled') + ' definition · Version ' + stringValue(graph.definition_version || 1) + ' · ' + graph.components.length + ' components';
+      if (summary) summary.textContent = (enabled(graph.enabled) ? 'Enabled' : 'Disabled') + ' definition · Version ' + stringValue(graph.version) + ' · ' + graph.components.length + ' components';
     }
 
     function cleanCriterion(criterion) {
@@ -1088,8 +1145,8 @@
       var result = {
         id: graph.id, name: graph.name, description: graph.description,
         icon_id: graph.icon_id, points: graph.points,
-        reward_display: graph.reward_display, world_display_flag: graph.world_display_flag,
-        definition_version: graph.definition_version,
+        has_reward: graph.has_reward, client_flag: graph.client_flag,
+        version: graph.version,
         reset_on_version_change: graph.reset_on_version_change, enabled: graph.enabled,
         associations: graph.associations.map(function (row) {
           return { category_id: row.category_id, sequence: row.sequence, display_text: row.display_text };
@@ -1097,8 +1154,8 @@
         components: graph.components.map(function (row) {
           return {
             component_type: row.component_type, sequence: row.sequence,
-            component_id: row.component_id, description: row.description,
-            description_2: row.description_2, presentation_count: row.presentation_count,
+            component_id: row.component_id, name: row.name,
+            description: row.description, presentation_count: row.presentation_count,
             criteria: list(row.criteria).map(cleanCriterion)
           };
         }),
@@ -1113,6 +1170,7 @@
         reward_set: graph.reward_set ? {
           reward_set_id: stringValue(graph.reward_set.reward_set_id) || null,
           title: graph.reward_set.title, enabled: graph.reward_set.enabled,
+          source_enabled: graph.reward_set.source_enabled,
           options: graph.reward_set.options.map(function (row) {
             return {
               option_id: row.option_id, sequence: row.sequence, label: row.label,
@@ -1134,7 +1192,7 @@
     form.querySelector('[data-achievement-add-component]').addEventListener('click', function () {
       graph.components.push({
         component_type: 1, sequence: nextSequence(graph.components), component_id: nextComponentId(),
-        description: '', description_2: '', presentation_count: 1, criteria: []
+        name: '', description: '', presentation_count: 1, criteria: []
       });
       renderComponents(); changed();
     });
@@ -1153,7 +1211,7 @@
       if (event.target.checked) {
         graph.reward_set = {
           reward_set_id: initialRewardSetId || graph.suggested_reward_set_id || null,
-          title: graph.name || '', enabled: 0, options: []
+          title: graph.name || '', enabled: 0, source_enabled: 0, options: []
         };
       } else {
         if (initialRewardSetId) {

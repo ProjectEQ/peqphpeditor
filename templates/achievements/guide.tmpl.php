@@ -22,7 +22,7 @@ $guideMetadata = achievement_view_array(isset($metadata) ? $metadata : array());
         <li>Create or clone a definition as <strong>disabled</strong>.</li>
         <li>Author categories, components, criteria, rewards, and restrictions.</li>
         <li>Resolve every blocking validation issue and review warnings.</li>
-        <li>Enable the definition only when its full graph is coherent.</li>
+        <li>Keep a selectable achievement source disabled while its shared set is incomplete; enable the source and definition only when the full graph is coherent.</li>
         <li>Save, then run <code>#reload achievements global</code> in game.</li>
         <li>Confirm the server accepted the complete staged catalog before testing characters.</li>
       </ol>
@@ -31,7 +31,7 @@ $guideMetadata = achievement_view_array(isset($metadata) ? $metadata : array());
     <article class="achievement-callout is-warning">
       <h2>Durable-state rules</h2>
       <ul>
-        <li>Achievement, category, component, reward, and reward-set identities are durable contracts.</li>
+        <li>Achievement, category, and component identities are durable contracts. Reward and reward-set catalog rows are provider-neutral and may also be referenced by tasks or other systems.</li>
         <li>State-bearing component types are 0, 1, and 2. Type 3 is presentation only.</li>
         <li>Replayable or absolute facts should use Highest, Set, or Boolean—not Increment.</li>
         <li>Ordinary character resets preserve reward ledgers so rewards remain at-most-once.</li>
@@ -88,7 +88,7 @@ $guideMetadata = achievement_view_array(isset($metadata) ? $metadata : array());
   </div>
 
   <section class="achievement-panel" aria-labelledby="achievement-reward-guide-heading">
-    <div class="achievement-panel-heading"><div><h2 id="achievement-reward-guide-heading">Rewards and delivery</h2><p>Canonical grants are authored once, then left automatic or mapped to a selectable option.</p></div></div>
+    <div class="achievement-panel-heading"><div><h2 id="achievement-reward-guide-heading">Rewards and delivery</h2><p>Canonical grants and selectable sets live in a shared provider-neutral catalog. Achievement mappings always use source type 1; automatic grants use source entries and selectable sets use a separately enabled source link.</p></div></div>
     <div class="achievement-guide-grid">
       <dl class="achievement-reference-list">
         <?php foreach (achievement_view_array(isset($guideMetadata['reward_types']) ? $guideMetadata['reward_types'] : array()) as $rewardType => $reward): ?>
@@ -106,7 +106,7 @@ $guideMetadata = achievement_view_array(isset($metadata) ? $metadata : array());
     </div>
     <div class="achievement-callout is-warning">
       <strong>Selectable reward invariant</strong>
-      <p>Every enabled option—including a common option—must contain at least one enabled mapped grant. An enabled set must offer at least one enabled non-common choice; the player selects exactly one of those choices.</p>
+      <p>When the definition, achievement source link, and shared catalog set are enabled, every enabled option—including a common option—must contain at least one enabled mapped grant. The set must offer an enabled non-common choice. Disable the source link to stage incomplete content without making it reachable.</p>
     </div>
   </section>
 

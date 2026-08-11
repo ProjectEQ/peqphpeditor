@@ -84,11 +84,11 @@ achievement_http_test_throws(function () {
     achievement_uint('1.5', 'Value');
 }, 'decimal values are rejected');
 achievement_http_test_assert(
-    achievement_positive_platform_int((string) PHP_INT_MAX, 'Mutation ID') === PHP_INT_MAX,
+    achievement_positive_platform_int((string) PHP_INT_MAX, 'Update ID') === PHP_INT_MAX,
     'platform-sized BIGINT identities parse without a uint32 cap'
 );
 achievement_http_test_throws(function () {
-    achievement_positive_platform_int((string) PHP_INT_MAX . '0', 'Mutation ID');
+    achievement_positive_platform_int((string) PHP_INT_MAX . '0', 'Update ID');
 }, 'BIGINT identities above the platform-safe range are rejected');
 
 $_POST = array('csrf_token' => $token, 'confirmation' => 'DELETE 10');

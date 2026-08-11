@@ -158,6 +158,12 @@
 
   <section class="achievement-callout is-info">
     <strong>How to recover</strong>
-    <p>Install or update the achievement SQL supplied by the source workspace, verify the configured content and character databases, then reload this page. This editor never creates or alters emulator schema automatically.</p>
+    <p>
+      Install the final achievement content schema from EQEmu database update <strong>9329</strong>
+      in the configured content database<?php if ($characterDiagnostics !== null): ?> and the final
+      character-state schema from update <strong>9330</strong> in the configured character database<?php endif; ?>.
+      The earlier development schema is not upgraded in place. Verify the database targets, then reload this page.
+      This editor never creates or alters emulator schema automatically.
+    </p>
   </section>
 </div>

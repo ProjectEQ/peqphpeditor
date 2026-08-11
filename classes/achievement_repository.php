@@ -33,9 +33,9 @@ class AchievementRepositoryException extends RuntimeException
 /**
  * Native mysqli repository for achievement content.
  *
- * Important connection boundary: this class intentionally uses only the PEQ
- * content connection. Character completion/progress/reward state belongs to a
- * different repository and may live in a different database.
+ * Content writes use the PEQ content connection. A separate optional character
+ * connection is consulted only to prevent reuse of an achievement ID whose
+ * durable character history survived content deletion.
  *
  * Every SQL statement is executed through mysqli::prepare(). User input is
  * never interpolated into SQL; the few dynamic identifiers below come only
@@ -49,10 +49,11 @@ class AchievementRepository
     const LOOKUP_LIMIT = 50;
 
     private $db;
+    private $characterDb;
     private $schemaDiagnosticsCache;
     private $operation = 'achievement operation';
 
-    public function __construct($connection = null)
+    public function __construct($connection = null, $characterConnection = null)
     {
         if ($connection === null) {
             global $mysql_content_db;
@@ -67,6 +68,13 @@ class AchievementRepository
         }
 
         $this->db = $connection;
+        if ($characterConnection !== null && !($characterConnection instanceof mysqli)) {
+            throw new AchievementRepositoryException(
+                'The character database connection is not available for durable achievement-ID checks.',
+                'database'
+            );
+        }
+        $this->characterDb = $characterConnection;
         $this->schemaDiagnosticsCache = null;
     }
 
@@ -267,9 +275,9 @@ class AchievementRepository
         $this->assertSchemaReady();
 
         return array(
-            'achievement_id' => $this->suggestedId('achievements', 'id'),
-            'component_id' => $this->suggestedId('achievement_component_counts', 'component_id'),
-            'reward_set_id' => $this->suggestedId('achievement_reward_sets', 'reward_set_id'),
+            'achievement_id' => $this->suggestedAchievementId(false),
+            'component_id' => $this->suggestedId('achievement_associations', 'component_id'),
+            'reward_set_id' => $this->suggestedId('reward_sets', 'reward_set_id'),
             'category_id' => $this->suggestedId('achievement_categories', 'id')
         );
     }
@@ -284,9 +292,9 @@ class AchievementRepository
             'description' => '',
             'icon_id' => 0,
             'points' => 0,
-            'reward_display' => 0,
-            'world_display_flag' => 0,
-            'definition_version' => 1,
+            'has_reward' => 0,
+            'client_flag' => 0,
+            'version' => 0,
             'reset_on_version_change' => 1,
             'enabled' => 0,
             'associations' => array(),
@@ -314,8 +322,7 @@ class AchievementRepository
             'id' => 'a.id',
             'name' => 'a.name',
             'points' => 'a.points',
-            'definition_version' => 'a.definition_version',
-            'version' => 'a.definition_version',
+            'version' => 'a.version',
             'enabled' => 'a.enabled',
             'component_count' => 'component_count',
             'components' => 'component_count',
@@ -368,30 +375,41 @@ class AchievementRepository
             $types .= 'i';
         }
         if ($this->hasFilterValue($filters, 'reward_type')) {
-            $where[] = 'EXISTS (SELECT 1 FROM achievement_rewards rf '
-                . 'WHERE rf.achievement_id = a.id AND rf.reward_type = ?)';
+            $where[] = '(EXISTS (SELECT 1 FROM reward_source_entries rse '
+                . 'INNER JOIN rewards rf ON rf.reward_id = rse.reward_id '
+                . 'WHERE rse.source_type = 1 AND rse.source_id = a.id AND rf.reward_type = ?) '
+                . 'OR EXISTS (SELECT 1 FROM reward_sources rsf '
+                . 'INNER JOIN reward_option_entries roe ON roe.reward_set_id = rsf.reward_set_id '
+                . 'INNER JOIN rewards rf2 ON rf2.reward_id = roe.reward_id '
+                . 'WHERE rsf.source_type = 1 AND rsf.source_id = a.id AND rf2.reward_type = ?))';
             $params[] = (int) $filters['reward_type'];
-            $types .= 'i';
+            $params[] = (int) $filters['reward_type'];
+            $types .= 'ii';
         }
         $rewardMode = isset($filters['reward']) ? (string) $filters['reward'] : '';
         if ($rewardMode === 'any') {
-            $where[] = '(EXISTS (SELECT 1 FROM achievement_rewards ar WHERE ar.achievement_id = a.id) '
-                . 'OR EXISTS (SELECT 1 FROM achievement_reward_sets aset WHERE aset.achievement_id = a.id))';
+            $where[] = '(EXISTS (SELECT 1 FROM reward_source_entries rse '
+                . 'WHERE rse.source_type = 1 AND rse.source_id = a.id) '
+                . 'OR EXISTS (SELECT 1 FROM reward_sources rs '
+                . 'WHERE rs.source_type = 1 AND rs.source_id = a.id))';
         } elseif ($rewardMode === 'automatic') {
-            $where[] = 'EXISTS (SELECT 1 FROM achievement_rewards ar '
-                . 'WHERE ar.achievement_id = a.id '
-                . 'AND NOT EXISTS (SELECT 1 FROM achievement_reward_option_entries ame '
-                . 'WHERE ame.reward_id = ar.reward_id))';
+            $where[] = 'EXISTS (SELECT 1 FROM reward_source_entries rse '
+                . 'WHERE rse.source_type = 1 AND rse.source_id = a.id)';
         } elseif ($rewardMode === 'selectable') {
-            $where[] = 'EXISTS (SELECT 1 FROM achievement_reward_sets aset '
-                . 'WHERE aset.achievement_id = a.id)';
+            $where[] = 'EXISTS (SELECT 1 FROM reward_sources rs '
+                . 'WHERE rs.source_type = 1 AND rs.source_id = a.id)';
         } elseif ($rewardMode === 'none') {
-            $where[] = 'NOT EXISTS (SELECT 1 FROM achievement_rewards ar WHERE ar.achievement_id = a.id) '
-                . 'AND NOT EXISTS (SELECT 1 FROM achievement_reward_sets aset WHERE aset.achievement_id = a.id)';
+            $where[] = 'NOT EXISTS (SELECT 1 FROM reward_source_entries rse '
+                . 'WHERE rse.source_type = 1 AND rse.source_id = a.id) '
+                . 'AND NOT EXISTS (SELECT 1 FROM reward_sources rs '
+                . 'WHERE rs.source_type = 1 AND rs.source_id = a.id)';
         }
         if (isset($filters['has_rewards'])
             && in_array((string) $filters['has_rewards'], array('0', '1'), true)) {
-            $exists = 'EXISTS (SELECT 1 FROM achievement_rewards hr WHERE hr.achievement_id = a.id)';
+            $exists = '(EXISTS (SELECT 1 FROM reward_source_entries rse '
+                . 'WHERE rse.source_type = 1 AND rse.source_id = a.id) '
+                . 'OR EXISTS (SELECT 1 FROM reward_sources rs '
+                . 'WHERE rs.source_type = 1 AND rs.source_id = a.id))';
             $where[] = ((int) $filters['has_rewards'] === 1) ? $exists : 'NOT ' . $exists;
         }
 
@@ -408,14 +426,19 @@ class AchievementRepository
         $offset = ($page - 1) * $pageSize;
 
         $sql = 'SELECT a.id, a.name, a.description, a.icon_id, a.points, '
-            . 'a.reward_display, a.world_display_flag, a.definition_version, '
+            . 'a.has_reward, a.client_flag, a.version, '
             . 'a.reset_on_version_change, a.enabled, '
             . '(SELECT COUNT(*) FROM achievement_components c WHERE c.achievement_id = a.id) AS component_count, '
             . '(SELECT COUNT(*) FROM achievement_criteria cr WHERE cr.achievement_id = a.id) AS criterion_count, '
             . '(SELECT COUNT(*) FROM achievement_category_associations ca WHERE ca.achievement_id = a.id) AS category_count, '
-            . '(SELECT COUNT(*) FROM achievement_rewards r WHERE r.achievement_id = a.id) AS reward_count, '
-            . '(SELECT COUNT(*) FROM achievement_cast_restrictions x WHERE x.achievement_id = a.id) AS restriction_count, '
-            . '(SELECT COUNT(*) FROM achievement_reward_sets rs WHERE rs.achievement_id = a.id) AS reward_set_count, '
+            . '((SELECT COUNT(*) FROM reward_source_entries rse '
+            . 'WHERE rse.source_type = 1 AND rse.source_id = a.id) + '
+            . '(SELECT COUNT(*) FROM reward_sources rs '
+            . 'INNER JOIN reward_option_entries roe ON roe.reward_set_id = rs.reward_set_id '
+            . 'WHERE rs.source_type = 1 AND rs.source_id = a.id)) AS reward_count, '
+            . '(SELECT COUNT(*) FROM achievement_cast_requirements x WHERE x.achievement_id = a.id) AS restriction_count, '
+            . '(SELECT COUNT(*) FROM reward_sources rs '
+            . 'WHERE rs.source_type = 1 AND rs.source_id = a.id) AS reward_set_count, '
             . '(SELECT GROUP_CONCAT(cat.name ORDER BY assoc.sequence, assoc.category_id SEPARATOR ", ") '
             . 'FROM achievement_category_associations assoc '
             . 'JOIN achievement_categories cat ON cat.id = assoc.category_id '
@@ -460,8 +483,8 @@ class AchievementRepository
         $this->assertSchemaReady();
         $achievementId = $this->unsigned32($achievementId, 'id', false);
         $definition = $this->fetchOne(
-            'SELECT id, name, description, icon_id, points, reward_display, '
-            . 'world_display_flag, definition_version, reset_on_version_change, enabled '
+            'SELECT id, name, description, icon_id, points, has_reward, '
+            . 'client_flag, version, reset_on_version_change, enabled '
             . 'FROM achievements WHERE id = ?',
             array($achievementId),
             'i'
@@ -500,10 +523,10 @@ class AchievementRepository
         }
 
         $componentRows = $this->fetchAll(
-            'SELECT c.component_type, c.sequence, c.component_id, c.description, c.description_2, '
+            'SELECT c.component_type, c.sequence, c.component_id, c.name, c.description, '
             . 'cc.required_count AS presentation_count '
             . 'FROM achievement_components c '
-            . 'LEFT JOIN achievement_component_counts cc ON cc.component_id = c.component_id '
+            . 'LEFT JOIN achievement_associations cc ON cc.component_id = c.component_id '
             . 'WHERE c.achievement_id = ? '
             . 'ORDER BY c.component_type, c.sequence, c.component_id',
             array($achievementId),
@@ -516,21 +539,29 @@ class AchievementRepository
                 'component_type' => (int) $component['component_type'],
                 'sequence' => (int) $component['sequence'],
                 'component_id' => (int) $component['component_id'],
+                'name' => (string) $component['name'],
                 'description' => (string) $component['description'],
-                'description_2' => (string) $component['description_2'],
                 'presentation_count' => max(1, (int) $component['presentation_count']),
                 'criteria' => isset($criteriaByComponent[$key]) ? $criteriaByComponent[$key] : array()
             );
         }
 
         $rewardRows = $this->fetchAll(
-            'SELECT r.reward_id, r.sequence, r.reward_type, r.reward_data_id, r.amount, '
-            . 'r.description, r.enabled, m.option_id '
-            . 'FROM achievement_rewards r '
-            . 'LEFT JOIN achievement_reward_option_entries m ON m.reward_id = r.reward_id '
-            . 'WHERE r.achievement_id = ? ORDER BY r.sequence, r.reward_id',
-            array($achievementId),
-            'i'
+            '(SELECT r.reward_id, e.sequence, r.reward_type, r.reward_data_id, r.amount, '
+            . 'r.description, r.enabled, NULL AS option_id '
+            . 'FROM reward_source_entries e '
+            . 'INNER JOIN rewards r ON r.reward_id = e.reward_id '
+            . 'WHERE e.source_type = 1 AND e.source_id = ?) '
+            . 'UNION ALL '
+            . '(SELECT r.reward_id, e.sequence, r.reward_type, r.reward_data_id, r.amount, '
+            . 'r.description, r.enabled, e.option_id '
+            . 'FROM reward_sources source '
+            . 'INNER JOIN reward_option_entries e ON e.reward_set_id = source.reward_set_id '
+            . 'INNER JOIN rewards r ON r.reward_id = e.reward_id '
+            . 'WHERE source.source_type = 1 AND source.source_id = ?) '
+            . 'ORDER BY sequence, reward_id',
+            array($achievementId, $achievementId),
+            'ii'
         );
         $rewards = array();
         foreach ($rewardRows as $reward) {
@@ -548,8 +579,11 @@ class AchievementRepository
 
         $rewardSet = null;
         $rewardSetRow = $this->fetchOne(
-            'SELECT reward_set_id, achievement_id, title, enabled '
-            . 'FROM achievement_reward_sets WHERE achievement_id = ?',
+            'SELECT reward_set.reward_set_id, reward_set.title, reward_set.enabled, '
+            . 'source.enabled AS source_enabled '
+            . 'FROM reward_sources source '
+            . 'INNER JOIN reward_sets reward_set ON reward_set.reward_set_id = source.reward_set_id '
+            . 'WHERE source.source_type = 1 AND source.source_id = ?',
             array($achievementId),
             'i'
         );
@@ -557,7 +591,7 @@ class AchievementRepository
             $rewardSetId = (int) $rewardSetRow['reward_set_id'];
             $optionRows = $this->fetchAll(
                 'SELECT option_id, sequence, label, common_to_all, flags, enabled '
-                . 'FROM achievement_reward_options WHERE reward_set_id = ? '
+                . 'FROM reward_options WHERE reward_set_id = ? '
                 . 'ORDER BY sequence, option_id',
                 array($rewardSetId),
                 'i'
@@ -577,12 +611,13 @@ class AchievementRepository
                 'reward_set_id' => $rewardSetId,
                 'title' => (string) $rewardSetRow['title'],
                 'enabled' => (int) $rewardSetRow['enabled'],
+                'source_enabled' => (int) $rewardSetRow['source_enabled'],
                 'options' => $options
             );
         }
 
         $restrictionRows = $this->fetchAll(
-            'SELECT restriction_id, requires_completed FROM achievement_cast_restrictions '
+            'SELECT restriction_id, requires_completed FROM achievement_cast_requirements '
             . 'WHERE achievement_id = ? ORDER BY restriction_id',
             array($achievementId),
             'i'
@@ -626,6 +661,7 @@ class AchievementRepository
             if ($existing) {
                 $this->fail('id', "Achievement {$achievementId} already exists.");
             }
+            $this->assertAchievementIdHasNoDurableState($achievementId);
 
             $this->assertAggregateReferences($definition, $achievementId);
             $this->insertDefinitionRow($definition, true);
@@ -654,6 +690,8 @@ class AchievementRepository
                 $this->fail('id', 'The stable achievement ID cannot be changed after creation.');
             }
 
+            $currentDefinition = $this->loadDefinition($achievementId);
+            $this->assertVersionBumpedForPolicyChange($currentDefinition, $definition);
             $this->assertAggregateReferences($definition, $achievementId);
             $this->insertDefinitionRow($definition, false);
             $this->syncAggregate($achievementId, $definition);
@@ -684,7 +722,7 @@ class AchievementRepository
 
             $definition = $this->loadDefinition($achievementId);
             if ($newAchievementId === null || $newAchievementId === '') {
-                $newId = $this->allocateId('achievements', 'id', 'id');
+                $newId = $this->suggestedAchievementId(true);
             } else {
                 $newId = $this->unsigned32($newAchievementId, 'id', false);
                 $existing = $this->fetchOne(
@@ -696,6 +734,7 @@ class AchievementRepository
                     $this->fail('id', "Achievement {$newId} already exists.");
                 }
             }
+            $this->assertAchievementIdHasNoDurableState($newId);
             if ($newId === $achievementId) {
                 $this->fail('id', 'A cloned achievement must use a new stable ID.');
             }
@@ -705,6 +744,7 @@ class AchievementRepository
                 ? $this->truncate((string) $definition['name'], 248) . ' (Copy)'
                 : $this->truncate(trim((string) $newName), 255);
             $definition['enabled'] = 0;
+            $definition['version'] = 0;
             $definition['restrictions'] = array();
             foreach ($definition['rewards'] as &$reward) {
                 $reward['reward_id'] = null;
@@ -752,31 +792,27 @@ class AchievementRepository
                 );
             }
 
-            $rewardRows = $this->fetchAll(
-                'SELECT reward_id FROM achievement_rewards WHERE achievement_id = ? FOR UPDATE',
+            // Only provider mappings belong to this achievement. Shared reward
+            // and reward-set catalog rows are intentionally retained because
+            // tasks, other achievements, and durable character ledgers may
+            // still reference them.
+            $this->execute(
+                'DELETE FROM reward_source_entries WHERE source_type = 1 AND source_id = ?',
                 array($achievementId),
                 'i'
             );
-            $rewardIds = $this->columnValues($rewardRows, 'reward_id');
-            $setRows = $this->fetchAll(
-                'SELECT reward_set_id FROM achievement_reward_sets WHERE achievement_id = ? FOR UPDATE',
+            $this->execute(
+                'DELETE FROM reward_sources WHERE source_type = 1 AND source_id = ?',
                 array($achievementId),
                 'i'
             );
-            $setIds = $this->columnValues($setRows, 'reward_set_id');
-
-            $this->deleteWhereIn('achievement_reward_option_entries', 'reward_id', $rewardIds);
-            $this->deleteWhereIn('achievement_reward_option_entries', 'reward_set_id', $setIds);
-            $this->deleteWhereIn('achievement_reward_options', 'reward_set_id', $setIds);
-            $this->execute('DELETE FROM achievement_reward_sets WHERE achievement_id = ?', array($achievementId), 'i');
-            $this->execute('DELETE FROM achievement_rewards WHERE achievement_id = ?', array($achievementId), 'i');
-            $this->execute('DELETE FROM achievement_cast_restrictions WHERE achievement_id = ?', array($achievementId), 'i');
+            $this->execute('DELETE FROM achievement_cast_requirements WHERE achievement_id = ?', array($achievementId), 'i');
             $this->execute('DELETE FROM achievement_criteria WHERE achievement_id = ?', array($achievementId), 'i');
             $this->execute('DELETE FROM achievement_components WHERE achievement_id = ?', array($achievementId), 'i');
             $this->execute('DELETE FROM achievement_category_associations WHERE achievement_id = ?', array($achievementId), 'i');
             $this->execute('DELETE FROM achievements WHERE id = ?', array($achievementId), 'i');
 
-            // Global component counts and character-side history are retained.
+            // Global component associations, reward catalogs, and character-side history are retained.
             return true;
         });
     }
@@ -1334,9 +1370,9 @@ class AchievementRepository
             isset($definition['description']) ? (string) $definition['description'] : '',
             $this->unsigned32($definition['icon_id'], 'icon_id', true),
             $this->unsigned32($definition['points'], 'points', true),
-            $this->unsigned32($definition['reward_display'], 'reward_display', true),
-            $this->unsigned32($definition['world_display_flag'], 'world_display_flag', true),
-            $this->unsigned32($definition['definition_version'], 'definition_version', false),
+            $this->flag($definition['has_reward']),
+            $this->flag($definition['client_flag']),
+            $this->unsigned32($definition['version'], 'version', true),
             $this->flag($definition['reset_on_version_change']),
             $this->flag($definition['enabled'])
         );
@@ -1344,8 +1380,8 @@ class AchievementRepository
             array_unshift($values, $this->unsigned32($definition['id'], 'id', false));
             $this->execute(
                 'INSERT INTO achievements '
-                . '(id, name, description, icon_id, points, reward_display, world_display_flag, '
-                . 'definition_version, reset_on_version_change, enabled) '
+                . '(id, name, description, icon_id, points, has_reward, client_flag, '
+                . 'version, reset_on_version_change, enabled) '
                 . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 $values,
                 'issiiiiiii'
@@ -1356,7 +1392,7 @@ class AchievementRepository
         $values[] = $this->unsigned32($definition['id'], 'id', false);
         $this->execute(
             'UPDATE achievements SET name = ?, description = ?, icon_id = ?, points = ?, '
-            . 'reward_display = ?, world_display_flag = ?, definition_version = ?, '
+            . 'has_reward = ?, client_flag = ?, version = ?, '
             . 'reset_on_version_change = ?, enabled = ? WHERE id = ?',
             $values,
             'ssiiiiiiii'
@@ -1491,7 +1527,7 @@ class AchievementRepository
                 continue;
             }
             $storedCount = $this->scalar(
-                'SELECT required_count FROM achievement_component_counts '
+                'SELECT required_count FROM achievement_associations '
                 . 'WHERE component_id = ? FOR UPDATE',
                 array($componentId),
                 'i'
@@ -1527,22 +1563,22 @@ class AchievementRepository
             );
             $this->execute(
                 'INSERT INTO achievement_components '
-                . '(achievement_id, component_type, sequence, component_id, description, description_2) '
+                . '(achievement_id, component_type, sequence, component_id, name, description) '
                 . 'VALUES (?, ?, ?, ?, ?, ?)',
                 array(
                     $achievementId,
                     $componentType,
                     $sequence,
                     $componentId,
-                    isset($component['description']) ? (string) $component['description'] : '',
-                    isset($component['description_2']) ? (string) $component['description_2'] : ''
+                    isset($component['name']) ? (string) $component['name'] : '',
+                    isset($component['description']) ? (string) $component['description'] : ''
                 ),
                 'iiiiss'
             );
             // component_id is a global presentation identity. Counts are
             // updated, never deleted, so retired definitions remain legible.
             $this->execute(
-                'INSERT INTO achievement_component_counts (component_id, required_count) '
+                'INSERT INTO achievement_associations (component_id, required_count) '
                 . 'VALUES (?, ?) ON DUPLICATE KEY UPDATE required_count = VALUES(required_count)',
                 array($componentId, $presentationCount),
                 'ii'
@@ -1581,13 +1617,55 @@ class AchievementRepository
 
     private function syncRewards($achievementId, $rewards, $rewardSet)
     {
-        $existingRows = $this->fetchAll(
-            'SELECT reward_id FROM achievement_rewards WHERE achievement_id = ? FOR UPDATE',
+        // Rewards and reward sets are provider-neutral catalog rows. Scope every
+        // relationship read/write to achievement source_type=1, and never delete
+        // catalog identities that another achievement, task, or future provider
+        // may share.
+        $automaticRows = $this->fetchAll(
+            'SELECT entry.reward_id FROM reward_source_entries entry '
+            . 'WHERE entry.source_type = 1 AND entry.source_id = ? FOR UPDATE',
             array($achievementId),
             'i'
         );
+        $existingSet = $this->fetchOne(
+            'SELECT source.reward_set_id, source.enabled AS source_enabled, '
+            . 'reward_set.title, reward_set.enabled '
+            . 'FROM reward_sources source '
+            . 'LEFT JOIN reward_sets reward_set ON reward_set.reward_set_id = source.reward_set_id '
+            . 'WHERE source.source_type = 1 AND source.source_id = ? FOR UPDATE',
+            array($achievementId),
+            'i'
+        );
+        if ($existingSet && $existingSet['title'] === null) {
+            $this->fail(
+                'reward_set',
+                'This achievement references a missing reward-set catalog row. Repair the content schema before saving.'
+            );
+        }
+
+        $existingOptionRows = array();
+        $existingOptionEntryRows = array();
+        if ($existingSet) {
+            $lockedSetId = (int) $existingSet['reward_set_id'];
+            $existingOptionRows = $this->fetchAll(
+                'SELECT option_id, sequence, label, common_to_all, flags, enabled '
+                . 'FROM reward_options WHERE reward_set_id = ? ORDER BY option_id FOR UPDATE',
+                array($lockedSetId),
+                'i'
+            );
+            $existingOptionEntryRows = $this->fetchAll(
+                'SELECT option_id, sequence, reward_id FROM reward_option_entries '
+                . 'WHERE reward_set_id = ? ORDER BY option_id, reward_id FOR UPDATE',
+                array($lockedSetId),
+                'i'
+            );
+        }
+
         $existingRewardIds = array();
-        foreach ($existingRows as $row) {
+        foreach ($automaticRows as $row) {
+            $existingRewardIds[(string) $row['reward_id']] = true;
+        }
+        foreach ($existingOptionEntryRows as $row) {
             $existingRewardIds[(string) $row['reward_id']] = true;
         }
 
@@ -1601,7 +1679,7 @@ class AchievementRepository
             if (!isset($existingRewardIds[$rewardId])) {
                 $this->fail(
                     "rewards.{$index}.reward_id",
-                    'Existing reward IDs are immutable and cannot be adopted from another achievement.'
+                    'Existing reward IDs are immutable and cannot be adopted from another provider source.'
                 );
             }
             if (isset($submittedRewardIds[$rewardId])) {
@@ -1614,14 +1692,9 @@ class AchievementRepository
             $submittedRewardIds,
             'rewards',
             'Persisted grant',
-            'Set its Enabled field to 0 to retire it safely.'
+            'Keep the mapping and disable the catalog grant only when it is not shared by another source.'
         );
 
-        $existingSet = $this->fetchOne(
-            'SELECT reward_set_id FROM achievement_reward_sets WHERE achievement_id = ? FOR UPDATE',
-            array($achievementId),
-            'i'
-        );
         if ($existingSet && $rewardSet === null) {
             $this->fail(
                 'reward_set',
@@ -1649,7 +1722,7 @@ class AchievementRepository
             } elseif ($requestedSetId !== null) {
                 $rewardSetId = $this->unsigned32($requestedSetId, 'reward_set.reward_set_id', false);
                 $setInUse = $this->fetchOne(
-                    'SELECT reward_set_id FROM achievement_reward_sets WHERE reward_set_id = ? FOR UPDATE',
+                    'SELECT reward_set_id FROM reward_sets WHERE reward_set_id = ? FOR UPDATE',
                     array($rewardSetId),
                     'i'
                 );
@@ -1658,7 +1731,7 @@ class AchievementRepository
                 }
             } else {
                 $rewardSetId = $this->allocateId(
-                    'achievement_reward_sets',
+                    'reward_sets',
                     'reward_set_id',
                     'reward_set.reward_set_id'
                 );
@@ -1686,12 +1759,6 @@ class AchievementRepository
             $optionIds[$optionId] = true;
         }
         if ($existingSet) {
-            $existingOptionRows = $this->fetchAll(
-                'SELECT option_id FROM achievement_reward_options '
-                . 'WHERE reward_set_id = ? FOR UPDATE',
-                array((int) $existingSet['reward_set_id']),
-                'i'
-            );
             $existingOptionIds = array();
             foreach ($existingOptionRows as $row) {
                 $existingOptionIds[(string) $row['option_id']] = true;
@@ -1705,29 +1772,6 @@ class AchievementRepository
             );
         }
 
-        $this->deleteWhereIn('achievement_reward_option_entries', 'reward_id', array_keys($existingRewardIds));
-        if ($existingSet) {
-            $oldSetId = (int) $existingSet['reward_set_id'];
-            $this->execute(
-                'DELETE FROM achievement_reward_option_entries WHERE reward_set_id = ?',
-                array($oldSetId),
-                'i'
-            );
-            $this->execute(
-                'DELETE FROM achievement_reward_options WHERE reward_set_id = ?',
-                array($oldSetId),
-                'i'
-            );
-            $this->execute(
-                'DELETE FROM achievement_reward_sets WHERE reward_set_id = ?',
-                array($oldSetId),
-                'i'
-            );
-        }
-        // Delete/reinsert retained IDs so sequence swaps cannot collide with
-        // the unique (achievement_id, sequence) identity.
-        $this->execute('DELETE FROM achievement_rewards WHERE achievement_id = ?', array($achievementId), 'i');
-
         $savedRewards = array();
         foreach ($rewards as $index => $reward) {
             $path = "rewards.{$index}";
@@ -1739,39 +1783,110 @@ class AchievementRepository
             if ($amount === '0') {
                 $this->fail($path . '.amount', 'Reward amount must be at least 1.');
             }
-            $row = array(
-                $achievementId,
-                $this->unsigned32($reward['sequence'], $path . '.sequence', true),
-                (int) $reward['reward_type'],
-                $this->unsigned32($reward['reward_data_id'], $path . '.reward_data_id', true),
-                $amount,
-                isset($reward['description']) ? (string) $reward['description'] : '',
-                $this->flag($reward['enabled'])
-            );
+            $sequence = $this->unsigned32($reward['sequence'], $path . '.sequence', true);
+            $rewardType = (int) $reward['reward_type'];
+            $rewardDataId = $this->unsigned32($reward['reward_data_id'], $path . '.reward_data_id', true);
+            $description = isset($reward['description']) ? (string) $reward['description'] : '';
+            $rewardEnabled = $this->flag($reward['enabled']);
             $submittedId = isset($reward['reward_id']) ? $reward['reward_id'] : null;
             if ($submittedId !== null && $submittedId !== '') {
                 $rewardId = $this->unsigned32Decimal($submittedId, $path . '.reward_id', false);
-                array_unshift($row, $rewardId);
-                $this->execute(
-                    'INSERT INTO achievement_rewards '
-                    . '(reward_id, achievement_id, sequence, reward_type, reward_data_id, amount, description, enabled) '
-                    . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                    $row,
-                    'siiiissi'
+                $catalogRow = $this->fetchOne(
+                    'SELECT reward_type, reward_data_id, amount, description, enabled '
+                    . 'FROM rewards WHERE reward_id = ? FOR UPDATE',
+                    array($rewardId),
+                    's'
                 );
+                if (!$catalogRow) {
+                    $this->fail($path . '.reward_id', 'The mapped reward catalog row no longer exists.');
+                }
+
+                $otherAutomaticReferences = (int) $this->scalar(
+                    'SELECT COUNT(*) AS aggregate_count FROM reward_source_entries '
+                    . 'WHERE reward_id = ? AND NOT (source_type = 1 AND source_id = ?)',
+                    array($rewardId, $achievementId),
+                    'si'
+                );
+                if ($rewardSetId === null) {
+                    $otherOptionReferences = (int) $this->scalar(
+                        'SELECT COUNT(*) AS aggregate_count FROM reward_option_entries WHERE reward_id = ?',
+                        array($rewardId),
+                        's'
+                    );
+                } else {
+                    $otherOptionReferences = (int) $this->scalar(
+                        'SELECT COUNT(*) AS aggregate_count FROM reward_option_entries '
+                        . 'WHERE reward_id = ? AND reward_set_id <> ?',
+                        array($rewardId, $rewardSetId),
+                        'si'
+                    );
+                }
+                $otherOptionSourceReferences = (int) $this->scalar(
+                    'SELECT COUNT(*) AS aggregate_count FROM reward_option_entries option_entry '
+                    . 'INNER JOIN reward_sources shared_source '
+                    . 'ON shared_source.reward_set_id = option_entry.reward_set_id '
+                    . 'WHERE option_entry.reward_id = ? '
+                    . 'AND NOT (shared_source.source_type = 1 AND shared_source.source_id = ?)',
+                    array($rewardId, $achievementId),
+                    'si'
+                );
+                $catalogChanged = (int) $catalogRow['reward_type'] !== $rewardType
+                    || (int) $catalogRow['reward_data_id'] !== $rewardDataId
+                    || (string) $catalogRow['amount'] !== $amount
+                    || (string) $catalogRow['description'] !== $description
+                    || (int) $catalogRow['enabled'] !== $rewardEnabled;
+                if ($catalogChanged && (
+                    $otherAutomaticReferences > 0
+                    || $otherOptionReferences > 0
+                    || $otherOptionSourceReferences > 0
+                )) {
+                    $this->fail(
+                        $path,
+                        'This reward catalog row is shared by another provider source or reward set. '
+                        . 'Create a new grant instead of changing shared reward ID ' . $rewardId . '.'
+                    );
+                }
+                if ($catalogChanged) {
+                    $this->execute(
+                        'UPDATE rewards SET reward_type = ?, reward_data_id = ?, amount = ?, '
+                        . 'description = ?, enabled = ? WHERE reward_id = ?',
+                        array($rewardType, $rewardDataId, $amount, $description, $rewardEnabled, $rewardId),
+                        'iissis'
+                    );
+                }
             } else {
                 $rewardId = (string) $this->executeInsert(
-                    'INSERT INTO achievement_rewards '
-                    . '(achievement_id, sequence, reward_type, reward_data_id, amount, description, enabled) '
-                    . 'VALUES (?, ?, ?, ?, ?, ?, ?)',
-                    $row,
-                    'iiiissi'
+                    'INSERT INTO rewards '
+                    . '(reward_type, reward_data_id, amount, description, enabled) '
+                    . 'VALUES (?, ?, ?, ?, ?)',
+                    array($rewardType, $rewardDataId, $amount, $description, $rewardEnabled),
+                    'iissi'
                 );
                 $this->unsigned32Decimal($rewardId, $path . '.reward_id', false);
             }
             $savedRewards[] = array(
                 'reward_id' => $rewardId,
+                'sequence' => $sequence,
                 'option_id' => array_key_exists('option_id', $reward) ? $reward['option_id'] : null
+            );
+        }
+
+        // Automatic mappings belong to this achievement source and can be
+        // safely rebuilt without touching mappings owned by other providers.
+        $this->execute(
+            'DELETE FROM reward_source_entries WHERE source_type = 1 AND source_id = ?',
+            array($achievementId),
+            'i'
+        );
+        foreach ($savedRewards as $index => $reward) {
+            if ($reward['option_id'] !== null && $reward['option_id'] !== '') {
+                continue;
+            }
+            $this->execute(
+                'INSERT INTO reward_source_entries (source_type, source_id, sequence, reward_id) '
+                . 'VALUES (1, ?, ?, ?)',
+                array($achievementId, $reward['sequence'], (string) $reward['reward_id']),
+                'iis'
             );
         }
 
@@ -1784,68 +1899,162 @@ class AchievementRepository
             return;
         }
 
-        $this->execute(
-            'INSERT INTO achievement_reward_sets (reward_set_id, achievement_id, title, enabled) '
-            . 'VALUES (?, ?, ?, ?)',
-            array(
-                $rewardSetId,
-                $achievementId,
-                isset($rewardSet['title']) ? (string) $rewardSet['title'] : '',
-                $this->flag($rewardSet['enabled'])
-            ),
-            'iisi'
-        );
+        $sourceEnabled = array_key_exists('source_enabled', $rewardSet)
+            ? $this->flag($rewardSet['source_enabled'])
+            : $this->flag($rewardSet['enabled']);
+        $setShared = false;
+        if ($existingSet) {
+            $setShared = (int) $this->scalar(
+                'SELECT COUNT(*) AS aggregate_count FROM reward_sources '
+                . 'WHERE reward_set_id = ? AND NOT (source_type = 1 AND source_id = ?)',
+                array($rewardSetId, $achievementId),
+                'ii'
+            ) > 0;
+        }
 
-        foreach ($options as $index => $option) {
-            $optionId = $this->unsigned32(
-                $option['option_id'],
-                "reward_set.options.{$index}.option_id",
-                false
-            );
+        if ($setShared) {
+            $submittedOptionRows = array();
+            foreach ($options as $option) {
+                $submittedOptionRows[] = array(
+                    'option_id' => (string) $option['option_id'],
+                    'sequence' => (string) $option['sequence'],
+                    'label' => isset($option['label']) ? (string) $option['label'] : '',
+                    'common_to_all' => (string) $this->flag($option['common_to_all']),
+                    'flags' => (string) ((int) $option['flags']),
+                    'enabled' => (string) $this->flag($option['enabled'])
+                );
+            }
+            usort($submittedOptionRows, function ($left, $right) {
+                return (int) $left['option_id'] - (int) $right['option_id'];
+            });
+            $storedOptionRows = array();
+            foreach ($existingOptionRows as $option) {
+                $storedOptionRows[] = array(
+                    'option_id' => (string) $option['option_id'],
+                    'sequence' => (string) $option['sequence'],
+                    'label' => (string) $option['label'],
+                    'common_to_all' => (string) $option['common_to_all'],
+                    'flags' => (string) $option['flags'],
+                    'enabled' => (string) $option['enabled']
+                );
+            }
+            $submittedEntryRows = array();
+            foreach ($savedRewards as $reward) {
+                if ($reward['option_id'] === null || $reward['option_id'] === '') {
+                    continue;
+                }
+                if (!isset($submittedRewardIds[(string) $reward['reward_id']])) {
+                    $this->fail('reward_set', 'A shared reward set cannot receive a newly allocated grant. Clone the set first.');
+                }
+                $submittedEntryRows[] = array(
+                    'option_id' => (string) $reward['option_id'],
+                    'sequence' => (string) $reward['sequence'],
+                    'reward_id' => (string) $reward['reward_id']
+                );
+            }
+            usort($submittedEntryRows, function ($left, $right) {
+                $optionCompare = (int) $left['option_id'] - (int) $right['option_id'];
+                return $optionCompare !== 0 ? $optionCompare : strcmp($left['reward_id'], $right['reward_id']);
+            });
+            $storedEntryRows = array();
+            foreach ($existingOptionEntryRows as $entry) {
+                $storedEntryRows[] = array(
+                    'option_id' => (string) $entry['option_id'],
+                    'sequence' => (string) $entry['sequence'],
+                    'reward_id' => (string) $entry['reward_id']
+                );
+            }
+            if ((string) $existingSet['title'] !== (isset($rewardSet['title']) ? (string) $rewardSet['title'] : '')
+                || (int) $existingSet['enabled'] !== $this->flag($rewardSet['enabled'])
+                || $storedOptionRows !== $submittedOptionRows
+                || $storedEntryRows !== $submittedEntryRows) {
+                $this->fail(
+                    'reward_set',
+                    'This reward set is shared by another provider source. Its title, enabled state, options, '
+                    . 'and grants are read-only here; only this achievement source mapping may be enabled or disabled.'
+                );
+            }
+        } else {
             $this->execute(
-                'INSERT INTO achievement_reward_options '
-                . '(reward_set_id, option_id, sequence, label, common_to_all, flags, enabled) '
-                . 'VALUES (?, ?, ?, ?, ?, ?, ?)',
+                'INSERT INTO reward_sets (reward_set_id, title, enabled) VALUES (?, ?, ?) '
+                . 'ON DUPLICATE KEY UPDATE title = VALUES(title), enabled = VALUES(enabled)',
                 array(
                     $rewardSetId,
-                    $optionId,
-                    $this->unsigned32($option['sequence'], "reward_set.options.{$index}.sequence", true),
-                    isset($option['label']) ? (string) $option['label'] : '',
-                    $this->flag($option['common_to_all']),
-                    (int) $option['flags'],
-                    $this->flag($option['enabled'])
+                    isset($rewardSet['title']) ? (string) $rewardSet['title'] : '',
+                    $this->flag($rewardSet['enabled'])
                 ),
-                'iiisiii'
+                'isi'
             );
+            $this->execute(
+                'DELETE FROM reward_option_entries WHERE reward_set_id = ?',
+                array($rewardSetId),
+                'i'
+            );
+            $this->execute(
+                'DELETE FROM reward_options WHERE reward_set_id = ?',
+                array($rewardSetId),
+                'i'
+            );
+
+            foreach ($options as $index => $option) {
+                $optionId = $this->unsigned32(
+                    $option['option_id'],
+                    "reward_set.options.{$index}.option_id",
+                    false
+                );
+                $this->execute(
+                    'INSERT INTO reward_options '
+                    . '(reward_set_id, option_id, sequence, label, common_to_all, flags, enabled) '
+                    . 'VALUES (?, ?, ?, ?, ?, ?, ?)',
+                    array(
+                        $rewardSetId,
+                        $optionId,
+                        $this->unsigned32($option['sequence'], "reward_set.options.{$index}.sequence", true),
+                        isset($option['label']) ? (string) $option['label'] : '',
+                        $this->flag($option['common_to_all']),
+                        (int) $option['flags'],
+                        $this->flag($option['enabled'])
+                    ),
+                    'iiisiii'
+                );
+            }
+
+            foreach ($savedRewards as $index => $reward) {
+                if ($reward['option_id'] === null || $reward['option_id'] === '') {
+                    continue;
+                }
+                $optionId = (int) $reward['option_id'];
+                if (!isset($optionIds[$optionId])) {
+                    $this->fail("rewards.{$index}.option_id", 'The mapped reward option does not exist.');
+                }
+                $this->execute(
+                    'INSERT INTO reward_option_entries '
+                    . '(reward_set_id, option_id, sequence, reward_id) VALUES (?, ?, ?, ?)',
+                    array($rewardSetId, $optionId, $reward['sequence'], (string) $reward['reward_id']),
+                    'iiis'
+                );
+            }
         }
 
-        foreach ($savedRewards as $index => $reward) {
-            if ($reward['option_id'] === null || $reward['option_id'] === '') {
-                continue;
-            }
-            $optionId = (int) $reward['option_id'];
-            if (!isset($optionIds[$optionId])) {
-                $this->fail("rewards.{$index}.option_id", 'The mapped reward option does not exist.');
-            }
-            $this->execute(
-                'INSERT INTO achievement_reward_option_entries '
-                . '(reward_set_id, option_id, reward_id) VALUES (?, ?, ?)',
-                array($rewardSetId, $optionId, (string) $reward['reward_id']),
-                'iis'
-            );
-        }
+        $this->execute(
+            'INSERT INTO reward_sources (source_type, source_id, reward_set_id, enabled) '
+            . 'VALUES (1, ?, ?, ?) ON DUPLICATE KEY UPDATE '
+            . 'reward_set_id = VALUES(reward_set_id), enabled = VALUES(enabled)',
+            array($achievementId, $rewardSetId, $sourceEnabled),
+            'iii'
+        );
     }
 
     private function syncRestrictions($achievementId, $restrictions)
     {
         $this->execute(
-            'DELETE FROM achievement_cast_restrictions WHERE achievement_id = ?',
+            'DELETE FROM achievement_cast_requirements WHERE achievement_id = ?',
             array($achievementId),
             'i'
         );
         foreach ($restrictions as $index => $restriction) {
             $this->execute(
-                'INSERT INTO achievement_cast_restrictions '
+                'INSERT INTO achievement_cast_requirements '
                 . '(restriction_id, achievement_id, requires_completed) VALUES (?, ?, ?)',
                 array(
                     $this->unsigned32(
@@ -1867,8 +2076,8 @@ class AchievementRepository
             $this->fail('achievement', 'The achievement definition must be submitted as an object.');
         }
         $required = array(
-            'id', 'name', 'icon_id', 'points', 'reward_display', 'world_display_flag',
-            'definition_version', 'reset_on_version_change', 'enabled', 'associations',
+            'id', 'name', 'icon_id', 'points', 'has_reward', 'client_flag',
+            'version', 'reset_on_version_change', 'enabled', 'associations',
             'components', 'rewards', 'reward_set', 'restrictions'
         );
         foreach ($required as $key) {
@@ -1898,9 +2107,9 @@ class AchievementRepository
         }
         $this->unsigned32($definition['icon_id'], 'icon_id', true);
         $this->unsigned32($definition['points'], 'points', true);
-        $this->unsigned32($definition['reward_display'], 'reward_display', true);
-        $this->unsigned32($definition['world_display_flag'], 'world_display_flag', true);
-        $this->unsigned32($definition['definition_version'], 'definition_version', false);
+        $this->flag($definition['has_reward']);
+        $this->flag($definition['client_flag']);
+        $this->unsigned32($definition['version'], 'version', true);
         $this->flag($definition['reset_on_version_change']);
         $enabledDefinition = $this->flag($definition['enabled']) === 1;
 
@@ -2077,7 +2286,7 @@ class AchievementRepository
                     );
                 }
 
-                $incrementDisallowed = in_array($eventType, array(1, 4, 7, 9, 10, 11, 13), true);
+                $incrementDisallowed = in_array($eventType, array(1, 4, 5, 7, 9, 10, 11, 13), true);
                 if ($progressMode === 0 && $incrementDisallowed) {
                     $this->fail(
                         $path . '.progress_mode',
@@ -2104,7 +2313,11 @@ class AchievementRepository
             $this->fail('components', 'Required, unlock, and visibility class criteria must agree on one EQ class.');
         }
 
-        $this->validateRewardsForWrite($definition['rewards'], $definition['reward_set']);
+        $this->validateRewardsForWrite(
+            $definition['rewards'],
+            $definition['reward_set'],
+            $enabledDefinition
+        );
         $restrictionIds = array();
         foreach ($definition['restrictions'] as $index => $restriction) {
             if (!is_array($restriction)
@@ -2134,14 +2347,188 @@ class AchievementRepository
         }
     }
 
-    private function validateRewardsForWrite($rewards, $rewardSet)
+    /**
+     * Durable policy edits require a strictly newer exact definition version.
+     * The prospective policy deliberately ignores top-level publication state,
+     * so disable/edit/re-enable cannot bypass this guard. Incomplete selectable
+     * catalog contents are ignored only while their source or shared set is
+     * disabled and therefore unreachable.
+     */
+    private function assertVersionBumpedForPolicyChange($current, $submitted)
+    {
+        if ($this->runtimePolicyFingerprint($current) === $this->runtimePolicyFingerprint($submitted)) {
+            return;
+        }
+        $currentVersion = $this->unsigned32($current['version'], 'version', true);
+        $submittedVersion = $this->unsigned32($submitted['version'], 'version', true);
+        if ($submittedVersion <= $currentVersion) {
+            $this->fail(
+                'version',
+                'Runtime achievement policy changed. Increase the exact definition version above '
+                . $currentVersion . ' before saving so durable character state and pending updates '
+                . 'cannot be interpreted under changed policy.'
+            );
+        }
+    }
+
+    private function runtimePolicyFingerprint($definition)
+    {
+        $policy = array(
+            // This flag changes version-mismatch reconciliation, including
+            // whether completion/progress/reward/selection ledgers are reset.
+            // It is therefore runtime policy even though it is not a criterion.
+            'reset_on_version_change' => $this->flag(
+                isset($definition['reset_on_version_change'])
+                    ? $definition['reset_on_version_change'] : 0
+            ),
+            'components' => array(),
+            'automatic_rewards' => array(),
+            'selectable' => null,
+            'cast_requirements' => array()
+        );
+
+        $components = isset($definition['components']) && is_array($definition['components'])
+            ? $definition['components'] : array();
+        foreach ($components as $component) {
+            if (!is_array($component)) {
+                continue;
+            }
+            $componentPolicy = array(
+                'component_type' => isset($component['component_type']) ? (int) $component['component_type'] : 0,
+                'sequence' => isset($component['sequence']) ? (string) $component['sequence'] : '0',
+                'component_id' => isset($component['component_id']) ? (string) $component['component_id'] : '0',
+                'presentation_count' => isset($component['presentation_count'])
+                    ? (string) $component['presentation_count'] : '1',
+                'criteria' => array()
+            );
+            $criteria = isset($component['criteria']) && is_array($component['criteria'])
+                ? $component['criteria'] : array();
+            foreach ($criteria as $criterion) {
+                if (!is_array($criterion) || $this->flag(isset($criterion['enabled']) ? $criterion['enabled'] : 0) !== 1) {
+                    continue;
+                }
+                $componentPolicy['criteria'][] = array(
+                    'event_type' => isset($criterion['event_type']) ? (int) $criterion['event_type'] : 0,
+                    'progress_mode' => isset($criterion['progress_mode']) ? (int) $criterion['progress_mode'] : 0,
+                    'behavior' => isset($criterion['behavior']) ? (int) $criterion['behavior'] : 0,
+                    'target_id' => isset($criterion['target_id']) ? (string) $criterion['target_id'] : '0',
+                    'target_id2' => isset($criterion['target_id2']) ? (string) $criterion['target_id2'] : '0',
+                    'target_value' => isset($criterion['target_value']) ? (string) $criterion['target_value'] : '0',
+                    'required_count' => isset($criterion['required_count']) ? (string) $criterion['required_count'] : '1'
+                );
+            }
+            usort($componentPolicy['criteria'], array($this, 'comparePolicyRows'));
+            $policy['components'][] = $componentPolicy;
+        }
+        usort($policy['components'], array($this, 'comparePolicyRows'));
+
+        $rewards = isset($definition['rewards']) && is_array($definition['rewards'])
+            ? $definition['rewards'] : array();
+        foreach ($rewards as $reward) {
+            if (!is_array($reward)
+                || $this->flag(isset($reward['enabled']) ? $reward['enabled'] : 0) !== 1
+                || (isset($reward['option_id']) && $reward['option_id'] !== null && $reward['option_id'] !== '')) {
+                continue;
+            }
+            $policy['automatic_rewards'][] = $this->rewardPolicyRow($reward, null);
+        }
+        usort($policy['automatic_rewards'], array($this, 'comparePolicyRows'));
+
+        $rewardSet = isset($definition['reward_set']) && is_array($definition['reward_set'])
+            ? $definition['reward_set'] : null;
+        if ($rewardSet !== null) {
+            $sourceEnabled = $this->flag(isset($rewardSet['source_enabled']) ? $rewardSet['source_enabled'] : 0);
+            $setEnabled = $this->flag(isset($rewardSet['enabled']) ? $rewardSet['enabled'] : 0);
+            $selectable = array(
+                'reward_set_id' => isset($rewardSet['reward_set_id']) && $rewardSet['reward_set_id'] !== null
+                    ? (string) $rewardSet['reward_set_id'] : '',
+                'source_enabled' => $sourceEnabled,
+                'set_enabled' => $setEnabled,
+                'options' => array(),
+                'rewards' => array()
+            );
+            if ($sourceEnabled === 1 && $setEnabled === 1) {
+                $options = isset($rewardSet['options']) && is_array($rewardSet['options'])
+                    ? $rewardSet['options'] : array();
+                $enabledOptions = array();
+                foreach ($options as $option) {
+                    if (!is_array($option)
+                        || $this->flag(isset($option['enabled']) ? $option['enabled'] : 0) !== 1) {
+                        continue;
+                    }
+                    $optionId = isset($option['option_id']) ? (string) $option['option_id'] : '0';
+                    $enabledOptions[$optionId] = true;
+                    $selectable['options'][] = array(
+                        'option_id' => $optionId,
+                        'sequence' => isset($option['sequence']) ? (string) $option['sequence'] : '0',
+                        'common_to_all' => $this->flag(isset($option['common_to_all']) ? $option['common_to_all'] : 0),
+                        'flags' => isset($option['flags']) ? (int) $option['flags'] : 0
+                    );
+                }
+                foreach ($rewards as $reward) {
+                    if (!is_array($reward)
+                        || $this->flag(isset($reward['enabled']) ? $reward['enabled'] : 0) !== 1
+                        || !isset($reward['option_id'])
+                        || $reward['option_id'] === null
+                        || $reward['option_id'] === '') {
+                        continue;
+                    }
+                    $optionId = (string) $reward['option_id'];
+                    if (isset($enabledOptions[$optionId])) {
+                        $selectable['rewards'][] = $this->rewardPolicyRow($reward, $optionId);
+                    }
+                }
+                usort($selectable['options'], array($this, 'comparePolicyRows'));
+                usort($selectable['rewards'], array($this, 'comparePolicyRows'));
+            }
+            $policy['selectable'] = $selectable;
+        }
+
+        $restrictions = isset($definition['restrictions']) && is_array($definition['restrictions'])
+            ? $definition['restrictions'] : array();
+        foreach ($restrictions as $restriction) {
+            if (!is_array($restriction)) {
+                continue;
+            }
+            $policy['cast_requirements'][] = array(
+                'restriction_id' => isset($restriction['restriction_id'])
+                    ? (string) $restriction['restriction_id'] : '0',
+                'requires_completed' => $this->flag(
+                    isset($restriction['requires_completed']) ? $restriction['requires_completed'] : 0
+                )
+            );
+        }
+        usort($policy['cast_requirements'], array($this, 'comparePolicyRows'));
+
+        return hash('sha256', json_encode($policy));
+    }
+
+    private function rewardPolicyRow($reward, $optionId)
+    {
+        return array(
+            'reward_id' => isset($reward['reward_id']) && $reward['reward_id'] !== null
+                ? (string) $reward['reward_id'] : '',
+            'sequence' => isset($reward['sequence']) ? (string) $reward['sequence'] : '0',
+            'reward_type' => isset($reward['reward_type']) ? (int) $reward['reward_type'] : 0,
+            'reward_data_id' => isset($reward['reward_data_id']) ? (string) $reward['reward_data_id'] : '0',
+            'amount' => isset($reward['amount']) ? (string) $reward['amount'] : '1',
+            'option_id' => $optionId
+        );
+    }
+
+    private function comparePolicyRows($left, $right)
+    {
+        return strcmp(json_encode($left), json_encode($right));
+    }
+
+    private function validateRewardsForWrite($rewards, $rewardSet, $definitionEnabled)
     {
         $rewardIds = array();
-        $sequences = array();
+        $automaticSequences = array();
         $optionIds = array();
         $enabledOptionGrants = array();
         if ($rewardSet !== null) {
-            foreach (array('reward_set_id', 'title', 'enabled', 'options') as $key) {
+            foreach (array('reward_set_id', 'title', 'enabled', 'source_enabled', 'options') as $key) {
                 if (!array_key_exists($key, $rewardSet)) {
                     $this->fail('reward_set.' . $key, "Reward-set field {$key} is required.");
                 }
@@ -2153,6 +2540,7 @@ class AchievementRepository
                 $this->fail('reward_set.title', 'Reward-set title may not exceed 255 characters.');
             }
             $this->flag($rewardSet['enabled']);
+            $this->flag($rewardSet['source_enabled']);
             if (!is_array($rewardSet['options'])) {
                 $this->fail('reward_set.options', 'Reward-set options must be a list.');
             }
@@ -2208,10 +2596,6 @@ class AchievementRepository
                 $rewardIds[$rewardId] = true;
             }
             $sequence = $this->unsigned32($reward['sequence'], $path . '.sequence', true);
-            if (isset($sequences[$sequence])) {
-                $this->fail($path . '.sequence', 'Reward sequence must be unique within the achievement.');
-            }
-            $sequences[$sequence] = true;
             $rewardType = (int) $reward['reward_type'];
             if ($rewardType < 0 || $rewardType > 5) {
                 $this->fail($path . '.reward_type', 'Reward type must be 0 through 5.');
@@ -2226,16 +2610,11 @@ class AchievementRepository
                 $this->fail($path . '.amount', 'Reward amount must be at least 1.');
             }
             $enabled = $this->flag($reward['enabled']) === 1;
-            if ($enabled && in_array($rewardType, array(0, 4, 5), true) && $dataId === 0) {
-                $this->fail($path . '.reward_data_id', 'Enabled item, alternate-currency, and title rewards require a nonzero data ID.');
-            }
-            if ($enabled && $rewardType === 1 && $dataId > 1) {
-                $this->fail($path . '.reward_data_id', 'Experience reward mode must be 0 or 1.');
-            }
             if (isset($reward['description'])
                 && $this->characterLength((string) $reward['description']) > 255) {
                 $this->fail($path . '.description', 'Reward description may not exceed 255 characters.');
             }
+            $optionId = null;
             if ($reward['option_id'] !== null && $reward['option_id'] !== '') {
                 $optionId = (int) $reward['option_id'];
                 if ($rewardSet === null || !isset($optionIds[$optionId])) {
@@ -2244,10 +2623,39 @@ class AchievementRepository
                 if ($enabled) {
                     $enabledOptionGrants[$optionId] = true;
                 }
+            } else {
+                if (isset($automaticSequences[$sequence])) {
+                    $this->fail(
+                        $path . '.sequence',
+                        'Automatic reward order must be unique within this achievement source.'
+                    );
+                }
+                $automaticSequences[$sequence] = true;
+            }
+
+            $runtimeReachable = $definitionEnabled && $enabled;
+            if ($optionId !== null) {
+                $runtimeReachable = $runtimeReachable
+                    && $rewardSet !== null
+                    && $this->flag($rewardSet['source_enabled']) === 1
+                    && $this->flag($rewardSet['enabled']) === 1
+                    && isset($optionIds[$optionId])
+                    && $this->flag($optionIds[$optionId]['enabled']) === 1;
+            }
+            if ($runtimeReachable) {
+                $this->validateRuntimeRewardSemantics(
+                    $rewardType,
+                    $dataId,
+                    $amount,
+                    $path
+                );
             }
         }
 
-        if ($rewardSet === null || $this->flag($rewardSet['enabled']) !== 1) {
+        if (!$definitionEnabled
+            || $rewardSet === null
+            || $this->flag($rewardSet['source_enabled']) !== 1
+            || $this->flag($rewardSet['enabled']) !== 1) {
             return;
         }
         $hasEnabled = false;
@@ -2273,6 +2681,65 @@ class AchievementRepository
                 'reward_set.options',
                 'An enabled reward set requires at least one enabled, non-common selectable option.'
             );
+        }
+    }
+
+    private function validateRuntimeRewardSemantics($rewardType, $dataId, $amount, $path)
+    {
+        switch ((int) $rewardType) {
+            case 0:
+                if ((int) $dataId === 0) {
+                    $this->fail($path . '.reward_data_id', 'Runtime item rewards require a nonzero item ID.');
+                }
+                if ($this->compareDecimal($amount, '32767') > 0) {
+                    $this->fail($path . '.amount', 'Runtime item reward quantity must be 1 through 32,767.');
+                }
+                break;
+
+            case 1:
+                if ((int) $dataId !== 0 && (int) $dataId !== 1) {
+                    $this->fail($path . '.reward_data_id', 'Experience mode must be 0 (normal handling) or 1 (normal-only raw XP).');
+                }
+                if ($this->compareDecimal($amount, '4294967295') > 0) {
+                    $this->fail($path . '.amount', 'Runtime experience quantity must be 1 through 4,294,967,295.');
+                }
+                break;
+
+            case 2:
+                if ((int) $dataId !== 0) {
+                    $this->fail($path . '.reward_data_id', 'Alternate Advancement reward data is reserved and must be 0.');
+                }
+                if ($this->compareDecimal($amount, '2147483647') > 0) {
+                    $this->fail($path . '.amount', 'Runtime AA point quantity must be 1 through 2,147,483,647.');
+                }
+                break;
+
+            case 3:
+                if ((int) $dataId !== 0) {
+                    $this->fail($path . '.reward_data_id', 'Copper reward data is reserved and must be 0.');
+                }
+                if ($this->compareDecimal($amount, '2147483647999') > 0) {
+                    $this->fail($path . '.amount', 'Runtime copper quantity must be 1 through 2,147,483,647,999.');
+                }
+                break;
+
+            case 4:
+                if ((int) $dataId === 0) {
+                    $this->fail($path . '.reward_data_id', 'Runtime alternate-currency rewards require a nonzero currency ID.');
+                }
+                if ($this->compareDecimal($amount, '2147483647') > 0) {
+                    $this->fail($path . '.amount', 'Runtime alternate-currency quantity must be 1 through 2,147,483,647.');
+                }
+                break;
+
+            case 5:
+                if ((int) $dataId < 1 || (int) $dataId > 2147483647) {
+                    $this->fail($path . '.reward_data_id', 'Runtime title-set ID must be 1 through 2,147,483,647.');
+                }
+                if ($this->compareDecimal($amount, '1') !== 0) {
+                    $this->fail($path . '.amount', 'Runtime title rewards are singular; Amount must be exactly 1.');
+                }
+                break;
         }
     }
 
@@ -2546,129 +3013,87 @@ class AchievementRepository
                 'columns' => array('id', 'parent_id', 'sequence', 'name', 'description', 'icon'),
                 'unsigned' => array('id', 'parent_id', 'sequence'),
                 'auto_increment' => array(),
-                'indexes' => array(
-                    array('columns' => array('id'), 'unique' => true)
-                )
+                'indexes' => array(array('columns' => array('id'), 'unique' => true))
             ),
             'achievements' => array(
-                'columns' => array(
-                    'id', 'name', 'description', 'icon_id', 'points', 'reward_display',
-                    'world_display_flag', 'definition_version', 'reset_on_version_change', 'enabled'
-                ),
-                'unsigned' => array(
-                    'id', 'icon_id', 'points', 'reward_display', 'world_display_flag',
-                    'definition_version', 'reset_on_version_change', 'enabled'
-                ),
+                'columns' => array('id', 'name', 'description', 'icon_id', 'points', 'has_reward', 'client_flag', 'version', 'reset_on_version_change', 'enabled'),
+                'unsigned' => array('id', 'icon_id', 'points', 'has_reward', 'client_flag', 'version', 'reset_on_version_change', 'enabled'),
                 'auto_increment' => array(),
-                'indexes' => array(
-                    array('columns' => array('id'), 'unique' => true)
-                )
+                'indexes' => array(array('columns' => array('id'), 'unique' => true))
             ),
             'achievement_category_associations' => array(
                 'columns' => array('category_id', 'sequence', 'achievement_id', 'display_text'),
                 'unsigned' => array('category_id', 'sequence', 'achievement_id'),
                 'auto_increment' => array(),
-                'indexes' => array(
-                    array('columns' => array('category_id', 'achievement_id'), 'unique' => true),
-                    array('columns' => array('achievement_id', 'category_id'), 'unique' => false)
-                )
+                'indexes' => array(array('columns' => array('category_id', 'achievement_id'), 'unique' => true))
             ),
             'achievement_components' => array(
-                'columns' => array(
-                    'achievement_id', 'component_type', 'sequence', 'component_id',
-                    'description', 'description_2'
-                ),
+                'columns' => array('achievement_id', 'component_type', 'sequence', 'component_id', 'name', 'description'),
                 'unsigned' => array('achievement_id', 'component_type', 'sequence', 'component_id'),
                 'auto_increment' => array(),
-                'indexes' => array(
-                    array('columns' => array('achievement_id', 'component_type', 'component_id'), 'unique' => true),
-                    array('columns' => array('component_id'), 'unique' => false)
-                )
+                'indexes' => array(array('columns' => array('achievement_id', 'component_type', 'component_id'), 'unique' => true))
             ),
-            'achievement_component_counts' => array(
+            'achievement_associations' => array(
                 'columns' => array('component_id', 'required_count'),
                 'unsigned' => array('component_id', 'required_count'),
                 'auto_increment' => array(),
-                'indexes' => array(
-                    array('columns' => array('component_id'), 'unique' => true)
-                )
+                'indexes' => array(array('columns' => array('component_id'), 'unique' => true))
             ),
             'achievement_criteria' => array(
-                'columns' => array(
-                    'id', 'achievement_id', 'component_type', 'component_sequence', 'component_id',
-                    'event_type', 'progress_mode', 'behavior', 'target_id', 'target_id2',
-                    'target_value', 'required_count', 'enabled'
-                ),
-                'unsigned' => array(
-                    'id', 'achievement_id', 'component_type', 'component_sequence', 'component_id',
-                    'event_type', 'progress_mode', 'behavior', 'target_id', 'target_id2',
-                    'required_count', 'enabled'
-                ),
+                'columns' => array('id', 'achievement_id', 'component_type', 'component_sequence', 'component_id', 'event_type', 'progress_mode', 'behavior', 'target_id', 'target_id2', 'target_value', 'required_count', 'enabled'),
+                'unsigned' => array('id', 'achievement_id', 'component_type', 'component_sequence', 'component_id', 'event_type', 'progress_mode', 'behavior', 'target_id', 'target_id2', 'required_count', 'enabled'),
                 'auto_increment' => array('id'),
                 'indexes' => array(
                     array('columns' => array('id'), 'unique' => true),
-                    array(
-                        'columns' => array(
-                            'achievement_id', 'component_type', 'component_id',
-                            'event_type', 'target_id', 'target_id2'
-                        ),
-                        'unique' => true
-                    )
+                    array('columns' => array('achievement_id', 'component_type', 'component_id', 'event_type', 'target_id', 'target_id2'), 'unique' => true)
                 )
             ),
-            'achievement_rewards' => array(
-                'columns' => array(
-                    'reward_id', 'achievement_id', 'sequence', 'reward_type', 'reward_data_id',
-                    'amount', 'description', 'enabled'
-                ),
-                'unsigned' => array(
-                    'reward_id', 'achievement_id', 'sequence', 'reward_type', 'reward_data_id',
-                    'amount', 'enabled'
-                ),
-                'auto_increment' => array('reward_id'),
-                'indexes' => array(
-                    array('columns' => array('reward_id'), 'unique' => true),
-                    array('columns' => array('achievement_id', 'sequence'), 'unique' => true)
-                )
-            ),
-            'achievement_cast_restrictions' => array(
+            'achievement_cast_requirements' => array(
                 'columns' => array('restriction_id', 'achievement_id', 'requires_completed'),
                 'unsigned' => array('restriction_id', 'achievement_id', 'requires_completed'),
                 'auto_increment' => array(),
-                'indexes' => array(
-                    array('columns' => array('restriction_id', 'achievement_id'), 'unique' => true),
-                    array('columns' => array('achievement_id', 'restriction_id'), 'unique' => false)
-                )
+                'indexes' => array(array('columns' => array('restriction_id', 'achievement_id'), 'unique' => true))
             ),
-            'achievement_reward_sets' => array(
-                'columns' => array('reward_set_id', 'achievement_id', 'title', 'enabled'),
-                'unsigned' => array('reward_set_id', 'achievement_id', 'enabled'),
+            'reward_sets' => array(
+                'columns' => array('reward_set_id', 'title', 'enabled'),
+                'unsigned' => array('reward_set_id', 'enabled'),
                 'auto_increment' => array(),
-                'indexes' => array(
-                    array('columns' => array('reward_set_id'), 'unique' => true),
-                    array('columns' => array('achievement_id'), 'unique' => true)
-                )
+                'indexes' => array(array('columns' => array('reward_set_id'), 'unique' => true))
             ),
-            'achievement_reward_options' => array(
-                'columns' => array(
-                    'reward_set_id', 'option_id', 'sequence', 'label',
-                    'common_to_all', 'flags', 'enabled'
-                ),
-                'unsigned' => array(
-                    'reward_set_id', 'option_id', 'sequence', 'common_to_all', 'flags', 'enabled'
-                ),
+            'reward_options' => array(
+                'columns' => array('reward_set_id', 'option_id', 'sequence', 'label', 'common_to_all', 'flags', 'enabled'),
+                'unsigned' => array('reward_set_id', 'option_id', 'sequence', 'common_to_all', 'flags', 'enabled'),
                 'auto_increment' => array(),
-                'indexes' => array(
-                    array('columns' => array('reward_set_id', 'option_id'), 'unique' => true)
-                )
+                'indexes' => array(array('columns' => array('reward_set_id', 'option_id'), 'unique' => true))
             ),
-            'achievement_reward_option_entries' => array(
-                'columns' => array('reward_set_id', 'option_id', 'reward_id'),
-                'unsigned' => array('reward_set_id', 'option_id', 'reward_id'),
+            'rewards' => array(
+                'columns' => array('reward_id', 'reward_type', 'reward_data_id', 'amount', 'description', 'enabled'),
+                'unsigned' => array('reward_id', 'reward_type', 'reward_data_id', 'amount', 'enabled'),
+                'auto_increment' => array('reward_id'),
+                'indexes' => array(array('columns' => array('reward_id'), 'unique' => true))
+            ),
+            'reward_option_entries' => array(
+                'columns' => array('reward_set_id', 'option_id', 'sequence', 'reward_id'),
+                'unsigned' => array('reward_set_id', 'option_id', 'sequence', 'reward_id'),
                 'auto_increment' => array(),
                 'indexes' => array(
                     array('columns' => array('reward_set_id', 'option_id', 'reward_id'), 'unique' => true),
-                    array('columns' => array('reward_id'), 'unique' => true)
+                    array('columns' => array('reward_set_id', 'reward_id'), 'unique' => true)
+                )
+            ),
+            'reward_sources' => array(
+                'columns' => array('source_type', 'source_id', 'reward_set_id', 'enabled'),
+                'unsigned' => array('source_type', 'source_id', 'reward_set_id', 'enabled'),
+                'auto_increment' => array(),
+                'indexes' => array(array('columns' => array('source_type', 'source_id'), 'unique' => true))
+            ),
+            'reward_source_entries' => array(
+                'columns' => array('source_type', 'source_id', 'sequence', 'reward_id'),
+                'unsigned' => array('source_type', 'source_id', 'sequence', 'reward_id'),
+                'auto_increment' => array(),
+                'indexes' => array(
+                    array('columns' => array('source_type', 'source_id', 'reward_id'), 'unique' => true),
+                    array('columns' => array('source_type', 'source_id', 'sequence'), 'unique' => true)
                 )
             )
         );
@@ -2686,8 +3111,8 @@ class AchievementRepository
         );
         $spec['achievements']['types'] = array(
             'id' => $u32, 'name' => $varchar255, 'description' => $text,
-            'icon_id' => $u32, 'points' => $u32, 'reward_display' => $u32,
-            'world_display_flag' => $u8, 'definition_version' => $u32,
+            'icon_id' => $u32, 'points' => $u32, 'has_reward' => $u8,
+            'client_flag' => $u8, 'version' => $u32,
             'reset_on_version_change' => $u8, 'enabled' => $u8
         );
         $spec['achievement_category_associations']['types'] = array(
@@ -2697,9 +3122,9 @@ class AchievementRepository
         $spec['achievement_components']['types'] = array(
             'achievement_id' => $u32, 'component_type' => $u8,
             'sequence' => $u32, 'component_id' => $u32,
-            'description' => $text, 'description_2' => $text
+            'name' => $text, 'description' => $text
         );
-        $spec['achievement_component_counts']['types'] = array(
+        $spec['achievement_associations']['types'] = array(
             'component_id' => $u32, 'required_count' => $u32
         );
         $spec['achievement_criteria']['types'] = array(
@@ -2709,26 +3134,32 @@ class AchievementRepository
             'target_id' => $u32, 'target_id2' => $u32, 'target_value' => $i64,
             'required_count' => $u32, 'enabled' => $u8
         );
-        $spec['achievement_rewards']['types'] = array(
-            'reward_id' => $u64, 'achievement_id' => $u32, 'sequence' => $u32,
-            'reward_type' => $u8, 'reward_data_id' => $u32, 'amount' => $u64,
-            'description' => $varchar255, 'enabled' => $u8
-        );
-        $spec['achievement_cast_restrictions']['types'] = array(
+        $spec['achievement_cast_requirements']['types'] = array(
             'restriction_id' => $u32, 'achievement_id' => $u32,
             'requires_completed' => $u8
         );
-        $spec['achievement_reward_sets']['types'] = array(
-            'reward_set_id' => $u32, 'achievement_id' => $u32,
-            'title' => $varchar255, 'enabled' => $u8
+        $spec['reward_sets']['types'] = array(
+            'reward_set_id' => $u32, 'title' => $varchar255, 'enabled' => $u8
         );
-        $spec['achievement_reward_options']['types'] = array(
+        $spec['reward_options']['types'] = array(
             'reward_set_id' => $u32, 'option_id' => $u32, 'sequence' => $u32,
             'label' => $varchar255, 'common_to_all' => $u8,
             'flags' => $u8, 'enabled' => $u8
         );
-        $spec['achievement_reward_option_entries']['types'] = array(
-            'reward_set_id' => $u32, 'option_id' => $u32, 'reward_id' => $u64
+        $spec['reward_option_entries']['types'] = array(
+            'reward_set_id' => $u32, 'option_id' => $u32, 'sequence' => $u32, 'reward_id' => $u32
+        );
+        $spec['rewards']['types'] = array(
+            'reward_id' => $u32, 'reward_type' => $u8, 'reward_data_id' => $u32,
+            'amount' => $u64, 'description' => $varchar255, 'enabled' => $u8
+        );
+        $spec['reward_sources']['types'] = array(
+            'source_type' => $u8, 'source_id' => $u64,
+            'reward_set_id' => $u32, 'enabled' => $u8
+        );
+        $spec['reward_source_entries']['types'] = array(
+            'source_type' => $u8, 'source_id' => $u64,
+            'sequence' => $u32, 'reward_id' => $u32
         );
 
         foreach ($spec as &$requirements) {
@@ -2800,7 +3231,12 @@ class AchievementRepository
 
     private function fetchAll($sql, $params = array(), $types = '')
     {
-        $stmt = $this->preparedStatement($sql, $params, $types);
+        return $this->fetchAllFrom($this->db, $sql, $params, $types);
+    }
+
+    private function fetchAllFrom($database, $sql, $params = array(), $types = '')
+    {
+        $stmt = $this->preparedStatementFrom($database, $sql, $params, $types);
         $metadata = $stmt->result_metadata();
         if (!$metadata) {
             $error = $this->databaseFailure(
@@ -2856,6 +3292,12 @@ class AchievementRepository
         return count($rows) > 0 ? $rows[0] : null;
     }
 
+    private function fetchOneFrom($database, $sql, $params = array(), $types = '')
+    {
+        $rows = $this->fetchAllFrom($database, $sql, $params, $types);
+        return count($rows) > 0 ? $rows[0] : null;
+    }
+
     private function scalar($sql, $params = array(), $types = '')
     {
         $row = $this->fetchOne($sql, $params, $types);
@@ -2886,6 +3328,11 @@ class AchievementRepository
 
     private function preparedStatement($sql, $params, $types)
     {
+        return $this->preparedStatementFrom($this->db, $sql, $params, $types);
+    }
+
+    private function preparedStatementFrom($database, $sql, $params, $types)
+    {
         if (!is_array($params)) {
             throw new AchievementRepositoryException('Database parameters must be supplied as a list.', 'database');
         }
@@ -2898,7 +3345,7 @@ class AchievementRepository
         }
 
         try {
-            $stmt = $this->db->prepare($sql);
+            $stmt = $database->prepare($sql);
         } catch (Throwable $exception) {
             throw $this->databaseFailure(
                 $exception->getCode(),
@@ -2909,8 +3356,8 @@ class AchievementRepository
         }
         if (!$stmt) {
             throw $this->databaseFailure(
-                $this->db->errno,
-                $this->db->error,
+                $database->errno,
+                $database->error,
                 'The achievement database request could not be prepared.'
             );
         }
@@ -2998,6 +3445,83 @@ class AchievementRepository
         return (int) $current + 1;
     }
 
+    private function suggestedAchievementId($forUpdate)
+    {
+        $sql = 'SELECT id AS current_id FROM achievements ORDER BY id DESC LIMIT 1';
+        if ($forUpdate) {
+            $sql .= ' FOR UPDATE';
+        }
+        $row = $this->fetchOne($sql);
+        $current = $row ? (string) $row['current_id'] : '0';
+        while ($this->compareDecimal($current, (string) self::UINT32_MAX) < 0) {
+            $candidate = (int) $current + 1;
+            if (!$this->achievementIdHasDurableState($candidate, true)) {
+                return $candidate;
+            }
+            $current = (string) $candidate;
+        }
+        $this->fail('id', 'No unsigned 32-bit achievement IDs remain after durable character history is reserved.');
+    }
+
+    private function assertAchievementIdHasNoDurableState($achievementId)
+    {
+        if ($this->achievementIdHasDurableState($achievementId, true)) {
+            $this->fail(
+                'id',
+                'Achievement ID ' . $achievementId . ' has preserved character completion, progress, reward, selection, or pending-update history. Choose a fresh ID; deleted definition identities cannot be reused.'
+            );
+        }
+    }
+
+    private function achievementIdHasDurableState($achievementId, $requireConnection)
+    {
+        if ($this->characterDb === null) {
+            if ($requireConnection) {
+                throw new AchievementRepositoryException(
+                    'The character achievement state schema could not be checked. Configure the character database and install the current achievement state SQL before creating or cloning definitions.',
+                    'schema',
+                    array('character_schema_ready' => false)
+                );
+            }
+            return false;
+        }
+        try {
+            // A single prepared UNION both reserves every durable state table
+            // from ID reuse and probes the exact final table/column vocabulary.
+            // Legacy/missing state schemas therefore fail before a content row
+            // can be inserted, while version zero remains an ordinary value.
+            $row = $this->fetchOneFrom(
+                $this->characterDb,
+                'SELECT 1 AS present FROM character_achievements WHERE achievement_id = ? '
+                . 'UNION ALL SELECT 1 AS present FROM character_achievement_progress WHERE achievement_id = ? '
+                . 'UNION ALL SELECT 1 AS present FROM character_achievement_rewards WHERE achievement_id = ? '
+                . 'UNION ALL SELECT 1 AS present FROM character_achievement_reward_selections WHERE achievement_id = ? '
+                . 'UNION ALL SELECT 1 AS present FROM character_achievement_pending_updates WHERE achievement_id = ? '
+                . 'LIMIT 1',
+                array($achievementId, $achievementId, $achievementId, $achievementId, $achievementId),
+                'iiiii'
+            );
+        } catch (AchievementRepositoryException $exception) {
+            $details = $exception->getDetails();
+            $errno = isset($details['database_errno']) ? (int) $details['database_errno'] : 0;
+            if ($errno === 1146 || $errno === 1054) {
+                throw new AchievementRepositoryException(
+                    'The character achievement state schema is missing or out of date. Install the current achievement state SQL before creating or cloning definitions.',
+                    'schema',
+                    array(
+                        'character_schema_ready' => false,
+                        'database_errno' => $errno,
+                        'database_error' => isset($details['database_error'])
+                            ? (string) $details['database_error'] : ''
+                    ),
+                    $exception
+                );
+            }
+            throw $exception;
+        }
+        return (bool) $row;
+    }
+
     private function allocateId($table, $column, $field)
     {
         $identifier = $this->allowedIdentity($table, $column);
@@ -3017,12 +3541,12 @@ class AchievementRepository
         $allowed = array(
             'achievements.id' => array('table' => 'achievements', 'column' => 'id'),
             'achievement_categories.id' => array('table' => 'achievement_categories', 'column' => 'id'),
-            'achievement_component_counts.component_id' => array(
-                'table' => 'achievement_component_counts',
+            'achievement_associations.component_id' => array(
+                'table' => 'achievement_associations',
                 'column' => 'component_id'
             ),
-            'achievement_reward_sets.reward_set_id' => array(
-                'table' => 'achievement_reward_sets',
+            'reward_sets.reward_set_id' => array(
+                'table' => 'reward_sets',
                 'column' => 'reward_set_id'
             )
         );
@@ -3039,9 +3563,9 @@ class AchievementRepository
             return 0;
         }
         $allowed = array(
-            'achievement_reward_option_entries.reward_id' => 's',
-            'achievement_reward_option_entries.reward_set_id' => 'i',
-            'achievement_reward_options.reward_set_id' => 'i'
+            'reward_option_entries.reward_id' => 's',
+            'reward_option_entries.reward_set_id' => 'i',
+            'reward_options.reward_set_id' => 'i'
         );
         $key = $table . '.' . $column;
         if (!isset($allowed[$key])) {
@@ -3078,8 +3602,8 @@ class AchievementRepository
     private function castDefinitionRow(&$row)
     {
         foreach (array(
-            'id', 'icon_id', 'points', 'reward_display', 'world_display_flag',
-            'definition_version', 'reset_on_version_change', 'enabled'
+            'id', 'icon_id', 'points', 'has_reward', 'client_flag',
+            'version', 'reset_on_version_change', 'enabled'
         ) as $column) {
             if (array_key_exists($column, $row)) {
                 $row[$column] = (int) $row[$column];

@@ -59,7 +59,7 @@ function achievement_empty_character_inputs($character) {
     'progress' => array(),
     'reward_ledgers' => array(),
     'reward_selections' => array(),
-    'pending_mutations' => array(),
+    'pending_updates' => array(),
   );
 }
 
@@ -71,14 +71,14 @@ function achievement_add_orphan_definitions(array $inputs, array $orphanState) {
     }
   }
   $versions = array();
-  foreach (array('completions', 'progress', 'pending_mutations') as $stateKey) {
+  foreach (array('completions', 'progress', 'pending_updates') as $stateKey) {
     foreach (isset($orphanState[$stateKey]) && is_array($orphanState[$stateKey]) ? $orphanState[$stateKey] : array() as $row) {
       if (!isset($row['achievement_id'])) {
         continue;
       }
       $achievementId = (string) $row['achievement_id'];
-      if (!isset($versions[$achievementId]) && isset($row['definition_version'])) {
-        $versions[$achievementId] = (int) $row['definition_version'];
+      if (!isset($versions[$achievementId]) && isset($row['version'])) {
+        $versions[$achievementId] = (int) $row['version'];
       }
     }
   }
@@ -97,9 +97,9 @@ function achievement_add_orphan_definitions(array $inputs, array $orphanState) {
       'description' => 'Durable character state remains, but the authored content definition is no longer present.',
       'icon_id' => 0,
       'points' => 0,
-      'reward_display' => 0,
-      'world_display_flag' => 0,
-      'definition_version' => isset($versions[(string) $achievementId]) ? $versions[(string) $achievementId] : 0,
+      'has_reward' => 0,
+      'client_flag' => 0,
+      'version' => isset($versions[(string) $achievementId]) ? $versions[(string) $achievementId] : 0,
       'reset_on_version_change' => 0,
       'enabled' => 0,
       'definition_missing' => 1,
@@ -112,7 +112,7 @@ function achievement_orphan_only_inputs(array $orphanState) {
   $inputs = achievement_empty_character_inputs(
     isset($orphanState['character']) ? $orphanState['character'] : array()
   );
-  foreach (array('completions', 'progress', 'reward_ledgers', 'reward_selections', 'pending_mutations') as $stateKey) {
+  foreach (array('completions', 'progress', 'reward_ledgers', 'reward_selections', 'pending_updates') as $stateKey) {
     $inputs[$stateKey] = isset($orphanState[$stateKey]) && is_array($orphanState[$stateKey])
       ? $orphanState[$stateKey]
       : array();
@@ -132,7 +132,7 @@ function achievement_character_catalog(array $inputs, array $filters) {
   $progressByAchievement = achievement_group_rows_by($inputs['progress'], 'achievement_id');
   $ledgersByAchievement = achievement_group_rows_by($inputs['reward_ledgers'], 'achievement_id');
   $selectionsByAchievement = achievement_group_rows_by($inputs['reward_selections'], 'achievement_id');
-  $mutationsByAchievement = achievement_group_rows_by($inputs['pending_mutations'], 'achievement_id');
+  $updatesByAchievement = achievement_group_rows_by($inputs['pending_updates'], 'achievement_id');
 
   $catalog = array();
   foreach ($inputs['definitions'] as $definition) {
@@ -152,8 +152,8 @@ function achievement_character_catalog(array $inputs, array $filters) {
     $selections = isset($selectionsByAchievement[$achievementId])
       ? $selectionsByAchievement[$achievementId]
       : array();
-    $mutations = isset($mutationsByAchievement[$achievementId])
-      ? $mutationsByAchievement[$achievementId]
+    $updates = isset($updatesByAchievement[$achievementId])
+      ? $updatesByAchievement[$achievementId]
       : array();
     $completion = isset($completionByAchievement[$achievementId])
       ? $completionByAchievement[$achievementId]
@@ -269,11 +269,11 @@ function achievement_character_catalog(array $inputs, array $filters) {
     foreach ($progress as $progressRow) {
       $hasProgress = $hasProgress || (float) $progressRow['current_count'] > 0;
       $hasVersionMismatch = $hasVersionMismatch
-        || (int) $progressRow['definition_version'] !== (int) $definition['definition_version'];
+        || (int) $progressRow['version'] !== (int) $definition['version'];
     }
     if ($completion) {
       $hasVersionMismatch = $hasVersionMismatch
-        || (int) $completion['definition_version'] !== (int) $definition['definition_version'];
+        || (int) $completion['version'] !== (int) $definition['version'];
     }
     $rewardAttention = false;
     foreach ($rewardLedgers as $ledger) {
@@ -295,7 +295,7 @@ function achievement_character_catalog(array $inputs, array $filters) {
     $definition['reward_sets'] = $sets;
     $definition['reward_ledgers'] = $rewardLedgers;
     $definition['reward_selections'] = $selections;
-    $definition['pending_mutations'] = $mutations;
+    $definition['pending_updates'] = $updates;
     $definition['orphan_reward_ledgers'] = $orphanRewardLedgers;
     $definition['orphan_reward_selections'] = $orphanSelections;
     $definition['durable_state'] = $completion ? 'completed' : ($hasProgress ? 'in_progress' : 'not_started');
@@ -335,7 +335,7 @@ function achievement_character_catalog(array $inputs, array $filters) {
       || ($state === 'not_started' && $definition['durable_state'] === 'not_started')
       || ($state === 'version_mismatch' && $definition['has_version_mismatch'])
       || ($state === 'reward_attention' && $definition['reward_needs_attention'])
-      || ($state === 'pending_mutation' && count($definition['pending_mutations']) > 0)
+      || ($state === 'pending_update' && count($definition['pending_updates']) > 0)
       || ($state === 'orphaned' && $definition['definition_missing']);
     if ($stateMatches) {
       $filtered[] = $definition;
@@ -360,7 +360,7 @@ function achievement_character_catalog(array $inputs, array $filters) {
 }
 
 function achievement_character_filters() {
-  $states = array('all', 'completed', 'not_completed', 'in_progress', 'not_started', 'version_mismatch', 'reward_attention', 'pending_mutation', 'orphaned');
+  $states = array('all', 'completed', 'not_completed', 'in_progress', 'not_started', 'version_mismatch', 'reward_attention', 'pending_update', 'orphaned');
   $state = isset($_GET['state']) ? (string) $_GET['state'] : 'all';
   if (!in_array($state, $states, true)) {
     $state = 'all';
@@ -506,8 +506,8 @@ switch ((int) $action) {
     achievement_flash(
       $resetRewards ? 'warning' : 'success',
       $resetRewards
-        ? 'Completion, progress, pending mutations, and reward ledgers were reset. Recompletion can grant rewards again.'
-        : 'Completion, progress, and pending mutations were reset. Reward ledgers were preserved.',
+        ? 'Completion, progress, pending updates, and reward ledgers were reset. Recompletion can grant rewards again.'
+        : 'Completion, progress, and pending updates were reset. Reward ledgers were preserved.',
       array('Deleted rows: ' . json_encode($deleted))
     );
     $remainingOrphans = $characterAchievementService->characterOrphanState($characterId);
@@ -548,19 +548,19 @@ switch ((int) $action) {
     achievement_verify_csrf();
     $characterId = achievement_post_uint('playerid', 'Character ID', 1);
     $achievementId = achievement_post_uint('achievement_id', 'Achievement ID', 1);
-    $mutationId = achievement_post_positive_platform_int('mutation_id', 'Mutation ID');
-    $characterAchievementService->retryBlockedMutation($characterId, $achievementId, $mutationId);
-    achievement_flash('success', 'Blocked mutation ' . $mutationId . ' was returned to pending.');
+    $updateId = achievement_post_positive_platform_int('update_id', 'Update ID');
+    $characterAchievementService->retryBlockedUpdate($characterId, $achievementId, $updateId);
+    achievement_flash('success', 'Blocked update ' . $updateId . ' was returned to pending.');
     achievement_redirect(41, array('playerid' => $characterId, 'q' => $achievementId));
     break;
 
   case 48:
     $characterId = achievement_post_uint('playerid', 'Character ID', 1);
     $achievementId = achievement_post_uint('achievement_id', 'Achievement ID', 1);
-    $mutationId = achievement_post_positive_platform_int('mutation_id', 'Mutation ID');
-    achievement_require_confirmation('DISCARD ' . $mutationId);
-    $characterAchievementService->discardMutation($characterId, $achievementId, $mutationId, true);
-    achievement_flash('warning', 'Pending mutation ' . $mutationId . ' was permanently discarded.');
+    $updateId = achievement_post_positive_platform_int('update_id', 'Update ID');
+    achievement_require_confirmation('DISCARD ' . $updateId);
+    $characterAchievementService->discardUpdate($characterId, $achievementId, $updateId, true);
+    achievement_flash('warning', 'Pending update ' . $updateId . ' was permanently discarded.');
     achievement_redirect(41, array('playerid' => $characterId, 'q' => $achievementId));
     break;
 }

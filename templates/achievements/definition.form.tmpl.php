@@ -11,9 +11,8 @@ $generalFields = array(
   'description' => array('input' => 'textarea'),
   'icon_id' => array('input' => 'text', 'inputmode' => 'numeric', 'pattern' => '[0-9]+'),
   'points' => array('input' => 'text', 'inputmode' => 'numeric', 'pattern' => '[0-9]+'),
-  'reward_display' => array('input' => 'text', 'inputmode' => 'numeric', 'pattern' => '[0-9]+'),
-  'world_display_flag' => array('input' => 'text', 'inputmode' => 'numeric', 'pattern' => '[0-9]+'),
-  'definition_version' => array('required' => true, 'input' => 'text', 'inputmode' => 'numeric', 'pattern' => '[0-9]+'),
+  'client_flag' => array('input' => 'text', 'inputmode' => 'numeric', 'pattern' => '[0-9]+'),
+  'version' => array('required' => true, 'input' => 'text', 'inputmode' => 'numeric', 'pattern' => '[0-9]+'),
 );
 ?>
 <div class="achievement-editor-page achievement-definition-editor-page" data-achievement-editor-page>
@@ -24,7 +23,7 @@ $generalFields = array(
     <div>
       <p class="achievement-eyebrow"><?=$creatingDefinition ? 'New disabled draft' : 'Atomic definition graph'?></p>
       <h1><?=$creatingDefinition ? 'Create achievement definition' : achievement_e(achievement_view_value($formDefinition, 'name', 'Unnamed achievement'))?></h1>
-      <p><?=$creatingDefinition ? 'Build the complete graph, resolve validation, and enable it only when it is ready to publish.' : 'Achievement ' . achievement_e($definitionId) . ' · Version ' . achievement_e(achievement_view_value($formDefinition, 'definition_version', 1))?></p>
+      <p><?=$creatingDefinition ? 'Build the complete graph, resolve validation, and enable it only when it is ready to publish.' : 'Achievement ' . achievement_e($definitionId) . ' · Version ' . achievement_e(achievement_view_value($formDefinition, 'version', 0))?></p>
     </div>
     <div class="achievement-heading-actions">
       <span class="achievement-badge <?=!empty($formDefinition['enabled']) ? 'is-success' : 'is-muted'?>" data-achievement-state-badge><?=!empty($formDefinition['enabled']) ? 'Enabled' : 'Draft / disabled'?></span>
@@ -85,7 +84,7 @@ $generalFields = array(
           </div>
         <?php endforeach; ?>
 
-        <?php foreach (array('reset_on_version_change', 'enabled') as $field): ?>
+        <?php foreach (array('has_reward', 'reset_on_version_change', 'enabled') as $field): ?>
           <?php
             $controlId = 'achievement-definition-' . str_replace('_', '-', $field);
             $label = achievement_view_label($formMetadata, 'achievements', $field, ucwords(str_replace('_', ' ', $field)));

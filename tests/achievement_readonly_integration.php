@@ -3,7 +3,7 @@
 /**
  * Optional read-only integration smoke test.
  *
- * It never calls a mutation API. Supply the same DB_HOST/DB_NAME/DB_USER/
+ * It never calls a write API. Supply the same DB_HOST/DB_NAME/DB_USER/
  * DB_PASSWORD environment used by PEQ. Split content variables are honored
  * when present. The script exits with a skip message when credentials are not
  * available, so the dependency-free unit suite remains portable.
@@ -61,7 +61,7 @@ if ($contentDb->connect_errno) {
 }
 
 try {
-  $repository = new AchievementRepository($contentDb);
+  $repository = new AchievementRepository($contentDb, $characterDb);
   $definitionDiagnostics = $repository->schemaDiagnostics(true);
   if (!$definitionDiagnostics['ready']) {
     achievement_integration_fail('definition schema is not ready: ' . implode('; ', $definitionDiagnostics['errors']));
@@ -86,10 +86,12 @@ try {
   $mappedRewardVerified = false;
   $mappedAchievementIds = array();
   $mappingStatement = $contentDb->prepare(
-    'SELECT DISTINCT reward.achievement_id '
-    . 'FROM achievement_reward_option_entries mapping '
-    . 'INNER JOIN achievement_rewards reward ON reward.reward_id = mapping.reward_id '
-    . 'ORDER BY reward.achievement_id LIMIT 10'
+    'SELECT DISTINCT source.source_id '
+    . 'FROM reward_sources source '
+    . 'INNER JOIN reward_option_entries mapping '
+    . 'ON mapping.reward_set_id = source.reward_set_id '
+    . 'WHERE source.source_type = 1 '
+    . 'ORDER BY source.source_id LIMIT 10'
   );
   if (!$mappingStatement || !$mappingStatement->execute()) {
     achievement_integration_fail('could not inspect canonical reward mappings');
@@ -162,7 +164,7 @@ try {
     $orphanState = $characters->characterOrphanState($characterId);
     foreach (array(
       'achievement_ids', 'completions', 'progress', 'reward_ledgers',
-      'reward_selections', 'pending_mutations'
+      'reward_selections', 'pending_updates'
     ) as $orphanKey) {
       if (!array_key_exists($orphanKey, $orphanState)) {
         achievement_integration_fail('orphan character state is missing ' . $orphanKey);

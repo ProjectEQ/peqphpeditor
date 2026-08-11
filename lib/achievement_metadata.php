@@ -21,9 +21,76 @@
 define('ACHIEVEMENT_UINT8_MAX', '255');
 define('ACHIEVEMENT_UINT32_MAX', '4294967295');
 define('ACHIEVEMENT_UINT64_MAX', '18446744073709551615');
+define('ACHIEVEMENT_INT32_MAX', '2147483647');
 define('ACHIEVEMENT_INT64_MAX', '9223372036854775807');
+define('ACHIEVEMENT_ITEM_REWARD_AMOUNT_MAX', '32767');
+define('ACHIEVEMENT_COPPER_REWARD_AMOUNT_MAX', '2147483647999');
 define('ACHIEVEMENT_SKILL_WILDCARD', '4294967295');
-define('ACHIEVEMENT_MUTATION_LEASE_SECONDS', 60);
+define('ACHIEVEMENT_UPDATE_LEASE_SECONDS', 60);
+
+/**
+ * Runtime delivery limits from the final source grant implementations.
+ * Decimal strings avoid platform/JSON precision loss in the legacy editor.
+ */
+function achievement_reward_type_metadata()
+{
+    return array(
+        0 => array(
+            'label' => 'Item',
+            'data_label' => 'Item ID',
+            'help' => 'Grant copies of one items.id row.',
+            'data_help' => 'Required nonzero items.id value.',
+            'amount_help' => 'Item quantity from 1 through 32,767.',
+            'data_min' => '1', 'data_max' => ACHIEVEMENT_UINT32_MAX,
+            'amount_min' => '1', 'amount_max' => ACHIEVEMENT_ITEM_REWARD_AMOUNT_MAX,
+        ),
+        1 => array(
+            'label' => 'Experience',
+            'data_label' => 'Experience mode',
+            'help' => 'Grant an unsigned 32-bit XP quantity.',
+            'data_help' => 'Mode 0 uses normal handling; mode 1 is normal-only raw XP.',
+            'amount_help' => 'Experience quantity from 1 through 4,294,967,295.',
+            'data_values' => array('0', '1'),
+            'amount_min' => '1', 'amount_max' => ACHIEVEMENT_UINT32_MAX,
+        ),
+        2 => array(
+            'label' => 'Alternate Advancement',
+            'data_label' => 'Data (must be 0)',
+            'help' => 'Grant whole Alternate Advancement points.',
+            'data_help' => 'Reserved runtime field; it must be 0.',
+            'amount_help' => 'AA point quantity from 1 through 2,147,483,647.',
+            'data_values' => array('0'),
+            'amount_min' => '1', 'amount_max' => ACHIEVEMENT_INT32_MAX,
+        ),
+        3 => array(
+            'label' => 'Copper',
+            'data_label' => 'Data (must be 0)',
+            'help' => 'Grant coin expressed as one copper total.',
+            'data_help' => 'Reserved runtime field; it must be 0.',
+            'amount_help' => 'Copper quantity from 1 through 2,147,483,647,999.',
+            'data_values' => array('0'),
+            'amount_min' => '1', 'amount_max' => ACHIEVEMENT_COPPER_REWARD_AMOUNT_MAX,
+        ),
+        4 => array(
+            'label' => 'Alternate Currency',
+            'data_label' => 'Currency ID',
+            'help' => 'Grant one alternate-currency denomination.',
+            'data_help' => 'Required nonzero alternate_currency.id value.',
+            'amount_help' => 'Alternate-currency quantity from 1 through 2,147,483,647.',
+            'data_min' => '1', 'data_max' => ACHIEVEMENT_UINT32_MAX,
+            'amount_min' => '1', 'amount_max' => ACHIEVEMENT_INT32_MAX,
+        ),
+        5 => array(
+            'label' => 'Title',
+            'data_label' => 'Title-set ID',
+            'help' => 'Grant one title-set entry.',
+            'data_help' => 'Required title-set ID from 1 through 2,147,483,647.',
+            'amount_help' => 'Title delivery is singular; Amount must be exactly 1.',
+            'data_min' => '1', 'data_max' => ACHIEVEMENT_INT32_MAX,
+            'amount_values' => array('1'),
+        ),
+    );
+}
 
 /** Return the complete editor-facing metadata catalog. */
 function achievement_metadata()
@@ -38,9 +105,12 @@ function achievement_metadata()
             'uint8_max' => ACHIEVEMENT_UINT8_MAX,
             'uint32_max' => ACHIEVEMENT_UINT32_MAX,
             'uint64_max' => ACHIEVEMENT_UINT64_MAX,
+            'int32_max' => ACHIEVEMENT_INT32_MAX,
             'int64_max' => ACHIEVEMENT_INT64_MAX,
+            'item_reward_amount_max' => ACHIEVEMENT_ITEM_REWARD_AMOUNT_MAX,
+            'copper_reward_amount_max' => ACHIEVEMENT_COPPER_REWARD_AMOUNT_MAX,
             'skill_wildcard' => ACHIEVEMENT_SKILL_WILDCARD,
-            'mutation_processing_lease_seconds' => ACHIEVEMENT_MUTATION_LEASE_SECONDS,
+            'update_processing_lease_seconds' => ACHIEVEMENT_UPDATE_LEASE_SECONDS,
         ),
         'component_types' => array(
             0 => array('label' => 'Type 0 (state-bearing)', 'help' => 'RoF2 state bucket 0. It can persist progress and participate in evaluation.'),
@@ -63,14 +133,7 @@ function achievement_metadata()
             4 => array('label' => 'Display Only', 'help' => 'Track presentation state without affecting completion, locking, or visibility.'),
             5 => array('label' => 'Blocker', 'help' => 'Lock the achievement while this component is satisfied.'),
         ),
-        'reward_types' => array(
-            0 => array('label' => 'Item', 'data_label' => 'Item ID', 'help' => 'Grant amount copies of items.id. A nonzero item ID and positive amount are required.'),
-            1 => array('label' => 'Experience', 'data_label' => 'Experience mode', 'help' => 'Grant experience. Data 0 uses normal handling; data 1 is normal-only raw XP. Amount is the XP quantity.'),
-            2 => array('label' => 'Alternate Advancement', 'data_label' => 'Data (normally 0)', 'help' => 'Grant Alternate Advancement points. Amount is the number of points.'),
-            3 => array('label' => 'Copper', 'data_label' => 'Data (normally 0)', 'help' => 'Grant currency expressed in copper. Amount is the copper quantity.'),
-            4 => array('label' => 'Alternate Currency', 'data_label' => 'Currency ID', 'help' => 'Grant an alternate currency. A nonzero currency ID and positive amount are required.'),
-            5 => array('label' => 'Title', 'data_label' => 'Title-set ID', 'help' => 'Grant a title-set entry. A nonzero title-set ID and positive amount are required.'),
-        ),
+        'reward_types' => achievement_reward_type_metadata(),
         'reward_delivery' => array(
             'automatic' => array('label' => 'Automatic on completion', 'help' => 'An enabled reward with no option mapping is delivered automatically when completion is persisted.'),
             'common' => array('label' => 'Common to every choice', 'help' => 'A reward mapped to an enabled common option is delivered with whichever selectable option the player chooses.'),
@@ -93,18 +156,18 @@ function achievement_metadata()
             2 => array('label' => 'Retryable Failure', 'help' => 'The selection failed explicitly and may be reviewed for retry.'),
             3 => array('label' => 'Ambiguous Delivery', 'help' => 'The server cannot prove whether delivery completed. Never retry without checking duplicate risk.'),
         ),
-        'mutation_target_types' => array(
+        'update_target_types' => array(
             0 => array('label' => 'Character', 'help' => 'The request originally targeted one character.'),
             1 => array('label' => 'Group', 'help' => 'World expanded a group request into per-character durable rows.'),
             2 => array('label' => 'Raid', 'help' => 'World expanded a raid request into per-character durable rows.'),
             3 => array('label' => 'Dynamic Zone', 'help' => 'World expanded a dynamic-zone roster into per-character durable rows.'),
             4 => array('label' => 'Shared Task', 'help' => 'World expanded a shared-task roster into per-character durable rows.'),
         ),
-        'mutation_operations' => array(
+        'update_operations' => array(
             0 => array('label' => 'Advance', 'help' => 'Raise one component to at least requested_value.'),
             1 => array('label' => 'Complete', 'help' => 'Complete the whole achievement idempotently.'),
         ),
-        'character_mutation_statuses' => array(
+        'character_update_statuses' => array(
             0 => array('label' => 'Pending', 'help' => 'Waiting for a target zone to apply the request.'),
             1 => array('label' => 'Blocked', 'help' => 'Invalid or incompatible content prevented application. The row remains for diagnosis.'),
             2 => array('label' => 'Processing', 'help' => 'A zone holds a claim lease. A stopped process can be recovered after 60 seconds.'),
@@ -161,7 +224,7 @@ function achievement_event_metadata()
         2 => array('label' => 'NPC Type Kill', 'help' => 'Advance after a credited kill of an exact npc_types row.', 'target_id_label' => 'NPC Type ID', 'target_id_help' => 'npc_types.id, or 0 to match any NPC type.', 'target_id2_label' => 'Secondary Target', 'target_id2_help' => 'Must be 0.', 'target_value_label' => 'Minimum Event Value', 'target_value_help' => 'A credited kill observes 1; normally use 0 or 1.', 'replay' => 'No historical replay.', 'lookup' => 'npc', 'allowed_progress_modes' => $all),
         3 => array('label' => 'NPC Race Kill', 'help' => 'Advance after a credited kill of an NPC with the selected base race.', 'target_id_label' => 'NPC Race ID', 'target_id_help' => 'npc_types.race, or 0 to match any base race.', 'target_id2_label' => 'Secondary Target', 'target_id2_help' => 'Must be 0.', 'target_value_label' => 'Minimum Event Value', 'target_value_help' => 'A credited kill observes 1; normally use 0 or 1.', 'replay' => 'No historical replay.', 'lookup' => 'race', 'allowed_progress_modes' => $all),
         4 => array('label' => 'Task Complete', 'help' => 'Pass after a specific task is durably recorded complete.', 'target_id_label' => 'Task ID', 'target_id_help' => 'An exact nonzero tasks.id is required; wildcard completion cannot be reconciled safely.', 'target_id2_label' => 'Secondary Target', 'target_id2_help' => 'Must be 0.', 'target_value_label' => 'Minimum Event Value', 'target_value_help' => 'Task completion observes 1; normally use 0 or 1.', 'replay' => 'Replayed from completed-task history.', 'lookup' => 'task', 'allowed_progress_modes' => $absolute),
-        5 => array('label' => 'Zone Enter', 'help' => 'Advance when the character enters the selected zone.', 'target_id_label' => 'Zone ID', 'target_id_help' => 'Use zone.zoneidnumber, or 0 to match any destination zone.', 'target_id2_label' => 'Secondary Target', 'target_id2_help' => 'Must be 0.', 'target_value_label' => 'Minimum Event Value', 'target_value_help' => 'Zone entry observes 1; normally use 0 or 1.', 'replay' => 'Only the current zone is reconciled.', 'lookup' => 'zone', 'allowed_progress_modes' => $all),
+        5 => array('label' => 'Zone Enter', 'help' => 'Advance when the character enters the selected zone.', 'target_id_label' => 'Zone ID', 'target_id_help' => 'Use zone.zoneidnumber, or 0 to match any destination zone.', 'target_id2_label' => 'Secondary Target', 'target_id2_help' => 'Must be 0.', 'target_value_label' => 'Minimum Event Value', 'target_value_help' => 'Zone entry observes 1; normally use 0 or 1.', 'replay' => 'Only the current zone is reconciled, so Increment is unsafe.', 'lookup' => 'zone', 'allowed_progress_modes' => $absolute),
         6 => array('label' => 'Loot Item', 'help' => 'Advance for item quantity transferred successfully from an NPC corpse.', 'target_id_label' => 'Item ID', 'target_id_help' => 'items.id, or 0 to match any looted item.', 'target_id2_label' => 'Secondary Target', 'target_id2_help' => 'Must be 0.', 'target_value_label' => 'Minimum Transfer Quantity', 'target_value_help' => 'The observed value is the successfully transferred quantity.', 'replay' => 'No historical replay.', 'lookup' => 'item', 'allowed_progress_modes' => $all),
         7 => array('label' => 'Own Item', 'help' => 'Compare against authoritative persisted inventory, bank, shared bank, keyring, bags, augments, and cursor storage.', 'target_id_label' => 'Item ID', 'target_id_help' => 'items.id, or 0 for the greatest quantity held of any one item ID.', 'target_id2_label' => 'Required Class', 'target_id2_help' => 'Optional EQ class ID 1 through 16; use 0 for class-neutral content.', 'target_value_label' => 'Minimum Owned Count', 'target_value_help' => 'Use a positive threshold for Boolean mode.', 'replay' => 'Authoritative persisted ownership is reconciled.', 'lookup' => 'item', 'allowed_progress_modes' => $absolute),
         8 => array('label' => 'Tradeskill Success', 'help' => 'Advance after a successful combine.', 'target_id_label' => 'Recipe ID', 'target_id_help' => 'tradeskill_recipe.id, or 0 to match any successful recipe.', 'target_id2_label' => 'Secondary Target', 'target_id2_help' => 'Must be 0.', 'target_value_label' => 'Minimum Event Value', 'target_value_help' => 'A successful combine observes 1; normally use 0 or 1.', 'replay' => 'No historical replay.', 'lookup' => 'recipe', 'allowed_progress_modes' => $all),
@@ -191,9 +254,9 @@ function achievement_field_metadata()
             'description' => array('label' => 'Description', 'help' => 'Visible achievement description sent to the client.'),
             'icon_id' => array('label' => 'Icon ID', 'help' => 'Unsigned client icon number. Use 0 when no reviewed icon is known.'),
             'points' => array('label' => 'Points', 'help' => 'Achievement score awarded on completion.'),
-            'reward_display' => array('label' => 'Imported reward display', 'help' => 'Presentation provenance only. Runtime derives View Reward from valid enabled server reward content.'),
-            'world_display_flag' => array('label' => 'World display flag', 'help' => 'Newer-client styling provenance. It is not serialized to RoF2.'),
-            'definition_version' => array('label' => 'Definition version', 'help' => 'Nonzero durable schema version. Increment it when a deployed definition changes incompatibly.'),
+            'has_reward' => array('label' => 'Imported reward hint', 'help' => 'Untrusted client reward-button hint. Runtime derives the effective state from source_type=1 automatic and selectable mappings.'),
+            'client_flag' => array('label' => 'Client flag', 'help' => 'Uninterpreted field 7 from AchievementsClient.txt, retained for lossless import/export and not sent to RoF2.'),
+            'version' => array('label' => 'Definition version', 'help' => 'Durable definition version. Zero is the valid initial version. Increment it when deployed semantics change incompatibly.'),
             'reset_on_version_change' => array('label' => 'Reset on version change', 'help' => 'When enabled, a mismatch removes old completion, progress, reward ledger, and selection ledger before rebuilding state.'),
             'enabled' => array('label' => 'Enabled', 'help' => 'Only enabled definitions enter the active snapshot. Invalid enabled content makes an achievement reload fail closed.'),
         ),
@@ -208,11 +271,11 @@ function achievement_field_metadata()
             'component_type' => array('label' => 'Wire type', 'help' => 'RoF2 state bucket 0 through 3. Type 3 is presentation-only.'),
             'sequence' => array('label' => 'Client order', 'help' => 'Display order within the wire type. RoF2 clamps this display value to 255.'),
             'component_id' => array('label' => 'Component ID', 'help' => 'Stable component identity together with achievement ID and wire type. Zero is valid.'),
-            'description' => array('label' => 'Primary description', 'help' => 'Visible step text.'),
-            'description_2' => array('label' => 'Secondary description', 'help' => 'Optional second client text field.'),
-            'presentation_count' => array('label' => 'Presentation count', 'help' => 'Default displayed count from achievement_component_counts. Enabled criteria override it with their explicit required count.'),
+            'name' => array('label' => 'Primary name', 'help' => 'Main client-facing component text stored in achievement_components.name.'),
+            'description' => array('label' => 'Secondary description', 'help' => 'Optional second client text stored in achievement_components.description.'),
+            'presentation_count' => array('label' => 'Presentation count', 'help' => 'Default displayed count from achievement_associations. Enabled criteria override it with their explicit required count.'),
         ),
-        'achievement_component_counts' => array(
+        'achievement_associations' => array(
             'component_id' => array('label' => 'Component ID', 'help' => 'Global presentation-count identity. Components in any definition sharing this ID also share this imported default.'),
             'required_count' => array('label' => 'Presentation count', 'help' => 'Default displayed count. Enabled criteria replace it with their explicit nonzero required count.'),
         ),
@@ -231,23 +294,28 @@ function achievement_field_metadata()
             'required_count' => array('label' => 'Required count', 'help' => 'Explicit nonzero count needed to satisfy the component and sent to RoF2.'),
             'enabled' => array('label' => 'Enabled', 'help' => 'Only enabled rows become server policy. Disabled rows remain stored for later review.'),
         ),
-        'achievement_rewards' => array(
-            'reward_id' => array('label' => 'Reward ID', 'help' => 'Canonical durable grant identity. Enabled IDs must be nonzero and fit the RoF2 unsigned 32-bit field; immutable after creation.'),
-            'sequence' => array('label' => 'Order', 'help' => 'Display and automatic-delivery order. It must be unique inside this achievement.'),
+        'rewards' => array(
+            'reward_id' => array('label' => 'Reward ID', 'help' => 'Reusable catalog identity from rewards. Shared catalog rows cannot be changed from one provider editor.'),
+            'sequence' => array('label' => 'Mapping order', 'help' => 'Automatic delivery order in reward_source_entries, or option delivery order in reward_option_entries.'),
             'reward_type' => array('label' => 'Type', 'help' => 'Kind of grant. It changes the meaning of Referenced data and Amount.'),
             'reward_data_id' => array('label' => 'Referenced data', 'help' => 'Type-specific item, currency, title-set, or experience-mode value.'),
             'amount' => array('label' => 'Amount', 'help' => 'Positive type-specific quantity.'),
             'description' => array('label' => 'Client description', 'help' => 'Text shown in reward preview; runtime supplies a fallback when empty.'),
-            'enabled' => array('label' => 'Enabled', 'help' => 'Enabled rows load as grants. A disabled mapped row stays mapped and cannot become automatic.'),
+            'enabled' => array('label' => 'Catalog enabled', 'help' => 'Global rewards.enabled state. Disabling a shared grant affects every provider mapping and is therefore blocked here.'),
             'option_id' => array('label' => 'Delivery option', 'help' => 'Leave empty for automatic delivery, or map this grant to one option in this achievement\'s reward set.'),
         ),
-        'achievement_reward_sets' => array(
+        'reward_sets' => array(
             'reward_set_id' => array('label' => 'Stable set ID', 'help' => 'Stable nonzero selectable-set identity. It may be allocated on first save and is immutable afterward.'),
-            'achievement_id' => array('label' => 'Achievement ID', 'help' => 'Owning definition. One achievement can own at most one set.'),
-            'title' => array('label' => 'Prompt / title', 'help' => 'Select Reward window title; empty falls back to the achievement name.'),
-            'enabled' => array('label' => 'Set enabled', 'help' => 'An enabled set must contain an enabled non-common choice, and every enabled option needs an enabled grant.'),
+            'title' => array('label' => 'Prompt / title', 'help' => 'Shared Select Reward window title stored in reward_sets.'),
+            'enabled' => array('label' => 'Catalog set enabled', 'help' => 'Global reward_sets.enabled state. Shared set content is read-only from one provider editor.'),
         ),
-        'achievement_reward_options' => array(
+        'reward_sources' => array(
+            'source_type' => array('label' => 'Source type', 'help' => 'Provider type. This editor always scopes achievement mappings to source_type 1.'),
+            'source_id' => array('label' => 'Source ID', 'help' => 'Provider-owned identity. For source_type 1 this is achievements.id.'),
+            'reward_set_id' => array('label' => 'Reward set ID', 'help' => 'Reusable reward set referenced by this provider source.'),
+            'enabled' => array('label' => 'Achievement mapping enabled', 'help' => 'Enables only this achievement-to-set mapping; it is distinct from the shared reward_sets.enabled flag.'),
+        ),
+        'reward_options' => array(
             'reward_set_id' => array('label' => 'Reward set ID', 'help' => 'Owning selectable reward set; supplied automatically by this editor.'),
             'option_id' => array('label' => 'Option ID', 'help' => 'Stable nonzero identity inside the reward set.'),
             'sequence' => array('label' => 'Order', 'help' => 'Display order inside the Select Reward window.'),
@@ -256,12 +324,13 @@ function achievement_field_metadata()
             'flags' => array('label' => 'Flags', 'help' => 'Unsigned RoF2 option flags. Use 0 unless a verified client behavior requires another value.'),
             'enabled' => array('label' => 'Enabled', 'help' => 'Only enabled options load. Each enabled option must contain at least one enabled grant.'),
         ),
-        'achievement_reward_option_entries' => array(
+        'reward_option_entries' => array(
             'reward_set_id' => array('label' => 'Reward set ID', 'help' => 'Set containing the mapped option.'),
             'option_id' => array('label' => 'Option ID', 'help' => 'Common or selectable option receiving this canonical grant.'),
-            'reward_id' => array('label' => 'Reward ID', 'help' => 'Canonical achievement reward. A grant may belong to only one option and remains mapped even while disabled.'),
+            'sequence' => array('label' => 'Grant order', 'help' => 'Display and delivery order inside this option.'),
+            'reward_id' => array('label' => 'Reward ID', 'help' => 'Reusable catalog grant. A grant may appear only once within a set.'),
         ),
-        'achievement_cast_restrictions' => array(
+        'achievement_cast_requirements' => array(
             'restriction_id' => array('label' => 'Restriction ID', 'help' => 'Existing spell restriction number. Every row sharing a restriction ID must pass.'),
             'achievement_id' => array('label' => 'Achievement ID', 'help' => 'The edited achievement is required by this restriction.'),
             'requires_completed' => array('label' => 'Required state', 'help' => 'Enabled requires achievement completion; disabled requires it to remain incomplete.'),
@@ -269,7 +338,7 @@ function achievement_field_metadata()
         'character_achievements' => array(
             'character_id' => array('label' => 'Character ID', 'help' => 'Character that owns this durable completion.'),
             'achievement_id' => array('label' => 'Achievement ID', 'help' => 'Completed stable definition identity.'),
-            'definition_version' => array('label' => 'Saved version', 'help' => 'Definition version active when completion was persisted.'),
+            'version' => array('label' => 'Saved version', 'help' => 'Definition version active when completion was persisted.'),
             'completed_at' => array('label' => 'Completed at', 'help' => 'Unix timestamp of durable completion.'),
         ),
         'character_achievement_progress' => array(
@@ -280,13 +349,13 @@ function achievement_field_metadata()
             'component_id' => array('label' => 'Component ID', 'help' => 'Stable authored component identity.'),
             'current_count' => array('label' => 'Current count', 'help' => 'Durable progress clamped to the component requirement.'),
             'completed' => array('label' => 'Completed', 'help' => 'Materialized component-satisfied flag.'),
-            'definition_version' => array('label' => 'Saved version', 'help' => 'Definition version under which this progress was written.'),
+            'version' => array('label' => 'Saved version', 'help' => 'Definition version under which this progress was written.'),
             'updated_at' => array('label' => 'Updated at', 'help' => 'Unix timestamp of the last durable progress update.'),
         ),
         'character_achievement_rewards' => array(
             'character_id' => array('label' => 'Character ID', 'help' => 'Character receiving the grant.'),
             'achievement_id' => array('label' => 'Achievement ID', 'help' => 'Completed definition that produced this grant.'),
-            'reward_id' => array('label' => 'Reward ID', 'help' => 'Canonical at-most-once grant identity from achievement_rewards.'),
+            'reward_id' => array('label' => 'Reward ID', 'help' => 'Canonical at-most-once grant identity from rewards.'),
             'status' => array('label' => 'Delivery status', 'help' => 'At-most-once ledger state. In-flight/ambiguous rows require duplicate-risk review.'),
             'attempt_count' => array('label' => 'Attempts', 'help' => 'Number of delivery claims started.'),
             'granted_at' => array('label' => 'Granted at', 'help' => 'Unix timestamp of successful delivery, otherwise 0.'),
@@ -304,9 +373,9 @@ function achievement_field_metadata()
             'last_attempt_at' => array('label' => 'Last attempt', 'help' => 'Unix timestamp of the latest selection attempt.'),
             'last_error' => array('label' => 'Last error', 'help' => 'Latest selection-level diagnostic.'),
         ),
-        'character_achievement_pending_mutations' => array(
-            'mutation_id' => array('label' => 'Mutation ID', 'help' => 'Durable queue identity.'),
-            'character_id' => array('label' => 'Character ID', 'help' => 'Target character that must consume this durable mutation.'),
+        'character_achievement_pending_updates' => array(
+            'update_id' => array('label' => 'Update ID', 'help' => 'Durable state-update queue identity.'),
+            'character_id' => array('label' => 'Character ID', 'help' => 'Target character that must consume this durable state update.'),
             'source_target_type' => array('label' => 'Original scope', 'help' => 'Character, group, raid, dynamic-zone, or shared-task request that created this row.'),
             'source_target_id' => array('label' => 'Original target ID', 'help' => 'Scope-specific diagnostic identity retained by world.'),
             'operation' => array('label' => 'Operation', 'help' => 'Advance one component or complete the whole achievement.'),
@@ -314,7 +383,7 @@ function achievement_field_metadata()
             'component_type' => array('label' => 'Component type', 'help' => 'State-bearing target type for Advance; zero for whole completion.'),
             'component_id' => array('label' => 'Component ID', 'help' => 'Target component identity for Advance; zero is valid.'),
             'requested_value' => array('label' => 'Requested value', 'help' => 'Monotonic progress floor, clamped to required count; zero for whole completion.'),
-            'definition_version' => array('label' => 'Source version', 'help' => 'Must exactly match target-zone content or the row blocks.'),
+            'version' => array('label' => 'Source version', 'help' => 'Must exactly match target-zone content or the row blocks.'),
             'status' => array('label' => 'Queue status', 'help' => 'Pending, blocked for diagnosis, or processing under a lease.'),
             'attempt_count' => array('label' => 'Attempts', 'help' => 'Application claim count and compare-and-swap token.'),
             'created_at' => array('label' => 'Created at', 'help' => 'Unix timestamp when world committed this character row.'),
@@ -669,9 +738,9 @@ function achievement_validate_definition($definition, $existing_id = null, $cont
     achievement_validate_text_field($definition, 'description', 'description', $findings, false, null);
     achievement_validate_uint_field($definition, 'icon_id', 'icon_id', '0', ACHIEVEMENT_UINT32_MAX, $findings);
     achievement_validate_uint_field($definition, 'points', 'points', '0', ACHIEVEMENT_UINT32_MAX, $findings);
-    achievement_validate_uint_field($definition, 'reward_display', 'reward_display', '0', ACHIEVEMENT_UINT32_MAX, $findings);
-    achievement_validate_uint_field($definition, 'world_display_flag', 'world_display_flag', '0', ACHIEVEMENT_UINT8_MAX, $findings);
-    achievement_validate_uint_field($definition, 'definition_version', 'definition_version', '1', ACHIEVEMENT_UINT32_MAX, $findings);
+    achievement_validate_boolean_field($definition, 'has_reward', 'has_reward', $findings);
+    achievement_validate_uint_field($definition, 'client_flag', 'client_flag', '0', ACHIEVEMENT_UINT8_MAX, $findings);
+    achievement_validate_uint_field($definition, 'version', 'version', '0', ACHIEVEMENT_UINT32_MAX, $findings);
     achievement_validate_boolean_field($definition, 'reset_on_version_change', 'reset_on_version_change', $findings);
     $definition_enabled = achievement_validate_boolean_field($definition, 'enabled', 'enabled', $findings);
 
@@ -739,8 +808,8 @@ function achievement_validate_definition($definition, $existing_id = null, $cont
         $component_type_text = achievement_validate_uint_field($component, 'component_type', $path . '.component_type', '0', '3', $findings);
         $component_sequence = achievement_validate_uint_field($component, 'sequence', $path . '.sequence', '0', ACHIEVEMENT_UINT32_MAX, $findings);
         $component_id = achievement_validate_uint_field($component, 'component_id', $path . '.component_id', '0', ACHIEVEMENT_UINT32_MAX, $findings);
+        achievement_validate_text_field($component, 'name', $path . '.name', $findings, false, null);
         achievement_validate_text_field($component, 'description', $path . '.description', $findings, false, null);
-        achievement_validate_text_field($component, 'description_2', $path . '.description_2', $findings, false, null);
         $count_field = array_key_exists('presentation_count', $component) ? 'presentation_count' : 'required_count';
         $presentation_count = achievement_validate_uint_field($component, $count_field, $path . '.presentation_count', '1', ACHIEVEMENT_UINT32_MAX, $findings);
 
@@ -914,7 +983,13 @@ function achievement_validate_definition($definition, $existing_id = null, $cont
         }
     }
 
-    achievement_validate_definition_rewards($definition, $existing_id, $context, $findings);
+    achievement_validate_definition_rewards(
+        $definition,
+        $existing_id,
+        $context,
+        $definition_enabled,
+        $findings
+    );
     achievement_validate_definition_restrictions($definition, $context, $definition_enabled, $findings);
 
     return $findings;
@@ -966,7 +1041,62 @@ function achievement_dependency_walk($edges, $node, &$visiting, &$visited)
     return false;
 }
 
-function achievement_validate_definition_rewards($definition, $existing_id, $context, &$findings)
+/** Validate only a grant that the active runtime could currently deliver. */
+function achievement_validate_runtime_reward_semantics(
+    $reward_type,
+    $data_id,
+    $amount,
+    $path,
+    &$findings
+) {
+    $types = achievement_reward_type_metadata();
+    $type = (int) $reward_type;
+    if (!isset($types[$type])) {
+        return;
+    }
+    $constraints = $types[$type];
+    if (isset($constraints['data_values'])) {
+        $valid_data = false;
+        foreach ($constraints['data_values'] as $allowed) {
+            if (achievement_uint_in_range($data_id, $allowed, $allowed)) {
+                $valid_data = true;
+                break;
+            }
+        }
+        if (!$valid_data) {
+            achievement_validation_add(
+                $findings,
+                $path . '.reward_data_id',
+                $constraints['data_help']
+            );
+        }
+    } elseif (isset($constraints['data_min'], $constraints['data_max'])
+        && !achievement_uint_in_range($data_id, $constraints['data_min'], $constraints['data_max'])) {
+        achievement_validation_add(
+            $findings,
+            $path . '.reward_data_id',
+            $constraints['data_help']
+        );
+    }
+
+    if (isset($constraints['amount_values'])) {
+        $valid_amount = false;
+        foreach ($constraints['amount_values'] as $allowed) {
+            if (achievement_uint_in_range($amount, $allowed, $allowed)) {
+                $valid_amount = true;
+                break;
+            }
+        }
+        if (!$valid_amount) {
+            achievement_validation_add($findings, $path . '.amount', $constraints['amount_help']);
+        }
+    } elseif (isset($constraints['amount_min'], $constraints['amount_max'])
+        && !achievement_uint_in_range($amount, $constraints['amount_min'], $constraints['amount_max'])) {
+        achievement_validation_add($findings, $path . '.amount', $constraints['amount_help']);
+    }
+}
+
+function achievement_validate_definition_rewards($definition, $existing_id, $context, $definition_enabled, &$findings)
 {
     $rewards = isset($definition['rewards']) && is_array($definition['rewards'])
         ? $definition['rewards'] : array();
@@ -998,6 +1128,7 @@ function achievement_validate_definition_rewards($definition, $existing_id, $con
     $option_paths = array();
     $explicit_grants = array();
     $set_enabled = 0;
+    $source_enabled = 0;
     $reward_set_id = null;
     if ($reward_set !== null) {
         if (array_key_exists('reward_set_id', $reward_set) && $reward_set['reward_set_id'] !== '' && $reward_set['reward_set_id'] !== null) {
@@ -1006,6 +1137,13 @@ function achievement_validate_definition_rewards($definition, $existing_id, $con
         achievement_validate_text_field($reward_set, 'title', 'reward_set.title', $findings, false, 255);
         $set_enabled_value = achievement_validate_boolean_field($reward_set, 'enabled', 'reward_set.enabled', $findings);
         $set_enabled = $set_enabled_value === null ? 0 : $set_enabled_value;
+        $source_enabled_value = achievement_validate_boolean_field(
+            $reward_set,
+            'source_enabled',
+            'reward_set.source_enabled',
+            $findings
+        );
+        $source_enabled = $source_enabled_value === null ? 0 : $source_enabled_value;
 
         $existing_set_id = isset($context['existing_reward_set_id'])
             ? achievement_unsigned_string($context['existing_reward_set_id']) : false;
@@ -1081,7 +1219,8 @@ function achievement_validate_definition_rewards($definition, $existing_id, $con
 
     $reward_ids = array();
     $reward_enabled_by_id = array();
-    $reward_sequences = array();
+    $automatic_sequences = array();
+    $option_sequences = array();
     $reward_mappings = array();
     $enabled_grants_by_option = array();
     $existing_reward_ids = achievement_context_id_set($context, 'existing_reward_ids');
@@ -1098,7 +1237,7 @@ function achievement_validate_definition_rewards($definition, $existing_id, $con
         $sequence = achievement_validate_uint_field($reward, 'sequence', $path . '.sequence', '0', ACHIEVEMENT_UINT32_MAX, $findings);
         $type_text = achievement_validate_uint_field($reward, 'reward_type', $path . '.reward_type', '0', '5', $findings);
         $data_id = achievement_validate_uint_field($reward, 'reward_data_id', $path . '.reward_data_id', '0', ACHIEVEMENT_UINT32_MAX, $findings);
-        achievement_validate_uint_field($reward, 'amount', $path . '.amount', '1', ACHIEVEMENT_UINT64_MAX, $findings);
+        $amount = achievement_validate_uint_field($reward, 'amount', $path . '.amount', '1', ACHIEVEMENT_UINT64_MAX, $findings);
         achievement_validate_text_field($reward, 'description', $path . '.description', $findings, false, 255);
         $enabled_value = achievement_validate_boolean_field($reward, 'enabled', $path . '.enabled', $findings);
         $enabled = $enabled_value === 1;
@@ -1120,20 +1259,23 @@ function achievement_validate_definition_rewards($definition, $existing_id, $con
                 achievement_validation_add($findings, $path . '.reward_id', 'Enabled reward IDs must fit the unsigned 32-bit RoF2 wire field.');
             }
         }
-        if ($sequence !== null) {
-            if (isset($reward_sequences[$sequence])) {
-                achievement_validation_add($findings, $path . '.sequence', 'Reward sequence must be unique within the achievement.');
-            }
-            $reward_sequences[$sequence] = true;
+        $runtime_reachable = $definition_enabled === 1 && $enabled;
+        if ($option_id !== null) {
+            $runtime_reachable = $runtime_reachable
+                && $reward_set !== null
+                && $source_enabled === 1
+                && $set_enabled === 1
+                && isset($option_enabled[$option_id])
+                && $option_enabled[$option_id];
         }
-        if ($enabled && $type_text !== null && $data_id !== null) {
-            $type = (int) $type_text;
-            if (in_array($type, array(0, 4, 5), true) && $data_id === '0') {
-                achievement_validation_add($findings, $path . '.reward_data_id', 'Enabled item, alternate-currency, and title rewards require a nonzero referenced data ID.');
-            }
-            if ($type === 1 && achievement_decimal_compare($data_id, '1') > 0) {
-                achievement_validation_add($findings, $path . '.reward_data_id', 'Experience mode must be 0 (normal handling) or 1 (normal-only raw XP).');
-            }
+        if ($runtime_reachable && $type_text !== null && $data_id !== null && $amount !== null) {
+            achievement_validate_runtime_reward_semantics(
+                $type_text,
+                $data_id,
+                $amount,
+                $path,
+                $findings
+            );
         }
         if ($option_id !== null) {
             if ($reward_set === null) {
@@ -1151,7 +1293,19 @@ function achievement_validate_definition_rewards($definition, $existing_id, $con
                 if ($enabled && !$option_enabled[$option_id]) {
                     achievement_validation_add($findings, $path . '.option_id', 'This enabled reward is mapped to a disabled option. It remains mapped and will not fall back to automatic delivery.', 'warning');
                 }
+                if ($sequence !== null) {
+                    $option_sequence_key = $option_id . ':' . $sequence;
+                    if (isset($option_sequences[$option_sequence_key])) {
+                        achievement_validation_add($findings, $path . '.sequence', 'Another grant in this option uses the same display order; the client will break the tie by reward ID.', 'warning');
+                    }
+                    $option_sequences[$option_sequence_key] = true;
+                }
             }
+        } elseif ($sequence !== null) {
+            if (isset($automatic_sequences[$sequence])) {
+                achievement_validation_add($findings, $path . '.sequence', 'Automatic reward order must be unique within this achievement source.');
+            }
+            $automatic_sequences[$sequence] = true;
         }
     }
 
@@ -1171,7 +1325,35 @@ function achievement_validate_definition_rewards($definition, $existing_id, $con
         }
     }
 
-    if ($reward_set !== null && $set_enabled === 1) {
+    if ($reward_set !== null && $set_enabled === 1 && $source_enabled !== 1) {
+        achievement_validation_add(
+            $findings,
+            'reward_set.source_enabled',
+            'This achievement-to-set source is disabled. The selectable catalog remains staged but cannot be previewed or claimed from this achievement.',
+            'warning'
+        );
+    }
+    if ($reward_set !== null && $source_enabled === 1 && $set_enabled !== 1) {
+        achievement_validation_add(
+            $findings,
+            'reward_set.enabled',
+            'This source is enabled but the shared reward-set catalog row is disabled. The selectable rewards remain staged and inactive.',
+            'warning'
+        );
+    }
+    if ($reward_set !== null && $definition_enabled !== 1 && $source_enabled === 1 && $set_enabled === 1) {
+        achievement_validation_add(
+            $findings,
+            'enabled',
+            'The selectable reward path is authored and enabled, but it is unreachable while this achievement definition is disabled.',
+            'warning'
+        );
+    }
+
+    if ($reward_set !== null
+        && $definition_enabled === 1
+        && $source_enabled === 1
+        && $set_enabled === 1) {
         $has_enabled_option = false;
         $has_selectable_option = false;
         foreach ($option_ids as $option_id => $unused) {
@@ -1270,4 +1452,4 @@ function achievement_reward_type_label($value) { return achievement_enum_label('
 function achievement_status_label($value) { return achievement_enum_label('achievement_statuses', $value); }
 function achievement_character_reward_status_label($value) { return achievement_enum_label('character_reward_statuses', $value); }
 function achievement_character_selection_status_label($value) { return achievement_enum_label('character_selection_statuses', $value); }
-function achievement_character_mutation_status_label($value) { return achievement_enum_label('character_mutation_statuses', $value); }
+function achievement_character_update_status_label($value) { return achievement_enum_label('character_update_statuses', $value); }

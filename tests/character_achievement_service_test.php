@@ -139,9 +139,23 @@ class CharacterAchievementServiceTestDatabase
   public $online = false;
   public $stateAchievementIds = array();
   public $definedAchievementIds = array();
+  public $definitionVersions = array();
   public $queries = array();
-  public $mutationStatus = null;
-  public $deletedMutations = 0;
+  public $updateStatus = null;
+  public $updateVersion = 0;
+  public $deletedUpdates = 0;
+  public $retriedUpdates = 0;
+  public $selectionStatus = null;
+  public $selectedOptionId = 0;
+  public $sourceEnabled = 1;
+  public $setEnabled = 1;
+  public $rewardOptions = array();
+  public $rewardMappings = array();
+  public $retryableRewardLedgerUpdates = 0;
+  public $retryableSelectionUpdates = 0;
+  public $completionVersion = null;
+  public $progressVersions = array();
+  public $forcedCompletions = 0;
 
   private $name;
 
@@ -290,6 +304,80 @@ class CharacterAchievementServiceTestDatabase
       );
     }
 
+    if (stripos($sql, 'SELECT id, version, enabled') !== false && stripos($sql, 'FROM achievements WHERE id = ?') !== false) {
+      $achievementId = isset($parameters[0]) ? (int) $parameters[0] : 0;
+      $exists = in_array($achievementId, $this->definedAchievementIds, true);
+      return array(
+        'fields' => array('id', 'version', 'enabled'),
+        'rows' => $exists ? array(array(
+          'id' => $achievementId,
+          'version' => isset($this->definitionVersions[$achievementId])
+            ? $this->definitionVersions[$achievementId]
+            : 0,
+          'enabled' => 1
+        )) : array()
+      );
+    }
+
+    if (
+      stripos($sql, 'SELECT version FROM character_achievements') !== false &&
+      stripos($sql, 'WHERE character_id = ? AND achievement_id = ? FOR UPDATE') !== false
+    ) {
+      return array(
+        'fields' => array('version'),
+        'rows' => $this->completionVersion === null
+          ? array()
+          : array(array('version' => $this->completionVersion))
+      );
+    }
+
+    if (
+      stripos($sql, 'SELECT version FROM character_achievement_progress') !== false &&
+      stripos($sql, 'WHERE character_id = ? AND achievement_id = ? FOR UPDATE') !== false
+    ) {
+      $rows = array();
+      foreach ($this->progressVersions as $version) {
+        $rows[] = array('version' => $version);
+      }
+      return array('fields' => array('version'), 'rows' => $rows);
+    }
+
+    if (stripos($sql, 'INSERT INTO character_achievements') !== false) {
+      ++$this->forcedCompletions;
+      return array('fields' => array(), 'rows' => array(), 'affected_rows' => 1);
+    }
+
+    if (
+      stripos($sql, 'SELECT 1 AS present') !== false &&
+      stripos($sql, 'FROM reward_sources') !== false
+    ) {
+      return array('fields' => array('present'), 'rows' => array(array('present' => 1)));
+    }
+
+    if (stripos($sql, 'SELECT source.enabled AS source_enabled, reward_set.enabled AS set_enabled') !== false) {
+      return array(
+        'fields' => array('source_enabled', 'set_enabled'),
+        'rows' => array(array(
+          'source_enabled' => $this->sourceEnabled,
+          'set_enabled' => $this->setEnabled
+        ))
+      );
+    }
+
+    if (stripos($sql, 'SELECT option_id, common_to_all, enabled') !== false && stripos($sql, 'FROM reward_options') !== false) {
+      return array(
+        'fields' => array('option_id', 'common_to_all', 'enabled'),
+        'rows' => $this->rewardOptions
+      );
+    }
+
+    if (stripos($sql, 'SELECT mapping.option_id, mapping.reward_id') !== false) {
+      return array(
+        'fields' => array('option_id', 'reward_id', 'catalog_reward_id', 'reward_enabled'),
+        'rows' => $this->rewardMappings
+      );
+    }
+
     if (
       stripos($sql, 'SELECT 1 AS present FROM character_achievements') !== false &&
       stripos($sql, 'UNION ALL') !== false
@@ -316,18 +404,54 @@ class CharacterAchievementServiceTestDatabase
     }
 
     if (
-      stripos($sql, 'SELECT mutation_id, status FROM character_achievement_pending_mutations') !== false
+      stripos($sql, 'SELECT update_id, status FROM character_achievement_pending_updates') !== false
     ) {
       return array(
-        'fields' => array('mutation_id', 'status'),
-        'rows' => $this->mutationStatus === null
+        'fields' => array('update_id', 'status'),
+        'rows' => $this->updateStatus === null
           ? array()
-          : array(array('mutation_id' => 1, 'status' => $this->mutationStatus))
+          : array(array('update_id' => 1, 'status' => $this->updateStatus))
       );
     }
 
-    if (stripos($sql, 'DELETE FROM character_achievement_pending_mutations') !== false) {
-      ++$this->deletedMutations;
+    if (stripos($sql, 'SELECT version, status') !== false && stripos($sql, 'FROM character_achievement_pending_updates') !== false) {
+      return array(
+        'fields' => array('version', 'status'),
+        'rows' => $this->updateStatus === null
+          ? array()
+          : array(array('version' => $this->updateVersion, 'status' => $this->updateStatus))
+      );
+    }
+
+    if (stripos($sql, 'UPDATE character_achievement_pending_updates') !== false) {
+      ++$this->retriedUpdates;
+      return array('fields' => array(), 'rows' => array(), 'affected_rows' => 1);
+    }
+
+    if (stripos($sql, 'SELECT selected_option_id, status') !== false && stripos($sql, 'FROM character_achievement_reward_selections') !== false) {
+      return array(
+        'fields' => array('selected_option_id', 'status'),
+        'rows' => $this->selectionStatus === null
+          ? array()
+          : array(array(
+            'selected_option_id' => $this->selectedOptionId,
+            'status' => $this->selectionStatus
+          ))
+      );
+    }
+
+    if (stripos($sql, 'UPDATE character_achievement_rewards') !== false && stripos($sql, 'status = 0') !== false) {
+      ++$this->retryableRewardLedgerUpdates;
+      return array('fields' => array(), 'rows' => array(), 'affected_rows' => 1);
+    }
+
+    if (stripos($sql, 'UPDATE character_achievement_reward_selections') !== false) {
+      ++$this->retryableSelectionUpdates;
+      return array('fields' => array(), 'rows' => array(), 'affected_rows' => 1);
+    }
+
+    if (stripos($sql, 'DELETE FROM character_achievement_pending_updates') !== false) {
+      ++$this->deletedUpdates;
       return array('fields' => array(), 'rows' => array(), 'affected_rows' => 1);
     }
 
@@ -448,6 +572,19 @@ character_achievement_service_assert(
   'complete schema reports no missing tables'
 );
 
+$finalContentSchema = $contentDatabase->schema;
+unset($contentDatabase->schema['reward_sources']);
+unset($contentDatabase->schema['reward_source_entries']);
+$oldSchemaBlocked = $service->schemaDiagnostics(true);
+character_achievement_service_assert(
+  !$oldSchemaBlocked['ready'] &&
+    character_achievement_service_contains($oldSchemaBlocked['content_errors'], 'reward_sources') &&
+    character_achievement_service_contains($oldSchemaBlocked['content_errors'], 'reward_source_entries'),
+  'the superseded achievement-owned reward schema fails closed without provider source tables'
+);
+$contentDatabase->schema = $finalContentSchema;
+$service->schemaDiagnostics(true);
+
 $characterDatabase->schema['character_achievement_rewards']['engine'] = 'MyISAM';
 $characterDatabase->schema['character_achievements']['columns']['achievement_id']['data_type'] = 'smallint';
 $characterDatabase->schema['character_achievements']['columns']['achievement_id']['type'] = 'smallint unsigned';
@@ -455,8 +592,8 @@ $characterDatabase->schema['character_achievement_rewards']['columns']['last_err
 $characterDatabase->schema['character_achievement_progress']['columns']['updated_at']['nullable'] = true;
 $contentDatabase->schema['achievement_criteria']['columns']['required_count']['type'] = 'int(10)';
 $contentDatabase->schema['achievement_criteria']['columns']['target_value']['type'] = 'bigint unsigned';
-unset($contentDatabase->schema['achievement_rewards']['columns']['description']);
-$contentDatabase->schema['achievement_reward_option_entries']['indexes']['fixture_0']['prefix'] = true;
+unset($contentDatabase->schema['rewards']['columns']['description']);
+$contentDatabase->schema['reward_option_entries']['indexes']['fixture_0']['prefix'] = true;
 $blocked = $service->schemaDiagnostics(true);
 character_achievement_service_assert(!$blocked['ready'], 'unsafe schema is blocked');
 character_achievement_service_assert(
@@ -491,7 +628,7 @@ character_achievement_service_assert(
   character_achievement_service_contains($blocked['content_errors'], 'reward_set_id, option_id, reward_id'),
   'prefix indexes cannot satisfy an exact idempotency identity'
 );
-$schemaGateMethod = $reflection->getMethod('assertSchemaReadyForMutation');
+$schemaGateMethod = $reflection->getMethod('assertSchemaReadyForWrite');
 $schemaGateMethod->setAccessible(true);
 $schemaGateRejected = false;
 try {
@@ -502,7 +639,7 @@ catch (CharacterAchievementValidationException $exception) {
 }
 character_achievement_service_assert(
   $schemaGateRejected,
-  'direct service mutations cannot bypass failed schema readiness'
+  'direct service writes cannot bypass failed schema readiness'
 );
 
 $characterDatabase->online = true;
@@ -541,7 +678,7 @@ character_achievement_service_assert(
 );
 foreach (array(
   'completions', 'progress', 'reward_ledgers',
-  'reward_selections', 'pending_mutations'
+  'reward_selections', 'pending_updates'
 ) as $stateKind) {
   character_achievement_service_assert(
     count($orphans[$stateKind]) === 1 && (int) $orphans[$stateKind][0]['achievement_id'] === 200,
@@ -609,23 +746,129 @@ foreach ($offlineOperations as $messageFragment => $operation) {
     $messageFragment . ' rejects a live character before direct state writes'
   );
 }
-$characterDatabase->mutationStatus = CharacterAchievementService::MUTATION_STATUS_PROCESSING;
+$characterDatabase->updateStatus = CharacterAchievementService::UPDATE_STATUS_PROCESSING;
 $processingRejected = false;
 try {
-  $service->discardMutation(1, 200, 1, true);
+  $service->discardUpdate(1, 200, 1, true);
 }
 catch (CharacterAchievementValidationException $exception) {
   $processingRejected = stripos($exception->getMessage(), 'processing cannot be discarded') !== false;
 }
 character_achievement_service_assert(
-  $processingRejected && $characterDatabase->deletedMutations === 0,
-  'processing mutations cannot be discarded while server ownership is ambiguous'
+  $processingRejected && $characterDatabase->deletedUpdates === 0,
+  'processing updates cannot be discarded while server ownership is ambiguous'
 );
-$characterDatabase->mutationStatus = CharacterAchievementService::MUTATION_STATUS_PENDING;
+$characterDatabase->updateStatus = CharacterAchievementService::UPDATE_STATUS_PENDING;
 character_achievement_service_assert(
-  $service->discardMutation(1, 200, 1, true) === true &&
-    $characterDatabase->deletedMutations === 1,
-  'stable pending mutations remain explicitly discardable'
+  $service->discardUpdate(1, 200, 1, true) === true &&
+    $characterDatabase->deletedUpdates === 1,
+  'stable pending updates remain explicitly discardable'
+);
+
+$contentDatabase->definedAchievementIds = array(100, 200);
+$contentDatabase->definitionVersions[200] = 0;
+$characterDatabase->updateStatus = CharacterAchievementService::UPDATE_STATUS_BLOCKED;
+$characterDatabase->updateVersion = 0;
+$characterDatabase->retriedUpdates = 0;
+character_achievement_service_assert(
+  $service->retryBlockedUpdate(1, 200, 1) === true &&
+    $characterDatabase->retriedUpdates === 1,
+  'pending-update version zero retries against current definition version zero'
+);
+$characterDatabase->updateVersion = 1;
+$mismatchedZeroRejected = false;
+try {
+  $service->retryBlockedUpdate(1, 200, 1);
+}
+catch (CharacterAchievementValidationException $exception) {
+  $mismatchedZeroRejected = stripos($exception->getMessage(), 'current definition is version 0') !== false;
+}
+character_achievement_service_assert(
+  $mismatchedZeroRejected && $characterDatabase->retriedUpdates === 1,
+  'version zero is compared exactly and never treated as a wildcard sentinel'
+);
+
+$characterDatabase->online = false;
+$contentDatabase->definitionVersions[100] = 0;
+$characterDatabase->completionVersion = null;
+$characterDatabase->progressVersions = array(1);
+$characterDatabase->forcedCompletions = 0;
+$forceMismatchRejected = false;
+try {
+  $service->forceCompleteOffline(1, 100, true);
+}
+catch (CharacterAchievementValidationException $exception) {
+  $forceMismatchRejected = stripos($exception->getMessage(), 'different exact definition version') !== false;
+}
+character_achievement_service_assert(
+  $forceMismatchRejected && $characterDatabase->forcedCompletions === 0,
+  'force completion rejects progress from any other exact version when the current definition is version zero'
+);
+$characterDatabase->progressVersions = array(0);
+$forceVersionZeroResult = $service->forceCompleteOffline(1, 100, true);
+character_achievement_service_assert(
+  (int) $forceVersionZeroResult['version'] === 0 && $characterDatabase->forcedCompletions === 1,
+  'force completion accepts existing progress only when version zero matches exactly'
+);
+$characterDatabase->progressVersions = array();
+$characterDatabase->selectionStatus = CharacterAchievementService::SELECTION_STATUS_AMBIGUOUS;
+$characterDatabase->selectedOptionId = 100;
+$contentDatabase->sourceEnabled = 1;
+$contentDatabase->setEnabled = 1;
+$contentDatabase->rewardOptions = array(
+  array('option_id' => 1, 'common_to_all' => 1, 'enabled' => 1),
+  array('option_id' => 100, 'common_to_all' => 0, 'enabled' => 1)
+);
+$contentDatabase->rewardMappings = array(
+  array('option_id' => 1, 'reward_id' => 7001, 'catalog_reward_id' => 7001, 'reward_enabled' => 1),
+  array('option_id' => 100, 'reward_id' => 7002, 'catalog_reward_id' => 7002, 'reward_enabled' => 1)
+);
+$characterDatabase->queries = array();
+$characterDatabase->retryableRewardLedgerUpdates = 0;
+$characterDatabase->retryableSelectionUpdates = 0;
+character_achievement_service_assert(
+  $service->markSelectionRetryable(1, 100, 500, true) === true,
+  'an enabled source/set with valid selected and common grants is retryable'
+);
+$retryQueryText = implode("\n", $characterDatabase->queries);
+$rewardRetryPosition = stripos($retryQueryText, 'UPDATE character_achievement_rewards');
+$selectionRetryPosition = stripos($retryQueryText, 'UPDATE character_achievement_reward_selections');
+character_achievement_service_assert(
+  $characterDatabase->retryableRewardLedgerUpdates === 1 &&
+    $characterDatabase->retryableSelectionUpdates === 1 &&
+    $rewardRetryPosition !== false && $selectionRetryPosition !== false &&
+    $rewardRetryPosition < $selectionRetryPosition,
+  'selection retry atomically makes selected/common status-0 grant ledgers retryable before the selection ledger'
+);
+
+$contentDatabase->sourceEnabled = 0;
+$characterDatabase->retryableRewardLedgerUpdates = 0;
+$characterDatabase->retryableSelectionUpdates = 0;
+$disabledSourceRejected = false;
+try {
+  $service->markSelectionRetryable(1, 100, 500, true);
+}
+catch (CharacterAchievementValidationException $exception) {
+  $disabledSourceRejected = stripos($exception->getMessage(), 'source') !== false &&
+    stripos($exception->getMessage(), 'disabled') !== false;
+}
+character_achievement_service_assert(
+  $disabledSourceRejected &&
+    $characterDatabase->retryableRewardLedgerUpdates === 0 &&
+    $characterDatabase->retryableSelectionUpdates === 0,
+  'selection retry fails closed when the achievement source mapping is disabled'
+);
+
+$selectableIndividualRejected = false;
+try {
+  $service->markRewardRetryable(1, 100, 7002, true);
+}
+catch (CharacterAchievementValidationException $exception) {
+  $selectableIndividualRejected = stripos($exception->getMessage(), 'selectable option') !== false;
+}
+character_achievement_service_assert(
+  $selectableIndividualRejected,
+  'selectable grants cannot bypass their owning selection bundle through individual retry'
 );
 
 echo 'character_achievement_service_test: ' .

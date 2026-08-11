@@ -41,9 +41,9 @@ class CharacterAchievementService
   const SELECTION_STATUS_RETRYABLE_FAILURE = 2;
   const SELECTION_STATUS_AMBIGUOUS = 3;
 
-  const MUTATION_STATUS_PENDING = 0;
-  const MUTATION_STATUS_BLOCKED = 1;
-  const MUTATION_STATUS_PROCESSING = 2;
+  const UPDATE_STATUS_PENDING = 0;
+  const UPDATE_STATUS_BLOCKED = 1;
+  const UPDATE_STATUS_PROCESSING = 2;
 
   const COMPONENT_TYPE_MIN = 0;
   const COMPONENT_TYPE_MAX_STATE_BEARING = 2;
@@ -251,7 +251,7 @@ class CharacterAchievementService
         'progress' => array(),
         'reward_ledgers' => array(),
         'reward_selections' => array(),
-        'pending_mutations' => array()
+        'pending_updates' => array()
       );
     }
 
@@ -259,7 +259,7 @@ class CharacterAchievementService
     $definitions = $this->fetchAll(
       $this->contentDatabase,
       "SELECT a.id, a.name, a.description, a.icon_id, a.points,
-        a.reward_display, a.world_display_flag, a.definition_version,
+        a.has_reward, a.client_flag, a.version,
         a.reset_on_version_change, a.enabled
        FROM achievements a" . $contentFilter['sql'] . "
        ORDER BY a.enabled DESC, a.name ASC, a.id ASC",
@@ -289,11 +289,11 @@ class CharacterAchievementService
     $components = $this->fetchAll(
       $this->contentDatabase,
       "SELECT component.achievement_id, component.component_type,
-        component.sequence, component.component_id, component.description,
-        component.description_2,
+        component.sequence, component.component_id, component.name,
+        component.description,
         COALESCE(component_count.required_count, 1) AS presentation_count
        FROM achievement_components component
-       LEFT JOIN achievement_component_counts component_count
+       LEFT JOIN achievement_associations component_count
          ON component_count.component_id = component.component_id" .
         $componentFilter['sql'] . "
        ORDER BY component.achievement_id, component.component_type,
@@ -320,58 +320,74 @@ class CharacterAchievementService
       'character achievement criterion inputs'
     );
 
-    $rewardFilter = $this->buildInFilter('reward.achievement_id', $achievementIds);
+    $automaticRewardFilter = $this->buildInFilter('source_entry.source_id', $achievementIds, ' AND ');
+    $selectableRewardFilter = $this->buildInFilter('source.source_id', $achievementIds, ' AND ');
     $rewards = $this->fetchAll(
       $this->contentDatabase,
-      "SELECT reward.reward_id, reward.achievement_id, reward.sequence,
-        reward.reward_type, reward.reward_data_id, reward.amount,
-        reward.description, reward.enabled
-       FROM achievement_rewards reward" . $rewardFilter['sql'] . "
-       ORDER BY reward.achievement_id, reward.sequence, reward.reward_id",
-      $rewardFilter['types'],
-      $rewardFilter['params'],
+      "(SELECT reward.reward_id, source_entry.source_id AS achievement_id,
+         source_entry.sequence, reward.reward_type, reward.reward_data_id,
+         reward.amount, reward.description, reward.enabled
+        FROM reward_source_entries source_entry
+        INNER JOIN rewards reward ON reward.reward_id = source_entry.reward_id
+        WHERE source_entry.source_type = 1" . $automaticRewardFilter['sql'] . ")
+       UNION ALL
+       (SELECT reward.reward_id, source.source_id AS achievement_id,
+         option_entry.sequence, reward.reward_type, reward.reward_data_id,
+         reward.amount, reward.description, reward.enabled
+        FROM reward_sources source
+        INNER JOIN reward_option_entries option_entry
+          ON option_entry.reward_set_id = source.reward_set_id
+        INNER JOIN rewards reward ON reward.reward_id = option_entry.reward_id
+        WHERE source.source_type = 1" . $selectableRewardFilter['sql'] . ")
+       ORDER BY achievement_id, sequence, reward_id",
+      $automaticRewardFilter['types'] . $selectableRewardFilter['types'],
+      array_merge($automaticRewardFilter['params'], $selectableRewardFilter['params']),
       'character achievement reward inputs'
     );
 
-    $rewardSetFilter = $this->buildInFilter('reward_set.achievement_id', $achievementIds);
+    $rewardSetFilter = $this->buildInFilter('source.source_id', $achievementIds, ' AND ');
     $rewardSets = $this->fetchAll(
       $this->contentDatabase,
-      "SELECT reward_set.reward_set_id, reward_set.achievement_id,
-        reward_set.title, reward_set.enabled
-       FROM achievement_reward_sets reward_set" . $rewardSetFilter['sql'] . "
-       ORDER BY reward_set.achievement_id, reward_set.reward_set_id",
+      "SELECT reward_set.reward_set_id, source.source_id AS achievement_id,
+        reward_set.title, reward_set.enabled, source.enabled AS source_enabled
+       FROM reward_sources source
+       INNER JOIN reward_sets reward_set ON reward_set.reward_set_id = source.reward_set_id
+       WHERE source.source_type = 1" . $rewardSetFilter['sql'] . "
+       ORDER BY source.source_id, reward_set.reward_set_id",
       $rewardSetFilter['types'],
       $rewardSetFilter['params'],
       'character achievement reward set inputs'
     );
 
-    $optionFilter = $this->buildInFilter('reward_set.achievement_id', $achievementIds);
+    $optionFilter = $this->buildInFilter('source.source_id', $achievementIds, ' AND ');
     $rewardOptions = $this->fetchAll(
       $this->contentDatabase,
-      "SELECT option_row.reward_set_id, reward_set.achievement_id,
+      "SELECT option_row.reward_set_id, source.source_id AS achievement_id,
         option_row.option_id, option_row.sequence, option_row.label,
         option_row.common_to_all, option_row.flags, option_row.enabled
-       FROM achievement_reward_options option_row
-       INNER JOIN achievement_reward_sets reward_set
-         ON reward_set.reward_set_id = option_row.reward_set_id" .
-        $optionFilter['sql'] . "
-       ORDER BY reward_set.achievement_id, option_row.reward_set_id,
+       FROM reward_options option_row
+       INNER JOIN reward_sources source
+         ON source.reward_set_id = option_row.reward_set_id
+       WHERE source.source_type = 1" .
+         $optionFilter['sql'] . "
+       ORDER BY source.source_id, option_row.reward_set_id,
         option_row.sequence, option_row.option_id",
       $optionFilter['types'],
       $optionFilter['params'],
       'character achievement reward option inputs'
     );
 
-    $entryFilter = $this->buildInFilter('reward_set.achievement_id', $achievementIds);
+    $entryFilter = $this->buildInFilter('source.source_id', $achievementIds, ' AND ');
     $rewardOptionEntries = $this->fetchAll(
       $this->contentDatabase,
-      "SELECT option_entry.reward_set_id, reward_set.achievement_id,
-        option_entry.option_id, option_entry.reward_id
-       FROM achievement_reward_option_entries option_entry
-       INNER JOIN achievement_reward_sets reward_set
-         ON reward_set.reward_set_id = option_entry.reward_set_id" .
-        $entryFilter['sql'] . "
-       ORDER BY reward_set.achievement_id, option_entry.reward_set_id,
+      "SELECT option_entry.reward_set_id, source.source_id AS achievement_id,
+        option_entry.option_id, option_entry.sequence, option_entry.reward_id
+       FROM reward_option_entries option_entry
+       INNER JOIN reward_sources source
+         ON source.reward_set_id = option_entry.reward_set_id
+       WHERE source.source_type = 1" .
+         $entryFilter['sql'] . "
+       ORDER BY source.source_id, option_entry.reward_set_id,
         option_entry.option_id, option_entry.reward_id",
       $entryFilter['types'],
       $entryFilter['params'],
@@ -384,7 +400,7 @@ class CharacterAchievementService
 
     $completions = $this->fetchAll(
       $this->characterDatabase,
-      "SELECT character_id, achievement_id, definition_version, completed_at
+      "SELECT character_id, achievement_id, version, completed_at
        FROM character_achievements
        WHERE character_id = ?" . $stateFilter['sql'] . "
        ORDER BY achievement_id",
@@ -396,7 +412,7 @@ class CharacterAchievementService
       $this->characterDatabase,
       "SELECT character_id, achievement_id, component_type,
         component_sequence, component_id, current_count, completed,
-        definition_version, updated_at
+        version, updated_at
        FROM character_achievement_progress
        WHERE character_id = ?" . $stateFilter['sql'] . "
        ORDER BY achievement_id, component_type, component_sequence, component_id",
@@ -427,18 +443,18 @@ class CharacterAchievementService
       $stateParams,
       'character achievement reward selection inputs'
     );
-    $pendingMutations = $this->fetchAll(
+    $pendingUpdates = $this->fetchAll(
       $this->characterDatabase,
-      "SELECT mutation_id, character_id, source_target_type,
+      "SELECT update_id, character_id, source_target_type,
         source_target_id, operation, achievement_id, component_type,
-        component_id, requested_value, definition_version, status,
+        component_id, requested_value, version, status,
         attempt_count, created_at, last_attempt_at, last_error
-       FROM character_achievement_pending_mutations
+       FROM character_achievement_pending_updates
        WHERE character_id = ?" . $stateFilter['sql'] . "
-       ORDER BY achievement_id, mutation_id",
+       ORDER BY achievement_id, update_id",
       $stateTypes,
       $stateParams,
-      'character achievement pending mutation inputs'
+      'character achievement pending update inputs'
     );
 
     return array(
@@ -455,7 +471,7 @@ class CharacterAchievementService
       'progress' => $progress,
       'reward_ledgers' => $rewardLedgers,
       'reward_selections' => $rewardSelections,
-      'pending_mutations' => $pendingMutations
+      'pending_updates' => $pendingUpdates
     );
   }
 
@@ -494,7 +510,7 @@ class CharacterAchievementService
        UNION
        SELECT achievement_id FROM character_achievement_reward_selections WHERE character_id = ?
        UNION
-       SELECT achievement_id FROM character_achievement_pending_mutations WHERE character_id = ?
+       SELECT achievement_id FROM character_achievement_pending_updates WHERE character_id = ?
        ORDER BY achievement_id",
       'iiiii',
       array($characterId, $characterId, $characterId, $characterId, $characterId),
@@ -556,8 +572,8 @@ class CharacterAchievementService
         $characterId,
         $orphanIds
       ),
-      'pending_mutations' => $this->characterStateRowsForIds(
-        'pending_mutations',
+      'pending_updates' => $this->characterStateRowsForIds(
+        'pending_updates',
         $characterId,
         $orphanIds
       )
@@ -590,7 +606,7 @@ class CharacterAchievementService
       );
     }
 
-    return $this->withCharacterMutation($characterId, function () use (
+    return $this->withCharacterUpdate($characterId, function () use (
       $characterId,
       $achievementId,
       $componentType,
@@ -607,7 +623,7 @@ class CharacterAchievementService
 
       $completion = $this->fetchOne(
         $this->characterDatabase,
-        "SELECT definition_version FROM character_achievements
+        "SELECT version FROM character_achievements
          WHERE character_id = ? AND achievement_id = ? FOR UPDATE",
         'ii',
         array($characterId, $achievementId),
@@ -621,7 +637,7 @@ class CharacterAchievementService
 
       $progress = $this->fetchOne(
         $this->characterDatabase,
-        "SELECT definition_version FROM character_achievement_progress
+        "SELECT version FROM character_achievement_progress
          WHERE character_id = ? AND achievement_id = ?
            AND component_type = ? AND component_id = ? FOR UPDATE",
         'iiii',
@@ -630,7 +646,7 @@ class CharacterAchievementService
       );
       if (
         $progress &&
-        (int) $progress['definition_version'] !== (int) $definition['definition_version']
+        (int) $progress['version'] !== (int) $definition['version']
       ) {
         throw new CharacterAchievementValidationException(
           'The stored progress belongs to a different definition version. Reset the achievement before editing this component.'
@@ -647,7 +663,7 @@ class CharacterAchievementService
           $this->characterDatabase,
           "UPDATE character_achievement_progress
            SET component_sequence = ?, current_count = ?, completed = ?,
-             definition_version = ?, updated_at = ?
+             version = ?, updated_at = ?
            WHERE character_id = ? AND achievement_id = ?
              AND component_type = ? AND component_id = ?",
           'iiiiiiiii',
@@ -655,7 +671,7 @@ class CharacterAchievementService
             $policy['sequence'],
             $currentCount,
             $completed,
-            (int) $definition['definition_version'],
+            (int) $definition['version'],
             $now,
             $characterId,
             $achievementId,
@@ -671,7 +687,7 @@ class CharacterAchievementService
           "INSERT INTO character_achievement_progress
             (character_id, achievement_id, component_type,
              component_sequence, component_id, current_count, completed,
-             definition_version, updated_at)
+             version, updated_at)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
           'iiiiiiiii',
           array(
@@ -682,7 +698,7 @@ class CharacterAchievementService
             $componentId,
             $currentCount,
             $completed,
-            (int) $definition['definition_version'],
+            (int) $definition['version'],
             $now
           ),
           'insert exact character achievement progress'
@@ -694,7 +710,7 @@ class CharacterAchievementService
         'current_count' => $currentCount,
         'required_count' => $requiredCount,
         'completed' => (bool) $completed,
-        'definition_version' => (int) $definition['definition_version']
+        'version' => (int) $definition['version']
       );
     });
   }
@@ -712,7 +728,7 @@ class CharacterAchievementService
     $characterId = $this->normalizeUnsignedInteger($characterId, 'Character ID', self::UINT32_MAX, false);
     $achievementId = $this->normalizeUnsignedInteger($achievementId, 'Achievement ID', self::UINT32_MAX, false);
 
-    return $this->withCharacterMutation($characterId, function () use ($characterId, $achievementId) {
+    return $this->withCharacterUpdate($characterId, function () use ($characterId, $achievementId) {
       $this->lockCharacter(
         $characterId,
         true,
@@ -721,7 +737,7 @@ class CharacterAchievementService
       $definition = $this->loadDefinition($achievementId, true, true);
       $completion = $this->fetchOne(
         $this->characterDatabase,
-        "SELECT definition_version FROM character_achievements
+        "SELECT version FROM character_achievements
          WHERE character_id = ? AND achievement_id = ? FOR UPDATE",
         'ii',
         array($characterId, $achievementId),
@@ -733,24 +749,40 @@ class CharacterAchievementService
         );
       }
 
+      $progressVersions = $this->fetchAll(
+        $this->characterDatabase,
+        "SELECT version FROM character_achievement_progress
+         WHERE character_id = ? AND achievement_id = ? FOR UPDATE",
+        'ii',
+        array($characterId, $achievementId),
+        'lock forced character achievement progress versions'
+      );
+      foreach ($progressVersions as $progressVersion) {
+        if ((int) $progressVersion['version'] !== (int) $definition['version']) {
+          throw new CharacterAchievementValidationException(
+            'Force-completion was blocked because existing progress belongs to a different exact definition version. Reset or reconcile the achievement before completing it.'
+          );
+        }
+      }
+
       $completedAt = time();
       $this->execute(
         $this->characterDatabase,
         "INSERT INTO character_achievements
-          (character_id, achievement_id, definition_version, completed_at)
+          (character_id, achievement_id, version, completed_at)
          VALUES (?, ?, ?, ?)",
         'iiii',
         array(
           $characterId,
           $achievementId,
-          (int) $definition['definition_version'],
+          (int) $definition['version'],
           $completedAt
         ),
         'force offline character achievement completion'
       );
 
       return array(
-        'definition_version' => (int) $definition['definition_version'],
+        'version' => (int) $definition['version'],
         'completed_at' => $completedAt
       );
     });
@@ -782,7 +814,7 @@ class CharacterAchievementService
     $achievementId = $this->normalizeUnsignedInteger($achievementId, 'Achievement ID', self::UINT32_MAX, false);
     $resetRewardLedgers = (bool) $resetRewardLedgers;
 
-    return $this->withCharacterMutation($characterId, function () use (
+    return $this->withCharacterUpdate($characterId, function () use (
       $characterId,
       $achievementId,
       $resetRewardLedgers
@@ -799,8 +831,8 @@ class CharacterAchievementService
       }
 
       $deleted = array(
-        'pending_mutations' => $this->deleteCharacterAchievementRows(
-          'character_achievement_pending_mutations',
+        'pending_updates' => $this->deleteCharacterAchievementRows(
+          'character_achievement_pending_updates',
           $characterId,
           $achievementId
         ),
@@ -857,7 +889,7 @@ class CharacterAchievementService
     $achievementId = $this->normalizeUnsignedInteger($achievementId, 'Achievement ID', self::UINT32_MAX, false);
     $rewardId = $this->normalizePositiveInteger($rewardId, 'Reward ID');
 
-    return $this->withCharacterMutation($characterId, function () use (
+    return $this->withCharacterUpdate($characterId, function () use (
       $characterId,
       $achievementId,
       $rewardId
@@ -867,9 +899,14 @@ class CharacterAchievementService
         true,
         'Reward retry changes are offline-only to prevent a cached live delivery from racing this repair. Log the character out before continuing.'
       );
-      $this->loadDefinition($achievementId, false, true);
+      $this->loadDefinition($achievementId, true, true);
+      if ($this->rewardIsSelectableForAchievement($achievementId, $rewardId)) {
+        throw new CharacterAchievementValidationException(
+          'This reward is mapped to a selectable option and cannot be retried individually. Retry its owning reward selection so the selected and common grant bundle is reconciled together.'
+        );
+      }
       if (!$this->contentRecordBelongsToAchievement(
-        'achievement_rewards',
+        'rewards',
         'reward_id',
         $rewardId,
         $achievementId
@@ -948,7 +985,7 @@ class CharacterAchievementService
     $achievementId = $this->normalizeUnsignedInteger($achievementId, 'Achievement ID', self::UINT32_MAX, false);
     $rewardSetId = $this->normalizeUnsignedInteger($rewardSetId, 'Reward set ID', self::UINT32_MAX, false);
 
-    return $this->withCharacterMutation($characterId, function () use (
+    return $this->withCharacterUpdate($characterId, function () use (
       $characterId,
       $achievementId,
       $rewardSetId
@@ -958,9 +995,9 @@ class CharacterAchievementService
         true,
         'Reward-selection retry changes are offline-only to prevent a cached live delivery from racing this repair. Log the character out before continuing.'
       );
-      $this->loadDefinition($achievementId, false, true);
+      $this->loadDefinition($achievementId, true, true);
       if (!$this->contentRecordBelongsToAchievement(
-        'achievement_reward_sets',
+        'reward_sets',
         'reward_set_id',
         $rewardSetId,
         $achievementId
@@ -993,9 +1030,11 @@ class CharacterAchievementService
           'A fully granted selection cannot be marked retryable. Use an explicit reward-ledger reset if re-granting is intended.'
         );
       }
-      if ($status === self::SELECTION_STATUS_PENDING && $selectedOptionId === 0) {
+      if ($selectedOptionId === 0) {
         throw new CharacterAchievementValidationException(
-          'An unselected reward is already pending and does not need a retry override.'
+          $status === self::SELECTION_STATUS_PENDING
+            ? 'An unselected reward is already pending and does not need a retry override.'
+            : 'The reward selection has no chosen option and cannot be retried safely.'
         );
       }
       if (!in_array($status, array(
@@ -1008,6 +1047,33 @@ class CharacterAchievementService
         );
       }
 
+      $retryRewardIds = $this->selectionRetryRewardIds(
+        $achievementId,
+        $rewardSetId,
+        $selectedOptionId
+      );
+      if (count($retryRewardIds) > 0) {
+        $rewardFilter = $this->buildInFilter('reward_id', $retryRewardIds, ' AND ');
+        $this->execute(
+          $this->characterDatabase,
+          "UPDATE character_achievement_rewards
+           SET status = ?, last_error = ?
+           WHERE character_id = ? AND achievement_id = ? AND status = 0" .
+            $rewardFilter['sql'],
+          'isii' . $rewardFilter['types'],
+          array_merge(
+            array(
+              self::REWARD_STATUS_RETRYABLE_FAILURE,
+              'Owning selection retry requested; duplicate-delivery risk explicitly accepted',
+              $characterId,
+              $achievementId
+            ),
+            $rewardFilter['params']
+          ),
+          'mark selected and common in-flight reward ledgers retryable'
+        );
+      }
+
       $this->execute(
         $this->characterDatabase,
         "UPDATE character_achievement_reward_selections
@@ -1016,7 +1082,7 @@ class CharacterAchievementService
         'isiii',
         array(
           self::SELECTION_STATUS_RETRYABLE_FAILURE,
-          'manually marked retryable; duplicate-delivery risk explicitly accepted',
+          'manually marked retryable; selected and common in-flight grants were made retryable; duplicate-delivery risk explicitly accepted',
           $characterId,
           $achievementId,
           $rewardSetId
@@ -1029,61 +1095,61 @@ class CharacterAchievementService
   }
 
   /**
-   * Return a blocked queued mutation to pending without changing its stored
+   * Return a blocked queued state update to pending without changing its stored
    * definition version. Version mismatches remain blocked by design.
    */
-  public function retryBlockedMutation($characterId, $achievementId, $mutationId)
+  public function retryBlockedUpdate($characterId, $achievementId, $updateId)
   {
     $characterId = $this->normalizeUnsignedInteger($characterId, 'Character ID', self::UINT32_MAX, false);
     $achievementId = $this->normalizeUnsignedInteger($achievementId, 'Achievement ID', self::UINT32_MAX, false);
-    $mutationId = $this->normalizePositiveInteger($mutationId, 'Mutation ID');
+    $updateId = $this->normalizePositiveInteger($updateId, 'Update ID');
 
-    return $this->withCharacterMutation($characterId, function () use (
+    return $this->withCharacterUpdate($characterId, function () use (
       $characterId,
       $achievementId,
-      $mutationId
+      $updateId
     ) {
       $this->lockCharacter($characterId, false);
       $definition = $this->loadDefinition($achievementId, true, true);
-      $mutation = $this->fetchOne(
+      $update = $this->fetchOne(
         $this->characterDatabase,
-        "SELECT definition_version, status
-         FROM character_achievement_pending_mutations
-         WHERE mutation_id = ? AND character_id = ? AND achievement_id = ?
+        "SELECT version, status
+         FROM character_achievement_pending_updates
+         WHERE update_id = ? AND character_id = ? AND achievement_id = ?
          FOR UPDATE",
         'iii',
-        array($mutationId, $characterId, $achievementId),
-        'lock character achievement pending mutation'
+        array($updateId, $characterId, $achievementId),
+        'lock character achievement pending update'
       );
-      if (!$mutation) {
+      if (!$update) {
         throw new CharacterAchievementValidationException(
-          'The queued mutation does not belong to this character and achievement.'
+          'The queued update does not belong to this character and achievement.'
         );
       }
-      if ((int) $mutation['status'] !== self::MUTATION_STATUS_BLOCKED) {
+      if ((int) $update['status'] !== self::UPDATE_STATUS_BLOCKED) {
         throw new CharacterAchievementValidationException(
-          'Only a blocked mutation can be manually retried.'
+          'Only a blocked update can be manually retried.'
         );
       }
 
-      $mutationVersion = (int) $mutation['definition_version'];
-      $currentVersion = (int) $definition['definition_version'];
-      if ($mutationVersion !== 0 && $mutationVersion !== $currentVersion) {
+      $updateVersion = (int) $update['version'];
+      $currentVersion = (int) $definition['version'];
+      if ($updateVersion !== $currentVersion) {
         throw new CharacterAchievementValidationException(
-          'The queued mutation targets definition version ' . $mutationVersion .
+          'The queued update targets definition version ' . $updateVersion .
           ', but the current definition is version ' . $currentVersion .
-          '. The mutation remains blocked.'
+          '. The update remains blocked.'
         );
       }
 
       $this->execute(
         $this->characterDatabase,
-        "UPDATE character_achievement_pending_mutations
+        "UPDATE character_achievement_pending_updates
          SET status = ?, last_attempt_at = 0, last_error = ''
-         WHERE mutation_id = ? AND character_id = ? AND achievement_id = ?",
+         WHERE update_id = ? AND character_id = ? AND achievement_id = ?",
         'iiii',
-        array(self::MUTATION_STATUS_PENDING, $mutationId, $characterId, $achievementId),
-        'retry blocked character achievement mutation'
+        array(self::UPDATE_STATUS_PENDING, $updateId, $characterId, $achievementId),
+        'retry blocked character achievement update'
       );
 
       return true;
@@ -1091,66 +1157,66 @@ class CharacterAchievementService
   }
 
   /**
-   * Permanently discard a queued mutation after explicit confirmation.
+   * Permanently discard a queued state update after explicit confirmation.
    */
-  public function discardMutation(
+  public function discardUpdate(
     $characterId,
     $achievementId,
-    $mutationId,
+    $updateId,
     $confirmed
   ) {
     $this->requireConfirmation(
       $confirmed,
-      'You must explicitly confirm that this queued mutation should be discarded.'
+      'You must explicitly confirm that this queued update should be discarded.'
     );
     $characterId = $this->normalizeUnsignedInteger($characterId, 'Character ID', self::UINT32_MAX, false);
     $achievementId = $this->normalizeUnsignedInteger($achievementId, 'Achievement ID', self::UINT32_MAX, false);
-    $mutationId = $this->normalizePositiveInteger($mutationId, 'Mutation ID');
+    $updateId = $this->normalizePositiveInteger($updateId, 'Update ID');
 
-    return $this->withCharacterMutation($characterId, function () use (
+    return $this->withCharacterUpdate($characterId, function () use (
       $characterId,
       $achievementId,
-      $mutationId
+      $updateId
     ) {
       $this->lockCharacter($characterId, false);
-      $mutation = $this->fetchOne(
+      $update = $this->fetchOne(
         $this->characterDatabase,
-        "SELECT mutation_id, status FROM character_achievement_pending_mutations
-         WHERE mutation_id = ? AND character_id = ? AND achievement_id = ?
+        "SELECT update_id, status FROM character_achievement_pending_updates
+         WHERE update_id = ? AND character_id = ? AND achievement_id = ?
          FOR UPDATE",
         'iii',
-        array($mutationId, $characterId, $achievementId),
-        'lock discarded character achievement mutation'
+        array($updateId, $characterId, $achievementId),
+        'lock discarded character achievement update'
       );
-      if (!$mutation) {
+      if (!$update) {
         throw new CharacterAchievementValidationException(
-          'The queued mutation does not belong to this character and achievement.'
+          'The queued update does not belong to this character and achievement.'
         );
       }
-      $status = (int) $mutation['status'];
+      $status = (int) $update['status'];
       if (!in_array($status, array(
-        self::MUTATION_STATUS_PENDING,
-        self::MUTATION_STATUS_BLOCKED
+        self::UPDATE_STATUS_PENDING,
+        self::UPDATE_STATUS_BLOCKED
       ), true)) {
         throw new CharacterAchievementValidationException(
-          'A mutation marked as processing cannot be discarded. Let the zone server finish or return it to a stable pending/blocked state first.'
+          'An update marked as processing cannot be discarded. Let the zone server finish or return it to a stable pending/blocked state first.'
         );
       }
 
       $this->execute(
         $this->characterDatabase,
-        "DELETE FROM character_achievement_pending_mutations
-         WHERE mutation_id = ? AND character_id = ? AND achievement_id = ?
+        "DELETE FROM character_achievement_pending_updates
+         WHERE update_id = ? AND character_id = ? AND achievement_id = ?
            AND status IN (?, ?)",
         'iiiii',
         array(
-          $mutationId,
+          $updateId,
           $characterId,
           $achievementId,
-          self::MUTATION_STATUS_PENDING,
-          self::MUTATION_STATUS_BLOCKED
+          self::UPDATE_STATUS_PENDING,
+          self::UPDATE_STATUS_BLOCKED
         ),
-        'discard character achievement mutation'
+        'discard character achievement update'
       );
 
       return true;
@@ -1382,27 +1448,26 @@ class CharacterAchievementService
       ),
       'character_achievements' => array(
         'columns' => array(
-          'character_id', 'achievement_id', 'definition_version', 'completed_at'
+          'character_id', 'achievement_id', 'version', 'completed_at'
         ),
         'unsigned' => array(
-          'character_id', 'achievement_id', 'definition_version', 'completed_at'
+          'character_id', 'achievement_id', 'version', 'completed_at'
         ),
         'auto_increment' => array(),
         'indexes' => array(
-          array('columns' => array('character_id', 'achievement_id'), 'unique' => true),
-          array('columns' => array('achievement_id', 'character_id'), 'unique' => false)
+          array('columns' => array('character_id', 'achievement_id'), 'unique' => true)
         )
       ),
       'character_achievement_progress' => array(
         'columns' => array(
           'character_id', 'achievement_id', 'component_type',
           'component_sequence', 'component_id', 'current_count', 'completed',
-          'definition_version', 'updated_at'
+          'version', 'updated_at'
         ),
         'unsigned' => array(
           'character_id', 'achievement_id', 'component_type',
           'component_sequence', 'component_id', 'current_count', 'completed',
-          'definition_version', 'updated_at'
+          'version', 'updated_at'
         ),
         'auto_increment' => array(),
         'indexes' => array(
@@ -1411,12 +1476,6 @@ class CharacterAchievementService
               'character_id', 'achievement_id', 'component_type', 'component_id'
             ),
             'unique' => true
-          ),
-          array(
-            'columns' => array(
-              'achievement_id', 'component_type', 'component_sequence', 'component_id'
-            ),
-            'unique' => false
           )
         )
       ),
@@ -1434,8 +1493,7 @@ class CharacterAchievementService
           array(
             'columns' => array('character_id', 'achievement_id', 'reward_id'),
             'unique' => true
-          ),
-          array('columns' => array('status', 'character_id'), 'unique' => false)
+          )
         )
       ),
       'character_achievement_reward_selections' => array(
@@ -1458,24 +1516,24 @@ class CharacterAchievementService
           array('columns' => array('status', 'character_id'), 'unique' => false)
         )
       ),
-      'character_achievement_pending_mutations' => array(
+      'character_achievement_pending_updates' => array(
         'columns' => array(
-          'mutation_id', 'character_id', 'source_target_type',
+          'update_id', 'character_id', 'source_target_type',
           'source_target_id', 'operation', 'achievement_id', 'component_type',
-          'component_id', 'requested_value', 'definition_version', 'status',
+          'component_id', 'requested_value', 'version', 'status',
           'attempt_count', 'created_at', 'last_attempt_at', 'last_error'
         ),
         'unsigned' => array(
-          'mutation_id', 'character_id', 'source_target_type',
+          'update_id', 'character_id', 'source_target_type',
           'source_target_id', 'operation', 'achievement_id', 'component_type',
-          'component_id', 'requested_value', 'definition_version', 'status',
+          'component_id', 'requested_value', 'version', 'status',
           'attempt_count', 'created_at', 'last_attempt_at'
         ),
-        'auto_increment' => array('mutation_id'),
+        'auto_increment' => array('update_id'),
         'indexes' => array(
-          array('columns' => array('mutation_id'), 'unique' => true),
+          array('columns' => array('update_id'), 'unique' => true),
           array(
-            'columns' => array('character_id', 'status', 'mutation_id'),
+            'columns' => array('character_id', 'status', 'update_id'),
             'unique' => false
           ),
           array('columns' => array('status', 'character_id'), 'unique' => false)
@@ -1491,136 +1549,87 @@ class CharacterAchievementService
         'columns' => array('id', 'parent_id', 'sequence', 'name', 'description', 'icon'),
         'unsigned' => array('id', 'parent_id', 'sequence'),
         'auto_increment' => array(),
-        'indexes' => array(
-          array('columns' => array('id'), 'unique' => true)
-        )
+        'indexes' => array(array('columns' => array('id'), 'unique' => true))
       ),
       'achievements' => array(
-        'columns' => array(
-          'id', 'name', 'description', 'icon_id', 'points', 'reward_display',
-          'world_display_flag', 'definition_version', 'reset_on_version_change',
-          'enabled'
-        ),
-        'unsigned' => array(
-          'id', 'icon_id', 'points', 'reward_display', 'world_display_flag',
-          'definition_version', 'reset_on_version_change', 'enabled'
-        ),
+        'columns' => array('id', 'name', 'description', 'icon_id', 'points', 'has_reward', 'client_flag', 'version', 'reset_on_version_change', 'enabled'),
+        'unsigned' => array('id', 'icon_id', 'points', 'has_reward', 'client_flag', 'version', 'reset_on_version_change', 'enabled'),
         'auto_increment' => array(),
-        'indexes' => array(
-          array('columns' => array('id'), 'unique' => true)
-        )
+        'indexes' => array(array('columns' => array('id'), 'unique' => true))
       ),
       'achievement_category_associations' => array(
         'columns' => array('category_id', 'sequence', 'achievement_id', 'display_text'),
         'unsigned' => array('category_id', 'sequence', 'achievement_id'),
         'auto_increment' => array(),
-        'indexes' => array(
-          array('columns' => array('category_id', 'achievement_id'), 'unique' => true),
-          array('columns' => array('achievement_id', 'category_id'), 'unique' => false)
-        )
+        'indexes' => array(array('columns' => array('category_id', 'achievement_id'), 'unique' => true))
       ),
       'achievement_components' => array(
-        'columns' => array(
-          'achievement_id', 'component_type', 'sequence', 'component_id',
-          'description', 'description_2'
-        ),
+        'columns' => array('achievement_id', 'component_type', 'sequence', 'component_id', 'name', 'description'),
         'unsigned' => array('achievement_id', 'component_type', 'sequence', 'component_id'),
         'auto_increment' => array(),
-        'indexes' => array(
-          array(
-            'columns' => array('achievement_id', 'component_type', 'component_id'),
-            'unique' => true
-          ),
-          array('columns' => array('component_id'), 'unique' => false)
-        )
+        'indexes' => array(array('columns' => array('achievement_id', 'component_type', 'component_id'), 'unique' => true))
       ),
-      'achievement_component_counts' => array(
+      'achievement_associations' => array(
         'columns' => array('component_id', 'required_count'),
         'unsigned' => array('component_id', 'required_count'),
         'auto_increment' => array(),
-        'indexes' => array(
-          array('columns' => array('component_id'), 'unique' => true)
-        )
+        'indexes' => array(array('columns' => array('component_id'), 'unique' => true))
       ),
       'achievement_criteria' => array(
-        'columns' => array(
-          'id', 'achievement_id', 'component_type', 'component_sequence',
-          'component_id', 'event_type', 'progress_mode', 'behavior',
-          'target_id', 'target_id2', 'target_value', 'required_count', 'enabled'
-        ),
-        'unsigned' => array(
-          'id', 'achievement_id', 'component_type', 'component_sequence',
-          'component_id', 'event_type', 'progress_mode', 'behavior',
-          'target_id', 'target_id2', 'required_count', 'enabled'
-        ),
+        'columns' => array('id', 'achievement_id', 'component_type', 'component_sequence', 'component_id', 'event_type', 'progress_mode', 'behavior', 'target_id', 'target_id2', 'target_value', 'required_count', 'enabled'),
+        'unsigned' => array('id', 'achievement_id', 'component_type', 'component_sequence', 'component_id', 'event_type', 'progress_mode', 'behavior', 'target_id', 'target_id2', 'required_count', 'enabled'),
         'auto_increment' => array('id'),
         'indexes' => array(
           array('columns' => array('id'), 'unique' => true),
-          array(
-            'columns' => array(
-              'achievement_id', 'component_type', 'component_id',
-              'event_type', 'target_id', 'target_id2'
-            ),
-            'unique' => true
-          )
+          array('columns' => array('achievement_id', 'component_type', 'component_id', 'event_type', 'target_id', 'target_id2'), 'unique' => true)
         )
       ),
-      'achievement_rewards' => array(
-        'columns' => array(
-          'reward_id', 'achievement_id', 'sequence', 'reward_type',
-          'reward_data_id', 'amount', 'description', 'enabled'
-        ),
-        'unsigned' => array(
-          'reward_id', 'achievement_id', 'sequence', 'reward_type',
-          'reward_data_id', 'amount', 'enabled'
-        ),
-        'auto_increment' => array('reward_id'),
-        'indexes' => array(
-          array('columns' => array('reward_id'), 'unique' => true),
-          array('columns' => array('achievement_id', 'sequence'), 'unique' => true)
-        )
-      ),
-      'achievement_reward_sets' => array(
-        'columns' => array('reward_set_id', 'achievement_id', 'title', 'enabled'),
-        'unsigned' => array('reward_set_id', 'achievement_id', 'enabled'),
-        'auto_increment' => array(),
-        'indexes' => array(
-          array('columns' => array('reward_set_id'), 'unique' => true),
-          array('columns' => array('achievement_id'), 'unique' => true)
-        )
-      ),
-      'achievement_reward_options' => array(
-        'columns' => array(
-          'reward_set_id', 'option_id', 'sequence', 'label',
-          'common_to_all', 'flags', 'enabled'
-        ),
-        'unsigned' => array(
-          'reward_set_id', 'option_id', 'sequence', 'common_to_all', 'flags', 'enabled'
-        ),
-        'auto_increment' => array(),
-        'indexes' => array(
-          array('columns' => array('reward_set_id', 'option_id'), 'unique' => true)
-        )
-      ),
-      'achievement_reward_option_entries' => array(
-        'columns' => array('reward_set_id', 'option_id', 'reward_id'),
-        'unsigned' => array('reward_set_id', 'option_id', 'reward_id'),
-        'auto_increment' => array(),
-        'indexes' => array(
-          array(
-            'columns' => array('reward_set_id', 'option_id', 'reward_id'),
-            'unique' => true
-          ),
-          array('columns' => array('reward_id'), 'unique' => true)
-        )
-      ),
-      'achievement_cast_restrictions' => array(
+      'achievement_cast_requirements' => array(
         'columns' => array('restriction_id', 'achievement_id', 'requires_completed'),
         'unsigned' => array('restriction_id', 'achievement_id', 'requires_completed'),
         'auto_increment' => array(),
+        'indexes' => array(array('columns' => array('restriction_id', 'achievement_id'), 'unique' => true))
+      ),
+      'reward_sets' => array(
+        'columns' => array('reward_set_id', 'title', 'enabled'),
+        'unsigned' => array('reward_set_id', 'enabled'),
+        'auto_increment' => array(),
+        'indexes' => array(array('columns' => array('reward_set_id'), 'unique' => true))
+      ),
+      'reward_options' => array(
+        'columns' => array('reward_set_id', 'option_id', 'sequence', 'label', 'common_to_all', 'flags', 'enabled'),
+        'unsigned' => array('reward_set_id', 'option_id', 'sequence', 'common_to_all', 'flags', 'enabled'),
+        'auto_increment' => array(),
+        'indexes' => array(array('columns' => array('reward_set_id', 'option_id'), 'unique' => true))
+      ),
+      'rewards' => array(
+        'columns' => array('reward_id', 'reward_type', 'reward_data_id', 'amount', 'description', 'enabled'),
+        'unsigned' => array('reward_id', 'reward_type', 'reward_data_id', 'amount', 'enabled'),
+        'auto_increment' => array('reward_id'),
+        'indexes' => array(array('columns' => array('reward_id'), 'unique' => true))
+      ),
+      'reward_option_entries' => array(
+        'columns' => array('reward_set_id', 'option_id', 'sequence', 'reward_id'),
+        'unsigned' => array('reward_set_id', 'option_id', 'sequence', 'reward_id'),
+        'auto_increment' => array(),
         'indexes' => array(
-          array('columns' => array('restriction_id', 'achievement_id'), 'unique' => true),
-          array('columns' => array('achievement_id', 'restriction_id'), 'unique' => false)
+          array('columns' => array('reward_set_id', 'option_id', 'reward_id'), 'unique' => true),
+          array('columns' => array('reward_set_id', 'reward_id'), 'unique' => true)
+        )
+      ),
+      'reward_sources' => array(
+        'columns' => array('source_type', 'source_id', 'reward_set_id', 'enabled'),
+        'unsigned' => array('source_type', 'source_id', 'reward_set_id', 'enabled'),
+        'auto_increment' => array(),
+        'indexes' => array(array('columns' => array('source_type', 'source_id'), 'unique' => true))
+      ),
+      'reward_source_entries' => array(
+        'columns' => array('source_type', 'source_id', 'sequence', 'reward_id'),
+        'unsigned' => array('source_type', 'source_id', 'sequence', 'reward_id'),
+        'auto_increment' => array(),
+        'indexes' => array(
+          array('columns' => array('source_type', 'source_id', 'reward_id'), 'unique' => true),
+          array('columns' => array('source_type', 'source_id', 'sequence'), 'unique' => true)
         )
       )
     );
@@ -1643,13 +1652,13 @@ class CharacterAchievementService
       ),
       'character_achievements' => array(
         'int' => array(
-          'character_id', 'achievement_id', 'definition_version', 'completed_at'
+          'character_id', 'achievement_id', 'version', 'completed_at'
         )
       ),
       'character_achievement_progress' => array(
         'int' => array(
           'character_id', 'achievement_id', 'component_sequence', 'component_id',
-          'definition_version', 'updated_at'
+          'version', 'updated_at'
         ),
         'tinyint' => array('component_type', 'completed'),
         'bigint' => array('current_count')
@@ -1671,15 +1680,15 @@ class CharacterAchievementService
         'tinyint' => array('status'),
         'varchar' => array('last_error' => 255)
       ),
-      'character_achievement_pending_mutations' => array(
+      'character_achievement_pending_updates' => array(
         'int' => array(
           'character_id', 'achievement_id', 'component_id', 'requested_value',
-          'definition_version', 'attempt_count', 'created_at', 'last_attempt_at'
+          'version', 'attempt_count', 'created_at', 'last_attempt_at'
         ),
         'tinyint' => array(
           'source_target_type', 'operation', 'component_type', 'status'
         ),
-        'bigint' => array('mutation_id', 'source_target_id'),
+        'bigint' => array('update_id', 'source_target_id'),
         'varchar' => array('last_error' => 255)
       ),
       'achievement_categories' => array(
@@ -1689,9 +1698,9 @@ class CharacterAchievementService
       ),
       'achievements' => array(
         'int' => array(
-          'id', 'icon_id', 'points', 'reward_display', 'definition_version'
+          'id', 'icon_id', 'points', 'version'
         ),
-        'tinyint' => array('world_display_flag', 'reset_on_version_change', 'enabled'),
+        'tinyint' => array('has_reward', 'client_flag', 'reset_on_version_change', 'enabled'),
         'varchar' => array('name' => 255),
         'text' => array('description')
       ),
@@ -1702,9 +1711,9 @@ class CharacterAchievementService
       'achievement_components' => array(
         'int' => array('achievement_id', 'sequence', 'component_id'),
         'tinyint' => array('component_type'),
-        'text' => array('description', 'description_2')
+        'text' => array('name', 'description')
       ),
-      'achievement_component_counts' => array(
+      'achievement_associations' => array(
         'int' => array('component_id', 'required_count')
       ),
       'achievement_criteria' => array(
@@ -1718,27 +1727,36 @@ class CharacterAchievementService
         'bigint' => array('id', 'target_value'),
         'signed' => array('target_value')
       ),
-      'achievement_rewards' => array(
-        'int' => array('achievement_id', 'sequence', 'reward_data_id'),
+      'rewards' => array(
+        'int' => array('reward_id', 'reward_data_id'),
         'tinyint' => array('reward_type', 'enabled'),
-        'bigint' => array('reward_id', 'amount'),
+        'bigint' => array('amount'),
         'varchar' => array('description' => 255)
       ),
-      'achievement_reward_sets' => array(
-        'int' => array('reward_set_id', 'achievement_id'),
+      'reward_sets' => array(
+        'int' => array('reward_set_id'),
         'tinyint' => array('enabled'),
         'varchar' => array('title' => 255)
       ),
-      'achievement_reward_options' => array(
+      'reward_options' => array(
         'int' => array('reward_set_id', 'option_id', 'sequence'),
         'tinyint' => array('common_to_all', 'flags', 'enabled'),
         'varchar' => array('label' => 255)
       ),
-      'achievement_reward_option_entries' => array(
-        'int' => array('reward_set_id', 'option_id'),
-        'bigint' => array('reward_id')
+      'reward_option_entries' => array(
+        'int' => array('reward_set_id', 'option_id', 'sequence', 'reward_id')
       ),
-      'achievement_cast_restrictions' => array(
+      'reward_sources' => array(
+        'int' => array('reward_set_id'),
+        'tinyint' => array('source_type', 'enabled'),
+        'bigint' => array('source_id')
+      ),
+      'reward_source_entries' => array(
+        'int' => array('sequence', 'reward_id'),
+        'tinyint' => array('source_type'),
+        'bigint' => array('source_id')
+      ),
+      'achievement_cast_requirements' => array(
         'int' => array('restriction_id', 'achievement_id'),
         'tinyint' => array('requires_completed')
       )
@@ -1805,13 +1823,13 @@ class CharacterAchievementService
   {
     $queries = array(
       'completions' => array(
-        'select' => 'character_id, achievement_id, definition_version, completed_at',
+        'select' => 'character_id, achievement_id, version, completed_at',
         'table' => 'character_achievements',
         'order' => 'achievement_id'
       ),
       'progress' => array(
         'select' => 'character_id, achievement_id, component_type, component_sequence, '
-          . 'component_id, current_count, completed, definition_version, updated_at',
+          . 'component_id, current_count, completed, version, updated_at',
         'table' => 'character_achievement_progress',
         'order' => 'achievement_id, component_type, component_sequence, component_id'
       ),
@@ -1827,12 +1845,12 @@ class CharacterAchievementService
         'table' => 'character_achievement_reward_selections',
         'order' => 'achievement_id, reward_set_id'
       ),
-      'pending_mutations' => array(
-        'select' => 'mutation_id, character_id, source_target_type, source_target_id, '
+      'pending_updates' => array(
+        'select' => 'update_id, character_id, source_target_type, source_target_id, '
           . 'operation, achievement_id, component_type, component_id, requested_value, '
-          . 'definition_version, status, attempt_count, created_at, last_attempt_at, last_error',
-        'table' => 'character_achievement_pending_mutations',
-        'order' => 'achievement_id, mutation_id'
+          . 'version, status, attempt_count, created_at, last_attempt_at, last_error',
+        'table' => 'character_achievement_pending_updates',
+        'order' => 'achievement_id, update_id'
       )
     );
     if (!isset($queries[$kind])) {
@@ -1899,7 +1917,7 @@ class CharacterAchievementService
 
   private function loadDefinition($achievementId, $enabledOnly, $lockWhenShared)
   {
-    $sql = "SELECT id, definition_version, enabled
+    $sql = "SELECT id, version, enabled
             FROM achievements WHERE id = ?";
     if ($enabledOnly) {
       $sql .= " AND enabled = 1";
@@ -1922,12 +1940,6 @@ class CharacterAchievementService
           : 'The achievement definition no longer exists.'
       );
     }
-    if ((int) $definition['definition_version'] < 1) {
-      throw new CharacterAchievementValidationException(
-        'The achievement definition has an invalid zero definition version.'
-      );
-    }
-
     return $definition;
   }
 
@@ -1938,7 +1950,7 @@ class CharacterAchievementService
       "SELECT component.sequence,
         COALESCE(component_count.required_count, 1) AS presentation_count
        FROM achievement_components component
-       LEFT JOIN achievement_component_counts component_count
+       LEFT JOIN achievement_associations component_count
          ON component_count.component_id = component.component_id
        WHERE component.achievement_id = ? AND component.component_type = ?
          AND component.component_id = ? LIMIT 1",
@@ -1997,24 +2009,158 @@ class CharacterAchievementService
     $identity,
     $achievementId
   ) {
-    $allowed = array(
-      'achievement_rewards' => 'reward_id',
-      'achievement_reward_sets' => 'reward_set_id'
-    );
+    $allowed = array('rewards' => 'reward_id', 'reward_sets' => 'reward_set_id');
     if (!isset($allowed[$table]) || $allowed[$table] !== $identityColumn) {
       throw new LogicException('Unsafe achievement content ownership query.');
     }
 
+    if ($table === 'rewards') {
+      // Individual retry is valid only for automatic achievement grants.
+      // Selectable grants must be retried through their selection bundle.
+      $row = $this->fetchOne(
+        $this->contentDatabase,
+        "SELECT 1 AS present FROM reward_source_entries
+         WHERE source_type = 1 AND source_id = ? AND reward_id = ? LIMIT 1",
+        'ii',
+        array($achievementId, $identity),
+        'validate automatic achievement reward mapping'
+      );
+    }
+    else {
+      $row = $this->fetchOne(
+        $this->contentDatabase,
+        "SELECT 1 AS present FROM reward_sources
+         WHERE source_type = 1 AND source_id = ? AND reward_set_id = ? LIMIT 1",
+        'ii',
+        array($achievementId, $identity),
+        'validate achievement reward-set source mapping'
+      );
+    }
+
+    return (bool) $row;
+  }
+
+  private function rewardIsSelectableForAchievement($achievementId, $rewardId)
+  {
     $row = $this->fetchOne(
       $this->contentDatabase,
-      "SELECT 1 AS present FROM " . $table .
-        " WHERE " . $identityColumn . " = ? AND achievement_id = ? LIMIT 1",
+      "SELECT 1 AS present
+       FROM reward_sources source
+       INNER JOIN reward_option_entries mapping
+         ON mapping.reward_set_id = source.reward_set_id
+       WHERE source.source_type = 1 AND source.source_id = ?
+         AND mapping.reward_id = ?
+       LIMIT 1",
       'ii',
-      array($identity, $achievementId),
-      'validate achievement content ownership'
+      array($achievementId, $rewardId),
+      'validate selectable achievement reward mapping'
     );
 
     return (bool) $row;
+  }
+
+  /**
+   * Resolve the exact enabled selected/common grant bundle the runtime would
+   * retry. Provider/source enablement is distinct from catalog enablement.
+   */
+  private function selectionRetryRewardIds($achievementId, $rewardSetId, $selectedOptionId)
+  {
+    $set = $this->fetchOne(
+      $this->contentDatabase,
+      "SELECT source.enabled AS source_enabled, reward_set.enabled AS set_enabled
+       FROM reward_sources source
+       INNER JOIN reward_sets reward_set
+         ON reward_set.reward_set_id = source.reward_set_id
+       WHERE source.source_type = 1 AND source.source_id = ?
+         AND source.reward_set_id = ?
+       LIMIT 1",
+      'ii',
+      array($achievementId, $rewardSetId),
+      'validate retryable achievement reward-set source'
+    );
+    if (!$set || (int) $set['source_enabled'] !== 1 || (int) $set['set_enabled'] !== 1) {
+      throw new CharacterAchievementValidationException(
+        'The selectable reward source or shared reward-set catalog row is missing or disabled.'
+      );
+    }
+
+    $options = $this->fetchAll(
+      $this->contentDatabase,
+      "SELECT option_id, common_to_all, enabled
+       FROM reward_options
+       WHERE reward_set_id = ?
+       ORDER BY option_id",
+      'i',
+      array($rewardSetId),
+      'load retryable reward-set options'
+    );
+    $relevantOptions = array();
+    $selectedFound = false;
+    foreach ($options as $option) {
+      if ((int) $option['enabled'] !== 1) {
+        continue;
+      }
+      $optionId = (int) $option['option_id'];
+      $common = (int) $option['common_to_all'] === 1;
+      if ($optionId === $selectedOptionId) {
+        if ($common) {
+          throw new CharacterAchievementValidationException(
+            'The stored selected option is a common-to-all grant group, not a selectable choice.'
+          );
+        }
+        $selectedFound = true;
+        $relevantOptions[$optionId] = true;
+      }
+      if ($common) {
+        $relevantOptions[$optionId] = true;
+      }
+    }
+    if (!$selectedFound) {
+      throw new CharacterAchievementValidationException(
+        'The chosen selectable reward option is missing or disabled.'
+      );
+    }
+
+    $optionIds = array_keys($relevantOptions);
+    $optionFilter = $this->buildInFilter('mapping.option_id', $optionIds, ' AND ');
+    $mappings = $this->fetchAll(
+      $this->contentDatabase,
+      "SELECT mapping.option_id, mapping.reward_id,
+        reward.reward_id AS catalog_reward_id, reward.enabled AS reward_enabled
+       FROM reward_option_entries mapping
+       LEFT JOIN rewards reward ON reward.reward_id = mapping.reward_id
+       WHERE mapping.reward_set_id = ?" . $optionFilter['sql'] . "
+       ORDER BY mapping.option_id, mapping.reward_id",
+      'i' . $optionFilter['types'],
+      array_merge(array($rewardSetId), $optionFilter['params']),
+      'load retryable selected and common reward mappings'
+    );
+
+    $grantsPerOption = array();
+    $rewardIds = array();
+    foreach ($optionIds as $optionId) {
+      $grantsPerOption[(string) $optionId] = 0;
+    }
+    foreach ($mappings as $mapping) {
+      $optionId = (int) $mapping['option_id'];
+      if ($mapping['catalog_reward_id'] === null || (int) $mapping['reward_enabled'] !== 1) {
+        throw new CharacterAchievementValidationException(
+          'A selected or common reward mapping references a missing or disabled catalog reward. Repair the definition before retrying.'
+        );
+      }
+      ++$grantsPerOption[(string) $optionId];
+      $rewardIds[(string) $mapping['reward_id']] = (int) $mapping['reward_id'];
+    }
+    foreach ($grantsPerOption as $optionId => $grantCount) {
+      if ($grantCount < 1) {
+        throw new CharacterAchievementValidationException(
+          'Enabled selected/common option ' . $optionId . ' has no enabled mapped grant. Repair the definition before retrying.'
+        );
+      }
+    }
+
+    ksort($rewardIds, SORT_NUMERIC);
+    return array_values($rewardIds);
   }
 
   private function achievementDefinitionOrStateExists($characterId, $achievementId)
@@ -2044,7 +2190,7 @@ class CharacterAchievementService
        SELECT 1 AS present FROM character_achievement_reward_selections
          WHERE character_id = ? AND achievement_id = ?
        UNION ALL
-       SELECT 1 AS present FROM character_achievement_pending_mutations
+       SELECT 1 AS present FROM character_achievement_pending_updates
          WHERE character_id = ? AND achievement_id = ?
        LIMIT 1",
       'iiiiiiiiii',
@@ -2068,7 +2214,7 @@ class CharacterAchievementService
       "SELECT id, ingame FROM character_data WHERE id = ? FOR UPDATE",
       'i',
       array($characterId),
-      'lock character for achievement mutation'
+      'lock character for achievement state update'
     );
     if (!$character) {
       throw new CharacterAchievementValidationException('Character not found.');
@@ -2084,7 +2230,7 @@ class CharacterAchievementService
     return $character;
   }
 
-  private function assertSchemaReadyForMutation()
+  private function assertSchemaReadyForWrite()
   {
     $diagnostics = $this->schemaDiagnostics();
     if ($diagnostics['ready']) {
@@ -2106,7 +2252,7 @@ class CharacterAchievementService
   private function deleteCharacterAchievementRows($table, $characterId, $achievementId)
   {
     $allowed = array(
-      'character_achievement_pending_mutations',
+      'character_achievement_pending_updates',
       'character_achievement_progress',
       'character_achievement_reward_selections',
       'character_achievement_rewards',
@@ -2125,11 +2271,11 @@ class CharacterAchievementService
     );
   }
 
-  private function withCharacterMutation($characterId, $mutation)
+  private function withCharacterUpdate($characterId, $update)
   {
-    $this->assertSchemaReadyForMutation();
+    $this->assertSchemaReadyForWrite();
 
-    $lockName = 'eqemu_achievement_mutation_' . $characterId;
+    $lockName = 'eqemu_achievement_state_update_' . $characterId;
     $lockAcquired = false;
     $transactionActive = false;
 
@@ -2144,7 +2290,7 @@ class CharacterAchievementService
       $lockAcquired = $lock && (int) $lock['acquired'] === 1;
       if (!$lockAcquired) {
         throw new CharacterAchievementBusyException(
-          'Achievement state is busy for this character. Try again after the active zone mutation finishes.'
+          'Achievement state is busy for this character. Try again after the active zone update finishes.'
         );
       }
 
@@ -2164,7 +2310,7 @@ class CharacterAchievementService
       }
 
       try {
-        $result = call_user_func($mutation);
+        $result = call_user_func($update);
         try {
           if (!$this->characterDatabase->commit()) {
             throw new CharacterAchievementDatabaseException(
@@ -2227,7 +2373,7 @@ class CharacterAchievementService
         catch (Throwable $releaseException) {
           // The lock is connection-scoped and will also be released when the
           // connection closes. A release diagnostic must not hide the result
-          // of an already committed mutation.
+          // of an already committed state update.
           error_log(
             '[PEQ Character Achievements] advisory lock release failed: ' .
             $releaseException->getMessage()

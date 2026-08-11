@@ -90,7 +90,7 @@ $characterSearch = isset($search) ? (string) $search : '';
                 <td><?=achievement_e(achievement_view_value($characterRow, 'achievement_progress_row_count', 0))?></td>
                 <td><?=achievement_e(achievement_view_value($characterRow, 'achievement_progress_total', '0'))?></td>
                 <td><?=achievement_e(achievement_view_timestamp(achievement_view_value($characterRow, 'last_login', 0)))?></td>
-                <td><a class="achievement-button is-small" href="<?=achievement_e(achievement_url(41, array('playerid' => $characterId)))?>" title="Inspect completion, progress, rewards, selections, and pending mutations">Manage</a></td>
+                <td><a class="achievement-button is-small" href="<?=achievement_e(achievement_url(41, array('playerid' => $characterId)))?>" title="Inspect completion, progress, rewards, selections, and pending state updates">Manage</a></td>
               </tr>
             <?php endforeach; ?>
           </tbody>

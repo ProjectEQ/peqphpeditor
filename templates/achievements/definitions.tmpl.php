@@ -125,7 +125,7 @@ $sortText = function ($key) use ($filterParameters) {
         <table class="achievement-table achievement-definition-table">
           <thead>
             <tr>
-              <?php foreach (array('id' => 'ID', 'name' => 'Definition', 'points' => 'Points', 'definition_version' => 'Version', 'enabled' => 'State', 'component_count' => 'Components', 'category_count' => 'Categories', 'reward_count' => 'Rewards') as $sortKey => $heading): ?>
+              <?php foreach (array('id' => 'ID', 'name' => 'Definition', 'points' => 'Points', 'version' => 'Version', 'enabled' => 'State', 'component_count' => 'Components', 'category_count' => 'Categories', 'reward_count' => 'Rewards') as $sortKey => $heading): ?>
                 <th scope="col">
                   <a href="<?=achievement_e($sortLink($sortKey))?>" title="<?=achievement_e($sortText($sortKey))?>">
                     <?=achievement_e($heading)?><?=$filterParameters['sort'] === $sortKey ? ($filterParameters['direction'] === 'asc' ? ' ▲' : ' ▼') : ''?>
@@ -152,7 +152,7 @@ $sortText = function ($key) use ($filterParameters) {
                   <span><?=achievement_e(achievement_view_value($definition, 'description', ''))?></span>
                 </td>
                 <td><?=achievement_e(achievement_view_value($definition, 'points', 0))?></td>
-                <td><?=achievement_e(achievement_view_value($definition, 'definition_version', 1))?></td>
+                <td><?=achievement_e(achievement_view_value($definition, 'version', 0))?></td>
                 <td><span class="achievement-badge <?=!empty($definition['enabled']) ? 'is-success' : 'is-muted'?>"><?=!empty($definition['enabled']) ? 'Enabled' : 'Draft'?></span></td>
                 <td><?=achievement_e(achievement_view_value($definition, 'component_count', 0))?></td>
                 <td>

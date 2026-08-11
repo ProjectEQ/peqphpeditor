@@ -99,9 +99,9 @@ $definition = array(
   'description' => 'Complete every nested path ' . $hostile,
   'icon_id' => 42,
   'points' => 10,
-  'reward_display' => 1,
-  'world_display_flag' => 0,
-  'definition_version' => 7,
+  'has_reward' => 1,
+  'client_flag' => 0,
+  'version' => 7,
   'reset_on_version_change' => 1,
   'enabled' => 1,
   'associations' => array(
@@ -116,8 +116,8 @@ $definition = array(
       'component_type' => 1,
       'sequence' => 5,
       'component_id' => 152250,
-      'description' => 'Reach the maximum skill in Dual Wield ' . $hostile,
-      'description_2' => 'Optional secondary text ' . $hostile,
+      'name' => 'Reach the maximum skill in Dual Wield ' . $hostile,
+      'description' => 'Optional secondary text ' . $hostile,
       'presentation_count' => 1,
       'criteria' => array(
         array(
@@ -160,6 +160,7 @@ $definition = array(
     'reward_set_id' => 3000100060,
     'title' => 'Conqueror choices ' . $hostile,
     'enabled' => 1,
+    'source_enabled' => 1,
     'options' => array(
       array(
         'option_id' => 1,
@@ -358,6 +359,25 @@ achievement_template_test_contains(
   'Set Enabled to 0 to retire it safely.',
   'persisted grant and option controls explain the safe retirement path'
 );
+achievement_template_test_contains(
+  $javascriptHtml,
+  'validateRuntimeRewardSemantics',
+  'rendered editor JavaScript validates reachable grants against runtime type contracts'
+);
+foreach (array(
+  'Item quantity from 1 through 32,767.',
+  'Experience quantity from 1 through 4,294,967,295.',
+  'Reserved runtime field; it must be 0.',
+  'Copper quantity from 1 through 2,147,483,647,999.',
+  'Required nonzero alternate_currency.id value.',
+  'Title delivery is singular; Amount must be exactly 1.',
+) as $rewardHelp) {
+  achievement_template_test_contains(
+    $javascriptHtml,
+    $rewardHelp,
+    'rendered editor metadata publishes reward runtime guidance: ' . $rewardHelp
+  );
+}
 
 $retryLedger = array(
   'reward_id' => '9900601',
@@ -382,7 +402,7 @@ $matchedProgress = array(
   'component_sequence' => 5,
   'current_count' => 0,
   'completed' => 0,
-  'definition_version' => 7,
+  'version' => 7,
   'updated_at' => 1770000100,
 );
 $unmatchedProgress = array(
@@ -391,7 +411,7 @@ $unmatchedProgress = array(
   'component_sequence' => 99,
   'current_count' => 4,
   'completed' => 0,
-  'definition_version' => 6,
+  'version' => 6,
   'updated_at' => 1770000200,
 );
 
@@ -400,7 +420,7 @@ $currentCharacterDefinition = array(
   'name' => 'Conqueror state ' . $hostile,
   'description' => 'Current definition state ' . $hostile,
   'points' => 10,
-  'definition_version' => 7,
+  'version' => 7,
   'reset_on_version_change' => 1,
   'enabled' => 1,
   'definition_missing' => 0,
@@ -449,6 +469,7 @@ $currentCharacterDefinition = array(
       'reward_set_id' => 3000100060,
       'title' => 'Conqueror reward choice ' . $hostile,
       'enabled' => 1,
+      'source_enabled' => 1,
       'selection' => $selection,
       'options' => array(
         array(
@@ -500,11 +521,11 @@ $currentCharacterDefinition = array(
       'last_error' => 'Missing canonical set ' . $hostile,
     ),
   ),
-  'pending_mutations' => array(
+  'pending_updates' => array(
     array(
-      'mutation_id' => '9223372036854775806',
+      'update_id' => '9223372036854775806',
       'status' => 1,
-      'definition_version' => 7,
+      'version' => 7,
       'source_target_type' => 0,
       'source_target_id' => 407,
       'operation' => 0,
@@ -514,12 +535,12 @@ $currentCharacterDefinition = array(
       'created_at' => 1770000400,
       'attempt_count' => 2,
       'last_attempt_at' => 1770000450,
-      'last_error' => 'Blocked mutation ' . $hostile,
+      'last_error' => 'Blocked update ' . $hostile,
     ),
     array(
-      'mutation_id' => '9223372036854775805',
+      'update_id' => '9223372036854775805',
       'status' => 2,
-      'definition_version' => 7,
+      'version' => 7,
       'source_target_type' => 0,
       'source_target_id' => 407,
       'operation' => 0,
@@ -529,7 +550,7 @@ $currentCharacterDefinition = array(
       'created_at' => 1770000500,
       'attempt_count' => 1,
       'last_attempt_at' => 1770000550,
-      'last_error' => 'Processing mutation ' . $hostile,
+      'last_error' => 'Processing update ' . $hostile,
     ),
   ),
   'durable_state' => 'in_progress',
@@ -542,11 +563,11 @@ $deletedCharacterDefinition = array(
   'name' => 'Deleted definition #999999',
   'description' => 'Preserved durable history ' . $hostile,
   'points' => 0,
-  'definition_version' => 4,
+  'version' => 4,
   'reset_on_version_change' => 0,
   'enabled' => 0,
   'definition_missing' => 1,
-  'completion' => array('completed_at' => 1760000000, 'definition_version' => 4),
+  'completion' => array('completed_at' => 1760000000, 'version' => 4),
   'components' => array(),
   'progress' => array($unmatchedProgress),
   'rewards' => array(),
@@ -563,7 +584,7 @@ $deletedCharacterDefinition = array(
     ),
   ),
   'orphan_reward_selections' => array(),
-  'pending_mutations' => array(),
+  'pending_updates' => array(),
   'durable_state' => 'completed',
   'has_version_mismatch' => false,
   'reward_needs_attention' => false,
@@ -603,7 +624,7 @@ $characterView = array_merge($commonView, array(
     'progress' => array($unmatchedProgress),
     'reward_ledgers' => $deletedCharacterDefinition['orphan_reward_ledgers'],
     'reward_selections' => array($selection),
-    'pending_mutations' => array(),
+    'pending_updates' => array(),
   ),
 ));
 
@@ -660,7 +681,7 @@ achievement_template_test_contains(
 achievement_template_test_contains(
   $characterHtml,
   'Processing rows cannot be discarded.',
-  'processing mutations are visibly protected from discard'
+  'processing updates are visibly protected from discard'
 );
 achievement_template_test_contains(
   $characterHtml,
@@ -678,6 +699,30 @@ achievement_template_test_contains(
   'runtime safety state is visible'
 );
 
+$versionMismatchCharacterView = $characterView;
+$versionMismatchCharacterView['catalog']['rows'][0]['has_version_mismatch'] = true;
+$versionMismatchCharacterHtml = achievement_template_test_render(
+  'templates/achievements/character.tmpl.php',
+  $versionMismatchCharacterView
+);
+achievement_template_test_contains(
+  $versionMismatchCharacterHtml,
+  'Force complete is disabled until version-mismatched progress is reset or reconciled.',
+  'version mismatch callout explains why force completion is unavailable'
+);
+achievement_template_test_contains(
+  $versionMismatchCharacterHtml,
+  'title="Force completion is disabled because existing durable progress uses another exact definition version. Reset or reconcile it first."',
+  'version-mismatched force-complete control exposes contextual hover guidance'
+);
+achievement_template_test_assert(
+  preg_match(
+    '/<button class="achievement-button is-small is-warning" type="submit" disabled title="Force completion is disabled because[^\"]+">Force complete offline<\/button>/',
+    $versionMismatchCharacterHtml
+  ) === 1,
+  'version-mismatched force-complete submit control is disabled'
+);
+
 $onlineCharacterView = $characterView;
 $onlineCharacterView['character']['ingame'] = 1;
 $onlineCharacterHtml = achievement_template_test_render(
@@ -693,6 +738,62 @@ achievement_template_test_contains(
   $onlineCharacterHtml,
   'Online / in game',
   'online runtime state is visible'
+);
+
+$definitionSchemaDiagnostics = array(
+  'ready' => false,
+  'database' => 'peq_content',
+  'tables' => array(),
+  'lookup_sources' => array(),
+  'errors' => array('Required achievement table reward_sources is missing.'),
+  'warnings' => array(),
+);
+$schemaWithoutCharacterHtml = achievement_template_test_render(
+  'templates/achievements/schema.tmpl.php',
+  array_merge($commonView, array(
+    'diagnostics' => $definitionSchemaDiagnostics,
+    'character_diagnostics' => null,
+  ))
+);
+achievement_template_test_contains(
+  $schemaWithoutCharacterHtml,
+  'update <strong>9329</strong>',
+  'definition schema recovery names final content update 9329'
+);
+achievement_template_test_not_contains(
+  $schemaWithoutCharacterHtml,
+  '<strong>9330</strong>',
+  'definition-only diagnostics do not instruct an unavailable character editor to install state SQL'
+);
+
+$characterSchemaDiagnostics = array(
+  'ready' => false,
+  'character_database' => 'peq',
+  'content_database' => 'peq_content',
+  'character_errors' => array('Required character table character_achievement_pending_updates is missing.'),
+  'content_errors' => array(),
+  'errors' => array('Required character table character_achievement_pending_updates is missing.'),
+  'character_missing' => array('character_achievement_pending_updates'),
+  'content_missing' => array(),
+  'character_tables' => array(),
+  'content_tables' => array(),
+);
+$schemaWithCharacterHtml = achievement_template_test_render(
+  'templates/achievements/schema.tmpl.php',
+  array_merge($commonView, array(
+    'diagnostics' => $definitionSchemaDiagnostics,
+    'character_diagnostics' => $characterSchemaDiagnostics,
+  ))
+);
+achievement_template_test_contains(
+  $schemaWithCharacterHtml,
+  '<strong>9330</strong>',
+  'character schema recovery names final state update 9330'
+);
+achievement_template_test_contains(
+  $schemaWithCharacterHtml,
+  'earlier development schema is not upgraded in place',
+  'schema recovery explicitly rejects upgrading the development DDL in place'
 );
 
 $javascriptOutput = getenv('ACHIEVEMENT_TEMPLATE_JS_OUT');

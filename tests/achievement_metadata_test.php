@@ -43,7 +43,7 @@ achievement_test_same(
         'limits', 'component_types', 'events', 'progress_modes', 'behaviors',
         'reward_types', 'reward_delivery', 'achievement_statuses',
         'character_reward_statuses', 'character_selection_statuses',
-        'mutation_target_types', 'mutation_operations', 'character_mutation_statuses',
+        'update_target_types', 'update_operations', 'character_update_statuses',
         'classes', 'skills', 'fields',
     ),
     array_keys($metadata),
@@ -54,6 +54,27 @@ achievement_test_same(range(0, 13), array_keys($metadata['events']), 'all achiev
 achievement_test_same(range(0, 3), array_keys($metadata['progress_modes']), 'all progress modes are documented');
 achievement_test_same(range(0, 5), array_keys($metadata['behaviors']), 'all component behaviors are documented');
 achievement_test_same(range(0, 5), array_keys($metadata['reward_types']), 'all reward types are documented');
+foreach ($metadata['reward_types'] as $reward_type => $reward_metadata) {
+    achievement_test_assert(
+        isset($reward_metadata['data_help']) && trim((string) $reward_metadata['data_help']) !== '',
+        'reward type ' . $reward_type . ' explains its referenced-data runtime contract'
+    );
+    achievement_test_assert(
+        isset($reward_metadata['amount_help']) && trim((string) $reward_metadata['amount_help']) !== '',
+        'reward type ' . $reward_type . ' explains its delivery-amount runtime contract'
+    );
+}
+achievement_test_same('32767', $metadata['reward_types'][0]['amount_max'], 'item quantity exposes the signed-short runtime maximum');
+achievement_test_same(array('0', '1'), $metadata['reward_types'][1]['data_values'], 'experience metadata exposes both supported runtime modes');
+achievement_test_same('4294967295', $metadata['reward_types'][1]['amount_max'], 'experience metadata preserves the unsigned 32-bit maximum as a decimal string');
+achievement_test_same(array('0'), $metadata['reward_types'][2]['data_values'], 'AA data is documented as reserved zero');
+achievement_test_same('2147483647', $metadata['reward_types'][2]['amount_max'], 'AA quantity exposes the signed-int runtime maximum');
+achievement_test_same('2147483647999', $metadata['reward_types'][3]['amount_max'], 'copper exposes the runtime platinum conversion ceiling');
+achievement_test_same(array('0'), $metadata['reward_types'][3]['data_values'], 'copper data is documented as reserved zero');
+achievement_test_same('1', $metadata['reward_types'][4]['data_min'], 'alternate currency requires a nonzero catalog ID');
+achievement_test_same('2147483647', $metadata['reward_types'][4]['amount_max'], 'alternate currency exposes the signed-int runtime maximum');
+achievement_test_same('2147483647', $metadata['reward_types'][5]['data_max'], 'title-set IDs expose their signed-int runtime maximum');
+achievement_test_same(array('1'), $metadata['reward_types'][5]['amount_values'], 'title grants expose singular-delivery semantics');
 
 $skills = achievement_skill_types();
 achievement_test_same(range(0, 77), array_keys($skills), 'skill IDs are canonical zero-based values 0 through 77');
@@ -74,8 +95,8 @@ foreach (range(0, 13) as $event_id) {
 $helped_enum_groups = array(
     'component_types', 'progress_modes', 'behaviors', 'reward_types',
     'reward_delivery', 'achievement_statuses', 'character_reward_statuses',
-    'character_selection_statuses', 'mutation_target_types',
-    'mutation_operations', 'character_mutation_statuses',
+    'character_selection_statuses', 'update_target_types',
+    'update_operations', 'character_update_statuses',
 );
 foreach ($helped_enum_groups as $group) {
     foreach ($metadata[$group] as $value => $option) {
@@ -101,10 +122,10 @@ foreach ($metadata['fields'] as $table => $fields) {
         );
     }
 }
-foreach (array(1, 4, 7, 9, 10, 11, 13) as $event_id) {
+foreach (array(1, 4, 5, 7, 9, 10, 11, 13) as $event_id) {
     achievement_test_assert(!achievement_is_progress_mode_allowed($event_id, 0), 'replayed/absolute event ' . $event_id . ' rejects Increment');
 }
-foreach (array(0, 2, 3, 5, 6, 8, 12) as $event_id) {
+foreach (array(0, 2, 3, 6, 8, 12) as $event_id) {
     achievement_test_assert(achievement_is_progress_mode_allowed($event_id, 0), 'event ' . $event_id . ' permits Increment');
 }
 
@@ -122,9 +143,9 @@ $definition = array(
     'description' => 'Reach level 50 on this character.',
     'icon_id' => 0,
     'points' => 10,
-    'reward_display' => 0,
-    'world_display_flag' => 0,
-    'definition_version' => 1,
+    'has_reward' => 0,
+    'client_flag' => 0,
+    'version' => 1,
     'reset_on_version_change' => 0,
     'enabled' => 1,
     'associations' => array(
@@ -135,8 +156,8 @@ $definition = array(
             'component_type' => 1,
             'sequence' => 1,
             'component_id' => 100,
-            'description' => 'Reach level 50.',
-            'description_2' => '',
+            'name' => 'Reach level 50.',
+            'description' => '',
             'presentation_count' => 1,
             'criteria' => array(
                 array(
@@ -166,6 +187,12 @@ $context = array(
 $valid_findings = achievement_validate_definition($definition, 100, $context);
 achievement_test_same(array(), $valid_findings, 'a complete level definition validates cleanly');
 achievement_test_assert(!achievement_validation_has_errors($valid_findings), 'empty findings means valid');
+$version_zero = unserialize(serialize($definition));
+$version_zero['version'] = 0;
+achievement_test_assert(
+    !achievement_validation_has_errors(achievement_validate_definition($version_zero, 100, $context)),
+    'definition version zero is an ordinary valid exact version'
+);
 
 $invalid = unserialize(serialize($definition));
 $invalid['id'] = 101;
@@ -198,6 +225,7 @@ $reward_definition['reward_set'] = array(
     'reward_set_id' => 500,
     'title' => 'Choose one',
     'enabled' => 1,
+    'source_enabled' => 1,
     'options' => array(
         array('option_id' => 1, 'sequence' => 1, 'label' => 'Sword', 'common_to_all' => 0, 'flags' => 0, 'enabled' => 1),
     ),
@@ -217,6 +245,134 @@ $reward_definition['rewards'][] = array(
 );
 $reward_valid = achievement_validate_definition($reward_definition, null, $context);
 achievement_test_assert(!achievement_validation_has_errors($reward_valid), 'a selectable option with an enabled grant is valid');
+
+$staged_reward_definition = unserialize(serialize($reward_definition));
+$staged_reward_definition['rewards'] = array();
+$staged_reward_definition['reward_set']['source_enabled'] = 0;
+$staged_findings = achievement_validate_definition($staged_reward_definition, null, $context);
+achievement_test_assert(
+    !achievement_validation_has_errors($staged_findings),
+    'a disabled achievement reward source may safely stage an incomplete enabled catalog set'
+);
+achievement_test_assert(
+    achievement_test_has_finding($staged_findings, 'reward_set.source_enabled', 'staged', 'warning'),
+    'disabled source staging is explained to the editor'
+);
+$disabled_set_definition = unserialize(serialize($staged_reward_definition));
+$disabled_set_definition['reward_set']['source_enabled'] = 1;
+$disabled_set_definition['reward_set']['enabled'] = 0;
+$disabled_set_findings = achievement_validate_definition($disabled_set_definition, null, $context);
+achievement_test_assert(
+    !achievement_validation_has_errors($disabled_set_findings),
+    'a disabled shared catalog set may stage incomplete selectable content'
+);
+achievement_test_assert(
+    achievement_test_has_finding($disabled_set_findings, 'reward_set.enabled', 'staged', 'warning'),
+    'disabled catalog staging explains the distinct source/set enable flags'
+);
+$disabled_definition = unserialize(serialize($staged_reward_definition));
+$disabled_definition['enabled'] = 0;
+$disabled_definition['reward_set']['source_enabled'] = 1;
+achievement_test_assert(
+    !achievement_validation_has_errors(achievement_validate_definition($disabled_definition, null, $context)),
+    'an inactive definition does not fail selectable-path reachability validation'
+);
+
+$runtime_reward_boundaries = array(
+    array(0, '1001', '32767', 'item'),
+    array(1, '1', '4294967295', 'experience'),
+    array(2, '0', '2147483647', 'AA'),
+    array(3, '0', '2147483647999', 'copper'),
+    array(4, '7', '2147483647', 'alternate currency'),
+    array(5, '2147483647', '1', 'title'),
+);
+foreach ($runtime_reward_boundaries as $boundary) {
+    $runtime_definition = unserialize(serialize($definition));
+    $runtime_definition['rewards'] = array(array(
+        'reward_id' => null,
+        'sequence' => 1,
+        'reward_type' => $boundary[0],
+        'reward_data_id' => $boundary[1],
+        'amount' => $boundary[2],
+        'description' => 'Runtime boundary grant',
+        'enabled' => 1,
+        'option_id' => null,
+    ));
+    achievement_test_assert(
+        !achievement_validation_has_errors(achievement_validate_definition($runtime_definition, null, $context)),
+        $boundary[3] . ' runtime maximum and referenced-data semantics validate exactly'
+    );
+}
+
+$runtime_reward_failures = array(
+    array(0, '1001', '32768', 'amount', '32,767', 'item quantity above signed-short maximum'),
+    array(1, '2', '1', 'reward_data_id', 'mode 0', 'unsupported experience mode'),
+    array(1, '0', '4294967296', 'amount', '4,294,967,295', 'experience above unsigned 32-bit maximum'),
+    array(2, '1', '1', 'reward_data_id', 'must be 0', 'nonzero reserved AA data'),
+    array(2, '0', '2147483648', 'amount', '2,147,483,647', 'AA above signed-int maximum'),
+    array(3, '1', '1', 'reward_data_id', 'must be 0', 'nonzero reserved copper data'),
+    array(3, '0', '2147483648000', 'amount', '2,147,483,647,999', 'copper above its runtime conversion ceiling'),
+    array(4, '0', '1', 'reward_data_id', 'nonzero', 'zero alternate-currency ID'),
+    array(4, '1', '2147483648', 'amount', '2,147,483,647', 'alternate currency above signed-int maximum'),
+    array(5, '2147483648', '1', 'reward_data_id', '2,147,483,647', 'title-set ID above signed-int maximum'),
+    array(5, '1', '2', 'amount', 'exactly 1', 'nonsingular title amount'),
+);
+foreach ($runtime_reward_failures as $failure) {
+    $runtime_definition = unserialize(serialize($definition));
+    $runtime_definition['rewards'] = array(array(
+        'reward_id' => null,
+        'sequence' => 1,
+        'reward_type' => $failure[0],
+        'reward_data_id' => $failure[1],
+        'amount' => $failure[2],
+        'description' => 'Invalid active runtime grant',
+        'enabled' => 1,
+        'option_id' => null,
+    ));
+    $runtime_findings = achievement_validate_definition($runtime_definition, null, $context);
+    achievement_test_assert(
+        achievement_test_has_finding($runtime_findings, 'rewards.0.' . $failure[3], $failure[4]),
+        'reachable ' . $failure[5] . ' is rejected with field-addressable guidance'
+    );
+}
+
+$staged_invalid_reward = unserialize(serialize($definition));
+$staged_invalid_reward['rewards'] = array(array(
+    'reward_id' => null,
+    'sequence' => 1,
+    'reward_type' => 0,
+    'reward_data_id' => 1001,
+    'amount' => '32768',
+    'description' => 'Disabled draft grant',
+    'enabled' => 0,
+    'option_id' => null,
+));
+achievement_test_assert(
+    !achievement_validation_has_errors(achievement_validate_definition($staged_invalid_reward, null, $context)),
+    'a disabled automatic grant may stage values beyond runtime delivery bounds'
+);
+$staged_invalid_reward['rewards'][0]['enabled'] = 1;
+$staged_invalid_reward['enabled'] = 0;
+achievement_test_assert(
+    !achievement_validation_has_errors(achievement_validate_definition($staged_invalid_reward, null, $context)),
+    'an unreachable disabled definition may stage values beyond runtime delivery bounds'
+);
+$staged_selectable_reward = unserialize(serialize($reward_definition));
+$staged_selectable_reward['reward_set']['source_enabled'] = 0;
+$staged_selectable_reward['rewards'][0]['amount'] = '32768';
+achievement_test_assert(
+    !achievement_validation_has_errors(achievement_validate_definition($staged_selectable_reward, null, $context)),
+    'a disabled achievement source may stage selectable grant values beyond runtime delivery bounds'
+);
+$staged_selectable_reward['reward_set']['source_enabled'] = 1;
+achievement_test_assert(
+    achievement_test_has_finding(
+        achievement_validate_definition($staged_selectable_reward, null, $context),
+        'rewards.0.amount',
+        '32,767'
+    ),
+    'reenabling a staged selectable source applies runtime delivery bounds before publication'
+);
 
 $dependency = unserialize(serialize($definition));
 $dependency['components'][0]['criteria'][0] = array(
@@ -246,6 +402,6 @@ $category['parent_id'] = 0;
 achievement_test_same(array(), achievement_validate_category($category, 10, array('category_ids' => array(10, 20), 'category_parent_map' => array(10 => 0, 20 => 10))), 'a root category validates cleanly');
 
 achievement_test_same('Unknown (99)', achievement_event_label(99), 'unknown enums remain visible instead of silently mislabeling data');
-achievement_test_assert(strpos(achievement_field_help('achievements', 'definition_version'), 'Increment') !== false, 'definition-version help explains editor action');
+achievement_test_assert(strpos(achievement_field_help('achievements', 'version'), 'Increment') !== false, 'definition-version help explains editor action');
 
 fwrite(STDOUT, 'achievement_metadata_test: ' . $achievement_test_assertions . " assertions passed" . PHP_EOL);

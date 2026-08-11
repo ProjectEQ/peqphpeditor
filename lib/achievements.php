@@ -6,7 +6,7 @@ require_once('classes/achievement_repository.php');
 
 global $mysql_content_db, $mysql, $body, $javascript, $action, $playerid;
 
-$achievementRepository = new AchievementRepository($mysql_content_db);
+$achievementRepository = new AchievementRepository($mysql_content_db, $mysql);
 
 function achievement_render_template($file, $variables = array(), $withJavascript = false) {
   global $body, $javascript;
@@ -156,7 +156,7 @@ function achievement_definition_form_context($repository, $definition, $issues, 
 function achievement_definition_filters() {
   $allowedRewards = array('', 'any', 'automatic', 'selectable', 'none');
   $allowedSorts = array(
-    'id', 'name', 'points', 'definition_version', 'enabled',
+    'id', 'name', 'points', 'version', 'enabled',
     'component_count', 'category_count', 'reward_count'
   );
   $query = isset($_GET['q']) ? trim((string) $_GET['q']) : '';
