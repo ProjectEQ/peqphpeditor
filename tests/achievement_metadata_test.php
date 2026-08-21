@@ -53,7 +53,7 @@ achievement_test_same(range(0, 3), array_keys($metadata['component_types']), 'al
 achievement_test_same(range(0, 13), array_keys($metadata['events']), 'all achievement events are documented');
 achievement_test_same(range(0, 3), array_keys($metadata['progress_modes']), 'all progress modes are documented');
 achievement_test_same(range(0, 5), array_keys($metadata['behaviors']), 'all component behaviors are documented');
-achievement_test_same(range(0, 5), array_keys($metadata['reward_types']), 'all reward types are documented');
+achievement_test_same(range(0, 7), array_keys($metadata['reward_types']), 'all reward types are documented');
 foreach ($metadata['reward_types'] as $reward_type => $reward_metadata) {
     achievement_test_assert(
         isset($reward_metadata['data_help']) && trim((string) $reward_metadata['data_help']) !== '',
@@ -75,6 +75,10 @@ achievement_test_same('1', $metadata['reward_types'][4]['data_min'], 'alternate 
 achievement_test_same('2147483647', $metadata['reward_types'][4]['amount_max'], 'alternate currency exposes the signed-int runtime maximum');
 achievement_test_same('2147483647', $metadata['reward_types'][5]['data_max'], 'title-set IDs expose their signed-int runtime maximum');
 achievement_test_same(array('1'), $metadata['reward_types'][5]['amount_values'], 'title grants expose singular-delivery semantics');
+achievement_test_same('1', $metadata['reward_types'][6]['data_min'], 'specific AA rewards require a nonzero ability ID');
+achievement_test_same('2147483647', $metadata['reward_types'][6]['amount_max'], 'specific AA desired rank exposes the signed-int runtime maximum');
+achievement_test_same('1', $metadata['reward_types'][7]['data_min'], 'class-ineligible AA fallbacks require a nonzero paired ability ID');
+achievement_test_same('2147483647', $metadata['reward_types'][7]['amount_max'], 'class-ineligible fallback AA points expose the signed-int runtime maximum');
 
 $skills = achievement_skill_types();
 achievement_test_same(range(0, 77), array_keys($skills), 'skill IDs are canonical zero-based values 0 through 77');
@@ -285,6 +289,7 @@ $runtime_reward_boundaries = array(
     array(3, '0', '2147483647999', 'copper'),
     array(4, '7', '2147483647', 'alternate currency'),
     array(5, '2147483647', '1', 'title'),
+    array(6, '30300', '2147483647', 'specific AA ability'),
 );
 foreach ($runtime_reward_boundaries as $boundary) {
     $runtime_definition = unserialize(serialize($definition));
@@ -304,6 +309,24 @@ foreach ($runtime_reward_boundaries as $boundary) {
     );
 }
 
+$paired_aa_definition = unserialize(serialize($definition));
+$paired_aa_definition['rewards'] = array(
+    array(
+        'reward_id' => null, 'sequence' => 1, 'reward_type' => 6,
+        'reward_data_id' => '30300', 'amount' => '3',
+        'description' => 'Desired AA rank', 'enabled' => 1, 'option_id' => null,
+    ),
+    array(
+        'reward_id' => null, 'sequence' => 2, 'reward_type' => 7,
+        'reward_data_id' => '30300', 'amount' => '2147483647',
+        'description' => 'Ineligible-class points', 'enabled' => 1, 'option_id' => null,
+    ),
+);
+achievement_test_assert(
+    !achievement_validation_has_errors(achievement_validate_definition($paired_aa_definition, null, $context)),
+    'one automatic type 6 primary and one type 7 fallback with the same ability ID validate'
+);
+
 $runtime_reward_failures = array(
     array(0, '1001', '32768', 'amount', '32,767', 'item quantity above signed-short maximum'),
     array(1, '2', '1', 'reward_data_id', 'mode 0', 'unsupported experience mode'),
@@ -316,6 +339,10 @@ $runtime_reward_failures = array(
     array(4, '1', '2147483648', 'amount', '2,147,483,647', 'alternate currency above signed-int maximum'),
     array(5, '2147483648', '1', 'reward_data_id', '2,147,483,647', 'title-set ID above signed-int maximum'),
     array(5, '1', '2', 'amount', 'exactly 1', 'nonsingular title amount'),
+    array(6, '0', '1', 'reward_data_id', 'nonzero', 'zero specific-AA ability ID'),
+    array(6, '30300', '2147483648', 'amount', '2,147,483,647', 'specific-AA desired rank above signed-int maximum'),
+    array(7, '0', '1', 'reward_data_id', 'nonzero', 'zero fallback ability ID'),
+    array(7, '30300', '2147483648', 'amount', '2,147,483,647', 'fallback AA points above signed-int maximum'),
 );
 foreach ($runtime_reward_failures as $failure) {
     $runtime_definition = unserialize(serialize($definition));
@@ -335,6 +362,39 @@ foreach ($runtime_reward_failures as $failure) {
         'reachable ' . $failure[5] . ' is rejected with field-addressable guidance'
     );
 }
+
+$unpaired_aa_definition = unserialize(serialize($definition));
+$unpaired_aa_definition['rewards'] = array($paired_aa_definition['rewards'][1]);
+$unpaired_findings = achievement_validate_definition($unpaired_aa_definition, null, $context);
+achievement_test_assert(
+    achievement_test_has_finding($unpaired_findings, 'rewards.0.reward_data_id', 'exactly one enabled automatic type 6'),
+    'an enabled automatic fallback without its primary is rejected'
+);
+$duplicate_primary_definition = unserialize(serialize($paired_aa_definition));
+$duplicate_primary_definition['rewards'][] = $paired_aa_definition['rewards'][0];
+$duplicate_primary_definition['rewards'][2]['sequence'] = 3;
+achievement_test_assert(
+    achievement_test_has_finding(
+        achievement_validate_definition($duplicate_primary_definition, null, $context),
+        'rewards.1.reward_data_id',
+        'exactly one enabled automatic type 6'
+    ),
+    'a fallback with duplicate same-ability primaries is rejected'
+);
+$selectable_fallback_definition = unserialize(serialize($reward_definition));
+$selectable_fallback_definition['rewards'][0]['reward_type'] = 7;
+$selectable_fallback_definition['rewards'][0]['reward_data_id'] = 30300;
+$selectable_fallback_findings = achievement_validate_definition($selectable_fallback_definition, null, $context);
+achievement_test_assert(
+    achievement_test_has_finding($selectable_fallback_findings, 'rewards.0.option_id', 'direct automatic'),
+    'a reachable selectable type 7 fallback is rejected'
+);
+$staged_fallback_definition = unserialize(serialize($selectable_fallback_definition));
+$staged_fallback_definition['reward_set']['source_enabled'] = 0;
+achievement_test_assert(
+    !achievement_validation_has_errors(achievement_validate_definition($staged_fallback_definition, null, $context)),
+    'a type 7 row behind a disabled selectable source remains an inert draft'
+);
 
 $staged_invalid_reward = unserialize(serialize($definition));
 $staged_invalid_reward['rewards'] = array(array(

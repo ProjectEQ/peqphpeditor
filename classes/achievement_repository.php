@@ -47,10 +47,13 @@ class AchievementRepository
     const DEFAULT_PAGE_SIZE = 50;
     const MAX_PAGE_SIZE = 200;
     const LOOKUP_LIMIT = 50;
+    const AA_RANK_CHAIN_LIMIT = 10000;
+    const AA_RANK_CATALOG_LIMIT = 100000;
 
     private $db;
     private $characterDb;
     private $schemaDiagnosticsCache;
+    private $aaRankMapCache = null;
     private $operation = 'achievement operation';
 
     public function __construct($connection = null, $characterConnection = null)
@@ -99,7 +102,9 @@ class AchievementRepository
             'items',
             'tradeskill_recipe',
             'alternate_currency',
-            'titles'
+            'titles',
+            'aa_ability',
+            'aa_ranks'
         );
         $allTables = array_values(array_unique(array_merge($tableNames, $optionalTables)));
         $database = (string) $this->scalar('SELECT DATABASE() AS database_name');
@@ -120,10 +125,10 @@ class AchievementRepository
             'SELECT TABLE_NAME, COLUMN_NAME, COLUMN_TYPE, IS_NULLABLE, COLUMN_DEFAULT, EXTRA '
             . 'FROM information_schema.COLUMNS '
             . 'WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME IN ('
-            . $this->placeholders(count($tableNames)) . ') '
+            . $this->placeholders(count($allTables)) . ') '
             . 'ORDER BY TABLE_NAME, ORDINAL_POSITION',
-            $tableNames,
-            str_repeat('s', count($tableNames))
+            $allTables,
+            str_repeat('s', count($allTables))
         );
         $columnsByTable = array();
         foreach ($columnRows as $row) {
@@ -236,10 +241,29 @@ class AchievementRepository
         }
 
         $lookupSources = array();
+        $optionalColumnRequirements = array(
+            'aa_ability' => array('id', 'name', 'classes', 'first_rank_id', 'enabled'),
+            'aa_ranks' => array('id', 'next_id')
+        );
         foreach ($optionalTables as $table) {
             $lookupSources[$table] = isset($tablesByName[$table]);
             if (!$lookupSources[$table]) {
                 $warnings[] = "Optional lookup source {$table} is unavailable.";
+                continue;
+            }
+            if (isset($optionalColumnRequirements[$table])) {
+                $missingLookupColumns = array();
+                foreach ($optionalColumnRequirements[$table] as $column) {
+                    if (!isset($columnsByTable[$table][$column])) {
+                        $missingLookupColumns[] = $column;
+                    }
+                }
+                if (count($missingLookupColumns) > 0) {
+                    $lookupSources[$table] = false;
+                    $warnings[] = 'Optional lookup source ' . $table
+                        . ' is missing required column(s): '
+                        . implode(', ', $missingLookupColumns) . '.';
+                }
             }
         }
 
@@ -1120,7 +1144,8 @@ class AchievementRepository
             'item' => 'Items',
             'recipe' => 'Tradeskill recipes',
             'currency' => 'Alternate currencies',
-            'title-set' => 'Title sets'
+            'title-set' => 'Title sets',
+            'aa-ability' => 'Alternate Advancement abilities'
         );
     }
 
@@ -1134,6 +1159,9 @@ class AchievementRepository
         $type = (string) $type;
         if ($type === 'race') {
             return $this->lookupRaces($search, $ids, $limit);
+        }
+        if ($type === 'aa-ability') {
+            return $this->lookupAlternateAdvancementAbilities($search, $ids, $limit);
         }
         $bases = array(
             'achievement' => 'SELECT id AS lookup_id, name AS lookup_name, NULL AS icon FROM achievements',
@@ -1227,6 +1255,204 @@ class AchievementRepository
             $results[] = $result;
         }
         return $results;
+    }
+
+    /**
+     * Search enabled AA abilities and expose the same rank-chain and class
+     * information the runtime uses when deciding whether an ability grant is
+     * valid and which playable classes may receive it. Exact-ID hydration also
+     * returns disabled rows so existing content remains visible for repair.
+     */
+    private function lookupAlternateAdvancementAbilities($search, $ids, $limit)
+    {
+        if (!is_array($ids)) {
+            $ids = array();
+        }
+        $normalizedIds = array();
+        foreach ($ids as $id) {
+            if (count($normalizedIds) >= 100) {
+                break;
+            }
+            $idString = trim((string) $id);
+            if ($idString === '' || !ctype_digit($idString)
+                || $this->compareDecimal($idString, (string) self::UINT32_MAX) > 0) {
+                continue;
+            }
+            $normalizedIds[(string) ((int) $idString)] = (int) $idString;
+        }
+        $normalizedIds = array_values($normalizedIds);
+        $limit = max(1, min(100, (int) $limit));
+
+        $sql = 'SELECT id AS lookup_id, name AS lookup_name, classes, first_rank_id, enabled '
+            . 'FROM aa_ability WHERE ';
+        $params = array();
+        $types = '';
+        if (count($normalizedIds) > 0) {
+            $sql .= 'id IN (' . $this->placeholders(count($normalizedIds)) . ')';
+            foreach ($normalizedIds as $id) {
+                $params[] = $id;
+                $types .= 'i';
+            }
+        } else {
+            $sql .= 'enabled = 1';
+            $search = trim((string) $search);
+            if ($search !== '') {
+                $like = '%' . $search . '%';
+                if (ctype_digit($search)
+                    && $this->compareDecimal($search, (string) self::UINT32_MAX) <= 0) {
+                    $sql .= ' AND (id = ? OR name LIKE ?)';
+                    $params[] = (int) $search;
+                    $params[] = $like;
+                    $types .= 'is';
+                } else {
+                    $sql .= ' AND name LIKE ?';
+                    $params[] = $like;
+                    $types .= 's';
+                }
+            }
+        }
+        $sql .= ' ORDER BY id LIMIT ?';
+        $params[] = $limit;
+        $types .= 'i';
+
+        try {
+            $rows = $this->fetchAll($sql, $params, $types);
+            $firstRankIds = array();
+            foreach ($rows as $row) {
+                $firstRankIds[] = (int) $row['first_rank_id'];
+            }
+            $rankMap = $this->alternateAdvancementRankMap($firstRankIds);
+        } catch (AchievementRepositoryException $exception) {
+            throw new AchievementRepositoryException(
+                'The AA ability lookup requires compatible aa_ability and aa_ranks tables in the configured content database.',
+                'lookup',
+                array('type' => 'aa-ability'),
+                $exception
+            );
+        }
+
+        $results = array();
+        foreach ($rows as $row) {
+            $id = (int) $row['lookup_id'];
+            $name = trim((string) $row['lookup_name']);
+            $mask = (int) $row['classes'];
+            $rankDetails = $this->alternateAdvancementRankDetails(
+                (int) $row['first_rank_id'],
+                $rankMap
+            );
+            $results[] = array(
+                'id' => $id,
+                'name' => $name === '' ? "AA ability {$id}" : $name,
+                'class_mask' => $mask,
+                'eligible_classes' => $this->alternateAdvancementEligibleClasses($mask),
+                'rank_count' => $rankDetails['count'],
+                'rank_chain_valid' => $rankDetails['valid'],
+                'enabled' => (int) $row['enabled']
+            );
+        }
+        return $results;
+    }
+
+    /**
+     * Load the bounded rank catalog once per repository/request. Sharing this
+     * map across lookup hydration and save validation avoids one database
+     * round trip per linked rank while retaining a hard memory/query bound.
+     */
+    private function alternateAdvancementRankMap($firstRankIds)
+    {
+        $hasFirstRank = false;
+        foreach (is_array($firstRankIds) ? $firstRankIds : array() as $firstRankId) {
+            if ((int) $firstRankId > 0) {
+                $hasFirstRank = true;
+                break;
+            }
+        }
+        if (!$hasFirstRank) {
+            return array();
+        }
+        if ($this->aaRankMapCache !== null) {
+            return $this->aaRankMapCache;
+        }
+
+        $rowLimit = self::AA_RANK_CATALOG_LIMIT + 1;
+        $rows = $this->fetchAll(
+            'SELECT id, next_id FROM aa_ranks ORDER BY id LIMIT ?',
+            array($rowLimit),
+            'i'
+        );
+        if (count($rows) > self::AA_RANK_CATALOG_LIMIT) {
+            throw new AchievementRepositoryException(
+                'The AA rank catalog exceeds the editor safety limit of '
+                . self::AA_RANK_CATALOG_LIMIT . ' rows.',
+                'rewards',
+                array('aa_rank_catalog_limit' => self::AA_RANK_CATALOG_LIMIT)
+            );
+        }
+
+        $map = array();
+        foreach ($rows as $row) {
+            $map[(int) $row['id']] = (int) $row['next_id'];
+        }
+        $this->aaRankMapCache = $map;
+        return $this->aaRankMapCache;
+    }
+
+    private function alternateAdvancementRankDetails($firstRankId, $rankMap)
+    {
+        $current = (int) $firstRankId;
+        $seen = array();
+        $count = 0;
+        while ($current > 0) {
+            if (!isset($rankMap[$current])
+                || isset($seen[$current])
+                || $count >= self::AA_RANK_CHAIN_LIMIT) {
+                return array('count' => $count, 'valid' => false);
+            }
+            $seen[$current] = true;
+            ++$count;
+            $current = (int) $rankMap[$current];
+        }
+        return array('count' => $count, 'valid' => $count > 0);
+    }
+
+    /**
+     * Inspect only the requested cumulative rank. Runtime delivery stops once
+     * that rank is reached, so a malformed tail must not invalidate an earlier
+     * reachable grant. The hop limit bounds hostile or corrupt catalogs.
+     */
+    private function alternateAdvancementDesiredRankDetails($firstRankId, $desiredRank, $rankMap)
+    {
+        $desiredRank = (int) $desiredRank;
+        $current = (int) $firstRankId;
+        $seen = array();
+        $count = 0;
+        if ($desiredRank < 1 || $desiredRank > self::AA_RANK_CHAIN_LIMIT) {
+            return array('count' => 0, 'reachable' => false);
+        }
+        while ($current > 0 && $count < $desiredRank) {
+            if (!isset($rankMap[$current]) || isset($seen[$current])) {
+                return array('count' => $count, 'reachable' => false);
+            }
+            $seen[$current] = true;
+            ++$count;
+            if ($count === $desiredRank) {
+                return array('count' => $count, 'reachable' => true);
+            }
+            $current = (int) $rankMap[$current];
+        }
+        return array('count' => $count, 'reachable' => false);
+    }
+
+    private function alternateAdvancementEligibleClasses($classMask)
+    {
+        $classes = array();
+        $classMask = (int) $classMask;
+        for ($classId = 1; $classId <= 16; ++$classId) {
+            if (($classMask & (1 << ($classId - 1))) !== 0) {
+                $classes[] = $classId;
+            }
+        }
+        return $classes;
     }
 
     /**
@@ -2527,6 +2753,7 @@ class AchievementRepository
         $automaticSequences = array();
         $optionIds = array();
         $enabledOptionGrants = array();
+        $effectiveAutomaticAaRewards = array();
         if ($rewardSet !== null) {
             foreach (array('reward_set_id', 'title', 'enabled', 'source_enabled', 'options') as $key) {
                 if (!array_key_exists($key, $rewardSet)) {
@@ -2597,8 +2824,8 @@ class AchievementRepository
             }
             $sequence = $this->unsigned32($reward['sequence'], $path . '.sequence', true);
             $rewardType = (int) $reward['reward_type'];
-            if ($rewardType < 0 || $rewardType > 5) {
-                $this->fail($path . '.reward_type', 'Reward type must be 0 through 5.');
+            if ($rewardType < 0 || $rewardType > 7) {
+                $this->fail($path . '.reward_type', 'Reward type must be 0 through 7.');
             }
             $dataId = $this->unsigned32($reward['reward_data_id'], $path . '.reward_data_id', true);
             $amount = $this->nonNegativeDecimal(
@@ -2648,6 +2875,32 @@ class AchievementRepository
                     $dataId,
                     $amount,
                     $path
+                );
+            }
+            if ($runtimeReachable && $rewardType === 7 && $optionId !== null) {
+                $this->fail(
+                    $path . '.option_id',
+                    'Class-ineligible AA fallbacks are valid only as direct automatic achievement rewards.'
+                );
+            }
+            if ($runtimeReachable && $optionId === null
+                && in_array($rewardType, array(6, 7), true)) {
+                $aaKey = (string) $dataId;
+                if (!isset($effectiveAutomaticAaRewards[$aaKey])) {
+                    $effectiveAutomaticAaRewards[$aaKey] = array(6 => array(), 7 => array());
+                }
+                $effectiveAutomaticAaRewards[$aaKey][$rewardType][] = $path;
+            }
+        }
+
+        foreach ($effectiveAutomaticAaRewards as $aaAbilityId => $aaRewards) {
+            if (count($aaRewards[7]) === 0) {
+                continue;
+            }
+            if (count($aaRewards[6]) !== 1 || count($aaRewards[7]) !== 1) {
+                $this->fail(
+                    $aaRewards[7][0] . '.reward_data_id',
+                    'Each enabled automatic class-ineligible AA fallback requires exactly one enabled automatic type 6 grant and exactly one type 7 fallback with the same AA ability ID (' . $aaAbilityId . ').'
                 );
             }
         }
@@ -2738,6 +2991,24 @@ class AchievementRepository
                 }
                 if ($this->compareDecimal($amount, '1') !== 0) {
                     $this->fail($path . '.amount', 'Runtime title rewards are singular; Amount must be exactly 1.');
+                }
+                break;
+
+            case 6:
+                if ((int) $dataId === 0) {
+                    $this->fail($path . '.reward_data_id', 'Specific AA ability rewards require a nonzero aa_ability.id.');
+                }
+                if ($this->compareDecimal($amount, '2147483647') > 0) {
+                    $this->fail($path . '.amount', 'The desired cumulative AA rank must be 1 through 2,147,483,647.');
+                }
+                break;
+
+            case 7:
+                if ((int) $dataId === 0) {
+                    $this->fail($path . '.reward_data_id', 'Class-ineligible AA fallbacks require a nonzero class-limited aa_ability.id.');
+                }
+                if ($this->compareDecimal($amount, '2147483647') > 0) {
+                    $this->fail($path . '.amount', 'Class-ineligible fallback AA points must be 1 through 2,147,483,647.');
                 }
                 break;
         }
@@ -2846,6 +3117,7 @@ class AchievementRepository
     {
         $associations = isset($definition['associations']) ? $definition['associations'] : array();
         $this->assertAssociationReferences($associations);
+        $this->assertAlternateAdvancementRewardReferences($definition);
 
         $targets = array();
         foreach ($definition['components'] as $component) {
@@ -2882,6 +3154,135 @@ class AchievementRepository
         }
         if ($this->flag($definition['enabled']) === 1) {
             $this->assertNoDependencyCycle($achievementId, $definition);
+        }
+    }
+
+    /**
+     * Validate published AA reward references against the same enabled ability
+     * catalog and linked rank order consumed by Zone::LoadAlternateAdvancement.
+     * Disabled or otherwise unreachable rows remain safe drafts.
+     */
+    private function assertAlternateAdvancementRewardReferences($definition)
+    {
+        if ($this->flag(isset($definition['enabled']) ? $definition['enabled'] : 0) !== 1) {
+            return;
+        }
+
+        $rewardSet = isset($definition['reward_set']) && is_array($definition['reward_set'])
+            ? $definition['reward_set'] : null;
+        $selectableActive = $rewardSet !== null
+            && $this->flag(isset($rewardSet['enabled']) ? $rewardSet['enabled'] : 0) === 1
+            && $this->flag(isset($rewardSet['source_enabled']) ? $rewardSet['source_enabled'] : 0) === 1;
+        $enabledOptions = array();
+        if ($selectableActive && isset($rewardSet['options']) && is_array($rewardSet['options'])) {
+            foreach ($rewardSet['options'] as $option) {
+                if (is_array($option)
+                    && $this->flag(isset($option['enabled']) ? $option['enabled'] : 0) === 1) {
+                    $enabledOptions[(string) $option['option_id']] = true;
+                }
+            }
+        }
+
+        $aaRewards = array();
+        $abilityIds = array();
+        $rewards = isset($definition['rewards']) && is_array($definition['rewards'])
+            ? $definition['rewards'] : array();
+        foreach ($rewards as $index => $reward) {
+            if (!is_array($reward)
+                || $this->flag(isset($reward['enabled']) ? $reward['enabled'] : 0) !== 1) {
+                continue;
+            }
+            $optionId = isset($reward['option_id']) ? $reward['option_id'] : null;
+            if ($optionId !== null && $optionId !== ''
+                && (!$selectableActive || !isset($enabledOptions[(string) $optionId]))) {
+                continue;
+            }
+            $rewardType = (int) $reward['reward_type'];
+            if (!in_array($rewardType, array(6, 7), true)) {
+                continue;
+            }
+            $dataId = (int) $reward['reward_data_id'];
+            $aaRewards[] = array(
+                'index' => $index,
+                'type' => $rewardType,
+                'data_id' => $dataId,
+                'amount' => (string) $reward['amount']
+            );
+            $abilityIds[$dataId] = $dataId;
+        }
+        if (count($aaRewards) === 0) {
+            return;
+        }
+        foreach ($aaRewards as $reward) {
+            if ($reward['type'] === 6 && $this->compareDecimal(
+                $reward['amount'],
+                (string) self::AA_RANK_CHAIN_LIMIT
+            ) > 0) {
+                $this->fail(
+                    'rewards.' . $reward['index'] . '.amount',
+                    'Desired AA rank exceeds the editor safety limit of '
+                    . number_format(self::AA_RANK_CHAIN_LIMIT) . ' linked ranks.'
+                );
+            }
+        }
+
+        try {
+            $abilityRows = $this->fetchAll(
+                'SELECT id, name, classes, first_rank_id FROM aa_ability '
+                . 'WHERE enabled = 1 AND id IN (' . $this->placeholders(count($abilityIds)) . ')',
+                array_values($abilityIds),
+                str_repeat('i', count($abilityIds))
+            );
+            $firstRankIds = array();
+            foreach ($abilityRows as $abilityRow) {
+                $firstRankIds[] = (int) $abilityRow['first_rank_id'];
+            }
+            $rankMap = $this->alternateAdvancementRankMap($firstRankIds);
+        } catch (AchievementRepositoryException $exception) {
+            throw new AchievementRepositoryException(
+                'AA reward validation requires compatible aa_ability and aa_ranks tables in the configured content database.',
+                'rewards',
+                array('lookup_sources' => array('aa_ability', 'aa_ranks')),
+                $exception
+            );
+        }
+
+        $abilities = array();
+        foreach ($abilityRows as $row) {
+            $abilities[(int) $row['id']] = $row;
+        }
+        foreach ($aaRewards as $reward) {
+            $path = 'rewards.' . $reward['index'];
+            if (!isset($abilities[$reward['data_id']])) {
+                $this->fail(
+                    $path . '.reward_data_id',
+                    'The selected AA ability does not exist or is disabled in aa_ability.'
+                );
+            }
+            $ability = $abilities[$reward['data_id']];
+            if ($reward['type'] === 7) {
+                $playableMask = ((int) $ability['classes']) & 65535;
+                if ($playableMask === 0 || $playableMask === 65535) {
+                    $this->fail(
+                        $path . '.reward_data_id',
+                        'A class-ineligible fallback requires an AA ability limited to at least one, but not all, playable classes.'
+                    );
+                }
+                continue;
+            }
+
+            $desiredRankDetails = $this->alternateAdvancementDesiredRankDetails(
+                (int) $ability['first_rank_id'],
+                (int) $reward['amount'],
+                $rankMap
+            );
+            if (!$desiredRankDetails['reachable']) {
+                $this->fail(
+                    $path . '.amount',
+                    'Desired AA rank ' . $reward['amount'] . ' is not reachable before the linked rank chain ends, repeats, or references a missing row; '
+                    . $desiredRankDetails['count'] . ' rank(s) were reachable.'
+                );
+            }
         }
     }
 

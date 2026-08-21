@@ -126,6 +126,8 @@
       if (options.pattern) input.pattern = options.pattern;
       if (options.placeholder) input.placeholder = options.placeholder;
       if (options.maxlength) input.maxLength = options.maxlength;
+      if (typeof options.min !== 'undefined') input.min = stringValue(options.min);
+      if (typeof options.max !== 'undefined') input.max = stringValue(options.max);
       if (options.readonly) input.readOnly = true;
       if (options.required) input.required = true;
       input.addEventListener('input', function () {
@@ -242,7 +244,12 @@
       options = options || {};
       var box = element('div', 'achievement-lookup-control');
       var input = inputFor(object, key, {
-        inputmode: 'numeric', pattern: '[0-9]+', placeholder: options.placeholder || 'Type an ID or search text'
+        inputmode: 'numeric',
+        pattern: '[0-9]+',
+        placeholder: options.placeholder || 'Type an ID or search text',
+        onInput: function (value, control) {
+          if (typeof options.onInput === 'function') options.onInput(value, control);
+        }
       });
       var dataList = document.createElement('datalist');
       var listId = nextUid('lookup-list');
@@ -266,7 +273,10 @@
           if (/^\d+$/.test(query)) url.searchParams.set('ids', query);
           else url.searchParams.set('q', query);
         } catch (error) {
-          status.textContent = 'Suggestions unavailable; a valid numeric ID can still be entered.';
+          var buildFailureStatus = typeof options.onFailure === 'function'
+            ? options.onFailure(query) : '';
+          status.textContent = buildFailureStatus
+            || 'Suggestions unavailable; a valid numeric ID can still be entered.';
           return;
         }
         fetch(url.toString(), { credentials: 'same-origin', headers: { Accept: 'application/json' } })
@@ -275,26 +285,40 @@
             return response.json();
           })
           .then(function (payload) {
-            if (currentRequest !== requestNumber) return;
+            if (currentRequest !== requestNumber
+              || stringValue(object[key]).trim() !== query) return;
             clear(dataList);
-            list(payload.results).forEach(function (result) {
+            var results = list(payload.results);
+            results.forEach(function (result) {
               var option = document.createElement('option');
               option.value = stringValue(result.id);
-              option.label = stringValue(result.id) + ' — ' + stringValue(result.name);
+              option.label = typeof options.formatResult === 'function'
+                ? options.formatResult(result)
+                : stringValue(result.id) + ' — ' + stringValue(result.name);
               dataList.appendChild(option);
             });
             status.textContent = dataList.children.length
               ? 'Choose a suggestion or keep any valid numeric ID you entered.'
               : 'No suggestions found; a valid numeric ID can still be entered.';
+            if (typeof options.onResults === 'function') {
+              var resultStatus = options.onResults(results, query);
+              if (resultStatus) status.textContent = resultStatus;
+            }
           })
           .catch(function () {
-            if (currentRequest !== requestNumber) return;
-            status.textContent = 'Suggestions could not be loaded; editing remains available with a numeric ID.';
+            if (currentRequest !== requestNumber
+              || stringValue(object[key]).trim() !== query) return;
+            var failureStatus = typeof options.onFailure === 'function'
+              ? options.onFailure(query) : '';
+            status.textContent = failureStatus
+              || 'Suggestions could not be loaded; editing remains available with a numeric ID.';
           });
       }
 
       input.addEventListener('focus', load);
       input.addEventListener('input', function () {
+        requestNumber += 1;
+        clear(dataList);
         window.clearTimeout(timer);
         timer = window.setTimeout(load, 250);
       });
@@ -606,17 +630,78 @@
       if (empty) empty.hidden = graph.components.length > 0;
     }
 
+    function clearAaRewardLookupState(reward) {
+      delete reward._aa_rank_count;
+      delete reward._aa_rank_chain_valid;
+      delete reward._aa_class_mask;
+      delete reward._aa_eligible_classes;
+      delete reward._aa_enabled;
+    }
+
     function applyRewardTypeDefaults(reward, previous) {
       var type = integer(reward.reward_type, 0);
       if (integer(previous, type) !== type) reward.reward_data_id = 0;
       if (type === 2 || type === 3) reward.reward_data_id = 0;
       if (integer(reward.amount, 0) < 1) reward.amount = 1;
       if (type === 5) reward.amount = 1;
+      if (type === 7) reward.option_id = null;
+      clearAaRewardLookupState(reward);
+    }
+
+    function aaClassSummary(result) {
+      var classIds = list(result.eligible_classes);
+      if (!classIds.length) return 'no playable classes';
+      if (classIds.length === 16) return 'all playable classes';
+      return classIds.map(function (classId) {
+        return (METADATA.classes || {})[stringValue(classId)] || ('Class ' + stringValue(classId));
+      }).join(', ');
     }
 
     function rewardDataControl(reward) {
       var type = integer(reward.reward_type, 0);
-      var lookupType = { 0: 'item', 4: 'currency', 5: 'title-set' }[type] || null;
+      var lookupType = { 0: 'item', 4: 'currency', 5: 'title-set', 6: 'aa-ability', 7: 'aa-ability' }[type] || null;
+      if (lookupType === 'aa-ability') {
+        return lookupFor(reward, 'reward_data_id', lookupType, {
+          formatResult: function (result) {
+            return stringValue(result.id) + ' — ' + stringValue(result.name)
+              + (enabled(result.enabled) ? '' : ' (disabled; cannot be delivered)')
+              + ' · ' + stringValue(result.rank_count) + ' rank(s) · ' + aaClassSummary(result);
+          },
+          onInput: function () {
+            clearAaRewardLookupState(reward);
+          },
+          onFailure: function () {
+            clearAaRewardLookupState(reward);
+            changed();
+            return 'AA suggestions could not be loaded; server validation will verify any numeric ability ID when saved.';
+          },
+          onResults: function (results, query) {
+            var exact = null;
+            results.forEach(function (result) {
+              if (stringValue(result.id) === stringValue(query)) exact = result;
+            });
+            if (!exact) {
+              clearAaRewardLookupState(reward);
+              changed();
+              return results.length
+                ? 'Choose an enabled AA ability. Suggestions show reachable ranks and eligible classes.'
+                : 'No enabled AA ability matched. A published grant must reference an enabled aa_ability row.';
+            }
+            reward._aa_rank_count = integer(exact.rank_count, 0);
+            reward._aa_rank_chain_valid = exact.rank_chain_valid !== false;
+            reward._aa_class_mask = integer(exact.class_mask, 0);
+            reward._aa_eligible_classes = list(exact.eligible_classes);
+            reward._aa_enabled = enabled(exact.enabled);
+            changed();
+            return stringValue(exact.name)
+              + (reward._aa_enabled ? '' : ' is disabled and cannot be published')
+              + ': ' + stringValue(exact.rank_count)
+              + ' reachable rank(s)'
+              + (reward._aa_rank_chain_valid ? '' : '; the linked chain is malformed after that reachable prefix')
+              + '; eligible classes: ' + aaClassSummary(exact) + '.';
+          }
+        });
+      }
       if (lookupType) return lookupFor(reward, 'reward_data_id', lookupType);
       if (type === 1) {
         return selectFor(reward, 'reward_data_id', [
@@ -679,14 +764,34 @@
         var dataMeta = metaField('rewards', 'reward_data_id');
         grid.appendChild(field(rewardType.data_label || dataMeta.label, rewardType.data_help || rewardType.help || dataMeta.help, rewardDataControl(reward)));
         var amountMeta = metaField('rewards', 'amount');
+        var amountOptions = { inputmode: 'numeric', pattern: '[0-9]+', min: 1 };
+        if (integer(reward.reward_type, -1) === 6 && integer(reward._aa_rank_count, 0) > 0) {
+          amountOptions.max = reward._aa_rank_count;
+        }
         grid.appendChild(field(amountMeta.label, rewardType.amount_help || amountMeta.help,
-          inputFor(reward, 'amount', { inputmode: 'numeric', pattern: '[0-9]+' })));
+          inputFor(reward, 'amount', amountOptions)));
         var enabledMeta = metaField('rewards', 'enabled');
         grid.appendChild(field(enabledMeta.label, enabledMeta.help,
           selectFor(reward, 'enabled', [{ value: 1, label: 'Enabled (1)' }, { value: 0, label: 'Disabled (0)' }])));
         var optionMeta = metaField('rewards', 'option_id');
-        grid.appendChild(field(optionMeta.label, optionMeta.help,
-          selectFor(reward, 'option_id', optionEntries(), { blank: 'Automatic on completion' })));
+        var automaticOnly = integer(reward.reward_type, -1) === 7;
+        var fallbackNeedsRepair = automaticOnly && stringValue(reward.option_id) !== '';
+        var deliveryControl = selectFor(
+          reward,
+          'option_id',
+          automaticOnly && !fallbackNeedsRepair ? [] : optionEntries(),
+          {
+            blank: automaticOnly
+              ? (fallbackNeedsRepair ? 'Clear this mapping: automatic is required' : 'Automatic only (required)')
+              : 'Automatic on completion',
+            disabled: automaticOnly && !fallbackNeedsRepair
+          }
+        );
+        grid.appendChild(field(optionMeta.label, automaticOnly
+          ? (fallbackNeedsRepair
+            ? 'This existing type 7 row is mapped to an option. Clear the mapping before publishing it.'
+            : 'Type 7 is a server-only inverse-class fallback and must be a direct automatic achievement reward.')
+          : optionMeta.help, deliveryControl));
         var descMeta = metaField('rewards', 'description');
         grid.appendChild(field(descMeta.label, descMeta.help,
           inputFor(reward, 'description', { maxlength: 255 }), true));
@@ -1017,6 +1122,7 @@
         });
       }
       var enabledGrantsByOption = {};
+      var effectiveAutomaticAaRewards = {};
       graph.rewards.forEach(function (reward, index) {
         var path = 'rewards.' + index;
         var id = stringValue(reward.reward_id);
@@ -1029,7 +1135,7 @@
         var sequence = stringValue(reward.sequence);
         if (!isUnsigned(sequence, '0', uint32)) addIssue(issues, 'error', path + '.sequence', 'Reward order must be unsigned.');
         var type = integer(reward.reward_type, -1);
-        if (type < 0 || type > 5) addIssue(issues, 'error', path + '.reward_type', 'Reward type must be 0 through 5.');
+        if (type < 0 || type > 7) addIssue(issues, 'error', path + '.reward_type', 'Reward type must be 0 through 7.');
         if (!isUnsigned(reward.reward_data_id, '0', uint32)) addIssue(issues, 'error', path + '.reward_data_id', 'Referenced data must be unsigned.');
         if (!isUnsigned(reward.amount, '1', '18446744073709551615')) addIssue(issues, 'error', path + '.amount', 'Amount must be positive.');
         if (stringValue(reward.description).length > 255) addIssue(issues, 'error', path + '.description', 'Reward description cannot exceed 255 characters.');
@@ -1054,8 +1160,44 @@
             && !!optionIds[optionId]
             && !!optionEnabled[optionId];
         }
-        if (runtimeReachable && type >= 0 && type <= 5) {
+        if (runtimeReachable && type >= 0 && type <= 7) {
           validateRuntimeRewardSemantics(reward, type, path, issues);
+        }
+        if (runtimeReachable && type === 7 && optionId) {
+          addIssue(issues, 'error', path + '.option_id', 'Class-ineligible AA fallbacks must be direct automatic achievement rewards.');
+        }
+        if (runtimeReachable && !optionId && (type === 6 || type === 7)) {
+          var aaKey = stringValue(reward.reward_data_id);
+          if (!effectiveAutomaticAaRewards[aaKey]) effectiveAutomaticAaRewards[aaKey] = { 6: [], 7: [] };
+          effectiveAutomaticAaRewards[aaKey][type].push(path);
+        }
+        if (runtimeReachable && (type === 6 || type === 7)
+          && Object.prototype.hasOwnProperty.call(reward, '_aa_enabled') && !reward._aa_enabled) {
+          addIssue(issues, 'error', path + '.reward_data_id', 'The selected AA ability is disabled and cannot be delivered.');
+        }
+        if (runtimeReachable && type === 6 && !isUnsigned(reward.amount, '1', '10000')) {
+          addIssue(issues, 'error', path + '.amount', 'Desired AA rank must be at most the editor safety limit of 10,000 linked ranks.');
+        } else if (runtimeReachable && type === 6
+          && Object.prototype.hasOwnProperty.call(reward, '_aa_rank_count')
+          && !isUnsigned(reward.amount, '1', stringValue(reward._aa_rank_count))) {
+          addIssue(issues, 'error', path + '.amount', 'Desired AA rank is not within the ' + stringValue(reward._aa_rank_count) + ' reachable rank(s).');
+        } else if (runtimeReachable && type === 6
+          && Object.prototype.hasOwnProperty.call(reward, '_aa_rank_chain_valid')
+          && !reward._aa_rank_chain_valid) {
+          addIssue(issues, 'warning', path + '.reward_data_id', 'The AA rank chain is malformed after the reachable prefix; the requested earlier rank remains deliverable.');
+        }
+        if (runtimeReachable && type === 7 && Array.isArray(reward._aa_eligible_classes)
+          && (reward._aa_eligible_classes.length === 0 || reward._aa_eligible_classes.length === 16)) {
+          addIssue(issues, 'error', path + '.reward_data_id', 'A fallback must reference an AA ability limited to some, but not all, playable classes.');
+        }
+      });
+      Object.keys(effectiveAutomaticAaRewards).forEach(function (aaAbilityId) {
+        var aaRewards = effectiveAutomaticAaRewards[aaAbilityId];
+        if (!aaRewards[7].length) return;
+        if (aaRewards[6].length !== 1 || aaRewards[7].length !== 1) {
+          aaRewards[7].forEach(function (fallbackPath) {
+            addIssue(issues, 'error', fallbackPath + '.reward_data_id', 'Each enabled automatic fallback requires exactly one type 6 primary and one type 7 fallback for AA ability ' + aaAbilityId + '.');
+          });
         }
       });
       if (graph.reward_set && enabled(graph.reward_set.enabled) && !enabled(graph.reward_set.source_enabled)) {

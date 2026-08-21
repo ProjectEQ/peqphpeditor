@@ -189,6 +189,7 @@ $rewardBoundaryCases = array(
     array(3, '0', '2147483647999', 'copper'),
     array(4, '7', '2147483647', 'alternate currency'),
     array(5, '2147483647', '1', 'title'),
+    array(6, '30300', '2147483647', 'specific AA ability'),
 );
 foreach ($rewardBoundaryCases as $boundary) {
     $reward = array(
@@ -207,6 +208,23 @@ foreach ($rewardBoundaryCases as $boundary) {
     );
 }
 
+$pairedAaRewards = array(
+    array(
+        'reward_id' => null, 'sequence' => 1, 'reward_type' => 6,
+        'reward_data_id' => '30300', 'amount' => '3',
+        'description' => 'Desired AA rank', 'enabled' => 1, 'option_id' => null,
+    ),
+    array(
+        'reward_id' => null, 'sequence' => 2, 'reward_type' => 7,
+        'reward_data_id' => '30300', 'amount' => '2147483647',
+        'description' => 'Ineligible-class points', 'enabled' => 1, 'option_id' => null,
+    ),
+);
+identity_retention_assert(
+    identity_retention_reward_error($rewardWriteValidator, $repository, $pairedAaRewards, null, true) === null,
+    'repository accepts a one-to-one automatic specific-AA and class-ineligible fallback pair'
+);
+
 $rewardFailureCases = array(
     array(0, '1001', '32768', 'amount', 'item quantity above signed-short maximum'),
     array(1, '2', '1', 'reward_data_id', 'unsupported experience mode'),
@@ -219,6 +237,10 @@ $rewardFailureCases = array(
     array(4, '1', '2147483648', 'amount', 'alternate currency above signed-int maximum'),
     array(5, '2147483648', '1', 'reward_data_id', 'title-set ID above signed-int maximum'),
     array(5, '1', '2', 'amount', 'nonsingular title amount'),
+    array(6, '0', '1', 'reward_data_id', 'zero specific-AA ability ID'),
+    array(6, '30300', '2147483648', 'amount', 'specific-AA desired rank above signed-int maximum'),
+    array(7, '0', '1', 'reward_data_id', 'zero fallback ability ID'),
+    array(7, '30300', '2147483648', 'amount', 'fallback AA points above signed-int maximum'),
 );
 foreach ($rewardFailureCases as $failure) {
     $reward = array(
@@ -244,6 +266,43 @@ foreach ($rewardFailureCases as $failure) {
         'repository rejects reachable ' . $failure[4] . ' on its exact write field'
     );
 }
+
+$unpairedAaError = identity_retention_reward_error(
+    $rewardWriteValidator,
+    $repository,
+    array($pairedAaRewards[1]),
+    null,
+    true
+);
+identity_retention_assert(
+    $unpairedAaError instanceof AchievementRepositoryException
+        && $unpairedAaError->getField() === 'rewards.0.reward_data_id',
+    'repository rejects an enabled automatic fallback without exactly one primary'
+);
+$selectableAaFallback = $pairedAaRewards[1];
+$selectableAaFallback['option_id'] = 10;
+$activeAaSet = array(
+    'reward_set_id' => null,
+    'title' => 'Active set',
+    'enabled' => 1,
+    'source_enabled' => 1,
+    'options' => array(array(
+        'option_id' => 10, 'sequence' => 1, 'label' => 'Choice',
+        'common_to_all' => 0, 'flags' => 0, 'enabled' => 1,
+    )),
+);
+$selectableAaError = identity_retention_reward_error(
+    $rewardWriteValidator,
+    $repository,
+    array($selectableAaFallback),
+    $activeAaSet,
+    true
+);
+identity_retention_assert(
+    $selectableAaError instanceof AchievementRepositoryException
+        && $selectableAaError->getField() === 'rewards.0.option_id',
+    'repository rejects a reachable selectable class-ineligible fallback'
+);
 
 $stagedReward = array(
     'reward_id' => null,

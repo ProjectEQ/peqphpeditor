@@ -89,6 +89,24 @@ function achievement_reward_type_metadata()
             'data_min' => '1', 'data_max' => ACHIEVEMENT_INT32_MAX,
             'amount_values' => array('1'),
         ),
+        6 => array(
+            'label' => 'Alternate Advancement Ability',
+            'data_label' => 'AA Ability ID',
+            'help' => 'Grant a specific cumulative rank of one enabled Alternate Advancement ability.',
+            'data_help' => 'Required nonzero aa_ability.id. Use the ability ID, not an aa_ranks.id.',
+            'amount_help' => 'Desired cumulative rank from 1 through 2,147,483,647. Published grants must reach that rank within the editor safety limit of 10,000 linked aa_ranks rows.',
+            'data_min' => '1', 'data_max' => ACHIEVEMENT_UINT32_MAX,
+            'amount_min' => '1', 'amount_max' => ACHIEVEMENT_INT32_MAX,
+        ),
+        7 => array(
+            'label' => 'Class-Ineligible AA Fallback',
+            'data_label' => 'Paired AA Ability ID',
+            'help' => 'Automatic-achievement-only AA points for playable classes that cannot receive a paired class-limited AA ability.',
+            'data_help' => 'Required nonzero class-limited aa_ability.id. Exactly one enabled automatic type 6 grant must use the same ability ID.',
+            'amount_help' => 'Unspent AA points for ineligible playable classes, from 1 through 2,147,483,647.',
+            'data_min' => '1', 'data_max' => ACHIEVEMENT_UINT32_MAX,
+            'amount_min' => '1', 'amount_max' => ACHIEVEMENT_INT32_MAX,
+        ),
     );
 }
 
@@ -298,11 +316,11 @@ function achievement_field_metadata()
             'reward_id' => array('label' => 'Reward ID', 'help' => 'Reusable catalog identity from rewards. Shared catalog rows cannot be changed from one provider editor.'),
             'sequence' => array('label' => 'Mapping order', 'help' => 'Automatic delivery order in reward_source_entries, or option delivery order in reward_option_entries.'),
             'reward_type' => array('label' => 'Type', 'help' => 'Kind of grant. It changes the meaning of Referenced data and Amount.'),
-            'reward_data_id' => array('label' => 'Referenced data', 'help' => 'Type-specific item, currency, title-set, or experience-mode value.'),
+            'reward_data_id' => array('label' => 'Referenced data', 'help' => 'Type-specific item, currency, title-set, AA ability, or experience-mode value.'),
             'amount' => array('label' => 'Amount', 'help' => 'Positive type-specific quantity.'),
             'description' => array('label' => 'Client description', 'help' => 'Text shown in reward preview; runtime supplies a fallback when empty.'),
             'enabled' => array('label' => 'Catalog enabled', 'help' => 'Global rewards.enabled state. Disabling a shared grant affects every provider mapping and is therefore blocked here.'),
-            'option_id' => array('label' => 'Delivery option', 'help' => 'Leave empty for automatic delivery, or map this grant to one option in this achievement\'s reward set.'),
+            'option_id' => array('label' => 'Delivery option', 'help' => 'Leave empty for automatic delivery, or map this grant to one option in this achievement\'s reward set. Type 7 class-ineligible AA fallbacks must remain automatic.'),
         ),
         'reward_sets' => array(
             'reward_set_id' => array('label' => 'Stable set ID', 'help' => 'Stable nonzero selectable-set identity. It may be allocated on first save and is immutable afterward.'),
@@ -1223,6 +1241,7 @@ function achievement_validate_definition_rewards($definition, $existing_id, $con
     $option_sequences = array();
     $reward_mappings = array();
     $enabled_grants_by_option = array();
+    $effective_automatic_aa_rewards = array();
     $existing_reward_ids = achievement_context_id_set($context, 'existing_reward_ids');
     foreach ($rewards as $index => $reward) {
         $path = 'rewards.' . $index;
@@ -1235,7 +1254,7 @@ function achievement_validate_definition_rewards($definition, $existing_id, $con
             $reward_id = achievement_validate_uint_field($reward, 'reward_id', $path . '.reward_id', '1', ACHIEVEMENT_UINT64_MAX, $findings);
         }
         $sequence = achievement_validate_uint_field($reward, 'sequence', $path . '.sequence', '0', ACHIEVEMENT_UINT32_MAX, $findings);
-        $type_text = achievement_validate_uint_field($reward, 'reward_type', $path . '.reward_type', '0', '5', $findings);
+        $type_text = achievement_validate_uint_field($reward, 'reward_type', $path . '.reward_type', '0', '7', $findings);
         $data_id = achievement_validate_uint_field($reward, 'reward_data_id', $path . '.reward_data_id', '0', ACHIEVEMENT_UINT32_MAX, $findings);
         $amount = achievement_validate_uint_field($reward, 'amount', $path . '.amount', '1', ACHIEVEMENT_UINT64_MAX, $findings);
         achievement_validate_text_field($reward, 'description', $path . '.description', $findings, false, 255);
@@ -1277,6 +1296,20 @@ function achievement_validate_definition_rewards($definition, $existing_id, $con
                 $findings
             );
         }
+        if ($runtime_reachable && (int) $type_text === 7 && $option_id !== null) {
+            achievement_validation_add(
+                $findings,
+                $path . '.option_id',
+                'Class-ineligible AA fallbacks are valid only as direct automatic achievement rewards; they cannot be selectable or common grants.'
+            );
+        }
+        if ($runtime_reachable && $option_id === null && in_array((int) $type_text, array(6, 7), true)) {
+            $aa_key = (string) $data_id;
+            if (!isset($effective_automatic_aa_rewards[$aa_key])) {
+                $effective_automatic_aa_rewards[$aa_key] = array(6 => array(), 7 => array());
+            }
+            $effective_automatic_aa_rewards[$aa_key][(int) $type_text][] = $path;
+        }
         if ($option_id !== null) {
             if ($reward_set === null) {
                 achievement_validation_add($findings, $path . '.option_id', 'A reward mapping requires a selectable reward set. Clear the option for automatic delivery or add the set.');
@@ -1306,6 +1339,21 @@ function achievement_validate_definition_rewards($definition, $existing_id, $con
                 achievement_validation_add($findings, $path . '.sequence', 'Automatic reward order must be unique within this achievement source.');
             }
             $automatic_sequences[$sequence] = true;
+        }
+    }
+
+    foreach ($effective_automatic_aa_rewards as $aa_ability_id => $aa_rewards) {
+        if (count($aa_rewards[7]) === 0) {
+            continue;
+        }
+        if (count($aa_rewards[6]) !== 1 || count($aa_rewards[7]) !== 1) {
+            foreach ($aa_rewards[7] as $fallback_path) {
+                achievement_validation_add(
+                    $findings,
+                    $fallback_path . '.reward_data_id',
+                    'Each enabled automatic class-ineligible AA fallback requires exactly one enabled automatic type 6 grant and exactly one type 7 fallback with the same AA ability ID (' . $aa_ability_id . ').'
+                );
+            }
         }
     }
 

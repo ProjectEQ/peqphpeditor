@@ -324,10 +324,25 @@ if (!function_exists('achievement_character_definition_status')) {
           <?php if (!$rewards && !$orphanRewardLedgers): ?><div class="achievement-empty-state"><strong>No mapped reward definitions or ledgers.</strong></div><?php else: ?>
           <div class="achievement-table-scroll"><table class="achievement-table"><thead><tr><th>Reward</th><th>Authored grant</th><th>Ledger status</th><th>Attempts / diagnostic</th><th>Recovery action</th></tr></thead><tbody>
           <?php foreach ($rewards as $reward): ?>
-            <?php $reward = achievement_view_array($reward); $ledger = isset($reward['ledger']) && is_array($reward['ledger']) ? $reward['ledger'] : null; $ledgerStatus = $ledger ? (int) achievement_view_value($ledger, 'status', -1) : null; $canRetryReward = $ledger && in_array($ledgerStatus, array(0, 2), true) && !$isOnline && !$definitionMissing; ?>
+            <?php
+              $reward = achievement_view_array($reward);
+              $ledger = isset($reward['ledger']) && is_array($reward['ledger']) ? $reward['ledger'] : null;
+              $ledgerStatus = $ledger ? (int) achievement_view_value($ledger, 'status', -1) : null;
+              $canRetryReward = $ledger && in_array($ledgerStatus, array(0, 2), true) && !$isOnline && !$definitionMissing;
+              $rewardType = (int) achievement_view_value($reward, 'reward_type', -1);
+              $rewardData = achievement_view_value($reward, 'reward_data_id', 0);
+              $rewardAmount = achievement_view_value($reward, 'amount', 0);
+              if ($rewardType === 6) {
+                $rewardDetail = 'AA ability ' . $rewardData . ' · desired cumulative rank ' . $rewardAmount;
+              } elseif ($rewardType === 7) {
+                $rewardDetail = 'paired AA ability ' . $rewardData . ' · ineligible-class AA points ' . $rewardAmount . ' · automatic only';
+              } else {
+                $rewardDetail = 'data ' . $rewardData . ' · amount ' . $rewardAmount;
+              }
+            ?>
             <tr>
               <td><strong><?=achievement_e(achievement_view_value($reward, 'reward_id', 0))?></strong><span class="achievement-muted">sequence <?=achievement_e(achievement_view_value($reward, 'sequence', 0))?> · <?=!empty($reward['enabled']) ? 'enabled' : 'disabled'?></span></td>
-              <td><strong><?=achievement_e(achievement_character_enum($achievementMetadata, 'reward_types', achievement_view_value($reward, 'reward_type', -1)))?></strong><span class="achievement-muted">data <?=achievement_e(achievement_view_value($reward, 'reward_data_id', 0))?> · amount <?=achievement_e(achievement_view_value($reward, 'amount', 0))?> · <?=achievement_e(achievement_view_value($reward, 'description', 'No description'))?></span></td>
+              <td><strong><?=achievement_e(achievement_character_enum($achievementMetadata, 'reward_types', $rewardType))?></strong><span class="achievement-muted"><?=achievement_e($rewardDetail)?> · <?=achievement_e(achievement_view_value($reward, 'description', 'No description'))?></span></td>
               <td><?=$ledger ? '<span class="achievement-badge" title="' . achievement_e(achievement_character_enum_help($achievementMetadata, 'character_reward_statuses', $ledgerStatus, 'Unknown persisted reward status.')) . '">' . achievement_e(achievement_character_enum($achievementMetadata, 'character_reward_statuses', $ledgerStatus)) . '</span><span class="achievement-muted">granted ' . achievement_e(achievement_view_timestamp(achievement_view_value($ledger, 'granted_at', 0))) . '</span>' : '<span class="achievement-muted">Not claimed; no ledger row</span>'?></td>
               <td><?=$ledger ? achievement_e(achievement_view_value($ledger, 'attempt_count', 0)) . ' attempts<span class="achievement-muted">last ' . achievement_e(achievement_view_timestamp(achievement_view_value($ledger, 'last_attempt_at', 0))) . '<br>' . achievement_e(achievement_view_value($ledger, 'last_error', 'No diagnostic')) . '</span>' : '—'?></td>
               <td>
@@ -336,7 +351,7 @@ if (!function_exists('achievement_character_definition_status')) {
                   <?php achievement_character_post_identity($csrf_token, $characterId, $achievementId); ?>
                   <input type="hidden" name="reward_id" value="<?=achievement_e(achievement_view_value($reward, 'reward_id', 0))?>">
                   <label>Type <code>RETRY <?=achievement_e(achievement_view_value($reward, 'reward_id', 0))?></code><input name="confirmation" type="text" autocomplete="off" required <?=$canRetryReward ? '' : 'disabled'?>></label>
-                  <label><input name="accept_duplicate_risk" type="checkbox" value="1" required <?=$canRetryReward ? '' : 'disabled'?>> I checked inventory/currency and accept duplicate-delivery risk.</label>
+                  <label><input name="accept_duplicate_risk" type="checkbox" value="1" required <?=$canRetryReward ? '' : 'disabled'?>> I checked the character's relevant item, currency, title, experience, and AA state and accept duplicate-delivery risk.</label>
                   <button class="achievement-button is-small is-warning" type="submit" <?=$canRetryReward ? '' : 'disabled'?>>Mark retryable</button>
                 </form>
                 <?php elseif ($ledger): ?><span class="achievement-muted"><?=$ledgerStatus === 1 ? 'Durably granted rows are protected from retry.' : 'This unknown ledger status is protected; investigate the stored value before changing it.'?></span>

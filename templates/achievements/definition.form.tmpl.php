@@ -181,7 +181,7 @@ $generalFields = array(
       <div class="achievement-guide-grid">
         <article class="achievement-callout is-info"><h3>Criteria</h3><p>Use Increment only for non-replayed events. Enabled alternatives under one component must agree on event, mode, behavior, and required count.</p></article>
         <article class="achievement-callout is-info"><h3>Targets</h3><p>Target meanings are event-specific. Skill IDs are 0–77; skill 0 is 1H Blunt. NPC Name Kill requires the canonical hash helper.</p></article>
-        <article class="achievement-callout is-warning"><h3>Rewards</h3><p>Every enabled selectable option needs an enabled mapped grant. Keep existing reward and reward-set IDs unchanged.</p></article>
+        <article class="achievement-callout is-warning"><h3>Rewards</h3><p>Every enabled selectable option needs an enabled mapped grant. Keep existing reward and reward-set IDs unchanged. Specific-AA type 6 uses <code>aa_ability.id</code> plus the desired cumulative rank. Class-ineligible type 7 is automatic-only and must be paired one-to-one with an automatic type 6 using the same class-limited ability.</p></article>
         <article class="achievement-callout is-warning"><h3>Publishing</h3><p>Save as disabled, clear validation, enable, save again, then run <code>#reload achievements global</code> and confirm server acceptance.</p></article>
       </div>
     </section>

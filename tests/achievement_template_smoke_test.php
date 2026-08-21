@@ -371,6 +371,9 @@ foreach (array(
   'Copper quantity from 1 through 2,147,483,647,999.',
   'Required nonzero alternate_currency.id value.',
   'Title delivery is singular; Amount must be exactly 1.',
+  'Use the ability ID, not an aa_ranks.id.',
+  'editor safety limit of 10,000 linked aa_ranks rows.',
+  'Exactly one enabled automatic type 6 grant must use the same ability ID.',
 ) as $rewardHelp) {
   achievement_template_test_contains(
     $javascriptHtml,
@@ -378,6 +381,41 @@ foreach (array(
     'rendered editor metadata publishes reward runtime guidance: ' . $rewardHelp
   );
 }
+achievement_template_test_contains(
+  $javascriptHtml,
+  "'aa-ability'",
+  'specific AA reward fields use the bounded AA ability lookup'
+);
+achievement_template_test_contains(
+  $javascriptHtml,
+  'Class-ineligible AA fallbacks must be direct automatic achievement rewards.',
+  'client validation explains the automatic-only fallback invariant'
+);
+achievement_template_test_contains(
+  $javascriptHtml,
+  'clearAaRewardLookupState(reward);',
+  'editing an AA ability ID immediately clears metadata derived from the prior ID'
+);
+achievement_template_test_contains(
+  $javascriptHtml,
+  "requestNumber += 1;\n        clear(dataList);",
+  'editing a lookup immediately invalidates in-flight results and clears stale suggestions'
+);
+achievement_template_test_contains(
+  $javascriptHtml,
+  'stringValue(object[key]).trim() !== query',
+  'lookup responses cannot hydrate metadata after the edited object value changes'
+);
+achievement_template_test_contains(
+  $javascriptHtml,
+  'AA suggestions could not be loaded; server validation will verify any numeric ability ID when saved.',
+  'AA lookup failure clears stale client metadata and explains server-side validation'
+);
+achievement_template_test_contains(
+  $javascriptHtml,
+  'the requested earlier rank remains deliverable',
+  'client validation permits a requested rank reached before a malformed AA chain tail'
+);
 
 $retryLedger = array(
   'reward_id' => '9900601',
@@ -558,6 +596,27 @@ $currentCharacterDefinition = array(
   'reward_needs_attention' => true,
 );
 
+$currentCharacterDefinition['rewards'][] = array(
+  'reward_id' => '9900603',
+  'sequence' => 100200,
+  'reward_type' => 6,
+  'reward_data_id' => 30300,
+  'amount' => '3',
+  'description' => 'Specific AA rank',
+  'enabled' => 1,
+  'ledger' => null,
+);
+$currentCharacterDefinition['rewards'][] = array(
+  'reward_id' => '9900604',
+  'sequence' => 100210,
+  'reward_type' => 7,
+  'reward_data_id' => 30300,
+  'amount' => '5',
+  'description' => 'Inverse class fallback',
+  'enabled' => 1,
+  'ledger' => null,
+);
+
 $deletedCharacterDefinition = array(
   'id' => 999999,
   'name' => 'Deleted definition #999999',
@@ -697,6 +756,21 @@ achievement_template_test_contains(
   $characterHtml,
   'Offline',
   'runtime safety state is visible'
+);
+achievement_template_test_contains(
+  $characterHtml,
+  'AA ability 30300 · desired cumulative rank 3',
+  'character reward ledgers explain specific AA rank semantics'
+);
+achievement_template_test_contains(
+  $characterHtml,
+  'paired AA ability 30300 · ineligible-class AA points 5 · automatic only',
+  'character reward ledgers explain inverse-class fallback semantics'
+);
+achievement_template_test_contains(
+  $characterHtml,
+  "item, currency, title, experience, and AA state",
+  'character retry acknowledgement covers specific-AA delivery state'
 );
 
 $versionMismatchCharacterView = $characterView;

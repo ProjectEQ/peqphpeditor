@@ -94,7 +94,12 @@ $guideMetadata = achievement_view_array(isset($metadata) ? $metadata : array());
         <?php foreach (achievement_view_array(isset($guideMetadata['reward_types']) ? $guideMetadata['reward_types'] : array()) as $rewardType => $reward): ?>
           <div>
             <dt><code><?=achievement_e($rewardType)?></code> — <?=achievement_e(achievement_view_value($reward, 'label', 'Unknown'))?></dt>
-            <dd><strong><?=achievement_e(achievement_view_value($reward, 'data_label', 'Referenced data'))?>:</strong> <?=achievement_e(achievement_view_value($reward, 'help', ''))?></dd>
+            <dd>
+              <?=achievement_e(achievement_view_value($reward, 'help', ''))?><br>
+              <strong><?=achievement_e(achievement_view_value($reward, 'data_label', 'Referenced data'))?>:</strong>
+              <?=achievement_e(achievement_view_value($reward, 'data_help', 'Type-specific reference.'))?><br>
+              <strong>Amount:</strong> <?=achievement_e(achievement_view_value($reward, 'amount_help', 'Positive type-specific quantity.'))?>
+            </dd>
           </div>
         <?php endforeach; ?>
       </dl>
@@ -107,6 +112,10 @@ $guideMetadata = achievement_view_array(isset($metadata) ? $metadata : array());
     <div class="achievement-callout is-warning">
       <strong>Selectable reward invariant</strong>
       <p>When the definition, achievement source link, and shared catalog set are enabled, every enabled option—including a common option—must contain at least one enabled mapped grant. The set must offer an enabled non-common choice. Disable the source link to stage incomplete content without making it reachable.</p>
+    </div>
+    <div class="achievement-callout is-info">
+      <strong>Specific AA rank and inverse-class fallback</strong>
+      <p>Type 6 references an enabled <code>aa_ability.id</code>; Amount is the desired cumulative rank, not a rank-row ID or AA-point cost. The editor verifies that rank by walking from <code>aa_ability.first_rank_id</code> through <code>aa_ranks.next_id</code>, stopping successfully at the requested rank and failing closed above the 10,000-link editor safety limit. Type 7 is an optional server-only companion for an all-class automatic achievement: it awards the configured unspent AA points only to playable classes ineligible for the referenced class-limited ability. It must remain automatic, and each enabled type 7 row requires exactly one enabled automatic type 6 row with the same ability ID. Standalone type 6 rewards remain valid.</p>
     </div>
   </section>
 
