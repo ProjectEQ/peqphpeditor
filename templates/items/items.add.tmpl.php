@@ -126,6 +126,7 @@
         </fieldset>
         <fieldset>
           <legend><strong><font size="4">Restrictions</font></strong></legend>
+<?php include(__DIR__ . '/items.kinbound.tmpl.php'); ?>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
               <td align="left" width="16%">

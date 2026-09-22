@@ -1,6 +1,7 @@
   <div class="table_container">
     <div class="table_header">
       <div style="float:right">
+        <a href="index.php?editor=player&amp;playerid=<?=(int) $playerid?>&amp;action=19">DZ History</a>&nbsp;
         <a href="index.php?editor=player&playerid=<?=$playerid?>&action=13"><img src="images/view_all.gif" style="border: 0" title="View Stats Record" alt="View Stats Record"></a>&nbsp;
         <a href="index.php?editor=inv&playerid=<?=$playerid?>&action=1"><img src="images/contents.png" style="border: 0;" title="View Inventory" alt="View Inventory"></a>&nbsp;
         <a href="index.php?editor=player&playerid=<?=$playerid?>&action=14"><img src="images/evolve.gif" style="border: 0;" title="View Evolving Items" alt="View Evolving Items"></a>&nbsp;

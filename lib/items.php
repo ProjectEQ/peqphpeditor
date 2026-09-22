@@ -1,5 +1,12 @@
 <?php
 
+require_once(__DIR__ . '/item_kinbound.php');
+
+if (isset($searchbar) && $searchbar instanceof Template) {
+  $searchbar->set('item_kinbound_available', items_have_kinbound($mysql_content_db));
+  $searchbar->set('kinbound_filter', isset($_GET['kinbound']) && is_scalar($_GET['kinbound']) ? (string) $_GET['kinbound'] : '');
+}
+
 $itemsize = array(
   0   => "Tiny",
   1   => "Small",
@@ -94,15 +101,23 @@ switch ($action) {
     break;
   case 1: //Search Items
     $body = new Template("templates/items/items.searchresults.tmpl.php");
-    if (isset($_GET['id']) && $_GET['id'] != "ID") {
-      $results = search_item_by_id();
+    try {
+      $results = search_editor_items($mysql_content_db, $_GET);
+      if (isset($_GET['kinbound']) && $_GET['kinbound'] !== '' && is_array($results) && count($results) > 500) {
+        $results = array_slice($results, 0, 500);
+        $body->set('results_truncated', true);
+      }
+    } catch (InvalidArgumentException $e) {
+      http_response_code(400);
+      $results = array();
+      $body->set('error', $e->getMessage());
     }
-   else $results = search_items();
     $body->set("results", $results);
     break;
   case 2: //Edit Item
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/items/items.edit.tmpl.php");
+    $body->set('item_kinbound_available', items_have_kinbound($mysql_content_db));
     $breadcrumbs .= " >> Edit Item";
     $body->set("itemsize", $itemsize);
     $body->set("itemmaterial", $itemmaterial);
@@ -188,7 +203,12 @@ switch ($action) {
   case 6: //Update Item
     check_authorization();
     $id = $_GET['id'];
-    update_item();
+    try {
+      update_item();
+    } catch (InvalidArgumentException $e) {
+      http_response_code(400);
+      die(htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
+    }
     header("Location: index.php?editor=items&id=$id&action=2");
     exit;
   case 7: //Copy Item
@@ -200,6 +220,7 @@ switch ($action) {
     check_authorization();
     $javascript = new Template("templates/iframes/js.tmpl.php");
     $body = new Template("templates/items/items.add.tmpl.php");
+    $body->set('item_kinbound_available', items_have_kinbound($mysql_content_db));
     $body->set("itemsize", $itemsize);
     $body->set("itemmaterial", $itemmaterial);
     $body->set("itemtypes", $itemtypes);
@@ -229,7 +250,12 @@ switch ($action) {
     break;
   case 9: //Insert Item
     check_authorization();
-    add_item();
+    try {
+      add_item();
+    } catch (InvalidArgumentException $e) {
+      http_response_code(400);
+      die(htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
+    }
     $id = $_POST['id'];
     header("Location: index.php?editor=items&id=$id&action=2");
     exit;
@@ -422,6 +448,7 @@ function update_item() {
 
   $query = "SELECT * FROM items WHERE id=$id";
   $item = $mysql_content_db->query_assoc($query);
+  $kinbound_fields = item_kinbound_save_fields($_POST, array_key_exists('kinbound', $item), isset($item['kinbound']) ? $item['kinbound'] : null);
 
   // Define checkbox fields:
   $slots = 0;
@@ -537,7 +564,7 @@ function update_item() {
   if (isset($_POST['augtype_Type_29'])) $augtype = $augtype+268435456;
   if (isset($_POST['augtype_Type_30'])) $augtype = $augtype+536870912;
 
-  $fields = '';
+  $fields = $kinbound_fields;
   if ($item['slots'] != $slots) $fields .= "slots=\"$slots\", ";
   if ($item['races'] != $races) $fields .= "races=\"$races\", ";
   if ($item['classes'] != $classes) $fields .= "classes=\"$classes\", ";
@@ -741,12 +768,13 @@ function copy_item() {
   global $mysql_content_db;
 
    $id = $_GET['id'];
+   $kinbound_column = items_have_kinbound($mysql_content_db) ? ', kinbound' : '';
    
    $query = "DELETE FROM items WHERE id=0";
    $mysql_content_db->query_no_result($query);
 
-   $query2 = "INSERT INTO items (minstatus, Name, aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, skillmodmax, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evoitem, evoid, evolvinglevel, evomax, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4,bardunk5, bardname, bardunk7, UNK214, heirloom, placeable, epicitem)
-              SELECT minstatus, concat(Name, ' - Copy'), aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, skillmodmax, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evoitem, evoid, evolvinglevel, evomax, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4, bardunk5, bardname, bardunk7, UNK214, heirloom, placeable, epicitem FROM items WHERE id=$id";
+   $query2 = "INSERT INTO items (minstatus, Name, aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, skillmodmax, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evoitem, evoid, evolvinglevel, evomax, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4,bardunk5, bardname, bardunk7, UNK214, heirloom, placeable, epicitem$kinbound_column)
+              SELECT minstatus, concat(Name, ' - Copy'), aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, skillmodmax, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evoitem, evoid, evolvinglevel, evomax, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4, bardunk5, bardname, bardunk7, UNK214, heirloom, placeable, epicitem$kinbound_column FROM items WHERE id=$id";
    $mysql_content_db->query_no_result($query2);
 
    $query3 = "SELECT MAX(id) AS iid FROM items"; 
@@ -771,6 +799,8 @@ function get_max_id() {
 
 function add_item() {
   global $mysql_content_db;
+
+  $kinbound_fields = item_kinbound_save_fields($_POST, items_have_kinbound($mysql_content_db));
 
   // Define checkbox fields:
   $slots = 0;
@@ -886,7 +916,7 @@ function add_item() {
   if (isset($_POST['augtype_Type_29'])) $augtype = $augtype+268435456;
   if (isset($_POST['augtype_Type_30'])) $augtype = $augtype+536870912;
 
-  $fields = '';
+  $fields = $kinbound_fields;
   $fields .= "slots=\"$slots\", ";
   $fields .= "races=\"$races\", ";
   $fields .= "classes=\"$classes\", ";
@@ -1212,6 +1242,9 @@ function get_item_compare_fields() {
 
     if ($results) {
       foreach ($results as $result) {
+        if ($result['Field'] === 'kinbound' && !items_have_kinbound($mysql_content_db)) {
+          continue;
+        }
         array_push($columns, $result['Field']);
       }
     }

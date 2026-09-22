@@ -231,6 +231,22 @@ switch ($action) {
     toggle_pvp_status($_GET['playerid']);
     header("Location: index.php?editor=player&playerid=$playerid");
     exit;
+  case 19: // Saved DZ History
+    check_admin_authorization();
+    require_once('classes/player_dz_history.php');
+    $body = new Template('templates/player/player.dz.history.tmpl.php');
+    $breadcrumbs .= ' >> DZ History';
+    try {
+      $dz_history = (new PlayerDzHistory($mysql))->load($playerid);
+    }
+    catch (Exception $e) {
+      $dz_history = array('player_id' => (int) $playerid, 'player_name' => '',
+        'error' => 'Unable to load DZ history. Verify the player ID and saved expedition schema.',
+        'missing' => array(), 'entries' => array());
+    }
+    $body->set('dz_history', $dz_history);
+    $body->set('zoneids', $zoneids);
+    break;
 }
 
 function get_players($page_number, $results_per_page, $sort_by) {
