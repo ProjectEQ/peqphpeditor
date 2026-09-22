@@ -84,6 +84,9 @@ switch ($editor) {
   case 'tasks':
     require_once('lib/tasks.php');
     break;
+  case 'achievements':
+    require_once('lib/achievements.php');
+    break;
   case 'items':
     require_once('lib/items.php');
     break;
@@ -165,6 +168,7 @@ $tmpl->set('headbar', $headbar);
 $tmpl->set('searchbar', $searchbar);
 $tmpl->set('breadcrumbs', $breadcrumbs);
 $tmpl->set('body', $body);
+$tmpl->set('editor', $editor);
 
 echo $tmpl->fetch('templates/index.tmpl.php');
 

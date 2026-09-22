@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="css/peq.css" type="text/css">
   </head>
 
-  <body>
+  <body class="<?=(isset($editor) && $editor === 'achievements') ? 'achievement-editor-shell' : ''?>">
     <div id="container">
       <div id="header">
         <a href="index.php"><img src="images/peq_editor.gif" title="Home" border="0" alt="PEQ Editor Banner"></a>

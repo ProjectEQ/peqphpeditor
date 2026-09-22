@@ -45,6 +45,9 @@ switch ($editor) {
   case 'tasks':
     $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Task Editor</a>";
     break;
+  case 'achievements':
+    $breadcrumbs = "<a href='index.php?editor=achievements'>Achievement Editor</a>";
+    break;
   case 'items':
     $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Item Editor</a>";
     break;
@@ -120,7 +123,11 @@ if (isset($tskid) && intval($tskid) > 0) $breadcrumbs .= " >> " . getTaskTitle($
 if (isset($ts) && intval($ts) > 0) $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&ts=" . $ts . "'>" . $tradeskills[$ts] . "</a>";
 if (isset($rec) && intval($rec) > 0) $breadcrumbs .= " >> " . getRecipeName($rec);
 if (isset($spellset) && intval($spellset) > 0) $breadcrumbs .= " >> " . getSpellsetName($spellset);
-if (isset($playerid) && intval($playerid) > 0) $breadcrumbs .= " >> <a href='index.php?editor=" . $editor . "&playerid=" . $playerid . "'>" . getPlayerName($playerid) . " ($playerid)</a>";
+if (isset($playerid) && intval($playerid) > 0) {
+  $player_action = ($editor === 'achievements') ? '&action=41' : '';
+  $player_name = htmlspecialchars((string) getPlayerName($playerid), ENT_QUOTES, 'UTF-8');
+  $breadcrumbs .= " >> <a href='index.php?editor=" . $editor . $player_action . "&playerid=" . $playerid . "'>" . $player_name . " ($playerid)</a>";
+}
 if (isset($acctid) && intval($acctid) > 0) $breadcrumbs .= " >> " . getAccountName($acctid) . " ($acctid)";
 if (isset($guildid) && intval($guildid) > 0) $breadcrumbs .= " >> <a href='index.php?editor=" . $editor . "&guildid=" . $guildid . "'>" . getGuildName($guildid) . " ($guildid)</a>";
 if (isset($aaid) && intval($aaid) > 0) $breadcrumbs .= " >> " . getAAName($aaid) . " ($aaid)";
