@@ -12,16 +12,18 @@
       <tr>
         <td align="center" width="5%"><strong>Item ID</strong></td>
         <td align="center" width="35%"><strong>Item Name</strong></td>
-        <td align="center" width="30%"><strong>Old <?=$column?></strong></td>
-        <td align="center" width="30%"><strong>New <?=$column?></strong></td>
+        <td align="center" width="28%"><strong>Old <?=$column?></strong></td>
+        <td align="center" width="4%">&nbsp;</td>
+        <td align="center" width="28%"><strong>New <?=$column?></strong></td>
       </tr>
 <?$x=0;
 foreach($diff as $item):?>
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
         <td align="center" width="5%"><?=$item['id']?></td>
         <td align="center" width="35%"><?=$item['Name']?> (<a href="https://lucy.allakhazam.com/item.html?id=<?=$item['id']?>" target="_blank">Lucy</a>)</td>
-        <td align="center" width="30%"><?=$item['old_' . $column]?></td>
-        <td align="center" width="30%"><?=$item['new_' . $column]?></td>
+        <td align="center" width="28%"><?=$item['old_' . $column]?></td>
+        <td align="center" width="4%">[<a href="index.php?editor=items&item_id=<?=$item['id']?>&column_name=<?=$column?>&action=30"><<</a>]</td>
+        <td align="center" width="28%"><?=$item['new_' . $column]?></td>
       </tr>
 <?$x++;
 endforeach;
