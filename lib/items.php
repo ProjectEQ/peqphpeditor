@@ -353,6 +353,13 @@ switch ($action) {
     delete_evolving_item($_GET['id']);
     header("Location: index.php?editor=items&action=19");
     exit;
+  case 30: //Accept Item Update
+    check_authorization();
+    $item_id = $_GET['item_id'];
+    $column_name = $_GET['column_name'];
+    accept_item_update($item_id, $column_name);
+    header("Location: index.php?editor=items&column=$column_name&action=18");
+    exit;
 }
 
 function item_info() {
@@ -1383,6 +1390,18 @@ function suggest_evo_level($item_evo_id) {
   }
   else {
     return 1;
+  }
+}
+
+function accept_item_update($item_id, $column_name) {
+  global $mysql_content_db;
+
+  $query = "SELECT $column_name FROM items_new WHERE id=$item_id LIMIT 1";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    $query = "UPDATE items SET $column_name=\"$result[$column_name]\" WHERE id=$item_id";
+    $mysql_content_db->query_no_result($query);
   }
 }
 ?>
