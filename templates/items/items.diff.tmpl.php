@@ -2,8 +2,8 @@
     <div class="table_header">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-          <td>Items Diff</td>
-          <td>&nbsp;</td>
+          <td align="left">Items Diff</td>
+          <td align="right">Count: <?echo (isset($diff)) ? count($diff) : "0";?></td>
         </tr>
       </table>
     </div>
@@ -17,9 +17,9 @@
         <td align="center" width="28%"><strong>New <?=$column?></strong></td>
       </tr>
 <?$x=0;
-foreach($diff as $item):?>
+foreach ($diff as $item):?>
       <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
-        <td align="center" width="5%"><?=$item['id']?></td>
+        <td align="center" width="5%"><a href="index.php?editor=items&id=<?=$item['id']?>&action=2"><?=$item['id']?></a></td>
         <td align="center" width="35%"><?=$item['Name']?> (<a href="https://lucy.allakhazam.com/item.html?id=<?=$item['id']?>" target="_blank">Lucy</a>)</td>
         <td align="center" width="28%"><?=$item['old_' . $column]?></td>
         <td align="center" width="4%">[<a href="index.php?editor=items&item_id=<?=$item['id']?>&column_name=<?=$column?>&action=30"><<</a>]</td>

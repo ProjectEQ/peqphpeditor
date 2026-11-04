@@ -296,7 +296,7 @@ switch ($action) {
   case 18: //Items Diff
     $body = new Template("templates/items/items.diff.tmpl.php");
     $column = $_GET['column'];
-    $breadcrumbs .= " >> Item Import Comparison >> Items Diff (" . $column . ")";
+    $breadcrumbs .= " >> <a href='index.php?editor=items&action=17'>Item Import Comparison</a> >> Items Diff (" . $column . ")";
     $body->set("column", $column);
     $diff = get_items_diff($column);
     if ($diff) {
@@ -359,6 +359,17 @@ switch ($action) {
     $column_name = $_GET['column_name'];
     accept_item_update($item_id, $column_name);
     header("Location: index.php?editor=items&column=$column_name&action=18");
+    exit;
+  case 31: //View New Items
+    check_authorization();
+    $body = new Template("templates/items/items.new.tmpl.php");
+    $breadcrumbs .= " >> <a href='index.php?editor=items&action=17'>Item Import Comparison</a> >> New Items";
+    $body->set("new_items", get_new_items());
+    break;
+  case 32: //Accept New Item
+    check_authorization();
+    accept_new_item($_GET['id']);
+    header("Location: index.php?editor=items&action=31");
     exit;
 }
 
@@ -550,9 +561,9 @@ function update_item() {
   if ($item['classes'] != $classes) $fields .= "classes=\"$classes\", ";
   if ($item['deity'] != $deity) $fields .= "deity=\"$deity\", ";
   if ($item['augtype'] != $augtype) $fields .= "augtype=\"$augtype\", ";
-  if ($item['Name'] != $_POST['itemname']) $fields .= "Name=\"" . $_POST['itemname'] . "\", ";
+  if ($item['Name'] != $_POST['itemname']) $fields .= "Name=\"" . $mysql_content_db->real_escape_string($_POST['itemname']) . "\", ";
   if ($item['itemtype'] != $_POST['itemtype']) $fields .= "itemtype=\"" . $_POST['itemtype'] . "\", ";
-  if ($item['lore'] != $_POST['lore']) $fields .= "lore=\"" . $_POST['lore'] . "\", ";
+  if ($item['lore'] != $_POST['lore']) $fields .= "lore=\"" . $mysql_content_db->real_escape_string($_POST['lore']) . "\", ";
   if ($item['itemclass'] != $_POST['itemclass']) $fields .= "itemclass=\"" . $_POST['itemclass'] . "\", ";
   if ($item['stackable'] != $_POST['stackable']) $fields .= "stackable=\"" . $_POST['stackable'] . "\", ";
   if ($item['stacksize'] != $_POST['stacksize']) $fields .= "stacksize=\"" . $_POST['stacksize'] . "\", ";
@@ -683,7 +694,7 @@ function update_item() {
   if ($item['clickeffect'] != $_POST['clickeffect']) $fields .= "clickeffect=\"" . $_POST['clickeffect'] . "\", ";
   if ($item['clicklevel'] != $_POST['clicklevel']) $fields .= "clicklevel=\"" . $_POST['clicklevel'] . "\", ";
   if ($item['clicklevel2'] != $_POST['clicklevel2']) $fields .= "clicklevel2=\"" . $_POST['clicklevel2'] . "\", ";
-  if ($item['clickname'] != $_POST['clickname']) $fields .= "clickname=\"" . $_POST['clickname'] . "\", ";
+  if ($item['clickname'] != $_POST['clickname']) $fields .= "clickname=\"" . $mysql_content_db->real_escape_string($_POST['clickname']) . "\", ";
   if ($item['proctype'] != $_POST['proctype']) $fields .= "proctype=\"" . $_POST['proctype'] . "\", ";
   if ($item['proceffect'] != $_POST['proceffect']) $fields .= "proceffect=\"" . $_POST['proceffect'] . "\", ";
   if ($item['proclevel'] != $_POST['proclevel']) $fields .= "proclevel=\"" . $_POST['proclevel'] . "\", ";
@@ -748,7 +759,7 @@ function copy_item() {
   global $mysql_content_db;
 
    $id = $_GET['id'];
-   
+
    $query = "DELETE FROM items WHERE id=0";
    $mysql_content_db->query_no_result($query);
 
@@ -756,7 +767,7 @@ function copy_item() {
               SELECT minstatus, concat(Name, ' - Copy'), aagi, ac, accuracy, acha, adex, aint, artifactflag, asta, astr, attack, augrestrict, augslot1type, augslot1visible, augslot2type, augslot2visible, augslot3type, augslot3visible, augslot4type, augslot4visible, augslot5type, augslot5visible, augtype, avoidance, awis, bagsize, bagslots, bagtype, bagwr, banedmgamt, banedmgraceamt, banedmgbody, banedmgrace, bardtype, bardvalue, book, casttime, casttime_, charmfile, charmfileid, classes, color, combateffects, extradmgskill, extradmgamt, price, cr, damage, damageshield, deity, delay, augdistiller, dotshielding, dr, clicktype, clicklevel2, elemdmgtype, elemdmgamt, endur, factionamt1, factionamt2, factionamt3, factionamt4, factionmod1, factionmod2, factionmod3, factionmod4, filename, focuseffect, fr, fvnodrop, haste, clicklevel, hp, regen, icon, idfile, itemclass, itemtype, ldonprice, ldontheme, ldonsold, light, lore, loregroup, magic, mana, manaregen, enduranceregen, material, maxcharges, mr, nodrop, norent, pendingloreflag, pr, procrate, races, `range`, reclevel, recskill, reqlevel, sellrate, shielding, size, skillmodtype, skillmodvalue, skillmodmax, slots, clickeffect, spellshield, strikethrough, stunresist, summonedflag, tradeskills, favor, weight, UNK012, UNK013, benefitflag, UNK054, UNK059, booktype, recastdelay, recasttype, guildfavor, UNK123, UNK124, attuneable, nopet, updated, comment, UNK127, pointtype, potionbelt, potionbeltslots, stacksize, notransfer, stackable, UNK134, UNK137, proceffect, proctype, proclevel2, proclevel, UNK142, worneffect, worntype, wornlevel2, wornlevel, UNK147, focustype, focuslevel2, focuslevel, UNK152, scrolleffect, scrolltype, scrolllevel2, scrolllevel, UNK157, serialized, verified, serialization, source, UNK033, lorefile, UNK014, svcorruption, UNK060, augslot1unk2, augslot2unk2, augslot3unk2, augslot4unk2, augslot5unk2, UNK120, UNK121, questitemflag, UNK132, clickunk5, clickunk6, clickunk7, procunk1, procunk2, procunk3, procunk4, procunk6, procunk7, wornunk1, wornunk2, wornunk3, wornunk4, wornunk5, wornunk6, wornunk7, focusunk1, focusunk2, focusunk3, focusunk4, focusunk5, focusunk6, focusunk7, scrollunk1, scrollunk2, scrollunk3, scrollunk4, scrollunk5, scrollunk6, scrollunk7, UNK193, purity, evoitem, evoid, evolvinglevel, evomax, clickname, procname, wornname, focusname, scrollname, dsmitigation, heroic_str, heroic_int, heroic_wis, heroic_agi, heroic_dex, heroic_sta, heroic_cha, heroic_pr, heroic_dr, heroic_fr, heroic_cr, heroic_mr, heroic_svcorrup, healamt, spelldmg, clairvoyance, backstabdmg, created, elitematerial, ldonsellbackrate, scriptfileid, expendablearrow, powersourcecapacity, bardeffect, bardeffecttype, bardlevel2, bardlevel, bardunk1, bardunk2, bardunk3, bardunk4, bardunk5, bardname, bardunk7, UNK214, heirloom, placeable, epicitem FROM items WHERE id=$id";
    $mysql_content_db->query_no_result($query2);
 
-   $query3 = "SELECT MAX(id) AS iid FROM items"; 
+   $query3 = "SELECT MAX(id) AS iid FROM items";
    $result = $mysql_content_db->query_assoc($query3);
    $newid = $result['iid'] + 1;
 
@@ -769,7 +780,7 @@ function copy_item() {
 function get_max_id() {
   global $mysql_content_db;
 
-  $query = "SELECT MAX(id) AS iid FROM items"; 
+  $query = "SELECT MAX(id) AS iid FROM items";
   $result = $mysql_content_db->query_assoc($query);
   $newid = $result['iid'] + 1;
 
@@ -823,7 +834,7 @@ function add_item() {
   if (isset($_POST['race_Froglok'])) $races = $races+16384;
   if (isset($_POST['race_Drakkin'])) $races = $races+32768;
   if (isset($_POST['race_Shroud'])) $races = $races+65536;
-  
+
   $classes = 0;
   if (isset($_POST['class_Warrior'])) $classes = $classes+1;
   if (isset($_POST['class_Cleric'])) $classes = $classes+2;
@@ -841,7 +852,7 @@ function add_item() {
   if (isset($_POST['class_Enchanter'])) $classes = $classes+8192;
   if (isset($_POST['class_Beastlord'])) $classes = $classes+16384;
   if (isset($_POST['class_Berserker'])) $classes = $classes+32768;
-  
+
   $deity = 0;
   if (isset($_POST['deity_Agnostic'])) $deity = $deity+1;
   if (isset($_POST['deity_Bertox'])) $deity = $deity+2;
@@ -900,9 +911,9 @@ function add_item() {
   $fields .= "deity=\"$deity\", ";
   $fields .= "augtype=\"$augtype\", ";
   $fields .= "id=\"" . $_POST['id'] . "\", ";
-  $fields .= "name=\"" . $_POST['itemname'] . "\", ";
+  $fields .= "name=\"" . $mysql_content_db->real_escape_string($_POST['itemname']) . "\", ";
   $fields .= "itemtype=\"" . $_POST['itemtype'] . "\", ";
-  $fields .= "lore=\"" . $_POST['lore'] . "\", ";
+  $fields .= "lore=\"" . $mysql_content_db->real_escape_string($_POST['lore']) . "\", ";
   $fields .= "itemclass=\"" . $_POST['itemclass'] . "\", ";
   $fields .= "stackable=\"" . $_POST['stackable'] . "\", ";
   $fields .= "stacksize=\"" . $_POST['stacksize'] . "\", ";
@@ -1033,7 +1044,7 @@ function add_item() {
   $fields .= "clickeffect=\"" . $_POST['clickeffect'] . "\", ";
   $fields .= "clicklevel=\"" . $_POST['clicklevel'] . "\", ";
   $fields .= "clicklevel2=\"" . $_POST['clicklevel2'] . "\", ";
-  $fields .= "clickname=\"" . $_POST['clickname'] . "\", ";
+  $fields .= "clickname=\"" . $mysql_content_db->real_escape_string($_POST['clickname']) . "\", ";
   $fields .= "proctype=\"" . $_POST['proctype'] . "\", ";
   $fields .= "proceffect=\"" . $_POST['proceffect'] . "\", ";
   $fields .= "proclevel=\"" . $_POST['proclevel'] . "\", ";
@@ -1394,13 +1405,84 @@ function suggest_evo_level($item_evo_id) {
 }
 
 function accept_item_update($item_id, $column_name) {
-  global $mysql_content_db;
+  global $mysql, $mysql_content_db;
 
   $query = "SELECT $column_name FROM items_new WHERE id=$item_id LIMIT 1";
-  $result = $mysql_content_db->query_assoc($query);
+  $result = $mysql->query_assoc($query);
 
   if ($result) {
-    $query = "UPDATE items SET $column_name=\"$result[$column_name]\" WHERE id=$item_id";
+    $updated_value = $mysql->real_escape_string($result[$column_name]);
+    $query = "UPDATE items SET $column_name=\"$updated_value\" WHERE id=$item_id";
+    $mysql_content_db->query_no_result($query);
+  }
+}
+
+function get_new_items() {
+  global $mysql, $mysql_content_db;
+
+  $query = "SELECT id FROM items ORDER BY id";
+  $results = $mysql_content_db->query_mult_assoc($query);
+
+  if ($results) {
+    $existing_item_ids = $results;
+
+    array_walk_recursive($results, function($value) use (&$existing_item_ids) {
+      $existing_item_ids[] = $value;
+    });
+  }
+
+  if ($existing_item_ids) {
+    $query = "SELECT id FROM items_new ORDER BY id";
+    $results = $mysql->query_mult_assoc($query);
+
+    if ($results) {
+      $new_item_ids = $results;
+
+      array_walk_recursive($results, function($value) use (&$new_item_ids) {
+        $new_item_ids[] = $value;
+      });
+
+      if ($new_item_ids) {
+        $diff_item_ids = array_diff($new_item_ids, $existing_item_ids);
+        if ($diff_item_ids) {
+          $missing_item_ids = "";
+          foreach ($diff_item_ids as $item) {
+            $missing_item_ids = $missing_item_ids . $item . ",";
+          }
+          $missing_item_ids = rtrim($missing_item_ids, ",");
+          if ($missing_item_ids) {
+            $query = "SELECT id, name FROM items_new WHERE id IN ($missing_item_ids)";
+            $new_items = $mysql->query_mult_assoc($query);
+            if ($new_items) {
+              return $new_items;
+            }
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+function accept_new_item($item_id) {
+  global $mysql, $mysql_content_db;
+
+  $fields = "id,name,aagi,ac,acha,adex,aint,artifactflag,asta,astr,attack,augrestrict,augslot1type,augslot1visible,augslot2type,augslot2visible,augslot3type,augslot3visible,augslot4type,augslot4visible,augslot5type,augslot5visible,augslot6type,augslot6visible,augtype,awis,bagsize,bagslots,bagtype,bagwr,banedmgamt,banedmgraceamt,banedmgbody,banedmgrace,bardtype,bardvalue,book,casttime,casttime_,charmfile,charmfileid,classes,color,extradmgskill,extradmgamt,price,cr,damage,deity,delay,augdistiller,dr,clicktype,clicklevel2,elemdmgtype,elemdmgamt,endur,filename,focuseffect,fr,fvnodrop,haste,clicklevel,hp,regen,icon,idfile,itemclass,itemtype,ldonprice,ldontheme,ldonsold,light,lore,loregroup,magic,mana,manaregen,enduranceregen,material,herosforgemodel,maxcharges,mr,nodrop,norent,pr,procrate,races,`range`,reclevel,recskill,reqlevel,sellrate,size,skillmodtype,skillmodvalue,slots,clickeffect,summonedflag,tradeskills,favor,weight,benefitflag,booktype,recastdelay,recasttype,guildfavor,attuneable,nopet,updated,pointtype,stacksize,notransfer,proceffect,proctype,proclevel2,proclevel,worneffect,worntype,wornlevel2,wornlevel,focustype,focuslevel2,focuslevel,scrolleffect,scrolltype,scrolllevel2,scrolllevel,verified,svcorruption,skillmodmax,augslot1unk2,augslot2unk2,augslot3unk2,augslot4unk2,augslot5unk2,augslot6unk2,questitemflag,clickunk5,clickunk7,procunk1,procunk2,procunk3,procunk4,procunk7,wornunk1,wornunk2,wornunk3,wornunk4,wornunk5,wornunk7,focusunk1,focusunk2,focusunk3,focusunk4,focusunk5,focusunk7,scrollunk1,scrollunk2,scrollunk3,scrollunk4,scrollunk5,scrollunk7,purity,evoitem,evoid,evolvinglevel,evomax,clickname,procname,wornname,focusname,scrollname,heroic_str,heroic_int,heroic_wis,heroic_agi,heroic_dex,heroic_sta,heroic_cha,healamt,spelldmg,clairvoyance,backstabdmg,created,elitematerial,ldonsellbackrate,scriptfileid,expendablearrow,powersourcecapacity,bardeffect,bardeffecttype,bardlevel2,bardlevel,bardunk1,bardunk2,bardunk3,bardunk4,bardunk5,bardname,bardunk7,heirloom,epicitem";
+
+  $query = "SELECT $fields FROM items_new WHERE id=$item_id";
+  $stats = $mysql->query_assoc($query);
+
+  if ($stats) {
+    $new_item_stats = "";
+
+    foreach ($stats as $stat) {
+      $stat = '"' . $mysql->real_escape_string($stat) . '"';
+      $new_item_stats .= $stat . ",";
+    }
+
+    $new_item_stats = rtrim($new_item_stats, ",");
+
+    $query = "INSERT INTO items ($fields) VALUES ($new_item_stats)";
     $mysql_content_db->query_no_result($query);
   }
 }

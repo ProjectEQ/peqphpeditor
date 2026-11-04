@@ -30,7 +30,7 @@
           <input type="hidden" name="id" value="<?=$id?>">
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="50%">Name:<br><input type="text" name="itemname" size="45" value="<?=$itemname?>"></td>
+              <td align="left" width="50%">Name:<br><input type="text" name="itemname" size="45" value=<?echo str_contains($itemname, "'") ? '"' . $itemname . '"' : "'" . $itemname . "'";?>></td>
               <td align="left" width="50%">Type:<br>
                 <select name="itemtype" style="width:265px;">
 <?foreach($itemtypes as $k => $v):?>
@@ -42,7 +42,7 @@
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="50%">Lore Name:<br><input type="text" name="lore" size="45" value="<?=$lore?>"></td>
+              <td align="left" width="50%">Lore Name:<br><input type="text" name="lore" size="45" value=<?echo str_contains($lore, "'") ? '"' . $lore . '"' : "'" . $lore . "'";?>></td>
               <td align="left" width="50%">Class:<br>
                 <select name="itemclass">
                   <option value="0"<?echo ($itemclass == 0) ? " selected" : ""?>>Common Item</option>
@@ -713,7 +713,7 @@ endif;
                 <td align="left" width="14%">Click Effect:<br><input type="text" name="clickeffect" size="5" value="<?=$clickeffect?>"></td>
                 <td align="left" width="14%">Click Level:<br><input type="text" name="clicklevel" size="5" value="<?=$clicklevel?>"></td>
                 <td align="left" width="14%">Click Level 2:<br><input type="text" name="clicklevel2" size="5" value="<?=$clicklevel2?>"></td>
-                <td align="left" width="20%">Click Name:<br><input type="text" name="clickname" size="17" value="<?=$clickname?>"></td>
+                <td align="left" width="20%">Click Name:<br><input type="text" name="clickname" size="17" value=<?echo str_contains($clickname, "'") ? '"' . $clickname . '"' : "'" . $clickname . "'";?>></td>
               </tr>
             </table>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
