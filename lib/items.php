@@ -150,6 +150,9 @@ switch ($action) {
     if (($vars['book'] > 0) && ($vars['filename'] == "")) {
       $errors[] = "<u>Missing Text Error</u><br>Item is marked as a book/message but not assigned any text";
     }
+    if ((($vars['book'] == 1) || ($vars['itemclass'] == 2) || ($vars['itemtype'] == 31)) && !(($vars['book'] == 1) && ($vars['itemclass'] == 2) && ($vars['itemtype'] == 31))) {
+      $errors[] = "<u>Books Error</u><br>Item only partially marked as a book.";
+    }
     if ($errors) {
       $body->set("errors", $errors);
     }
