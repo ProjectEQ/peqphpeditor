@@ -66,13 +66,34 @@
             <fieldset>
               <legend><b>Event Data</b></legend>
 <?
+
+function format_event_scalar($value) {
+  if (is_bool($value)) {
+    return $value ? "true" : "false";
+  }
+
+  if ($value === null) {
+    return "null";
+  }
+
+  if ($value === "") {
+    return "&quot;&quot;";
+  }
+
+  return htmlspecialchars(
+    (string)$value,
+    ENT_QUOTES | ENT_SUBSTITUTE,
+    'UTF-8'
+  );
+}
+
 function display_array($in_array) {
   foreach ($in_array as $key=>$value) {
     if (is_array($value)) {
       display_array($value);
     }
     else {
-      print "&nbsp;&nbsp;-&nbsp;<strong>" . $key . "</strong>: " . (($value != "") ? $value : "false") . "<br>";
+      print "&nbsp;&nbsp;-&nbsp;<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . format_event_scalar($value) . "<br>";
     }
   }
 }
@@ -82,11 +103,11 @@ if ($event['event_data'] != "") {
   print("<strong><u>Base Data:</u></strong><br>");
   foreach ($event_data as $key=>$value) {
     if (is_array($value)) {
-      print "<strong>" . $key . "</strong>: " . ((count($value) > 0) ? "" : " N/A") . "<br>";
+      print "<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . ((count($value) > 0) ? "" : " N/A") . "<br>";
       display_array($value);
     }
     else {
-      print "<strong>" . $key . "</strong>: " . (($value != "") ? $value : "false") . "<br>";
+      print "<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . format_event_scalar($value) . "<br>";
     }
   }
 }
@@ -96,11 +117,11 @@ if ($event['etl_table_id'] > 0) {
   if ($event['etl_data'] != "") {
     foreach ($event['etl_data'] as $key=>$value) {
       if (is_array($value)) {
-        print "<strong>" . $key . "</strong>: " . ((count($value) > 0) ? "" : " N/A") . "<br>";
+        print "<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . ((count($value) > 0) ? "" : " N/A") . "<br>";
         display_array($value);
       }
       else {
-        print "<strong>" . $key . "</strong>: " . (($value != "") ? $value : "false") . "<br>";
+        print "<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . format_event_scalar($value) . "<br>";
       }
     }
   }
@@ -110,11 +131,11 @@ if ($event['etl_table_id'] > 0) {
       print("<br>");
       foreach ($extra_data as $key=>$value) {
         if (is_array($value)) {
-          print "<strong>" . $key . "</strong>: " . ((count($value) > 0) ? "" : " N/A") . "<br>";
+          print "<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . ((count($value) > 0) ? "" : " N/A") . "<br>";
           display_array($value);
         }
         else {
-          print "<strong>" . $key . "</strong>: " . (($value != "") ? $value : "false") . "<br>";
+          print "<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . format_event_scalar($value) . "<br>";
         }
       }
     }
