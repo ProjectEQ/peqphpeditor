@@ -43,7 +43,7 @@
                           <td width="25%"><input type="checkbox" name="_character_flags"<?echo ($_character_flags) ? " checked" : "";?> disabled><strong>Character Flags</strong></td>
                         </tr>
                         <tr>
-                          <td colspan="4"><strong>Report Text:</strong> <?=htmlspecialchars((string)($bug_report), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')?></td>
+                          <td colspan="4"><strong>Report Text:</strong><div style="white-space: pre-wrap; overflow-wrap: anywhere;"><?=htmlspecialchars((string)($bug_report), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')?></div></td>
                         </tr>
                         <tr>
                           <td>

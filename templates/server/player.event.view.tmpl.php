@@ -66,13 +66,34 @@
             <fieldset>
               <legend><b>Event Data</b></legend>
 <?
+
+function format_event_scalar($value) {
+  if (is_bool($value)) {
+    return $value ? "true" : "false";
+  }
+
+  if ($value === null) {
+    return "null";
+  }
+
+  if ($value === "") {
+    return "&quot;&quot;";
+  }
+
+  return htmlspecialchars(
+    (string)$value,
+    ENT_QUOTES | ENT_SUBSTITUTE,
+    'UTF-8'
+  );
+}
+
 function display_array($in_array) {
   foreach ($in_array as $key=>$value) {
     if (is_array($value)) {
       display_array($value);
     }
     else {
-      print "&nbsp;&nbsp;-&nbsp;<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . (($value != "") ? htmlspecialchars((string)($value), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') : "false") . "<br>";
+      print "&nbsp;&nbsp;-&nbsp;<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . format_event_scalar($value) . "<br>";
     }
   }
 }
@@ -86,7 +107,7 @@ if ($event['event_data'] != "") {
       display_array($value);
     }
     else {
-      print "<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . (($value != "") ? htmlspecialchars((string)($value), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') : "false") . "<br>";
+      print "<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . format_event_scalar($value) . "<br>";
     }
   }
 }
@@ -100,7 +121,7 @@ if ($event['etl_table_id'] > 0) {
         display_array($value);
       }
       else {
-        print "<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . (($value != "") ? htmlspecialchars((string)($value), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') : "false") . "<br>";
+        print "<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . format_event_scalar($value) . "<br>";
       }
     }
   }
@@ -114,7 +135,7 @@ if ($event['etl_table_id'] > 0) {
           display_array($value);
         }
         else {
-          print "<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . (($value != "") ? htmlspecialchars((string)($value), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') : "false") . "<br>";
+          print "<strong>" . htmlspecialchars((string)($key), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</strong>: " . format_event_scalar($value) . "<br>";
         }
       }
     }
