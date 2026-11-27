@@ -1,5 +1,25 @@
 <?php
 
+// Upstream version floors for CVE-2026-109618 and CVE-2026-109619.
+// A version comparison cannot identify vendor-backported security fixes.
+function php_version_meets_security_baseline($version) {
+  $minimum_versions = array(
+    '8.2' => '8.2.35',
+    '8.3' => '8.3.36',
+    '8.4' => '8.4.27',
+    '8.5' => '8.5.12'
+  );
+
+  if (!preg_match('/^(\d+\.\d+)\.\d+(?:[-+][0-9][0-9A-Za-z.+~_-]*)?$/D', $version, $matches)
+      || preg_match('/dev|alpha|beta|RC/i', $version)) {
+    return false;
+  }
+
+  $branch = $matches[1];
+  return isset($minimum_versions[$branch])
+    && version_compare($version, $minimum_versions[$branch], '>=');
+}
+
 function getNPCName($npcid) {
   global $mysql_content_db;
   
